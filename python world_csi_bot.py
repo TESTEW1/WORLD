@@ -146,4 +146,8 @@ async def ajuda(ctx):
     embed.set_footer(text="Dica: Use seu prefixo para falar como o personagem!")
     await ctx.send(embed=embed)
 
-bot.run(TOKEN)
+if __name__ == "__main__":
+    if TOKEN:
+        bot.run(TOKEN)
+    else:
+        print("ERRO: Variável TOKEN não encontrada!")
