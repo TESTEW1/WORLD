@@ -18,6 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
 CANAL_BETA = "mundo-beta"
+ADMIN_ID = 769951556388257812  # Seu ID para notificações
 
 # ================= BANCO DE DADOS =================
 
@@ -38,6 +39,16 @@ def init_db():
         armor TEXT DEFAULT NULL,
         worlds TEXT DEFAULT '[1]',
         bosses TEXT DEFAULT '[]'
+    )''')
+    
+    c.execute('''CREATE TABLE IF NOT EXISTS trade_requests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        from_user TEXT,
+        to_user TEXT,
+        from_items TEXT,
+        to_items TEXT,
+        status TEXT DEFAULT 'pending',
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
     
     conn.commit()
@@ -102,6 +113,7 @@ WORLDS = {
     1: {
         "name": "🌱 Campos Iniciais",
         "emoji": "🌱",
+        "xp_loss_multiplier": 0.3,  # Perde menos XP
         "monsters": {
             "Slime": {"xp": (5, 10), "hp": 30, "atk": 5, "coins": (3, 8)},
             "Rato Selvagem": {"xp": (7, 12), "hp": 25, "atk": 7, "coins": (5, 10)},
@@ -144,6 +156,7 @@ WORLDS = {
     10: {
         "name": "🌲 Floresta Sombria",
         "emoji": "🌲",
+        "xp_loss_multiplier": 0.5,
         "monsters": {
             "Goblin": {"xp": (15, 25), "hp": 60, "atk": 12, "coins": (15, 30)},
             "Lobo Negro": {"xp": (18, 30), "hp": 70, "atk": 15, "coins": (20, 35)},
@@ -186,6 +199,7 @@ WORLDS = {
     20: {
         "name": "🏜️ Deserto das Almas",
         "emoji": "🏜️",
+        "xp_loss_multiplier": 0.7,
         "monsters": {
             "Escorpião Gigante": {"xp": (25, 35), "hp": 100, "atk": 20, "coins": (35, 60)},
             "Múmia": {"xp": (30, 40), "hp": 120, "atk": 22, "coins": (40, 70)},
@@ -228,6 +242,7 @@ WORLDS = {
     30: {
         "name": "❄️ Montanhas Geladas",
         "emoji": "❄️",
+        "xp_loss_multiplier": 0.9,
         "monsters": {
             "Lobo de Gelo": {"xp": (35, 45), "hp": 150, "atk": 28, "coins": (60, 100)},
             "Golem de Neve": {"xp": (40, 50), "hp": 180, "atk": 30, "coins": (70, 110)},
@@ -270,6 +285,7 @@ WORLDS = {
     40: {
         "name": "🌋 Reino Vulcânico",
         "emoji": "🌋",
+        "xp_loss_multiplier": 1.2,
         "monsters": {
             "Salamandra": {"xp": (45, 55), "hp": 200, "atk": 38, "coins": (100, 150)},
             "Demônio de Lava": {"xp": (50, 60), "hp": 230, "atk": 42, "coins": (120, 170)},
@@ -312,6 +328,7 @@ WORLDS = {
     50: {
         "name": "🌌 Abismo Arcano",
         "emoji": "🌌",
+        "xp_loss_multiplier": 1.5,
         "monsters": {
             "Espectro": {"xp": (55, 70), "hp": 280, "atk": 48, "coins": (150, 220)},
             "Mago Sombrio": {"xp": (60, 75), "hp": 300, "atk": 52, "coins": (170, 240)},
@@ -354,6 +371,7 @@ WORLDS = {
     60: {
         "name": "👑 Trono Celestial",
         "emoji": "👑",
+        "xp_loss_multiplier": 2.0,
         "monsters": {
             "Guardião Celestial": {"xp": (80, 100), "hp": 400, "atk": 65, "coins": (250, 350)},
             "Anjo Caído": {"xp": (85, 105), "hp": 420, "atk": 68, "coins": (270, 370)},
@@ -596,7 +614,11 @@ def add_xp(user_id, amount):
 
 def remove_xp(user_id, amount):
     player = get_player(user_id)
-    player["xp"] -= amount
+    world = get_world(player["level"])
+    
+    # Aplica multiplicador baseado no mundo
+    adjusted_loss = int(amount * world.get("xp_loss_multiplier", 1.0))
+    player["xp"] -= adjusted_loss
     
     while player["xp"] < 0 and player["level"] > 1:
         player["level"] -= 1
@@ -615,10 +637,10 @@ def remove_xp(user_id, amount):
         player["max_hp"] = 100
         player["coins"] = 0
         save_player_db(user_id, player)
-        return "reset"
+        return "reset", adjusted_loss
     
     save_player_db(user_id, player)
-    return "ok"
+    return "ok", adjusted_loss
 
 def add_coins(user_id, amount):
     player = get_player(user_id)
@@ -721,6 +743,67 @@ class BossButton(discord.ui.View):
             view=None
         )
 
+class TradeButton(discord.ui.View):
+    def __init__(self, from_user, to_user, from_items, to_items, timeout=300):
+        super().__init__(timeout=timeout)
+        self.from_user = from_user
+        self.to_user = to_user
+        self.from_items = from_items
+        self.to_items = to_items
+        self.answered = False
+    
+    @discord.ui.button(label="Aceitar Troca", style=discord.ButtonStyle.green, emoji="✅")
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.to_user):
+            return await interaction.response.send_message("❌ Esta troca não é para você!", ephemeral=True)
+        
+        if self.answered:
+            return
+        
+        self.answered = True
+        
+        # Executa a troca
+        from_player = get_player(self.from_user)
+        to_player = get_player(self.to_user)
+        
+        # Remove itens
+        for item in self.from_items:
+            if item in from_player["inventory"]:
+                from_player["inventory"].remove(item)
+        
+        for item in self.to_items:
+            if item in to_player["inventory"]:
+                to_player["inventory"].remove(item)
+        
+        # Adiciona itens
+        for item in self.to_items:
+            from_player["inventory"].append(item)
+        
+        for item in self.from_items:
+            to_player["inventory"].append(item)
+        
+        save_player_db(self.from_user, from_player)
+        save_player_db(self.to_user, to_player)
+        
+        await interaction.response.edit_message(
+            content=f"✅ **Troca Realizada!**\n\n*O narrador: Os itens mudam de mãos...*\n\n🔄 Troca concluída com sucesso!",
+            view=None
+        )
+    
+    @discord.ui.button(label="Recusar", style=discord.ButtonStyle.red, emoji="❌")
+    async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.to_user):
+            return await interaction.response.send_message("❌ Esta troca não é para você!", ephemeral=True)
+        
+        if self.answered:
+            return
+        
+        self.answered = True
+        await interaction.response.edit_message(
+            content=f"❌ **Troca Recusada**\n\n*O narrador: Talvez em outra ocasião...*",
+            view=None
+        )
+
 class ShopButton(discord.ui.View):
     def __init__(self, user_id, items, timeout=120):
         super().__init__(timeout=timeout)
@@ -729,30 +812,18 @@ class ShopButton(discord.ui.View):
     
     @discord.ui.button(label="Comprar Item 1", style=discord.ButtonStyle.green, emoji="💰")
     async def buy1(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if str(interaction.user.id) != str(self.user_id):
-            return await interaction.response.send_message("❌ Esta loja não é para você!", ephemeral=True)
-        
         await self.buy_item(interaction, 0)
     
     @discord.ui.button(label="Comprar Item 2", style=discord.ButtonStyle.green, emoji="💰")
     async def buy2(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if str(interaction.user.id) != str(self.user_id):
-            return await interaction.response.send_message("❌ Esta loja não é para você!", ephemeral=True)
-        
         await self.buy_item(interaction, 1)
     
     @discord.ui.button(label="Comprar Item 3", style=discord.ButtonStyle.green, emoji="💰")
     async def buy3(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if str(interaction.user.id) != str(self.user_id):
-            return await interaction.response.send_message("❌ Esta loja não é para você!", ephemeral=True)
-        
         await self.buy_item(interaction, 2)
     
     @discord.ui.button(label="Sair", style=discord.ButtonStyle.gray, emoji="🚪")
     async def leave(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if str(interaction.user.id) != str(self.user_id):
-            return await interaction.response.send_message("❌ Esta loja não é para você!", ephemeral=True)
-        
         await interaction.response.edit_message(
             content="🚪 **Você sai da loja.**\n\n*O narrador: Até a próxima, viajante...*",
             view=None
@@ -763,7 +834,7 @@ class ShopButton(discord.ui.View):
             return await interaction.response.send_message("❌ Item inválido!", ephemeral=True)
         
         item = self.items[index]
-        player = get_player(self.user_id)
+        player = get_player(interaction.user.id)
         
         if player["coins"] < item["price"]:
             return await interaction.response.send_message(
@@ -771,17 +842,17 @@ class ShopButton(discord.ui.View):
                 ephemeral=True
             )
         
-        remove_coins(self.user_id, item["price"])
+        remove_coins(interaction.user.id, item["price"])
         
         if item["type"] == "weapon" or item["type"] == "armor":
             player["inventory"].append(item["name"])
-            save_player_db(self.user_id, player)
+            save_player_db(interaction.user.id, player)
         elif item["type"] == "potion":
             player["hp"] = min(player["hp"] + 50, player["max_hp"])
-            save_player_db(self.user_id, player)
+            save_player_db(interaction.user.id, player)
         
         await interaction.response.send_message(
-            f"✅ **Compra realizada!**\n\n Você comprou **{item['name']}** por **{item['price']} CSI**!\n\n*O narrador: Uma boa escolha!*",
+            f"✅ **Compra realizada!**\n\nVocê comprou **{item['name']}** por **{item['price']} CSI**!\n\n*O narrador: Uma boa escolha!*",
             ephemeral=True
         )
 
@@ -847,8 +918,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None):
     embed.add_field(name="🎲 Dado do Destino", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
     
     if roll <= 4:
-        xp_loss = random.randint(100, 200)
-        result = remove_xp(user_id, xp_loss)
+        result, xp_loss = remove_xp(user_id, random.randint(100, 200))
         
         narratives = [
             f"O {boss_data['name']} ergue sua arma com força descomunal!",
@@ -872,8 +942,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None):
             embed.color = discord.Color.black()
     
     elif roll <= 6:
-        xp_loss = random.randint(50, 80)
-        remove_xp(user_id, xp_loss)
+        result, xp_loss = remove_xp(user_id, random.randint(50, 80))
         
         narratives = [
             f"Você e o {boss_data['name']} trocam golpes furiosos!",
@@ -976,16 +1045,14 @@ async def explore_dungeon(channel, user_id, dungeon, world):
     embed.add_field(name="🎲 Dado da Exploração", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
     
     if roll == 1:
-        xp_loss = random.randint(100, 150)
         dmg = random.randint(30, 50)
         player["hp"] -= dmg
         
         if player["hp"] <= 0:
             player["hp"] = player["max_hp"] // 2
-            xp_loss *= 2
         
         save_player_db(user_id, player)
-        remove_xp(user_id, xp_loss)
+        result, xp_loss = remove_xp(user_id, random.randint(100, 150))
         
         embed.add_field(
             name="💀 ARMADILHA MORTAL!",
@@ -995,8 +1062,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         embed.color = discord.Color.dark_red()
     
     elif roll <= 3:
-        xp_loss = random.randint(50, 80)
-        remove_xp(user_id, xp_loss)
+        result, xp_loss = remove_xp(user_id, random.randint(50, 80))
         
         embed.add_field(
             name="☠️ Exploração Perigosa",
@@ -1126,13 +1192,21 @@ async def random_world_events():
         elif event_type == "narrator":
             warning = random.choice(NARRATOR_WARNINGS)
             
-            embed = discord.Embed(
-                title="📖 O Narrador Fala",
-                description=f"*Uma voz ecoa em sua mente...*\n\n**\"{warning}\"**",
-                color=discord.Color.dark_gold()
-            )
-            
-            await channel.send(embed=embed)
+            # Pega um jogador aleatório do servidor
+            try:
+                members = [m for m in guild.members if not m.bot]
+                if members:
+                    random_member = random.choice(members)
+                    
+                    embed = discord.Embed(
+                        title="📖 O Narrador Fala",
+                        description=f"*Uma voz ecoa direcionada a {random_member.mention}...*\n\n**\"{warning}\"**",
+                        color=discord.Color.dark_gold()
+                    )
+                    
+                    await channel.send(embed=embed)
+            except:
+                pass
         
         elif event_type == "merchant":
             items_for_sale = []
@@ -1165,7 +1239,6 @@ async def random_world_events():
             
             embed.set_footer(text="Use os botões abaixo para comprar! O mercador ficará por tempo limitado...")
             
-            # Menciona todos que têm personagens
             await channel.send(embed=embed, view=ShopButton(None, items_for_sale))
 
 # ================= PRÓLOGO =================
@@ -1213,6 +1286,8 @@ Basta falar naturalmente! Exemplos:
 - "caçar" ou "vou caçar" - Caçar monstros
 - "coletar" ou "pegar recursos" - Coletar recursos
 - "achar dungeon" - Procurar dungeons para explorar
+- "trocar [item] com @usuário" - Trocar itens
+- "trocar coins csi" - Converter moedas CSI
 - "ver meu perfil" - Ver seu status
 - "ver inventário" - Ver seus itens
 
@@ -1252,6 +1327,88 @@ async def on_message(message):
     content = message.content.lower().strip()
     user_id = message.author.id
     
+    # ================= TROCAR ITEMS =================
+    if "trocar" in content and "@" in message.content:
+        # Parse da mensagem
+        parts = message.content.split("com")
+        if len(parts) != 2:
+            return
+        
+        from_items_text = parts[0].replace("trocar", "").strip()
+        to_user_mention = parts[1].strip()
+        
+        # Identifica usuário mencionado
+        mentions = message.mentions
+        if not mentions:
+            await message.channel.send("❌ Você precisa mencionar um usuário válido!")
+            return
+        
+        to_user = mentions[0]
+        to_user_id = to_user.id
+        
+        if to_user_id == user_id:
+            await message.channel.send("❌ Você não pode trocar com você mesmo!")
+            return
+        
+        # Pede os itens que quer em troca
+        await message.channel.send(f"{to_user.mention}, que item você oferece em troca de **{from_items_text}**?\n\n*Responda com: 'ofereço [nome do item]'*")
+        
+        def check(m):
+            return m.author.id == to_user_id and "ofereço" in m.content.lower()
+        
+        try:
+            response = await bot.wait_for('message', check=check, timeout=60.0)
+            to_items_text = response.content.replace("ofereço", "").strip()
+            
+            # Cria a proposta de troca
+            embed = discord.Embed(
+                title="🔄 Proposta de Troca",
+                description=f"*O narrador observa a negociação...*",
+                color=discord.Color.blue()
+            )
+            embed.add_field(name=f"📤 {message.author.name} oferece", value=f"**{from_items_text}**", inline=True)
+            embed.add_field(name=f"📥 {to_user.name} oferece", value=f"**{to_items_text}**", inline=True)
+            embed.set_footer(text="A troca será realizada se ambos concordarem")
+            
+            view = TradeButton(user_id, to_user_id, [from_items_text], [to_items_text])
+            await message.channel.send(embed=embed, view=view)
+            
+        except asyncio.TimeoutError:
+            await message.channel.send("⏰ Tempo esgotado! A proposta de troca expirou.")
+        
+        return
+    
+    # ================= TROCAR COINS CSI =================
+    elif "trocar" in content and ("coins csi" in content or "moedas csi" in content or "csi" in content):
+        player = get_player(user_id)
+        
+        embed = discord.Embed(
+            title="💱 Solicitação de Conversão",
+            description=f"*O narrador anota seu pedido...*\n\n{message.author.mention} deseja converter suas moedas CSI.",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="💰 Moedas CSI Disponíveis", value=f"`{player['coins']}` CSI", inline=False)
+        embed.set_footer(text="O administrador foi notificado!")
+        
+        await message.channel.send(embed=embed)
+        
+        # Envia DM para o admin
+        try:
+            admin = await bot.fetch_user(ADMIN_ID)
+            dm_embed = discord.Embed(
+                title="🔔 Nova Solicitação de Conversão",
+                description=f"**Jogador:** {message.author.name} ({message.author.id})\n**Server:** {message.guild.name}",
+                color=discord.Color.gold()
+            )
+            dm_embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}` CSI", inline=False)
+            dm_embed.add_field(name="📊 Status do Jogador", value=f"**Nível:** {player['level']}\n**XP:** {player['xp']}", inline=False)
+            
+            await admin.send(embed=dm_embed)
+        except:
+            print(f"Não foi possível enviar DM ao admin")
+        
+        return
+    
     # ================= EXPLORAR =================
     if any(word in content for word in ["explorar", "vou explorar", "vou para", "andar", "caminhar"]):
         player = get_player(user_id)
@@ -1269,8 +1426,7 @@ async def on_message(message):
         embed.add_field(name="🎲 Dado do Destino", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
         
         if roll == 1:
-            xp_loss = random.randint(30, 50)
-            result = remove_xp(user_id, xp_loss)
+            result, xp_loss = remove_xp(user_id, random.randint(30, 50))
             
             embed.add_field(
                 name="💀 Desastre!",
@@ -1287,8 +1443,7 @@ async def on_message(message):
                 embed.color = discord.Color.dark_red()
         
         elif roll == 2:
-            xp_loss = random.randint(15, 30)
-            remove_xp(user_id, xp_loss)
+            result, xp_loss = remove_xp(user_id, random.randint(15, 30))
             embed.add_field(
                 name="☠️ Infortúnio",
                 value=f"*O narrador comenta:*\n\n'Nem sempre o caminho é gentil com os viajantes...'\n\n❌ **−{xp_loss} XP**",
@@ -1518,16 +1673,14 @@ async def on_message(message):
         embed.add_field(name="🎲 Dado da Batalha", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
         
         if roll <= 3:
-            xp_loss = random.randint(20, 40)
             dmg = random.randint(10, 30)
             player["hp"] -= dmg
             
             if player["hp"] <= 0:
                 player["hp"] = player["max_hp"] // 2
-                xp_loss *= 2
             
             save_player_db(user_id, player)
-            remove_xp(user_id, xp_loss)
+            result, xp_loss = remove_xp(user_id, random.randint(20, 40))
             
             narratives = [
                 f"'O {monster_name} ataca primeiro!'",
