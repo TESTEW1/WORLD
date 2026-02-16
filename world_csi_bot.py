@@ -4,6 +4,7 @@ import json
 import random
 import os
 import asyncio
+import sqlite3
 from datetime import datetime
 
 # ================= INTENTS =================
@@ -16,15 +17,148 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
-DATA_FILE = "world_csi_data.json"
+DB_FILE = "world_csi.db"
 CANAL_BETA = "mundo-beta"
 
-# ================= DADOS =================
-game_data = {
-    "players": {},
-    "characters": {},
-    "active_chars": {}
-}
+# ================= BANCO DE DADOS =================
+
+def init_db():
+    """Inicializa banco de dados SQLite"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    
+    # Tabela de jogadores
+    c.execute('''CREATE TABLE IF NOT EXISTS players (
+        user_id TEXT PRIMARY KEY,
+        level INTEGER DEFAULT 1,
+        xp INTEGER DEFAULT 0,
+        hp INTEGER DEFAULT 100,
+        max_hp INTEGER DEFAULT 100,
+        inventory TEXT DEFAULT '[]',
+        equipment TEXT DEFAULT '{"weapon": null, "armor": null}',
+        worlds TEXT DEFAULT '[1]',
+        bosses TEXT DEFAULT '[]'
+    )''')
+    
+    # Tabela de personagens
+    c.execute('''CREATE TABLE IF NOT EXISTS characters (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT,
+        name TEXT,
+        avatar_url TEXT,
+        command TEXT,
+        created_at TEXT
+    )''')
+    
+    # Tabela de personagem ativo
+    c.execute('''CREATE TABLE IF NOT EXISTS active_chars (
+        user_id TEXT PRIMARY KEY,
+        char_name TEXT
+    )''')
+    
+    conn.commit()
+    conn.close()
+
+def get_player_db(user_id):
+    """Busca jogador no banco"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM players WHERE user_id = ?", (str(user_id),))
+    result = c.fetchone()
+    conn.close()
+    
+    if result:
+        return {
+            "level": result[1],
+            "xp": result[2],
+            "hp": result[3],
+            "max_hp": result[4],
+            "inventory": json.loads(result[5]),
+            "equipment": json.loads(result[6]),
+            "worlds": json.loads(result[7]),
+            "bosses": json.loads(result[8])
+        }
+    return None
+
+def save_player_db(user_id, player):
+    """Salva jogador no banco"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    
+    c.execute('''INSERT OR REPLACE INTO players 
+                 (user_id, level, xp, hp, max_hp, inventory, equipment, worlds, bosses)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+              (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
+               json.dumps(player["inventory"]), json.dumps(player["equipment"]),
+               json.dumps(player["worlds"]), json.dumps(player["bosses"])))
+    
+    conn.commit()
+    conn.close()
+
+def get_characters_db(user_id):
+    """Busca personagens do usuário"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT name, avatar_url, command, created_at FROM characters WHERE user_id = ?", 
+              (str(user_id),))
+    results = c.fetchall()
+    conn.close()
+    
+    chars = {}
+    for row in results:
+        chars[row[0]] = {
+            "name": row[0],
+            "avatar_url": row[1],
+            "command": row[2],
+            "created_at": row[3]
+        }
+    return chars
+
+def save_character_db(user_id, char_name, avatar_url, command):
+    """Salva personagem no banco"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    
+    c.execute('''INSERT INTO characters (user_id, name, avatar_url, command, created_at)
+                 VALUES (?, ?, ?, ?, ?)''',
+              (str(user_id), char_name, avatar_url, command, str(datetime.now())))
+    
+    conn.commit()
+    conn.close()
+
+def delete_character_db(user_id, char_name):
+    """Deleta personagem do banco"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("DELETE FROM characters WHERE user_id = ? AND name = ?", (str(user_id), char_name))
+    conn.commit()
+    conn.close()
+
+def get_active_char_db(user_id):
+    """Busca personagem ativo"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT char_name FROM active_chars WHERE user_id = ?", (str(user_id),))
+    result = c.fetchone()
+    conn.close()
+    return result[0] if result else None
+
+def set_active_char_db(user_id, char_name):
+    """Define personagem ativo"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("INSERT OR REPLACE INTO active_chars (user_id, char_name) VALUES (?, ?)",
+              (str(user_id), char_name))
+    conn.commit()
+    conn.close()
+
+def remove_active_char_db(user_id):
+    """Remove personagem ativo"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("DELETE FROM active_chars WHERE user_id = ?", (str(user_id),))
+    conn.commit()
+    conn.close()
 
 # ================= SISTEMA DE SORTE (1-10) =================
 LUCK_SYSTEM = {
@@ -176,18 +310,6 @@ ITEMS = {
 
 # ================= FUNÇÕES =================
 
-def save_data():
-    """Salva dados do jogo"""
-    with open(DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(game_data, f, indent=4, ensure_ascii=False)
-
-def load_data():
-    """Carrega dados do jogo"""
-    global game_data
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r", encoding="utf-8") as f:
-            game_data = json.load(f)
-
 def roll_dice():
     """Rola dado de 1 a 10"""
     return random.randint(1, 10)
@@ -207,7 +329,7 @@ def get_world(level):
 
 def create_player(user_id):
     """Cria novo jogador"""
-    game_data["players"][str(user_id)] = {
+    player = {
         "level": 1,
         "xp": 0,
         "hp": 100,
@@ -217,14 +339,15 @@ def create_player(user_id):
         "worlds": [1],
         "bosses": []
     }
-    save_data()
+    save_player_db(user_id, player)
+    return player
 
 def get_player(user_id):
     """Retorna dados do jogador"""
-    uid = str(user_id)
-    if uid not in game_data["players"]:
-        create_player(user_id)
-    return game_data["players"][uid]
+    player = get_player_db(user_id)
+    if not player:
+        player = create_player(user_id)
+    return player
 
 def add_xp(user_id, amount):
     """Adiciona XP e verifica level up"""
@@ -244,7 +367,7 @@ def add_xp(user_id, amount):
             if player["level"] >= wl and wl not in player["worlds"]:
                 player["worlds"].append(wl)
     
-    save_data()
+    save_player_db(user_id, player)
     return leveled
 
 def remove_xp(user_id, amount):
@@ -267,21 +390,23 @@ def remove_xp(user_id, amount):
         player["bosses"] = []
         player["hp"] = 100
         player["max_hp"] = 100
-        save_data()
+        save_player_db(user_id, player)
         return "reset"
     
-    save_data()
+    save_player_db(user_id, player)
     return "ok"
 
 async def send_as_char(message, text):
     """Envia mensagem como personagem (estilo Tupperbox)"""
     uid = str(message.author.id)
-    if uid not in game_data["active_chars"]:
+    active_char = get_active_char_db(uid)
+    
+    if not active_char:
         return await message.channel.send(text)
     
-    char_name = game_data["active_chars"][uid]
-    if uid in game_data["characters"] and char_name in game_data["characters"][uid]:
-        char = game_data["characters"][uid][char_name]
+    chars = get_characters_db(uid)
+    if active_char in chars:
+        char = chars[active_char]
         
         # Busca ou cria webhook
         webhooks = await message.channel.webhooks()
@@ -303,14 +428,60 @@ async def send_as_char(message, text):
     else:
         await message.channel.send(text)
 
+# ================= PRÓLOGO ÉPICO =================
+
+async def send_prologue(guild):
+    """Envia prólogo épico no canal mundo-beta"""
+    channel = discord.utils.get(guild.text_channels, name=CANAL_BETA)
+    if not channel:
+        return
+    
+    # Prólogo épico
+    prologue = """
+╔═══════════════════════════════════════════════════════════════╗
+║                    🌍 **WORLD CSI** 🌍                        ║
+║            *A Grande Jornada Começa Novamente*                ║
+╚═══════════════════════════════════════════════════════════════╝
+
+*As brumas do amanhecer se dissipam lentamente...*
+
+Há muito tempo, quando as estrelas ainda eram jovens e os dragões dominavam os céus, sete reinos coexistiam em harmonia. Mas a ganância e o poder corromperam o equilíbrio, e uma grande escuridão engoliu as terras.
+
+**Os Campos Iniciais**, outrora vibrantes, tornaram-se o último refúgio dos aventureiros. **A Floresta Sombria** guarda segredos ancestrais entre suas árvores milenares. **O Deserto das Almas** esconde ruínas de civilizações perdidas. **As Montanhas Geladas** ecoam com os lamentos dos caídos.
+
+Mais além, onde poucos ousam ir, o **Reino Vulcânico** ferve com a fúria dos antigos deuses. O **Abismo Arcano** distorce a própria realidade. E no fim de tudo, o **Trono Celestial** aguarda aqueles dignos o suficiente para reivindicá-lo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎲 **Os dados do destino foram lançados.**
+⚔️ **Monstros despertam nas sombras.**
+👑 **O Imperador Astral observa de seu trono.**
+
+**Você, aventureiro, está pronto para escrever sua lenda?**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 *Use* `!ficha` *para criar seu personagem*
+💡 *Use* `!help` *para ver todos os comandos*
+💡 *Digite "eu vou explorar" para começar sua jornada*
+
+**Que sua sorte seja infinita e sua coragem, inabalável.**
+🌟 *O WORLD CSI desperta mais uma vez.* 🌟
+"""
+    
+    await channel.send(prologue)
+
 # ================= EVENTOS =================
 
 @bot.event
 async def on_ready():
-    load_data()
+    init_db()
     print(f"🎮 {bot.user} está online!")
     print(f"📊 Servidores: {len(bot.guilds)}")
-    print(f"👥 Jogadores: {len(game_data['players'])}")
+    
+    # Envia prólogo em todos os servidores
+    for guild in bot.guilds:
+        await send_prologue(guild)
 
 @bot.event
 async def on_message(message):
@@ -321,17 +492,18 @@ async def on_message(message):
     is_beta = message.channel.name == CANAL_BETA
     
     # Sistema de personagem com comando customizado (ex: arthur: mensagem)
-    if uid in game_data["characters"] and not message.content.startswith("!"):
-        for char_name, char_data in game_data["characters"][uid].items():
+    if not message.content.startswith("!"):
+        chars = get_characters_db(uid)
+        for char_name, char_data in chars.items():
             cmd = char_data["command"]
             if message.content.startswith(f"{cmd}:"):
                 rp_msg = message.content[len(cmd)+1:].strip()
                 if rp_msg:
-                    old_char = game_data["active_chars"].get(uid)
-                    game_data["active_chars"][uid] = char_name
+                    old_char = get_active_char_db(uid)
+                    set_active_char_db(uid, char_name)
                     await send_as_char(message, rp_msg)
                     if old_char:
-                        game_data["active_chars"][uid] = old_char
+                        set_active_char_db(uid, old_char)
                     return
     
     await bot.process_commands(message)
@@ -356,9 +528,7 @@ async def on_message(message):
 async def criar_ficha(ctx):
     """Cria ficha de personagem (funciona em qualquer canal)"""
     uid = str(ctx.author.id)
-    
-    if uid not in game_data["characters"]:
-        game_data["characters"][uid] = {}
+    chars = get_characters_db(uid)
     
     embed = discord.Embed(
         title="📋 Criar Ficha de Personagem",
@@ -376,7 +546,7 @@ async def criar_ficha(ctx):
         msg = await bot.wait_for("message", check=check, timeout=60)
         char_name = msg.content.strip()
         
-        if char_name in game_data["characters"][uid]:
+        if char_name in chars:
             return await ctx.send(f"❌ Você já tem um personagem chamado **{char_name}**!")
         
         # Avatar
@@ -409,18 +579,11 @@ async def criar_ficha(ctx):
         command = msg.content.strip().lower().replace(" ", "_")
         
         # Salva personagem
-        game_data["characters"][uid][char_name] = {
-            "name": char_name,
-            "avatar_url": avatar_url,
-            "command": command,
-            "created_at": str(datetime.now())
-        }
-        
-        game_data["active_chars"][uid] = char_name
-        save_data()
+        save_character_db(uid, char_name, avatar_url, command)
+        set_active_char_db(uid, char_name)
         
         # Cria jogador se não existir
-        if uid not in game_data["players"]:
+        if not get_player_db(uid):
             create_player(ctx.author.id)
         
         embed = discord.Embed(
@@ -445,12 +608,12 @@ async def criar_ficha(ctx):
 async def listar_chars(ctx):
     """Lista personagens do usuário"""
     uid = str(ctx.author.id)
+    chars = get_characters_db(uid)
     
-    if uid not in game_data["characters"] or not game_data["characters"][uid]:
+    if not chars:
         return await ctx.send("❌ Você não tem personagens! Use `!ficha` para criar.")
     
-    chars = game_data["characters"][uid]
-    active = game_data["active_chars"].get(uid)
+    active = get_active_char_db(uid)
     
     embed = discord.Embed(
         title=f"📚 Personagens de {ctx.author.display_name}",
@@ -477,12 +640,13 @@ async def trocar_char(ctx, *, char_name: str = None):
     if not char_name:
         return await listar_chars(ctx)
     
-    if uid not in game_data["characters"]:
+    chars = get_characters_db(uid)
+    if not chars:
         return await ctx.send("❌ Você não tem personagens! Use `!ficha` para criar.")
     
     # Busca personagem (case insensitive)
     found = None
-    for name in game_data["characters"][uid].keys():
+    for name in chars.keys():
         if name.lower() == char_name.lower():
             found = name
             break
@@ -490,10 +654,9 @@ async def trocar_char(ctx, *, char_name: str = None):
     if not found:
         return await ctx.send(f"❌ Personagem **{char_name}** não encontrado!")
     
-    game_data["active_chars"][uid] = found
-    save_data()
+    set_active_char_db(uid, found)
     
-    char_data = game_data["characters"][uid][found]
+    char_data = chars[found]
     embed = discord.Embed(
         title="✅ Personagem Ativo",
         description=f"Agora você está usando **{found}**!",
@@ -503,16 +666,18 @@ async def trocar_char(ctx, *, char_name: str = None):
     embed.add_field(name="⌨️ Comando", value=f"`{char_data['command']}:`")
     await ctx.send(embed=embed)
 
-@bot.command(name="deletar_personagem", aliases=["del_char"])
-async def del_char(ctx, *, char_name: str):
+@bot.command(name="delete", aliases=["deletar", "del"])
+async def delete_char(ctx, *, char_name: str):
     """Deleta um personagem"""
     uid = str(ctx.author.id)
+    chars = get_characters_db(uid)
     
-    if uid not in game_data["characters"]:
+    if not chars:
         return await ctx.send("❌ Você não tem personagens!")
     
+    # Busca personagem
     found = None
-    for name in game_data["characters"][uid].keys():
+    for name in chars.keys():
         if name.lower() == char_name.lower():
             found = name
             break
@@ -520,7 +685,7 @@ async def del_char(ctx, *, char_name: str):
     if not found:
         return await ctx.send(f"❌ Personagem **{char_name}** não encontrado!")
     
-    await ctx.send(f"⚠️ Tem certeza que quer deletar **{found}**? Digite `sim` para confirmar (30s)")
+    await ctx.send(f"⚠️ Tem certeza que quer deletar **{found}**?\nDigite `sim` para confirmar (30s)")
     
     def check(m):
         return m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "sim"
@@ -528,12 +693,12 @@ async def del_char(ctx, *, char_name: str):
     try:
         await bot.wait_for("message", check=check, timeout=30)
         
-        del game_data["characters"][uid][found]
+        delete_character_db(uid, found)
         
-        if game_data["active_chars"].get(uid) == found:
-            del game_data["active_chars"][uid]
+        # Remove de ativo se for o personagem ativo
+        if get_active_char_db(uid) == found:
+            remove_active_char_db(uid)
         
-        save_data()
         await ctx.send(f"✅ **{found}** foi deletado!")
         
     except asyncio.TimeoutError:
@@ -693,7 +858,7 @@ async def explorar(ctx):
     elif roll == 5:  # Neutro
         res = random.choice(world["resources"])
         player["inventory"].append(res)
-        save_data()
+        save_player_db(ctx.author.id, player)
         embed.add_field(
             name="😶 Recurso Encontrado",
             value=f"Você encontra algo.\n\n📦 **{res}**",
@@ -705,6 +870,7 @@ async def explorar(ctx):
         xp = random.randint(15, 30)
         res = random.choice(world["resources"])
         player["inventory"].append(res)
+        save_player_db(ctx.author.id, player)
         leveled = add_xp(ctx.author.id, xp)
         
         embed.add_field(
@@ -714,6 +880,7 @@ async def explorar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(
                 name="🆙 Level Up!",
                 value=f"⭐ Você sente seu poder crescer.\nUm novo caminho se abre no horizonte…\n\n**Nível {player['level']}**",
@@ -728,6 +895,7 @@ async def explorar(ctx):
         resources = random.sample(world["resources"], min(2, len(world["resources"])))
         for r in resources:
             player["inventory"].append(r)
+        save_player_db(ctx.author.id, player)
         leveled = add_xp(ctx.author.id, xp)
         
         items = "\n".join([f"• **{r}**" for r in resources])
@@ -739,6 +907,7 @@ async def explorar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.green()
@@ -750,6 +919,7 @@ async def explorar(ctx):
         item = random.choice(items) if items else random.choice(ITEMS[item_type])
         
         player["inventory"].append(item["name"])
+        save_player_db(ctx.author.id, player)
         xp = random.randint(40, 70)
         leveled = add_xp(ctx.author.id, xp)
         
@@ -762,6 +932,7 @@ async def explorar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = rarity_info["color"]
@@ -772,6 +943,7 @@ async def explorar(ctx):
         item = random.choice(legendary)
         
         player["inventory"].append(item["name"])
+        save_player_db(ctx.author.id, player)
         xp = random.randint(80, 150)
         leveled = add_xp(ctx.author.id, xp)
         
@@ -782,6 +954,7 @@ async def explorar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.gold()
@@ -789,6 +962,7 @@ async def explorar(ctx):
     await ctx.send(embed=embed)
     
     # Verifica aparição de boss
+    player = get_player(ctx.author.id)
     boss_lvls = [9, 19, 29, 39, 49, 59]
     if player["level"] in boss_lvls:
         await asyncio.sleep(2)
@@ -840,6 +1014,7 @@ async def cacar(ctx):
             player["hp"] = player["max_hp"] // 2
             xp_loss *= 2
         
+        save_player_db(ctx.author.id, player)
         remove_xp(ctx.author.id, xp_loss)
         
         embed.add_field(
@@ -853,6 +1028,7 @@ async def cacar(ctx):
         xp = random.randint(monster["xp"][0], monster["xp"][0] + 5)
         dmg = random.randint(5, 15)
         player["hp"] -= dmg
+        save_player_db(ctx.author.id, player)
         leveled = add_xp(ctx.author.id, xp)
         
         embed.add_field(
@@ -862,6 +1038,7 @@ async def cacar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.orange()
@@ -877,6 +1054,7 @@ async def cacar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.green()
@@ -889,6 +1067,7 @@ async def cacar(ctx):
         if roll >= 9:
             drop = random.choice(world["resources"])
             player["inventory"].append(drop)
+            save_player_db(ctx.author.id, player)
         
         drop_text = f"\n📦 **{drop}**" if drop else ""
         
@@ -899,11 +1078,11 @@ async def cacar(ctx):
         )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.gold()
     
-    save_data()
     await ctx.send(embed=embed)
 
 @bot.command(name="boss")
@@ -975,25 +1154,31 @@ async def boss(ctx):
     else:  # Vitória
         xp = boss_data["xp"] + (50 if roll >= 9 else 0)
         player["bosses"].append(boss_data["name"])
+        save_player_db(ctx.author.id, player)
         leveled = add_xp(ctx.author.id, xp)
         
         # Desbloqueia próximo mundo
         next_world_lvl = boss_world_lvl + 10
-        if next_world_lvl in WORLDS and next_world_lvl not in player["worlds"]:
-            player["worlds"].append(next_world_lvl)
-            next_world = WORLDS[next_world_lvl]
-            embed.add_field(
-                name="🗺️ Novo Mundo Desbloqueado!",
-                value=f"{next_world['emoji']} **{next_world['name']}**\n\n*Um novo caminho se abre…*",
-                inline=False
-            )
+        if next_world_lvl in WORLDS:
+            player = get_player(ctx.author.id)
+            if next_world_lvl not in player["worlds"]:
+                player["worlds"].append(next_world_lvl)
+                save_player_db(ctx.author.id, player)
+                next_world = WORLDS[next_world_lvl]
+                embed.add_field(
+                    name="🗺️ Novo Mundo Desbloqueado!",
+                    value=f"{next_world['emoji']} **{next_world['name']}**\n\n*Um novo caminho se abre…*",
+                    inline=False
+                )
         
         # Item lendário em vitória perfeita
         if roll >= 9:
             item_type = random.choice(["weapons", "armor"])
             legendary = [i for i in ITEMS[item_type] if i["rarity"] == "Lendário"]
             item = random.choice(legendary)
+            player = get_player(ctx.author.id)
             player["inventory"].append(item["name"])
+            save_player_db(ctx.author.id, player)
             
             embed.add_field(
                 name="🌟 VITÓRIA LENDÁRIA!",
@@ -1008,11 +1193,11 @@ async def boss(ctx):
             )
         
         if leveled:
+            player = get_player(ctx.author.id)
             embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
         
         embed.color = discord.Color.gold()
     
-    save_data()
     await ctx.send(embed=embed)
 
 @bot.command(name="coletar", aliases=["collect", "gather"])
@@ -1041,6 +1226,7 @@ async def coletar(ctx):
     elif roll <= 6:
         res = random.choice(world["resources"])
         player["inventory"].append(res)
+        save_player_db(ctx.author.id, player)
         embed.add_field(name="📦 Recurso Coletado", value=f"**{res}**", inline=False)
         embed.color = discord.Color.green()
     
@@ -1048,6 +1234,7 @@ async def coletar(ctx):
         resources = [random.choice(world["resources"]) for _ in range(2)]
         for r in resources:
             player["inventory"].append(r)
+        save_player_db(ctx.author.id, player)
         items = "\n".join([f"• **{r}**" for r in resources])
         embed.add_field(name="🍀 Boa Coleta!", value=items, inline=False)
         embed.color = discord.Color.green()
@@ -1057,11 +1244,11 @@ async def coletar(ctx):
         resources = [random.choice(world["resources"]) for _ in range(count)]
         for r in resources:
             player["inventory"].append(r)
+        save_player_db(ctx.author.id, player)
         items = "\n".join([f"• **{r}**" for r in resources])
         embed.add_field(name="✨ Coleta Abundante!", value=items, inline=False)
         embed.color = discord.Color.gold()
     
-    save_data()
     await ctx.send(embed=embed)
 
 # ================= COMANDO DE AJUDA =================
@@ -1081,11 +1268,10 @@ async def help_cmd(ctx):
 `!ficha` - Criar personagem
 `!personagens` - Ver personagens
 `!char <nome>` - Trocar personagem
-`!deletar_personagem <nome>` - Deletar
+`!delete <nome>` - Deletar personagem
 
 💡 **Como usar:**
-Após criar com `!ficha`, use:
-`comando: sua mensagem`
+Após criar: `comando: mensagem`
 Exemplo: `arthur: Olá!`
         """,
         inline=False
@@ -1098,30 +1284,21 @@ Exemplo: `arthur: Olá!`
     )
     
     embed.add_field(
-        name=f"🗺️ Exploração (Canal #{CANAL_BETA})",
+        name=f"🗺️ Exploração (#{CANAL_BETA})",
         value="""
-`!explorar` - Explorar mundo
-`!caçar` - Caçar monstros
-`!coletar` - Coletar recursos
-`!boss` - Enfrentar boss
+`!explorar` `!caçar` `!coletar` `!boss`
 
 💡 **Modo Natural:**
-• "eu vou explorar" → explora
-• "vou caçar" → caça
-• "vou coletar" → coleta
+• "eu vou explorar"
+• "vou caçar"
+• "vou coletar"
         """,
         inline=False
     )
     
     embed.add_field(
-        name="🎲 Sistema de Sorte (Dado 1-10)",
-        value="""
-`1-2` 💀 Azar (perde XP/HP)
-`3-4` 😐 Ruim (pouco)
-`5-6` 🙂 Bom (recompensa)
-`7-8` 🍀 Sorte (extra)
-`9-10` ✨ Lenda (épico)
-        """,
+        name="🎲 Sistema (Dado 1-10)",
+        value="`1-2` 💀 Azar | `3-4` 😐 Ruim | `5-6` 🙂 Bom | `7-8` 🍀 Sorte | `9-10` ✨ Lenda",
         inline=False
     )
     
