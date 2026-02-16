@@ -1316,7 +1316,7 @@ if __name__ == '__main__':
     print()
     
     # Carrega token
-    token = os.getenv('DISCORD_TOKEN')
+ TOKEN = os.getenv("TOKEN")  # ✅ Railway detecta automático
     
     if not token:
         print("❌ Token não encontrado!")
