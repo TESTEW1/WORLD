@@ -5,6 +5,7 @@ import os
 import asyncio
 import sqlite3
 from datetime import datetime
+import json
 
 # ================= INTENTS =================
 intents = discord.Intents.default()
@@ -18,7 +19,138 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
 CANAL_BETA = "mundo-beta"
-ADMIN_ID = 769951556388257812  # Seu ID para notificações
+ADMIN_ID = 769951556388257812
+
+# ================= CLASSES =================
+CLASSES = {
+    "Guerreiro": {
+        "emoji": "⚔️",
+        "hp_bonus": 30,
+        "atk_bonus": 15,
+        "def_bonus": 10,
+        "description": "Mestre do combate corpo a corpo, resistente e poderoso."
+    },
+    "Mago": {
+        "emoji": "🔮",
+        "hp_bonus": 10,
+        "atk_bonus": 25,
+        "def_bonus": 5,
+        "description": "Manipulador de energias arcanas, devastador mas frágil."
+    },
+    "Arqueiro": {
+        "emoji": "🏹",
+        "hp_bonus": 15,
+        "atk_bonus": 20,
+        "def_bonus": 8,
+        "description": "Atirador preciso, ágil e letal à distância."
+    },
+    "Paladino": {
+        "emoji": "🛡️",
+        "hp_bonus": 25,
+        "atk_bonus": 12,
+        "def_bonus": 15,
+        "description": "Guerreiro sagrado, equilibrado entre ataque e defesa."
+    },
+    "Assassino": {
+        "emoji": "🗡️",
+        "hp_bonus": 12,
+        "atk_bonus": 22,
+        "def_bonus": 6,
+        "description": "Mestre das sombras, golpes críticos devastadores."
+    },
+    "Necromante": {
+        "emoji": "💀",
+        "hp_bonus": 8,
+        "atk_bonus": 23,
+        "def_bonus": 7,
+        "description": "Senhor dos mortos, drena vida dos inimigos."
+    },
+    "Berserker": {
+        "emoji": "🪓",
+        "hp_bonus": 35,
+        "atk_bonus": 18,
+        "def_bonus": 5,
+        "description": "Fúria incontrolável, quanto menor o HP mais forte."
+    },
+    "Druida": {
+        "emoji": "🌿",
+        "hp_bonus": 20,
+        "atk_bonus": 14,
+        "def_bonus": 12,
+        "description": "Guardião da natureza, se cura ao coletar recursos."
+    },
+    "Monge": {
+        "emoji": "👊",
+        "hp_bonus": 18,
+        "atk_bonus": 16,
+        "def_bonus": 14,
+        "description": "Mestre das artes marciais, equilibrado e versátil."
+    },
+    "Bardo": {
+        "emoji": "🎵",
+        "hp_bonus": 15,
+        "atk_bonus": 10,
+        "def_bonus": 10,
+        "description": "Músico encantador, bônus de XP e sorte aumentada."
+    }
+}
+
+# ================= PETS POR MUNDO =================
+PETS = {
+    1: [
+        {"name": "Slime Bebê", "emoji": "💧", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3},
+        {"name": "Coelho Mágico", "emoji": "🐰", "rarity": "Incomum", "bonus_hp": 15, "bonus_atk": 5},
+        {"name": "Fada da Floresta", "emoji": "🧚", "rarity": "Raro", "bonus_hp": 20, "bonus_atk": 8}
+    ],
+    10: [
+        {"name": "Lobo Cinzento", "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12},
+        {"name": "Coruja Espectral", "emoji": "🦉", "rarity": "Raro", "bonus_hp": 30, "bonus_atk": 15},
+        {"name": "Espírito da Floresta", "emoji": "👻", "rarity": "Épico", "bonus_hp": 40, "bonus_atk": 20}
+    ],
+    20: [
+        {"name": "Escorpião Dourado", "emoji": "🦂", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 18},
+        {"name": "Escaravelho Místico", "emoji": "🪲", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 23},
+        {"name": "Esfinge Menor", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30}
+    ],
+    30: [
+        {"name": "Raposa Ártica", "emoji": "🦊", "rarity": "Épico", "bonus_hp": 50, "bonus_atk": 25},
+        {"name": "Dragão de Gelo Bebê", "emoji": "🐉", "rarity": "Lendário", "bonus_hp": 70, "bonus_atk": 35},
+        {"name": "Fênix de Gelo", "emoji": "🦅", "rarity": "Mítico", "bonus_hp": 100, "bonus_atk": 50}
+    ],
+    40: [
+        {"name": "Salamandra de Fogo", "emoji": "🦎", "rarity": "Épico", "bonus_hp": 55, "bonus_atk": 28},
+        {"name": "Fênix Carmesim", "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80, "bonus_atk": 40},
+        {"name": "Dragão de Magma", "emoji": "🐲", "rarity": "Mítico", "bonus_hp": 120, "bonus_atk": 60}
+    ],
+    50: [
+        {"name": "Espectro Sombrio", "emoji": "👤", "rarity": "Lendário", "bonus_hp": 90, "bonus_atk": 45},
+        {"name": "Elemental do Vazio", "emoji": "🌀", "rarity": "Mítico", "bonus_hp": 130, "bonus_atk": 65},
+        {"name": "Entidade Cósmica", "emoji": "✨", "rarity": "Mítico", "bonus_hp": 150, "bonus_atk": 75}
+    ],
+    60: [
+        {"name": "Anjo Guardião", "emoji": "👼", "rarity": "Lendário", "bonus_hp": 100, "bonus_atk": 50},
+        {"name": "Querubim Guerreiro", "emoji": "😇", "rarity": "Mítico", "bonus_hp": 150, "bonus_atk": 80},
+        {"name": "Arcanjo Divino", "emoji": "🕊️", "rarity": "Mítico", "bonus_hp": 200, "bonus_atk": 100}
+    ]
+}
+
+# ================= POÇÕES =================
+POTIONS = {
+    "Poção de Vida Menor": {"rarity": "Comum", "hp_restore": 30, "emoji": "🧪"},
+    "Poção de Vida": {"rarity": "Incomum", "hp_restore": 60, "emoji": "🧪"},
+    "Poção de Vida Maior": {"rarity": "Raro", "hp_restore": 100, "emoji": "💊"},
+    "Poção de Vida Superior": {"rarity": "Épico", "hp_restore": 150, "emoji": "💊"},
+    "Elixir da Vida": {"rarity": "Lendário", "hp_restore": 250, "emoji": "⚗️"},
+    "Poção de XP Menor": {"rarity": "Incomum", "xp_gain": 50, "emoji": "✨"},
+    "Poção de XP": {"rarity": "Raro", "xp_gain": 100, "emoji": "✨"},
+    "Poção de XP Maior": {"rarity": "Épico", "xp_gain": 200, "emoji": "💫"},
+    "Elixir de XP": {"rarity": "Lendário", "xp_gain": 500, "emoji": "🌟"},
+    "Poção de Força": {"rarity": "Raro", "temp_atk": 20, "duration": 5, "emoji": "💪"},
+    "Poção de Defesa": {"rarity": "Raro", "temp_def": 15, "duration": 5, "emoji": "🛡️"},
+    "Poção de Sorte": {"rarity": "Épico", "luck_bonus": 2, "duration": 3, "emoji": "🍀"},
+    "Antídoto": {"rarity": "Comum", "cure_poison": True, "emoji": "💉"},
+    "Poção de Ressurreição": {"rarity": "Mítico", "revive": True, "emoji": "💀"}
+}
 
 # ================= BANCO DE DADOS =================
 
@@ -38,7 +170,20 @@ def init_db():
         weapon TEXT DEFAULT NULL,
         armor TEXT DEFAULT NULL,
         worlds TEXT DEFAULT '[1]',
-        bosses TEXT DEFAULT '[]'
+        bosses TEXT DEFAULT '[]',
+        class TEXT DEFAULT NULL,
+        pet TEXT DEFAULT NULL,
+        guild_id INTEGER DEFAULT NULL,
+        active_effects TEXT DEFAULT '{}'
+    )''')
+    
+    c.execute('''CREATE TABLE IF NOT EXISTS guilds (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        leader_id TEXT,
+        members TEXT DEFAULT '[]',
+        total_xp INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
     
     c.execute('''CREATE TABLE IF NOT EXISTS trade_requests (
@@ -63,7 +208,6 @@ def get_player_db(user_id):
     conn.close()
     
     if result:
-        import json
         return {
             "level": result[1],
             "xp": result[2],
@@ -74,22 +218,26 @@ def get_player_db(user_id):
             "weapon": result[7],
             "armor": result[8],
             "worlds": json.loads(result[9]),
-            "bosses": json.loads(result[10])
+            "bosses": json.loads(result[10]),
+            "class": result[11],
+            "pet": result[12],
+            "guild_id": result[13],
+            "active_effects": json.loads(result[14]) if len(result) > 14 else {}
         }
     return None
 
 def save_player_db(user_id, player):
     """Salva jogador no banco"""
-    import json
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     
     c.execute('''INSERT OR REPLACE INTO players 
-                 (user_id, level, xp, hp, max_hp, coins, inventory, weapon, armor, worlds, bosses)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                 (user_id, level, xp, hp, max_hp, coins, inventory, weapon, armor, worlds, bosses, class, pet, guild_id, active_effects)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
-               json.dumps(player["worlds"]), json.dumps(player["bosses"])))
+               json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
+               player.get("pet"), player.get("guild_id"), json.dumps(player.get("active_effects", {}))))
     
     conn.commit()
     conn.close()
@@ -113,15 +261,15 @@ WORLDS = {
     1: {
         "name": "🌱 Campos Iniciais",
         "emoji": "🌱",
-        "xp_loss_multiplier": 0.3,  # Perde menos XP
+        "xp_loss_multiplier": 0.3,
         "monsters": {
-            "Slime": {"xp": (5, 10), "hp": 30, "atk": 5, "coins": (3, 8)},
-            "Rato Selvagem": {"xp": (7, 12), "hp": 25, "atk": 7, "coins": (5, 10)},
-            "Coelho Raivoso": {"xp": (6, 11), "hp": 20, "atk": 6, "coins": (4, 9)},
-            "Javali Jovem": {"xp": (8, 13), "hp": 35, "atk": 8, "coins": (6, 12)},
-            "Vespa Gigante": {"xp": (7, 11), "hp": 22, "atk": 7, "coins": (5, 10)}
+            "Slime": {"xp": (10, 20), "hp": 30, "atk": 5, "coins": (5, 15)},
+            "Rato Selvagem": {"xp": (12, 22), "hp": 25, "atk": 7, "coins": (8, 18)},
+            "Coelho Raivoso": {"xp": (11, 21), "hp": 20, "atk": 6, "coins": (7, 17)},
+            "Javali Jovem": {"xp": (13, 23), "hp": 35, "atk": 8, "coins": (10, 20)},
+            "Vespa Gigante": {"xp": (12, 22), "hp": 22, "atk": 7, "coins": (8, 18)}
         },
-        "boss": {"name": "Slime Rei", "hp": 150, "atk": 15, "xp": 150, "level": 9, "coins": (50, 100)},
+        "boss": {"name": "Slime Rei", "hp": 150, "atk": 15, "xp": 200, "level": 9, "coins": (80, 150)},
         "resources": ["Pedra fraca", "Grama mágica", "Couro de rato", "Flor silvestre", "Mel selvagem"],
         "dungeons": [
             {"name": "Caverna dos Slimes", "level": 1, "boss": "Slime Ancião"},
@@ -158,13 +306,13 @@ WORLDS = {
         "emoji": "🌲",
         "xp_loss_multiplier": 0.5,
         "monsters": {
-            "Goblin": {"xp": (15, 25), "hp": 60, "atk": 12, "coins": (15, 30)},
-            "Lobo Negro": {"xp": (18, 30), "hp": 70, "atk": 15, "coins": (20, 35)},
-            "Aranha Gigante": {"xp": (20, 28), "hp": 65, "atk": 14, "coins": (18, 32)},
-            "Ogro Menor": {"xp": (22, 32), "hp": 80, "atk": 16, "coins": (25, 40)},
-            "Espectro Florestal": {"xp": (19, 29), "hp": 55, "atk": 13, "coins": (17, 33)}
+            "Goblin": {"xp": (25, 40), "hp": 60, "atk": 12, "coins": (25, 45)},
+            "Lobo Negro": {"xp": (28, 45), "hp": 70, "atk": 15, "coins": (30, 50)},
+            "Aranha Gigante": {"xp": (30, 43), "hp": 65, "atk": 14, "coins": (28, 48)},
+            "Ogro Menor": {"xp": (32, 47), "hp": 80, "atk": 16, "coins": (35, 55)},
+            "Espectro Florestal": {"xp": (29, 44), "hp": 55, "atk": 13, "coins": (27, 47)}
         },
-        "boss": {"name": "Ent Ancião", "hp": 300, "atk": 25, "xp": 250, "level": 19, "coins": (100, 200)},
+        "boss": {"name": "Ent Ancião", "hp": 300, "atk": 25, "xp": 350, "level": 19, "coins": (150, 250)},
         "resources": ["Madeira escura", "Ervas raras", "Pele de lobo", "Teia mágica", "Musgo brilhante"],
         "dungeons": [
             {"name": "Covil dos Goblins", "level": 4, "boss": "Chefe Goblin"},
@@ -201,13 +349,13 @@ WORLDS = {
         "emoji": "🏜️",
         "xp_loss_multiplier": 0.7,
         "monsters": {
-            "Escorpião Gigante": {"xp": (25, 35), "hp": 100, "atk": 20, "coins": (35, 60)},
-            "Múmia": {"xp": (30, 40), "hp": 120, "atk": 22, "coins": (40, 70)},
-            "Serpente de Areia": {"xp": (28, 38), "hp": 110, "atk": 21, "coins": (38, 65)},
-            "Guardião de Tumba": {"xp": (32, 42), "hp": 130, "atk": 24, "coins": (45, 75)},
-            "Espírito do Deserto": {"xp": (29, 39), "hp": 105, "atk": 20, "coins": (37, 67)}
+            "Escorpião Gigante": {"xp": (40, 60), "hp": 100, "atk": 20, "coins": (50, 80)},
+            "Múmia": {"xp": (45, 65), "hp": 120, "atk": 22, "coins": (55, 85)},
+            "Serpente de Areia": {"xp": (43, 63), "hp": 110, "atk": 21, "coins": (53, 83)},
+            "Guardião de Tumba": {"xp": (47, 67), "hp": 130, "atk": 24, "coins": (60, 90)},
+            "Espírito do Deserto": {"xp": (44, 64), "hp": 105, "atk": 20, "coins": (52, 82)}
         },
-        "boss": {"name": "Faraó Amaldiçoado", "hp": 500, "atk": 35, "xp": 400, "level": 29, "coins": (200, 350)},
+        "boss": {"name": "Faraó Amaldiçoado", "hp": 500, "atk": 35, "xp": 550, "level": 29, "coins": (300, 450)},
         "resources": ["Areia mágica", "Ossos antigos", "Vendas místicas", "Escaravelho dourado", "Papiro antigo"],
         "dungeons": [
             {"name": "Pirâmide Perdida", "level": 7, "boss": "Faraó Esquecido"},
@@ -244,13 +392,13 @@ WORLDS = {
         "emoji": "❄️",
         "xp_loss_multiplier": 0.9,
         "monsters": {
-            "Lobo de Gelo": {"xp": (35, 45), "hp": 150, "atk": 28, "coins": (60, 100)},
-            "Golem de Neve": {"xp": (40, 50), "hp": 180, "atk": 30, "coins": (70, 110)},
-            "Ogro Glacial": {"xp": (38, 48), "hp": 160, "atk": 29, "coins": (65, 105)},
-            "Dragão de Gelo Jovem": {"xp": (45, 55), "hp": 200, "atk": 32, "coins": (80, 120)},
-            "Elemental de Gelo": {"xp": (42, 52), "hp": 170, "atk": 31, "coins": (75, 115)}
+            "Lobo de Gelo": {"xp": (60, 80), "hp": 150, "atk": 28, "coins": (80, 120)},
+            "Golem de Neve": {"xp": (65, 85), "hp": 180, "atk": 30, "coins": (90, 130)},
+            "Ogro Glacial": {"xp": (63, 83), "hp": 160, "atk": 29, "coins": (85, 125)},
+            "Dragão de Gelo Jovem": {"xp": (70, 90), "hp": 200, "atk": 32, "coins": (100, 140)},
+            "Elemental de Gelo": {"xp": (67, 87), "hp": 170, "atk": 31, "coins": (95, 135)}
         },
-        "boss": {"name": "Yeti Colossal", "hp": 750, "atk": 45, "xp": 600, "level": 39, "coins": (350, 500)},
+        "boss": {"name": "Yeti Colossal", "hp": 750, "atk": 45, "xp": 800, "level": 39, "coins": (450, 650)},
         "resources": ["Cristal de gelo", "Minério frio", "Pele de yeti", "Neve eterna", "Gema congelada"],
         "dungeons": [
             {"name": "Caverna Congelada", "level": 10, "boss": "Guardião do Gelo"},
@@ -287,13 +435,13 @@ WORLDS = {
         "emoji": "🌋",
         "xp_loss_multiplier": 1.2,
         "monsters": {
-            "Salamandra": {"xp": (45, 55), "hp": 200, "atk": 38, "coins": (100, 150)},
-            "Demônio de Lava": {"xp": (50, 60), "hp": 230, "atk": 42, "coins": (120, 170)},
-            "Elemental de Fogo": {"xp": (48, 58), "hp": 210, "atk": 40, "coins": (110, 160)},
-            "Hidra de Magma": {"xp": (55, 65), "hp": 250, "atk": 45, "coins": (130, 180)},
-            "Fênix Negra": {"xp": (52, 62), "hp": 220, "atk": 43, "coins": (125, 175)}
+            "Salamandra": {"xp": (80, 100), "hp": 200, "atk": 38, "coins": (120, 170)},
+            "Demônio de Lava": {"xp": (85, 105), "hp": 230, "atk": 42, "coins": (140, 190)},
+            "Elemental de Fogo": {"xp": (83, 103), "hp": 210, "atk": 40, "coins": (130, 180)},
+            "Hidra de Magma": {"xp": (90, 110), "hp": 250, "atk": 45, "coins": (150, 200)},
+            "Fênix Negra": {"xp": (87, 107), "hp": 220, "atk": 43, "coins": (145, 195)}
         },
-        "boss": {"name": "Dragão de Magma", "hp": 1000, "atk": 55, "xp": 800, "level": 49, "coins": (500, 700)},
+        "boss": {"name": "Dragão de Magma", "hp": 1000, "atk": 55, "xp": 1100, "level": 49, "coins": (650, 850)},
         "resources": ["Pedra vulcânica", "Núcleo de fogo", "Escamas de dragão", "Obsidiana pura", "Cinza sagrada"],
         "dungeons": [
             {"name": "Caldeirão de Lava", "level": 13, "boss": "Senhor do Fogo"},
@@ -330,13 +478,13 @@ WORLDS = {
         "emoji": "🌌",
         "xp_loss_multiplier": 1.5,
         "monsters": {
-            "Espectro": {"xp": (55, 70), "hp": 280, "atk": 48, "coins": (150, 220)},
-            "Mago Sombrio": {"xp": (60, 75), "hp": 300, "atk": 52, "coins": (170, 240)},
-            "Devorador de Almas": {"xp": (58, 73), "hp": 290, "atk": 50, "coins": (160, 230)},
-            "Lich": {"xp": (65, 80), "hp": 320, "atk": 55, "coins": (180, 250)},
-            "Golem Arcano": {"xp": (62, 77), "hp": 310, "atk": 53, "coins": (175, 245)}
+            "Espectro": {"xp": (100, 130), "hp": 280, "atk": 48, "coins": (180, 250)},
+            "Mago Sombrio": {"xp": (105, 135), "hp": 300, "atk": 52, "coins": (200, 270)},
+            "Devorador de Almas": {"xp": (103, 133), "hp": 290, "atk": 50, "coins": (190, 260)},
+            "Lich": {"xp": (110, 140), "hp": 320, "atk": 55, "coins": (210, 280)},
+            "Golem Arcano": {"xp": (107, 137), "hp": 310, "atk": 53, "coins": (205, 275)}
         },
-        "boss": {"name": "Senhor das Sombras", "hp": 1500, "atk": 70, "xp": 1200, "level": 59, "coins": (700, 1000)},
+        "boss": {"name": "Senhor das Sombras", "hp": 1500, "atk": 70, "xp": 1600, "level": 59, "coins": (850, 1100)},
         "resources": ["Essência arcana", "Fragmento sombrio", "Cristal do vazio", "Poeira estelar", "Runa mística"],
         "dungeons": [
             {"name": "Torre Arcana", "level": 16, "boss": "Arquimago Corrupto"},
@@ -373,13 +521,13 @@ WORLDS = {
         "emoji": "👑",
         "xp_loss_multiplier": 2.0,
         "monsters": {
-            "Guardião Celestial": {"xp": (80, 100), "hp": 400, "atk": 65, "coins": (250, 350)},
-            "Anjo Caído": {"xp": (85, 105), "hp": 420, "atk": 68, "coins": (270, 370)},
-            "Serafim Corrompido": {"xp": (90, 110), "hp": 450, "atk": 70, "coins": (290, 390)},
-            "Querubim Guerreiro": {"xp": (95, 115), "hp": 480, "atk": 73, "coins": (310, 410)},
-            "Arcanjo Negro": {"xp": (100, 120), "hp": 500, "atk": 75, "coins": (330, 430)}
+            "Guardião Celestial": {"xp": (140, 180), "hp": 400, "atk": 65, "coins": (300, 400)},
+            "Anjo Caído": {"xp": (145, 185), "hp": 420, "atk": 68, "coins": (320, 420)},
+            "Serafim Corrompido": {"xp": (150, 190), "hp": 450, "atk": 70, "coins": (340, 440)},
+            "Querubim Guerreiro": {"xp": (155, 195), "hp": 480, "atk": 73, "coins": (360, 460)},
+            "Arcanjo Negro": {"xp": (160, 200), "hp": 500, "atk": 75, "coins": (380, 480)}
         },
-        "boss": {"name": "Imperador Astral", "hp": 2500, "atk": 100, "xp": 2000, "level": 60, "coins": (1000, 1500)},
+        "boss": {"name": "Imperador Astral", "hp": 2500, "atk": 100, "xp": 2500, "level": 60, "coins": (1200, 1800)},
         "resources": ["Essência celestial", "Fragmento estelar", "Coroa divina", "Lágrima de deus", "Pluma sagrada"],
         "dungeons": [
             {"name": "Santuário Celestial", "level": 19, "boss": "Avatar Divino"},
@@ -413,7 +561,7 @@ WORLDS = {
     }
 }
 
-# ================= ITENS EXPANDIDOS =================
+# ================= RARIDADES =================
 RARITIES = {
     "Comum": {"color": 0xFFFFFF, "emoji": "⚪"},
     "Incomum": {"color": 0x00FF00, "emoji": "🟢"},
@@ -422,7 +570,7 @@ RARITIES = {
     "Lendário": {"color": 0xFFD700, "emoji": "🟡"},
     "Mítico": {"color": 0xFF0000, "emoji": "🔴"}
 }
-
+# ================= ITENS EXPANDIDOS =================
 ITEMS = {
     "weapons": [
         # Comum
@@ -431,6 +579,9 @@ ITEMS = {
         {"name": "Cajado de Madeira", "rarity": "Comum", "atk": 5},
         {"name": "Machado Quebrado", "rarity": "Comum", "atk": 6},
         {"name": "Lança de Bambu", "rarity": "Comum", "atk": 5},
+        {"name": "Faca Cega", "rarity": "Comum", "atk": 4},
+        {"name": "Porrete de Madeira", "rarity": "Comum", "atk": 5},
+        {"name": "Foice Velha", "rarity": "Comum", "atk": 6},
         # Incomum
         {"name": "Espada de Ferro", "rarity": "Incomum", "atk": 12},
         {"name": "Machado de Batalha", "rarity": "Incomum", "atk": 14},
@@ -438,6 +589,12 @@ ITEMS = {
         {"name": "Martelo de Guerra", "rarity": "Incomum", "atk": 15},
         {"name": "Katana Básica", "rarity": "Incomum", "atk": 13},
         {"name": "Mangual de Ferro", "rarity": "Incomum", "atk": 14},
+        {"name": "Espada Larga", "rarity": "Incomum", "atk": 13},
+        {"name": "Lança de Ferro", "rarity": "Incomum", "atk": 12},
+        {"name": "Claymore", "rarity": "Incomum", "atk": 15},
+        {"name": "Arco Longo", "rarity": "Incomum", "atk": 14},
+        {"name": "Alabarda", "rarity": "Incomum", "atk": 14},
+        {"name": "Machado Duplo", "rarity": "Incomum", "atk": 15},
         # Raro
         {"name": "Espada de Madeira Negra", "rarity": "Raro", "atk": 25},
         {"name": "Lança Mística", "rarity": "Raro", "atk": 27},
@@ -446,6 +603,14 @@ ITEMS = {
         {"name": "Cimitarra de Prata", "rarity": "Raro", "atk": 26},
         {"name": "Alabarda Encantada", "rarity": "Raro", "atk": 27},
         {"name": "Tridente de Aço", "rarity": "Raro", "atk": 25},
+        {"name": "Katana Relâmpago", "rarity": "Raro", "atk": 28},
+        {"name": "Arco das Sombras", "rarity": "Raro", "atk": 27},
+        {"name": "Espada Lunar", "rarity": "Raro", "atk": 26},
+        {"name": "Martelo Rúnico", "rarity": "Raro", "atk": 28},
+        {"name": "Lança do Caçador", "rarity": "Raro", "atk": 27},
+        {"name": "Foice Maldita", "rarity": "Raro", "atk": 26},
+        {"name": "Adaga Venenosa", "rarity": "Raro", "atk": 25},
+        {"name": "Clava Titânica", "rarity": "Raro", "atk": 28},
         # Épico
         {"name": "Lâmina Flamejante", "rarity": "Épico", "atk": 45},
         {"name": "Cajado Arcano", "rarity": "Épico", "atk": 48},
@@ -455,15 +620,31 @@ ITEMS = {
         {"name": "Lança do Dragão", "rarity": "Épico", "atk": 49},
         {"name": "Foice Sombria", "rarity": "Épico", "atk": 48},
         {"name": "Martelo do Trovão", "rarity": "Épico", "atk": 51},
+        {"name": "Katana Demoníaca", "rarity": "Épico", "atk": 49},
+        {"name": "Espada da Tempestade", "rarity": "Épico", "atk": 47},
+        {"name": "Arco Celestial", "rarity": "Épico", "atk": 48},
+        {"name": "Tridente de Poseidon", "rarity": "Épico", "atk": 50},
+        {"name": "Lança da Fênix", "rarity": "Épico", "atk": 49},
+        {"name": "Machado Infernal", "rarity": "Épico", "atk": 51},
+        {"name": "Adaga da Morte", "rarity": "Épico", "atk": 46},
+        {"name": "Espada do Eclipse", "rarity": "Épico", "atk": 48},
+        {"name": "Cajado do Caos", "rarity": "Épico", "atk": 50},
         # Lendário
         {"name": "Excalibur", "rarity": "Lendário", "atk": 100},
         {"name": "Mjolnir", "rarity": "Lendário", "atk": 105},
         {"name": "Gungnir", "rarity": "Lendário", "atk": 103},
         {"name": "Kusanagi", "rarity": "Lendário", "atk": 102},
         {"name": "Durandal", "rarity": "Lendário", "atk": 104},
+        {"name": "Gram", "rarity": "Lendário", "atk": 103},
+        {"name": "Tyrfing", "rarity": "Lendário", "atk": 102},
+        {"name": "Caladbolg", "rarity": "Lendário", "atk": 104},
+        {"name": "Gáe Bolg", "rarity": "Lendário", "atk": 105},
+        {"name": "Rhongomyniad", "rarity": "Lendário", "atk": 103},
         # Mítico
         {"name": "Espada do Criador", "rarity": "Mítico", "atk": 200},
-        {"name": "Cetro da Eternidade", "rarity": "Mítico", "atk": 210}
+        {"name": "Cetro da Eternidade", "rarity": "Mítico", "atk": 210},
+        {"name": "Lâmina do Destino", "rarity": "Mítico", "atk": 205},
+        {"name": "Arco do Apocalipse", "rarity": "Mítico", "atk": 208}
     ],
     "armor": [
         # Comum
@@ -472,6 +653,9 @@ ITEMS = {
         {"name": "Túnica de Linho", "rarity": "Comum", "def": 3},
         {"name": "Peitoral de Bronze", "rarity": "Comum", "def": 4},
         {"name": "Capa Rasgada", "rarity": "Comum", "def": 3},
+        {"name": "Colete de Couro", "rarity": "Comum", "def": 4},
+        {"name": "Vestes Gastas", "rarity": "Comum", "def": 3},
+        {"name": "Armadura Rachada", "rarity": "Comum", "def": 4},
         # Incomum
         {"name": "Armadura de Ferro", "rarity": "Incomum", "def": 8},
         {"name": "Cota de Malha", "rarity": "Incomum", "def": 10},
@@ -479,6 +663,12 @@ ITEMS = {
         {"name": "Robes Reforçados", "rarity": "Incomum", "def": 8},
         {"name": "Brigandina", "rarity": "Incomum", "def": 10},
         {"name": "Armadura de Couro Batido", "rarity": "Incomum", "def": 9},
+        {"name": "Peitoral de Aço", "rarity": "Incomum", "def": 10},
+        {"name": "Armadura de Anéis", "rarity": "Incomum", "def": 9},
+        {"name": "Vestes de Batalha", "rarity": "Incomum", "def": 8},
+        {"name": "Couraça Leve", "rarity": "Incomum", "def": 9},
+        {"name": "Armadura Laminada", "rarity": "Incomum", "def": 10},
+        {"name": "Gibão de Armas", "rarity": "Incomum", "def": 9},
         # Raro
         {"name": "Armadura Mística", "rarity": "Raro", "def": 18},
         {"name": "Armadura Élfica", "rarity": "Raro", "def": 20},
@@ -487,6 +677,14 @@ ITEMS = {
         {"name": "Cota Encantada", "rarity": "Raro", "def": 19},
         {"name": "Armadura de Mithril", "rarity": "Raro", "def": 20},
         {"name": "Vestes Arcanas", "rarity": "Raro", "def": 18},
+        {"name": "Armadura Lunar", "rarity": "Raro", "def": 20},
+        {"name": "Placas Reforçadas", "rarity": "Raro", "def": 21},
+        {"name": "Armadura Cristalina", "rarity": "Raro", "def": 19},
+        {"name": "Vestes do Sábio", "rarity": "Raro", "def": 18},
+        {"name": "Armadura do Cavaleiro", "rarity": "Raro", "def": 21},
+        {"name": "Couraça Élfica", "rarity": "Raro", "def": 20},
+        {"name": "Armadura Sombria", "rarity": "Raro", "def": 19},
+        {"name": "Placas de Dragão", "rarity": "Raro", "def": 21},
         # Épico
         {"name": "Armadura Dracônica", "rarity": "Épico", "def": 35},
         {"name": "Armadura das Sombras", "rarity": "Épico", "def": 38},
@@ -496,19 +694,35 @@ ITEMS = {
         {"name": "Armadura do Vazio", "rarity": "Épico", "def": 39},
         {"name": "Couraça Angelical", "rarity": "Épico", "def": 38},
         {"name": "Armadura Demoníaca", "rarity": "Épico", "def": 40},
+        {"name": "Placas do Dragão Negro", "rarity": "Épico", "def": 39},
+        {"name": "Armadura da Tempestade", "rarity": "Épico", "def": 37},
+        {"name": "Vestes do Arcano Maior", "rarity": "Épico", "def": 36},
+        {"name": "Armadura de Obsidiana", "rarity": "Épico", "def": 38},
+        {"name": "Placas Celestiais", "rarity": "Épico", "def": 40},
+        {"name": "Armadura do Fênix", "rarity": "Épico", "def": 37},
+        {"name": "Couraça Infernal", "rarity": "Épico", "def": 39},
+        {"name": "Armadura do Eclipse", "rarity": "Épico", "def": 38},
+        {"name": "Vestes do Caos", "rarity": "Épico", "def": 36},
         # Lendário
         {"name": "Armadura Celestial", "rarity": "Lendário", "def": 80},
         {"name": "Égide Divina", "rarity": "Lendário", "def": 85},
         {"name": "Armadura de Odin", "rarity": "Lendário", "def": 83},
         {"name": "Placas de Adaman", "rarity": "Lendário", "def": 82},
         {"name": "Vestes do Arcano Supremo", "rarity": "Lendário", "def": 84},
+        {"name": "Armadura de Zeus", "rarity": "Lendário", "def": 85},
+        {"name": "Placas de Poseidon", "rarity": "Lendário", "def": 83},
+        {"name": "Armadura de Ares", "rarity": "Lendário", "def": 84},
+        {"name": "Vestes de Atena", "rarity": "Lendário", "def": 82},
+        {"name": "Couraça de Thor", "rarity": "Lendário", "def": 85},
         # Mítico
         {"name": "Armadura do Primeiro Deus", "rarity": "Mítico", "def": 180},
-        {"name": "Vestes da Criação", "rarity": "Mítico", "def": 190}
+        {"name": "Vestes da Criação", "rarity": "Mítico", "def": 190},
+        {"name": "Placas da Eternidade", "rarity": "Mítico", "def": 185},
+        {"name": "Armadura do Destino", "rarity": "Mítico", "def": 188}
     ]
 }
 
-# ================= ESTRUTURAS E EVENTOS ESPECIAIS =================
+# ================= ESTRUTURAS =================
 STRUCTURES = [
     {
         "name": "🏛️ Cidade Mercante",
@@ -565,7 +779,7 @@ def get_luck(roll):
     return LUCK_SYSTEM.get(roll, LUCK_SYSTEM[5])
 
 def calc_xp(level):
-    return (level ** 2) * 25
+    return (level ** 2) * 20  # Reduzido para facilitar
 
 def get_world(level):
     levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
@@ -582,7 +796,11 @@ def create_player(user_id):
         "weapon": None,
         "armor": None,
         "worlds": [1],
-        "bosses": []
+        "bosses": [],
+        "class": None,
+        "pet": None,
+        "guild_id": None,
+        "active_effects": {}
     }
     save_player_db(user_id, player)
     return player
@@ -595,13 +813,24 @@ def get_player(user_id):
 
 def add_xp(user_id, amount):
     player = get_player(user_id)
+    
+    # Bônus de classe Bardo
+    if player.get("class") == "Bardo":
+        amount = int(amount * 1.2)
+    
     player["xp"] += amount
     leveled = False
     
     while player["xp"] >= calc_xp(player["level"]):
         player["xp"] -= calc_xp(player["level"])
         player["level"] += 1
-        player["max_hp"] += 10
+        
+        # Bônus de HP por classe
+        class_bonus = 0
+        if player.get("class") and player["class"] in CLASSES:
+            class_bonus = CLASSES[player["class"]]["hp_bonus"] // 10
+        
+        player["max_hp"] += (10 + class_bonus)
         player["hp"] = player["max_hp"]
         leveled = True
         
@@ -610,13 +839,48 @@ def add_xp(user_id, amount):
                 player["worlds"].append(wl)
     
     save_player_db(user_id, player)
+    
+    # XP para guild
+    if player.get("guild_id"):
+        distribute_guild_xp(player["guild_id"], amount)
+    
     return leveled
+
+def distribute_guild_xp(guild_id, amount):
+    """Distribui XP para todos os membros da guild"""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT members FROM guilds WHERE id = ?", (guild_id,))
+    result = c.fetchone()
+    
+    if result:
+        members = json.loads(result[0])
+        for member_id in members:
+            member = get_player(member_id)
+            if member:
+                member["xp"] += amount
+                
+                while member["xp"] >= calc_xp(member["level"]):
+                    member["xp"] -= calc_xp(member["level"])
+                    member["level"] += 1
+                    class_bonus = 0
+                    if member.get("class") and member["class"] in CLASSES:
+                        class_bonus = CLASSES[member["class"]]["hp_bonus"] // 10
+                    member["max_hp"] += (10 + class_bonus)
+                    member["hp"] = member["max_hp"]
+                    
+                    for wl in WORLDS.keys():
+                        if member["level"] >= wl and wl not in member["worlds"]:
+                            member["worlds"].append(wl)
+                
+                save_player_db(member_id, member)
+    
+    conn.close()
 
 def remove_xp(user_id, amount):
     player = get_player(user_id)
     world = get_world(player["level"])
     
-    # Aplica multiplicador baseado no mundo
     adjusted_loss = int(amount * world.get("xp_loss_multiplier", 1.0))
     player["xp"] -= adjusted_loss
     
@@ -636,6 +900,8 @@ def remove_xp(user_id, amount):
         player["hp"] = 100
         player["max_hp"] = 100
         player["coins"] = 0
+        player["class"] = None
+        player["pet"] = None
         save_player_db(user_id, player)
         return "reset", adjusted_loss
     
@@ -655,7 +921,208 @@ def remove_coins(user_id, amount):
         return True
     return False
 
-# ================= CLASSE PARA BOTÕES =================
+def get_item_sell_price(item_name):
+    """Retorna o preço de venda de um item"""
+    # Procura nas armas
+    for weapon in ITEMS["weapons"]:
+        if weapon["name"] == item_name:
+            rarity_prices = {"Comum": 5, "Incomum": 20, "Raro": 50, "Épico": 150, "Lendário": 500, "Mítico": 1500}
+            return rarity_prices.get(weapon["rarity"], 10)
+    
+    # Procura nas armaduras
+    for armor in ITEMS["armor"]:
+        if armor["name"] == item_name:
+            rarity_prices = {"Comum": 5, "Incomum": 20, "Raro": 50, "Épico": 150, "Lendário": 500, "Mítico": 1500}
+            return rarity_prices.get(armor["rarity"], 10)
+    
+    # Procura em poções
+    if item_name in POTIONS:
+        rarity_prices = {"Comum": 10, "Incomum": 30, "Raro": 80, "Épico": 200, "Lendário": 600, "Mítico": 2000}
+        return rarity_prices.get(POTIONS[item_name]["rarity"], 15)
+    
+    # Recursos
+    return 10
+
+# ================= CLASSES PARA BOTÕES =================
+
+class ClassSelectButton(discord.ui.View):
+    def __init__(self, user_id, timeout=120):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.answered = False
+        
+        # Cria botões para cada classe (primeiras 5)
+        class_names = list(CLASSES.keys())[:5]
+        for class_name in class_names:
+            class_data = CLASSES[class_name]
+            button = discord.ui.Button(
+                label=class_name,
+                style=discord.ButtonStyle.primary,
+                emoji=class_data["emoji"]
+            )
+            button.callback = self.create_callback(class_name)
+            self.add_item(button)
+    
+    def create_callback(self, class_name):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
+            
+            if self.answered:
+                return
+            
+            self.answered = True
+            player = get_player(self.user_id)
+            player["class"] = class_name
+            
+            # Aplica bônus de classe
+            class_data = CLASSES[class_name]
+            player["max_hp"] += class_data["hp_bonus"]
+            player["hp"] = player["max_hp"]
+            
+            save_player_db(self.user_id, player)
+            
+            embed = discord.Embed(
+                title=f"{class_data['emoji']} Classe Escolhida!",
+                description=f"*O narrador anuncia:*\n\n'Você se tornou um **{class_name}**!'\n\n{class_data['description']}",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name="💪 Bônus de ATK", value=f"+{class_data['atk_bonus']}", inline=True)
+            embed.add_field(name="🛡️ Bônus de DEF", value=f"+{class_data['def_bonus']}", inline=True)
+            embed.add_field(name="❤️ Bônus de HP", value=f"+{class_data['hp_bonus']}", inline=True)
+            
+            await interaction.response.edit_message(embed=embed, view=None)
+        
+        return callback
+
+class ClassSelectButton2(discord.ui.View):
+    def __init__(self, user_id, timeout=120):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.answered = False
+        
+        # Cria botões para as outras 5 classes
+        class_names = list(CLASSES.keys())[5:]
+        for class_name in class_names:
+            class_data = CLASSES[class_name]
+            button = discord.ui.Button(
+                label=class_name,
+                style=discord.ButtonStyle.primary,
+                emoji=class_data["emoji"]
+            )
+            button.callback = self.create_callback(class_name)
+            self.add_item(button)
+    
+    def create_callback(self, class_name):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
+            
+            if self.answered:
+                return
+            
+            self.answered = True
+            player = get_player(self.user_id)
+            player["class"] = class_name
+            
+            class_data = CLASSES[class_name]
+            player["max_hp"] += class_data["hp_bonus"]
+            player["hp"] = player["max_hp"]
+            
+            save_player_db(self.user_id, player)
+            
+            embed = discord.Embed(
+                title=f"{class_data['emoji']} Classe Escolhida!",
+                description=f"*O narrador anuncia:*\n\n'Você se tornou um **{class_name}**!'\n\n{class_data['description']}",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name="💪 Bônus de ATK", value=f"+{class_data['atk_bonus']}", inline=True)
+            embed.add_field(name="🛡️ Bônus de DEF", value=f"+{class_data['def_bonus']}", inline=True)
+            embed.add_field(name="❤️ Bônus de HP", value=f"+{class_data['hp_bonus']}", inline=True)
+            
+            await interaction.response.edit_message(embed=embed, view=None)
+        
+        return callback
+
+class PetTameButton(discord.ui.View):
+    def __init__(self, user_id, pet, timeout=60):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.pet = pet
+        self.answered = False
+    
+    @discord.ui.button(label="Tentar Domesticar", style=discord.ButtonStyle.green, emoji="🤝")
+    async def tame(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Este pet não é para você!", ephemeral=True)
+        
+        if self.answered:
+            return
+        
+        self.answered = True
+        
+        roll = roll_dice()
+        luck = get_luck(roll)
+        
+        embed = discord.Embed(
+            title=f"🎲 Tentativa de Domesticação",
+            color=discord.Color.blue()
+        )
+        embed.add_field(name="🎲 Dado", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
+        
+        if roll <= 3:
+            # Pet ataca
+            player = get_player(self.user_id)
+            dmg = random.randint(20, 40)
+            player["hp"] -= dmg
+            if player["hp"] <= 0:
+                player["hp"] = 1
+            save_player_db(self.user_id, player)
+            
+            embed.add_field(
+                name="💥 O Pet Ataca!",
+                value=f"*O narrador narra:*\n\n'{self.pet['name']} se assusta e ataca você!'\n\n💔 **−{dmg} HP**",
+                inline=False
+            )
+            embed.color = discord.Color.red()
+        
+        elif roll <= 6:
+            # Pet foge
+            embed.add_field(
+                name="🏃 Fuga!",
+                value=f"*O narrador comenta:*\n\n'{self.pet['name']} não confia em você e foge...'",
+                inline=False
+            )
+            embed.color = discord.Color.orange()
+        
+        else:
+            # Sucesso!
+            player = get_player(self.user_id)
+            player["pet"] = self.pet["name"]
+            save_player_db(self.user_id, player)
+            
+            embed.add_field(
+                name="✨ Domesticado!",
+                value=f"*O narrador celebra:*\n\n'{self.pet['emoji']} **{self.pet['name']}** agora é seu companheiro!'\n\n💪 **+{self.pet['bonus_atk']} ATK**\n❤️ **+{self.pet['bonus_hp']} HP**",
+                inline=False
+            )
+            embed.color = discord.Color.gold()
+        
+        await interaction.response.edit_message(embed=embed, view=None)
+    
+    @discord.ui.button(label="Deixar Ir", style=discord.ButtonStyle.gray, emoji="👋")
+    async def leave(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
+        
+        if self.answered:
+            return
+        
+        self.answered = True
+        await interaction.response.edit_message(
+            content=f"*O narrador comenta:*\n\n'Você decide não arriscar e deixa {self.pet['name']} em paz...'",
+            view=None
+        )
 
 class EquipButton(discord.ui.View):
     def __init__(self, user_id, item_name, item_type, timeout=60):
@@ -762,11 +1229,9 @@ class TradeButton(discord.ui.View):
         
         self.answered = True
         
-        # Executa a troca
         from_player = get_player(self.from_user)
         to_player = get_player(self.to_user)
         
-        # Remove itens
         for item in self.from_items:
             if item in from_player["inventory"]:
                 from_player["inventory"].remove(item)
@@ -775,7 +1240,6 @@ class TradeButton(discord.ui.View):
             if item in to_player["inventory"]:
                 to_player["inventory"].remove(item)
         
-        # Adiciona itens
         for item in self.to_items:
             from_player["inventory"].append(item)
         
@@ -891,6 +1355,7 @@ class DungeonSelectButton(discord.ui.View):
             await explore_dungeon(interaction.channel, self.user_id, self.dungeons[index], self.world)
         
         return callback
+# ================= FUNÇÕES DE BATALHA E EXPLORAÇÃO =================
 
 async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None):
     """Executa a batalha contra o boss"""
@@ -908,7 +1373,26 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None):
         boss_data = boss_world["boss"]
     
     roll = roll_dice()
+    
+    # Bônus de sorte do Bardo
+    if player.get("class") == "Bardo":
+        roll = min(10, roll + 1)
+    
     luck = get_luck(roll)
+    
+    # Calcula ATK e DEF do jogador
+    player_atk = 0
+    player_def = 0
+    
+    if player.get("class") and player["class"] in CLASSES:
+        player_atk += CLASSES[player["class"]]["atk_bonus"]
+        player_def += CLASSES[player["class"]]["def_bonus"]
+    
+    if player.get("pet"):
+        for world_pets in PETS.values():
+            for pet in world_pets:
+                if pet["name"] == player["pet"]:
+                    player_atk += pet["bonus_atk"]
     
     embed = discord.Embed(
         title=f"👹 BATALHA ÉPICA",
@@ -959,15 +1443,29 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None):
         embed.color = discord.Color.orange()
     
     else:
-        xp = boss_data["xp"] + (100 if roll >= 9 else 0)
+        xp = boss_data["xp"] + (150 if roll >= 9 else 0)
         coins = random.randint(boss_data["coins"][0], boss_data["coins"][1])
         
-        if not is_dungeon:
+        # Marca boss como derrotado
+        if boss_data["name"] not in player["bosses"]:
             player["bosses"].append(boss_data["name"])
         
         save_player_db(user_id, player)
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
+        
+        # Drop de poção do boss
+        if random.random() < 0.4:  # 40% de chance
+            potion_rarities = ["Raro", "Épico", "Lendário"]
+            weights = [50, 35, 15]
+            chosen_rarity = random.choices(potion_rarities, weights=weights)[0]
+            
+            potions_of_rarity = [name for name, data in POTIONS.items() if data["rarity"] == chosen_rarity]
+            if potions_of_rarity:
+                dropped_potion = random.choice(potions_of_rarity)
+                player = get_player(user_id)
+                player["inventory"].append(dropped_potion)
+                save_player_db(user_id, player)
         
         narratives = [
             f"Você esquiva do primeiro golpe do {boss_data['name']}!",
@@ -1087,10 +1585,18 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         embed.color = discord.Color.blue()
     
     elif roll <= 7:
-        xp = random.randint(50, 100)
-        coins = random.randint(30, 60)
+        xp = random.randint(80, 150)
+        coins = random.randint(50, 100)
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
+        
+        # Chance de poção
+        if random.random() < 0.3:
+            potion_list = [name for name in POTIONS.keys()]
+            dropped_potion = random.choice(potion_list)
+            player = get_player(user_id)
+            player["inventory"].append(dropped_potion)
+            save_player_db(user_id, player)
         
         embed.add_field(
             name="💎 Tesouro Escondido!",
@@ -1111,8 +1617,8 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
         item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
         
-        xp = random.randint(80, 150)
-        coins = random.randint(50, 100)
+        xp = random.randint(120, 200)
+        coins = random.randint(80, 150)
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
         
@@ -1155,8 +1661,8 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             "name": dungeon['boss'],
             "hp": 200 + (dungeon['level'] * 50),
             "atk": 20 + (dungeon['level'] * 3),
-            "xp": 100 + (dungeon['level'] * 30),
-            "coins": (50 + (dungeon['level'] * 10), 100 + (dungeon['level'] * 20))
+            "xp": 150 + (dungeon['level'] * 40),
+            "coins": (80 + (dungeon['level'] * 15), 150 + (dungeon['level'] * 25))
         }
         
         await fight_boss(channel, user_id, is_dungeon=True, dungeon_boss=boss_data)
@@ -1166,7 +1672,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
 
 # ================= SISTEMA DE EVENTOS ALEATÓRIOS =================
 
-@tasks.loop(minutes=random.randint(10, 30))
+@tasks.loop(minutes=random.randint(15, 30))
 async def random_world_events():
     """Envia eventos aleatórios no canal"""
     for guild in bot.guilds:
@@ -1174,7 +1680,7 @@ async def random_world_events():
         if not channel:
             continue
         
-        event_type = random.choice(["structure", "narrator", "merchant"])
+        event_type = random.choice(["structure", "narrator", "merchant", "pet"])
         
         if event_type == "structure":
             structure = random.choice(STRUCTURES)
@@ -1192,7 +1698,6 @@ async def random_world_events():
         elif event_type == "narrator":
             warning = random.choice(NARRATOR_WARNINGS)
             
-            # Pega um jogador aleatório do servidor
             try:
                 members = [m for m in guild.members if not m.bot]
                 if members:
@@ -1211,17 +1716,14 @@ async def random_world_events():
         elif event_type == "merchant":
             items_for_sale = []
             
-            # Arma aleatória
             weapon = random.choice([i for i in ITEMS["weapons"] if i["rarity"] in ["Incomum", "Raro", "Épico"]])
             weapon_price = {"Incomum": 100, "Raro": 300, "Épico": 600}[weapon["rarity"]]
             items_for_sale.append({"name": weapon["name"], "type": "weapon", "price": weapon_price})
             
-            # Armadura aleatória
             armor = random.choice([i for i in ITEMS["armor"] if i["rarity"] in ["Incomum", "Raro", "Épico"]])
             armor_price = {"Incomum": 100, "Raro": 300, "Épico": 600}[armor["rarity"]]
             items_for_sale.append({"name": armor["name"], "type": "armor", "price": armor_price})
             
-            # Poção
             items_for_sale.append({"name": "Poção de Cura (+50 HP)", "type": "potion", "price": 50})
             
             embed = discord.Embed(
@@ -1240,6 +1742,24 @@ async def random_world_events():
             embed.set_footer(text="Use os botões abaixo para comprar! O mercador ficará por tempo limitado...")
             
             await channel.send(embed=embed, view=ShopButton(None, items_for_sale))
+        
+        elif event_type == "pet":
+            # Evento de pet selvagem aparece
+            world_levels = list(PETS.keys())
+            chosen_world = random.choice(world_levels)
+            pet = random.choice(PETS[chosen_world])
+            
+            embed = discord.Embed(
+                title=f"{pet['emoji']} Criatura Selvagem Apareceu!",
+                description=f"*O narrador anuncia:*\n\n'Um **{pet['name']}** selvagem aparece no horizonte!'",
+                color=RARITIES[pet["rarity"]]["color"]
+            )
+            embed.add_field(name="✨ Raridade", value=f"{RARITIES[pet['rarity']]['emoji']} {pet['rarity']}", inline=True)
+            embed.add_field(name="💪 Bônus ATK", value=f"+{pet['bonus_atk']}", inline=True)
+            embed.add_field(name="❤️ Bônus HP", value=f"+{pet['bonus_hp']}", inline=True)
+            embed.set_footer(text="Reaja rápido se quiser tentar domesticá-lo!")
+            
+            await channel.send(embed=embed)
 
 # ================= PRÓLOGO =================
 
@@ -1276,20 +1796,34 @@ os céus, sete reinos coexistiam em harmonia frágil..."
 ⚔️ *Criaturas despertas já sentem sua presença...*
 👑 *O Imperador Astral observa de seu trono distante...*
 💰 *Moedas CSI aguardam para serem conquistadas...*
+🐉 *Criaturas lendárias esperam para serem domesticadas...*
+🏰 *Guildas aguardam por líderes corajosos...*
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 💬 **Como jogar:**
 
-Basta falar naturalmente! Exemplos:
-- "explorar" ou "vou explorar" - Explorar o mundo
-- "caçar" ou "vou caçar" - Caçar monstros
-- "coletar" ou "pegar recursos" - Coletar recursos
-- "achar dungeon" - Procurar dungeons para explorar
-- "trocar [item] com @usuário" - Trocar itens
-- "trocar coins csi" - Converter moedas CSI
-- "ver meu perfil" - Ver seu status
+**EXPLORAÇÃO:**
+- "explorar" - Explorar o mundo
+- "caçar" - Caçar monstros
+- "coletar" - Coletar recursos
+- "achar dungeon" - Procurar dungeons
+
+**INVENTÁRIO & ITENS:**
+- "ver perfil" - Ver seu status
 - "ver inventário" - Ver seus itens
+- "beber [poção]" - Usar uma poção
+- "vender [item]" - Vender item ao mercador
+
+**SOCIAL:**
+- "trocar [item] com @usuário" - Trocar itens
+- "criar guilda [nome]" - Criar uma guilda
+- "entrar na guilda" - Ver guildas disponíveis
+- "ver guilda" - Ver sua guilda
+
+**OUTROS:**
+- "trocar coins csi" - Converter moedas CSI
+- "domesticar" - Tentar domesticar pet que apareceu
 
 *O narrador acompanhará cada passo seu!*
 
@@ -1302,7 +1836,7 @@ Basta falar naturalmente! Exemplos:
     
     await channel.send(prologue)
 
-# ================= EVENTOS =================
+# ================= EVENTOS DO BOT =================
 
 @bot.event
 async def on_ready():
@@ -1327,9 +1861,351 @@ async def on_message(message):
     content = message.content.lower().strip()
     user_id = message.author.id
     
+    # ================= ESCOLHER CLASSE =================
+    if any(word in content for word in ["escolher classe", "ver classes", "classes"]):
+        player = get_player(user_id)
+        
+        if player.get("class"):
+            await message.channel.send(f"❌ Você já é um **{player['class']}**! Não pode mudar de classe.")
+            return
+        
+        if player["level"] < 2:
+            await message.channel.send("❌ Você precisa ser **nível 2** para escolher uma classe!")
+            return
+        
+        embed = discord.Embed(
+            title="🎭 Escolha sua Classe",
+            description="*O narrador pergunta:*\n\n'Qual caminho você deseja seguir?'",
+            color=discord.Color.blue()
+        )
+        
+        # Mostra primeiras 5 classes
+        for class_name in list(CLASSES.keys())[:5]:
+            class_data = CLASSES[class_name]
+            embed.add_field(
+                name=f"{class_data['emoji']} {class_name}",
+                value=f"{class_data['description']}\n**ATK:** +{class_data['atk_bonus']} | **DEF:** +{class_data['def_bonus']} | **HP:** +{class_data['hp_bonus']}",
+                inline=False
+            )
+        
+        view = ClassSelectButton(user_id)
+        await message.channel.send(embed=embed, view=view)
+        await asyncio.sleep(1)
+        
+        # Mostra outras 5 classes
+        embed2 = discord.Embed(
+            title="🎭 Mais Classes",
+            color=discord.Color.blue()
+        )
+        
+        for class_name in list(CLASSES.keys())[5:]:
+            class_data = CLASSES[class_name]
+            embed2.add_field(
+                name=f"{class_data['emoji']} {class_name}",
+                value=f"{class_data['description']}\n**ATK:** +{class_data['atk_bonus']} | **DEF:** +{class_data['def_bonus']} | **HP:** +{class_data['hp_bonus']}",
+                inline=False
+            )
+        
+        view2 = ClassSelectButton2(user_id)
+        await message.channel.send(embed=embed2, view=view2)
+        return
+    
+    # ================= DOMESTICAR PET =================
+    elif any(word in content for word in ["domesticar", "tentar domesticar", "domar"]):
+        player = get_player(user_id)
+        
+        if player.get("pet"):
+            await message.channel.send(f"❌ Você já tem um pet: **{player['pet']}**!")
+            return
+        
+        # Verifica mundo do jogador
+        world_level = player["level"] - (player["level"] % 10)
+        if world_level == 0:
+            world_level = 1
+        
+        if world_level not in PETS:
+            world_level = max([w for w in PETS.keys() if w <= player["level"]])
+        
+        available_pets = PETS[world_level]
+        pet = random.choice(available_pets)
+        
+        embed = discord.Embed(
+            title=f"{pet['emoji']} {pet['name']} Apareceu!",
+            description=f"*O narrador anuncia:*\n\n'Um **{pet['name']}** selvagem aparece diante de você!'",
+            color=RARITIES[pet["rarity"]]["color"]
+        )
+        embed.add_field(name="✨ Raridade", value=f"{RARITIES[pet['rarity']]['emoji']} {pet['rarity']}", inline=True)
+        embed.add_field(name="💪 Bônus ATK", value=f"+{pet['bonus_atk']}", inline=True)
+        embed.add_field(name="❤️ Bônus HP", value=f"+{pet['bonus_hp']}", inline=True)
+        
+        view = PetTameButton(user_id, pet)
+        await message.channel.send(embed=embed, view=view)
+        return
+    
+    # ================= CRIAR GUILDA =================
+    elif "criar guilda" in content or "criar guild" in content:
+        player = get_player(user_id)
+        
+        if player.get("guild_id"):
+            await message.channel.send("❌ Você já está em uma guilda!")
+            return
+        
+        guild_name = content.replace("criar guilda", "").replace("criar guild", "").strip()
+        
+        if not guild_name:
+            await message.channel.send("❌ Use: `criar guilda [nome da guilda]`")
+            return
+        
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        
+        try:
+            c.execute("INSERT INTO guilds (name, leader_id, members) VALUES (?, ?, ?)",
+                     (guild_name, str(user_id), json.dumps([str(user_id)])))
+            guild_id = c.lastrowid
+            conn.commit()
+            
+            player["guild_id"] = guild_id
+            save_player_db(user_id, player)
+            
+            embed = discord.Embed(
+                title="🏰 Guilda Criada!",
+                description=f"*O narrador anuncia:*\n\n'A guilda **{guild_name}** foi fundada por {message.author.mention}!'",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name="👑 Líder", value=message.author.mention, inline=True)
+            embed.add_field(name="👥 Membros", value="1", inline=True)
+            embed.set_footer(text="Outros jogadores podem usar 'entrar na guilda' para se juntar!")
+            
+            await message.channel.send(embed=embed)
+            
+        except sqlite3.IntegrityError:
+            await message.channel.send("❌ Já existe uma guilda com esse nome!")
+        finally:
+            conn.close()
+        
+        return
+    
+    # ================= ENTRAR NA GUILDA =================
+    elif "entrar na guilda" in content or "entrar na guild" in content:
+        player = get_player(user_id)
+        
+        if player.get("guild_id"):
+            await message.channel.send("❌ Você já está em uma guilda!")
+            return
+        
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT id, name, leader_id, members FROM guilds")
+        guilds = c.fetchall()
+        conn.close()
+        
+        if not guilds:
+            await message.channel.send("❌ Não há guildas disponíveis! Crie uma com `criar guilda [nome]`")
+            return
+        
+        embed = discord.Embed(
+            title="🏰 Guildas Disponíveis",
+            description="*O narrador lista as guildas:*\n\nDigite o número da guilda para entrar!",
+            color=discord.Color.blue()
+        )
+        
+        for guild in guilds:
+            guild_id, name, leader_id, members_json = guild
+            members = json.loads(members_json)
+            
+            try:
+                leader = await bot.fetch_user(int(leader_id))
+                leader_name = leader.name
+            except:
+                leader_name = "Desconhecido"
+            
+            embed.add_field(
+                name=f"{guild_id}. {name}",
+                value=f"👑 Líder: {leader_name}\n👥 Membros: {len(members)}",
+                inline=False
+            )
+        
+        await message.channel.send(embed=embed)
+        
+        def check(m):
+            return m.author.id == user_id and m.content.isdigit()
+        
+        try:
+            response = await bot.wait_for('message', check=check, timeout=30.0)
+            guild_id_choice = int(response.content)
+            
+            conn = sqlite3.connect(DB_FILE)
+            c = conn.cursor()
+            c.execute("SELECT name, members FROM guilds WHERE id = ?", (guild_id_choice,))
+            result = c.fetchone()
+            
+            if not result:
+                await message.channel.send("❌ Guilda não encontrada!")
+                conn.close()
+                return
+            
+            guild_name, members_json = result
+            members = json.loads(members_json)
+            members.append(str(user_id))
+            
+            c.execute("UPDATE guilds SET members = ? WHERE id = ?", (json.dumps(members), guild_id_choice))
+            conn.commit()
+            conn.close()
+            
+            player["guild_id"] = guild_id_choice
+            save_player_db(user_id, player)
+            
+            await message.channel.send(
+                f"✅ **Você entrou na guilda {guild_name}!**\n\n*O narrador: Bem-vindo à família!*"
+            )
+            
+        except asyncio.TimeoutError:
+            await message.channel.send("⏰ Tempo esgotado!")
+        
+        return
+    
+    # ================= VER GUILDA =================
+    elif "ver guilda" in content or "ver guild" in content or "minha guilda" in content:
+        player = get_player(user_id)
+        
+        if not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, leader_id, members, total_xp FROM guilds WHERE id = ?", (player["guild_id"],))
+        result = c.fetchone()
+        conn.close()
+        
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!")
+            return
+        
+        guild_name, leader_id, members_json, total_xp = result
+        members = json.loads(members_json)
+        
+        try:
+            leader = await bot.fetch_user(int(leader_id))
+            leader_name = leader.name
+        except:
+            leader_name = "Desconhecido"
+        
+        embed = discord.Embed(
+            title=f"🏰 {guild_name}",
+            description=f"*O narrador descreve sua guilda:*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="👑 Líder", value=leader_name, inline=True)
+        embed.add_field(name="👥 Membros", value=len(members), inline=True)
+        embed.add_field(name="⭐ XP Total", value=total_xp, inline=True)
+        
+        # Lista membros
+        member_names = []
+        for member_id in members[:10]:  # Mostra até 10
+            try:
+                member = await bot.fetch_user(int(member_id))
+                member_names.append(member.name)
+            except:
+                pass
+        
+        if member_names:
+            embed.add_field(
+                name="📋 Membros",
+                value="\n".join([f"• {name}" for name in member_names]),
+                inline=False
+            )
+        
+        await message.channel.send(embed=embed)
+        return
+    
+    # ================= BEBER POÇÃO =================
+    elif "beber" in content or "usar poção" in content or "tomar" in content:
+        player = get_player(user_id)
+        
+        # Encontra nome da poção
+        potion_name = None
+        for potion in POTIONS.keys():
+            if potion.lower() in content:
+                potion_name = potion
+                break
+        
+        if not potion_name:
+            await message.channel.send("❌ Especifique qual poção deseja usar!")
+            return
+        
+        if potion_name not in player["inventory"]:
+            await message.channel.send(f"❌ Você não tem **{potion_name}**!")
+            return
+        
+        potion = POTIONS[potion_name]
+        player["inventory"].remove(potion_name)
+        
+        embed = discord.Embed(
+            title=f"{potion['emoji']} Poção Consumida!",
+            description=f"*O narrador narra:*\n\n'Você bebe **{potion_name}**...'",
+            color=RARITIES[potion["rarity"]]["color"]
+        )
+        
+        if "hp_restore" in potion:
+            old_hp = player["hp"]
+            player["hp"] = min(player["hp"] + potion["hp_restore"], player["max_hp"])
+            healed = player["hp"] - old_hp
+            embed.add_field(name="💚 HP Restaurado", value=f"+{healed} HP", inline=False)
+        
+        if "xp_gain" in potion:
+            add_xp(user_id, potion["xp_gain"])
+            embed.add_field(name="⭐ XP Ganho", value=f"+{potion['xp_gain']} XP", inline=False)
+        
+        if "revive" in potion and potion["revive"]:
+            player["hp"] = player["max_hp"]
+            embed.add_field(name="💀 Ressurreição", value="Você foi completamente curado!", inline=False)
+        
+        save_player_db(user_id, player)
+        await message.channel.send(embed=embed)
+        return
+    
+    # ================= VENDER ITEM =================
+    elif "vender" in content:
+        player = get_player(user_id)
+        
+        # Remove "vender" do texto
+        item_name = content.replace("vender", "").strip()
+        
+        if not item_name:
+            await message.channel.send("❌ Use: `vender [nome do item]`")
+            return
+        
+        # Procura o item no inventário
+        found_item = None
+        for item in player["inventory"]:
+            if item_name in item.lower():
+                found_item = item
+                break
+        
+        if not found_item:
+            await message.channel.send(f"❌ Você não tem **{item_name}** no inventário!")
+            return
+        
+        price = get_item_sell_price(found_item)
+        player["inventory"].remove(found_item)
+        player["coins"] += price
+        save_player_db(user_id, player)
+        
+        embed = discord.Embed(
+            title="💰 Item Vendido!",
+            description=f"*O narrador anota:*\n\n'Você vendeu **{found_item}** por **{price} CSI**!'",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="💰 Moedas Atuais", value=f"{player['coins']} CSI", inline=False)
+        
+        await message.channel.send(embed=embed)
+        return
+    
+    # Continua com os comandos antigos (explorar, caçar, etc) no próximo comentário...
     # ================= TROCAR ITEMS =================
     if "trocar" in content and "@" in message.content:
-        # Parse da mensagem
         parts = message.content.split("com")
         if len(parts) != 2:
             return
@@ -1337,7 +2213,6 @@ async def on_message(message):
         from_items_text = parts[0].replace("trocar", "").strip()
         to_user_mention = parts[1].strip()
         
-        # Identifica usuário mencionado
         mentions = message.mentions
         if not mentions:
             await message.channel.send("❌ Você precisa mencionar um usuário válido!")
@@ -1350,7 +2225,6 @@ async def on_message(message):
             await message.channel.send("❌ Você não pode trocar com você mesmo!")
             return
         
-        # Pede os itens que quer em troca
         await message.channel.send(f"{to_user.mention}, que item você oferece em troca de **{from_items_text}**?\n\n*Responda com: 'ofereço [nome do item]'*")
         
         def check(m):
@@ -1360,7 +2234,6 @@ async def on_message(message):
             response = await bot.wait_for('message', check=check, timeout=60.0)
             to_items_text = response.content.replace("ofereço", "").strip()
             
-            # Cria a proposta de troca
             embed = discord.Embed(
                 title="🔄 Proposta de Troca",
                 description=f"*O narrador observa a negociação...*",
@@ -1392,7 +2265,6 @@ async def on_message(message):
         
         await message.channel.send(embed=embed)
         
-        # Envia DM para o admin
         try:
             admin = await bot.fetch_user(ADMIN_ID)
             dm_embed = discord.Embed(
@@ -1412,8 +2284,19 @@ async def on_message(message):
     # ================= EXPLORAR =================
     if any(word in content for word in ["explorar", "vou explorar", "vou para", "andar", "caminhar"]):
         player = get_player(user_id)
+        
+        # Verifica se precisa escolher classe
+        if player["level"] >= 2 and not player.get("class"):
+            await message.channel.send("⚠️ **Você precisa escolher uma classe primeiro!**\n\nUse: `escolher classe`")
+            return
+        
         world = get_world(player["level"])
         roll = roll_dice()
+        
+        # Bônus de sorte do Bardo
+        if player.get("class") == "Bardo":
+            roll = min(10, roll + 1)
+        
         luck = get_luck(roll)
         
         event = random.choice(world["events"])
@@ -1462,6 +2345,12 @@ async def on_message(message):
         elif roll == 5:
             res = random.choice(world["resources"])
             player["inventory"].append(res)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(5, 15)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             
             embed.add_field(
@@ -1471,9 +2360,15 @@ async def on_message(message):
             )
         
         elif roll in [6, 7]:
-            xp = random.randint(15, 30)
+            xp = random.randint(20, 40)
             res = random.choice(world["resources"])
             player["inventory"].append(res)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(10, 20)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
             
@@ -1495,10 +2390,16 @@ async def on_message(message):
                 embed.color = discord.Color.green()
         
         elif roll == 8:
-            xp = random.randint(30, 50)
+            xp = random.randint(40, 70)
             resources = random.sample(world["resources"], min(2, len(world["resources"])))
             for r in resources:
                 player["inventory"].append(r)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(15, 30)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
             
@@ -1523,7 +2424,7 @@ async def on_message(message):
             items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
             item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
             
-            xp = random.randint(40, 70)
+            xp = random.randint(60, 100)
             leveled = add_xp(user_id, xp)
             
             rarity_info = RARITIES[item["rarity"]]
@@ -1581,7 +2482,7 @@ async def on_message(message):
             legendary = [i for i in ITEMS[item_list] if i["rarity"] in ["Lendário", "Mítico"]]
             item = random.choice(legendary)
             
-            xp = random.randint(80, 150)
+            xp = random.randint(120, 200)
             leveled = add_xp(user_id, xp)
             
             embed.add_field(
@@ -1657,12 +2558,22 @@ async def on_message(message):
     # ================= CAÇAR =================
     elif any(word in content for word in ["caçar", "cacar", "lutar", "atacar", "vou caçar", "batalhar"]):
         player = get_player(user_id)
+        
+        if player["level"] >= 2 and not player.get("class"):
+            await message.channel.send("⚠️ **Você precisa escolher uma classe primeiro!**\n\nUse: `escolher classe`")
+            return
+        
         world = get_world(player["level"])
         
         monster_name = random.choice(list(world["monsters"].keys()))
         monster = world["monsters"][monster_name]
         
         roll = roll_dice()
+        
+        # Bônus de sorte do Bardo
+        if player.get("class") == "Bardo":
+            roll = min(10, roll + 1)
+        
         luck = get_luck(roll)
         
         embed = discord.Embed(
@@ -1730,6 +2641,14 @@ async def on_message(message):
             leveled = add_xp(user_id, xp)
             add_coins(user_id, coins)
             
+            # Chance de drop de poção
+            if random.random() < 0.2:
+                potion_list = [name for name, data in POTIONS.items() if data["rarity"] in ["Comum", "Incomum"]]
+                dropped_potion = random.choice(potion_list)
+                player = get_player(user_id)
+                player["inventory"].append(dropped_potion)
+                save_player_db(user_id, player)
+            
             narratives = [
                 f"'Você se move com agilidade!'",
                 f"'Seus golpes são precisos!'",
@@ -1750,13 +2669,15 @@ async def on_message(message):
             embed.color = discord.Color.green()
         
         else:  # 8-10
-            xp = random.randint(monster["xp"][1], monster["xp"][1] + 10)
-            coins = random.randint(monster["coins"][1], monster["coins"][1] + 15)
+            xp = random.randint(monster["xp"][1], monster["xp"][1] + 15)
+            coins = random.randint(monster["coins"][1], monster["coins"][1] + 20)
             leveled = add_xp(user_id, xp)
             add_coins(user_id, coins)
             
             drop = None
             drop_item = None
+            drop_potion = None
+            
             if roll >= 9:
                 if roll == 10:
                     item_type = random.choice(["weapon", "armor"])
@@ -1766,7 +2687,19 @@ async def on_message(message):
                     drop_item = random.choice(items_filtered) if items_filtered else None
                 else:
                     drop = random.choice(world["resources"])
+                    player = get_player(user_id)
                     player["inventory"].append(drop)
+                    save_player_db(user_id, player)
+                
+                # Sempre dropa poção em 9-10
+                potion_rarities = ["Incomum", "Raro", "Épico"]
+                weights = [50, 35, 15]
+                chosen_rarity = random.choices(potion_rarities, weights=weights)[0]
+                potions_of_rarity = [name for name, data in POTIONS.items() if data["rarity"] == chosen_rarity]
+                if potions_of_rarity:
+                    drop_potion = random.choice(potions_of_rarity)
+                    player = get_player(user_id)
+                    player["inventory"].append(drop_potion)
                     save_player_db(user_id, player)
             
             narratives = [
@@ -1779,8 +2712,10 @@ async def on_message(message):
             drop_text = ""
             if drop:
                 drop_text = f"\n\n*O narrador nota:*\n'Do corpo, você extrai: **{drop}**'"
-            elif drop_item:
-                drop_text = f"\n\n*O narrador exclama:*\n'O monstro deixa cair: {RARITIES[drop_item['rarity']]['emoji']} **{drop_item['name']}**!'"
+            if drop_item:
+                drop_text += f"\n'O monstro deixa cair: {RARITIES[drop_item['rarity']]['emoji']} **{drop_item['name']}**!'"
+            if drop_potion:
+                drop_text += f"\n'Você encontra uma poção: {POTIONS[drop_potion]['emoji']} **{drop_potion}**!'"
             
             embed.add_field(
                 name="✨ Domínio Total!",
@@ -1812,6 +2747,11 @@ async def on_message(message):
     # ================= COLETAR =================
     elif any(word in content for word in ["coletar", "pegar recursos", "minerar", "vou coletar", "colher"]):
         player = get_player(user_id)
+        
+        if player["level"] >= 2 and not player.get("class"):
+            await message.channel.send("⚠️ **Você precisa escolher uma classe primeiro!**\n\nUse: `escolher classe`")
+            return
+        
         world = get_world(player["level"])
         
         roll = roll_dice()
@@ -1835,6 +2775,12 @@ async def on_message(message):
         elif roll <= 6:
             res = random.choice(world["resources"])
             player["inventory"].append(res)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(10, 20)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             
             embed.add_field(
@@ -1848,6 +2794,12 @@ async def on_message(message):
             resources = [random.choice(world["resources"]) for _ in range(2)]
             for r in resources:
                 player["inventory"].append(r)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(15, 30)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             
             items = "\n".join([f"• **{r}**" for r in resources])
@@ -1864,6 +2816,12 @@ async def on_message(message):
             resources = [random.choice(world["resources"]) for _ in range(count)]
             for r in resources:
                 player["inventory"].append(r)
+            
+            # Bônus do Druida
+            if player.get("class") == "Druida":
+                heal = random.randint(20, 40)
+                player["hp"] = min(player["hp"] + heal, player["max_hp"])
+            
             save_player_db(user_id, player)
             
             items = "\n".join([f"• **{r}**" for r in resources])
@@ -1881,6 +2839,11 @@ async def on_message(message):
     # ================= ACHAR DUNGEON =================
     elif any(word in content for word in ["achar dungeon", "procurar dungeon", "buscar dungeon", "encontrar dungeon", "dungeon"]):
         player = get_player(user_id)
+        
+        if player["level"] >= 2 and not player.get("class"):
+            await message.channel.send("⚠️ **Você precisa escolher uma classe primeiro!**\n\nUse: `escolher classe`")
+            return
+        
         world = get_world(player["level"])
         
         if "dungeons" not in world or not world["dungeons"]:
@@ -1955,6 +2918,19 @@ async def on_message(message):
         embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}`", inline=True)
         embed.add_field(name="❤️ HP", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
         
+        # Classe
+        if player.get("class"):
+            class_data = CLASSES[player["class"]]
+            embed.add_field(
+                name=f"{class_data['emoji']} Classe",
+                value=player["class"],
+                inline=True
+            )
+        
+        # Pet
+        if player.get("pet"):
+            embed.add_field(name="🐉 Pet", value=player["pet"], inline=True)
+        
         embed.add_field(
             name="🌍 Localização Atual",
             value=f"{world['emoji']} **{world['name']}**",
@@ -1968,6 +2944,17 @@ async def on_message(message):
         
         bosses_defeated = len(player["bosses"])
         embed.add_field(name="👹 Bosses Derrotados", value=f"`{bosses_defeated}`", inline=True)
+        
+        # Guilda
+        if player.get("guild_id"):
+            conn = sqlite3.connect(DB_FILE)
+            c = conn.cursor()
+            c.execute("SELECT name FROM guilds WHERE id = ?", (player["guild_id"],))
+            result = c.fetchone()
+            conn.close()
+            
+            if result:
+                embed.add_field(name="🏰 Guilda", value=result[0], inline=True)
         
         await message.channel.send(embed=embed)
         return
@@ -2000,6 +2987,6 @@ async def on_message(message):
         await message.channel.send(embed=embed)
         return
 
-# ================= RUN =================
+# ================= RUN BOT =================
 
 bot.run(TOKEN)
