@@ -91,8 +91,99 @@ CLASSES = {
         "hp_bonus": 15,
         "atk_bonus": 10,
         "def_bonus": 10,
+        "mana_bonus": 20,
         "description": "Músico encantador, bônus de XP e sorte aumentada."
     }
+}
+
+# ================= MANA POR CLASSE =================
+CLASS_MANA = {
+    "Guerreiro":  {"base_mana": 30,  "mana_per_level": 2},
+    "Mago":       {"base_mana": 100, "mana_per_level": 8},
+    "Arqueiro":   {"base_mana": 40,  "mana_per_level": 3},
+    "Paladino":   {"base_mana": 60,  "mana_per_level": 4},
+    "Assassino":  {"base_mana": 50,  "mana_per_level": 3},
+    "Necromante": {"base_mana": 80,  "mana_per_level": 6},
+    "Berserker":  {"base_mana": 20,  "mana_per_level": 1},
+    "Druida":     {"base_mana": 70,  "mana_per_level": 5},
+    "Monge":      {"base_mana": 55,  "mana_per_level": 4},
+    "Bardo":      {"base_mana": 65,  "mana_per_level": 5},
+}
+
+# ================= HABILIDADES POR CLASSE (PvP) =================
+CLASS_SKILLS = {
+    "Guerreiro": [
+        {"name": "🗡️ Golpe Devastador", "mana_cost": 0, "dmg_mult": 1.4, "desc": "Um golpe poderoso com toda a força!"},
+        {"name": "🛡️ Ataque Protetor", "mana_cost": 10, "dmg_mult": 1.2, "def_bonus": 10, "desc": "Ataca enquanto se defende."},
+        {"name": "⚔️ Fúria do Guerreiro", "mana_cost": 20, "dmg_mult": 1.8, "desc": "Desencadeia uma rajada de golpes furiosos!"},
+        {"name": "🔥 Grito de Batalha", "mana_cost": 15, "dmg_mult": 1.5, "stun_chance": 0.2, "desc": "Grita aterrorizante que pode paralisar."},
+    ],
+    "Mago": [
+        {"name": "🔥 Bola de Fogo", "mana_cost": 25, "dmg_mult": 2.0, "desc": "Uma esfera flamejante de destruição!"},
+        {"name": "⚡ Relâmpago Arcano", "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Eletricidade arcana que pode paralisar."},
+        {"name": "❄️ Toque Gelado", "mana_cost": 20, "dmg_mult": 1.6, "slow_chance": 0.4, "desc": "Congela o adversário reduzindo sua ação."},
+        {"name": "🌀 Explosão do Vazio", "mana_cost": 40, "dmg_mult": 2.8, "desc": "Poder do abismo canalizado em destruição!"},
+    ],
+    "Arqueiro": [
+        {"name": "🏹 Flecha Certeira", "mana_cost": 0, "dmg_mult": 1.5, "desc": "Uma flecha lançada com precisão mortal."},
+        {"name": "💨 Chuva de Flechas", "mana_cost": 20, "dmg_mult": 1.7, "desc": "Múltiplas flechas caem como chuva!"},
+        {"name": "🎯 Tiro Perfurante", "mana_cost": 15, "dmg_mult": 2.0, "ignore_def": True, "desc": "Flecha que penetra qualquer defesa."},
+        {"name": "🌿 Flecha Envenenada", "mana_cost": 10, "dmg_mult": 1.3, "poison": True, "desc": "Veneno que corrói lentamente."},
+    ],
+    "Paladino": [
+        {"name": "✨ Golpe Sagrado", "mana_cost": 15, "dmg_mult": 1.6, "desc": "Energia divina concentrada em um golpe!"},
+        {"name": "🛡️ Escudo da Fé", "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 30, "desc": "Cura a si mesmo enquanto defende."},
+        {"name": "☀️ Julgamento Divino", "mana_cost": 35, "dmg_mult": 2.0, "desc": "O julgamento dos céus cai sobre o inimigo!"},
+        {"name": "🌟 Aura de Proteção", "mana_cost": 25, "dmg_mult": 1.2, "def_bonus": 20, "desc": "Aura que reduz o dano recebido."},
+    ],
+    "Assassino": [
+        {"name": "🗡️ Golpe Sorrateiro", "mana_cost": 0, "dmg_mult": 1.8, "crit_chance": 0.4, "desc": "Das sombras, um golpe mortal!"},
+        {"name": "💨 Dança das Lâminas", "mana_cost": 20, "dmg_mult": 1.5, "desc": "Uma sequência vertiginosa de ataques."},
+        {"name": "☠️ Veneno Assassino", "mana_cost": 15, "dmg_mult": 1.3, "poison": True, "desc": "Aplica veneno letal no adversário."},
+        {"name": "🌑 Golpe das Sombras", "mana_cost": 30, "dmg_mult": 2.5, "crit_chance": 0.5, "desc": "Ataque das trevas com alta chance crítica!"},
+    ],
+    "Necromante": [
+        {"name": "💀 Dreno de Vida", "mana_cost": 20, "dmg_mult": 1.5, "self_heal": 20, "desc": "Rouba HP do adversário!"},
+        {"name": "🦴 Invocar Esqueleto", "mana_cost": 30, "dmg_mult": 1.7, "desc": "Um esqueleto guerreiro ataca!"},
+        {"name": "🌑 Maldição Sombria", "mana_cost": 25, "dmg_mult": 1.4, "weaken": True, "desc": "Maldição que enfraquece o inimigo."},
+        {"name": "☠️ Morte Instantânea", "mana_cost": 50, "dmg_mult": 3.0, "desc": "Toca o véu entre vida e morte!"},
+    ],
+    "Berserker": [
+        {"name": "🪓 Frenesi", "mana_cost": 0, "dmg_mult": 2.0, "desc": "Ataque frenético sem controle!"},
+        {"name": "💢 Ira Incontrolável", "mana_cost": 15, "dmg_mult": 2.2, "self_dmg": 10, "desc": "Sacrifica HP próprio por poder devastador."},
+        {"name": "🩸 Sede de Sangue", "mana_cost": 10, "dmg_mult": 1.8, "hp_scale": True, "desc": "Quanto menos HP, mais forte o golpe!"},
+        {"name": "💥 Explosão de Fúria", "mana_cost": 25, "dmg_mult": 2.8, "desc": "Toda a raiva liberada em um instante!"},
+    ],
+    "Druida": [
+        {"name": "🌿 Golpe Natural", "mana_cost": 0, "dmg_mult": 1.3, "self_heal": 15, "desc": "A natureza cura ao atacar."},
+        {"name": "🌪️ Tempestade de Folhas", "mana_cost": 20, "dmg_mult": 1.6, "desc": "Uma tempestade de espinhos e folhas!"},
+        {"name": "🐺 Fúria Animal", "mana_cost": 30, "dmg_mult": 2.0, "desc": "Transforma-se em besta selvagem!"},
+        {"name": "⚡ Trovão da Terra", "mana_cost": 35, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "A terra responde com trovão!"},
+    ],
+    "Monge": [
+        {"name": "👊 Soco do Dragão", "mana_cost": 0, "dmg_mult": 1.5, "desc": "Um soco carregado de ki!"},
+        {"name": "🌀 Cem Golpes", "mana_cost": 20, "dmg_mult": 1.7, "desc": "Cem golpes em menos de um segundo!"},
+        {"name": "⚡ Raio de Ki", "mana_cost": 25, "dmg_mult": 2.0, "desc": "Energia vital lançada como projétil!"},
+        {"name": "🧘 Golpe Transcendente", "mana_cost": 40, "dmg_mult": 2.5, "desc": "O corpo e a mente em perfeita harmonia."},
+    ],
+    "Bardo": [
+        {"name": "🎵 Nota Dissonante", "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.3, "desc": "Uma nota que atordoa o adversário!"},
+        {"name": "🎸 Acorde do Caos", "mana_cost": 20, "dmg_mult": 1.6, "desc": "Um acorde que confunde os sentidos."},
+        {"name": "🎺 Fanfarra da Ruína", "mana_cost": 15, "dmg_mult": 1.5, "weaken": True, "desc": "Enfraquece o inimigo com música mágica."},
+        {"name": "🎻 Sinfonia da Destruição", "mana_cost": 35, "dmg_mult": 2.2, "desc": "A música se torna força destrutiva pura!"},
+    ],
+}
+
+# ================= RARITY DICE BONUS =================
+RARITY_DICE_BONUS = {
+    "Comum": 0,
+    "Incomum": 0,
+    "Raro": 1,
+    "Épico": 1,
+    "Lendário": 2,
+    "Mítico": 2,
+    "Divino": 3,
+    "Primordial": 4,
 }
 
 # ================= RARIDADES (expandidas) =================
@@ -633,6 +724,360 @@ A história foi escrita.
 Apenas você pode decidir como ela termina.
 
 — O Livro do Destino, autor desconhecido, data desconhecida"""
+        },
+        {
+            "title": "📖 Memórias dos Deuses — Tomo Proibido",
+            "content": """*As páginas brilham com luz sobrenatural...*
+
+**'O Que os Deuses Temem'**
+
+Os deuses não são imortais. São apenas muito, muito velhos.
+
+O Imperador Astral sabe disso. Por isso ele testa os mortais —
+buscando aquele que possa um dia carregá-lo
+quando ele mesmo estiver pronto para descansar.
+
+Há segredos que os deuses escondem:
+— O Primeiro Deus não criou o universo. Ele *encontrou* ele.
+— A morte não é o fim. É uma porta. Mas nem todos sabem abri-la.
+— O verdadeiro nome do Vazio é amor. Um amor que consumiu tudo.
+
+*'Se você leu até aqui, você já não é mais o mesmo.'*
+
+— Arquivos da Biblioteca Celestial, acesso nível Divino"""
+        },
+        {
+            "title": "📖 Crônicas da Guerra Primordial",
+            "content": """*Escrito em luz solidificada, impossível de destruir...*
+
+**'A Batalha Antes do Tempo'**
+
+Antes que o universo existisse, houve uma guerra.
+
+De um lado: a Luz Primordial, que queria existência, forma, vida.
+Do outro: o Vazio Eterno, que queria silêncio, paz, nada.
+
+Eles lutaram por uma eternidade que não tinha nome ainda.
+
+A batalha terminou sem vencedor — ambos exaustos,
+fizeram um acordo: criariam algo novo.
+Algo que contivesse os dois.
+
+Chamaram isso de *Universo*.
+
+E plantaram dentro de cada ser vivo uma centelha de cada lado.
+É por isso que todo ser carrega tanto amor quanto destruição.
+
+*A guerra não terminou. Apenas mudou de palco.*
+
+— Fragmento encontrado no 'Além do Trono'"""
+        }
+    ]
+}
+
+# ================= LIVROS DE LORE EXTRAS (por mundo) =================
+LORE_BOOKS_EXTRA = {
+    1: [
+        {
+            "title": "📖 O Bestiário dos Campos — Capítulo I",
+            "content": """*Ilustrações detalhadas e notas à margem...*
+
+**'Sobre os Slimes'**
+
+Os slimes são os seres mais mal compreendidos dos Campos.
+
+Eles não são criaturas — são memórias.
+Cada slime é formado quando uma emoção humana intensa é derramada no solo:
+lágrimas, sangue, esperança, desespero.
+
+O Slime Rei é formado das memórias de centenas de heróis que falharam.
+Ele não é mal. Ele é *acumulado*.
+
+*'Olhe nos olhos de um slime. Você pode ver algo familiar?'*
+
+Por isso matar um slime é sempre um pouco triste.
+Você está apagando uma memória do mundo.
+
+— Naturalista Pell, Campos Iniciais, Ano 23"""
+        },
+        {
+            "title": "📖 Cartas Para Ninguém — Vol. 1",
+            "content": """*Cartas sem destinatário, amarradas com fita vermelha...*
+
+**Carta #1:**
+*'Para quem vier depois de mim,'*
+
+Eu estava onde você está agora. Com medo, sem saber nada.
+Matei meu primeiro slime e quase chorei. Parece ridículo agora.
+
+Saiba: cada derrota é um professor rigoroso.
+Cada cicatriz é um capítulo da sua história.
+
+Quando você chegar ao Trono Celestial
+(e você chegará, se persistir),
+olhe para trás e lembre do primeiro slime.
+
+*'Quem ri do começo humilde não entende de grandeza.'*
+
+Com amor,
+— Um aventureiro que passou por aqui antes"""
+        }
+    ],
+    10: [
+        {
+            "title": "📖 O Grimório da Floresta — Página Arrancada",
+            "content": """*Manchas de seiva verde nas bordas rasgadas...*
+
+**'Os Segredos das Trevas Verdes'**
+
+A Floresta Sombria tem três camadas.
+
+**A Primeira:** onde os aventureiros entram. Com goblins, aranhas, perigos visíveis.
+**A Segunda:** onde apenas os experientes chegam. Os espíritos moram aqui.
+**A Terceira:** onde ninguém volta. Lá fica o coração da floresta.
+
+No coração existe uma árvore tão antiga que seus galhos tocam outros mundos.
+Seus frutos concedem visões do passado e do futuro.
+
+*Um fruto faz você ver tudo que já foi.*
+*O outro, tudo que ainda será.*
+*O terceiro... ninguém sabe. Ninguém comeu e se lembrou.*
+
+— Druida Vel, desaparecido"""
+        },
+        {
+            "title": "📖 Diário da Druida Sylvara — Entradas Escolhidas",
+            "content": """*Escrito com tinta feita de seiva e terra...*
+
+**Entrada 47:**
+O Ent Ancião falou comigo hoje. Em 30 anos, é a segunda vez.
+
+Ele disse: *'A floresta sangra.'*
+
+Perguntei por quê. Ele disse: *'Porque os humanos esqueceram como ouvir.'*
+
+Fiquei em silêncio por um longo tempo.
+
+Depois ele disse algo que não consigo parar de pensar:
+*'Não temo o fogo, nem o machado. Temo o esquecimento.
+Porque uma árvore que ninguém lembra jamais existiu.'*
+
+**Entrada 89:**
+Hoje um aventureiro perguntou se a floresta é perigosa.
+Respondi: *'A floresta é justa. Ela trata você como você a trata.'*
+Ele não entendeu. Talvez entenda quando sair.
+
+— Sylvara, Guardiã"""
+        }
+    ],
+    20: [
+        {
+            "title": "📖 O Papiro da Eternidade — Tradução Incompleta",
+            "content": """*Caracteres dourados sobre papiro preservado por magia...*
+
+**'O Ciclo das Eras'**
+
+O Deserto das Almas não é um deserto natural.
+
+Há 5.000 anos, era um jardim. O mais belo do mundo.
+Havia rios, florestas, cidades de ouro e cristal.
+
+Então veio a Maldição do Faraó Kha-Mentu —
+mas não como punição. Como *proteção*.
+
+Kha-Mentu transformou o paraíso em deserto
+para que os invasores não desejassem mais conquistá-lo.
+Sacrificou a beleza para salvar os segredos.
+
+*'O maior ato de amor pode parecer destruição para quem não entende.'*
+
+Sob as areias ainda dormem as maravilhas do jardim original.
+Esperando por alguém digno de acordá-las.
+
+— Fragmento da Biblioteca do Faraó, Nível -7"""
+        },
+        {
+            "title": "📖 O Livro dos Espíritos — Capítulo das Múmias",
+            "content": """*Páginas que parecem sugar o calor das suas mãos...*
+
+**'Por Que os Mortos Caminham'**
+
+As múmias não são monstros. São guardas.
+
+Cada múmia foi uma pessoa real que, em vida,
+jurou proteger algo até o fim dos tempos.
+Quando morreram, o juramento continuou.
+
+O problema é que elas esqueceram o quê estão protegendo.
+Lembram apenas do juramento.
+
+*'Uma múmia que lembra o que protege se ajoelha diante do digno.
+Uma múmia que esqueceu ataca tudo que se move.'*
+
+Se você encontrar uma múmia que para e te olha sem atacar —
+ela está lembrando. Não a interrompa.
+
+Talvez ela encontre o que procura em você.
+
+— Nefertiri, Guardiã dos Conhecimentos"""
+        }
+    ],
+    30: [
+        {
+            "title": "📖 Sagas do Gelo — Volume III",
+            "content": """*Pergaminho enrijecido pelo frio, mas legível...*
+
+**'Os Titãs do Gelo'**
+
+Antes dos humanos existirem, os Titãs do Gelo governavam estas montanhas.
+
+Eram seres de 30 metros de altura, feitos de cristal e vento,
+com memórias que se estendiam por eras geológicas.
+
+Eles não lutavam. Criavam.
+Cada Titã era responsável por uma lei da natureza:
+— Boreas: o frio
+— Glacius: o tempo (no sentido meteorológico)
+— Permafrost: a permanência das coisas
+
+Os humanos os confundiram com inimigos e atacaram.
+Os Titãs, confusos com tamanha agressividade em seres tão pequenos,
+*recuaram*.
+
+Eles ainda estão aqui. Apenas menores. Esperando ser compreendidos.
+O Yeti Colossal é um eco da memória deles.
+
+— Bjorn, Anciãos das Montanhas"""
+        },
+        {
+            "title": "📖 O Cristal do Inverno — Lenda Completa",
+            "content": """*Glifos rúnicos que parecem pulsar com frio azul...*
+
+**'O Segredo nas Profundezas'**
+
+O Cristal do Inverno Eterno não é apenas uma joia.
+
+É um arquivo. Um registro de tudo que já existiu e morreu no frio.
+Cada criatura que morreu nestas montanhas tem sua memória guardada ali.
+
+Por isso os Titãs do Gelo o protegiam com tanto cuidado.
+Era a *biblioteca da morte* deles.
+
+O Yeti Colossal, Krom, sente cada memória armazenada
+como se fossem suas próprias. Sente a dor de cada ser.
+É por isso que está sempre em sofrimento.
+
+*'Quem derrotar Krom com compaixão, não com ódio,
+pode ouvir ele sussurrar o nome do ser que mais sente falta.'*
+
+Dizem que é sempre o mesmo nome.
+Mas ninguém que ouviu jamais revelou qual é.
+
+— Fragmento, Fortaleza Permafrost"""
+        }
+    ],
+    40: [
+        {
+            "title": "📖 O Códice do Fogo — Primeira Revelação",
+            "content": """*Gravado em obsidiana, legível apenas à luz do fogo...*
+
+**'A Profecia de Ignarius'**
+
+No dia em que o último vulcão se apagar,
+o dragão retornará ao fogo primordial.
+
+Mas antes disso, ele testará os guerreiros:
+*'Apenas quem sobreviver ao fogo sem se tornar cinza
+merece carregar a Chama Original em seu coração.'*
+
+A Chama Original não é uma arma. É uma responsabilidade.
+Quem a carrega sente o peso de tudo que foi criado com fogo:
+cada estrela, cada vida, cada sonho que aqueceu alguém na noite fria.
+
+Os Anões que forjaram as primeiras armas dos deuses carregavam essa chama.
+Por isso suas criações eram imortais.
+
+*'Forja com fogo do coração, não das mãos.'*
+
+— Profeta Ignar, última visão antes de se tornar cinzas"""
+        },
+        {
+            "title": "📖 Memórias de Lava — Registro Vulcânico",
+            "content": """*Palavras que parecem ainda quentes ao toque...*
+
+**'Civilização Antes do Fogo'**
+
+Poucos sabem que o Reino Vulcânico foi habitado por uma civilização avançada.
+
+Os Forjadores — assim eram chamados — dominavam a metalurgia mágica.
+Criavam objetos que tinham *alma*: que sentiam, que pensavam, que escolhiam seus donos.
+
+Quando Ignarius despertou pela última vez, eles não fugiram.
+Fizeram uma escolha coletiva: fundir-se com o dragão.
+Voluntariamente.
+
+Agora Ignarius carrega dentro de si as memórias de toda uma civilização.
+Cada rugido é uma canção em idioma extinto.
+Cada chama é um nome que não existe mais.
+
+*'Quando você derrota Ignarius, você libera as almas presas nele.
+Não é uma batalha. É um funeral que durou 1.000 anos.'*
+
+— Doran, Mestre-Ferreiro, herdeiro da tradição"""
+        }
+    ],
+    50: [
+        {
+            "title": "📖 O Tratado do Vazio — Tradução Proibida",
+            "content": """*As palavras se movem enquanto você as lê. Literalmente.*
+
+**'O Que Existe Antes do Nada'**
+
+Filósofos debatem há milênios sobre o que existe após a morte.
+Poucos perguntam o que existia antes do nascimento.
+
+A resposta é o Abismo Arcano.
+
+Cada alma que nasce vem do Abismo.
+Cada alma que morre retorna ao Abismo.
+O Senhor das Sombras não é um vilão — é um *administrador*.
+
+Ele cuida das almas em trânsito.
+Ordena o caos entre o antes e o depois.
+
+O problema é que há almas que não querem ir embora.
+Que querem ficar no Abismo para sempre.
+E o Senhor das Sombras não tem autoridade para forçá-las.
+
+*'Todo monstro que você enfrenta no Abismo
+era uma vez uma alma que tinha medo de seguir em frente.'*
+
+— Spectra, Bibliotecária do Abismo"""
+        },
+        {
+            "title": "📖 Cartas do Arquimago Zephyr — Correspondência Final",
+            "content": """*Letras que brilham e se apagam alternadamente...*
+
+**Para meu sucessor, seja você quem for:**
+
+Passei 200 anos estudando o Abismo Arcano.
+Aprendi uma coisa: quanto mais você sabe, mais você entende que não sabe nada.
+
+As entidades do Vazio não são más.
+São *antigas*. E antigas demais para entender coisas novas como você.
+
+Quando encontrares o Senhor das Sombras,
+não o trate como inimigo.
+Trate-o como um ser que está aqui há muito mais tempo que você
+e está muito, muito cansado.
+
+Às vezes o maior ato de compaixão é dar descanso a quem não pode morrer.
+
+*'O verdadeiro poder do Abismo não é destruição. É transformação.'*
+
+Com esperança no futuro,
+Arquimago Zephyr
+P.S.: Meu livro de magias está escondido na Dimensão Invertida. Você vai precisar."""
         }
     ]
 }
@@ -1432,7 +1877,29 @@ def init_db():
         guild_id INTEGER DEFAULT NULL,
         active_effects TEXT DEFAULT '{}',
         active_quest TEXT DEFAULT NULL,
-        completed_quests TEXT DEFAULT '[]'
+        completed_quests TEXT DEFAULT '[]',
+        mana INTEGER DEFAULT 50,
+        max_mana INTEGER DEFAULT 50,
+        pvp_battles TEXT DEFAULT '{}'
+    )''')
+
+    # Migração segura
+    try:
+        c.execute("ALTER TABLE players ADD COLUMN mana INTEGER DEFAULT 50")
+    except: pass
+    try:
+        c.execute("ALTER TABLE players ADD COLUMN max_mana INTEGER DEFAULT 50")
+    except: pass
+    try:
+        c.execute("ALTER TABLE players ADD COLUMN pvp_battles TEXT DEFAULT '{}'")
+    except: pass
+
+    c.execute('''CREATE TABLE IF NOT EXISTS pvp_battles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        challenger_id TEXT,
+        target_id TEXT,
+        status TEXT DEFAULT 'pending',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS guilds (
@@ -1501,7 +1968,10 @@ def get_player_db(user_id):
             "guild_id": result[13],
             "active_effects": json.loads(result[14]) if result[14] else {},
             "active_quest": json.loads(result[15]) if result[15] else None,
-            "completed_quests": json.loads(result[16]) if result[16] else []
+            "completed_quests": json.loads(result[16]) if result[16] else [],
+            "mana": result[17] if len(result) > 17 else 50,
+            "max_mana": result[18] if len(result) > 18 else 50,
+            "pvp_battles": json.loads(result[19]) if len(result) > 19 and result[19] else {},
         }
     return None
 
@@ -1511,15 +1981,18 @@ def save_player_db(user_id, player):
 
     c.execute('''INSERT OR REPLACE INTO players
                  (user_id, level, xp, hp, max_hp, coins, inventory, weapon, armor,
-                  worlds, bosses, class, pet, guild_id, active_effects, active_quest, completed_quests)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                  worlds, bosses, class, pet, guild_id, active_effects, active_quest, completed_quests,
+                  mana, max_mana, pvp_battles)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
                player.get("pet"), player.get("guild_id"),
                json.dumps(player.get("active_effects", {})),
                json.dumps(player.get("active_quest")) if player.get("active_quest") else None,
-               json.dumps(player.get("completed_quests", []))))
+               json.dumps(player.get("completed_quests", [])),
+               player.get("mana", 50), player.get("max_mana", 50),
+               json.dumps(player.get("pvp_battles", {}))))
 
     conn.commit()
     conn.close()
@@ -1529,15 +2002,30 @@ def save_player_db(user_id, player):
 def roll_dice():
     return random.randint(1, 10)
 
+def roll_with_bonus(player):
+    """Rola dado com bônus de raridade de itens e classe"""
+    roll = roll_dice()
+    item_bonus = get_item_dice_bonus(player)
+    if player.get("class") == "Bardo":
+        roll = min(10, roll + 1)
+    roll = min(10, roll + item_bonus)
+    return roll
+
 def get_luck(roll):
     return LUCK_SYSTEM.get(roll, LUCK_SYSTEM[5])
 
 def calc_xp(level):
     return (level ** 2) * 20
 
-def get_world(level):
-    levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
-    return WORLDS[levels[0]] if levels else WORLDS[1]
+def get_world(level, player=None):
+    """Retorna o mundo atual do jogador. Se player fornecido, respeita travas de boss."""
+    if player:
+        # Mundos desbloqueados = apenas os que estão na lista player["worlds"]
+        available = sorted([k for k in WORLDS.keys() if k in player["worlds"]], reverse=True)
+    else:
+        levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
+        available = levels
+    return WORLDS[available[0]] if available else WORLDS[1]
 
 def create_player(user_id):
     player = {
@@ -1556,7 +2044,10 @@ def create_player(user_id):
         "guild_id": None,
         "active_effects": {},
         "active_quest": None,
-        "completed_quests": []
+        "completed_quests": [],
+        "mana": 50,
+        "max_mana": 50,
+        "pvp_battles": {},
     }
     save_player_db(user_id, player)
     return player
@@ -1566,6 +2057,30 @@ def get_player(user_id):
     if not player:
         player = create_player(user_id)
     return player
+
+def calc_max_mana(player):
+    """Calcula mana máxima baseada na classe e nível"""
+    cls = player.get("class")
+    if not cls or cls not in CLASS_MANA:
+        return 50 + player["level"] * 2
+    base = CLASS_MANA[cls]["base_mana"]
+    per_level = CLASS_MANA[cls]["mana_per_level"]
+    return base + (player["level"] - 1) * per_level
+
+def get_item_dice_bonus(player):
+    """Retorna bônus no dado baseado na raridade dos equipamentos"""
+    bonus = 0
+    if player.get("weapon"):
+        for w in ITEMS["weapons"]:
+            if w["name"] == player["weapon"]:
+                bonus += RARITY_DICE_BONUS.get(w["rarity"], 0)
+                break
+    if player.get("armor"):
+        for a in ITEMS["armor"]:
+            if a["name"] == player["armor"]:
+                bonus += RARITY_DICE_BONUS.get(a["rarity"], 0)
+                break
+    return bonus
 
 def get_item_sell_price(item_name):
     for weapon in ITEMS["weapons"]:
@@ -1599,6 +2114,9 @@ def get_item_sell_price(item_name):
 def add_xp(user_id, amount):
     player = get_player(user_id)
 
+    # XP aumentado significativamente
+    amount = int(amount * 2.5)
+
     if player.get("class") == "Bardo":
         amount = int(amount * 1.2)
 
@@ -1615,11 +2133,16 @@ def add_xp(user_id, amount):
 
         player["max_hp"] += (10 + class_bonus)
         player["hp"] = player["max_hp"]
+
+        # Atualiza mana ao subir de nível
+        new_max_mana = calc_max_mana(player)
+        player["max_mana"] = new_max_mana
+        player["mana"] = new_max_mana  # Recupera toda a mana ao subir de nível
+
         leveled = True
 
-        for wl in WORLDS.keys():
-            if player["level"] >= wl and wl not in player["worlds"]:
-                player["worlds"].append(wl)
+        # MUNDOS SÓ SÃO DESBLOQUEADOS AO DERROTAR O BOSS DE NÍVEL
+        # (não automático ao subir de level)
 
     save_player_db(user_id, player)
 
@@ -1657,7 +2180,7 @@ def distribute_guild_xp(guild_id, amount):
 
 def remove_xp(user_id, amount):
     player = get_player(user_id)
-    world = get_world(player["level"])
+    world = get_world(player["level"], player)
 
     adjusted_loss = int(amount * world.get("xp_loss_multiplier", 1.0))
     player["xp"] -= adjusted_loss
@@ -2131,6 +2654,336 @@ class QuestAcceptButton(discord.ui.View):
         await interaction.response.edit_message(content="*Você declina a quest e segue em frente.*", view=None)
 
 
+class PvPChallengeButton(discord.ui.View):
+    def __init__(self, challenger_id, target_id, challenger_name, target_name, timeout=120):
+        super().__init__(timeout=timeout)
+        self.challenger_id = challenger_id
+        self.target_id = target_id
+        self.challenger_name = challenger_name
+        self.target_name = target_name
+        self.answered = False
+
+    @discord.ui.button(label="⚔️ Aceitar Duelo!", style=discord.ButtonStyle.red, emoji="⚔️")
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.target_id):
+            return await interaction.response.send_message("❌ Esse desafio não é para você!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        await interaction.response.edit_message(
+            content=f"⚔️ **{self.target_name}** aceita o desafio! A batalha começa!",
+            view=None
+        )
+        await asyncio.sleep(1)
+        await fight_pvp(interaction.channel, self.challenger_id, self.target_id)
+
+    @discord.ui.button(label="🏃 Recusar", style=discord.ButtonStyle.gray)
+    async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.target_id):
+            return await interaction.response.send_message("❌ Esse desafio não é para você!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        await interaction.response.edit_message(
+            content=f"🏃 **{self.target_name}** recusou o desafio de **{self.challenger_name}**...\n\n*'A coragem é necessária para um duelo.'*",
+            view=None
+        )
+
+
+async def fight_pvp(channel, challenger_id, target_id):
+    """Batalha PvP estilo Pokémon entre dois jogadores"""
+    challenger = get_player(challenger_id)
+    target = get_player(target_id)
+
+    try:
+        challenger_user = await bot.fetch_user(int(challenger_id))
+        target_user = await bot.fetch_user(int(target_id))
+        ch_name = challenger_user.display_name
+        tg_name = target_user.display_name
+    except:
+        ch_name = "Desafiante"
+        tg_name = "Alvo"
+
+    ch_cls = challenger.get("class", "Guerreiro")
+    tg_cls = target.get("class", "Guerreiro")
+    ch_skills = CLASS_SKILLS.get(ch_cls, CLASS_SKILLS["Guerreiro"])
+    tg_skills = CLASS_SKILLS.get(tg_cls, CLASS_SKILLS["Guerreiro"])
+
+    # Stats de batalha (baseados nos stats reais + nível)
+    ch_hp = challenger["max_hp"]
+    tg_hp = target["max_hp"]
+    ch_mana = calc_max_mana(challenger)
+    tg_mana = calc_max_mana(target)
+    ch_atk_base = CLASSES[ch_cls]["atk_bonus"] + challenger["level"] * 2
+    tg_atk_base = CLASSES[tg_cls]["atk_bonus"] + target["level"] * 2
+    ch_def = CLASSES[ch_cls]["def_bonus"] + challenger["level"]
+    tg_def = CLASSES[tg_cls]["def_bonus"] + target["level"]
+
+    # Bônus de item
+    def get_item_atk_bonus(player):
+        bonus = 0
+        if player.get("weapon"):
+            for w in ITEMS["weapons"]:
+                if w["name"] == player["weapon"]:
+                    bonus += w.get("atk", 0) // 5
+                    break
+        return bonus
+
+    def get_item_def_bonus(player):
+        bonus = 0
+        if player.get("armor"):
+            for a in ITEMS["armor"]:
+                if a["name"] == player["armor"]:
+                    bonus += a.get("def", 0) // 5
+                    break
+        return bonus
+
+    ch_atk_base += get_item_atk_bonus(challenger)
+    tg_atk_base += get_item_atk_bonus(target)
+    ch_def += get_item_def_bonus(challenger)
+    tg_def += get_item_def_bonus(target)
+
+    ch_cur_hp = ch_hp
+    tg_cur_hp = tg_hp
+    ch_cur_mana = ch_mana
+    tg_cur_mana = tg_mana
+
+    ch_icon = CLASSES[ch_cls]["emoji"]
+    tg_icon = CLASSES[tg_cls]["emoji"]
+
+    # Intro épica
+    intro = discord.Embed(
+        title="⚔️ DUELO INICIADO! ⚔️",
+        description=f"*O narrador anuncia com voz trovejante:*\n\n**'{ch_name} vs {tg_name}!'**\n\n*'Que o mais digno prevaleça!'*",
+        color=discord.Color.dark_red()
+    )
+    intro.add_field(
+        name=f"{ch_icon} {ch_name} ({ch_cls})",
+        value=f"❤️ HP: `{ch_cur_hp}` | ✨ Mana: `{ch_cur_mana}`\n⚔️ ATK: `{ch_atk_base}` | 🛡️ DEF: `{ch_def}`\nArma: {challenger.get('weapon') or 'Nenhuma'}",
+        inline=True
+    )
+    intro.add_field(
+        name=f"{tg_icon} {tg_name} ({tg_cls})",
+        value=f"❤️ HP: `{tg_cur_hp}` | ✨ Mana: `{tg_cur_mana}`\n⚔️ ATK: `{tg_atk_base}` | 🛡️ DEF: `{tg_def}`\nArma: {target.get('weapon') or 'Nenhuma'}",
+        inline=True
+    )
+    await channel.send(embed=intro)
+    await asyncio.sleep(2)
+
+    # Sistema de batalha em turnos (max 6 turnos)
+    battle_log = []
+    turn = 1
+    ch_poison = False
+    tg_poison = False
+    ch_weakened = False
+    tg_weakened = False
+
+    while ch_cur_hp > 0 and tg_cur_hp > 0 and turn <= 6:
+        turn_embed = discord.Embed(
+            title=f"⚔️ TURNO {turn}",
+            color=discord.Color.red()
+        )
+
+        # === Ação do Desafiante ===
+        # Escolhe habilidade (prioriza com mana disponível)
+        available_ch = [s for s in ch_skills if s["mana_cost"] <= ch_cur_mana]
+        if not available_ch:
+            available_ch = [ch_skills[0]]  # fallback: ataque básico
+        ch_skill = random.choice(available_ch)
+        ch_cur_mana = max(0, ch_cur_mana - ch_skill["mana_cost"])
+
+        # Calcula dano
+        ch_dmg_raw = int(ch_atk_base * ch_skill["dmg_mult"])
+        if ch_weakened:
+            ch_dmg_raw = int(ch_dmg_raw * 0.7)
+        # Chance de crítico
+        if random.random() < ch_skill.get("crit_chance", 0.1):
+            ch_dmg_raw = int(ch_dmg_raw * 1.8)
+            ch_skill_name = f"💥 CRÍTICO! {ch_skill['name']}"
+        else:
+            ch_skill_name = ch_skill["name"]
+        # Ignora defesa se skill especifica
+        if ch_skill.get("ignore_def"):
+            ch_dmg = max(1, ch_dmg_raw)
+        else:
+            ch_dmg = max(1, ch_dmg_raw - tg_def)
+
+        # Aplica dano alvo
+        tg_cur_hp -= ch_dmg
+
+        # Efeitos especiais do atacante
+        if ch_skill.get("self_heal"):
+            heal = ch_skill["self_heal"]
+            ch_cur_hp = min(ch_hp, ch_cur_hp + heal)
+
+        # Efeitos no alvo
+        stun_tg = False
+        if random.random() < ch_skill.get("stun_chance", 0):
+            stun_tg = True
+        if ch_skill.get("poison"):
+            tg_poison = True
+        if ch_skill.get("weaken"):
+            tg_weakened = True
+
+        # Log do ataque
+        ch_hp_bar = "❤️" * max(1, int(ch_cur_hp / ch_hp * 5)) + "🖤" * (5 - max(1, int(ch_cur_hp / ch_hp * 5)))
+        tg_hp_bar = "❤️" * max(1, int(max(0, tg_cur_hp) / tg_hp * 5)) + "🖤" * (5 - max(1, int(max(0, tg_cur_hp) / tg_hp * 5)))
+
+        ch_action = f"{ch_icon} **{ch_name}** usa {ch_skill_name}!\n💥 `−{ch_dmg} HP` para {tg_name}\n{ch_skill['desc']}"
+        if stun_tg:
+            ch_action += f"\n⚡ **{tg_name} foi paralisado!**"
+        if ch_skill.get("poison") and tg_poison:
+            ch_action += f"\n☠️ **{tg_name} foi envenenado!**"
+        if ch_skill.get("self_heal"):
+            ch_action += f"\n💚 **{ch_name} se curou em {ch_skill['self_heal']} HP!**"
+
+        turn_embed.add_field(name=f"🔴 Ação de {ch_name}", value=ch_action, inline=False)
+
+        if tg_cur_hp <= 0:
+            turn_embed.add_field(
+                name="💀 BATALHA ENCERRADA!",
+                value=f"**{tg_name}** não aguenta mais!",
+                inline=False
+            )
+            await channel.send(embed=turn_embed)
+            break
+
+        # Veneno do alvo
+        if tg_poison:
+            poison_dmg = max(5, int(tg_hp * 0.05))
+            tg_cur_hp -= poison_dmg
+            turn_embed.add_field(name="☠️ Veneno!", value=f"**{tg_name}** sofre `{poison_dmg}` de veneno!", inline=False)
+            if tg_cur_hp <= 0:
+                await channel.send(embed=turn_embed)
+                break
+
+        # === Ação do Alvo (se não stunado) ===
+        if not stun_tg:
+            available_tg = [s for s in tg_skills if s["mana_cost"] <= tg_cur_mana]
+            if not available_tg:
+                available_tg = [tg_skills[0]]
+            tg_skill = random.choice(available_tg)
+            tg_cur_mana = max(0, tg_cur_mana - tg_skill["mana_cost"])
+
+            tg_dmg_raw = int(tg_atk_base * tg_skill["dmg_mult"])
+            if tg_weakened:
+                tg_dmg_raw = int(tg_dmg_raw * 0.7)
+            if random.random() < tg_skill.get("crit_chance", 0.1):
+                tg_dmg_raw = int(tg_dmg_raw * 1.8)
+                tg_skill_name = f"💥 CRÍTICO! {tg_skill['name']}"
+            else:
+                tg_skill_name = tg_skill["name"]
+
+            if tg_skill.get("ignore_def"):
+                tg_dmg = max(1, tg_dmg_raw)
+            else:
+                tg_dmg = max(1, tg_dmg_raw - ch_def)
+
+            ch_cur_hp -= tg_dmg
+
+            if tg_skill.get("self_heal"):
+                tg_cur_hp = min(tg_hp, tg_cur_hp + tg_skill["self_heal"])
+            if tg_skill.get("poison"):
+                ch_poison = True
+            if tg_skill.get("weaken"):
+                ch_weakened = True
+            stun_ch = random.random() < tg_skill.get("stun_chance", 0)
+
+            tg_action = f"{tg_icon} **{tg_name}** usa {tg_skill_name}!\n💥 `−{tg_dmg} HP` para {ch_name}\n{tg_skill['desc']}"
+            if stun_ch:
+                tg_action += f"\n⚡ **{ch_name} foi paralisado!**"
+            if tg_skill.get("poison") and ch_poison:
+                tg_action += f"\n☠️ **{ch_name} foi envenenado!**"
+            if tg_skill.get("self_heal"):
+                tg_action += f"\n💚 **{tg_name} se curou em {tg_skill['self_heal']} HP!**"
+
+            turn_embed.add_field(name=f"🔵 Ação de {tg_name}", value=tg_action, inline=False)
+        else:
+            turn_embed.add_field(name=f"⚡ {tg_name} estava paralisado!", value="Perdeu o turno!", inline=False)
+
+        # Veneno do challenger
+        if ch_poison:
+            p_dmg = max(5, int(ch_hp * 0.05))
+            ch_cur_hp -= p_dmg
+            turn_embed.add_field(name="☠️ Veneno!", value=f"**{ch_name}** sofre `{p_dmg}` de veneno!", inline=False)
+
+        # HP bars no final do turno
+        ch_pct = max(0, int(ch_cur_hp / ch_hp * 100))
+        tg_pct = max(0, int(tg_cur_hp / tg_hp * 100))
+        ch_bar = "🟥" * (ch_pct // 20) + "⬛" * (5 - ch_pct // 20)
+        tg_bar = "🟦" * (tg_pct // 20) + "⬛" * (5 - tg_pct // 20)
+
+        turn_embed.add_field(
+            name="📊 Status",
+            value=f"{ch_icon} **{ch_name}**: {ch_bar} `{max(0, ch_cur_hp)}/{ch_hp} HP` | 💙 `{ch_cur_mana}` mana\n"
+                  f"{tg_icon} **{tg_name}**: {tg_bar} `{max(0, tg_cur_hp)}/{tg_hp} HP` | 💙 `{tg_cur_mana}` mana",
+            inline=False
+        )
+
+        await channel.send(embed=turn_embed)
+        await asyncio.sleep(2)
+        turn += 1
+
+    # Determina vencedor
+    await asyncio.sleep(1)
+    result_embed = discord.Embed(
+        title="🏆 RESULTADO DO DUELO!",
+        color=discord.Color.gold()
+    )
+
+    if ch_cur_hp <= 0 and tg_cur_hp <= 0:
+        winner_id = None
+        result_embed.description = f"*'Ambos caem simultaneamente!'*\n\n**EMPATE ÉPICO!**"
+        result_embed.color = discord.Color.orange()
+    elif ch_cur_hp <= 0:
+        winner_id = target_id
+        loser_id = challenger_id
+        result_embed.description = f"*O narrador anuncia:*\n\n'**{tg_name}** vence o duelo com maestria!'"
+        result_embed.color = discord.Color.blue()
+        xp_win = 150 + target["level"] * 5
+        add_xp(target_id, xp_win)
+        result_embed.add_field(name=f"🏆 {tg_name} (Vencedor)", value=f"+{xp_win} XP | +1 Vitória PvP", inline=True)
+        result_embed.add_field(name=f"💀 {ch_name} (Derrotado)", value="Melhor sorte na próxima!", inline=True)
+    elif tg_cur_hp <= 0:
+        winner_id = challenger_id
+        loser_id = target_id
+        result_embed.description = f"*O narrador anuncia:*\n\n'**{ch_name}** vence o duelo gloriosamente!'"
+        result_embed.color = discord.Color.red()
+        xp_win = 150 + challenger["level"] * 5
+        add_xp(challenger_id, xp_win)
+        result_embed.add_field(name=f"🏆 {ch_name} (Vencedor)", value=f"+{xp_win} XP | +1 Vitória PvP", inline=True)
+        result_embed.add_field(name=f"💀 {tg_name} (Derrotado)", value="Melhor sorte na próxima!", inline=True)
+    else:
+        # Decidido por HP restante
+        if ch_cur_hp >= tg_cur_hp:
+            winner_id = challenger_id
+            result_embed.description = f"*'Tempo esgotado! **{ch_name}** tinha mais HP!'*\n\n**{ch_name} vence por resistência!**"
+            xp_win = 80 + challenger["level"] * 3
+            add_xp(challenger_id, xp_win)
+            result_embed.add_field(name=f"🏆 {ch_name}", value=f"+{xp_win} XP", inline=True)
+            result_embed.add_field(name=f"⚔️ {tg_name}", value=f"HP restante: {max(0, tg_cur_hp)}", inline=True)
+        else:
+            winner_id = target_id
+            result_embed.description = f"*'Tempo esgotado! **{tg_name}** tinha mais HP!'*\n\n**{tg_name} vence por resistência!**"
+            xp_win = 80 + target["level"] * 3
+            add_xp(target_id, xp_win)
+            result_embed.add_field(name=f"🏆 {tg_name}", value=f"+{xp_win} XP", inline=True)
+            result_embed.add_field(name=f"⚔️ {ch_name}", value=f"HP restante: {max(0, ch_cur_hp)}", inline=True)
+
+    result_embed.add_field(
+        name="📜 Narrador Final",
+        value=random.choice([
+            "*'Uma batalha que será lembrada por gerações!'*",
+            "*'O sangue de guerreiros corre nessas veias!'*",
+            "*'Que honra testemunhar tamanha bravura!'*",
+            "*'Os deuses assistiram esta batalha com interesse!'*",
+            "*'Lendas nacem de combates como este!'*",
+        ]),
+        inline=False
+    )
+    await channel.send(embed=result_embed)
+
+
 # ================= FUNÇÕES DE BATALHA E EXPLORAÇÃO =================
 
 async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, allies=None):
@@ -2192,43 +3045,73 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
     if roll <= 4:
         result, xp_loss = remove_xp(user_id, random.randint(100, 200))
-        narratives = [
-            f"O {boss_data['name']} ergue sua arma com força descomunal!",
-            "Você tenta se defender, mas o golpe é devastador!",
-            "Seu corpo é arremessado longe pelo impacto!",
-            "Você cai de joelhos, sentindo sua força se esvair..."
+        narratives_pool = [
+            [
+                f"💥 *O {boss_data['name']} dá um rugido ensurdecedor que faz o chão tremer!*",
+                f"⚔️ *Você avança com determinação, mas o boss desvia com velocidade sobrenatural!*",
+                f"💀 *Um golpe devastador te atinge em cheio — você voa metros para trás!*",
+                f"🩸 *Sangrando e exausto, você cai de joelhos. A batalha se encerra.*",
+            ],
+            [
+                f"🌑 *{boss_data['name']} ergue os braços e o céu escurece ao redor!*",
+                f"⚡ *Uma descarga de energia sombria te atravessa antes que você possa reagir!*",
+                f"💫 *Sua visão gira. Seus joelhos cedem. O poder é grande demais...*",
+                f"😵 *'Fraco.'* — sussurra o boss enquanto você cai.*",
+            ],
+            [
+                f"🔥 *O {boss_data['name']} ataca com uma velocidade impossível para sua classe!*",
+                f"🗡️ *Você tenta aparar o golpe mas a força é três vezes maior que a sua!*",
+                f"💔 *Cada osso do seu corpo ressoa com a dor do impacto!*",
+                f"🏃 *Você recua às pressas, derrotado mais uma vez pelo colosso.*",
+            ],
+            [
+                f"👹 *{boss_data['name']} ri de você — um som que ecoa por todo o mundo!*",
+                f"🌀 *Uma onda de energia te joga contra a parede com força devastadora!*",
+                f"⚰️ *As estrelas piscam à sua frente enquanto a consciência escapa...*",
+                f"🔴 *'Volte quando for digno.'* — ecoa na sua mente enquanto você foge.*",
+            ],
         ]
+        narratives = random.choice(narratives_pool)
         embed.add_field(
             name="💀 Derrota Devastadora",
-            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Nem todo herói vence na primeira tentativa...'*",
+            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Nem todo herói vence na primeira tentativa... Treine mais!'*",
             inline=False
         )
         if result == "reset":
             embed.add_field(
                 name="🌑 Fim da Jornada",
-                value="*'Sua visão escurece... tudo que você conquistou se perde...'*\n\n**Você desperta novamente nos Campos Iniciais.**",
+                value="*'Sua visão escurece... tudo que você conquistou se perde nas sombras...'*\n\n**Você desperta novamente nos Campos Iniciais, sem memórias.**",
                 inline=False
             )
             embed.color = discord.Color.black()
 
     elif roll <= 6:
         result, xp_loss = remove_xp(user_id, random.randint(50, 80))
-        narratives = [
-            f"Você e o {boss_data['name']} trocam golpes furiosos!",
-            "A batalha é intensa, mas você não consegue vencer!",
-            "Ferido e exausto, você precisa recuar!",
-            "O boss urra vitorioso enquanto você foge..."
+        narratives_pool = [
+            [
+                f"⚔️ *Você e o {boss_data['name']} trocam golpes por longos minutos!*",
+                f"💢 *Cada ataque seu encontra uma defesa. Cada golpe dele, você desvia por pouco!*",
+                f"😰 *Mas a resistência não é eterna — você começa a ceder...*",
+                f"🚪 *Ferido e esgotado, você recua antes que seja tarde demais.*",
+            ],
+            [
+                f"🔥 *A batalha é intensa! Você está se saindo melhor que da última vez!*",
+                f"💥 *Você até acerta o boss! Mas ele mal sente o impacto...*",
+                f"😤 *'Interessante.'* — diz o boss, pela primeira vez te levando a sério.*",
+                f"🩹 *Mas o preço foi alto. Você precisa de mais poder para vencer.*",
+            ],
         ]
+        narratives = random.choice(narratives_pool)
         embed.add_field(
             name="😰 Empate Amargo",
-            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Volte mais forte...'*",
+            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Você está mais próximo. Continue tentando.'*",
             inline=False
         )
         embed.color = discord.Color.orange()
 
     else:
-        xp = boss_data["xp"] + (150 if roll >= 9 else 0)
-        coins = random.randint(boss_data["coins"][0], boss_data["coins"][1])
+        xp = boss_data["xp"] + (300 if roll >= 9 else 100)
+        coins = max(1, random.randint(boss_data["coins"][0] // 3, boss_data["coins"][1] // 3))
 
         if boss_data["name"] not in player["bosses"]:
             player["bosses"].append(boss_data["name"])
@@ -2249,12 +3132,30 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 player["inventory"].append(dropped_potion)
                 save_player_db(user_id, player)
 
-        narratives = [
-            f"Você esquiva do primeiro golpe do {boss_data['name']}!",
-            "Contra-ataca com precisão mortal!",
-            "A batalha é épica, mas sua determinação é maior!",
-            "Com um golpe final devastador, o boss cai derrotado!"
+        narratives_pool = [
+            [
+                f"⚡ *Você esquiva do primeiro golpe do {boss_data['name']} com precisão cirúrgica!*",
+                f"🗡️ *Contra-ataca na abertura perfeita — o boss recua pela primeira vez!*",
+                f"💫 *A batalha se intensifica, mas você mantém a vantagem!*",
+                f"✨ *Um golpe final com toda sua força — o {boss_data['name']} cai rugindo!*",
+                f"🌟 *Um silêncio épico... e então o chão treme com a queda do colosso.*",
+            ],
+            [
+                f"🔥 *'Você está diferente hoje!'* — grunhe o {boss_data['name']} sentindo sua força!*",
+                f"⚔️ *Uma sequência de ataques impecáveis — cada golpe encontra seu alvo!*",
+                f"💥 *O boss tenta sua técnica mais letal... mas você já conhecia o movimento!*",
+                f"🏆 *Com um grito de vitória, você desferindo o golpe decisivo!*",
+                f"👑 *{boss_data['name']} cai de joelhos. Derrotado. Por você.*",
+            ],
+            [
+                f"🌀 *A batalha começa com uma explosão de energia que ilumina o céu!*",
+                f"😤 *Você absorve cada golpe e responde com o dobro de força!*",
+                f"🩸 *O boss sangra — algo que parecia impossível até agora!*",
+                f"💀 *'Como...?!'* — não consegue terminar a frase. O golpe final o cala.*",
+                f"🎺 *Lendas serão contadas desta batalha por gerações.*",
+            ],
         ]
+        narratives = random.choice(narratives_pool)
 
         embed.add_field(
             name="🏆 VITÓRIA GLORIOSA!",
@@ -2262,7 +3163,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             inline=False
         )
 
-        # Desbloqueia próximo mundo
+        # Desbloqueia próximo mundo APENAS ao derrotar boss
         boss_to_world = {
             "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
             "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
@@ -2275,7 +3176,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 save_player_db(user_id, player)
                 embed.add_field(
                     name="🗺️ Novo Mundo Revelado!",
-                    value=f"*'As névoas se dissipam...'*\n\n{WORLDS[next_world]['emoji']} **{WORLDS[next_world]['name']}** foi desbloqueado!\n\n*'Novos desafios aguardam...'*",
+                    value=f"*'As correntes se rompem! As névoas se dissipam!'*\n\n{WORLDS[next_world]['emoji']} **{WORLDS[next_world]['name']}** foi desbloqueado!\n\n*'Novos desafios — e novas glórias — aguardam!'*",
                     inline=False
                 )
 
@@ -2548,10 +3449,11 @@ async def send_prologue(guild):
 
 💬 **Comandos Principais:**
 
-**EXPLORAÇÃO:** `explorar` | `caçar` | `coletar` | `dungeon` | `procurar pet` | `explorar cidade`
+**EXPLORAÇÃO:** `explorar` | `caçar` | `coletar` | `dungeon` | `procurar pet` | `procurar cidade`
 **BOSS:** `desafiar boss` | `ir atrás do boss` | `juntar boss` | `iniciar batalha boss`
-**QUESTS:** `ver quests` | `minha quest` | `abandonar quest`
-**PERSONAGEM:** `ver perfil` | `inventário` | `escolher classe`
+**QUESTS:** `ver quests` | `realizar quest` | `finalizar quest` | `aceitar quest [nome]`
+**PvP:** `desafiar @jogador` — Duelo estilo batalha com habilidades e mana!
+**PERSONAGEM:** `ver perfil` | `inventário` | `escolher classe` | `ver mana`
 **SOCIAL:** `trocar [item] com @user` | `criar guilda` | `entrar guilda` | `ver guilda`
 **ITENS:** `[poção], usar` | `vender [item]` | `equipar [item]`
 
@@ -2743,7 +3645,7 @@ async def on_message(message):
             await message.channel.send(f"❌ Você já tem um pet: **{player['pet']}**!")
             return
 
-        world = get_world(player["level"])
+        world = get_world(player["level"], player)
         roll = roll_dice()
         luck = get_luck(roll)
 
@@ -2967,156 +3869,6 @@ async def on_message(message):
         await fight_boss(message.channel, user_id, allies=members)
         return
 
-    # ======================================================
-    # ================= VER QUESTS =========================
-    # ======================================================
-    elif any(word in content for word in ["ver quests", "quests disponíveis", "quests", "missões"]):
-        player = get_player(user_id)
-        world_level = max([k for k in QUESTS.keys() if k <= player["level"]])
-        available_quests = QUESTS.get(world_level, [])
-
-        embed = discord.Embed(
-            title=f"📜 Quests Disponíveis",
-            description=f"*Quests do reino atual | Completadas: {len(player.get('completed_quests', []))}*",
-            color=discord.Color.gold()
-        )
-
-        for quest in available_quests:
-            completed = quest["id"] in player.get("completed_quests", [])
-            active = player.get("active_quest") and player["active_quest"].get("id") == quest["id"]
-            status = "✅ Completa" if completed else ("🔄 Ativa" if active else f"📋 {quest['difficulty']}")
-            q_type = "👥 Equipe" if quest["type"] == "team" else "👤 Individual"
-            embed.add_field(
-                name=f"{quest['name']} [{q_type}] — {status}",
-                value=f"{quest['description'][:100]}...\n**NPC:** {quest['npc']} | **XP:** {quest['reward_xp']} | **CSI:** {quest['reward_coins']}",
-                inline=False
-            )
-
-        embed.set_footer(text="Use 'aceitar quest [nome]' para iniciar uma missão!")
-        await message.channel.send(embed=embed)
-        return
-
-    # ======================================================
-    # ================= ACEITAR QUEST ======================
-    # ======================================================
-    elif content.startswith("aceitar quest"):
-        quest_name_search = content.replace("aceitar quest", "").strip()
-        player = get_player(user_id)
-        world_level = max([k for k in QUESTS.keys() if k <= player["level"]])
-        available_quests = QUESTS.get(world_level, [])
-
-        found_quest = None
-        for quest in available_quests:
-            if quest_name_search in quest["name"].lower() or quest_name_search in quest["id"]:
-                found_quest = quest
-                break
-
-        if not found_quest and available_quests:
-            found_quest = available_quests[0]
-
-        if not found_quest:
-            await message.channel.send("❌ Quest não encontrada! Use `ver quests` para listar as disponíveis.")
-            return
-
-        embed = discord.Embed(
-            title=f"📜 {found_quest['name']}",
-            description=f"**NPC: {found_quest['npc']}** diz:\n\n*'{found_quest['lore']}'*",
-            color=discord.Color.blue()
-        )
-        embed.add_field(name="🎯 Objetivo", value=found_quest["description"], inline=False)
-        embed.add_field(name="⭐ Recompensa XP", value=str(found_quest["reward_xp"]), inline=True)
-        embed.add_field(name="💰 Recompensa CSI", value=str(found_quest["reward_coins"]), inline=True)
-        if found_quest.get("reward_item"):
-            embed.add_field(name="🎁 Item", value=found_quest["reward_item"], inline=True)
-        quest_type_text = f"👥 Equipe ({found_quest.get('min_players', 1)}-{found_quest.get('max_players', 1)} jogadores)" if found_quest["type"] == "team" else "👤 Individual"
-        embed.add_field(name="📋 Tipo", value=quest_type_text, inline=True)
-        embed.add_field(name="⚡ Dificuldade", value=found_quest["difficulty"], inline=True)
-
-        view = QuestAcceptButton(user_id, found_quest)
-        await message.channel.send(embed=embed, view=view)
-        return
-
-    # ======================================================
-    # ================= MINHA QUEST ========================
-    # ======================================================
-    elif any(word in content for word in ["minha quest", "quest ativa", "ver quest"]):
-        player = get_player(user_id)
-
-        if not player.get("active_quest"):
-            await message.channel.send("❌ Você não tem uma quest ativa! Use `ver quests` para ver as disponíveis.")
-            return
-
-        quest = player["active_quest"]
-        embed = discord.Embed(
-            title=f"📜 Quest Ativa: {quest['name']}",
-            description=quest["description"],
-            color=discord.Color.gold()
-        )
-        progress = quest.get("progress", 0)
-        total = quest.get("count", 1)
-        embed.add_field(name="📊 Progresso", value=f"{progress}/{total}", inline=True)
-        embed.add_field(name="⭐ Recompensa XP", value=str(quest["reward_xp"]), inline=True)
-        embed.add_field(name="💰 Recompensa CSI", value=str(quest["reward_coins"]), inline=True)
-        embed.add_field(name="📖 Lore do NPC", value=f"*'{quest['lore']}'*", inline=False)
-
-        await message.channel.send(embed=embed)
-        return
-
-    # ======================================================
-    # ================= ABANDONAR QUEST ===================
-    # ======================================================
-    elif any(word in content for word in ["abandonar quest", "cancelar quest", "desistir quest"]):
-        player = get_player(user_id)
-
-        if not player.get("active_quest"):
-            await message.channel.send("❌ Você não tem uma quest ativa!")
-            return
-
-        quest_name = player["active_quest"]["name"]
-        player["active_quest"] = None
-        save_player_db(user_id, player)
-        await message.channel.send(f"❌ Você abandonou a quest **{quest_name}**.\n\n*'O NPC suspira desapontado...'*")
-        return
-
-    # ======================================================
-    # ================= EXPLORAR CIDADE ====================
-    # ======================================================
-    elif any(word in content for word in ["explorar cidade", "visitar cidade", "cidade", "vila"]):
-        player = get_player(user_id)
-        world_level = max([k for k in CITY_NPCS.keys() if k <= player["level"]])
-        city_data = CITY_NPCS.get(world_level, CITY_NPCS[1])
-
-        embed = discord.Embed(
-            title=f"{city_data['city_name']}",
-            description=f"*'Você adentra a cidade. O burburinho ao redor conta histórias de suas próprias...'*",
-            color=discord.Color.blue()
-        )
-
-        for npc in city_data["npcs"]:
-            dialogue = random.choice(npc["dialogues"])
-            embed.add_field(
-                name=f"{npc['emoji']} {npc['name']} — {npc['role']}",
-                value=f"*\"{dialogue}\"*",
-                inline=False
-            )
-
-        # Chance de encontrar livro de lore
-        if random.random() < 0.3:
-            lore_world = max([k for k in LORE_BOOKS.keys() if k <= player["level"]])
-            book = random.choice(LORE_BOOKS[lore_world])
-            embed.add_field(
-                name=f"📚 Você encontra: {book['title']}",
-                value=book["content"][:512] + ("..." if len(book["content"]) > 512 else ""),
-                inline=False
-            )
-
-        # Pequena recompensa por explorar
-        coins_reward = random.randint(1, 5)
-        add_coins(user_id, coins_reward)
-        embed.set_footer(text=f"+{coins_reward} CSI por explorar a cidade")
-
-        await message.channel.send(embed=embed)
-        return
 
     # ======================================================
     # ================= CRIAR GUILDA =======================
@@ -3381,10 +4133,8 @@ async def on_message(message):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
 
-        world = get_world(player["level"])
-        roll = roll_dice()
-        if player.get("class") == "Bardo":
-            roll = min(10, roll + 1)
+        world = get_world(player["level"], player)
+        roll = roll_with_bonus(player)
         luck = get_luck(roll)
         event = random.choice(world["events"])
 
@@ -3556,12 +4306,10 @@ async def on_message(message):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
 
-        world = get_world(player["level"])
+        world = get_world(player["level"], player)
         monster_name = random.choice(list(world["monsters"].keys()))
         monster = world["monsters"][monster_name]
-        roll = roll_dice()
-        if player.get("class") == "Bardo":
-            roll = min(10, roll + 1)
+        roll = roll_with_bonus(player)
         luck = get_luck(roll)
 
         embed = discord.Embed(
@@ -3716,8 +4464,8 @@ async def on_message(message):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
 
-        world = get_world(player["level"])
-        roll = roll_dice()
+        world = get_world(player["level"], player)
+        roll = roll_with_bonus(player)
         luck = get_luck(roll)
 
         embed = discord.Embed(
@@ -3847,7 +4595,7 @@ async def on_message(message):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
 
-        world = get_world(player["level"])
+        world = get_world(player["level"], player)
         if "dungeons" not in world or not world["dungeons"]:
             await message.channel.send("*'Não há dungeons conhecidas nesta região...'*")
             return
@@ -3900,7 +4648,7 @@ async def on_message(message):
     # ======================================================
     elif any(word in content for word in ["ver perfil", "meu perfil", "perfil", "status"]):
         player = get_player(user_id)
-        world = get_world(player["level"])
+        world = get_world(player["level"], player)
         xp_need = calc_xp(player["level"])
 
         embed = discord.Embed(
@@ -3913,6 +4661,11 @@ async def on_message(message):
         embed.add_field(name="✨ XP", value=f"`{player['xp']}/{xp_need}`", inline=True)
         embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}`", inline=True)
         embed.add_field(name="❤️ HP", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
+
+        if player.get("class"):
+            max_mana = calc_max_mana(player)
+            cur_mana = player.get("mana", max_mana)
+            embed.add_field(name="💙 Mana", value=f"`{cur_mana}/{max_mana}`", inline=True)
 
         if player.get("class"):
             class_data = CLASSES[player["class"]]
@@ -3978,10 +4731,296 @@ async def on_message(message):
         await message.channel.send(embed=embed)
         return
 
+    # ======================================================
+    # ================= VER MANA ==========================
+    # ======================================================
+    elif any(word in content for word in ["ver mana", "minha mana", "mana"]):
+        player = get_player(user_id)
+        max_mana = calc_max_mana(player)
+        player["max_mana"] = max_mana
+        if player.get("mana", 0) > max_mana:
+            player["mana"] = max_mana
+        save_player_db(user_id, player)
+
+        cls = player.get("class", "Sem Classe")
+        embed = discord.Embed(
+            title="✨ Status de Mana",
+            description=f"*O narrador examina sua energia arcana...*",
+            color=discord.Color.blue()
+        )
+        mana_bar = "🔵" * (player["mana"] // 10) + "⚫" * ((max_mana - player["mana"]) // 10)
+        embed.add_field(name="💙 Mana Atual", value=f"`{player['mana']}/{max_mana}`\n{mana_bar}", inline=False)
+        if cls and cls in CLASS_SKILLS:
+            skills_text = "\n".join([f"{s['name']} — {s['mana_cost']} mana | {s['desc']}" for s in CLASS_SKILLS[cls]])
+            embed.add_field(name=f"⚡ Habilidades de {cls}", value=skills_text[:1024], inline=False)
+        embed.set_footer(text="Mana se recupera ao subir de nível e ao descansar!")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= REALIZAR QUEST ====================
+    # ======================================================
+    elif any(word in content for word in ["realizar quest", "fazer quest", "iniciar quest", "minha quest", "status da quest"]):
+        player = get_player(user_id)
+        quest = player.get("active_quest")
+
+        if not quest:
+            await message.channel.send(
+                "📋 **Você não tem nenhuma quest ativa!**\n\n*Use `ver quests` para ver as missões disponíveis e `aceitar quest [nome]` para iniciar uma.*"
+            )
+            return
+
+        objective = quest.get("objective", "")
+        progress = quest.get("progress", 0)
+        total = quest.get("count", 1)
+        pct = int((progress / total) * 100) if total > 0 else 0
+        bar_filled = int(pct / 10)
+        progress_bar = "🟩" * bar_filled + "⬛" * (10 - bar_filled)
+
+        embed = discord.Embed(
+            title=f"📜 Realizando: {quest['name']}",
+            description=f"*{quest['npc']} aguarda seu progresso...*\n\n*'{quest['lore']}'*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="🎯 Objetivo", value=quest["description"], inline=False)
+        embed.add_field(name="📊 Progresso", value=f"`{progress}/{total}` — {pct}%\n{progress_bar}", inline=False)
+
+        obj_tip = {
+            "hunt": f"**Como avançar:** Use `caçar` para derrotar **{quest.get('target', 'monstros')}**!",
+            "collect": "**Como avançar:** Use `coletar` ou `minerar` para coletar recursos!",
+            "explore": "**Como avançar:** Use `explorar` para percorrer o mundo!",
+            "boss": "**Como avançar:** Use `desafiar boss` para enfrentar o boss da missão!",
+        }
+        embed.add_field(name="💡 Dica", value=obj_tip.get(objective, "Explore o mundo!"), inline=False)
+
+        # Recompensas
+        rewards = f"⭐ **{quest['reward_xp']} XP** | 💰 **{quest['reward_coins']} CSI**"
+        if quest.get("reward_item"):
+            rewards += f" | 🎁 **{quest['reward_item']}**"
+        embed.add_field(name="🏆 Recompensas ao Completar", value=rewards, inline=False)
+        embed.add_field(name="⚔️ Dificuldade", value=quest.get("difficulty", "?"), inline=True)
+
+        if progress >= total:
+            embed.add_field(name="✅ Status", value="**COMPLETO! Use `finalizar quest` para receber as recompensas!**", inline=False)
+            embed.color = discord.Color.green()
+        else:
+            remaining = total - progress
+            embed.add_field(name="⏳ Faltam", value=f"`{remaining}` ações para completar", inline=True)
+
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= FINALIZAR QUEST ===================
+    # ======================================================
+    elif any(word in content for word in ["finalizar quest", "entregar quest", "completar quest"]):
+        player = get_player(user_id)
+        quest = player.get("active_quest")
+
+        if not quest:
+            await message.channel.send("❌ Você não tem quest ativa!")
+            return
+
+        progress = quest.get("progress", 0)
+        total = quest.get("count", 1)
+
+        if progress < total and quest.get("objective") != "boss":
+            await message.channel.send(
+                f"⏳ **Quest ainda não concluída!**\n\nProgresso: `{progress}/{total}`\n\n*Continue realizando as atividades para completar a missão!*"
+            )
+            return
+
+        await complete_quest(message.channel, user_id, player)
+        return
+
+    # ======================================================
+    # ================= ABANDONAR QUEST ===================
+    # ======================================================
+    elif any(word in content for word in ["abandonar quest", "desistir da quest", "cancelar quest"]):
+        player = get_player(user_id)
+        if not player.get("active_quest"):
+            await message.channel.send("❌ Você não tem quest ativa!")
+            return
+
+        quest_name = player["active_quest"]["name"]
+        player["active_quest"] = None
+        save_player_db(user_id, player)
+
+        embed = discord.Embed(
+            title="🚫 Quest Abandonada",
+            description=f"*'Você abandona **{quest_name}**...'*\n\n*O narrador suspira com decepção.*",
+            color=discord.Color.red()
+        )
+        embed.set_footer(text="Use 'ver quests' para encontrar novas missões.")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= PROCURAR CIDADES / VILAREJOS =======
+    # ======================================================
+    elif any(word in content for word in ["procurar cidade", "procurar vilarejo", "buscar cidade",
+                                           "explorar cidade", "visitar cidade", "visitar vilarejo",
+                                           "ver cidades", "cidades próximas", "mapa de cidades"]):
+        player = get_player(user_id)
+        world_key = max([k for k in CITY_NPCS.keys() if k in player["worlds"]], default=1)
+        city_data = CITY_NPCS[world_key]
+        world = get_world(player["level"], player)
+
+        embed = discord.Embed(
+            title=f"🗺️ Explorando Cidades — {world['emoji']} {world['name']}",
+            description=f"*O narrador revela os assentamentos desta região...*",
+            color=discord.Color.blue()
+        )
+
+        # Mostra a cidade do mundo atual
+        embed.add_field(
+            name=f"📍 {city_data['city_name']}",
+            value=f"**Habitantes notáveis:**\n" + "\n".join([f"{npc['emoji']} **{npc['name']}** — {npc['role']}" for npc in city_data["npcs"]]),
+            inline=False
+        )
+
+        # Mostra outras cidades desbloqueadas
+        other_cities = []
+        for wk in sorted(player["worlds"]):
+            if wk != world_key and wk in CITY_NPCS:
+                cd = CITY_NPCS[wk]
+                wn = WORLDS[wk]["name"]
+                other_cities.append(f"{WORLDS[wk]['emoji']} **{cd['city_name']}** ({wn})")
+
+        if other_cities:
+            embed.add_field(name="🌍 Outras Cidades Conhecidas", value="\n".join(other_cities[:5]), inline=False)
+
+        embed.add_field(
+            name="💡 Comandos",
+            value="`visitar cidade` — visita a cidade e conversa com NPCs\n`ver quests` — veja missões disponíveis",
+            inline=False
+        )
+        await message.channel.send(embed=embed)
+
+        # Visita automaticamente a cidade atual
+        await asyncio.sleep(1)
+        npc = random.choice(city_data["npcs"])
+        dialogue = random.choice(npc["dialogues"])
+        coins_found = random.randint(1, 3)
+        add_coins(user_id, coins_found)
+
+        visit_embed = discord.Embed(
+            title=f"{npc['emoji']} {npc['name']} — {npc['role']}",
+            description=f"*Você se aproxima do NPC na cidade...*\n\n*'{dialogue}'*",
+            color=discord.Color.green()
+        )
+        visit_embed.add_field(name="💰 Recompensa pela Visita", value=f"+{coins_found} CSI", inline=True)
+
+        # 25% chance de livro de lore ao visitar
+        if random.random() < 0.25:
+            all_books = list(LORE_BOOKS.get(world_key, [])) + list(LORE_BOOKS_EXTRA.get(world_key, []))
+            if all_books:
+                book = random.choice(all_books)
+                visit_embed.add_field(name=f"📚 {book['title']}", value=book["content"][:512] + "...", inline=False)
+
+        await message.channel.send(embed=visit_embed)
+        return
+
+    # ======================================================
+    # ================= DESAFIAR @USER (PvP Pokémon) ======
+    # ======================================================
+    elif "desafiar" in content and "@" in message.content and "boss" not in content:
+        mentions = message.mentions
+        if not mentions:
+            await message.channel.send("❌ Mencione um jogador! Ex: `desafiar @jogador`")
+            return
+
+        target_user = mentions[0]
+        if target_user.id == user_id:
+            await message.channel.send("❌ Você não pode se desafiar!")
+            return
+        if target_user.bot:
+            await message.channel.send("❌ Você não pode desafiar um bot!")
+            return
+
+        challenger = get_player(user_id)
+        target = get_player(target_user.id)
+
+        if not challenger.get("class"):
+            await message.channel.send("❌ Escolha uma classe primeiro! Use: `escolher classe`")
+            return
+        if not target.get("class"):
+            await message.channel.send(f"❌ **{target_user.display_name}** ainda não escolheu uma classe!")
+            return
+
+        # Envia desafio
+        view = PvPChallengeButton(user_id, target_user.id, message.author.display_name, target_user.display_name)
+        embed = discord.Embed(
+            title="⚔️ DESAFIO DE BATALHA!",
+            description=f"*O narrador anuncia com emoção:*\n\n🥊 **{message.author.display_name}** desafia **{target_user.display_name}** para um duelo!",
+            color=discord.Color.red()
+        )
+        cls_ch = CLASSES[challenger["class"]]
+        cls_tg = CLASSES[target["class"]]
+        embed.add_field(name=f"{cls_ch['emoji']} {message.author.display_name}", value=f"**{challenger['class']}** | Nível {challenger['level']} | HP: {challenger['max_hp']} | Mana: {calc_max_mana(challenger)}", inline=True)
+        embed.add_field(name=f"{cls_tg['emoji']} {target_user.display_name}", value=f"**{target['class']}** | Nível {target['level']} | HP: {target['max_hp']} | Mana: {calc_max_mana(target)}", inline=True)
+        embed.set_footer(text=f"{target_user.mention}, você aceita o desafio?")
+        await message.channel.send(content=f"{target_user.mention}", embed=embed, view=view)
+        return
+
+    # ======================================================
+    # ================= VER QUESTS ========================
+    # ======================================================
+    elif any(word in content for word in ["ver quests", "quests", "missões", "missoes", "aceitar quest"]):
+        player = get_player(user_id)
+        world_key = max([k for k in QUESTS.keys() if k in player["worlds"]], default=1)
+        available_quests = QUESTS.get(world_key, [])
+
+        embed = discord.Embed(
+            title="📋 Quadro de Missões",
+            description=f"*{WORLDS[world_key]['emoji']} Missões disponíveis em **{WORLDS[world_key]['name']}**...*",
+            color=discord.Color.gold()
+        )
+
+        if player.get("active_quest"):
+            embed.add_field(
+                name="⚠️ Quest Ativa",
+                value=f"Você está em: **{player['active_quest']['name']}**\nProgresso: {player['active_quest'].get('progress', 0)}/{player['active_quest'].get('count', 1)}\n\nUse `realizar quest` para ver detalhes.",
+                inline=False
+            )
+
+        completed = player.get("completed_quests", [])
+        for quest in available_quests:
+            status = "✅" if quest["id"] in completed else ("🔄" if player.get("active_quest") and player["active_quest"].get("id") == quest["id"] else "📌")
+            q_type = "👥 Equipe" if quest["type"] == "team" else "👤 Solo"
+            embed.add_field(
+                name=f"{status} {quest['name']} [{q_type}]",
+                value=f"**Dif:** {quest['difficulty']} | **Recompensa:** {quest['reward_xp']} XP, {quest['reward_coins']} CSI\n{quest['description'][:80]}...",
+                inline=False
+            )
+
+        embed.set_footer(text="Use 'aceitar quest [nome]' para iniciar uma missão!")
+        await message.channel.send(embed=embed)
+
+        # Se o comando for "aceitar quest X"
+        if "aceitar quest" in content:
+            quest_name_search = content.replace("aceitar quest", "").strip()
+            found_quest = None
+            for quest in available_quests:
+                if quest_name_search in quest["name"].lower() or quest_name_search in quest["id"]:
+                    found_quest = quest
+                    break
+
+            if found_quest:
+                view = QuestAcceptButton(user_id, found_quest)
+                q_embed = discord.Embed(
+                    title=f"📜 {found_quest['name']}",
+                    description=f"*{found_quest['npc']} se aproxima:*\n\n*'{found_quest['lore']}'*",
+                    color=discord.Color.gold()
+                )
+                q_embed.add_field(name="🎯 Missão", value=found_quest["description"], inline=False)
+                q_embed.add_field(name="⭐ XP", value=str(found_quest["reward_xp"]), inline=True)
+                q_embed.add_field(name="💰 Coins", value=str(found_quest["reward_coins"]), inline=True)
+                q_embed.add_field(name="⚔️ Dificuldade", value=found_quest["difficulty"], inline=True)
+                await message.channel.send(embed=q_embed, view=view)
+        return
+
     await bot.process_commands(message)
-
-
-# ======================================================
 # ================= FUNÇÕES AUXILIARES =================
 # ======================================================
 
