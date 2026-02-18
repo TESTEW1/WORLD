@@ -4645,50 +4645,309 @@ async def send_prologue(guild):
     if not channel:
         return
 
-    prologue = """
-╔═══════════════════════════════════════════════════════════════╗
-║                    🌍 **WORLD CSI** 🌍                        ║
-║            *O Narrador Desperta Para Contar Sua História*    ║
-╚═══════════════════════════════════════════════════════════════╝
+    await asyncio.sleep(1)
 
-*O narrador limpa a garganta e começa...*
+    # ══════════════════════════════════════════
+    # EMBED 1 — Abertura épica do narrador
+    # ══════════════════════════════════════════
+    embed1 = discord.Embed(
+        title="📖  W O R L D   C S I  📖",
+        description=(
+            "```\n"
+            "╔══════════════════════════════════════╗\n"
+            "║   O Narrador Desperta...             ║\n"
+            "║   Uma Nova Saga Começa Aqui.         ║\n"
+            "╚══════════════════════════════════════╝\n"
+            "```\n"
+            "*Uma voz grave ecoa por todo o servidor...*\n\n"
+            "**\"No princípio, havia apenas o Vazio — um silêncio perfeito e eterno.**\n"
+            "Então, a Primeira Chama surgiu do nada, e com ela nasceu o Mundo.\n\n"
+            "Sete reinos se formaram das cinzas da criação.\n"
+            "Cada um guarda segredos que poucos ousam descobrir.\n"
+            "Cada um testa aqueles que o atravessam de formas diferentes.\n\n"
+            "**Você... é o próximo herói desta história.**\n"
+            "Ou talvez o próximo vilão. O destino é seu para escrever.\"\n\n"
+            "*— O Narrador, antes que a história comece*"
+        ),
+        color=0x2C2F33
+    )
+    embed1.set_footer(text="🎭 O Narrador observa cada passo seu...")
+    await channel.send(embed=embed1)
+    await asyncio.sleep(2)
 
-"Era uma vez, quando as estrelas ainda eram jovens e os dragões dominavam os céus, sete reinos coexistiam em harmonia frágil..."
+    # ══════════════════════════════════════════
+    # EMBED 2 — Os Sete Reinos (lore)
+    # ══════════════════════════════════════════
+    embed2 = discord.Embed(
+        title="🗺️ Os Sete Reinos do Mundo",
+        description="*O pergaminho se desenrola revelando terras que poucos mortais conhecem...*",
+        color=0x8B4513
+    )
+    embed2.add_field(
+        name="🌱 Campos Iniciais — O Berço",
+        value=(
+            "*\"Todo herói começa aqui. Não existe vergonha no começo humilde.\n"
+            "O guerreiro mais poderoso que existiu começou matando um slime.\"*\n"
+            "— Historiador Pell\n\n"
+            "Terras abertas onde os primeiros seres vivos deram seus primeiros passos.\n"
+            "O Slime Rei reina sobre estas planícies... por enquanto."
+        ),
+        inline=False
+    )
+    embed2.add_field(
+        name="🌲 Floresta Sombria — A Que Respira",
+        value=(
+            "*\"A floresta não é apenas árvores. Ela é um ser vivo, consciente,\n"
+            "e muito, muito antiga. Ela ouve você. E lembra de tudo.\"*\n"
+            "— Druida Sylvara\n\n"
+            "O Ent Ancião de 3.000 anos guarda segredos que nenhum livro registrou.\n"
+            "Os sussurros entre os galhos contam histórias do tempo dos dragões."
+        ),
+        inline=False
+    )
+    embed2.add_field(
+        name="🏜️ Deserto das Almas — O Jardim Perdido",
+        value=(
+            "*\"Esta areia foi mar profundo uma vez. Sob ela ainda dormem\n"
+            "as maravilhas do jardim original — esperando um digno.\"*\n"
+            "— Sábia Nefertiri\n\n"
+            "O Faraó Kha-Mentu foi traído por seus sacerdotes e amaldiçoado\n"
+            "para guardar seus próprios tesouros por toda a eternidade."
+        ),
+        inline=False
+    )
+    await channel.send(embed=embed2)
+    await asyncio.sleep(2)
 
-🌱 **Campos Iniciais** — O berço de todo herói
-🌲 **Floresta Sombria** — Sussurra segredos proibidos
-🏜️ **Deserto das Almas** — Guarda civilizações engolidas pela areia
-❄️ **Montanhas Geladas** — Ecoam lamentos de guerreiros caídos
-🌋 **Reino Vulcânico** — Ferve com a ira de deuses esquecidos
-🌌 **Abismo Arcano** — Distorce a própria essência da realidade
-👑 **Trono Celestial** — Aguarda aquele digno o suficiente
+    # ══════════════════════════════════════════
+    # EMBED 3 — Mais reinos
+    # ══════════════════════════════════════════
+    embed3 = discord.Embed(
+        title="🗺️ Os Reinos Além",
+        description="*...o pergaminho continua se desenrolando...*",
+        color=0x4B0082
+    )
+    embed3.add_field(
+        name="❄️ Montanhas Geladas — O Grito dos Titãs",
+        value=(
+            "*\"Vivi 80 invernos nestas montanhas. O frio não é inimigo — é professor.\n"
+            "O Yeti não é um monstro. É um guardião mal compreendido.\"*\n"
+            "— Ancião Bjorn\n\n"
+            "Os Titãs do Gelo criaram o Cristal do Inverno Eterno — um arquivo\n"
+            "de tudo que já morreu no frio. O Yeti Colossal sente cada memória."
+        ),
+        inline=False
+    )
+    embed3.add_field(
+        name="🌋 Reino Vulcânico — Onde o Fogo Pensa",
+        value=(
+            "*\"O fogo não destrói. Transforma. Os Forjadores sabiam disso —\n"
+            "por isso criaram armas que tinham alma.\"*\n"
+            "— Profeta Ignar\n\n"
+            "Ignarius, o Dragão de Magma, é o segundo elemento.\n"
+            "Dentro dele vivem as memórias de uma civilização inteira."
+        ),
+        inline=False
+    )
+    embed3.add_field(
+        name="🌌 Abismo Arcano — O Antes e o Depois",
+        value=(
+            "*\"Quanto mais você sabe, mais entende que não sabe nada.\n"
+            "As entidades do Vazio não são más. São antigas demais.\"*\n"
+            "— Arquimago Zephyr\n\n"
+            "Cada alma que nasce vem do Abismo. Cada alma que morre, retorna.\n"
+            "O Senhor das Sombras administra esse trânsito eterno."
+        ),
+        inline=False
+    )
+    embed3.add_field(
+        name="👑 Trono Celestial — O Teste Final",
+        value=(
+            "*\"O Imperador Astral não é um inimigo — é o último teste.\n"
+            "O Trono não é um lugar. É um estado de ser.\"*\n"
+            "— Guardião Estelar Auron\n\n"
+            "Aquele que chegar aqui não será mais mortal.\n"
+            "A história foi escrita. Apenas você decide como ela termina."
+        ),
+        inline=False
+    )
+    await channel.send(embed=embed3)
+    await asyncio.sleep(2)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # ══════════════════════════════════════════
+    # EMBED 4 — Lore: A Guerra Primordial
+    # ══════════════════════════════════════════
+    embed4 = discord.Embed(
+        title="📜 Crônicas da Guerra Primordial",
+        description=(
+            "*Um livro antigo se abre sozinho nas páginas proibidas...*\n\n"
+            "**'O Que Existia Antes do Tempo'**\n\n"
+            "Antes que o universo existisse, houve uma guerra.\n\n"
+            "De um lado: a **Luz Primordial**, que queria existência, forma, vida.\n"
+            "Do outro: o **Vazio Eterno**, que queria silêncio, paz, nada.\n\n"
+            "Eles lutaram por uma eternidade que não tinha nome ainda.\n"
+            "A batalha terminou sem vencedor — ambos exaustos, fizeram um acordo:\n"
+            "criariam algo novo. Algo que contivesse os dois.\n\n"
+            "Chamaram isso de ***Universo***.\n\n"
+            "E plantaram dentro de cada ser vivo uma centelha de cada lado.\n"
+            "*É por isso que todo ser carrega tanto amor quanto destruição.*\n\n"
+            "**A guerra não terminou. Apenas mudou de palco.**\n\n"
+            "*— Fragmento encontrado no 'Além do Trono', autor desconhecido*"
+        ),
+        color=0x1a0033
+    )
+    embed4.set_footer(text="📚 Lore desbloqueável: explore o mundo para encontrar mais fragmentos.")
+    await channel.send(embed=embed4)
+    await asyncio.sleep(2)
 
-💬 **Comandos Principais:**
+    # ══════════════════════════════════════════
+    # EMBED 5 — Sistema de Alinhamento
+    # ══════════════════════════════════════════
+    embed5 = discord.Embed(
+        title="⚖️ O Peso das Escolhas",
+        description=(
+            "*O Narrador observa você com olhos que viram mil histórias...*\n\n"
+            "**Neste mundo, suas ações têm consequências morais.**\n\n"
+            "Salvar uma cidade ou saqueá-la.\n"
+            "Ajudar um viajante ou roubá-lo.\n"
+            "Proteger os inocentes ou usá-los como escudo.\n\n"
+            "Cada escolha molda quem você é:"
+        ),
+        color=0x9B59B6
+    )
+    embed5.add_field(
+        name="✨ Herói (+30 pontos ou mais)",
+        value="*'Sua luz guia aqueles que estão perdidos.'*\nAcesso a missões de proteção, recompensas divinas e respeito do povo.",
+        inline=False
+    )
+    embed5.add_field(
+        name="⚖️ Anti-Herói (-5 a -29 pontos)",
+        value="*'Você faz o bem pelos motivos errados... ou o errado pelos motivos certos.'*\nMissões de moral cinza com recompensas únicas.",
+        inline=False
+    )
+    embed5.add_field(
+        name="💀 Vilão (-30 pontos ou menos)",
+        value="*'O poder não se pede. Se toma.'*\nMissões de conquista e destruição com XP massivo — e consequências.",
+        inline=False
+    )
+    embed5.add_field(
+        name="🎭 Como funciona",
+        value="Use `cenário` para enfrentar dilemas morais!\nUse `alinhamento` para ver seu estado atual.",
+        inline=False
+    )
+    await channel.send(embed=embed5)
+    await asyncio.sleep(2)
 
-**EXPLORAÇÃO:** `explorar` | `caçar` | `coletar` | `dungeon` | `procurar pet` | `procurar cidade`
-**BOSS:** `encontrar boss` — Boss variado por reino! | `desafiar boss` | `juntar boss` | `iniciar batalha boss`
-**QUESTS:** `ver quests` | `realizar quest` | `finalizar quest` | `missão moral`
-**PvP:** `desafiar @jogador` — Duelo com habilidades e mana!
-**PERSONAGEM:** `ver perfil` | `inventário` | `escolher classe` | `ver mana` | `alinhamento`
-**PETS & FAZENDA:** `fazenda` | `trocar pet` | `guardar pet` | `procurar pet`
-**EMPREGOS:** `procurar emprego` | `trabalhar` | `ver emprego` | `largar emprego`
-**CAVALEIRO/REI:** `defender cidade` | `me tornar rei` | `nomear cavaleiro @user` | `ajudar defesa`
-**MAPA:** `abrir mapa` | `viajar <local>` — Viaje entre locais descobertos!
-**MORAL:** `cenário` — Enfrente escolhas que definem seu alinhamento (Herói/Vilão/Anti-Herói)!
-**SOCIAL:** `trocar [item] com @user` | `criar guilda` | `ver guilda`
-**ITENS:** `[poção], usar` | `vender [item]` | `equipar [item]`
-**COINS:** `trocar coins <valor>` — Troque CSI Coins por Monstrinhos Coins!
-**MINAS:** `minerar` | `minerar baú` — Cuidado com Mimics nos baús! 🦷
-**LORE:** `falar npc especial` — Ouça histórias profundas dos NPCs do reino!
+    # ══════════════════════════════════════════
+    # EMBED 6 — Empregos e Títulos
+    # ══════════════════════════════════════════
+    embed6 = discord.Embed(
+        title="💼 Empregos & Títulos do Reino",
+        description=(
+            "*O taberneiro pregou uma lista de oportunidades na parede...*\n\n"
+            "**A partir do nível 5**, você pode trabalhar e ganhar salário!\n"
+            "Cada emprego tem benefícios únicos que afetam sua jornada."
+        ),
+        color=0xE67E22
+    )
+    embed6.add_field(name="⚒️ Ferreiro (Nv.5)", value="Forja armas únicas, 20% desc. em lojas", inline=True)
+    embed6.add_field(name="🔮 Arcano (Nv.5)", value="+15 mana máx, acesso a grimórios", inline=True)
+    embed6.add_field(name="💚 Curandeiro (Nv.5)", value="Cura aliados, poções 30% mais baratas", inline=True)
+    embed6.add_field(name="💰 Mercador (Nv.5)", value="Vende 25% a mais, mercado negro", inline=True)
+    embed6.add_field(name="📜 Escriba (Nv.5)", value="Descobre locais 2× mais rápido", inline=True)
+    embed6.add_field(name="⚔️ Cavaleiro (Nv.10)", value="+20 HP, defende cidades de invasões", inline=True)
+    embed6.add_field(name="🛡️ Guarda Real (Nv.15)", value="+35 HP, comanda a guarda do reino", inline=True)
+    embed6.add_field(name="👑 Rei (Nv.30)", value="Governa, nomeia cavaleiros, recebe tributo", inline=True)
+    embed6.add_field(
+        name="📣 Como começar",
+        value="`procurar emprego` → escolha sua profissão → `trabalhar` a cada 30 min!",
+        inline=False
+    )
+    await channel.send(embed=embed6)
+    await asyncio.sleep(2)
 
-*O narrador acompanhará cada passo seu!* 🎭
+    # ══════════════════════════════════════════
+    # EMBED 7 — Comandos completos
+    # ══════════════════════════════════════════
+    embed7 = discord.Embed(
+        title="⚔️ Guia de Comandos",
+        description="*Tudo que você precisa para começar sua lenda:*",
+        color=0x3498DB
+    )
+    embed7.add_field(
+        name="🌍 Exploração",
+        value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon` | `procurar pet` | `procurar cidade`",
+        inline=False
+    )
+    embed7.add_field(
+        name="👹 Boss & Combate",
+        value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+        inline=False
+    )
+    embed7.add_field(
+        name="📋 Quests & Moral",
+        value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`",
+        inline=False
+    )
+    embed7.add_field(
+        name="👤 Personagem",
+        value="`ver perfil` | `inventário` | `escolher classe` | `ver mana` | `ver emprego`",
+        inline=False
+    )
+    embed7.add_field(
+        name="🐾 Pets & Fazenda",
+        value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar`",
+        inline=False
+    )
+    embed7.add_field(
+        name="💼 Empregos & Títulos",
+        value="`procurar emprego` | `trabalhar` | `largar emprego` | `me tornar rei` | `defender cidade`",
+        inline=False
+    )
+    embed7.add_field(
+        name="🗺️ Mapa & Viagem",
+        value="`abrir mapa` | `viajar <local>` | `procurar cidade`",
+        inline=False
+    )
+    embed7.add_field(
+        name="🏰 Social & Guilda",
+        value="`criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`",
+        inline=False
+    )
+    embed7.add_field(
+        name="🛒 Itens & Economia",
+        value="`[poção], usar` | `vender [item]` | `equipar [item]` | `trocar coins <valor>` | `minerar baú`",
+        inline=False
+    )
+    embed7.add_field(
+        name="📚 Lore",
+        value="`falar npc especial` | `procurar cidade` — descubra histórias dos NPCs e livros escondidos!",
+        inline=False
+    )
+    embed7.set_footer(text="🌟 \"E assim, uma nova história começa...\" — O Narrador")
+    await channel.send(embed=embed7)
+    await asyncio.sleep(1)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌟 *"E assim, uma nova história começa..."* 🌟
-"""
-    await channel.send(prologue)
+    # ══════════════════════════════════════════
+    # MENSAGEM FINAL — Chamada para ação
+    # ══════════════════════════════════════════
+    embed8 = discord.Embed(
+        title="🌟 Sua Jornada Começa Agora",
+        description=(
+            "*O Narrador fecha o livro e te olha diretamente...*\n\n"
+            "**\"Você está pronto? Ou acha que está?\"**\n\n"
+            "Os Campos Iniciais aguardam seus primeiros passos.\n"
+            "Um Slime está por aí, inocente demais para saber o que está prestes a acontecer.\n\n"
+            "Use `explorar` para começar.\n"
+            "Use `ver perfil` para ver seu estado.\n"
+            "Use `escolher classe` quando chegar ao nível 2.\n\n"
+            "*Lembre-se: toda lenda começa com um único passo.*\n\n"
+            "**Boa sorte, aventureiro. Você vai precisar.** 🎭"
+        ),
+        color=0xF1C40F
+    )
+    embed8.set_footer(text="⚠️ O boss só aparece nos níveis 9, 19, 29, 39, 49, 59 — e só passará de reino ao vencê-lo!")
+    await channel.send(embed=embed8)
 
 
 # ================= EVENTOS DO BOT =================
