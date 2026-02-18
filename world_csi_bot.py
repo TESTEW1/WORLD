@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎-mundo-csi"
+CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
