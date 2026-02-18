@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "mundo-beta"
+CANAL_BETA = "🌎-mundo-csi"
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
@@ -541,6 +541,1090 @@ QUESTS = {
             "difficulty": "Lendário"
         }
     ]
+}
+
+# ================= EMPREGOS DO REINO =================
+JOBS = {
+    "Ferreiro": {
+        "emoji": "⚒️",
+        "min_level": 5,
+        "description": "Mestre das forjas. Cria e melhora equipamentos com materiais coletados.",
+        "salary_coins": (8, 18),
+        "salary_xp": (50, 120),
+        "perks": [
+            "Pode craftar armas únicas com `forjar arma`",
+            "20% desconto ao comprar equipamentos na loja",
+            "+2 bônus em dados ao coletar recursos de metal",
+            "Pode identificar qualidade de itens com `inspecionar item`",
+        ],
+        "work_action": "Você martela o ferro com maestria. Faíscas voam enquanto uma lâmina toma forma.",
+        "work_msgs": [
+            "🔨 Você forja uma espada encomendada por um guarda. Trabalho limpo!",
+            "⚒️ Um anão visita sua forja e aprova sua técnica — raro elogio!",
+            "🔥 O fogo da forja revela um inchaço no aço. Você o reforja melhor ainda.",
+            "⚙️ Você repara a armadura de um cavaleiro. Ele parte em silêncio, mas com respeito.",
+            "⛏️ Uma lâmina perfeita sai da forja. Você a guarda — ninguém ainda merece.",
+        ]
+    },
+    "Arcano": {
+        "emoji": "🔮",
+        "min_level": 5,
+        "description": "Estudioso dos mistérios mágicos. Pesquisa feitiços e fenômenos sobrenaturais.",
+        "salary_coins": (5, 12),
+        "salary_xp": (80, 180),
+        "perks": [
+            "+15 de mana máxima permanente",
+            "Pode usar `estudar magia` para ganhar XP extra",
+            "50% de chance de identificar itens mágicos automaticamente",
+            "Acesso à `biblioteca arcana` com lore exclusivo",
+        ],
+        "work_action": "Você mergulha em pergaminhos proibidos, decifrando runas antigas com os olhos vibrando.",
+        "work_msgs": [
+            "📚 Você decifra um pergaminho que ninguém leu por 300 anos. Revelação inquietante.",
+            "✨ Uma fórmula mágica que você criou funciona pela primeira vez. Que satisfação!",
+            "🌀 Uma anomalia arcana surge no laboratório. Você a contém por um fio.",
+            "🔮 Você cataloga uma criatura mágica nunca documentada. A academia vai amar isso.",
+            "💫 Seus estudos sobre o Abismo revelam uma verdade que deveria permanecer escondida.",
+        ]
+    },
+    "Curandeiro": {
+        "emoji": "💚",
+        "min_level": 5,
+        "description": "Guardião da vida. Cura ferimentos e doenças usando ervas e magia de cura.",
+        "salary_coins": (6, 14),
+        "salary_xp": (40, 100),
+        "perks": [
+            "Regenera +10 HP ao usar `trabalhar` além do salário",
+            "Poções custam 30% menos na loja",
+            "`curar` tem 25% de chance de curar completamente",
+            "Pode usar `curar aliado @user` para curar outros jogadores",
+        ],
+        "work_action": "Suas mãos brilham com energia de cura enquanto você atende os feridos.",
+        "work_msgs": [
+            "💚 Você salva um mercador picado por uma aranha venenosa. Ele chora de alívio.",
+            "🌿 Suas ervas curam uma criança com febre arcana. A mãe te abraça com força.",
+            "⚕️ Um guerreiro chega quase morto. Você trabalha a noite toda. Ele sobrevive.",
+            "🍃 Você descobre uma combinação de ervas que alivia veneno de drago. Anotado.",
+            "💊 Você trata 12 aldeões com gripe mágica num só dia. Exausto, mas feliz.",
+        ]
+    },
+    "Mercador": {
+        "emoji": "💰",
+        "min_level": 5,
+        "description": "Comerciante astuto. Compra e vende itens obtendo lucro em cada transação.",
+        "salary_coins": (15, 30),
+        "salary_xp": (20, 60),
+        "perks": [
+            "Vende itens por 25% a mais de valor",
+            "Acesso a `mercado negro` com itens raros",
+            "Pode `negociar` para reduzir custo de compras",
+            "+5 coins extras ao concluir qualquer quest",
+        ],
+        "work_action": "Você negocia com viajantes, comprando barato e vendendo caro com um sorriso encantador.",
+        "work_msgs": [
+            "💰 Você compra uma gema por 3 moedas e vende por 30. Que dia excelente!",
+            "🤝 Um nobre paga o triplo por um item comum — ele nem sabia que era comum.",
+            "📊 Sua rota comercial entre dois reinos rende 50% a mais este mês.",
+            "🏪 Um rival tenta te sabotar. Você sorri e leva o cliente dele embora.",
+            "💎 Você fareja um item raro num lote de bugigangas. Fortuna bem merecida.",
+        ]
+    },
+    "Escriba": {
+        "emoji": "📜",
+        "min_level": 5,
+        "description": "Guardião do conhecimento. Registra histórias, cria mapas e decifra textos antigos.",
+        "salary_coins": (4, 10),
+        "salary_xp": (100, 220),
+        "perks": [
+            "Descobre locais no mapa 2x mais rápido ao explorar",
+            "Pode escrever `crônica` para ganhar XP bônus registrando aventuras",
+            "Acesso a livros de lore exclusivos com `ler arquivo`",
+            "Pode `mapear` áreas para revelar locais secretos",
+        ],
+        "work_action": "Sua pena raspa o pergaminho enquanto você registra histórias que outros esquecem.",
+        "work_msgs": [
+            "📜 Você traduz um mapa antigo e revela uma rota perdida há séculos.",
+            "✍️ Um herói lendário te pede para escrever sua biografia. Honra inesperada.",
+            "🗺️ Você completa o mapa de uma região inteira em uma semana. Perfeição.",
+            "📖 Seu arquivo sobre criaturas mágicas se torna referência para todo o reino.",
+            "🔍 Você encontra uma inconsistência em crônicas antigas. A história foi alterada.",
+        ]
+    },
+    "Cavaleiro": {
+        "emoji": "⚔️",
+        "min_level": 10,
+        "description": "Protetor jurado das cidades e do povo. Defende contra invasões, patrulha e mantém a ordem.",
+        "salary_coins": (10, 22),
+        "salary_xp": (60, 140),
+        "perks": [
+            "+20 HP máximos permanentes",
+            "Pode usar `patrulhar` para ganhar XP e defender a cidade",
+            "Pode convocar até 2 jogadores em defesa com `convocar cavaleiros`",
+            "Resistência a dano aumentada em 15% durante batalhas",
+        ],
+        "work_action": "Você patrulha as ruas de armadura brilhante, a mão na espada, os olhos vigilantes.",
+        "work_msgs": [
+            "⚔️ Você intercepta ladrões no mercado. Eles fogem ao ver sua armadura.",
+            "🛡️ Uma criança perdida chora no beco escuro. Você a leva em segurança para casa.",
+            "🗡️ Um bêbado começa uma briga na taverna. Você a encerra com uma palavra firme.",
+            "🏰 Você escolta uma caravana real por 3 dias. Sem incidentes. Exatamente como deve ser.",
+            "⚡ Um bandido saca a espada. Você a desarma em um movimento. Sem derramamento de sangue.",
+        ],
+        "city_defense_cooldown": 3600  # 1 hora
+    },
+    "Guarda_Real": {
+        "emoji": "🛡️",
+        "min_level": 15,
+        "description": "Elite da proteção real. Defende o reino com força e lealdade absolutas.",
+        "salary_coins": (15, 30),
+        "salary_xp": (80, 180),
+        "perks": [
+            "+35 HP máximos permanentes",
+            "Pode usar `defender reino` em invasões de monstros",
+            "Acesso a equipamentos da guarda real na loja",
+            "Pode recrutar jogadores para a guarda com `recrutar guarda`",
+        ],
+        "work_action": "Você fica em posição de guarda nas portas do palácio, imóvel como uma estátua de aço.",
+        "work_msgs": [
+            "🛡️ Uma espiã tenta se infiltrar. Seu instinto a detecta antes de qualquer dano.",
+            "👑 O rei te agradece pessoalmente por salvar sua filha de um sequestro.",
+            "⚔️ Você treina recrutas por uma semana. Um deles tem talento genuíno.",
+            "🏰 Um ataque surpresa na madrugada é repelido sob seu comando.",
+            "🗡️ Você desarma um assassino dentro do salão do trono. Silenciosamente.",
+        ]
+    },
+    "Rei": {
+        "emoji": "👑",
+        "min_level": 30,
+        "description": "Soberano de uma cidade. Governa, toma decisões que afetam o povo e defende o reino.",
+        "salary_coins": (0, 0),
+        "salary_xp": (0, 0),
+        "perks": [
+            "Recebe tributo diário de coins baseado no nível da cidade",
+            "Pode `governar` para tomar decisões que afetam eventos futuros",
+            "Pode `decretar lei` com efeitos especiais no servidor",
+            "Pode `convocar guerra` para batalhas massivas com outros jogadores",
+            "Pode `nomear cavaleiro @user` para promover jogadores",
+            "Recebe alertas de invasão antes de outros jogadores",
+        ],
+        "work_action": "Você assina decretos, ouve petições e toma decisões que afetam milhares de vidas.",
+        "work_msgs": [
+            "👑 Você media uma disputa de terras entre dois nobres. Decisão salomônica.",
+            "⚖️ Uma petição popular chega: o povo quer menos impostos. Você considera.",
+            "🏰 Um embaixador de outro reino chega. Diplomacia delicada se inicia.",
+            "📜 Você assina um tratado de paz com os elfos. Trégua de 50 anos.",
+            "👥 O povo celebra nas ruas ao ouvir sua decisão de perdoar uma dívida coletiva.",
+        ]
+    }
+}
+
+# ================= EVENTOS DE INVASÃO DE CIDADE =================
+CITY_INVASION_EVENTS = {
+    1: [
+        {
+            "id": "inv_campos_001",
+            "title": "🐗 Horda de Javalis Raivosos",
+            "description": "Uma horda de javalis gigantes avança pela estrada principal! O mercado está sendo destruído!",
+            "enemy": "Javali Enraivecido",
+            "enemy_count": 8,
+            "hp": 180,
+            "atk": 18,
+            "xp_reward": 800,
+            "coins_reward": 40,
+            "min_defenders": 1,
+            "dialogue_options": [
+                {"text": "🌾 Espalhar feno para distrair os javalis para longe", "success_chance": 0.65, "align": +5},
+                {"text": "⚔️ Atacar a liderança da horda diretamente", "success_chance": 0.55, "align": +3},
+                {"text": "📯 Tocar o alarme e evacuar os moradores", "success_chance": 0.80, "align": +8},
+            ]
+        },
+        {
+            "id": "inv_campos_002",
+            "title": "🐀 Praga de Ratos Mágicos",
+            "description": "Ratos do tamanho de gatos estão invadindo os celeiros! As reservas de comida do inverno estão em risco!",
+            "enemy": "Rato Mágico Gigante",
+            "enemy_count": 15,
+            "hp": 80,
+            "atk": 10,
+            "xp_reward": 600,
+            "coins_reward": 30,
+            "min_defenders": 1,
+            "dialogue_options": [
+                {"text": "🧀 Preparar iscas envenenadas nos celeiros", "success_chance": 0.75, "align": +3},
+                {"text": "🔥 Acender tochas para afugentar a praga", "success_chance": 0.60, "align": +5},
+                {"text": "🐱 Recrutar gatos mágicos da floresta", "success_chance": 0.85, "align": +7},
+            ]
+        },
+    ],
+    10: [
+        {
+            "id": "inv_floresta_001",
+            "title": "👺 Ataque Goblin Organizado",
+            "description": "Uma tribo de goblins com táticas militares invade a aldeia florestal! Eles têm catapultas improvisadas!",
+            "enemy": "Guerreiro Goblin",
+            "enemy_count": 12,
+            "hp": 350,
+            "atk": 28,
+            "xp_reward": 1800,
+            "coins_reward": 80,
+            "min_defenders": 2,
+            "dialogue_options": [
+                {"text": "🤝 Tentar negociar — por que os goblins atacam?", "success_chance": 0.45, "align": +12},
+                {"text": "🏹 Emboscada nas árvores antes que avancem", "success_chance": 0.65, "align": +4},
+                {"text": "🔥 Destruir as catapultas primeiro", "success_chance": 0.70, "align": +2},
+                {"text": "💀 Ataque total sem misericórdia", "success_chance": 0.80, "align": -5},
+            ]
+        },
+        {
+            "id": "inv_floresta_002",
+            "title": "🕷️ Ninho de Aranhas Colossais",
+            "description": "Um ninho de aranhas colossais foi perturbado e as criaturas invadem o acampamento!",
+            "enemy": "Aranha Colossal",
+            "enemy_count": 6,
+            "hp": 500,
+            "atk": 35,
+            "xp_reward": 2000,
+            "coins_reward": 90,
+            "min_defenders": 2,
+            "dialogue_options": [
+                {"text": "🔥 Fogo destrói a teia e afasta as aranhas", "success_chance": 0.75, "align": +3},
+                {"text": "🧪 Usar antídoto para atrair as aranhas para longe", "success_chance": 0.60, "align": +6},
+                {"text": "⚔️ Combate direto com as criaturas", "success_chance": 0.55, "align": +2},
+            ]
+        },
+    ],
+    20: [
+        {
+            "id": "inv_deserto_001",
+            "title": "💀 Exército de Mumificados",
+            "description": "O selo de Kha-Mentu foi quebrado! Um exército de guerreiros mumificados marcha pelo deserto em direção ao Oásis!",
+            "enemy": "Guerreiro Mumificado",
+            "enemy_count": 20,
+            "hp": 600,
+            "atk": 42,
+            "xp_reward": 3500,
+            "coins_reward": 120,
+            "min_defenders": 2,
+            "dialogue_options": [
+                {"text": "📜 Recitar a prece de descanso dos mortos", "success_chance": 0.55, "align": +10},
+                {"text": "🏺 Quebrar o artefato que os controla", "success_chance": 0.65, "align": +5},
+                {"text": "⚔️ Confronto direto — são mortos, sem negociação", "success_chance": 0.70, "align": 0},
+                {"text": "🚪 Evacuar o oásis e deixá-los ir", "success_chance": 0.90, "align": +3},
+            ]
+        },
+    ],
+    30: [
+        {
+            "id": "inv_gelo_001",
+            "title": "🦣 Ataque dos Yetis Furiosos",
+            "description": "Uma tempestade de neve trouxe Yetis famintos até a Fortaleza Permafrost! Eles arranham as portas!",
+            "enemy": "Yeti Furioso",
+            "enemy_count": 5,
+            "hp": 900,
+            "atk": 60,
+            "xp_reward": 4500,
+            "coins_reward": 150,
+            "min_defenders": 2,
+            "dialogue_options": [
+                {"text": "🥩 Jogar comida para além dos muros para atraí-los", "success_chance": 0.70, "align": +8},
+                {"text": "🔥 Acender fogueiras nas paredes para afastá-los", "success_chance": 0.65, "align": +3},
+                {"text": "⚔️ Sair e enfrentar os Yetis um a um", "success_chance": 0.50, "align": +5},
+                {"text": "❄️ Usar magia para criar uma barreira de gelo maior", "success_chance": 0.75, "align": +4},
+            ]
+        },
+    ],
+    40: [
+        {
+            "id": "inv_vulcao_001",
+            "title": "🐲 Dragões de Lava Jovens",
+            "description": "A erupção acordou ninhadas de dragões de lava! Três criaturas atacam a Cidadela Cinzenta!",
+            "enemy": "Dragão de Lava Jovem",
+            "enemy_count": 3,
+            "hp": 1500,
+            "atk": 90,
+            "xp_reward": 7000,
+            "coins_reward": 200,
+            "min_defenders": 3,
+            "dialogue_options": [
+                {"text": "🧊 Usar magia de gelo para acalmar as criaturas", "success_chance": 0.50, "align": +12},
+                {"text": "🥚 Encontrar e proteger os ovos para negociar", "success_chance": 0.60, "align": +10},
+                {"text": "⚔️ Batalha total — dragões ou cidadela", "success_chance": 0.65, "align": -2},
+                {"text": "💎 Oferecer gemas como pagamento para recuo", "success_chance": 0.45, "align": +5},
+            ]
+        },
+    ],
+    50: [
+        {
+            "id": "inv_abismo_001",
+            "title": "👁️ Invasão de Entidades do Vazio",
+            "description": "Uma fenda no Abismo Arcano se abre! Entidades insanas emergem com fome de realidade!",
+            "enemy": "Entidade do Vazio",
+            "enemy_count": 4,
+            "hp": 2000,
+            "atk": 120,
+            "xp_reward": 10000,
+            "coins_reward": 300,
+            "min_defenders": 3,
+            "dialogue_options": [
+                {"text": "🔮 Ritual de fechamento da fenda (arriscado)", "success_chance": 0.45, "align": +15},
+                {"text": "📚 Usar conhecimento arcano para comunicar com elas", "success_chance": 0.35, "align": +10},
+                {"text": "⚔️ Combate dimensional com tudo que tem", "success_chance": 0.60, "align": 0},
+                {"text": "💥 Explodir a fenda com magia destrutiva", "success_chance": 0.70, "align": -5},
+            ]
+        },
+    ],
+    60: [
+        {
+            "id": "inv_celestial_001",
+            "title": "😈 Queda de Anjos Corrompidos",
+            "description": "Anjos caídos atacam o Trono Celestial! Seres de luz corrompida descem em chamas!",
+            "enemy": "Anjo Caído",
+            "enemy_count": 5,
+            "hp": 3000,
+            "atk": 160,
+            "xp_reward": 20000,
+            "coins_reward": 500,
+            "min_defenders": 3,
+            "dialogue_options": [
+                {"text": "✨ Tentar purificar a corrupção com luz celestial", "success_chance": 0.40, "align": +20},
+                {"text": "🕊️ Preces de redenção para os seres caídos", "success_chance": 0.35, "align": +15},
+                {"text": "⚔️ Batalha épica — eles escolheram a queda", "success_chance": 0.65, "align": +3},
+                {"text": "🌌 Usar o poder do Trono para bani-los de volta", "success_chance": 0.55, "align": +8},
+            ]
+        },
+    ]
+}
+
+# ================= BOSSES VARIADOS POR REINO =================
+WORLD_BOSSES_VARIANTS = {
+    1: [
+        {"name": "👑 Slime Rei Corrompido", "hp": 200, "atk": 18, "xp": 350, "coins": (20, 45),
+         "desc": "O Slime Rei foi infectado por magia negra. Seu corpo negro borbulha com veneno arcano.",
+         "intro": "Uma massa negra e pulsante bloqueia seu caminho. Olhos vermelhos piscam do interior do lodo."},
+        {"name": "🐀 Rato dos Esgotos Ancestral", "hp": 170, "atk": 22, "xp": 300, "coins": (15, 35),
+         "desc": "Um rato que viveu nos esgotos por 500 anos. Carrega doenças de cinco civilizações.",
+         "intro": "Um rato do tamanho de um cavalo emerge das profundezas. Sua pele está coberta de runas."},
+        {"name": "🌪️ Espírito do Campo", "hp": 250, "atk": 15, "xp": 400, "coins": (25, 50),
+         "desc": "O espírito protetor dos campos foi corrompido. Antes guardava a terra. Agora a devora.",
+         "intro": "O vento para subitamente. Uma forma etérea verde e dourada materializa com olhos vazios."},
+        {"name": "🌱 Ent Jovem Enraivecido", "hp": 300, "atk": 12, "xp": 380, "coins": (18, 40),
+         "desc": "Um ent jovem cujas raízes foram contaminadas por poluição arcana. Ele sofre e ataca.",
+         "intro": "Um conjunto de árvores se levanta e toma forma humanoide colossal. Ele geme ao se mover."},
+    ],
+    10: [
+        {"name": "🌲 Ent Ancião das Profundezas", "hp": 450, "atk": 30, "xp": 600, "coins": (30, 70),
+         "desc": "O mais antigo dos ents. Viu o mundo nascer e quer ver morrer.",
+         "intro": "A floresta inteira treme. Um ent de 400 anos se ergue, sua face entalhada em sofrimento."},
+        {"name": "🕷️ Mãe das Aranhas", "hp": 380, "atk": 35, "xp": 550, "coins": (25, 60),
+         "desc": "A aranha original. Todas as aranhas desta floresta desceram dela.",
+         "intro": "Oito olhos vermelhos brilham na escuridão. Uma aranha colossal desce do teto da caverna."},
+        {"name": "👺 Rei Goblin Estrategista", "hp": 400, "atk": 28, "xp": 580, "coins": (28, 65),
+         "desc": "Não é apenas bruto — ele é inteligente. E isso o torna o goblin mais perigoso já visto.",
+         "intro": "Um goblin de armadura élfica roubada senta num trono de ossos. Ele te olha com interesse."},
+        {"name": "🌫️ Espectro do Herói Caído", "hp": 350, "atk": 40, "xp": 620, "coins": (20, 55),
+         "desc": "Um herói que morreu sem completar sua missão. Preso entre vivos e mortos pela raiva.",
+         "intro": "Uma figura translúcida em armadura enferrujada empunha uma espada de luz mortiça."},
+    ],
+    20: [
+        {"name": "🔺 Faraó Kha-Mentu Ressurgido", "hp": 600, "atk": 45, "xp": 900, "coins": (40, 90),
+         "desc": "O faraó da primeira civilização. Morreu traído por seus sacerdotes. Voltou com sede de vingança.",
+         "intro": "A pirâmide treme. Bandagens douradas flutuam pelo ar. O faraó abre os olhos dourados."},
+        {"name": "🦂 Grande Escorpião do Deserto", "hp": 550, "atk": 50, "xp": 850, "coins": (35, 80),
+         "desc": "Escorpião com veneno capaz de matar um elefante. Protege ruínas por séculos.",
+         "intro": "As dunas explodem. Um escorpião colossal surge do subsolo, pinças do tamanho de árvores."},
+        {"name": "🌪️ Djinn do Vento de Areia", "hp": 500, "atk": 55, "xp": 880, "coins": (30, 75),
+         "desc": "Gênio aprisionado há milênios. A raiva do cativeiro o transformou em algo incontrolável.",
+         "intro": "Uma tempestade de areia para e toma forma humana. Olhos como tempestades te encarram."},
+        {"name": "🏺 Golem da Argila Sagrada", "hp": 700, "atk": 38, "xp": 920, "coins": (45, 95),
+         "desc": "Criado para proteger o templo. Agora que o templo caiu, ele não sabe o que proteger.",
+         "intro": "Uma estátua de argila de 5 metros pisca. Runas sagradas brilham em seu peito. Ele avança."},
+    ],
+    30: [
+        {"name": "❄️ Titã do Gelo Eterno", "hp": 800, "atk": 60, "xp": 1200, "coins": (50, 110),
+         "desc": "Um titã de gelo que dormia no coração da montanha. Despertou com a invasão de aventureiros.",
+         "intro": "Uma avalanche para no ar. Blocos de gelo se reorganizam numa forma colossal de 10 metros."},
+        {"name": "🐉 Dragão de Cristal", "hp": 750, "atk": 70, "xp": 1300, "coins": (55, 120),
+         "desc": "Um dragão cujas escamas viraram cristal por uma maldição. Belo e letal.",
+         "intro": "Luz se refrata por toda a caverna. Um dragão translúcido de cristal azul te olha com curiosidade."},
+        {"name": "🦣 Rei dos Yetis", "hp": 900, "atk": 55, "xp": 1100, "coins": (45, 100),
+         "desc": "O patriarca de toda a tribo Yeti. Tão antigo que sua pelagem virou neve permanente.",
+         "intro": "A temperatura cai 20 graus de repente. O maior ser que você já viu emerge da nevasca."},
+        {"name": "🌊 Elemental de Gelo Primordial", "hp": 680, "atk": 75, "xp": 1350, "coins": (60, 130),
+         "desc": "Um elemental que existia antes de qualquer montanha ser formada. Ele é a própria neve.",
+         "intro": "Flocos de neve flutuam em padrão impossível. Eles se fundem numa entidade translúcida e feroz."},
+    ],
+    40: [
+        {"name": "🌋 Ignarius, Dragão de Magma Ancião", "hp": 1100, "atk": 85, "xp": 1800, "coins": (70, 150),
+         "desc": "O primeiro ser criado quando o mundo era fogo. Guarda a Chama Original com ciúme eterno.",
+         "intro": "O vulcão erupciona de dentro pra fora. Magma toma forma. Ignarius abre os olhos de brasa."},
+        {"name": "⚒️ Golem da Forja Corrompida", "hp": 950, "atk": 95, "xp": 1700, "coins": (65, 140),
+         "desc": "A Forja Sagrada criou este golem para se defender. Mas a forja ficou louca.",
+         "intro": "Ferramentas flutuam em espiral. O metal derretido toma forma de um guerreiro monstruoso."},
+        {"name": "💀 Espírito do Forjador Traído", "hp": 880, "atk": 100, "xp": 1900, "coins": (75, 160),
+         "desc": "Um forjador anão que foi assassinado pela coroa. Sua raiva o manteve vivo em forma etérea.",
+         "intro": "O ar cheira a metal e ranço. Uma figura translúcida com martelo de fogo surge do nada."},
+        {"name": "🔥 Salamandra Primordial", "hp": 1000, "atk": 90, "xp": 1750, "coins": (68, 145),
+         "desc": "A salamandra que nasceu do primeiro fogo do universo. Criatura mais antiga do Reino.",
+         "intro": "O chão de lava explode. Uma salamandra do tamanho de uma casa emerge, cantando em chamas."},
+    ],
+    50: [
+        {"name": "🌀 O Senhor das Sombras", "hp": 1500, "atk": 120, "xp": 2800, "coins": (90, 200),
+         "desc": "Entidade que existia antes do universo. Quer apagar a realidade e retornar ao silêncio primordial.",
+         "intro": "A luz some. Não há escuridão — há ausência de tudo. Então ele fala: 'Você também cansou de existir?'"},
+        {"name": "👁️ Olho do Abismo", "hp": 1200, "atk": 140, "xp": 3000, "coins": (100, 220),
+         "desc": "Um olho do tamanho de uma casa que observa desde o início dos tempos. Enlouquece quem o encontra.",
+         "intro": "Uma pupila vertical de 3 metros se abre no teto do Abismo. Você sente ser estudado até o DNA."},
+        {"name": "🌌 Arquimago Zephyr Corrompido", "hp": 1350, "atk": 110, "xp": 2600, "coins": (85, 190),
+         "desc": "O maior mago do mundo se corrompeu estudando o Abismo. Agora é parte dele.",
+         "intro": "Uma silhueta familiar usa magias impossíveis. Você reconhece o rosto: Zephyr, com olhos vazios."},
+        {"name": "♾️ Loop Temporal", "hp": 1100, "atk": 130, "xp": 2900, "coins": (95, 210),
+         "desc": "Uma entidade que é o próprio tempo se loopando. Cada vez que você ataca, ela volta um segundo.",
+         "intro": "Você sente déjà vu. E de novo. E de novo. Uma entidade surge com múltiplas versões de si mesma."},
+    ],
+    60: [
+        {"name": "👑 Imperador Astral", "hp": 2500, "atk": 180, "xp": 5000, "coins": (150, 350),
+         "desc": "O governante do Trono Celestial. Não é mau — é o teste final. Aqueles dignos passarão.",
+         "intro": "O Trono brilha com luz insuportável. Uma figura de luz pura desce. 'Você chegou. Curioso.'"},
+        {"name": "😈 Querubim Corrompido Makhael", "hp": 2000, "atk": 200, "xp": 5500, "coins": (160, 370),
+         "desc": "O anjo mais belo que existiu, corrompido pela inveja. Sua queda criou um buraco no céu.",
+         "intro": "Asas negras preenchem o horizonte. Um ser de beleza aterrorizante pousa, com espada de trevas."},
+        {"name": "🌌 Vácuo da Criação", "hp": 3000, "atk": 150, "xp": 4500, "coins": (140, 320),
+         "desc": "O espaço vazio onde a criação começa e termina. É o nada que deseja ser algo.",
+         "intro": "O Trono implode em silêncio. No centro do vácuo, algo toma forma — ou talvez seja o vazio mesmo."},
+        {"name": "⭐ O Primeiro Herói (Corrompido)", "hp": 2200, "atk": 190, "xp": 5200, "coins": (155, 360),
+         "desc": "O primeiro aventureiro que passou por todos os reinos. Corrompido pelo poder do Trono.",
+         "intro": "Você reconhece os equipamentos: os mesmos de todas as lendas antigas. Mas os olhos são do Vazio."},
+    ]
+}
+
+# ================= SISTEMA DE ALINHAMENTO MORAL =================
+ALIGNMENT_TITLES = {
+    "Heroi":      {"emoji": "✨", "color": 0xFFD700, "desc": "Protetor dos inocentes, luz nas trevas."},
+    "Anti-Heroi": {"emoji": "⚖️", "color": 0x888888, "desc": "Nem bom, nem mau. Apenas pragmático."},
+    "Vilao":      {"emoji": "💀", "color": 0xFF0000, "desc": "O medo é sua arma. O poder é seu deus."},
+    "Neutro":     {"emoji": "🌑", "color": 0x444444, "desc": "Ainda sem definição. O destino aguarda."},
+}
+
+# Pontos: +10 = herói, -10 = vilão, zona neutra = anti-herói
+ALIGNMENT_SCENARIOS = {
+    1: [  # Campos
+        {
+            "id": "esc_campos_001",
+            "emoji": "🏘️",
+            "title": "O Aldeão Desesperado",
+            "description": "Um aldeão idoso se ajoelha diante de você, com lágrimas nos olhos. Seus filhos foram capturados pelo Slime Rei. Ele oferece suas últimas 3 moedas em pagamento.",
+            "choices": [
+                {"text": "✨ Aceitar a missão gratuitamente e ir resgatar os filhos",      "align": +10, "xp": 300, "coins": 0,   "result": "Você salva os filhos sem pedir nada em troca. A aldeia inteira celebra seu nome."},
+                {"text": "⚖️ Aceitar as 3 moedas e completar a missão",                    "align": 0,   "xp": 200, "coins": 3,   "result": "Uma transação justa. Os filhos são salvos. O aldeão agradece com o que pôde."},
+                {"text": "💀 Exigir todo o tesouro da aldeia para ajudar",                  "align": -10, "xp": 150, "coins": 15,  "result": "Você extorque o aldeão. Os filhos são salvos, mas você é amaldiçoado pelo sofrimento causado."},
+                {"text": "🏃 Ignorar o pedido e seguir em frente",                         "align": -5,  "xp": 0,   "coins": 0,   "result": "Você passa direto. Os gritos do aldeão ecoam em sua mente por dias."},
+            ]
+        },
+        {
+            "id": "esc_campos_002",
+            "emoji": "🐺",
+            "title": "A Matilha Faminta",
+            "description": "Uma matilha de lobos faminta bloqueia a estrada. Eles não são monstros — apenas animais com fome depois de uma seca prolongada. Aldeões assustados assistem de longe.",
+            "choices": [
+                {"text": "✨ Caçar comida e alimentar os lobos para liberarem a estrada",   "align": +8,  "xp": 250, "coins": 0,   "result": "Os lobos comem e se dispersam. Os aldeões nunca esquecerão o gesto."},
+                {"text": "⚖️ Assustar a matilha para longe sem ferir nenhum",               "align": +3,  "xp": 180, "coins": 0,   "result": "Com ruído e fogo, você afasta os lobos. Eficiente e sem sangue."},
+                {"text": "💀 Matar todos os lobos para garantir a estrada livre",            "align": -5,  "xp": 200, "coins": 5,   "result": "A estrada fica livre... e coberta de sangue. Os aldeões ficam em silêncio."},
+                {"text": "⚖️ Cobrar dos aldeões para abrir a passagem",                     "align": -2,  "xp": 100, "coins": 8,   "result": "Negócio é negócio. Você dispersa os lobos, os aldeões pagam contrariados."},
+            ]
+        },
+        {
+            "id": "esc_campos_003",
+            "emoji": "💰",
+            "title": "O Tesouro do Ladrão",
+            "description": "Você encontra um ladrão inconsciente após uma queda. Ao seu lado, uma bolsa com moedas roubadas de aldeões. Uma nota diz para quem pertence cada moeda.",
+            "choices": [
+                {"text": "✨ Devolver cada moeda ao dono certo usando a lista",              "align": +12, "xp": 200, "coins": 0,   "result": "Cada aldeão recebe de volta o que era seu. Sua honra cresce."},
+                {"text": "⚖️ Guardar metade e devolver metade anonimamente",                "align": -2,  "xp": 100, "coins": 12,  "result": "Alguns aldeões recebem de volta algo. Você fica com o resto."},
+                {"text": "💀 Ficar com tudo — o ladrão não merecia mesmo",                   "align": -8,  "xp": 50,  "coins": 25,  "result": "Você rouba do ladrão. O dinheiro é seu agora, mas o karma não esquece."},
+                {"text": "🏥 Chamar um curandeiro para o ladrão e reportar à guarda",       "align": +10, "xp": 180, "coins": 0,   "result": "Justiça é feita. O ladrão recebe ajuda e responderá pelo que fez."},
+            ]
+        },
+        {
+            "id": "esc_campos_004",
+            "emoji": "🔥",
+            "title": "Celeiro em Chamas",
+            "description": "Um celeiro pega fogo! Uma criança está presa dentro. O dono tenta entrar mas é segurado por outros. Você pode agir.",
+            "choices": [
+                {"text": "✨ Entrar correndo e salvar a criança (perde 30 HP)",              "align": +15, "xp": 400, "coins": 0,   "result": "Você entra pelas chamas. A criança está viva. Você sai queimado, mas vivo. Herói."},
+                {"text": "⚖️ Organizar um balde de água com os aldeões antes",              "align": +5,  "xp": 200, "coins": 0,   "result": "Trabalho em equipe. A criança é salva com risco menor para todos."},
+                {"text": "💀 Observar sem agir — não é problema seu",                       "align": -12, "xp": 0,   "coins": 0,   "result": "Você assiste. A criança sobrevive por sorte. Os aldeões nunca te perdoarão."},
+                {"text": "⚖️ Entrar SE receberem uma boa recompensa primeiro",              "align": -6,  "xp": 200, "coins": 20,  "result": "Você negocia enquanto a criança grita. Ela sobrevive. A aldeia fica dividida sobre você."},
+            ]
+        },
+    ],
+    10: [  # Floresta
+        {
+            "id": "esc_floresta_001",
+            "emoji": "🌲",
+            "title": "O Acampamento Goblin",
+            "description": "Você descobre um acampamento goblin. Mas ao se aproximar, vê que são goblins jovens — praticamente crianças — aprendendo a sobreviver sem adultos. Eles ficam com medo de você.",
+            "choices": [
+                {"text": "✨ Ensinar as crianças a pescar e coletar alimentos",               "align": +12, "xp": 350, "coins": 0,   "result": "Os jovens goblins aprendem. Décadas depois, eles serão pacifistas que lembram do herói."},
+                {"text": "⚖️ Ignorar e passar sem interagir",                               "align": 0,   "xp": 0,   "coins": 0,   "result": "Você não ajuda, mas também não prejudica. Eles continuam sua vida."},
+                {"text": "💀 Atacar o acampamento para 'eliminar uma ameaça futura'",        "align": -15, "xp": 300, "coins": 8,   "result": "Você ataca crianças indefesas. XP fácil, mas uma mancha irreparável na alma."},
+                {"text": "⚖️ Roubar os alimentos deles discretamente",                      "align": -8,  "xp": 50,  "coins": 10,  "result": "Você rouba de crianças. Elas ficam com fome. O karma lembra."},
+            ]
+        },
+        {
+            "id": "esc_floresta_002",
+            "emoji": "👁️",
+            "title": "A Espiã da Floresta",
+            "description": "Uma elfa te intercepta. Ela é uma espiã da resistência contra um tirano que governa um vilarejo próximo. Ela pede sua ajuda para entregar uma mensagem secreta.",
+            "choices": [
+                {"text": "✨ Ajudar a entrega da mensagem pro bem da resistência",           "align": +10, "xp": 400, "coins": 0,   "result": "A mensagem chega. A resistência se fortalece. Você fez parte da história."},
+                {"text": "💀 Trair a espiã ao tirano em troca de ouro",                     "align": -15, "xp": 100, "coins": 30,  "result": "A espiã é capturada. O tirano te paga. A resistência cai por ora."},
+                {"text": "⚖️ Pedir pagamento para a entrega",                               "align": -3,  "xp": 250, "coins": 15,  "result": "Serviço prestado por moedas. A elfa suspira, mas aceita."},
+                {"text": "⚖️ Recusar — muito perigoso envolver-se em política",             "align": 0,   "xp": 0,   "coins": 0,   "result": "Você recusa e segue. A resistência encontra outro mensageiro."},
+            ]
+        },
+    ],
+    20: [  # Deserto
+        {
+            "id": "esc_deserto_001",
+            "emoji": "🏺",
+            "title": "A Tumba Profanada",
+            "description": "Um grupo de saqueadores está violando uma tumba sagrada, levando artefatos dos ancestrais. Um ancião nomade te pede para intervir.",
+            "choices": [
+                {"text": "✨ Expulsar os saqueadores e devolver os artefatos ao ancião",    "align": +12, "xp": 500, "coins": 0,   "result": "Os artefatos voltam ao seu lugar. O ancião te abençoa com conhecimento antigo."},
+                {"text": "⚖️ Expulsar os saqueadores e ficar com metade",                   "align": -3,  "xp": 300, "coins": 25,  "result": "Meio certo, meio errado. O ancião fica com o suficiente para o ritual."},
+                {"text": "💀 Juntar-se aos saqueadores — mais dividido entre mais gente",   "align": -10, "xp": 200, "coins": 40,  "result": "Você saqueia junto. Riqueza fácil. A maldição do faraó observa em silêncio."},
+                {"text": "⚖️ Negociar com os saqueadores para eles pararem",               "align": +5,  "xp": 200, "coins": 0,   "result": "Palavras no lugar de violência. Eles recuam. Alguns artefatos foram perdidos."},
+            ]
+        },
+    ],
+    30: [  # Montanhas
+        {
+            "id": "esc_gelo_001",
+            "emoji": "🏔️",
+            "title": "A Aldeia Sitiada",
+            "description": "Uma aldeia nas montanhas está sitiada por bandidos que exigem tributo mensal. Os moradores estão famintos e com frio. Os bandidos são 5, todos armados.",
+            "choices": [
+                {"text": "✨ Enfrentar os 5 bandidos sozinho para libertar a aldeia",       "align": +15, "xp": 600, "coins": 0,   "result": "Batalha épica. Você vence. A aldeia é livre. Eles te constroem uma estátua."},
+                {"text": "⚖️ Treinar os aldeões para se defenderem sozinhos",               "align": +10, "xp": 500, "coins": 0,   "result": "Você ensina a pescar. A aldeia aprende a se proteger para sempre."},
+                {"text": "💀 Fazer um acordo com os bandidos — eles te pagam para manter controle", "align": -12, "xp": 150, "coins": 35, "result": "Você lucra com o sofrimento. Os aldeões continuam pagando. Agora para você também."},
+                {"text": "⚖️ Negociar a saída dos bandidos com seu espólio de batalha",    "align": +3,  "xp": 300, "coins": 10,  "result": "Dinheiro muda mentes. Os bandidos partem. A aldeia respira aliviada."},
+            ]
+        },
+    ],
+    40: [  # Vulcão
+        {
+            "id": "esc_vulcao_001",
+            "emoji": "🌋",
+            "title": "A Última Criança Anã",
+            "description": "Você encontra a única criança sobrevivente de uma civilização anã destruída pelo vulcão. Ela segura um mapa para um tesouro lendário de sua nação.",
+            "choices": [
+                {"text": "✨ Adotar a criança e protegê-la, esquecendo o tesouro",          "align": +15, "xp": 700, "coins": 0,   "result": "Você escolhe uma vida acima do ouro. A criança cresce para se tornar uma lenda."},
+                {"text": "⚖️ Ajudar a criança a recuperar o tesouro de sua nação",          "align": +10, "xp": 600, "coins": 50,  "result": "Justo. O tesouro pertence a ela. Você recebe uma parte como herança da civilização."},
+                {"text": "💀 Roubar o mapa e deixar a criança para trás",                   "align": -15, "xp": 200, "coins": 80,  "result": "Você rouba de uma órfã. O tesouro é seu. Mas o peso disso nunca sai."},
+                {"text": "⚖️ Levar ao acampamento mais próximo e seguir adiante",           "align": +3,  "xp": 200, "coins": 0,   "result": "Você a coloca em segurança. Não ficou com o tesouro, mas também não abandonou."},
+            ]
+        },
+    ],
+    50: [  # Abismo
+        {
+            "id": "esc_abismo_001",
+            "emoji": "👁️",
+            "title": "O Pacto das Sombras",
+            "description": "Uma entidade do Abismo te oferece poder imenso. Tudo que precisa é assinar um pacto — sacrificando a felicidade de três pessoas que não te conhecem.",
+            "choices": [
+                {"text": "✨ Recusar o pacto com firmeza e atacar a entidade",               "align": +15, "xp": 800, "coins": 0,   "result": "A entidade recua. Você resiste à tentação. Raro. Muito raro."},
+                {"text": "💀 Assinar o pacto — poder acima de tudo",                        "align": -20, "xp": 1000, "coins": 100, "result": "O poder chega. Em algum lugar, três estranhos acordam com pesadelos eternos."},
+                {"text": "⚖️ Fingir aceitar e depois quebrar o pacto",                     "align": -5,  "xp": 500, "coins": 50,  "result": "Você engana a entidade. Ela não esquece facilmente."},
+                {"text": "⚖️ Negociar termos — sacrifício menor, poder menor",             "align": -8,  "xp": 600, "coins": 60,  "result": "Um acordo menor. Poder moderado. Culpa moderada. Tudo moderado."},
+            ]
+        },
+    ],
+    60: [  # Trono
+        {
+            "id": "esc_celestial_001",
+            "emoji": "👑",
+            "title": "O Julgamento Final",
+            "description": "O Imperador Astral oferece a você o poder de reescrever a história de UMA pessoa — alguém que sofreu imerecidamente. Mas para isso, outra pessoa terá que sofrer no lugar.",
+            "choices": [
+                {"text": "✨ Recusar — o sofrimento não deve ser transferido, deve ser curado", "align": +20, "xp": 2000, "coins": 0,  "result": "O Imperador sorri. 'Finalmente alguém entendeu.' Você recebe a bênção do Trono."},
+                {"text": "💀 Escolher quem sofre — transferir para um vilão conhecido",      "align": -5,  "xp": 1200, "coins": 200, "result": "Julgamento humano de sofrimento. A lógica parece boa... mas quem decide quem merece?"},
+                {"text": "⚖️ Perguntar se há uma terceira opção antes de decidir",          "align": +8,  "xp": 1500, "coins": 0,   "result": "Existe sempre. O Imperador abre um caminho alternativo de cura sem custo."},
+                {"text": "💀 Usar o poder em si mesmo — apagar seu próprio sofrimento",     "align": -10, "xp": 1000, "coins": 100, "result": "Egoísta. Funciona. Mas você perdeu a chance de ser verdadeiramente grande."},
+            ]
+        },
+    ],
+}
+
+# ================= QUESTS ALINHAMENTO MORAL =================
+ALIGNMENT_QUESTS = {
+    "heroi": [
+        {
+            "id": "heroi_001",
+            "name": "🛡️ Protetor das Crianças Perdidas",
+            "description": "Crianças órfãs estão sendo escravizadas por um mercador corrupto. Resgate 8 crianças das grades.",
+            "type": "individual", "objective": "hunt", "target": "Mercador Corrupto",
+            "count": 1, "reward_xp": 2000, "reward_coins": 50, "reward_item": "Poção de Vida Superior",
+            "align_required": "Heroi", "align_gain": +10,
+            "lore": "O mercador tem conexões perigosas. Seja cuidadoso.",
+            "npc": "Madre Celeste", "difficulty": "Difícil"
+        },
+        {
+            "id": "heroi_002",
+            "name": "✨ A Cura da Aldeia Amaldiçoada",
+            "description": "Uma maldição arcana infecta uma aldeia inteira. Colete 12 ingredientes para o ritual de cura.",
+            "type": "individual", "objective": "collect", "count": 12,
+            "reward_xp": 1800, "reward_coins": 30, "reward_item": "Elixir da Vida",
+            "align_required": "Heroi", "align_gain": +8,
+            "lore": "A maldição foi lançada por um mago que perdeu a família nesta aldeia. Tragédia se alimenta de tragédia.",
+            "npc": "Padre Elian", "difficulty": "Médio"
+        },
+    ],
+    "anti_heroi": [
+        {
+            "id": "anti_001",
+            "name": "⚖️ O Trabalho Sujo",
+            "description": "O prefeito precisa de alguém para 'resolver' um problema sem fazer perguntas. Explore a área e descubra.",
+            "type": "individual", "objective": "explore", "count": 5,
+            "reward_xp": 1500, "reward_coins": 100, "reward_item": None,
+            "align_required": None, "align_gain": -2,
+            "lore": "O prefeito não diz o que quer. Você não pergunta. Esse é o acordo.",
+            "npc": "Prefeito Sombra", "difficulty": "Médio"
+        },
+        {
+            "id": "anti_002",
+            "name": "⚖️ Informações Valiosas",
+            "description": "Colete 10 artefatos de locais proibidos. Ninguém precisa saber de onde vieram.",
+            "type": "individual", "objective": "collect", "count": 10,
+            "reward_xp": 2000, "reward_coins": 80, "reward_item": "Poção de Sorte",
+            "align_required": None, "align_gain": -3,
+            "lore": "Informação é poder. E você está se tornando muito poderoso.",
+            "npc": "Informante Xan", "difficulty": "Difícil"
+        },
+    ],
+    "vilao": [
+        {
+            "id": "vilao_001",
+            "name": "💀 A Purga dos Campos",
+            "description": "Um lorde sombrio quer os campos 'limpos' de aldeões. Cace 10 monstros que 'protegem' as aldeias.",
+            "type": "individual", "objective": "hunt", "target": None,
+            "count": 10, "reward_xp": 2500, "reward_coins": 200, "reward_item": "Foice Maldita",
+            "align_required": "Vilao", "align_gain": -10,
+            "lore": "O Lorde Sombrio promete poder em troca de serviço. O preço é a sua humanidade.",
+            "npc": "Lorde Maldito Vorn", "difficulty": "Médio"
+        },
+        {
+            "id": "vilao_002",
+            "name": "🌑 Sabotar a Resistência",
+            "description": "Explore acampamentos da resistência e plante informações falsas. Visite 7 locais.",
+            "type": "individual", "objective": "explore", "count": 7,
+            "reward_xp": 3000, "reward_coins": 150, "reward_item": "Poção de Sorte",
+            "align_required": "Vilao", "align_gain": -8,
+            "lore": "A resistência luta pelo povo. Você luta pelo poder. Apenas um pode vencer.",
+            "npc": "Chanceler das Sombras", "difficulty": "Difícil"
+        },
+    ]
+}
+
+# ================= BAÚS MIMIC =================
+MIMIC_TIERS = [
+    {
+        "name": "Baú Comum",
+        "emoji": "📦",
+        "mimic_chance": 0.20,
+        "loot_xp": (200, 400),
+        "loot_coins": (5, 15),
+        "loot_items": ["Comum", "Incomum"],
+        "mimic_dmg": (20, 40),
+        "mimic_xp_loss": (50, 100),
+        "mimic_desc": "💥 O baú se abre e dentes enormes aparecem! O MIMIC te ataca!",
+    },
+    {
+        "name": "Baú Élfico",
+        "emoji": "🗝️",
+        "mimic_chance": 0.30,
+        "loot_xp": (500, 900),
+        "loot_coins": (10, 25),
+        "loot_items": ["Incomum", "Raro"],
+        "mimic_dmg": (35, 65),
+        "mimic_xp_loss": (120, 200),
+        "mimic_desc": "🦷 O ornamento élfico era falso! Garras surgem das dobradiças! MIMIC ÉLFICO!",
+    },
+    {
+        "name": "Baú Rúnico",
+        "emoji": "🔮",
+        "mimic_chance": 0.35,
+        "loot_xp": (1000, 2000),
+        "loot_coins": (15, 40),
+        "loot_items": ["Raro", "Épico"],
+        "mimic_dmg": (50, 90),
+        "mimic_xp_loss": (200, 350),
+        "mimic_desc": "🌑 As runas pulsam com vida própria! Um MIMIC RÚNICO emerge com poder arcano!",
+    },
+    {
+        "name": "Baú Lendário",
+        "emoji": "⚜️",
+        "mimic_chance": 0.40,
+        "loot_xp": (2000, 4000),
+        "loot_coins": (20, 60),
+        "loot_items": ["Épico", "Lendário"],
+        "mimic_dmg": (80, 130),
+        "mimic_xp_loss": (400, 600),
+        "mimic_desc": "👁️ Os olhos do baú se abrem. Um MIMIC LENDÁRIO! A criatura mais antiga desta dungeon!",
+    },
+]
+
+# ================= SISTEMA DE MAPA =================
+MAP_LOCATIONS = {
+    # Cada mundo tem uma lista de locais descobríveis
+    1: {
+        "world_name": "🌱 Campos Iniciais",
+        "locations": [
+            {"id": "campos_vila", "name": "🏘️ Vila dos Primeiros Passos", "type": "cidade", "discovered": True},
+            {"id": "campos_pedreira", "name": "⛏️ Pedreira dos Iniciantes", "type": "recurso", "discovered": False},
+            {"id": "campos_gruta", "name": "🕳️ Gruta do Slime Ancião", "type": "dungeon", "discovered": False},
+            {"id": "campos_floresta_borda", "name": "🌿 Borda da Floresta Proibida", "type": "portal", "discovered": False},
+            {"id": "campos_torre", "name": "🗼 Torre do Observador", "type": "npc_especial", "discovered": False},
+        ]
+    },
+    10: {
+        "world_name": "🌲 Floresta Sombria",
+        "locations": [
+            {"id": "floresta_acampamento", "name": "⛺ Acampamento das Sombras", "type": "cidade", "discovered": True},
+            {"id": "floresta_arvore_milenar", "name": "🌳 Árvore Milenar do Ent", "type": "boss_local", "discovered": False},
+            {"id": "floresta_rio_negro", "name": "🖤 Rio das Águas Negras", "type": "recurso", "discovered": False},
+            {"id": "floresta_ruinas", "name": "🏚️ Ruínas do Reino Élfico", "type": "dungeon", "discovered": False},
+            {"id": "floresta_claro", "name": "🌙 Clareira da Lua", "type": "evento_especial", "discovered": False},
+        ]
+    },
+    20: {
+        "world_name": "🏜️ Deserto das Almas",
+        "locations": [
+            {"id": "deserto_oasis", "name": "🌴 Oásis de Amun", "type": "cidade", "discovered": True},
+            {"id": "deserto_piramide", "name": "🔺 Grande Pirâmide de Kha-Mentu", "type": "boss_local", "discovered": False},
+            {"id": "deserto_mercado", "name": "🏪 Mercado das Almas", "type": "loja", "discovered": False},
+            {"id": "deserto_oasis_secreto", "name": "💧 Oásis do Tempo", "type": "dungeon_secreta", "discovered": False},
+            {"id": "deserto_ruinas_antigas", "name": "🏛️ Ruínas da Primeira Civilização", "type": "lore", "discovered": False},
+        ]
+    },
+    30: {
+        "world_name": "❄️ Montanhas Geladas",
+        "locations": [
+            {"id": "gelo_fortaleza", "name": "🏰 Fortaleza Permafrost", "type": "cidade", "discovered": True},
+            {"id": "gelo_pico", "name": "🏔️ Pico dos Titãs", "type": "boss_local", "discovered": False},
+            {"id": "gelo_mina", "name": "⛏️ Mina dos Cristais Eternos", "type": "recurso", "discovered": False},
+            {"id": "gelo_palacio", "name": "❄️ Palácio de Cristal Perdido", "type": "dungeon_secreta", "discovered": False},
+            {"id": "gelo_portal", "name": "🌌 Portal para o Vulcão", "type": "portal", "discovered": False},
+        ]
+    },
+    40: {
+        "world_name": "🌋 Reino Vulcânico",
+        "locations": [
+            {"id": "vulcao_cidadela", "name": "🔥 Cidadela Cinzenta", "type": "cidade", "discovered": True},
+            {"id": "vulcao_cratera", "name": "🌋 Cratera Principal", "type": "boss_local", "discovered": False},
+            {"id": "vulcao_forja", "name": "⚒️ A Forja Sagrada dos Anões", "type": "crafting", "discovered": False},
+            {"id": "vulcao_camara", "name": "🔥 Câmara da Chama Original", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vulcao_rio_lava", "name": "🌊 Rio de Lava Eterna", "type": "recurso", "discovered": False},
+        ]
+    },
+    50: {
+        "world_name": "🌌 Abismo Arcano",
+        "locations": [
+            {"id": "abismo_torre", "name": "🗼 Torre do Conhecimento Perdido", "type": "cidade", "discovered": True},
+            {"id": "abismo_vortex", "name": "🌀 Vórtice Central do Abismo", "type": "boss_local", "discovered": False},
+            {"id": "abismo_biblioteca", "name": "📚 Biblioteca dos Tomos Proibidos", "type": "lore", "discovered": False},
+            {"id": "abismo_loop", "name": "♾️ Loop Temporal", "type": "dungeon_secreta", "discovered": False},
+            {"id": "abismo_portal", "name": "✨ Portal para o Trono", "type": "portal", "discovered": False},
+        ]
+    },
+    60: {
+        "world_name": "👑 Trono Celestial",
+        "locations": [
+            {"id": "celestial_antecamara", "name": "🏛️ Antecâmara do Trono", "type": "cidade", "discovered": True},
+            {"id": "celestial_trono", "name": "👑 O Trono em Si", "type": "boss_local", "discovered": False},
+            {"id": "celestial_alem", "name": "🌌 Além do Trono", "type": "dungeon_secreta", "discovered": False},
+            {"id": "celestial_raiz", "name": "✨ Raiz da Criação", "type": "dungeon_secreta", "discovered": False},
+            {"id": "celestial_arquivo", "name": "📜 Arquivo do Destino", "type": "lore", "discovered": False},
+        ]
+    },
+}
+
+# ================= NOVOS NPCs COM LORE =================
+WORLD_NPCS_EXTRA = {
+    1: [
+        {
+            "name": "Sábio Pell",
+            "role": "Historiador dos Campos",
+            "emoji": "📜",
+            "dialogues": [
+                "Estudei os Campos por 40 anos. Cada pedra aqui é uma página de história.",
+                "Sabia que o primeiro herói que passou por aqui era uma cozinheira? Ela matou o Slime Rei com uma frigideira.",
+                "Os slimes têm memória coletiva. Quando você mata um, os outros sentem. Por isso ficam mais agressivos.",
+                "Encontrei inscrições de 3.000 anos atrás naquelas pedras. Dizem que 'o herói verdadeiro virá dos campos'. Poderia ser você.",
+                "Minha teoria: este campo foi um campo de batalha divino. Os slimes são cicatrizes da guerra.",
+            ]
+        },
+        {
+            "name": "Criança Miko",
+            "role": "Garoto Curioso",
+            "emoji": "👦",
+            "dialogues": [
+                "Você é um aventureiro de verdade?! Isso é incrível! Quando crescer, vou ser como você!",
+                "Vi um slime comer uma pedra inteira ontem. Por que eles comem pedra?",
+                "Minha mãe diz para não falar com estranhos. Mas você não parece estranho... parece ÉPICO!",
+                "Encontrei uma moeda dourada no campo. Papai disse que pertencia a um herói antigo. Posso te mostrar?",
+                "Às vezes ouço o campo sussurrar à noite. Papai diz que é o vento. Mas eu sei que não é.",
+            ]
+        },
+    ],
+    10: [
+        {
+            "name": "Espírito Ancião Vel",
+            "role": "Guardião Espectral",
+            "emoji": "👻",
+            "dialogues": [
+                "Morri aqui há 800 anos. A floresta me manteve aqui para guardar um segredo.",
+                "O Ent e eu somos velhos amigos. Ele estava aqui antes de mim. E estará depois.",
+                "Há uma chave enterrada sob a árvore maior. Não a procure ainda. Você ainda não está pronto.",
+                "Na vida, fui guerreiro. Na morte, aprendi que a paz verdadeira não vem da vitória, mas da compreensão.",
+                "Se você ouvir a floresta cantar à meia-noite, não responda. Nunca responda.",
+            ]
+        },
+        {
+            "name": "Bruxo das Raízes",
+            "role": "Místico da Floresta",
+            "emoji": "🧙",
+            "dialogues": [
+                "Cada árvore desta floresta é uma palavra num livro que nenhum humano escreveu.",
+                "Posso ler seu destino nas raízes expostas. Quer ouvir? Cuidado — a verdade pesa.",
+                "Os goblins não são maus por natureza. São o reflexo de como os humanos os trataram.",
+                "Há 300 anos, esta floresta era um jardim celestial. O que aconteceu? Os deuses discordaram.",
+                "Vejo em você algo que não via há gerações. Uma chama que não se apaga com facilidade.",
+            ]
+        },
+    ],
+    20: [
+        {
+            "name": "Fantasma do General",
+            "role": "Espírito Guerreiro",
+            "emoji": "⚔️",
+            "dialogues": [
+                "Lutei na última guerra do Deserto. Mil anos atrás. Ainda não sei quem venceu.",
+                "A areia guarda os mortos melhor que qualquer túmulo. Cada duna é um cemitério.",
+                "O Faraó Kha-Mentu era meu general. Ele não merecia o que fizeram com ele.",
+                "Há uma espada enterrada a 30 metros de profundidade aqui perto. Ela espera por alguém digno.",
+                "No calor mais forte, quando a miragem aparece, olhe nos olhos dela. Ela mostra o futuro.",
+            ]
+        },
+        {
+            "name": "Mercante Ib",
+            "role": "Comerciante Nômade",
+            "emoji": "🐪",
+            "dialogues": [
+                "Viajei por todos os sete reinos. Este deserto é o mais honesto — ele mata com calor, sem subterfúgios.",
+                "Já vendi uma estrela embalsamada uma vez. O cliente nunca descobriu que era falsa. Ou descobriu e não se importou.",
+                "O mercado das almas está três dunas ao norte. Não compre nada lá que você não possa pagar com algo além de ouro.",
+                "Ouvi que o Faraó Kha-Mentu tem uma câmara com mapas de reinos que ainda não existem.",
+                "O escorpião que te pica hoje pode salvar sua vida amanhã. Aprendi isso do jeito difícil.",
+            ]
+        },
+    ],
+    30: [
+        {
+            "name": "Vidente das Neves",
+            "role": "Oráculo das Montanhas",
+            "emoji": "🔮",
+            "dialogues": [
+                "Vejo três futuros possíveis para você. Todos difíceis. Um deles é glorioso.",
+                "O Yeti chorou uma vez. Eu vi. As lágrimas congelaram antes de chegar ao chão.",
+                "Os Titãs do Gelo me ensinaram que o frio não mata — a resistência a ele sim.",
+                "Há uma criança que vai mudar este mundo. Ela já nasceu. Você pode ter passado por ela.",
+                "Quando a montanha cantar, três vezes, em noite sem lua — é hora do próximo ciclo começar.",
+            ]
+        },
+    ],
+    40: [
+        {
+            "name": "Anão Sobrevivente Krug",
+            "role": "Último dos Forjadores",
+            "emoji": "⚒️",
+            "dialogues": [
+                "Sou o último da minha linhagem. Os outros se fundiram com Ignarius voluntariamente. Fui covarde. Sobrevivi.",
+                "A Forja Sagrada não está apagada — está esperando. Ela reconhece quem é digno.",
+                "Aprendi 12 segredos de forja que nenhum humano conhece. Morrerei com eles... a menos que prove ser digno.",
+                "O Dragão de Magma guarda as memórias da minha civilização. Quando você o derrotar... escute o rugido. Há palavras lá.",
+                "Fiz a espada mais perfeita do mundo uma vez. Então a destruí. Não havia ninguém digno de empunhá-la.",
+            ]
+        },
+    ],
+    50: [
+        {
+            "name": "Ex-Entidade do Vazio",
+            "role": "Ser Primordial Aposentado",
+            "emoji": "🌌",
+            "dialogues": [
+                "Existia antes do universo. Decidi me tornar mortal para entender o que é ser frágil. Arrependo? Às vezes.",
+                "O Senhor das Sombras é meu irmão mais novo. Ele nunca entendeu que o vazio não é casa — é solidão.",
+                "Cada pensamento que você tem ecoa no Abismo por eternidades. Pense com cuidado.",
+                "Vi o fim do universo em uma visão. Não era trágico. Era... tranquilo. Como dormir.",
+                "Se quiser falar com os mortos, o Abismo tem um bairro deles. Mas eles cobram memórias como entrada.",
+            ]
+        },
+    ],
+    60: [
+        {
+            "name": "Alma de Herói",
+            "role": "Espírito de Aventureiro Lendário",
+            "emoji": "⭐",
+            "dialogues": [
+                "Cheguei onde você está. Passei pelo teste. O Imperador me perguntou o que eu mais queria. Disse 'nada'. E recebi tudo.",
+                "O Trono não é um lugar. É um estado de ser. Você não SOBE ao Trono. Você SE TORNA o Trono.",
+                "Meu maior erro foi achar que chegaria aqui mais forte. Na verdade, cheguei mais humano.",
+                "Há segredos além do Trono que nem eu conheço. E estou aqui há 1.000 anos.",
+                "O Imperador não quer ser derrotado. Quer ser compreendido. Há diferença.",
+            ]
+        },
+        {
+            "name": "Arquiteto do Cosmos",
+            "role": "Construtor do Universo",
+            "emoji": "🌌",
+            "dialogues": [
+                "Construí este universo peça por peça. Não é perfeito. Nenhuma criação é.",
+                "Coloquei propositalmente as imperfeições. Sem elas, não haveria heróis — não haveria história.",
+                "Você chegou ao fim do mapa. Mas o mapa é menor que o território.",
+                "Vejo tudo que foi, é e será. E ainda assim, você me surpreende.",
+                "Quando terminar aqui, se quiser, posso mostrar o que existe além deste universo. A escolha é sua.",
+            ]
+        },
+    ]
+}
+
+# ================= NOVOS EVENTS EXPANDIDOS POR REINO =================
+WORLD_EVENTS_EXTRA = {
+    1: [
+        "Um mercador suspeito oferece uma 'maçã encantada' de graça. Você aceita?",
+        "Uma borboleta gigante te guia até um baú escondido no campo.",
+        "Você escorrega em um slime invisível e cai no chão. Constrangedor.",
+        "Uma velha anuncia que você é 'o escolhido'. Mas ela diz isso para todos.",
+        "Um slime se apega à sua bota e não larga. Parece estar te adotando.",
+        "Você encontra um mapa antigo rasgado pela metade.",
+        "Uma fada minúscula te cutuca insistentemente apontando para uma direção.",
+        "O vento traz o cheiro de uma batalha recente. Sangue e magia.",
+        "Você tropeça em uma pedra que ressoa como um sino ao ser tocada.",
+        "Um corvo negro te segue por uma hora e depois desaparece.",
+        "Uma criança te pede para desenhar um mapa. Você descobre um local novo.",
+        "O chão balança levemente — algo grande se move sob a terra.",
+        "Você encontra as cinzas de uma fogueira recente com símbolos ao redor.",
+        "Uma voz na sua cabeça diz 'olhe para cima'. No céu, forma de dragão nas nuvens.",
+        "Um aventureiro mais experiente te dá um conselho vago mas profundo.",
+        "Você acha um espelho partido. Reflete algo diferente do que está na sua frente.",
+        "Uma erva rara brilha ao seu pé. Parece útil para poções.",
+        "Uma estátua quebrada aponta na direção de uma dungeon desconhecida.",
+        "Uma criança corre até você com uma mensagem: 'Não confie em ninguém de capuz hoje'.",
+        "O céu fica vermelho por um instante. O narrador não explica por quê.",
+    ],
+    10: [
+        "A floresta para completamente. Nenhum som. Por 30 segundos. Então retorna.",
+        "Você ouve uma melodia linda vindo de lugar nenhum. Faz você sentir saudade de algo que nunca teve.",
+        "Musgo cresce visivelmente enquanto você observa. A floresta está respondendo a você.",
+        "Uma aranha do tamanho da sua cabeça te olha fixamente. Depois vai embora. Sem atacar.",
+        "Você encontra uma árvore com nomes gravados. O último nome é o seu.",
+        "Folhas caem em padrão perfeitamente geométrico ao seu redor.",
+        "Um ent jovem te estuda de longe com curiosidade antes de recuar.",
+        "Você descobre uma cabana abandonada com comida ainda fresca.",
+        "Bioluminescência ilumina seu caminho na escuridão da floresta.",
+        "Um espírito triste te pede para entregar uma mensagem a alguém já morto.",
+        "A floresta parece menor do que deveria. Como se algo a comprimisse.",
+        "Você encontra penas negras formando uma seta no chão.",
+        "Um riacho subterrâneo burburinha com algo que parece palavras.",
+        "Uma formação de cogumelos forma um círculo perfeito. Centro parece mais escuro.",
+        "Você acha armadilha de caçador humano. Para que tipo de criatura?",
+        "Frutos estranhos caem de uma árvore ao seu passar. Cheiram bem demais.",
+        "Uma névoa roxa surge do chão e desaparece em segundos.",
+        "Você ouve risadas de crianças mas não há ninguém.",
+        "Uma serpente enorme cruza seu caminho sem te atacar. Ela carrega algo na boca.",
+        "O sol entra pela copa das árvores formando a silhueta de uma espada no chão.",
+    ],
+}
+
+# ================= QUESTS EXTRAS COM MUITO XP =================
+QUESTS_EXTRA = {
+    1: [
+        {
+            "id": "campos_bonus_001",
+            "name": "⭐ O Grande Teste dos Campos",
+            "description": "O Sábio Pell te desafia: cace 10 monstros diferentes, colete 10 recursos e explore 5 vezes — tudo para provar que é um aventureiro completo.",
+            "type": "individual", "objective": "hunt", "target": None,
+            "count": 10, "reward_xp": 3000, "reward_coins": 100, "reward_item": "Poção de XP Maior",
+            "lore": "Pell registra cada herói que passa pelos campos. Poucos completam o teste. Você vai tentar?",
+            "npc": "Sábio Pell", "difficulty": "Épico"
+        },
+    ],
+    10: [
+        {
+            "id": "floresta_bonus_001",
+            "name": "🌲 Pacificador da Floresta",
+            "description": "Derrote 15 monstros da floresta para reduzir a agressividade das criaturas e restaurar o equilíbrio.",
+            "type": "individual", "objective": "hunt", "target": None,
+            "count": 15, "reward_xp": 5000, "reward_coins": 80, "reward_item": "Armadura Élfica",
+            "lore": "A floresta está em desequilíbrio. Cada monstro que cai restaura um pouco da paz perdida.",
+            "npc": "Espírito Ancião Vel", "difficulty": "Muito Difícil"
+        },
+    ],
+    20: [
+        {
+            "id": "deserto_bonus_001",
+            "name": "🏺 Historiador do Deserto",
+            "description": "Colete 20 recursos únicos do deserto para o museu ambulante do mercante Ib.",
+            "type": "individual", "objective": "collect", "count": 20,
+            "reward_xp": 6000, "reward_coins": 60, "reward_item": "Poção de XP Maior",
+            "lore": "Ib coleta a história do deserto. Cada artefato é uma memória de civilizações perdidas.",
+            "npc": "Mercante Ib", "difficulty": "Épico"
+        },
+    ],
+    30: [
+        {
+            "id": "gelo_bonus_001",
+            "name": "❄️ Conquistador das Alturas",
+            "description": "Explore 10 vezes as Montanhas Geladas e descubra todos os segredos que elas escondem.",
+            "type": "individual", "objective": "explore", "count": 10,
+            "reward_xp": 7000, "reward_coins": 50, "reward_item": "Elixir de XP",
+            "lore": "As montanhas revelam seus segredos apenas aos mais persistentes.",
+            "npc": "Vidente das Neves", "difficulty": "Muito Difícil"
+        },
+    ],
+    40: [
+        {
+            "id": "vulcao_bonus_001",
+            "name": "🔥 Herdeiro dos Forjadores",
+            "description": "Colete 25 recursos do Reino Vulcânico para reconstruir a Forja Sagrada dos anões.",
+            "type": "individual", "objective": "collect", "count": 25,
+            "reward_xp": 9000, "reward_coins": 40, "reward_item": "Martelo do Trovão",
+            "lore": "Krug acredita que você pode restaurar o legado dos forjadores. Prove a ele.",
+            "npc": "Anão Sobrevivente Krug", "difficulty": "Lendário"
+        },
+    ],
+    50: [
+        {
+            "id": "abismo_bonus_001",
+            "name": "🌀 Sobrevivente do Vazio",
+            "description": "Explore o Abismo Arcano 15 vezes e retorne sempre. A maioria não consegue.",
+            "type": "individual", "objective": "explore", "count": 15,
+            "reward_xp": 12000, "reward_coins": 30, "reward_item": "Cetro da Eternidade",
+            "lore": "A Ex-Entidade do Vazio diz: 'Voltar do Abismo vivo 15 vezes significa que o universo ainda precisa de você.'",
+            "npc": "Ex-Entidade do Vazio", "difficulty": "Mítico"
+        },
+    ],
+    60: [
+        {
+            "id": "celestial_bonus_001",
+            "name": "👑 A Saga Completa",
+            "description": "Cace 20 guardiões celestiais para provar que chegou ao Trono como lenda viva.",
+            "type": "individual", "objective": "hunt", "target": None,
+            "count": 20, "reward_xp": 25000, "reward_coins": 20, "reward_item": "Armadura do Primeiro Deus",
+            "lore": "A Alma de Herói diz: 'A saga completa de um herói não se mede em batalhas. Se mede em escolhas.'",
+            "npc": "Alma de Herói", "difficulty": "Primordial"
+        },
+    ],
 }
 
 # ================= LIVROS DE LORE =================
@@ -1880,24 +2964,44 @@ def init_db():
         completed_quests TEXT DEFAULT '[]',
         mana INTEGER DEFAULT 50,
         max_mana INTEGER DEFAULT 50,
-        pvp_battles TEXT DEFAULT '{}'
+        pvp_battles TEXT DEFAULT '{}',
+        alignment_points INTEGER DEFAULT 0,
+        pet_farm TEXT DEFAULT '[]',
+        discovered_map TEXT DEFAULT '{}'
     )''')
 
-    # Migração segura
-    try:
-        c.execute("ALTER TABLE players ADD COLUMN mana INTEGER DEFAULT 50")
-    except: pass
-    try:
-        c.execute("ALTER TABLE players ADD COLUMN max_mana INTEGER DEFAULT 50")
-    except: pass
-    try:
-        c.execute("ALTER TABLE players ADD COLUMN pvp_battles TEXT DEFAULT '{}'")
-    except: pass
+    # Migração segura de colunas novas
+    for col_def in [
+        "ALTER TABLE players ADD COLUMN mana INTEGER DEFAULT 50",
+        "ALTER TABLE players ADD COLUMN max_mana INTEGER DEFAULT 50",
+        "ALTER TABLE players ADD COLUMN pvp_battles TEXT DEFAULT '{}'",
+        "ALTER TABLE players ADD COLUMN alignment_points INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN pet_farm TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN discovered_map TEXT DEFAULT '{}'",
+        "ALTER TABLE players ADD COLUMN job TEXT DEFAULT NULL",
+        "ALTER TABLE players ADD COLUMN job_since INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN city_title TEXT DEFAULT NULL",
+        "ALTER TABLE players ADD COLUMN knights TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN last_work INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN last_defend INTEGER DEFAULT 0",
+    ]:
+        try:
+            c.execute(col_def)
+        except: pass
 
     c.execute('''CREATE TABLE IF NOT EXISTS pvp_battles (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         challenger_id TEXT,
         target_id TEXT,
+        status TEXT DEFAULT 'pending',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )''')
+
+    c.execute('''CREATE TABLE IF NOT EXISTS coin_exchange_requests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT,
+        username TEXT,
+        csi_coins INTEGER,
         status TEXT DEFAULT 'pending',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
@@ -1972,6 +3076,15 @@ def get_player_db(user_id):
             "mana": result[17] if len(result) > 17 else 50,
             "max_mana": result[18] if len(result) > 18 else 50,
             "pvp_battles": json.loads(result[19]) if len(result) > 19 and result[19] else {},
+            "alignment_points": result[20] if len(result) > 20 else 0,
+            "pet_farm": json.loads(result[21]) if len(result) > 21 and result[21] else [],
+            "discovered_map": json.loads(result[22]) if len(result) > 22 and result[22] else {},
+            "job": result[23] if len(result) > 23 else None,
+            "job_since": result[24] if len(result) > 24 else 0,
+            "city_title": result[25] if len(result) > 25 else None,
+            "knights": json.loads(result[26]) if len(result) > 26 and result[26] else [],
+            "last_work": result[27] if len(result) > 27 else 0,
+            "last_defend": result[28] if len(result) > 28 else 0,
         }
     return None
 
@@ -1982,8 +3095,9 @@ def save_player_db(user_id, player):
     c.execute('''INSERT OR REPLACE INTO players
                  (user_id, level, xp, hp, max_hp, coins, inventory, weapon, armor,
                   worlds, bosses, class, pet, guild_id, active_effects, active_quest, completed_quests,
-                  mana, max_mana, pvp_battles)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                  mana, max_mana, pvp_battles, alignment_points, pet_farm, discovered_map,
+                  job, job_since, city_title, knights, last_work, last_defend)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -1992,7 +3106,14 @@ def save_player_db(user_id, player):
                json.dumps(player.get("active_quest")) if player.get("active_quest") else None,
                json.dumps(player.get("completed_quests", [])),
                player.get("mana", 50), player.get("max_mana", 50),
-               json.dumps(player.get("pvp_battles", {}))))
+               json.dumps(player.get("pvp_battles", {})),
+               player.get("alignment_points", 0),
+               json.dumps(player.get("pet_farm", [])),
+               json.dumps(player.get("discovered_map", {})),
+               player.get("job"), player.get("job_since", 0),
+               player.get("city_title"),
+               json.dumps(player.get("knights", [])),
+               player.get("last_work", 0), player.get("last_defend", 0)))
 
     conn.commit()
     conn.close()
@@ -2048,6 +3169,15 @@ def create_player(user_id):
         "mana": 50,
         "max_mana": 50,
         "pvp_battles": {},
+        "alignment_points": 0,
+        "pet_farm": [],
+        "discovered_map": {},
+        "job": None,
+        "job_since": 0,
+        "city_title": None,
+        "knights": [],
+        "last_work": 0,
+        "last_defend": 0,
     }
     save_player_db(user_id, player)
     return player
@@ -2992,14 +4122,30 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if is_dungeon and dungeon_boss:
         boss_data = dungeon_boss
     else:
-        boss_levels = {9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50}
-        world_key = boss_levels.get(player["level"])
-        if world_key is None:
-            # Usa boss do mundo atual
-            world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
-            boss_data = WORLDS[world_level]["boss"]
+        # Check for a custom boss set via encontrar boss command
+        effects = player.get("active_effects", {})
+        pending_boss = effects.pop("pending_boss", None)
+        if pending_boss:
+            player["active_effects"] = effects
+            save_player_db(user_id, player)
+            boss_data = pending_boss
         else:
-            boss_data = WORLDS[world_key]["boss"]
+            boss_levels = {9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50}
+            world_key = boss_levels.get(player["level"])
+            if world_key is None:
+                # Usa boss do mundo atual — randomizado da pool de variantes
+                world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+                boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
+                if boss_pool:
+                    boss_data = random.choice(boss_pool)
+                else:
+                    boss_data = WORLDS[world_level]["boss"]
+            else:
+                boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, [])
+                if boss_pool:
+                    boss_data = random.choice(boss_pool)
+                else:
+                    boss_data = WORLDS[world_key]["boss"]
 
     # Calcula bônus de aliados
     ally_bonus_roll = 0
@@ -3028,10 +4174,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         player_atk += CLASSES[player["class"]]["atk_bonus"]
         player_def += CLASSES[player["class"]]["def_bonus"]
     if player.get("pet"):
-        for world_pets in PETS.values():
-            for pet in world_pets:
-                if pet["name"] == player["pet"]:
-                    player_atk += pet["bonus_atk"]
+        try:
+            pet_obj = json.loads(player["pet"]) if isinstance(player["pet"], str) else player["pet"]
+            player_atk += pet_obj.get("bonus_atk", 0)
+        except:
+            for world_pets in PETS.values():
+                for pet in world_pets:
+                    if pet["name"] == player["pet"]:
+                        player_atk += pet["bonus_atk"]
 
     embed = discord.Embed(
         title=f"👹 BATALHA ÉPICA",
@@ -3211,69 +4361,110 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
 async def explore_dungeon(channel, user_id, dungeon, world):
     player = get_player(user_id)
-    roll = roll_dice()
+    roll = roll_with_bonus(player)
     luck = get_luck(roll)
     is_secret = dungeon.get("secret", False)
+    level_mult = get_dungeon_difficulty_multiplier(player)  # mais difícil por nível
+
+    SECRET_EVENTS = [
+        "🌑 *As paredes sangram símbolos antigos...*",
+        "👁️ *Mil olhos te observam das trevas...*",
+        "🌀 *A realidade distorce ao seu redor...*",
+        "⚡ *Energia arcana pulsa sob seus pés...*",
+        "🔮 *Vozes sussurram segredos proibidos...*",
+    ]
+
+    flavor = random.choice(SECRET_EVENTS) if is_secret else "*A dungeon é escura e úmida... Você sente perigo em cada sombra.*"
 
     embed = discord.Embed(
-        title=f"{'🔮' if is_secret else '🏛️'} {dungeon['name']}",
-        description=f"*'A dungeon{'secreta ' if is_secret else ''}é escura e úmida... Você sente perigo em cada sombra.'*",
+        title=f"{'🔮 MASMORRA SECRETA:' if is_secret else '🏛️'} {dungeon['name']}",
+        description=flavor,
         color=discord.Color.dark_purple()
     )
     embed.add_field(name="🎲 Dado da Exploração", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
 
+    if is_secret:
+        embed.set_footer(text=f"⚔️ Masmorra Secreta — Dificuldade ×{level_mult:.1f} | Recompensas ×{level_mult:.1f}")
+
     if roll == 1:
-        dmg = random.randint(30, 50)
+        dmg = int(random.randint(40, 70) * (level_mult if is_secret else 1))
         player["hp"] -= dmg
         if player["hp"] <= 0:
-            player["hp"] = player["max_hp"] // 2
+            player["hp"] = player["max_hp"] // 3
         save_player_db(user_id, player)
-        result, xp_loss = remove_xp(user_id, random.randint(100, 150))
+        xp_loss_base = random.randint(150, 250) if is_secret else random.randint(100, 150)
+        xp_loss_total = int(xp_loss_base * level_mult)
+        result, xp_loss = remove_xp(user_id, xp_loss_total)
+
+        trap_msgs = [
+            "Uma armadilha de cristal explode ao seu toque! Fragmentos cortam por todo lado!",
+            "Garras gigantes surgem do chão! Você é lançado contra a parede!",
+            "O teto desaba em blocos de pedra mágica! Esmagamento inevitável!",
+            "Um campo arcano eletrifica tudo ao redor! Você convulsiona de dor!",
+        ] if is_secret else ["Uma armadilha antiga é ativada! Lâminas surgem de todas as direções!"]
 
         embed.add_field(
             name="💀 ARMADILHA MORTAL!",
-            value=f"*'Uma armadilha antiga é ativada! Lâminas surgem de todas as direções!'*\n\n❌ **−{xp_loss} XP**\n💔 **−{dmg} HP**",
+            value=f"*'{random.choice(trap_msgs)}'*\n\n❌ **−{xp_loss} XP**\n💔 **−{dmg} HP**",
             inline=False
         )
         embed.color = discord.Color.dark_red()
 
     elif roll <= 3:
-        result, xp_loss = remove_xp(user_id, random.randint(50, 80))
-        embed.add_field(
-            name="☠️ Exploração Perigosa",
-            value=f"*'Você se perde nos corredores sombrios...'*\n\n❌ **−{xp_loss} XP**",
-            inline=False
-        )
+        xp_loss_base = random.randint(80, 120) if is_secret else random.randint(50, 80)
+        xp_loss_total = int(xp_loss_base * (level_mult if is_secret else 1))
+        result, xp_loss = remove_xp(user_id, xp_loss_total)
+        if is_secret:
+            msgs = [
+                "Entidades do vazio bloqueiam seu caminho e drenam sua energia!",
+                "Um labirinto dimensional te faz andar em círculos por horas!",
+                "A masmorra te estuda. Você sai mais fraco do que entrou.",
+            ]
+            embed.add_field(
+                name="☠️ Pesadelo Dimensional",
+                value=f"*'{random.choice(msgs)}'*\n\n❌ **−{xp_loss} XP**",
+                inline=False
+            )
+        else:
+            embed.add_field(
+                name="☠️ Exploração Perigosa",
+                value=f"*'Você se perde nos corredores sombrios...'*\n\n❌ **−{xp_loss} XP**",
+                inline=False
+            )
         embed.color = discord.Color.red()
 
     elif roll <= 5:
-        resources = random.sample(world["resources"], min(2, len(world["resources"])))
+        resources = random.sample(world["resources"], min(3 if is_secret else 2, len(world["resources"])))
         for r in resources:
             player["inventory"].append(r)
         save_player_db(user_id, player)
         items_text = "\n".join([f"• **{r}**" for r in resources])
+        xp_bonus = int(random.randint(100, 200) * (level_mult if is_secret else 1))
+        add_xp(user_id, xp_bonus)
         embed.add_field(
-            name="📦 Recursos Encontrados",
-            value=f"*'Você encontra alguns recursos úteis...'*\n\n{items_text}", inline=False
+            name="📦 Câmara de Recursos",
+            value=f"*'Uma câmara intocada há séculos...'*\n\n{items_text}\n⭐ **+{xp_bonus} XP**", inline=False
         )
         embed.color = discord.Color.blue()
 
     elif roll <= 7:
-        xp = random.randint(80, 150)
-        coins = random.randint(10, 25)
+        xp_base = random.randint(500, 900) if is_secret else random.randint(80, 150)
+        coins_base = random.randint(20, 50) if is_secret else random.randint(10, 25)
+        xp = int(xp_base * level_mult)
+        coins = int(coins_base * level_mult)
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
 
-        if random.random() < 0.25:
+        if random.random() < (0.50 if is_secret else 0.25):
             potion_list = list(POTIONS.keys())
-            dropped_potion = random.choice(potion_list)
+            dropped_potion = random.choice(potion_list[-5:] if is_secret else potion_list)
             player = get_player(user_id)
             player["inventory"].append(dropped_potion)
             save_player_db(user_id, player)
 
         embed.add_field(
-            name="💎 Tesouro Escondido!",
-            value=f"*'Você encontra um baú antigo cheio de riquezas!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
+            name="💎 Câmara do Tesouro!",
+            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
             inline=False
         )
         if leveled:
@@ -3282,24 +4473,29 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         embed.color = discord.Color.green()
 
     elif roll <= 9:
-        # Item drop
         item_type = random.choice(["weapon", "armor"])
         item_list = "weapons" if item_type == "weapon" else "armor"
-        rarity_pool = ["Épico", "Lendário", "Mítico"] if is_secret else ["Raro", "Épico", "Lendário"]
-        weights = [25, 50, 25] if is_secret else [40, 40, 20]
+        if is_secret:
+            rarity_pool = ["Mítico", "Divino", "Primordial"]
+            weights = [50, 35, 15]
+        else:
+            rarity_pool = ["Raro", "Épico", "Lendário"]
+            weights = [40, 40, 20]
         rarity = random.choices(rarity_pool, weights=weights)[0]
         items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
         item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
 
-        xp = random.randint(120, 200)
-        coins = random.randint(15, 35)
+        xp_base = random.randint(800, 1500) if is_secret else random.randint(120, 200)
+        coins_base = random.randint(30, 80) if is_secret else random.randint(15, 35)
+        xp = int(xp_base * level_mult)
+        coins = int(coins_base * level_mult)
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
 
         rarity_info = RARITIES[item["rarity"]]
         embed.add_field(
-            name="✨ Equipamento Raro!",
-            value=f"*'Em uma sala secreta, você encontra um equipamento magnífico!'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
+            name=f"{'🌟 ITEM LENDÁRIO DA MASMORRA!' if is_secret else '✨ Equipamento Raro!'}",
+            value=f"*'{'Um artefato que não deveria existir...' if is_secret else 'Em uma sala secreta, você encontra um equipamento magnífico!'}'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
             inline=False
         )
         if leveled:
@@ -3314,22 +4510,44 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         return
 
     else:  # roll == 10
-        embed.add_field(
-            name="👹 O BOSS APARECE!",
-            value=f"*'No fim da dungeon, uma presença maligna surge!\n\n**{dungeon['boss']}** bloqueia seu caminho!'*",
-            inline=False
-        )
+        if is_secret:
+            boss_power_msgs = [
+                "👁️ *Uma entidade primordial abre os olhos. Ela existia antes do tempo.*",
+                "🌑 *O guardião final da masmorra desperta. Você sentiu isso vindo.*",
+                "💀 *Morte personificada bloqueia a câmara central. Não há fuga.*",
+            ]
+            embed.add_field(
+                name="👹 GUARDIÃO FINAL DA MASMORRA SECRETA!",
+                value=f"{random.choice(boss_power_msgs)}\n\n**{dungeon['boss']}** surge das sombras com poder incompreensível!",
+                inline=False
+            )
+        else:
+            embed.add_field(
+                name="👹 O BOSS APARECE!",
+                value=f"*'No fim da dungeon, uma presença maligna surge!\n\n**{dungeon['boss']}** bloqueia seu caminho!'*",
+                inline=False
+            )
         embed.color = discord.Color.dark_red()
         await channel.send(embed=embed)
         await asyncio.sleep(2)
 
-        boss_data = {
-            "name": dungeon["boss"],
-            "hp": 200 + (dungeon["level"] * 50),
-            "atk": 20 + (dungeon["level"] * 3),
-            "xp": 150 + (dungeon["level"] * 40),
-            "coins": (10 + dungeon["level"] * 2, 25 + dungeon["level"] * 4)
-        }
+        # Boss de dungeon secreta é MUITO mais forte
+        if is_secret:
+            boss_data = {
+                "name": dungeon["boss"],
+                "hp": int((500 + dungeon["level"] * 100) * level_mult),
+                "atk": int((45 + dungeon["level"] * 8) * level_mult),
+                "xp": int((1000 + dungeon["level"] * 200) * level_mult),
+                "coins": (int((30 + dungeon["level"] * 5) * level_mult), int((80 + dungeon["level"] * 10) * level_mult))
+            }
+        else:
+            boss_data = {
+                "name": dungeon["boss"],
+                "hp": 200 + (dungeon["level"] * 50),
+                "atk": 20 + (dungeon["level"] * 3),
+                "xp": 150 + (dungeon["level"] * 40),
+                "coins": (10 + dungeon["level"] * 2, 25 + dungeon["level"] * 4)
+            }
         await fight_boss(channel, user_id, is_dungeon=True, dungeon_boss=boss_data)
         return
 
@@ -3450,12 +4668,20 @@ async def send_prologue(guild):
 💬 **Comandos Principais:**
 
 **EXPLORAÇÃO:** `explorar` | `caçar` | `coletar` | `dungeon` | `procurar pet` | `procurar cidade`
-**BOSS:** `desafiar boss` | `ir atrás do boss` | `juntar boss` | `iniciar batalha boss`
-**QUESTS:** `ver quests` | `realizar quest` | `finalizar quest` | `aceitar quest [nome]`
-**PvP:** `desafiar @jogador` — Duelo estilo batalha com habilidades e mana!
-**PERSONAGEM:** `ver perfil` | `inventário` | `escolher classe` | `ver mana`
-**SOCIAL:** `trocar [item] com @user` | `criar guilda` | `entrar guilda` | `ver guilda`
+**BOSS:** `encontrar boss` — Boss variado por reino! | `desafiar boss` | `juntar boss` | `iniciar batalha boss`
+**QUESTS:** `ver quests` | `realizar quest` | `finalizar quest` | `missão moral`
+**PvP:** `desafiar @jogador` — Duelo com habilidades e mana!
+**PERSONAGEM:** `ver perfil` | `inventário` | `escolher classe` | `ver mana` | `alinhamento`
+**PETS & FAZENDA:** `fazenda` | `trocar pet` | `guardar pet` | `procurar pet`
+**EMPREGOS:** `procurar emprego` | `trabalhar` | `ver emprego` | `largar emprego`
+**CAVALEIRO/REI:** `defender cidade` | `me tornar rei` | `nomear cavaleiro @user` | `ajudar defesa`
+**MAPA:** `abrir mapa` | `viajar <local>` — Viaje entre locais descobertos!
+**MORAL:** `cenário` — Enfrente escolhas que definem seu alinhamento (Herói/Vilão/Anti-Herói)!
+**SOCIAL:** `trocar [item] com @user` | `criar guilda` | `ver guilda`
 **ITENS:** `[poção], usar` | `vender [item]` | `equipar [item]`
+**COINS:** `trocar coins <valor>` — Troque CSI Coins por Monstrinhos Coins!
+**MINAS:** `minerar` | `minerar baú` — Cuidado com Mimics nos baús! 🦷
+**LORE:** `falar npc especial` — Ouça histórias profundas dos NPCs do reino!
 
 *O narrador acompanhará cada passo seu!* 🎭
 
@@ -4115,7 +5341,7 @@ async def on_message(message):
         embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}` CSI", inline=False)
         await message.channel.send(embed=embed)
         try:
-            admin = await bot.fetch_user(ADMIN_ID)
+            admin = await bot.fetch_user(int(BOT_OWNER_ID))
             dm_embed = discord.Embed(title="🔔 Solicitação de Conversão", color=discord.Color.gold())
             dm_embed.add_field(name="Jogador", value=f"{message.author.name} ({message.author.id})", inline=False)
             dm_embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}` CSI", inline=False)
@@ -4969,13 +6195,24 @@ async def on_message(message):
     elif any(word in content for word in ["ver quests", "quests", "missões", "missoes", "aceitar quest"]):
         player = get_player(user_id)
         world_key = max([k for k in QUESTS.keys() if k in player["worlds"]], default=1)
-        available_quests = QUESTS.get(world_key, [])
+        available_quests = list(QUESTS.get(world_key, []))
+        # Adicionar quests extras do mundo
+        available_quests += QUESTS_EXTRA.get(world_key, [])
+        # Adicionar quests de alinhamento
+        align = get_alignment(player)
+        for key, qlist in ALIGNMENT_QUESTS.items():
+            for q in qlist:
+                req = q.get("align_required")
+                if req is None or req == align:
+                    available_quests.append(q)
 
         embed = discord.Embed(
             title="📋 Quadro de Missões",
             description=f"*{WORLDS[world_key]['emoji']} Missões disponíveis em **{WORLDS[world_key]['name']}**...*",
             color=discord.Color.gold()
         )
+        info = ALIGNMENT_TITLES[align]
+        embed.add_field(name=f"{info['emoji']} Alinhamento", value=f"**{align}** — Misões exclusivas desbloqueadas!", inline=True)
 
         if player.get("active_quest"):
             embed.add_field(
@@ -4985,16 +6222,17 @@ async def on_message(message):
             )
 
         completed = player.get("completed_quests", [])
-        for quest in available_quests:
+        for quest in available_quests[:12]:
             status = "✅" if quest["id"] in completed else ("🔄" if player.get("active_quest") and player["active_quest"].get("id") == quest["id"] else "📌")
-            q_type = "👥 Equipe" if quest["type"] == "team" else "👤 Solo"
+            q_type = "👥 Equipe" if quest.get("type") == "team" else "👤 Solo"
+            xp_str = f"{quest['reward_xp']:,}"
             embed.add_field(
                 name=f"{status} {quest['name']} [{q_type}]",
-                value=f"**Dif:** {quest['difficulty']} | **Recompensa:** {quest['reward_xp']} XP, {quest['reward_coins']} CSI\n{quest['description'][:80]}...",
+                value=f"**Dif:** {quest['difficulty']} | **XP:** {xp_str} | **Coins:** {quest['reward_coins']}\n{quest['description'][:80]}...",
                 inline=False
             )
 
-        embed.set_footer(text="Use 'aceitar quest [nome]' para iniciar uma missão!")
+        embed.set_footer(text="Use 'aceitar quest [nome]' para iniciar uma missão! | 'missão moral' para quests de alinhamento")
         await message.channel.send(embed=embed)
 
         # Se o comando for "aceitar quest X"
@@ -5014,7 +6252,7 @@ async def on_message(message):
                     color=discord.Color.gold()
                 )
                 q_embed.add_field(name="🎯 Missão", value=found_quest["description"], inline=False)
-                q_embed.add_field(name="⭐ XP", value=str(found_quest["reward_xp"]), inline=True)
+                q_embed.add_field(name="⭐ XP", value=f"{found_quest['reward_xp']:,}", inline=True)
                 q_embed.add_field(name="💰 Coins", value=str(found_quest["reward_coins"]), inline=True)
                 q_embed.add_field(name="⚔️ Dificuldade", value=found_quest["difficulty"], inline=True)
                 await message.channel.send(embed=q_embed, view=view)
@@ -5080,6 +6318,1317 @@ async def complete_quest(channel, user_id, player):
         embed.add_field(name="🎁 Item Recebido", value=reward_item, inline=True)
 
     await channel.send(embed=embed)
+
+    await channel.send(embed=embed)
+
+
+# ================= HELPERS: ALINHAMENTO, MAPA, FAZENDA =================
+
+def get_alignment(player):
+    pts = player.get("alignment_points", 0)
+    if pts >= 30:
+        return "Heroi"
+    elif pts <= -30:
+        return "Vilao"
+    elif -29 <= pts <= -5:
+        return "Anti-Heroi"
+    else:
+        return "Neutro"
+
+def get_alignment_info(player):
+    align = get_alignment(player)
+    return ALIGNMENT_TITLES[align]
+
+def apply_alignment_points(user_id, points):
+    player = get_player(user_id)
+    cur = player.get("alignment_points", 0)
+    player["alignment_points"] = max(-100, min(100, cur + points))
+    save_player_db(user_id, player)
+    return player
+
+def get_player_map(player):
+    """Retorna o mapa descoberto pelo jogador"""
+    disc = player.get("discovered_map", {})
+    result = {}
+    for world_id, world_data in MAP_LOCATIONS.items():
+        if world_id not in player.get("worlds", [1]):
+            continue
+        result[world_id] = {
+            "world_name": world_data["world_name"],
+            "locations": []
+        }
+        for loc in world_data["locations"]:
+            # cidade principal sempre visível
+            disc_locs = disc.get(str(world_id), [])
+            visible = loc["discovered"] or loc["id"] in disc_locs
+            result[world_id]["locations"].append({**loc, "visible": visible})
+    return result
+
+def discover_location(user_id, world_id, loc_id):
+    player = get_player(user_id)
+    disc = player.get("discovered_map", {})
+    key = str(world_id)
+    if key not in disc:
+        disc[key] = []
+    if loc_id not in disc[key]:
+        disc[key].append(loc_id)
+    player["discovered_map"] = disc
+    save_player_db(user_id, player)
+
+def get_dungeon_difficulty_multiplier(player):
+    """Dungeons secretas ficam mais difíceis conforme o nível"""
+    level = player.get("level", 1)
+    return 1.0 + (level * 0.05)  # +5% por nível
+
+
+# ================= VIEW: ESCOLHER PET DA FAZENDA =================
+# ================= VIEW: EMPREGOS =================
+class JobSelectView(discord.ui.View):
+    def __init__(self, user_id, available_jobs):
+        super().__init__(timeout=90)
+        self.user_id = user_id
+        for job_name in available_jobs[:5]:
+            jdata = JOBS[job_name]
+            btn = discord.ui.Button(
+                label=f"{jdata['emoji']} {job_name}",
+                style=discord.ButtonStyle.primary
+            )
+            btn.callback = self._make_cb(job_name)
+            self.add_item(btn)
+        cancel = discord.ui.Button(label="❌ Cancelar", style=discord.ButtonStyle.secondary)
+        cancel.callback = self._cancel
+        self.add_item(cancel)
+
+    def _make_cb(self, job_name):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Não é sua escolha!", ephemeral=True)
+            player = get_player(self.user_id)
+            jdata = JOBS[job_name]
+            old_job = player.get("job")
+            player["job"] = job_name
+            player["job_since"] = int(__import__("time").time())
+            # Aplicar bônus permanente de HP
+            if job_name == "Cavaleiro":
+                player["max_hp"] += 20
+                player["hp"] = min(player["hp"] + 20, player["max_hp"])
+            elif job_name == "Guarda_Real":
+                player["max_hp"] += 35
+                player["hp"] = min(player["hp"] + 35, player["max_hp"])
+            elif job_name == "Arcano":
+                player["max_mana"] = player.get("max_mana", 50) + 15
+            save_player_db(self.user_id, player)
+            embed = discord.Embed(
+                title=f"{jdata['emoji']} Emprego Aceito: **{job_name}**!",
+                description=f"*{jdata['work_action']}*\n\n{jdata['description']}",
+                color=discord.Color.green()
+            )
+            perks_text = "\n".join([f"• {p}" for p in jdata["perks"]])
+            embed.add_field(name="✨ Benefícios", value=perks_text, inline=False)
+            embed.add_field(name="💰 Salário", value=f"`{jdata['salary_coins'][0]}–{jdata['salary_coins'][1]}` coins por turno de trabalho", inline=True)
+            embed.add_field(name="⭐ XP por trabalho", value=f"`{jdata['salary_xp'][0]}–{jdata['salary_xp'][1]}`", inline=True)
+            if old_job:
+                embed.add_field(name="⚠️ Emprego anterior", value=f"Você largou **{old_job}**.", inline=False)
+            embed.set_footer(text="Use `trabalhar` para ganhar salário! | `ver emprego` para detalhes")
+            for item in self.children:
+                item.disabled = True
+            await interaction.response.edit_message(embed=embed, view=self)
+        return callback
+
+    async def _cancel(self, interaction: discord.Interaction):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Não é sua!", ephemeral=True)
+        await interaction.response.edit_message(content="❌ Escolha de emprego cancelada.", embed=None, view=None)
+
+
+# ================= VIEW: DEFESA DE CIDADE =================
+class CityDefenseView(discord.ui.View):
+    def __init__(self, user_id, invasion, channel, guild):
+        super().__init__(timeout=120)
+        self.user_id = user_id
+        self.invasion = invasion
+        self.channel = channel
+        self.guild = guild
+        self.helpers = []
+
+        for i, opt in enumerate(invasion.get("dialogue_options", [])):
+            btn = discord.ui.Button(
+                label=opt["text"][:80],
+                style=discord.ButtonStyle.blurple if "negoci" in opt["text"].lower() or "diálogo" in opt["text"].lower()
+                      else discord.ButtonStyle.danger,
+                row=i // 2
+            )
+            btn.callback = self._make_cb(i)
+            self.add_item(btn)
+
+        call_btn = discord.ui.Button(label="📯 Convocar Aliados", style=discord.ButtonStyle.success, row=2)
+        call_btn.callback = self._call_allies
+        self.add_item(call_btn)
+
+    def _make_cb(self, idx):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id) and str(interaction.user.id) not in self.helpers:
+                return await interaction.response.send_message("❌ Você não está na defesa!", ephemeral=True)
+            opt = self.invasion["dialogue_options"][idx]
+            import random
+            success = random.random() < opt["success_chance"]
+            apply_alignment_points(str(interaction.user.id), opt.get("align", 0))
+            for h in self.helpers:
+                apply_alignment_points(h, opt.get("align", 0) // 2)
+            if success:
+                xp = self.invasion["xp_reward"]
+                coins = self.invasion["coins_reward"]
+                add_xp(str(interaction.user.id), xp)
+                add_coins(str(interaction.user.id), coins)
+                for h in self.helpers:
+                    add_xp(h, xp // 2)
+                    add_coins(h, coins // 2)
+                embed = discord.Embed(
+                    title=f"🏆 INVASÃO REPELIDA! — {self.invasion['title']}",
+                    description=f"*Sua estratégia funcionou! {self.invasion['enemy']}s recuam!*\n\n"
+                                f"🗡️ Opção: **{opt['text'][:60]}**",
+                    color=discord.Color.green()
+                )
+                embed.add_field(name="⭐ XP", value=f"`+{xp}`", inline=True)
+                embed.add_field(name="💰 Coins", value=f"`+{coins}`", inline=True)
+                if self.helpers:
+                    embed.add_field(name="👥 Aliados (XP/2)", value=f"{len(self.helpers)} jogadores ajudaram!", inline=True)
+                embed.add_field(name="📣 Povo", value="_As pessoas gritam vivas nas ruas!_", inline=False)
+            else:
+                xp_loss = self.invasion["xp_reward"] // 4
+                remove_xp(str(interaction.user.id), xp_loss)
+                embed = discord.Embed(
+                    title=f"💀 INVASÃO AVANÇA! — {self.invasion['title']}",
+                    description=f"*Sua estratégia falhou! Os inimigos avançam mais!*\n\n"
+                                f"❌ Opção: **{opt['text'][:60]}**",
+                    color=discord.Color.red()
+                )
+                embed.add_field(name="❌ XP Perdido", value=f"`-{xp_loss}`", inline=True)
+                embed.add_field(name="💡 Dica", value="Tente outra abordagem ou `lutar` diretamente!", inline=False)
+            for item in self.children:
+                item.disabled = True
+            await interaction.response.edit_message(embed=embed, view=self)
+        return callback
+
+    async def _call_allies(self, interaction: discord.Interaction):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Só o defensor pode convocar!", ephemeral=True)
+        embed = discord.Embed(
+            title=f"📯 CONVOCAÇÃO DE DEFESA!",
+            description=f"**{interaction.user.display_name}** convoca aliados para defender contra:\n"
+                        f"**{self.invasion['title']}**\n\n"
+                        f"*Responda `ajudar defesa` para participar!*\n"
+                        f"👥 Mínimo necessário: **{self.invasion['min_defenders']}** defensores",
+            color=discord.Color.orange()
+        )
+        await self.channel.send(embed=embed)
+        await interaction.response.send_message("📯 Convocação enviada ao canal!", ephemeral=True)
+
+
+class CityDefenseJoinView(discord.ui.View):
+    """View para aliados entrarem na defesa ativa"""
+    def __init__(self, defense_view: CityDefenseView):
+        super().__init__(timeout=60)
+        self.dview = defense_view
+
+    @discord.ui.button(label="⚔️ Entrar na Defesa!", style=discord.ButtonStyle.danger)
+    async def join(self, interaction: discord.Interaction, button: discord.ui.Button):
+        uid = str(interaction.user.id)
+        if uid == self.dview.user_id:
+            return await interaction.response.send_message("Você já é o defensor principal!", ephemeral=True)
+        if uid in self.dview.helpers:
+            return await interaction.response.send_message("Você já está na defesa!", ephemeral=True)
+        player = get_player(uid)
+        if not player:
+            return await interaction.response.send_message("❌ Crie seu personagem primeiro!", ephemeral=True)
+        self.dview.helpers.append(uid)
+        await interaction.response.send_message(
+            f"⚔️ **{interaction.user.display_name}** entra na defesa! ({len(self.dview.helpers)+1} defensores total)",
+            ephemeral=False
+        )
+
+
+class NomearCavaleiroView(discord.ui.View):
+    """View para Rei nomear cavaleiros"""
+    def __init__(self, king_id, target_user):
+        super().__init__(timeout=60)
+        self.king_id = king_id
+        self.target_user = target_user
+
+    @discord.ui.button(label="⚔️ Aceitar o Título", style=discord.ButtonStyle.success)
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.target_user.id):
+            return await interaction.response.send_message("❌ Não é para você!", ephemeral=True)
+        player = get_player(str(self.target_user.id))
+        if player:
+            player["city_title"] = "Cavaleiro"
+            save_player_db(str(self.target_user.id), player)
+            king = get_player(self.king_id)
+            knights = king.get("knights", [])
+            knights.append(str(self.target_user.id))
+            king["knights"] = knights
+            save_player_db(self.king_id, king)
+        embed = discord.Embed(
+            title="⚔️ Cavaleiro do Reino!",
+            description=f"**{self.target_user.display_name}** aceita o título de **Cavaleiro** e ajoelha diante do Rei!\n\n*'Com este título, juro proteger o povo com minha vida!'*",
+            color=discord.Color.gold()
+        )
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="❌ Recusar", style=discord.ButtonStyle.danger)
+    async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.target_user.id):
+            return await interaction.response.send_message("❌ Não é para você!", ephemeral=True)
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(content="*O guerreiro recusa a genuflexão. Um rei deve respeitar isso.*", embed=None, view=self)
+
+
+class PetFarmSelectView(discord.ui.View):
+    def __init__(self, user_id, farm_pets):
+        super().__init__(timeout=60)
+        self.user_id = user_id
+        self.farm_pets = farm_pets
+        for i, pet in enumerate(farm_pets[:5]):
+            btn = discord.ui.Button(
+                label=f"{pet.get('emoji','🐾')} {pet['name']}",
+                style=discord.ButtonStyle.primary,
+                custom_id=f"farm_pet_{i}"
+            )
+            btn.callback = self._make_callback(i)
+            self.add_item(btn)
+
+    def _make_callback(self, index):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                await interaction.response.send_message("❌ Não é sua fazenda!", ephemeral=True)
+                return
+            player = get_player(self.user_id)
+            chosen = self.farm_pets[index]
+            old_pet = player.get("pet")
+            farm = player.get("pet_farm", [])
+            # Remover da fazenda e colocar equipado
+            farm = [p for p in farm if p["name"] != chosen["name"]]
+            # Enviar atual para fazenda se tinha
+            if old_pet:
+                try:
+                    old_pet_obj = json.loads(old_pet) if isinstance(old_pet, str) else old_pet
+                    farm.append(old_pet_obj)
+                except:
+                    pass
+            player["pet"] = json.dumps(chosen)
+            player["pet_farm"] = farm
+            save_player_db(self.user_id, player)
+            embed = discord.Embed(
+                title=f"🔄 Pet Trocado!",
+                description=f"{chosen.get('emoji','🐾')} **{chosen['name']}** saiu da fazenda e agora te acompanha!",
+                color=discord.Color.green()
+            )
+            if old_pet:
+                try:
+                    old_obj = json.loads(old_pet) if isinstance(old_pet, str) else old_pet
+                    embed.add_field(name="🏡 Enviado à Fazenda", value=f"{old_obj.get('emoji','🐾')} {old_obj['name']}", inline=False)
+                except:
+                    pass
+            await interaction.response.edit_message(embed=embed, view=None)
+        return callback
+
+
+# ================= VIEW: MIMIC CHEST =================
+class MimicChestView(discord.ui.View):
+    def __init__(self, user_id, tier_idx, world):
+        super().__init__(timeout=30)
+        self.user_id = user_id
+        self.tier = MIMIC_TIERS[tier_idx]
+        self.world = world
+
+    @discord.ui.button(label="🔓 Abrir o Baú", style=discord.ButtonStyle.danger)
+    async def open_chest(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            await interaction.response.send_message("❌ Não é seu baú!", ephemeral=True)
+            return
+        player = get_player(self.user_id)
+        tier = self.tier
+        is_mimic = random.random() < tier["mimic_chance"]
+
+        if is_mimic:
+            dmg = random.randint(*tier["mimic_dmg"])
+            xp_loss = random.randint(*tier["mimic_xp_loss"])
+            player["hp"] = max(1, player["hp"] - dmg)
+            save_player_db(self.user_id, player)
+            # Remove some XP
+            remove_xp(self.user_id, xp_loss)
+            embed = discord.Embed(
+                title=f"💀 MIMIC! {tier['emoji']} — {tier['name']}",
+                description=tier["mimic_desc"],
+                color=discord.Color.dark_red()
+            )
+            embed.add_field(name="💥 Dano Sofrido", value=f"`-{dmg} HP`", inline=True)
+            embed.add_field(name="💀 XP Perdido", value=f"`-{xp_loss} XP`", inline=True)
+            embed.add_field(name="❤️ HP Restante", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
+            embed.add_field(name="📝 Lição", value="_Mimics aprenderam a imitar baús para sobreviver. Você foi enganado pelo mais antigo truque das masmorras._", inline=False)
+            embed.set_footer(text="Use `curar` para recuperar HP!")
+        else:
+            loot_xp = random.randint(*tier["loot_xp"])
+            loot_coins = random.randint(*tier["loot_coins"])
+            # Item aleatório pela raridade permitida
+            rarity_pool = tier["loot_items"]
+            loot_item = None
+            world_items = WORLDS[self.world].get("items", []) if self.world in WORLDS else []
+            filtered = [i for i in world_items if i.get("rarity") in rarity_pool]
+            if filtered:
+                loot_item = random.choice(filtered)["name"]
+            add_xp(self.user_id, loot_xp)
+            add_coins(self.user_id, loot_coins)
+            if loot_item:
+                p2 = get_player(self.user_id)
+                p2["inventory"].append(loot_item)
+                save_player_db(self.user_id, p2)
+            embed = discord.Embed(
+                title=f"✨ Baú Aberto! {tier['emoji']} — {tier['name']}",
+                description=f"*O baú cede com um estalido. Uma aura dourada emana de dentro...*",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name="⭐ XP", value=f"`+{loot_xp}`", inline=True)
+            embed.add_field(name="💰 Coins", value=f"`+{loot_coins}`", inline=True)
+            if loot_item:
+                embed.add_field(name="🎁 Item", value=f"`{loot_item}`", inline=True)
+
+        for item in self.children:
+            item.disabled = True
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="🚶 Deixar pra lá", style=discord.ButtonStyle.secondary)
+    async def leave_chest(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            await interaction.response.send_message("❌ Não é seu baú!", ephemeral=True)
+            return
+        await interaction.response.edit_message(
+            embed=discord.Embed(
+                title="🚶 Você se afastou do baú",
+                description="*Às vezes a prudência é o maior tesouro.*",
+                color=discord.Color.greyple()
+            ), view=None
+        )
+
+
+# ================= VIEW: CENÁRIO MORAL =================
+class ScenarioChoiceView(discord.ui.View):
+    def __init__(self, user_id, scenario):
+        super().__init__(timeout=60)
+        self.user_id = user_id
+        self.scenario = scenario
+        for i, choice in enumerate(scenario["choices"]):
+            btn = discord.ui.Button(
+                label=choice["text"][:80],
+                style=discord.ButtonStyle.primary if choice["align"] > 0 else (
+                    discord.ButtonStyle.danger if choice["align"] < -5 else discord.ButtonStyle.secondary
+                ),
+                row=i // 2
+            )
+            btn.callback = self._make_callback(i)
+            self.add_item(btn)
+
+    def _make_callback(self, index):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                await interaction.response.send_message("❌ Não é sua escolha!", ephemeral=True)
+                return
+            choice = self.scenario["choices"][index]
+            player = apply_alignment_points(self.user_id, choice["align"])
+            add_xp(self.user_id, choice["xp"])
+            add_coins(self.user_id, choice["coins"])
+            new_align = get_alignment(player)
+            info = ALIGNMENT_TITLES[new_align]
+            color = discord.Color(info["color"])
+            embed = discord.Embed(
+                title=f"{info['emoji']} Consequência",
+                description=f"*{choice['result']}*",
+                color=color
+            )
+            if choice["xp"]:
+                embed.add_field(name="⭐ XP", value=f"`+{choice['xp']}`", inline=True)
+            if choice["coins"]:
+                embed.add_field(name="💰 Coins", value=f"`+{choice['coins']}`", inline=True)
+            align_pts = player.get("alignment_points", 0)
+            embed.add_field(name=f"{info['emoji']} Alinhamento", value=f"**{new_align}** ({align_pts:+d} pts)", inline=False)
+            embed.set_footer(text=info["desc"])
+            for item in self.children:
+                item.disabled = True
+            await interaction.response.edit_message(embed=embed, view=self)
+        return callback
+
+
+# ================= COMANDOS NOVOS =================
+BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=seu_discord_id
+
+@bot.listen("on_message")
+async def handle_new_commands(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    # ===== FAZENDA DE PETS =====
+    if content in ["fazenda", "minha fazenda", "pet fazenda", "pets fazenda"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+            return
+        farm = player.get("pet_farm", [])
+        current_pet = player.get("pet")
+        embed = discord.Embed(title="🏡 Sua Fazenda de Pets", color=discord.Color.green())
+        if current_pet:
+            try:
+                cp = json.loads(current_pet) if isinstance(current_pet, str) else current_pet
+                embed.add_field(
+                    name="🐾 Pet Equipado",
+                    value=f"{cp.get('emoji','🐾')} **{cp['name']}** [{cp.get('rarity','?')}]\n`+{cp.get('bonus_hp',0)} HP` | `+{cp.get('bonus_atk',0)} ATK`",
+                    inline=False
+                )
+            except:
+                embed.add_field(name="🐾 Pet Equipado", value=str(current_pet), inline=False)
+        else:
+            embed.add_field(name="🐾 Pet Equipado", value="_Nenhum_", inline=False)
+
+        if farm:
+            farm_text = ""
+            for i, pet in enumerate(farm[:10]):
+                farm_text += f"{i+1}. {pet.get('emoji','🐾')} **{pet['name']}** [{pet.get('rarity','?')}] — `+{pet.get('bonus_hp',0)} HP` / `+{pet.get('bonus_atk',0)} ATK`\n"
+            embed.add_field(name=f"🌾 Na Fazenda ({len(farm)} pets)", value=farm_text, inline=False)
+            embed.set_footer(text="Use `trocar pet` para escolher um da fazenda!")
+        else:
+            embed.add_field(name="🌾 Na Fazenda", value="_Vazia. Caçe pets para populá-la!_", inline=False)
+        await message.channel.send(embed=embed)
+
+    # ===== TROCAR PET =====
+    elif content in ["trocar pet", "mudar pet", "escolher pet"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        farm = player.get("pet_farm", [])
+        if not farm:
+            await message.channel.send("🏡 Sua fazenda está vazia! Não há pets para trocar.\nCapture mais pets caçando com `caçar`.")
+            return
+        embed = discord.Embed(
+            title="🔄 Trocar Pet",
+            description="Escolha um pet da fazenda para equipar. O pet atual será enviado para a fazenda.",
+            color=discord.Color.blurple()
+        )
+        for pet in farm[:5]:
+            embed.add_field(
+                name=f"{pet.get('emoji','🐾')} {pet['name']}",
+                value=f"Raridade: **{pet.get('rarity','?')}**\n`+{pet.get('bonus_hp',0)} HP` | `+{pet.get('bonus_atk',0)} ATK`",
+                inline=True
+            )
+        view = PetFarmSelectView(uid, farm)
+        await message.channel.send(embed=embed, view=view)
+
+    # ===== ENVIAR PET PARA FAZENDA =====
+    elif content.startswith("enviar pet fazenda") or content in ["guardar pet", "depositar pet"]:
+        player = get_player(uid)
+        if not player:
+            return
+        current_pet = player.get("pet")
+        if not current_pet:
+            await message.channel.send("❌ Você não tem pet equipado!")
+            return
+        try:
+            cp = json.loads(current_pet) if isinstance(current_pet, str) else current_pet
+            farm = player.get("pet_farm", [])
+            farm.append(cp)
+            player["pet"] = None
+            player["pet_farm"] = farm
+            save_player_db(uid, player)
+            embed = discord.Embed(
+                title="🏡 Pet Enviado!",
+                description=f"{cp.get('emoji','🐾')} **{cp['name']}** foi para a fazenda feliz!",
+                color=discord.Color.green()
+            )
+            embed.set_footer(text="Use `trocar pet` para escolhê-lo de volta quando quiser.")
+            await message.channel.send(embed=embed)
+        except Exception as e:
+            await message.channel.send(f"❌ Erro ao enviar pet: {e}")
+
+    # ===== TROCAR CSI COINS POR MONSTRINHOS COINS =====
+    elif content.startswith("trocar coins") or content.startswith("converter coins"):
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        parts = content.split()
+        amount = 0
+        for p in parts:
+            if p.isdigit():
+                amount = int(p)
+                break
+        if amount <= 0:
+            await message.channel.send(
+                "💱 **Como trocar coins:**\n`trocar coins 100` — envia pedido de troca de 100 CSI Coins por Monstrinhos Coins.\n"
+                "O dono do servidor será notificado e aprovará a troca.\n\n"
+                f"Seu saldo atual: **{player['coins']} CSI Coins** 💰"
+            )
+            return
+        if player["coins"] < amount:
+            await message.channel.send(f"❌ Você tem apenas **{player['coins']}** coins! Pediu {amount}.")
+            return
+
+        # Salvar pedido no DB
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("INSERT INTO coin_exchange_requests (user_id, username, csi_coins) VALUES (?, ?, ?)",
+                  (uid, str(message.author), amount))
+        req_id = c.lastrowid
+        conn.commit()
+        conn.close()
+
+        # Notificar dono via DM
+        owner_id = int(BOT_OWNER_ID) if BOT_OWNER_ID != "0" else None
+        if owner_id:
+            try:
+                owner = await bot.fetch_user(owner_id)
+                dm_embed = discord.Embed(
+                    title="💱 PEDIDO DE TROCA DE COINS",
+                    description=f"**Usuário:** {message.author} (`{uid}`)\n**Servidor:** {message.guild.name if message.guild else 'DM'}\n**Pedido:** {amount} CSI Coins → Monstrinhos Coins\n**ID do Pedido:** #{req_id}",
+                    color=discord.Color.orange()
+                )
+                dm_embed.add_field(name="✅ Para APROVAR", value=f"`aprovar troca {req_id}`", inline=True)
+                dm_embed.add_field(name="❌ Para RECUSAR", value=f"`recusar troca {req_id}`", inline=True)
+                await owner.send(embed=dm_embed)
+            except Exception as e:
+                print(f"Erro ao enviar DM ao owner: {e}")
+
+        embed = discord.Embed(
+            title="📤 Pedido Enviado!",
+            description=f"Seu pedido de troca de **{amount} CSI Coins** foi registrado e enviado ao administrador.\nAguarde a aprovação!",
+            color=discord.Color.blurple()
+        )
+        embed.add_field(name="📋 ID do Pedido", value=f"#{req_id}", inline=True)
+        embed.add_field(name="💰 Coins Solicitados", value=f"{amount}", inline=True)
+        await message.channel.send(embed=embed)
+
+    # ===== OWNER: APROVAR/RECUSAR TROCA =====
+    elif content.startswith("aprovar troca ") and uid == BOT_OWNER_ID:
+        parts = content.split()
+        if len(parts) < 3 or not parts[2].isdigit():
+            await message.channel.send("❌ Uso: `aprovar troca <id>`")
+            return
+        req_id = int(parts[2])
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT user_id, username, csi_coins, status FROM coin_exchange_requests WHERE id = ?", (req_id,))
+        row = c.fetchone()
+        if not row:
+            await message.channel.send(f"❌ Pedido #{req_id} não encontrado.")
+            conn.close()
+            return
+        req_uid, req_uname, req_coins, status = row
+        if status != "pending":
+            await message.channel.send(f"❌ Pedido #{req_id} já foi processado ({status}).")
+            conn.close()
+            return
+        # Resetar coins do jogador
+        player = get_player(req_uid)
+        if player:
+            old_coins = player["coins"]
+            player["coins"] = max(0, player["coins"] - req_coins)
+            save_player_db(req_uid, player)
+        c.execute("UPDATE coin_exchange_requests SET status = 'approved' WHERE id = ?", (req_id,))
+        conn.commit()
+        conn.close()
+        # Notificar jogador
+        try:
+            target_user = await bot.fetch_user(int(req_uid))
+            notify_embed = discord.Embed(
+                title="✅ Troca Aprovada!",
+                description=f"Sua troca de **{req_coins} CSI Coins** por Monstrinhos Coins foi **APROVADA**!\nSeus coins foram descontados. Entre em contato com o administrador para receber seus Monstrinhos Coins! 🎉",
+                color=discord.Color.green()
+            )
+            await target_user.send(embed=notify_embed)
+        except:
+            pass
+        await message.channel.send(f"✅ Pedido #{req_id} de **{req_uname}** aprovado! {req_coins} coins descontados.")
+
+    elif content.startswith("recusar troca ") and uid == BOT_OWNER_ID:
+        parts = content.split()
+        if len(parts) < 3 or not parts[2].isdigit():
+            await message.channel.send("❌ Uso: `recusar troca <id>`")
+            return
+        req_id = int(parts[2])
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT user_id, username, csi_coins, status FROM coin_exchange_requests WHERE id = ?", (req_id,))
+        row = c.fetchone()
+        conn.close()
+        if not row:
+            await message.channel.send(f"❌ Pedido #{req_id} não encontrado.")
+            return
+        req_uid, req_uname, req_coins, status = row
+        conn2 = sqlite3.connect(DB_FILE)
+        c2 = conn2.cursor()
+        c2.execute("UPDATE coin_exchange_requests SET status = 'refused' WHERE id = ?", (req_id,))
+        conn2.commit()
+        conn2.close()
+        try:
+            target_user = await bot.fetch_user(int(req_uid))
+            await target_user.send(embed=discord.Embed(
+                title="❌ Troca Recusada",
+                description=f"Seu pedido de troca de **{req_coins} CSI Coins** foi recusado. Entre em contato com o administrador para mais detalhes.",
+                color=discord.Color.red()
+            ))
+        except:
+            pass
+        await message.channel.send(f"❌ Pedido #{req_id} de **{req_uname}** recusado.")
+
+    # ===== ALINHAMENTO MORAL =====
+    elif content in ["alinhamento", "meu alinhamento", "ver alinhamento", "moralidade"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        align = get_alignment(player)
+        info = ALIGNMENT_TITLES[align]
+        pts = player.get("alignment_points", 0)
+        color = discord.Color(info["color"])
+
+        bar_fill = int((pts + 100) / 200 * 20)
+        bar = "🟥" * max(0, 10 - bar_fill // 2) + "⬛" * max(0, bar_fill - 10) if pts < 0 else "⬛" * max(0, 10 - bar_fill // 2) + "🟨" * max(0, bar_fill // 2)
+        villain_bar = "🔴" * min(10, max(0, (-pts) // 10))
+        hero_bar = "🟡" * min(10, max(0, pts // 10))
+        full_bar = "💀" * max(0, 10 - len(villain_bar) - len(hero_bar)) + villain_bar + "⚖️" + hero_bar + "✨" * max(0, 10 - len(hero_bar))
+
+        embed = discord.Embed(
+            title=f"{info['emoji']} {align} — {message.author.display_name}",
+            description=f"*{info['desc']}*",
+            color=color
+        )
+        embed.add_field(name="📊 Pontos de Alinhamento", value=f"`{pts:+d} / 100`", inline=True)
+        evil_bar = "🔴" * min(10, max(0, 10 - (pts + 100) // 20))
+        good_bar = "🟡" * min(10, max(0, (pts + 100) // 20))
+        embed.add_field(name="☯️ Espectro Moral", value=f"💀 {evil_bar}|{good_bar} ✨", inline=False)
+        embed.add_field(
+            name="🎯 Próximo Alinhamento",
+            value=(
+                f"**Herói** em `{max(0, 30 - pts)} pts`" if pts < 30 else
+                f"**Vilão** em `{max(0, pts + 30)} pts negativos`" if pts > -30 else
+                "Você está no extremo!"
+            ),
+            inline=False
+        )
+        quests_available = []
+        for key, qlist in ALIGNMENT_QUESTS.items():
+            for q in qlist:
+                req = q.get("align_required")
+                if req is None or req == align:
+                    quests_available.append(q["name"])
+        if quests_available:
+            embed.add_field(name="📋 Quests Disponíveis pro seu Alinhamento", value="\n".join(quests_available[:5]), inline=False)
+        await message.channel.send(embed=embed)
+
+    # ===== CENÁRIO MORAL =====
+    elif content in ["cenário", "cenario", "evento moral", "situação", "situacao"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        world_key = max(k for k in player.get("worlds", [1]))
+        scenario_pool = ALIGNMENT_SCENARIOS.get(world_key, ALIGNMENT_SCENARIOS.get(1, []))
+        if not scenario_pool:
+            await message.channel.send("🌍 Não há cenários para este reino ainda.")
+            return
+        scenario = random.choice(scenario_pool)
+        embed = discord.Embed(
+            title=f"{scenario['emoji']} {scenario['title']}",
+            description=scenario["description"],
+            color=discord.Color.gold()
+        )
+        align = get_alignment(player)
+        info = ALIGNMENT_TITLES[align]
+        embed.set_footer(text=f"Alinhamento atual: {info['emoji']} {align} | Suas escolhas definem quem você é.")
+        view = ScenarioChoiceView(uid, scenario)
+        await message.channel.send(embed=embed, view=view)
+
+    # ===== ABRIR MAPA =====
+    elif content in ["abrir mapa", "mapa", "meu mapa", "ver mapa"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        player_map = get_player_map(player)
+        embed = discord.Embed(
+            title="🗺️ Mapa do Mundo",
+            description="Locais descobertos durante sua jornada. Use `viajar <nome do local>` para se locomover.",
+            color=discord.Color.blue()
+        )
+        current_world = max(player.get("worlds", [1]))
+        for world_id, wdata in player_map.items():
+            locs_text = ""
+            for loc in wdata["locations"]:
+                if loc.get("visible"):
+                    type_icons = {
+                        "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
+                        "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
+                        "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
+                    }
+                    icon = type_icons.get(loc["type"], "📍")
+                    marker = "📌" if world_id == current_world else ""
+                    locs_text += f"{icon} {loc['name']} {marker}\n"
+                else:
+                    locs_text += f"❓ *Local Desconhecido*\n"
+            if locs_text:
+                current_marker = " ← **AQUI**" if world_id == current_world else ""
+                embed.add_field(
+                    name=f"{wdata['world_name']}{current_marker}",
+                    value=locs_text or "_Nenhum local descoberto_",
+                    inline=False
+                )
+        embed.set_footer(text="💡 Dica: Explore com `explorar` para descobrir novos locais!")
+        await message.channel.send(embed=embed)
+
+    # ===== VIAJAR =====
+    elif content.startswith("viajar ") or content.startswith("ir para ") or content.startswith("ir pra "):
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        destination = content.split(maxsplit=1)[1].strip().lower()
+        player_map = get_player_map(player)
+        found_loc = None
+        found_world = None
+        for world_id, wdata in player_map.items():
+            for loc in wdata["locations"]:
+                if loc.get("visible") and destination in loc["name"].lower():
+                    found_loc = loc
+                    found_world = world_id
+                    break
+        # Também verificar por número de mundo
+        if not found_loc:
+            for world_id in player.get("worlds", [1]):
+                world_name = MAP_LOCATIONS.get(world_id, {}).get("world_name", "")
+                if destination in world_name.lower():
+                    found_world = world_id
+                    found_loc = {"name": world_name, "id": f"world_{world_id}", "type": "cidade"}
+                    break
+        if not found_loc:
+            await message.channel.send(
+                f"❓ Local '**{destination}**' não encontrado ou ainda não descoberto.\n"
+                "Use `abrir mapa` para ver seus locais conhecidos."
+            )
+            return
+        # Verificar se o mundo está desbloqueado
+        if found_world not in player.get("worlds", [1]):
+            await message.channel.send(f"🔒 O reino **{MAP_LOCATIONS.get(found_world, {}).get('world_name', '?')}** ainda está bloqueado! Derrote o boss do reino anterior.")
+            return
+        # Atualizar mundo atual do jogador
+        worlds = player.get("worlds", [1])
+        if found_world not in worlds:
+            await message.channel.send(f"🔒 Você ainda não desbloqueou este reino!")
+            return
+        # Registrar viagem (mover o "mundo ativo" para o escolhido)
+        player["worlds"] = worlds  # mantém tudo que já tem
+        save_player_db(uid, player)
+        world_name = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
+        embed = discord.Embed(
+            title=f"✈️ Viajando para {found_loc['name']}",
+            description=f"*Você parte em direção a **{world_name}**...*\n\nChegou em **{found_loc['name']}**! O ar aqui é diferente.",
+            color=discord.Color.teal()
+        )
+        embed.add_field(name="📍 Local", value=found_loc["name"], inline=True)
+        embed.add_field(name="🌍 Reino", value=world_name, inline=True)
+        embed.set_footer(text="Use `explorar` para começar a aventura neste local!")
+        # Descobrir local se ainda não estava marcado
+        disc = player.get("discovered_map", {})
+        key = str(found_world)
+        if key not in disc:
+            disc[key] = []
+        if found_loc.get("id") and found_loc["id"] not in disc[key]:
+            disc[key].append(found_loc["id"])
+            player["discovered_map"] = disc
+            save_player_db(uid, player)
+            embed.add_field(name="🗺️ Descoberta!", value=f"Local adicionado ao mapa!", inline=False)
+        await message.channel.send(embed=embed)
+
+    # ===== MISSÃO MORAL =====
+    elif content in ["missão moral", "missao moral", "quest moral", "missão alinhamento"]:
+        player = get_player(uid)
+        if not player:
+            return
+        align = get_alignment(player)
+        all_quests = []
+        for key, qlist in ALIGNMENT_QUESTS.items():
+            for q in qlist:
+                req = q.get("align_required")
+                if req is None or req == align:
+                    all_quests.append(q)
+        if not all_quests:
+            await message.channel.send("❌ Nenhuma missão disponível para seu alinhamento.")
+            return
+        quest = random.choice(all_quests)
+        if player.get("active_quest"):
+            await message.channel.send("❌ Você já tem uma quest ativa! Use `finalizar quest` ou `abandonar quest`.")
+            return
+        info = ALIGNMENT_TITLES[align]
+        embed = discord.Embed(
+            title=f"{info['emoji']} {quest['name']}",
+            description=quest["description"],
+            color=discord.Color(info["color"])
+        )
+        embed.add_field(name="📝 Lore", value=quest["lore"], inline=False)
+        embed.add_field(name="👤 NPC", value=quest["npc"], inline=True)
+        embed.add_field(name="⚔️ Dificuldade", value=quest["difficulty"], inline=True)
+        embed.add_field(name="⭐ Recompensa XP", value=f"{quest['reward_xp']:,}", inline=True)
+        embed.add_field(name="💰 Recompensa Coins", value=str(quest["reward_coins"]), inline=True)
+        view = QuestAcceptButton(str(uid), quest)
+        await message.channel.send(embed=embed, view=view)
+
+    # ===== DESCOBRIR LOCAL (ao explorar) — trigger automático =====
+    # Isso é chamado internamente, não diretamente pelo usuário
+
+    # ===== VER PEDIDOS DE TROCA (admin) =====
+    elif content in ["ver trocas", "pedidos de troca"] and uid == BOT_OWNER_ID:
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT id, user_id, username, csi_coins, status, created_at FROM coin_exchange_requests WHERE status = 'pending' ORDER BY created_at DESC LIMIT 10")
+        rows = c.fetchall()
+        conn.close()
+        if not rows:
+            await message.channel.send("📋 Nenhum pedido de troca pendente.")
+            return
+        embed = discord.Embed(title="💱 Pedidos de Troca Pendentes", color=discord.Color.orange())
+        for row in rows:
+            req_id, req_uid, req_uname, req_coins, req_status, created = row
+            embed.add_field(
+                name=f"#{req_id} — {req_uname}",
+                value=f"💰 **{req_coins}** CSI Coins\n`aprovar troca {req_id}` | `recusar troca {req_id}`",
+                inline=False
+            )
+        await message.channel.send(embed=embed)
+
+    # ===== EMPREGOS =====
+    elif content in ["procurar emprego", "empregos", "quero emprego", "ver empregos", "escolher emprego"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        if player["level"] < 5:
+            await message.channel.send(
+                f"⚠️ Você precisa ser **nível 5** para procurar emprego!\n"
+                f"Nível atual: **{player['level']}**\nContinue explorando!"
+            )
+            return
+        current_job = player.get("job")
+        avail = [name for name, jdata in JOBS.items() if player["level"] >= jdata["min_level"]]
+        embed = discord.Embed(
+            title="💼 Empregos do Reino",
+            description="*O taberneiro pregou uma lista de vagas na parede. Você se aproxima para ler...*",
+            color=discord.Color.blurple()
+        )
+        if current_job:
+            jd = JOBS.get(current_job, {})
+            embed.add_field(
+                name=f"🔖 Emprego Atual: {jd.get('emoji','?')} {current_job}",
+                value=f"_{jd.get('description','')}_\nUse `trabalhar` para ganhar salário!",
+                inline=False
+            )
+        for jname in avail:
+            jd = JOBS[jname]
+            embed.add_field(
+                name=f"{jd['emoji']} {jname} (Nível {jd['min_level']}+)",
+                value=f"_{jd['description']}_\n💰 `{jd['salary_coins'][0]}–{jd['salary_coins'][1]}` coins | ⭐ `{jd['salary_xp'][0]}–{jd['salary_xp'][1]}` XP",
+                inline=True
+            )
+        embed.set_footer(text="Escolha um emprego abaixo! Você pode trocar a qualquer momento.")
+        view = JobSelectView(uid, avail)
+        await message.channel.send(embed=embed, view=view)
+
+    elif content in ["ver emprego", "meu emprego", "emprego atual"]:
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        if not job:
+            await message.channel.send("💼 Você não tem emprego! Use `procurar emprego` para ver vagas disponíveis.")
+            return
+        jd = JOBS[job]
+        import time
+        since = player.get("job_since", 0)
+        hours_working = int((time.time() - since) / 3600) if since else 0
+        embed = discord.Embed(
+            title=f"{jd['emoji']} Seu Emprego: **{job}**",
+            description=f"*{jd['work_action']}*\n\n{jd['description']}",
+            color=discord.Color.green()
+        )
+        perks_text = "\n".join([f"• {p}" for p in jd["perks"]])
+        embed.add_field(name="✨ Benefícios", value=perks_text, inline=False)
+        embed.add_field(name="💰 Salário por turno", value=f"`{jd['salary_coins'][0]}–{jd['salary_coins'][1]}` coins", inline=True)
+        embed.add_field(name="⭐ XP por turno", value=f"`{jd['salary_xp'][0]}–{jd['salary_xp'][1]}`", inline=True)
+        embed.add_field(name="⏱️ Trabalhando há", value=f"`{hours_working}h`", inline=True)
+        title = player.get("city_title")
+        if title:
+            embed.add_field(name="🏅 Título na Cidade", value=f"**{title}**", inline=False)
+        embed.set_footer(text="Use `trabalhar` para ganhar salário!")
+        await message.channel.send(embed=embed)
+
+    elif content in ["trabalhar", "ir trabalhar", "fazer trabalho"]:
+        import time
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        if not job:
+            await message.channel.send("💼 Você não tem emprego! Use `procurar emprego`.")
+            return
+        jd = JOBS[job]
+        last_work = player.get("last_work", 0)
+        now = int(time.time())
+        cooldown = 1800  # 30 min
+        if now - last_work < cooldown:
+            remaining = cooldown - (now - last_work)
+            mins = remaining // 60
+            await message.channel.send(f"⏳ Você já trabalhou recentemente! Próximo turno em **{mins} minutos**.")
+            return
+        coins = random.randint(*jd["salary_coins"])
+        xp = random.randint(*jd["salary_xp"])
+        work_msg = random.choice(jd["work_msgs"])
+        # Bônus de curandeiro
+        hp_bonus = 0
+        if job == "Curandeiro":
+            hp_bonus = 10
+            player["hp"] = min(player["max_hp"], player["hp"] + hp_bonus)
+        player["last_work"] = now
+        save_player_db(uid, player)
+        add_coins(uid, coins)
+        leveled = add_xp(uid, xp)
+        embed = discord.Embed(
+            title=f"{jd['emoji']} Turno de Trabalho — {job}",
+            description=work_msg,
+            color=discord.Color.green()
+        )
+        embed.add_field(name="💰 Salário", value=f"`+{coins}` coins", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp}`", inline=True)
+        if hp_bonus:
+            embed.add_field(name="💚 Cura", value=f"`+{hp_bonus} HP`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text="Próximo turno em 30 minutos.")
+        await message.channel.send(embed=embed)
+
+    elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        if not job:
+            await message.channel.send("💼 Você não tem emprego para largar!")
+            return
+        jd = JOBS[job]
+        player["job"] = None
+        save_player_db(uid, player)
+        await message.channel.send(
+            embed=discord.Embed(
+                title=f"{jd['emoji']} Você largou o emprego de **{job}**",
+                description=f"*Você entrega sua ferramenta e parte. Um novo capítulo começa.*",
+                color=discord.Color.greyple()
+            )
+        )
+
+    # ===== DEFENDER CIDADE (Cavaleiro/Guarda/Rei) =====
+    elif content in ["defender cidade", "patrulhar", "defender reino", "modo defesa"]:
+        import time
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        title = player.get("city_title")
+        has_defense_role = job in ["Cavaleiro", "Guarda_Real", "Rei"] or title in ["Cavaleiro", "Rei"]
+        if not has_defense_role:
+            await message.channel.send(
+                "⚔️ Apenas **Cavaleiros**, **Guardas Reais** e **Reis** podem defender a cidade!\n"
+                "Use `procurar emprego` para se tornar um cavaleiro (requer nível 10)."
+            )
+            return
+        last_defend = player.get("last_defend", 0)
+        now = int(time.time())
+        if now - last_defend < 3600:
+            remaining = (3600 - (now - last_defend)) // 60
+            await message.channel.send(f"⏳ Você já patrulhou! Próxima defesa em **{remaining} minutos**.")
+            return
+        world_key = max(k for k in player.get("worlds", [1]))
+        world_invasions = CITY_INVASION_EVENTS.get(world_key, CITY_INVASION_EVENTS.get(1, []))
+        invasion = random.choice(world_invasions)
+        player["last_defend"] = now
+        save_player_db(uid, player)
+        jd = JOBS.get(job, JOBS.get("Cavaleiro", {}))
+        embed = discord.Embed(
+            title=f"🚨 INVASÃO! — {invasion['title']}",
+            description=f"*{invasion['description']}*\n\n"
+                        f"👹 Inimigo: **{invasion['enemy']}** ×{invasion['enemy_count']}\n"
+                        f"💪 Min. defensores: **{invasion['min_defenders']}**",
+            color=discord.Color.red()
+        )
+        embed.add_field(name="⭐ Recompensa", value=f"`+{invasion['xp_reward']} XP` | `+{invasion['coins_reward']} coins`", inline=True)
+        embed.add_field(
+            name="💡 Como agir",
+            value="Escolha sua estratégia abaixo!\nUse **📯 Convocar Aliados** para chamar outros jogadores.",
+            inline=False
+        )
+        embed.set_footer(text=f"Defensor: {message.author.display_name} | {jd.get('emoji','⚔️')} {job}")
+        view = CityDefenseView(uid, invasion, message.channel, message.guild)
+        await message.channel.send(embed=embed, view=view)
+
+    elif content in ["ajudar defesa", "defender junto", "entrar defesa"]:
+        await message.channel.send(
+            embed=discord.Embed(
+                title="⚔️ Prontidão para Defesa",
+                description=f"**{message.author.display_name}** está pronto para defender!\nAguardando convocação ativa de um Cavaleiro ou Rei.",
+                color=discord.Color.blue()
+            )
+        )
+
+    # ===== NOMEAR CAVALEIRO (só Rei) =====
+    elif content.startswith("nomear cavaleiro ") or content.startswith("nomear guerreiro "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Rei" and player.get("city_title") != "Rei":
+            await message.channel.send("👑 Apenas o **Rei** pode nomear cavaleiros!")
+            return
+        mentions = message.mentions
+        if not mentions:
+            await message.channel.send("❌ Mencione o jogador: `nomear cavaleiro @usuario`")
+            return
+        target = mentions[0]
+        tplayer = get_player(str(target.id))
+        if not tplayer:
+            await message.channel.send("❌ Esse jogador ainda não começou sua jornada!")
+            return
+        embed = discord.Embed(
+            title="⚔️ Cerimônia de Nomeação",
+            description=f"**{message.author.display_name}** deseja nomear **{target.display_name}** como **Cavaleiro do Reino**!\n\n{target.mention}, você aceita a responsabilidade?",
+            color=discord.Color.gold()
+        )
+        view = NomearCavaleiroView(uid, target)
+        await message.channel.send(embed=embed, view=view)
+
+    # ===== TORNAR-SE REI =====
+    elif content in ["me tornar rei", "quero ser rei", "proclamar rei", "assumir trono"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player["level"] < 30:
+            await message.channel.send(f"👑 Você precisa ser **nível 30** para assumir um trono!\nNível atual: **{player['level']}**")
+            return
+        if player.get("job") == "Rei":
+            await message.channel.send("👑 Você **já é** Rei! Governe com sabedoria.")
+            return
+        embed = discord.Embed(
+            title="👑 PROCLAMAÇÃO REAL",
+            description=f"*{message.author.display_name} ergue a espada diante do povo reunido...*\n\n"
+                        f"Tornar-se Rei significa:\n"
+                        f"• Responsabilidade por **defender a cidade**\n"
+                        f"• Receber **tributo diário** de coins\n"
+                        f"• Poder **nomear cavaleiros** com `nomear cavaleiro @user`\n"
+                        f"• Receber **alertas de invasão** em primeira mão\n\n"
+                        f"⚠️ Requer: Nível 30+ e dedicação!",
+            color=discord.Color.gold()
+        )
+        confirm_view = discord.ui.View(timeout=30)
+        yes_btn = discord.ui.Button(label="👑 Assumir o Trono", style=discord.ButtonStyle.success)
+        no_btn = discord.ui.Button(label="❌ Recusar", style=discord.ButtonStyle.secondary)
+
+        async def yes_cb(interaction: discord.Interaction):
+            if str(interaction.user.id) != uid:
+                return await interaction.response.send_message("❌ Não é você!", ephemeral=True)
+            p = get_player(uid)
+            old_job = p.get("job")
+            p["job"] = "Rei"
+            p["city_title"] = "Rei"
+            p["job_since"] = int(__import__("time").time())
+            save_player_db(uid, p)
+            crown_embed = discord.Embed(
+                title="👑 LONGA VIDA AO REI!",
+                description=f"*O povo ajoelha enquanto a coroa pousa na cabeça de **{interaction.user.display_name}**!*\n\n"
+                            f"Que seu reino seja próspero e justo!",
+                color=discord.Color.gold()
+            )
+            crown_embed.add_field(name="📜 Seus poderes", value="Use `trabalhar` | `defender cidade` | `nomear cavaleiro @user` | `ver emprego`", inline=False)
+            for item in confirm_view.children:
+                item.disabled = True
+            await interaction.response.edit_message(embed=crown_embed, view=confirm_view)
+
+        async def no_cb(interaction: discord.Interaction):
+            if str(interaction.user.id) != uid:
+                return
+            for item in confirm_view.children:
+                item.disabled = True
+            await interaction.response.edit_message(content="*O trono aguarda outro dia.*", embed=None, view=confirm_view)
+
+        yes_btn.callback = yes_cb
+        no_btn.callback = no_cb
+        confirm_view.add_item(yes_btn)
+        confirm_view.add_item(no_btn)
+        await message.channel.send(embed=embed, view=confirm_view)
+
+    # ===== ENCONTRAR BOSS (boss variado por mundo) =====
+    elif content in ["encontrar boss", "procurar boss", "buscar boss", "caçar boss", "boss do reino"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        if not player.get("class"):
+            await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
+            return
+        world_key = max(k for k in player.get("worlds", [1]))
+        boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, WORLD_BOSSES_VARIANTS.get(1, []))
+        boss = random.choice(boss_pool)
+        world_info = MAP_LOCATIONS.get(world_key, {})
+        world_name = world_info.get("world_name", "este reino")
+        intro_msgs = [
+            "🌑 O ar fica pesado de magia maligna...",
+            "⚡ Um trovão ecoa sem nuvens no céu...",
+            "💀 A temperatura cai dez graus de repente...",
+            "👁️ Você sente que está sendo observado há minutos...",
+            "🔥 O chão treme levemente sob seus pés...",
+        ]
+        embed = discord.Embed(
+            title=f"⚠️ BOSS ENCONTRADO — {world_name}",
+            description=f"*{random.choice(intro_msgs)}*\n\n{boss['intro']}",
+            color=discord.Color.dark_red()
+        )
+        embed.add_field(name="👹 Boss", value=f"**{boss['name']}**", inline=True)
+        embed.add_field(name="❤️ HP", value=f"`{boss['hp']:,}`", inline=True)
+        embed.add_field(name="⚔️ ATK", value=f"`{boss['atk']}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`{boss['xp']:,}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`{boss['coins'][0]}–{boss['coins'][1]}`", inline=True)
+        embed.add_field(name="📖 Lore", value=f"_{boss['desc']}_", inline=False)
+        embed.set_footer(text="Use os botões para lutar, chamar aliados ou fugir!")
+        view = BossButton(uid, boss["name"])
+        # Passar os dados do boss customizado para a batalha
+        # Armazenar no player para a fight_boss poder pegar
+        player2 = get_player(uid)
+        effects = player2.get("active_effects", {})
+        effects["pending_boss"] = boss
+        player2["active_effects"] = effects
+        save_player_db(uid, player2)
+        await message.channel.send(embed=embed, view=view)
+
+
+# ================= MODIFICAR MINERAR PARA INCLUIR MIMIC CHEST =================
+# (Hook aplicado no on_message principal — ver abaixo)
+
+@bot.listen("on_message")
+async def handle_mining_mimic(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["minerar baú", "minerar bau", "abrir bau", "abrir baú", "bau secreto", "baú secreto"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        world_key = max(k for k in player.get("worlds", [1]))
+        # Nível do baú baseado no nível do mundo
+        tier_idx = min(len(MIMIC_TIERS) - 1, list(MAP_LOCATIONS.keys()).index(world_key) if world_key in MAP_LOCATIONS else 0)
+        tier = MIMIC_TIERS[tier_idx]
+        embed = discord.Embed(
+            title=f"🔮 Baú Encontrado! — {tier['emoji']} {tier['name']}",
+            description=(
+                f"*Enquanto minerava, você encontrou um baú misterioso...*\n\n"
+                f"**Chance de ser Mimic:** `{int(tier['mimic_chance']*100)}%`\n"
+                f"**XP potencial:** `{tier['loot_xp'][0]}–{tier['loot_xp'][1]}`\n"
+                f"**Coins potenciais:** `{tier['loot_coins'][0]}–{tier['loot_coins'][1]}`\n\n"
+                f"⚠️ *Mimics podem te atacar e roubar XP! Você abre sabendo do risco?*"
+            ),
+            color=discord.Color.dark_gold()
+        )
+        view = MimicChestView(uid, tier_idx, world_key)
+        await message.channel.send(embed=embed, view=view)
+
+
+# ================= MODIFICAR EXPLORAR PARA DESCOBRIR LOCAIS =================
+@bot.listen("on_message")
+async def handle_map_discovery(message):
+    """Ao explorar, há chance de descobrir novo local no mapa"""
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["explorar", "explorar região", "explorar regiao"]:
+        # Este listener só faz a descoberta de local — o explorar principal continua normalmente
+        await asyncio.sleep(0.5)  # leve delay para não conflitar
+        player = get_player(uid)
+        if not player:
+            return
+        if random.random() < 0.20:  # 20% de chance de descobrir algo
+            world_key = max(k for k in player.get("worlds", [1]))
+            world_locs = MAP_LOCATIONS.get(world_key, {}).get("locations", [])
+            disc = player.get("discovered_map", {})
+            key = str(world_key)
+            known = disc.get(key, [])
+            unknown = [l for l in world_locs if not l["discovered"] and l["id"] not in known]
+            if unknown:
+                new_loc = random.choice(unknown)
+                discover_location(uid, world_key, new_loc["id"])
+                type_icons = {
+                    "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
+                    "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
+                    "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
+                }
+                icon = type_icons.get(new_loc["type"], "📍")
+                await message.channel.send(
+                    embed=discord.Embed(
+                        title=f"🗺️ Novo Local Descoberto!",
+                        description=f"{icon} **{new_loc['name']}** foi adicionado ao seu mapa!\nUse `abrir mapa` para ver.",
+                        color=discord.Color.teal()
+                    )
+                )
+
+# ================= MASMORRAS SECRETAS MAIS DIFÍCEIS =================
+# A função explore_dungeon já existe — vamos sobrecarregar o XP e dificuldade
+
+@bot.listen("on_message")
+async def handle_npc_lore(message):
+    """NPCs extras que contam lore"""
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["falar npc especial", "conversar npc especial", "npc lore", "falar lore npc"]:
+        player = get_player(uid)
+        if not player:
+            return
+        world_key = max(k for k in player.get("worlds", [1]))
+        npc_pool = WORLD_NPCS_EXTRA.get(world_key, WORLD_NPCS_EXTRA.get(1, []))
+        if not npc_pool:
+            await message.channel.send("🤷 Nenhum NPC especial aqui.")
+            return
+        npc = random.choice(npc_pool)
+        dialogue = random.choice(npc["dialogues"])
+        embed = discord.Embed(
+            title=f"{npc['emoji']} {npc['name']} — _{npc['role']}_",
+            description=f'*"{dialogue}"*',
+            color=discord.Color.purple()
+        )
+        embed.set_footer(text=f"Fale novamente para ouvir mais histórias deste NPC.")
+        await message.channel.send(embed=embed)
+
+
 
 
 # ================= RUN BOT =================
