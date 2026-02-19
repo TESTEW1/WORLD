@@ -2882,7 +2882,7 @@ WORLDS = {
             "Javali Jovem": {"xp": (13, 23), "hp": 35, "atk": 8, "coins": (2, 5)},
             "Vespa Gigante": {"xp": (12, 22), "hp": 22, "atk": 7, "coins": (1, 4)}
         },
-        "boss": {"name": "Slime Rei", "hp": 600, "atk": 55, "xp": 500, "level": 9, "coins": (50, 100)},
+        "boss": {"name": "Slime Rei", "hp": 420, "atk": 38, "xp": 500, "level": 9, "coins": (50, 100)},
         "resources": ["Pedra fraca", "Grama mágica", "Couro de rato", "Flor silvestre", "Mel selvagem"],
         "dungeons": [
             {"name": "Caverna dos Slimes", "level": 1, "boss": "Slime Ancião"},
@@ -2929,7 +2929,7 @@ WORLDS = {
             "Ogro Menor": {"xp": (32, 47), "hp": 80, "atk": 16, "coins": (5, 10)},
             "Espectro Florestal": {"xp": (29, 44), "hp": 55, "atk": 13, "coins": (4, 9)}
         },
-        "boss": {"name": "Ent Ancião", "hp": 1200, "atk": 90, "xp": 900, "level": 19, "coins": (100, 200)},
+        "boss": {"name": "Ent Ancião", "hp": 840, "atk": 63, "xp": 900, "level": 19, "coins": (100, 200)},
         "resources": ["Madeira escura", "Ervas raras", "Pele de lobo", "Teia mágica", "Musgo brilhante"],
         "dungeons": [
             {"name": "Covil dos Goblins", "level": 4, "boss": "Chefe Goblin"},
@@ -2976,7 +2976,7 @@ WORLDS = {
             "Guardião de Tumba": {"xp": (47, 67), "hp": 130, "atk": 24, "coins": (7, 14)},
             "Espírito do Deserto": {"xp": (44, 64), "hp": 105, "atk": 20, "coins": (5, 12)}
         },
-        "boss": {"name": "Faraó Amaldiçoado", "hp": 2000, "atk": 140, "xp": 1400, "level": 29, "coins": (180, 350)},
+        "boss": {"name": "Faraó Amaldiçoado", "hp": 1400, "atk": 98, "xp": 1400, "level": 29, "coins": (180, 350)},
         "resources": ["Areia mágica", "Ossos antigos", "Vendas místicas", "Escaravelho dourado", "Papiro antigo"],
         "dungeons": [
             {"name": "Pirâmide Perdida", "level": 7, "boss": "Faraó Esquecido"},
@@ -3023,7 +3023,7 @@ WORLDS = {
             "Dragão de Gelo Jovem": {"xp": (70, 90), "hp": 200, "atk": 32, "coins": (10, 18)},
             "Elemental de Gelo": {"xp": (67, 87), "hp": 170, "atk": 31, "coins": (8, 16)}
         },
-        "boss": {"name": "Yeti Colossal", "hp": 3000, "atk": 190, "xp": 2000, "level": 39, "coins": (280, 500)},
+        "boss": {"name": "Yeti Colossal", "hp": 2100, "atk": 133, "xp": 2000, "level": 39, "coins": (280, 500)},
         "resources": ["Cristal de gelo", "Minério frio", "Pele de yeti", "Neve eterna", "Gema congelada"],
         "dungeons": [
             {"name": "Caverna Congelada", "level": 10, "boss": "Guardião do Gelo"},
@@ -3070,7 +3070,7 @@ WORLDS = {
             "Hidra de Magma": {"xp": (90, 110), "hp": 250, "atk": 45, "coins": (13, 23)},
             "Fênix Negra": {"xp": (87, 107), "hp": 220, "atk": 43, "coins": (12, 22)}
         },
-        "boss": {"name": "Dragão de Magma", "hp": 4500, "atk": 260, "xp": 2800, "level": 49, "coins": (400, 700)},
+        "boss": {"name": "Dragão de Magma", "hp": 3150, "atk": 182, "xp": 2800, "level": 49, "coins": (400, 700)},
         "resources": ["Pedra vulcânica", "Núcleo de fogo", "Escamas de dragão", "Obsidiana pura", "Cinza sagrada"],
         "dungeons": [
             {"name": "Caldeirão de Lava", "level": 13, "boss": "Senhor do Fogo"},
@@ -3117,7 +3117,7 @@ WORLDS = {
             "Lich": {"xp": (110, 140), "hp": 320, "atk": 55, "coins": (15, 25)},
             "Golem Arcano": {"xp": (107, 137), "hp": 310, "atk": 53, "coins": (14, 24)}
         },
-        "boss": {"name": "Senhor das Sombras", "hp": 7000, "atk": 350, "xp": 4000, "level": 59, "coins": (600, 1000)},
+        "boss": {"name": "Senhor das Sombras", "hp": 4900, "atk": 245, "xp": 4000, "level": 59, "coins": (600, 1000)},
         "resources": ["Essência arcana", "Fragmento sombrio", "Cristal do vazio", "Poeira estelar", "Runa mística"],
         "dungeons": [
             {"name": "Torre Arcana", "level": 16, "boss": "Arquimago Corrupto"},
@@ -10082,6 +10082,80 @@ async def handle_spellbook_notify(message):
         )
         embed.set_footer(text="📖 'O conhecimento é a arma mais poderosa de todas.'")
         await message.channel.send(embed=embed)
+
+
+
+
+@bot.listen("on_message")
+async def handle_admin_levelup(message):
+    """Comando exclusivo do admin para upar de nivel automaticamente.
+    Uso:
+      !admin upar             -> +1 nivel no seu personagem
+      !admin upar 5           -> +5 niveis no seu personagem
+      !admin upar @user       -> +1 nivel no personagem do @user
+      !admin upar @user 3     -> +3 niveis no @user
+    """
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    if message.author.id != ADMIN_ID:
+        return
+
+    content = message.content.lower().strip()
+    if not content.startswith("!admin upar"):
+        return
+
+    parts = message.content.strip().split()
+    target_user = message.author
+    levels_to_add = 1
+
+    extra = parts[2:]
+    for part in extra:
+        if part.startswith("<@") and message.mentions:
+            target_user = message.mentions[0]
+        else:
+            try:
+                levels_to_add = max(1, min(int(part), 100))
+            except ValueError:
+                pass
+
+    uid = str(target_user.id)
+    player = get_player(uid)
+    if not player:
+        await message.channel.send(f"Jogador {target_user.display_name} nao encontrado!")
+        return
+
+    old_level = player["level"]
+
+    for _ in range(levels_to_add):
+        player["xp"] = 0
+        player["level"] += 1
+        class_bonus = 0
+        if player.get("class") and player["class"] in CLASSES:
+            class_bonus = CLASSES[player["class"]]["hp_bonus"] // 10
+        player["max_hp"] += (10 + class_bonus)
+        player["hp"] = player["max_hp"]
+        new_max_mana = calc_max_mana(player)
+        player["max_mana"] = new_max_mana
+        player["mana"] = new_max_mana
+        if player["level"] == 12 and not player.get("spell_book_unlocked"):
+            player["spell_book_unlocked"] = 1
+
+    save_player_db(uid, player)
+
+    embed = discord.Embed(
+        title="ADMIN - NIVEL AUMENTADO",
+        description=f"{target_user.display_name} subiu de nivel por comando admin!",
+        color=discord.Color.gold()
+    )
+    embed.add_field(name="Nivel Anterior", value=f"`{old_level}`", inline=True)
+    embed.add_field(name="Novo Nivel", value=f"`{player['level']}`", inline=True)
+    embed.add_field(name="Niveis Adicionados", value=f"`+{levels_to_add}`", inline=True)
+    embed.add_field(name="HP Max", value=f"`{player['max_hp']}`", inline=True)
+    embed.add_field(name="Mana Max", value=f"`{player['max_mana']}`", inline=True)
+    embed.set_footer(text="Comando exclusivo do administrador")
+    await message.channel.send(embed=embed)
 
 
 # ================= RUN BOT =================
