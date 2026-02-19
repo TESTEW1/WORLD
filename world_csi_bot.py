@@ -6,6 +6,7 @@ import asyncio
 import sqlite3
 from datetime import datetime, timedelta
 import json
+import time
 
 # ================= INTENTS =================
 intents = discord.Intents.default()
@@ -337,7 +338,7 @@ TRAINING_OPTIONS = {
 MONSTER_DROPS = {
     # Campos Iniciais
     "Slime": [
-        {"name": "Gel de Slime", "type": "resource"}, 
+        {"name": "Gel de Slime", "type": "resource"},
         {"name": "Espada Enferrujada", "type": "weapon", "rarity": "Comum"},
     ],
     "Goblin": [
@@ -353,19 +354,31 @@ MONSTER_DROPS = {
     "Esqueleto": [
         {"name": "Osso Afiado", "type": "weapon", "rarity": "Comum"},
         {"name": "Armadura Óssea", "type": "armor", "rarity": "Incomum"},
+        {"name": "Espada de Ferro", "type": "weapon", "rarity": "Incomum"},
+    ],
+    "Rato Selvagem": [
+        {"name": "Pelo de Rato", "type": "resource"},
+        {"name": "Adaga de Pedra", "type": "weapon", "rarity": "Comum"},
     ],
     # Floresta Élfica
     "Ent Menor": [
         {"name": "Galho Mágico", "type": "resource"},
         {"name": "Cajado de Madeira Viva", "type": "weapon", "rarity": "Incomum"},
+        {"name": "Vestes de Batalha", "type": "armor", "rarity": "Incomum"},
     ],
     "Aranha Gigante": [
         {"name": "Seda Venenosa", "type": "resource"},
         {"name": "Adaga Venenosa", "type": "weapon", "rarity": "Raro"},
+        {"name": "Capa de Sombras", "type": "armor", "rarity": "Raro"},
     ],
     "Elfo Renegado": [
         {"name": "Arco Élfic", "type": "weapon", "rarity": "Raro"},
         {"name": "Capa de Sombras", "type": "armor", "rarity": "Raro"},
+        {"name": "Armadura Élfica", "type": "armor", "rarity": "Raro"},
+    ],
+    "Espírito Florestal": [
+        {"name": "Essência Etérea", "type": "resource"},
+        {"name": "Vestes Arcanas", "type": "armor", "rarity": "Raro"},
     ],
     # Deserto
     "Múmia": [
@@ -376,25 +389,66 @@ MONSTER_DROPS = {
     "Escorpião": [
         {"name": "Veneno de Escorpião", "type": "resource"},
         {"name": "Garras de Escorpião", "type": "weapon", "rarity": "Incomum"},
+        {"name": "Lança do Caçador", "type": "weapon", "rarity": "Raro"},
+    ],
+    "Escorpião Gigante": [
+        {"name": "Veneno Concentrado", "type": "resource"},
+        {"name": "Lança do Caçador", "type": "weapon", "rarity": "Raro"},
+        {"name": "Armadura de Escamas", "type": "armor", "rarity": "Incomum"},
     ],
     # Tundra
     "Urso Glacial": [
         {"name": "Pele Ártica", "type": "resource"},
         {"name": "Machado de Gelo", "type": "weapon", "rarity": "Raro"},
+        {"name": "Cota Encantada", "type": "armor", "rarity": "Raro"},
     ],
     "Troll de Gelo": [
         {"name": "Cristal de Gelo", "type": "resource"},
         {"name": "Armadura de Permafrost", "type": "armor", "rarity": "Épico"},
+        {"name": "Clava Titânica", "type": "weapon", "rarity": "Raro"},
+    ],
+    "Lobo Glacial": [
+        {"name": "Pele de Gelo", "type": "resource"},
+        {"name": "Machado Rúnico", "type": "weapon", "rarity": "Raro"},
     ],
     # Vulcão
     "Salamandra": [
         {"name": "Escama de Fogo", "type": "resource"},
         {"name": "Lâmina Flamejante", "type": "weapon", "rarity": "Épico"},
+        {"name": "Armadura Flamejante", "type": "armor", "rarity": "Épico"},
     ],
     "Demônio Menor": [
         {"name": "Fragmento Infernal", "type": "resource"},
         {"name": "Espada Demoníaca", "type": "weapon", "rarity": "Épico"},
         {"name": "Armadura do Inferno", "type": "armor", "rarity": "Épico"},
+        {"name": "Katana Demoníaca", "type": "weapon", "rarity": "Épico"},
+    ],
+    "Elemental de Fogo": [
+        {"name": "Núcleo de Magma", "type": "resource"},
+        {"name": "Cajado Arcano", "type": "weapon", "rarity": "Épico"},
+    ],
+    # Clima especial
+    "Vampiro": [
+        {"name": "Sangue de Vampiro", "type": "resource"},
+        {"name": "Foice Maldita", "type": "weapon", "rarity": "Raro"},
+        {"name": "Armadura das Sombras", "type": "armor", "rarity": "Épico"},
+    ],
+    "Lobo Lunático": [
+        {"name": "Pele Lunar", "type": "resource"},
+        {"name": "Garras da Lua", "type": "weapon", "rarity": "Raro"},
+    ],
+    "Espectro Noturno": [
+        {"name": "Essência Sombria", "type": "resource"},
+        {"name": "Vestes do Sábio", "type": "armor", "rarity": "Raro"},
+    ],
+    "Elemental do Trovão": [
+        {"name": "Núcleo Elétrico", "type": "resource"},
+        {"name": "Katana Relâmpago", "type": "weapon", "rarity": "Raro"},
+        {"name": "Armadura da Tempestade", "type": "armor", "rarity": "Épico"},
+    ],
+    "Fantasma": [
+        {"name": "Ectoplasma", "type": "resource"},
+        {"name": "Vestes Arcanas", "type": "armor", "rarity": "Raro"},
     ],
     # default fallback
     "default": [
@@ -405,9 +459,11 @@ MONSTER_DROPS = {
 
 # Raridade de drop por tipo de monstro por dado
 HUNT_DROP_CHANCE = {
-    "resource": 0.35,    # 35% recurso
-    "weapon_common": 0.12,   # 12% arma comum/incomum
-    "weapon_rare": 0.03,     # 3% arma rara
+    "resource": 0.40,       # 40% recurso
+    "weapon_common": 0.15,  # 15% arma comum/incomum
+    "weapon_rare": 0.05,    # 5% arma rara (do monstro)
+    "weapon_epic": 0.02,    # 2% épico (só monstros fortes)
+    # Mítico/Lendário/Divino/Primordial: apenas via boss
 }
 
 # ================= SISTEMA DE CLIMA =================
@@ -452,6 +508,37 @@ WEATHER_TYPES = {
 
 # Clima atual (global, muda a cada X tempo)
 CURRENT_WEATHER = {"type": "sol", "changed_at": 0}
+
+# ================= SISTEMA DE PERÍODO (DIA/NOITE) =================
+TIME_PERIODS = {
+    "amanhecer": {
+        "emoji": "🌅", "name": "Amanhecer",
+        "desc": "O sol nasce no horizonte. A névoa da noite se dissipa lentamente.",
+        "xp_mult": 1.0, "coin_mult": 1.0, "special": "Monstros noturnos enfraquecem."
+    },
+    "dia": {
+        "emoji": "☀️", "name": "Dia",
+        "desc": "Plena luz do dia. Criaturas da floresta se movem livremente.",
+        "xp_mult": 1.1, "coin_mult": 1.1, "special": "Exploração mais segura."
+    },
+    "entardecer": {
+        "emoji": "🌇", "name": "Entardecer",
+        "desc": "O sol se põe. Criaturas crepusculares surgem nos arredores.",
+        "xp_mult": 1.2, "coin_mult": 1.15, "special": "Chance maior de drops raros."
+    },
+    "noite": {
+        "emoji": "🌙", "name": "Noite",
+        "desc": "A escuridão domina. Monstros mais fortes rondam os caminhos.",
+        "xp_mult": 1.3, "coin_mult": 1.2, "special": "Monstros mais perigosos, recompensas maiores."
+    },
+    "meia_noite": {
+        "emoji": "🕛", "name": "Meia-Noite",
+        "desc": "O silêncio total... apenas os mais corajosos ousam agir agora.",
+        "xp_mult": 1.5, "coin_mult": 1.4, "special": "Hora dos lendários! Drops especiais possíveis."
+    },
+}
+PERIOD_ORDER = ["amanhecer", "dia", "entardecer", "noite", "meia_noite"]
+CURRENT_PERIOD = {"type": "dia", "changed_at": 0}
 
 # ================= PET EVOLUTION SYSTEM =================
 PET_EVOLUTIONS = {
@@ -3773,19 +3860,38 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
     if player.get("class") == "Bardo":
         amount = int(amount * 1.2)
 
-    # BLOQUEIO DE BOSS: Se o jogador está no nível de boss e não derrotou ele, XP é bloqueado
+    # Multiplicador de período
+    period_data = TIME_PERIODS.get(CURRENT_PERIOD.get("type", "dia"), TIME_PERIODS["dia"])
+    amount = int(amount * period_data.get("xp_mult", 1.0))
+
+    # BLOQUEIO DE BOSS: Se o jogador está no nível de boss e não derrotou ele, XP vai para
+    # um "balde" de XP pendente que é liberado ao vencer o boss
     boss_gate_levels = {9, 19, 29, 39, 49, 59}
     if not bypass_boss_gate and player["level"] in boss_gate_levels:
         boss_data = get_level_boss(player["level"])
         if boss_data and boss_data["name"] not in player.get("bosses", []):
-            # XP bloqueado — jogador deve derrotar o boss primeiro
-            return False  # retorna False sem ganhar XP
+            # Acumula XP pendente — será liberado ao vencer o boss
+            effects = player.get("active_effects", {})
+            pending = effects.get("pending_xp", 0) + amount
+            effects["pending_xp"] = pending
+            player["active_effects"] = effects
+            save_player_db(user_id, player)
+            return False  # retorna False — nível não mudou
 
     player["xp"] += amount
     player["total_xp_earned"] = player.get("total_xp_earned", 0) + amount
     leveled = False
 
+    # Bloqueia level-up nos níveis de boss se o boss não foi derrotado
     while player["xp"] >= calc_xp(player["level"]):
+        next_level = player["level"] + 1
+        # Verifica se o próximo nível é de boss gate — bloqueia progressão além dele
+        if player["level"] in boss_gate_levels and not bypass_boss_gate:
+            boss_data = get_level_boss(player["level"])
+            if boss_data and boss_data["name"] not in player.get("bosses", []):
+                # Mantém XP no teto sem ultrapassar
+                player["xp"] = calc_xp(player["level"]) - 1
+                break
         player["xp"] -= calc_xp(player["level"])
         player["level"] += 1
 
@@ -3801,10 +3907,14 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
         player["max_mana"] = new_max_mana
         player["mana"] = new_max_mana  # Recupera toda a mana ao subir de nível
 
-        leveled = True
+        # Verificar desbloqueio livro de feitiços no nível 12
+        if player["level"] == 12 and not player.get("spell_book_unlocked"):
+            player["spell_book_unlocked"] = 1
+            effects = player.get("active_effects", {})
+            effects["notify_spellbook"] = True
+            player["active_effects"] = effects
 
-        # MUNDOS SÓ SÃO DESBLOQUEADOS AO DERROTAR O BOSS DE NÍVEL
-        # (não automático ao subir de level)
+        leveled = True
 
     save_player_db(user_id, player)
 
@@ -3812,6 +3922,20 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
         distribute_guild_xp(player["guild_id"], amount)
 
     return leveled
+
+
+def release_pending_xp(user_id):
+    """Libera o XP pendente acumulado durante bloqueio de boss. Chame após derrotar o boss."""
+    player = get_player(user_id)
+    effects = player.get("active_effects", {})
+    pending = effects.pop("pending_xp", 0)
+    player["active_effects"] = effects
+    save_player_db(user_id, player)
+    if pending > 0:
+        # Chama add_xp com bypass para liberar tudo de uma vez
+        add_xp(user_id, pending // 3, bypass_boss_gate=True)  # divide por 3 pois add_xp multiplica por 2.5
+        return pending
+    return 0
 
 def distribute_guild_xp(guild_id, amount):
     conn = sqlite3.connect(DB_FILE)
@@ -4891,9 +5015,36 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         pass
     p_atk += ally_bonus_atk // 2
 
+    # ---- Pet combat bonus (pet entra automaticamente junto) ----
+    pet_combat_name = None
+    pet_combat_emoji = "🐾"
+    pet_combat_hp = 0
+    pet_combat_atk = 0
+    if player.get("pet"):
+        try:
+            pet_name = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", "")
+            for world_pets in PETS.values():
+                for p in world_pets:
+                    if p["name"] == pet_name:
+                        pet_combat_name = pet_name
+                        pet_combat_emoji = p.get("emoji", "🐾")
+                        pet_combat_hp = p.get("bonus_hp", 10)
+                        pet_combat_atk = p.get("bonus_atk", 3)
+                        break
+        except:
+            pass
+
     # ---- Boss stats ----
     boss_hp = boss_data["hp"]
     boss_atk = boss_data["atk"]
+
+    # Bosses de level são MUITO mais difíceis
+    level_boss_names = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+    is_level_boss = boss_data["name"] in level_boss_names
+    if is_level_boss:
+        boss_hp = int(boss_hp * 2.0)    # dobro de HP
+        boss_atk = int(boss_atk * 1.5)  # 50% mais ATK
+
     boss_skills = BOSS_SKILLS.get(boss_data["name"], BOSS_SKILLS["default"])
     boss_cur_hp = boss_hp
     boss_poison = False
@@ -4911,6 +5062,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         description=f"*'O narrador anuncia com voz trovejante: A batalha começa agora!'*",
         color=discord.Color.dark_red()
     )
+    if is_level_boss:
+        intro.add_field(name="🚨 BOSS DE NÍVEL", value="*Este boss é o guardião da passagem — mais forte e resistente!*", inline=False)
     if ally_names:
         intro.add_field(name="👥 Aliados", value=", ".join(ally_names), inline=False)
     intro.add_field(
@@ -4918,6 +5071,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         value=f"❤️ HP: `{p_hp}/{p_max_hp}` | ✨ Mana: `{p_cur_mana}`\n⚔️ ATK: `{p_atk}` | 🛡️ DEF: `{p_def}`",
         inline=True
     )
+    if pet_combat_name:
+        intro.add_field(
+            name=f"{pet_combat_emoji} {pet_combat_name} (Pet)",
+            value=f"❤️ HP: `{pet_combat_hp}` | ⚔️ ATK: `{pet_combat_atk}`\n*Seu fiel companheiro entra na batalha!*",
+            inline=True
+        )
     intro.add_field(
         name=f"👹 {boss_data['name']}",
         value=f"❤️ HP: `{boss_cur_hp:,}` | ⚔️ ATK: `{boss_atk}`\n_{boss_data.get('desc','')[:60]}_",
@@ -4937,6 +5096,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     skills_used = set()
     was_poisoned = False
     was_stunned = False
+    pet_cur_hp = pet_combat_hp  # pet HP tracking
 
     for turn in range(1, 9):
         if p_cur_hp <= 0 or boss_cur_hp <= 0:
@@ -4989,6 +5149,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if p_skill.get("self_heal"):
             p_action += f"\n💚 **{p_name} recuperou {p_skill['self_heal']} HP!**"
         turn_embed.add_field(name=f"🔴 Você ataca!", value=p_action, inline=False)
+
+        # === Pet attack ===
+        if pet_combat_name and pet_cur_hp > 0:
+            pet_dmg = max(1, pet_combat_atk + random.randint(0, pet_combat_atk // 2))
+            boss_cur_hp -= pet_dmg
+            # Pet de suporte (Fada) pode curar
+            pet_heal = 0
+            if "Fada" in pet_combat_name or "Coelho" in pet_combat_name:
+                pet_heal = random.randint(5, 15)
+                p_cur_hp = min(p_max_hp, p_cur_hp + pet_heal)
+            pet_msg = f"{pet_combat_emoji} **{pet_combat_name}** ataca! `−{pet_dmg}` HP"
+            if pet_heal:
+                pet_msg += f" | 💚 Cura `+{pet_heal}` HP"
+            turn_embed.add_field(name="🐾 Pet ataca!", value=pet_msg, inline=False)
 
         if boss_cur_hp <= 0:
             turn_embed.add_field(name="💥 BOSS DESTRUÍDO!", value=f"**{boss_data['name']}** foi derrotado!", inline=False)
@@ -5101,6 +5275,10 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     save_player_db(user_id, player2)
 
     leveled = add_xp(user_id, xp, bypass_boss_gate=True)
+
+    # Libera XP acumulado durante o bloqueio do boss
+    pending_released = release_pending_xp(user_id)
+
     add_coins(user_id, coins)
 
     victory_embed = discord.Embed(
@@ -5108,6 +5286,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         description=f"*'{boss_data['name']} cai derrotado! A lenda de {p_name} cresce!'*\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} CSI**",
         color=discord.Color.gold()
     )
+    if pending_released > 0:
+        victory_embed.add_field(
+            name="🔓 XP Bloqueado Liberado!",
+            value=f"*O XP acumulado durante o bloqueio foi liberado!*\n⭐ **+{pending_released:,} XP bônus**",
+            inline=False
+        )
 
     if leveled:
         p_after = get_player(user_id)
@@ -5151,19 +5335,34 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             # Drop + achievements after this return
             return
 
-    # Item drop (raridades MUITO reduzidas — boss é a ÚNICA fonte de itens altos)
+    # Item drop — boss é a ÚNICA fonte de Mítico+
+    # Bosses de level têm chance maior de drops raros
     drop_rarity = None
     rand = random.random()
-    if rand < 0.0005:  # 0.05% Divino/Primordial
-        drop_rarity = random.choice(["Divino", "Primordial"])
-    elif rand < 0.005:  # 0.5% Mítico
-        drop_rarity = "Mítico"
-    elif rand < 0.02:  # 2% Lendário
-        drop_rarity = "Lendário"
-    elif rand < 0.06:  # 6% Épico
-        drop_rarity = "Épico"
-    elif rand < 0.12:  # 6% Raro
-        drop_rarity = "Raro"
+    if is_level_boss:
+        # Boss de level: chances maiores
+        if rand < 0.002:    # 0.2% Divino/Primordial
+            drop_rarity = random.choice(["Divino", "Primordial"])
+        elif rand < 0.015:  # 1.5% Mítico
+            drop_rarity = "Mítico"
+        elif rand < 0.05:   # 5% Lendário
+            drop_rarity = "Lendário"
+        elif rand < 0.14:   # 9% Épico
+            drop_rarity = "Épico"
+        elif rand < 0.28:   # 14% Raro
+            drop_rarity = "Raro"
+    else:
+        # Boss comum: chances menores em Mítico+
+        if rand < 0.0003:   # 0.03% Divino/Primordial
+            drop_rarity = random.choice(["Divino", "Primordial"])
+        elif rand < 0.002:  # 0.2% Mítico
+            drop_rarity = "Mítico"
+        elif rand < 0.015:  # 1.5% Lendário
+            drop_rarity = "Lendário"
+        elif rand < 0.05:   # 5% Épico
+            drop_rarity = "Épico"
+        elif rand < 0.11:   # 6% Raro
+            drop_rarity = "Raro"
 
     if drop_rarity:
         item_type = random.choice(["weapon", "armor"])
@@ -6541,7 +6740,7 @@ async def on_message(message):
         )
         embed_cmd.add_field(
             name="⚠️ Boss de Nível (9/19/29/39/49/59)",
-            value="Ao chegar nesses níveis, um boss bloqueará seu XP!\n🔒 XP fica bloqueado até derrotar o boss\n`desafiar boss` para enfrentá-lo\n`treinar força/defesa/vitalidade/intensivo` para se preparar",
+            value="Ao chegar nesses níveis, um boss bloqueará seu XP!\n🔒 XP acumula durante o bloqueio e é liberado ao vencer\n`desafiar boss` para enfrentá-lo\n`treinar força/defesa/vitalidade/intensivo` para se preparar",
             inline=False
         )
         embed_cmd.add_field(
@@ -6552,13 +6751,16 @@ async def on_message(message):
         embed_cmd.add_field(name="🏆 Conquistas", value="`ver conquistas` — 100 conquistas com recompensas de XP", inline=False)
         embed_cmd.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher classe` | `ver mana`", inline=False)
         embed_cmd.add_field(name="📋 Quests & Moral", value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`", inline=False)
-        embed_cmd.add_field(name="🐾 Pets & Fazenda", value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar`", inline=False)
+        embed_cmd.add_field(name="🐾 Pets & Fazenda", value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar` | `evoluir pet`\n*Pets entram automaticamente nas batalhas de boss!*", inline=False)
         embed_cmd.add_field(name="💼 Empregos", value="`procurar emprego` | `trabalhar` | `largar emprego` | `defender cidade`", inline=False)
-        embed_cmd.add_field(name="🗺️ Mapa", value="`abrir mapa` | `viajar <local>` | `procurar cidade`", inline=False)
+        embed_cmd.add_field(name="🗺️ Mapa", value="`abrir mapa` | `viajar <local>` | `procurar cidade`\n*Ao vencer boss de level, você viaja automaticamente ao novo reino!*", inline=False)
         embed_cmd.add_field(name="🏰 Guilda & Social", value="`criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`", inline=False)
-        embed_cmd.add_field(name="🛒 Itens", value="`usar [poção]` | `vender [item]` | `equipar [item]` | `minerar baú`", inline=False)
-        embed_cmd.add_field(name="👑 Títulos", value="`me tornar rei` | `ver títulos`", inline=False)
-        embed_cmd.set_footer(text="💡 Itens raros só caem de bosses ou exploração (dado 9-10)! Caçar só dropa poções comuns.")
+        embed_cmd.add_field(name="🛒 Itens", value="`usar [poção]` | `vender [item]` | `equipar [item]` | `minerar baú`\n*Monstros agora dropam equipamentos e armaduras!*", inline=False)
+        embed_cmd.add_field(name="👑 Títulos & Reino", value="`me tornar rei` | `ver títulos` | `meu reino` | `personalizar reino [nome]`\n`melhorar economia` | `reforçar exercito` | `atacar reino @rei` | `trocar recursos @rei [valor]`", inline=False)
+        embed_cmd.add_field(name="🌙 Período & Clima", value="`período` — Ver período atual (dia/noite)\n`descansar` — Avança o período e restaura HP/Mana\n`clima` — Ver clima atual", inline=False)
+        embed_cmd.add_field(name="✨ Suporte & Magias", value="`curar @aliado` — Classes de suporte curam aliados (Paladino/Druida/Mago/Bardo)\n`livro de feitiços` — Ver feitiços disponíveis (desbloqueia no Nível 12)", inline=False)
+        embed_cmd.add_field(name="🌙 Farm AFK", value="`farm afk` — Ativa/desativa farm AFK (+1 XP/min)\n*Use novamente ao voltar para coletar o XP!*", inline=False)
+        embed_cmd.set_footer(text="💡 Drops míticos+ APENAS de bosses! Monstros dropam até Épico. Pets participam de batalhas de boss automaticamente!")
         await message.channel.send(embed=embed_cmd)
         return
 
@@ -6846,12 +7048,14 @@ async def on_message(message):
             drop_item = None
             drop_potion = None
 
-            # Caçar: dropa armas/armaduras Comum/Incomum/Raro dos monstros (Mítico+ apenas de boss)
+            # Caçar: dropa armas/armaduras dos monstros (máx Épico — Mítico+ APENAS de boss)
             monster_drops_pool = MONSTER_DROPS.get(monster_name, MONSTER_DROPS.get("default", []))
+            allowed_rarities = ("Comum", "Incomum", "Raro", "Épico")
             equip_drops = [d for d in monster_drops_pool if d.get("type") in ("weapon", "armor")
-                           and d.get("rarity") in ("Comum", "Incomum", "Raro")]
-            # 15% chance arma/armadura de monstro
-            if equip_drops and random.random() < 0.15:
+                           and d.get("rarity") in allowed_rarities]
+            # Chance de drop de equipamento baseada no dado (roll 8-10 já é alto)
+            drop_chance = 0.25 if roll >= 9 else 0.15
+            if equip_drops and random.random() < drop_chance:
                 drop_def = random.choice(equip_drops)
                 rarity = drop_def["rarity"]
                 itype = drop_def["type"]
@@ -9719,6 +9923,146 @@ async def weather_change_loop():
                 await chan.send(embed=embed)
             except:
                 pass
+
+
+# ================= SISTEMA DE PERÍODO =================
+@bot.listen("on_message")
+async def handle_period(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["período", "periodo", "ver período", "hora", "que horas", "tempo do dia"]:
+        period_data = TIME_PERIODS.get(CURRENT_PERIOD.get("type", "dia"), TIME_PERIODS["dia"])
+        embed = discord.Embed(
+            title=f"{period_data['emoji']} Período Atual: {period_data['name']}",
+            description=period_data["desc"],
+            color=discord.Color.orange()
+        )
+        embed.add_field(name="⭐ Bônus de XP", value=f"×{period_data['xp_mult']}", inline=True)
+        embed.add_field(name="💰 Bônus de Coins", value=f"×{period_data['coin_mult']}", inline=True)
+        embed.add_field(name="✨ Especial", value=period_data["special"], inline=False)
+        embed.set_footer(text="Use 'descansar' para avançar para o próximo período.")
+        await message.channel.send(embed=embed)
+
+    elif content in ["descansar", "dormir", "passar tempo", "descanso"]:
+        player = get_player(uid)
+        if not player:
+            return
+        current_idx = PERIOD_ORDER.index(CURRENT_PERIOD.get("type", "dia"))
+        next_idx = (current_idx + 1) % len(PERIOD_ORDER)
+        next_period_key = PERIOD_ORDER[next_idx]
+        CURRENT_PERIOD["type"] = next_period_key
+        CURRENT_PERIOD["changed_at"] = int(time.time())
+        next_data = TIME_PERIODS[next_period_key]
+
+        # Restaurar HP e Mana ao descansar
+        player["hp"] = player["max_hp"]
+        player["mana"] = player.get("max_mana", 50)
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title=f"😴 Você descansou...",
+            description=f"*O tempo passa enquanto você repousa suas forças.*\n\nO período avançou para **{next_data['emoji']} {next_data['name']}**!\n\n_{next_data['desc']}_",
+            color=discord.Color.dark_blue()
+        )
+        embed.add_field(name="💚 HP Restaurado", value=f"`{player['max_hp']}/{player['max_hp']}`", inline=True)
+        embed.add_field(name="💙 Mana Restaurada", value=f"`{player['mana']}/{player['mana']}`", inline=True)
+        embed.add_field(name="⭐ Bônus do Período", value=f"XP ×{next_data['xp_mult']} | Coins ×{next_data['coin_mult']}", inline=False)
+        if next_period_key == "meia_noite":
+            embed.set_footer(text="🕛 MEIA-NOITE! Hora dos drops lendários — explore agora!")
+        await message.channel.send(embed=embed)
+
+
+# ================= SUPORTE EM BATALHA PvP/Boss =================
+@bot.listen("on_message")
+async def handle_support_action(message):
+    """Classes de suporte podem curar aliados usando 'curar @aliado'"""
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if (content.startswith("curar ") or content.startswith("apoiar ")) and message.mentions:
+        player = get_player(uid)
+        if not player:
+            return
+        cls = player.get("class", "")
+        if cls not in SUPPORT_CLASSES:
+            await message.channel.send(f"❌ Apenas classes de suporte podem curar! ({', '.join(SUPPORT_CLASSES)})")
+            return
+
+        mana_cost = 20
+        if player.get("mana", 0) < mana_cost:
+            await message.channel.send(f"❌ Você não tem mana suficiente! (Precisa de {mana_cost}, tem {player.get('mana', 0)})")
+            return
+
+        target = message.mentions[0]
+        target_player = get_player(target.id)
+        if not target_player:
+            await message.channel.send("❌ Alvo não encontrado!")
+            return
+
+        # Rola dado para determinar efetividade da cura
+        roll = roll_dice()
+        luck = get_luck(roll)
+
+        base_heal = CLASSES.get(cls, {}).get("hp_bonus", 10) + player["level"] * 2
+        heal_mult = roll / 5  # dado 1-10 → multiplicador 0.2–2.0
+        heal_amount = max(10, int(base_heal * heal_mult))
+
+        old_hp = target_player["hp"]
+        target_player["hp"] = min(target_player["max_hp"], target_player["hp"] + heal_amount)
+        actual_heal = target_player["hp"] - old_hp
+
+        player["mana"] = max(0, player.get("mana", 0) - mana_cost)
+        save_player_db(uid, player)
+        save_player_db(target.id, target_player)
+
+        cls_emoji = CLASSES.get(cls, {}).get("emoji", "✨")
+        embed = discord.Embed(
+            title=f"{cls_emoji} Suporte Ativado!",
+            description=f"*{message.author.display_name}* usa suas habilidades de **{cls}** para curar **{target.display_name}**!",
+            color=discord.Color.green()
+        )
+        embed.add_field(name="🎲 Dado", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=True)
+        embed.add_field(name="💚 HP Curado", value=f"+{actual_heal} HP", inline=True)
+        embed.add_field(name="💙 Mana Usada", value=f"-{mana_cost}", inline=True)
+        embed.add_field(name=f"❤️ {target.display_name}", value=f"`{target_player['hp']}/{target_player['max_hp']}` HP", inline=False)
+        await message.channel.send(embed=embed)
+
+
+# ================= NOTIFICAÇÃO LIVRO DE FEITIÇOS =================
+@bot.listen("on_message")
+async def handle_spellbook_notify(message):
+    """Notifica quando jogador desbloqueou livro de feitiços no nível 12"""
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    uid = str(message.author.id)
+    player = get_player(uid)
+    if not player:
+        return
+    effects = player.get("active_effects", {})
+    if effects.get("notify_spellbook"):
+        effects.pop("notify_spellbook")
+        player["active_effects"] = effects
+        save_player_db(uid, player)
+        embed = discord.Embed(
+            title="📖 LIVRO DE FEITIÇOS DESBLOQUEADO!",
+            description=f"*'As páginas do conhecimento arcano se abrem diante de você...'*\n\n"
+                        f"**{message.author.mention}** chegou ao **Nível 12** e desbloqueou o **Livro de Feitiços**!\n\n"
+                        f"Agora você pode acessar magias poderosas usando mana.\nUse `livro de feitiços` para ver seus feitiços disponíveis.",
+            color=discord.Color.purple()
+        )
+        embed.set_footer(text="📖 'O conhecimento é a arma mais poderosa de todas.'")
+        await message.channel.send(embed=embed)
 
 
 # ================= RUN BOT =================
