@@ -590,6 +590,126 @@ PET_EVOLUTIONS = {
         "level_required": 40, "next": "Dragão de Gelo Ancião",
         "next_data": {"name": "Dragão de Gelo Ancião", "emoji": "❄️", "rarity": "Divino", "bonus_hp": 250, "bonus_atk": 120}
     },
+
+    # ── Mundo 10 ──────────────────────────────────────────────────────
+    "Espírito da Floresta": {
+        "level_required": 16, "next": "Espírito Ancião",
+        "next_data": {"name": "Espírito Ancião", "emoji": "🌲", "rarity": "Lendário", "bonus_hp": 75, "bonus_atk": 35}
+    },
+    "Espírito Ancião": {
+        "level_required": 30, "next": "Espírito Primordial",
+        "next_data": {"name": "Espírito Primordial", "emoji": "🌳", "rarity": "Mítico", "bonus_hp": 140, "bonus_atk": 65}
+    },
+
+    # ── Mundo 20 ──────────────────────────────────────────────────────
+    "Escorpião Dourado": {
+        "level_required": 22, "next": "Escorpião Carmesim",
+        "next_data": {"name": "Escorpião Carmesim", "emoji": "🦂", "rarity": "Épico", "bonus_hp": 65, "bonus_atk": 32}
+    },
+    "Escorpião Carmesim": {
+        "level_required": 35, "next": "Escorpião Lendário",
+        "next_data": {"name": "Escorpião Lendário", "emoji": "🦂", "rarity": "Lendário", "bonus_hp": 120, "bonus_atk": 58}
+    },
+    "Escaravelho Místico": {
+        "level_required": 25, "next": "Escaravelho Sagrado",
+        "next_data": {"name": "Escaravelho Sagrado", "emoji": "🪲", "rarity": "Lendário", "bonus_hp": 85, "bonus_atk": 42}
+    },
+    "Escaravelho Sagrado": {
+        "level_required": 38, "next": "Escaravelho Divino",
+        "next_data": {"name": "Escaravelho Divino", "emoji": "🪲", "rarity": "Mítico", "bonus_hp": 160, "bonus_atk": 80}
+    },
+    "Esfinge Menor": {
+        "level_required": 28, "next": "Esfinge Guardiã",
+        "next_data": {"name": "Esfinge Guardiã", "emoji": "🦁", "rarity": "Mítico", "bonus_hp": 110, "bonus_atk": 55}
+    },
+    "Esfinge Guardiã": {
+        "level_required": 42, "next": "Esfinge Imortal",
+        "next_data": {"name": "Esfinge Imortal", "emoji": "🦁", "rarity": "Divino", "bonus_hp": 210, "bonus_atk": 105}
+    },
+
+    # ── Mundo 30 ──────────────────────────────────────────────────────
+    "Raposa Ártica": {
+        "level_required": 30, "next": "Raposa das Tempestades",
+        "next_data": {"name": "Raposa das Tempestades", "emoji": "🦊", "rarity": "Lendário", "bonus_hp": 95, "bonus_atk": 48}
+    },
+    "Raposa das Tempestades": {
+        "level_required": 44, "next": "Raposa Celestial",
+        "next_data": {"name": "Raposa Celestial", "emoji": "🦊", "rarity": "Mítico", "bonus_hp": 175, "bonus_atk": 88}
+    },
+    "Fênix de Gelo": {
+        "level_required": 32, "next": "Fênix de Cristal",
+        "next_data": {"name": "Fênix de Cristal", "emoji": "🦅", "rarity": "Divino", "bonus_hp": 180, "bonus_atk": 90}
+    },
+    "Fênix de Cristal": {
+        "level_required": 46, "next": "Fênix Primordial",
+        "next_data": {"name": "Fênix Primordial", "emoji": "🕊️", "rarity": "Primordial", "bonus_hp": 320, "bonus_atk": 160}
+    },
+
+    # ── Mundo 40 ──────────────────────────────────────────────────────
+    "Salamandra de Fogo": {
+        "level_required": 34, "next": "Salamandra Dracônica",
+        "next_data": {"name": "Salamandra Dracônica", "emoji": "🦎", "rarity": "Lendário", "bonus_hp": 110, "bonus_atk": 55}
+    },
+    "Salamandra Dracônica": {
+        "level_required": 47, "next": "Salamandra Divina",
+        "next_data": {"name": "Salamandra Divina", "emoji": "🦎", "rarity": "Mítico", "bonus_hp": 200, "bonus_atk": 100}
+    },
+    "Fênix Carmesim": {
+        "level_required": 36, "next": "Fênix Solar",
+        "next_data": {"name": "Fênix Solar", "emoji": "🔥", "rarity": "Mítico", "bonus_hp": 150, "bonus_atk": 75}
+    },
+    "Fênix Solar": {
+        "level_required": 49, "next": "Fênix Eterna",
+        "next_data": {"name": "Fênix Eterna", "emoji": "☀️", "rarity": "Divino", "bonus_hp": 270, "bonus_atk": 135}
+    },
+    "Dragão de Magma": {
+        "level_required": 38, "next": "Dragão Vulcânico",
+        "next_data": {"name": "Dragão Vulcânico", "emoji": "🐲", "rarity": "Divino", "bonus_hp": 200, "bonus_atk": 100}
+    },
+    "Dragão Vulcânico": {
+        "level_required": 52, "next": "Dragão Primordial do Caos",
+        "next_data": {"name": "Dragão Primordial do Caos", "emoji": "🐉", "rarity": "Primordial", "bonus_hp": 380, "bonus_atk": 190}
+    },
+
+    # ── Mundo 50 ──────────────────────────────────────────────────────
+    "Espectro Sombrio": {
+        "level_required": 42, "next": "Espectro do Abismo",
+        "next_data": {"name": "Espectro do Abismo", "emoji": "👤", "rarity": "Mítico", "bonus_hp": 170, "bonus_atk": 85}
+    },
+    "Espectro do Abismo": {
+        "level_required": 54, "next": "Espectro Eterno",
+        "next_data": {"name": "Espectro Eterno", "emoji": "🌑", "rarity": "Divino", "bonus_hp": 290, "bonus_atk": 145}
+    },
+    "Elemental do Vazio": {
+        "level_required": 44, "next": "Elemental Cósmico",
+        "next_data": {"name": "Elemental Cósmico", "emoji": "🌀", "rarity": "Divino", "bonus_hp": 220, "bonus_atk": 110}
+    },
+    "Elemental Cósmico": {
+        "level_required": 56, "next": "Elemental Primordial",
+        "next_data": {"name": "Elemental Primordial", "emoji": "⚫", "rarity": "Primordial", "bonus_hp": 400, "bonus_atk": 200}
+    },
+    "Entidade Cósmica": {
+        "level_required": 46, "next": "Entidade Astral",
+        "next_data": {"name": "Entidade Astral", "emoji": "🌟", "rarity": "Divino", "bonus_hp": 300, "bonus_atk": 150}
+    },
+    "Entidade Astral": {
+        "level_required": 58, "next": "Deus Primordial",
+        "next_data": {"name": "Deus Primordial", "emoji": "✨", "rarity": "Primordial", "bonus_hp": 500, "bonus_atk": 250}
+    },
+
+    # ── Mundo 60 (já são top, mas ganham 1 evolução final cada) ──────
+    "Anjo Guardião": {
+        "level_required": 50, "next": "Arcanjo Guardião",
+        "next_data": {"name": "Arcanjo Guardião", "emoji": "👼", "rarity": "Primordial", "bonus_hp": 380, "bonus_atk": 190}
+    },
+    "Querubim Guerreiro": {
+        "level_required": 52, "next": "Serafim Guerreiro",
+        "next_data": {"name": "Serafim Guerreiro", "emoji": "😇", "rarity": "Primordial", "bonus_hp": 450, "bonus_atk": 225}
+    },
+    "Arcanjo Primordial": {
+        "level_required": 55, "next": "Deus da Guerra Celestial",
+        "next_data": {"name": "Deus da Guerra Celestial", "emoji": "⚔️", "rarity": "Primordial", "bonus_hp": 700, "bonus_atk": 350}
+    },
 }
 
 # ================= SPELL BOOK / LIVRO DE FEITIÇOS =================
@@ -10215,6 +10335,302 @@ async def handle_admin_levelup(message):
     embed.add_field(name="Mana Max", value=f"`{player['max_mana']}`", inline=True)
     embed.set_footer(text="Comando exclusivo do administrador")
     await message.channel.send(embed=embed)
+
+
+
+# ================= BATALHA DE PETS =================
+# Desafios pendentes: {challenger_id: {"target_id": ..., "pet_name": ..., "timestamp": ...}}
+PET_BATTLE_CHALLENGES = {}
+
+def get_pet_battle_stats(player):
+    """Retorna o pet ativo e seus stats de batalha."""
+    pet_name = player.get("pet")
+    if not pet_name:
+        return None
+    if isinstance(pet_name, dict):
+        pet_name = pet_name.get("name", "")
+
+    # Busca dados base do pet em PETS e em evoluções
+    pet_data = None
+    for world_pets in PETS.values():
+        for p in world_pets:
+            if p["name"] == pet_name:
+                pet_data = dict(p)
+                break
+        if pet_data:
+            break
+
+    # Se não achou (pet evoluído), busca nos next_data de PET_EVOLUTIONS
+    if not pet_data:
+        for evo in PET_EVOLUTIONS.values():
+            nd = evo.get("next_data", {})
+            if nd.get("name") == pet_name:
+                pet_data = dict(nd)
+                break
+
+    if not pet_data:
+        pet_data = {"name": pet_name, "emoji": "🐾", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3}
+
+    # HP e ATK de batalha — escala com nível do dono
+    owner_level = player.get("level", 1)
+    base_hp  = pet_data["bonus_hp"] * 5 + owner_level * 3
+    base_atk = pet_data["bonus_atk"] + owner_level // 2
+
+    # Bônus por raridade
+    rarity_mult = {"Comum":1.0,"Incomum":1.1,"Raro":1.25,"Épico":1.4,
+                   "Lendário":1.6,"Mítico":1.85,"Divino":2.2,"Primordial":2.8}
+    mult = rarity_mult.get(pet_data.get("rarity","Comum"), 1.0)
+    hp  = int(base_hp  * mult)
+    atk = int(base_atk * mult)
+
+    pet_data["battle_hp"]  = hp
+    pet_data["battle_atk"] = atk
+    return pet_data
+
+
+@bot.listen("on_message")
+async def handle_pet_battle(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    # ─── DESAFIAR PET ────────────────────────────────────────────────
+    # "batalha pet @user"
+    if (content.startswith("batalha pet") or content.startswith("desafiar pet")) and message.mentions:
+        challenger = get_player(uid)
+        if not challenger:
+            return
+        if not challenger.get("pet"):
+            await message.channel.send(f"❌ {message.author.mention} você não tem pet ativo! Use `trocar pet [nome]`.")
+            return
+
+        target_user = message.mentions[0]
+        if target_user.id == message.author.id:
+            await message.channel.send("❌ Você não pode batalhar contra si mesmo!")
+            return
+
+        target = get_player(target_user.id)
+        if not target:
+            await message.channel.send(f"❌ {target_user.display_name} ainda não tem personagem.")
+            return
+        if not target.get("pet"):
+            await message.channel.send(f"❌ {target_user.display_name} não tem pet ativo!")
+            return
+
+        c_pet = get_pet_battle_stats(challenger)
+        t_pet = get_pet_battle_stats(target)
+
+        PET_BATTLE_CHALLENGES[str(target_user.id)] = {
+            "challenger_id": uid,
+            "c_pet": c_pet,
+            "t_pet": t_pet,
+            "timestamp": time.time()
+        }
+
+        embed = discord.Embed(
+            title="⚔️ DESAFIO DE PETS!",
+            description=f"{message.author.mention} desafia {target_user.mention} para uma batalha de pets!",
+            color=discord.Color.orange()
+        )
+        embed.add_field(
+            name=f"{c_pet['emoji']} {c_pet['name']} ({message.author.display_name})",
+            value=f"❤️ HP: `{c_pet['battle_hp']}` | ⚔️ ATK: `{c_pet['battle_atk']}`\n{RARITIES[c_pet['rarity']]['emoji']} {c_pet['rarity']}",
+            inline=True
+        )
+        embed.add_field(
+            name=f"{t_pet['emoji']} {t_pet['name']} ({target_user.display_name})",
+            value=f"❤️ HP: `{t_pet['battle_hp']}` | ⚔️ ATK: `{t_pet['battle_atk']}`\n{RARITIES[t_pet['rarity']]['emoji']} {t_pet['rarity']}",
+            inline=True
+        )
+        embed.set_footer(text=f"{target_user.display_name}, responda com 'aceitar pet' para batalhar! (expira em 2 min)")
+        await message.channel.send(embed=embed)
+        return
+
+    # ─── ACEITAR BATALHA DE PET ──────────────────────────────────────
+    if content in ["aceitar pet", "aceitar batalha pet"]:
+        challenge = PET_BATTLE_CHALLENGES.get(uid)
+        if not challenge:
+            await message.channel.send(f"❌ {message.author.mention} você não tem desafio de pet pendente!")
+            return
+        if time.time() - challenge["timestamp"] > 120:
+            PET_BATTLE_CHALLENGES.pop(uid, None)
+            await message.channel.send("❌ O desafio expirou! Peça para reenviar.")
+            return
+
+        PET_BATTLE_CHALLENGES.pop(uid, None)
+
+        challenger_id = challenge["challenger_id"]
+        try:
+            challenger_user = await bot.fetch_user(int(challenger_id))
+        except:
+            challenger_user = None
+
+        c_pet = challenge["c_pet"]
+        t_pet = challenge["t_pet"]
+
+        c_hp = c_pet["battle_hp"]
+        t_hp = t_pet["battle_hp"]
+        c_atk = c_pet["battle_atk"]
+        t_atk = t_pet["battle_atk"]
+
+        # ── SIMULAÇÃO DA BATALHA ─────────────────────────────────────
+        MOVES = {
+            "Comum":     ["Arranhão", "Mordida", "Chute"],
+            "Incomum":   ["Golpe Rápido", "Ataque Ágil", "Investida"],
+            "Raro":      ["Garra Afiada", "Impacto Sólido", "Rugido"],
+            "Épico":     ["Explosão Épica", "Golpe Épico", "Fúria"],
+            "Lendário":  ["Lança Lendária", "Tempestade", "Poder Lendário"],
+            "Mítico":    ["Raio Mítico", "Abismo", "Colapso"],
+            "Divino":    ["Luz Divina", "Julgamento", "Purificação"],
+            "Primordial":["Extinção", "Caos Primordial", "Aniquilação"],
+        }
+
+        battle_log = []
+        turn = 0
+        c_cur = c_hp
+        t_cur = t_hp
+
+        c_rar = c_pet.get("rarity","Comum")
+        t_rar = t_pet.get("rarity","Comum")
+
+        while c_cur > 0 and t_cur > 0 and turn < 30:
+            turn += 1
+            # Crítico: 20% chance, 1.5x dano
+            c_crit = random.random() < 0.20
+            t_crit = random.random() < 0.20
+
+            c_dmg = max(1, int(c_atk * random.uniform(0.8, 1.3) * (1.5 if c_crit else 1.0)))
+            t_dmg = max(1, int(t_atk * random.uniform(0.8, 1.3) * (1.5 if t_crit else 1.0)))
+
+            t_cur = max(0, t_cur - c_dmg)
+            c_cur = max(0, c_cur - t_dmg)
+
+            c_move = random.choice(MOVES.get(c_rar, MOVES["Comum"]))
+            t_move = random.choice(MOVES.get(t_rar, MOVES["Comum"]))
+
+            c_bar = "█" * int(c_cur/c_hp*10) + "░" * (10 - int(c_cur/c_hp*10))
+            t_bar = "█" * int(t_cur/t_hp*10) + "░" * (10 - int(t_cur/t_hp*10))
+
+            entry = (
+                f"**Turno {turn}**\n"
+                f"{c_pet['emoji']} **{c_move}**{'💥' if c_crit else ''}: `-{c_dmg}` → {t_pet['emoji']} `{max(0,t_cur)}/{t_hp}` [{t_bar}]\n"
+                f"{t_pet['emoji']} **{t_move}**{'💥' if t_crit else ''}: `-{t_dmg}` → {c_pet['emoji']} `{max(0,c_cur)}/{c_hp}` [{c_bar}]"
+            )
+            battle_log.append(entry)
+
+            if c_cur <= 0 or t_cur <= 0:
+                break
+
+        # ── RESULTADO ────────────────────────────────────────────────
+        if c_cur > t_cur:
+            winner_name = challenger_user.display_name if challenger_user else "Desafiante"
+            winner_pet  = c_pet
+            loser_pet   = t_pet
+            loser_name  = message.author.display_name
+            winner_mention = challenger_user.mention if challenger_user else "Desafiante"
+        elif t_cur > c_cur:
+            winner_name    = message.author.display_name
+            winner_pet     = t_pet
+            loser_pet      = c_pet
+            loser_name     = challenger_user.display_name if challenger_user else "Desafiante"
+            winner_mention = message.author.mention
+        else:
+            winner_name    = None
+            winner_mention = None
+
+        # Envia turnos em embed (divide se muito longo)
+        fight_embed = discord.Embed(
+            title=f"🥊 BATALHA DE PETS — {c_pet['emoji']} {c_pet['name']} vs {t_pet['emoji']} {t_pet['name']}",
+            description=f"*'Que comecem os jogos!'*\n\n" + "\n\n".join(battle_log[:5]),
+            color=discord.Color.red()
+        )
+        fight_embed.add_field(
+            name="📊 Stats Iniciais",
+            value=(
+                f"{c_pet['emoji']} **{c_pet['name']}**: `{c_hp}` HP | `{c_atk}` ATK\n"
+                f"{t_pet['emoji']} **{t_pet['name']}**: `{t_hp}` HP | `{t_atk}` ATK"
+            ),
+            inline=False
+        )
+        await message.channel.send(embed=fight_embed)
+        await asyncio.sleep(2)
+
+        # Turnos do meio
+        if len(battle_log) > 5:
+            mid_embed = discord.Embed(
+                title="⚔️ A batalha continua...",
+                description="\n\n".join(battle_log[5:10]),
+                color=discord.Color.orange()
+            )
+            await message.channel.send(embed=mid_embed)
+            await asyncio.sleep(2)
+
+        if len(battle_log) > 10:
+            mid2_embed = discord.Embed(
+                title="💢 Fase final da batalha!",
+                description="\n\n".join(battle_log[10:15]),
+                color=discord.Color.dark_red()
+            )
+            await message.channel.send(embed=mid2_embed)
+            await asyncio.sleep(2)
+
+        # Resultado final
+        if winner_name:
+            xp_reward = max(30, (winner_pet["battle_atk"] + loser_pet["battle_atk"]) * 2)
+            add_xp(str(challenger_id) if c_cur > t_cur else uid, xp_reward)
+
+            result_embed = discord.Embed(
+                title=f"🏆 {winner_pet['emoji']} {winner_pet['name']} VENCEU!",
+                description=(
+                    f"*'O público enlouquece!'*\n\n"
+                    f"🥇 **{winner_name}** e seu {winner_pet['emoji']} **{winner_pet['name']}** triunfam!\n"
+                    f"💀 **{loser_name}** e seu {loser_pet['emoji']} **{loser_pet['name']}** foram derrotados!\n\n"
+                    f"⭐ **{winner_name}** ganhou `+{xp_reward} XP`!"
+                ),
+                color=discord.Color.gold()
+            )
+            result_embed.add_field(
+                name="📊 HP Final",
+                value=(
+                    f"{winner_pet['emoji']} **{winner_pet['name']}**: `{max(c_cur,t_cur)}` HP restante\n"
+                    f"{loser_pet['emoji']} **{loser_pet['name']}**: `0` HP"
+                ),
+                inline=False
+            )
+            result_embed.add_field(name="🎲 Turnos", value=f"`{turn}` turnos", inline=True)
+        else:
+            result_embed = discord.Embed(
+                title="🤝 EMPATE!",
+                description=f"*'Ambos os pets caem ao mesmo tempo!'*\n\n{c_pet['emoji']} **{c_pet['name']}** e {t_pet['emoji']} **{t_pet['name']}** empataram!",
+                color=discord.Color.greyple()
+            )
+
+        result_embed.set_footer(text="Use 'batalha pet @user' para desafiar alguém | 'evoluir pet' para ficar mais forte!")
+        await message.channel.send(embed=result_embed)
+        return
+
+    # ─── VER STATS DO PET (para batalha) ────────────────────────────
+    if content in ["stats pet", "poder pet", "meu pet stats"]:
+        player = get_player(uid)
+        if not player or not player.get("pet"):
+            await message.channel.send("❌ Você não tem pet ativo!")
+            return
+        pet = get_pet_battle_stats(player)
+        evo_info = PET_EVOLUTIONS.get(pet["name"])
+        evo_text = f"\n🔄 Próx. evo: **{evo_info['next']}** (Nv. {evo_info['level_required']})" if evo_info else "\n✨ Forma final!"
+        embed = discord.Embed(
+            title=f"{pet['emoji']} Stats de Batalha — {pet['name']}",
+            description=f"{RARITIES[pet['rarity']]['emoji']} **{pet['rarity']}**{evo_text}",
+            color=discord.Color.blue()
+        )
+        embed.add_field(name="❤️ HP Batalha",  value=f"`{pet['battle_hp']}`",  inline=True)
+        embed.add_field(name="⚔️ ATK Batalha", value=f"`{pet['battle_atk']}`", inline=True)
+        embed.set_footer(text="Stats escalam com o nível do dono + raridade do pet")
+        await message.channel.send(embed=embed)
 
 
 # ================= RUN BOT =================
