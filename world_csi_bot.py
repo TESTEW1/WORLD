@@ -5325,9 +5325,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 ally_after = get_player(ally_id)
                 ally_embed = discord.Embed(
                     title="🤝 ALIADO — BOSS DERROTADO!",
-                    description=f"Você ajudou a derrotar **{boss_data['name']}**!
-"
-                                f"*'Sua participação na batalha foi decisiva!'*",
+                    description=f"Você ajudou a derrotar **{boss_data['name']}**!\n*'Sua participação na batalha foi decisiva!'*",
                     color=discord.Color.gold()
                 )
                 ally_embed.add_field(name="⭐ XP Ganho", value=f"`+{ally_xp:,}`", inline=True)
@@ -5336,8 +5334,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                     nw = WORLDS[next_world_ally]
                     ally_embed.add_field(
                         name=f"🌍 Reino Desbloqueado!",
-                        value=f"{nw['emoji']} **{nw['name']}** agora está acessível!
-Use `abrir mapa` para viajar.",
+                        value=f"{nw['emoji']} **{nw['name']}** agora está acessível!\nUse `abrir mapa` para viajar.",
                         inline=False
                     )
                 ally_embed.set_footer(text=f"Aliado de {p_name} na batalha contra {boss_data['name']}")
