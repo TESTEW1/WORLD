@@ -5046,8 +5046,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     level_boss_names = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
     is_level_boss = boss_data["name"] in level_boss_names
     if is_level_boss:
-        boss_hp = int(boss_hp * 2.0)    # dobro de HP
-        boss_atk = int(boss_atk * 1.5)  # 50% mais ATK
+        pass  # stats ja ajustados diretamente nos dados do boss
 
     boss_skills = BOSS_SKILLS.get(boss_data["name"], BOSS_SKILLS["default"])
     boss_cur_hp = boss_hp
