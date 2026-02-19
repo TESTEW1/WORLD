@@ -5282,6 +5282,69 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # Libera XP acumulado durante o bloqueio do boss
     pending_released = release_pending_xp(user_id)
 
+    # === RECOMPENSA PARA ALIADOS (boss de nível) ===
+    if is_level_boss and allies:
+        boss_to_world_ally = {
+            "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
+            "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
+        }
+        next_world_ally = boss_to_world_ally.get(boss_data["name"])
+        ally_xp = boss_data["xp"] // 2  # aliados recebem metade do XP
+        ally_coins = coins // 2
+
+        for ally_id in allies:
+            if str(ally_id) == str(user_id):
+                continue
+            ap = get_player(ally_id)
+            if not ap:
+                continue
+
+            # Registra o boss como derrotado para o aliado
+            if boss_data["name"] not in ap.get("bosses", []):
+                ap["bosses"].append(boss_data["name"])
+            ap["bosses_defeated"] = ap.get("bosses_defeated", 0) + 1
+            ap["total_coins_earned"] = ap.get("total_coins_earned", 0) + ally_coins
+            ap["total_xp_earned"] = ap.get("total_xp_earned", 0) + ally_xp
+
+            # Desbloqueia o próximo mundo para o aliado
+            if next_world_ally and next_world_ally in WORLDS:
+                if next_world_ally not in ap.get("worlds", [1]):
+                    ap["worlds"].append(next_world_ally)
+                    ap["worlds"] = sorted(list(set(ap["worlds"])))
+
+            save_player_db(ally_id, ap)
+
+            # Libera XP bloqueado do aliado e dá XP + coins da batalha
+            add_xp(ally_id, ally_xp, bypass_boss_gate=True)
+            release_pending_xp(ally_id)
+            add_coins(ally_id, ally_coins)
+
+            # Notifica o aliado
+            try:
+                ally_user = await bot.fetch_user(int(ally_id))
+                ally_after = get_player(ally_id)
+                ally_embed = discord.Embed(
+                    title="🤝 ALIADO — BOSS DERROTADO!",
+                    description=f"Você ajudou a derrotar **{boss_data['name']}**!
+"
+                                f"*'Sua participação na batalha foi decisiva!'*",
+                    color=discord.Color.gold()
+                )
+                ally_embed.add_field(name="⭐ XP Ganho", value=f"`+{ally_xp:,}`", inline=True)
+                ally_embed.add_field(name="💰 Coins Ganhos", value=f"`+{ally_coins:,}`", inline=True)
+                if next_world_ally and next_world_ally in WORLDS:
+                    nw = WORLDS[next_world_ally]
+                    ally_embed.add_field(
+                        name=f"🌍 Reino Desbloqueado!",
+                        value=f"{nw['emoji']} **{nw['name']}** agora está acessível!
+Use `abrir mapa` para viajar.",
+                        inline=False
+                    )
+                ally_embed.set_footer(text=f"Aliado de {p_name} na batalha contra {boss_data['name']}")
+                await channel.send(f"{ally_user.mention}", embed=ally_embed)
+            except:
+                pass
+
     add_coins(user_id, coins)
 
     victory_embed = discord.Embed(
