@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎・mundo-csi"
+CANAL_BETA = "mundo-beta"
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
@@ -325,11 +325,266 @@ ACHIEVEMENTS = [
 ]
 
 TRAINING_OPTIONS = {
-    "forca": {"cost": 200, "atk_boost": 8, "emoji": "⚔️", "desc": "Aumenta ATK em +8 permanentemente"},
-    "defesa": {"cost": 200, "def_boost": 8, "emoji": "🛡️", "desc": "Aumenta DEF em +8 permanentemente"},
-    "vitalidade": {"cost": 300, "hp_boost": 30, "emoji": "❤️", "desc": "Aumenta HP Máximo em +30 permanentemente"},
-    "intensivo": {"cost": 800, "atk_boost": 15, "def_boost": 15, "hp_boost": 50, "emoji": "🔥", "desc": "Treino intensivo: +15 ATK, +15 DEF, +50 HP Max"},
+    "forca":      {"cost": 50,  "atk_boost": 5,  "emoji": "⚔️", "desc": "Aumenta ATK em +5 permanentemente"},
+    "defesa":     {"cost": 50,  "def_boost": 5,  "emoji": "🛡️", "desc": "Aumenta DEF em +5 permanentemente"},
+    "vitalidade": {"cost": 50,  "hp_boost": 20,  "emoji": "❤️", "desc": "Aumenta HP Máximo em +20 permanentemente"},
+    "intensivo":  {"cost": 200, "atk_boost": 10, "def_boost": 10, "hp_boost": 35, "emoji": "🔥", "desc": "Treino intensivo: +10 ATK, +10 DEF, +35 HP Max"},
+    "mana":       {"cost": 50,  "mana_boost": 15, "emoji": "💎", "desc": "Aumenta Mana Máxima em +15 (requer Livro de Feitiços)"},
 }
+
+# ================= MONSTER EQUIPMENT DROPS =================
+# Cada monstro pode dropar itens comuns ou incomuns específicos
+MONSTER_DROPS = {
+    # Campos Iniciais
+    "Slime": [
+        {"name": "Gel de Slime", "type": "resource"}, 
+        {"name": "Espada Enferrujada", "type": "weapon", "rarity": "Comum"},
+    ],
+    "Goblin": [
+        {"name": "Faca de Goblin", "type": "weapon", "rarity": "Comum"},
+        {"name": "Escudo de Madeira", "type": "armor", "rarity": "Comum"},
+        {"name": "Espada Pequena", "type": "weapon", "rarity": "Incomum"},
+    ],
+    "Lobo": [
+        {"name": "Pele de Lobo", "type": "resource"},
+        {"name": "Garra de Lobo", "type": "resource"},
+        {"name": "Colete de Couro", "type": "armor", "rarity": "Incomum"},
+    ],
+    "Esqueleto": [
+        {"name": "Osso Afiado", "type": "weapon", "rarity": "Comum"},
+        {"name": "Armadura Óssea", "type": "armor", "rarity": "Incomum"},
+    ],
+    # Floresta Élfica
+    "Ent Menor": [
+        {"name": "Galho Mágico", "type": "resource"},
+        {"name": "Cajado de Madeira Viva", "type": "weapon", "rarity": "Incomum"},
+    ],
+    "Aranha Gigante": [
+        {"name": "Seda Venenosa", "type": "resource"},
+        {"name": "Adaga Venenosa", "type": "weapon", "rarity": "Raro"},
+    ],
+    "Elfo Renegado": [
+        {"name": "Arco Élfic", "type": "weapon", "rarity": "Raro"},
+        {"name": "Capa de Sombras", "type": "armor", "rarity": "Raro"},
+    ],
+    # Deserto
+    "Múmia": [
+        {"name": "Ataduras Mágicas", "type": "resource"},
+        {"name": "Cetro Antigo", "type": "weapon", "rarity": "Raro"},
+        {"name": "Armadura de Ouro", "type": "armor", "rarity": "Épico"},
+    ],
+    "Escorpião": [
+        {"name": "Veneno de Escorpião", "type": "resource"},
+        {"name": "Garras de Escorpião", "type": "weapon", "rarity": "Incomum"},
+    ],
+    # Tundra
+    "Urso Glacial": [
+        {"name": "Pele Ártica", "type": "resource"},
+        {"name": "Machado de Gelo", "type": "weapon", "rarity": "Raro"},
+    ],
+    "Troll de Gelo": [
+        {"name": "Cristal de Gelo", "type": "resource"},
+        {"name": "Armadura de Permafrost", "type": "armor", "rarity": "Épico"},
+    ],
+    # Vulcão
+    "Salamandra": [
+        {"name": "Escama de Fogo", "type": "resource"},
+        {"name": "Lâmina Flamejante", "type": "weapon", "rarity": "Épico"},
+    ],
+    "Demônio Menor": [
+        {"name": "Fragmento Infernal", "type": "resource"},
+        {"name": "Espada Demoníaca", "type": "weapon", "rarity": "Épico"},
+        {"name": "Armadura do Inferno", "type": "armor", "rarity": "Épico"},
+    ],
+    # default fallback
+    "default": [
+        {"name": "Couro Bruto", "type": "resource"},
+        {"name": "Dente de Monstro", "type": "resource"},
+    ]
+}
+
+# Raridade de drop por tipo de monstro por dado
+HUNT_DROP_CHANCE = {
+    "resource": 0.35,    # 35% recurso
+    "weapon_common": 0.12,   # 12% arma comum/incomum
+    "weapon_rare": 0.03,     # 3% arma rara
+}
+
+# ================= SISTEMA DE CLIMA =================
+WEATHER_TYPES = {
+    "sol": {
+        "emoji": "☀️", "name": "Sol Abrasador",
+        "monster_boost": 1.0, "drop_boost": 1.0,
+        "special_monsters": [],
+        "desc": "O sol brilha forte — criaturas normais habitam a região."
+    },
+    "chuva": {
+        "emoji": "🌧️", "name": "Chuva Torrencial",
+        "monster_boost": 1.2, "drop_boost": 1.1,
+        "special_monsters": ["Elemental da Água", "Sapo Gigante", "Serpente Lodosa"],
+        "desc": "A chuva atrai criaturas aquáticas e torna os monstros mais agressivos!"
+    },
+    "noite": {
+        "emoji": "🌙", "name": "Noite Profunda",
+        "monster_boost": 1.4, "drop_boost": 1.2,
+        "special_monsters": ["Vampiro", "Lobo Lunático", "Espectro Noturno"],
+        "desc": "A escuridão acorda as criaturas mais perigosas..."
+    },
+    "tempestade": {
+        "emoji": "⛈️", "name": "Tempestade Elétrica",
+        "monster_boost": 1.5, "drop_boost": 1.3,
+        "special_monsters": ["Elemental do Trovão", "Grifo Tempestuoso"],
+        "desc": "Raios caem ao redor — criaturas elétricas surgem das nuvens!"
+    },
+    "neblina": {
+        "emoji": "🌫️", "name": "Neblina Arcana",
+        "monster_boost": 1.3, "drop_boost": 1.4,
+        "special_monsters": ["Fantasma", "Banshee", "Wisp Errante"],
+        "desc": "A neblina mágica esconde criaturas espectrais e segredos antigos..."
+    },
+    "lua_sangue": {
+        "emoji": "🩸🌕", "name": "LUA DE SANGUE",
+        "monster_boost": 2.5, "drop_boost": 2.0,
+        "special_monsters": ["Lobo Colossal", "Vampiro Ancião", "Demônio de Sangue", "Boss da Lua de Sangue"],
+        "desc": "⚠️ LUA DE SANGUE! Monstros extremamente poderosos surgem — mas as recompensas são extraordinárias!"
+    }
+}
+
+# Clima atual (global, muda a cada X tempo)
+CURRENT_WEATHER = {"type": "sol", "changed_at": 0}
+
+# ================= PET EVOLUTION SYSTEM =================
+PET_EVOLUTIONS = {
+    "Slime Bebê": {
+        "level_required": 5, "next": "Slime Adolescente",
+        "next_data": {"name": "Slime Adolescente", "emoji": "💧", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 8}
+    },
+    "Slime Adolescente": {
+        "level_required": 15, "next": "Slime Mestre",
+        "next_data": {"name": "Slime Mestre", "emoji": "💠", "rarity": "Raro", "bonus_hp": 50, "bonus_atk": 18}
+    },
+    "Coelho Mágico": {
+        "level_required": 8, "next": "Coelho Arcano",
+        "next_data": {"name": "Coelho Arcano", "emoji": "🐰", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 12}
+    },
+    "Coelho Arcano": {
+        "level_required": 20, "next": "Lebre Celestial",
+        "next_data": {"name": "Lebre Celestial", "emoji": "✨", "rarity": "Épico", "bonus_hp": 65, "bonus_atk": 22}
+    },
+    "Fada da Floresta": {
+        "level_required": 10, "next": "Fada Élfica",
+        "next_data": {"name": "Fada Élfica", "emoji": "🧚", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 18}
+    },
+    "Fada Élfica": {
+        "level_required": 25, "next": "Fada Primordial",
+        "next_data": {"name": "Fada Primordial", "emoji": "🌟", "rarity": "Mítico", "bonus_hp": 90, "bonus_atk": 40}
+    },
+    "Lobo Cinzento": {
+        "level_required": 15, "next": "Lobo das Sombras",
+        "next_data": {"name": "Lobo das Sombras", "emoji": "🐺", "rarity": "Raro", "bonus_hp": 50, "bonus_atk": 25}
+    },
+    "Lobo das Sombras": {
+        "level_required": 28, "next": "Lobo Alpha Lendário",
+        "next_data": {"name": "Lobo Alpha Lendário", "emoji": "🐺", "rarity": "Lendário", "bonus_hp": 100, "bonus_atk": 55}
+    },
+    "Coruja Espectral": {
+        "level_required": 18, "next": "Coruja do Destino",
+        "next_data": {"name": "Coruja do Destino", "emoji": "🦉", "rarity": "Épico", "bonus_hp": 65, "bonus_atk": 30}
+    },
+    "Coruja do Destino": {
+        "level_required": 32, "next": "Coruja Divina",
+        "next_data": {"name": "Coruja Divina", "emoji": "🦉", "rarity": "Mítico", "bonus_hp": 120, "bonus_atk": 60}
+    },
+    "Dragão de Gelo Bebê": {
+        "level_required": 25, "next": "Dragão de Gelo Jovem",
+        "next_data": {"name": "Dragão de Gelo Jovem", "emoji": "🐉", "rarity": "Mítico", "bonus_hp": 140, "bonus_atk": 70}
+    },
+    "Dragão de Gelo Jovem": {
+        "level_required": 40, "next": "Dragão de Gelo Ancião",
+        "next_data": {"name": "Dragão de Gelo Ancião", "emoji": "❄️", "rarity": "Divino", "bonus_hp": 250, "bonus_atk": 120}
+    },
+}
+
+# ================= SPELL BOOK / LIVRO DE FEITIÇOS =================
+MANA_CATEGORIES = [
+    {"id": "goblin",     "name": "🟤 Goblin",       "level_req": 12, "mana_mult": 1.0, "desc": "Iniciante das artes mágicas"},
+    {"id": "aprendiz",   "name": "⚪ Aprendiz",     "level_req": 16, "mana_mult": 1.1, "desc": "Começa a entender os fundamentos"},
+    {"id": "estudante",  "name": "🟢 Estudante",    "level_req": 20, "mana_mult": 1.2, "desc": "Progresso notável no estudo"},
+    {"id": "praticante", "name": "🔵 Praticante",   "level_req": 25, "mana_mult": 1.35,"desc": "Domínio básico das magias"},
+    {"id": "adepto",     "name": "🟣 Adepto",       "level_req": 30, "mana_mult": 1.5, "desc": "Feitiços fluem naturalmente"},
+    {"id": "veterano",   "name": "🟡 Veterano",     "level_req": 35, "mana_mult": 1.7, "desc": "Veterano das artes arcanas"},
+    {"id": "mestre",     "name": "🟠 Mestre",       "level_req": 40, "mana_mult": 2.0, "desc": "Mestre indiscutível da magia"},
+    {"id": "arcano",     "name": "🔴 Arcano",       "level_req": 45, "mana_mult": 2.3, "desc": "Acessa planos superiores de poder"},
+    {"id": "lendario",   "name": "⭐ Lendário",     "level_req": 52, "mana_mult": 2.7, "desc": "Lenda das artes mágicas"},
+    {"id": "supremo",    "name": "💎 Supremo",      "level_req": 58, "mana_mult": 3.5, "desc": "O pico absoluto do poder arcano"},
+]
+
+SPELL_BOOK_SKILLS = {
+    "Mago": [
+        {"cat": "goblin",     "name": "🔥 Chispa Arcana",      "mana_cost": 5,  "dmg_mult": 1.2, "desc": "Uma centelha mágica básica."},
+        {"cat": "aprendiz",   "name": "❄️ Flecha de Gelo",     "mana_cost": 12, "dmg_mult": 1.5, "slow": True, "desc": "Desacelera o inimigo."},
+        {"cat": "estudante",  "name": "⚡ Tempestade Arcana",  "mana_cost": 20, "dmg_mult": 1.8, "desc": "Múltiplos raios arcanos."},
+        {"cat": "praticante", "name": "🌪️ Tufão de Magia",    "mana_cost": 30, "dmg_mult": 2.2, "desc": "Vento mágico devasta."},
+        {"cat": "adepto",     "name": "🔮 Singularidade",      "mana_cost": 40, "dmg_mult": 2.6, "ignore_def": True, "desc": "Destrói defesas."},
+        {"cat": "veterano",   "name": "🌌 Portal do Caos",     "mana_cost": 50, "dmg_mult": 3.0, "desc": "Abre uma fenda dimensional."},
+        {"cat": "mestre",     "name": "☄️ Meteoro Arcano",    "mana_cost": 60, "dmg_mult": 3.5, "desc": "Um meteoro mágico devastador!"},
+        {"cat": "arcano",     "name": "🌠 Colapso Estelar",   "mana_cost": 75, "dmg_mult": 4.0, "stun_chance": 0.4, "desc": "O poder das estrelas."},
+        {"cat": "lendario",   "name": "💥 Explosão Cósmica",  "mana_cost": 90, "dmg_mult": 4.8, "desc": "O universo colapsa no alvo."},
+        {"cat": "supremo",    "name": "⚗️ Aniquilação Total", "mana_cost": 120,"dmg_mult": 6.0, "ignore_def": True, "desc": "Poder absoluto e irresistível!"},
+    ],
+    "Necromante": [
+        {"cat": "goblin",     "name": "💀 Toque da Morte",     "mana_cost": 5,  "dmg_mult": 1.2, "desc": "A morte roça o inimigo."},
+        {"cat": "aprendiz",   "name": "🦴 Esqueleto Básico",   "mana_cost": 12, "dmg_mult": 1.4, "desc": "Invoca um guerreiro ósseo."},
+        {"cat": "estudante",  "name": "☠️ Praga",              "mana_cost": 20, "dmg_mult": 1.6, "poison": True, "desc": "Praga que corrói a alma."},
+        {"cat": "praticante", "name": "🌑 Escudo da Morte",    "mana_cost": 30, "dmg_mult": 1.2, "self_heal": 40, "desc": "Cura drenando o inimigo."},
+        {"cat": "adepto",     "name": "💀 Exército dos Mortos","mana_cost": 45, "dmg_mult": 2.5, "desc": "Horda de não-mortos ataca!"},
+        {"cat": "veterano",   "name": "🌒 Eclipse Sombrio",    "mana_cost": 55, "dmg_mult": 3.0, "weaken": True, "desc": "Escuridão que enfraquece."},
+        {"cat": "mestre",     "name": "⚰️ Ressurreição Caótica","mana_cost": 65, "dmg_mult": 3.5, "self_heal": 60, "desc": "Drena vida em massa."},
+        {"cat": "arcano",     "name": "🩸 Maré de Sangue",     "mana_cost": 80, "dmg_mult": 4.2, "poison": True, "desc": "Sangue que envenena a área."},
+        {"cat": "lendario",   "name": "🌚 Véu da Morte",       "mana_cost": 95, "dmg_mult": 5.0, "desc": "A morte se materializa."},
+        {"cat": "supremo",    "name": "💀 Exterminação",       "mana_cost": 130,"dmg_mult": 6.5, "ignore_def": True, "desc": "Nada escapa à morte absoluta!"},
+    ],
+    "Paladino": [
+        {"cat": "goblin",     "name": "✨ Bênção Menor",       "mana_cost": 5,  "dmg_mult": 1.1, "self_heal": 10, "desc": "A luz cura levemente."},
+        {"cat": "aprendiz",   "name": "☀️ Raio Sagrado",       "mana_cost": 12, "dmg_mult": 1.5, "desc": "Um raio de luz divina."},
+        {"cat": "estudante",  "name": "🛡️ Barreira Sagrada",   "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 35, "def_bonus": 15, "desc": "Barreira protetora."},
+        {"cat": "praticante", "name": "⚔️ Espada da Justiça",  "mana_cost": 30, "dmg_mult": 2.0, "desc": "Justiça divina corporificada."},
+        {"cat": "adepto",     "name": "🌟 Nova de Luz",        "mana_cost": 40, "dmg_mult": 2.4, "stun_chance": 0.3, "desc": "Explosão de luz sagrada."},
+        {"cat": "veterano",   "name": "👼 Proteção Angélica",  "mana_cost": 50, "dmg_mult": 1.5, "self_heal": 60, "desc": "Anjos protegem o paladino."},
+        {"cat": "mestre",     "name": "⭐ Purificação Divina", "mana_cost": 65, "dmg_mult": 3.0, "desc": "Purifica toda maldade."},
+        {"cat": "arcano",     "name": "☀️ Arma Celestial",    "mana_cost": 80, "dmg_mult": 3.8, "ignore_def": True, "desc": "Arma forjada pelos céus."},
+        {"cat": "lendario",   "name": "🕊️ Intervenção Divina", "mana_cost": 100,"dmg_mult": 4.5, "self_heal": 80, "desc": "Os deuses intervêm pessoalmente."},
+        {"cat": "supremo",    "name": "🌈 Juízo Final",        "mana_cost": 140,"dmg_mult": 6.0, "stun_chance": 0.5, "desc": "O julgamento eterno cai!"},
+    ],
+    "Druida": [
+        {"cat": "goblin",     "name": "🌿 Cura Menor",         "mana_cost": 5,  "dmg_mult": 1.0, "self_heal": 20, "desc": "A natureza cura."},
+        {"cat": "aprendiz",   "name": "🌱 Espinhos Vivos",     "mana_cost": 12, "dmg_mult": 1.4, "poison": True, "desc": "Espinhos que envenenam."},
+        {"cat": "estudante",  "name": "🐺 Forma Animal",       "mana_cost": 20, "dmg_mult": 1.8, "desc": "Se transforma em besta."},
+        {"cat": "praticante", "name": "🌪️ Tempestade Natural", "mana_cost": 30, "dmg_mult": 2.2, "desc": "A natureza se rebela."},
+        {"cat": "adepto",     "name": "🌳 Raízes Antigas",     "mana_cost": 40, "dmg_mult": 1.8, "stun_chance": 0.4, "desc": "Raízes antigas imobilizam."},
+        {"cat": "veterano",   "name": "⚡ Relâmpago Natural",  "mana_cost": 50, "dmg_mult": 2.8, "desc": "Raio convocado da natureza."},
+        {"cat": "mestre",     "name": "🌊 Tsunami Arcano",     "mana_cost": 65, "dmg_mult": 3.2, "desc": "Onda massiva de energia natural."},
+        {"cat": "arcano",     "name": "🦅 Forma Celestial",    "mana_cost": 80, "dmg_mult": 3.8, "self_heal": 50, "desc": "Transforma-se em ser celestial."},
+        {"cat": "lendario",   "name": "🌍 Terremoto",          "mana_cost": 100,"dmg_mult": 4.6, "stun_chance": 0.5, "desc": "A terra se parte ao meio."},
+        {"cat": "supremo",    "name": "🌳 Árvore do Mundo",   "mana_cost": 150,"dmg_mult": 6.0, "self_heal": 100, "desc": "O poder da criação inteira!"},
+    ],
+}
+
+# Classes de suporte que podem curar aliados em grupo
+SUPPORT_CLASSES = {"Paladino", "Druida", "Mago", "Bardo", "Necromante"}
+
+# ================= KINGDOM SYSTEM (para Reis) =================
+KINGDOM_DEFAULTS = {
+    "name": None,  # Nome do reino do jogador
+    "population": 100,
+    "economy": "Neutra",  # Ruim / Neutra / Boa / Excelente
+    "army": "Neutra",
+    "resources": [],
+    "bio": "",
+    "wars_won": 0,
+    "trades": 0,
+}
+
 
 # ================= RARITY DICE BONUS =================
 RARITY_DICE_BONUS = {
@@ -2540,7 +2795,7 @@ WORLDS = {
             "Javali Jovem": {"xp": (13, 23), "hp": 35, "atk": 8, "coins": (2, 5)},
             "Vespa Gigante": {"xp": (12, 22), "hp": 22, "atk": 7, "coins": (1, 4)}
         },
-        "boss": {"name": "Slime Rei", "hp": 150, "atk": 15, "xp": 200, "level": 9, "coins": (15, 30)},
+        "boss": {"name": "Slime Rei", "hp": 600, "atk": 55, "xp": 500, "level": 9, "coins": (50, 100)},
         "resources": ["Pedra fraca", "Grama mágica", "Couro de rato", "Flor silvestre", "Mel selvagem"],
         "dungeons": [
             {"name": "Caverna dos Slimes", "level": 1, "boss": "Slime Ancião"},
@@ -2587,7 +2842,7 @@ WORLDS = {
             "Ogro Menor": {"xp": (32, 47), "hp": 80, "atk": 16, "coins": (5, 10)},
             "Espectro Florestal": {"xp": (29, 44), "hp": 55, "atk": 13, "coins": (4, 9)}
         },
-        "boss": {"name": "Ent Ancião", "hp": 300, "atk": 25, "xp": 350, "level": 19, "coins": (25, 50)},
+        "boss": {"name": "Ent Ancião", "hp": 1200, "atk": 90, "xp": 900, "level": 19, "coins": (100, 200)},
         "resources": ["Madeira escura", "Ervas raras", "Pele de lobo", "Teia mágica", "Musgo brilhante"],
         "dungeons": [
             {"name": "Covil dos Goblins", "level": 4, "boss": "Chefe Goblin"},
@@ -2634,7 +2889,7 @@ WORLDS = {
             "Guardião de Tumba": {"xp": (47, 67), "hp": 130, "atk": 24, "coins": (7, 14)},
             "Espírito do Deserto": {"xp": (44, 64), "hp": 105, "atk": 20, "coins": (5, 12)}
         },
-        "boss": {"name": "Faraó Amaldiçoado", "hp": 500, "atk": 35, "xp": 550, "level": 29, "coins": (40, 80)},
+        "boss": {"name": "Faraó Amaldiçoado", "hp": 2000, "atk": 140, "xp": 1400, "level": 29, "coins": (180, 350)},
         "resources": ["Areia mágica", "Ossos antigos", "Vendas místicas", "Escaravelho dourado", "Papiro antigo"],
         "dungeons": [
             {"name": "Pirâmide Perdida", "level": 7, "boss": "Faraó Esquecido"},
@@ -2681,7 +2936,7 @@ WORLDS = {
             "Dragão de Gelo Jovem": {"xp": (70, 90), "hp": 200, "atk": 32, "coins": (10, 18)},
             "Elemental de Gelo": {"xp": (67, 87), "hp": 170, "atk": 31, "coins": (8, 16)}
         },
-        "boss": {"name": "Yeti Colossal", "hp": 750, "atk": 45, "xp": 800, "level": 39, "coins": (50, 100)},
+        "boss": {"name": "Yeti Colossal", "hp": 3000, "atk": 190, "xp": 2000, "level": 39, "coins": (280, 500)},
         "resources": ["Cristal de gelo", "Minério frio", "Pele de yeti", "Neve eterna", "Gema congelada"],
         "dungeons": [
             {"name": "Caverna Congelada", "level": 10, "boss": "Guardião do Gelo"},
@@ -2728,7 +2983,7 @@ WORLDS = {
             "Hidra de Magma": {"xp": (90, 110), "hp": 250, "atk": 45, "coins": (13, 23)},
             "Fênix Negra": {"xp": (87, 107), "hp": 220, "atk": 43, "coins": (12, 22)}
         },
-        "boss": {"name": "Dragão de Magma", "hp": 1000, "atk": 55, "xp": 1100, "level": 49, "coins": (60, 120)},
+        "boss": {"name": "Dragão de Magma", "hp": 4500, "atk": 260, "xp": 2800, "level": 49, "coins": (400, 700)},
         "resources": ["Pedra vulcânica", "Núcleo de fogo", "Escamas de dragão", "Obsidiana pura", "Cinza sagrada"],
         "dungeons": [
             {"name": "Caldeirão de Lava", "level": 13, "boss": "Senhor do Fogo"},
@@ -2775,7 +3030,7 @@ WORLDS = {
             "Lich": {"xp": (110, 140), "hp": 320, "atk": 55, "coins": (15, 25)},
             "Golem Arcano": {"xp": (107, 137), "hp": 310, "atk": 53, "coins": (14, 24)}
         },
-        "boss": {"name": "Senhor das Sombras", "hp": 1500, "atk": 70, "xp": 1600, "level": 59, "coins": (70, 140)},
+        "boss": {"name": "Senhor das Sombras", "hp": 7000, "atk": 350, "xp": 4000, "level": 59, "coins": (600, 1000)},
         "resources": ["Essência arcana", "Fragmento sombrio", "Cristal do vazio", "Poeira estelar", "Runa mística"],
         "dungeons": [
             {"name": "Torre Arcana", "level": 16, "boss": "Arquimago Corrupto"},
@@ -3134,6 +3389,12 @@ def init_db():
         "ALTER TABLE players ADD COLUMN pvp_battles TEXT DEFAULT '{}'",
         "ALTER TABLE players ADD COLUMN alignment_points INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN pet_farm TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN mana_category TEXT DEFAULT 'none'",
+        "ALTER TABLE players ADD COLUMN spell_book_unlocked INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN afk_farming INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN afk_start INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN kingdom_data TEXT DEFAULT 'null'",
+        "ALTER TABLE players ADD COLUMN pets_list TEXT DEFAULT '[]'",
         "ALTER TABLE players ADD COLUMN discovered_map TEXT DEFAULT '{}'",
         "ALTER TABLE players ADD COLUMN job TEXT DEFAULT NULL",
         "ALTER TABLE players ADD COLUMN job_since INTEGER DEFAULT 0",
@@ -3264,6 +3525,12 @@ def get_player_db(user_id):
             "total_coins_earned": result[37] if len(result) > 37 else 0,
             "total_xp_earned": result[38] if len(result) > 38 else 0,
             "areas_explored": result[39] if len(result) > 39 else 0,
+            "mana_category": result[40] if len(result) > 40 else "none",
+            "spell_book_unlocked": result[41] if len(result) > 41 else 0,
+            "afk_farming": result[42] if len(result) > 42 else 0,
+            "afk_start": result[43] if len(result) > 43 else 0,
+            "kingdom_data": json.loads(result[44]) if len(result) > 44 and result[44] and result[44] != "null" else None,
+            "pets_list": json.loads(result[45]) if len(result) > 45 and result[45] else [],
         }
     return None
 
@@ -3278,9 +3545,10 @@ def save_player_db(user_id, player):
                   job, job_since, city_title, knights, last_work, last_defend,
                   achievements, training_points, temp_atk_boost, temp_def_boost, temp_hp_boost,
                   level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
-                  total_xp_earned, areas_explored)
+                  total_xp_earned, areas_explored, mana_category, spell_book_unlocked,
+                  afk_farming, afk_start, kingdom_data, pets_list)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -3307,7 +3575,13 @@ def save_player_db(user_id, player):
                player.get("bosses_defeated", 0),
                player.get("total_coins_earned", 0),
                player.get("total_xp_earned", 0),
-               player.get("areas_explored", 0)))
+               player.get("areas_explored", 0),
+               player.get("mana_category", "none"),
+               player.get("spell_book_unlocked", 0),
+               player.get("afk_farming", 0),
+               player.get("afk_start", 0),
+               json.dumps(player.get("kingdom_data")) if player.get("kingdom_data") else None,
+               json.dumps(player.get("pets_list", []))))
 
     conn.commit()
     conn.close()
@@ -3412,6 +3686,12 @@ def create_player(user_id):
         "pvp_battles": {},
         "alignment_points": 0,
         "pet_farm": [],
+        "mana_category": "none",
+        "spell_book_unlocked": 0,
+        "afk_farming": 0,
+        "afk_start": 0,
+        "kingdom_data": None,
+        "pets_list": [],
         "discovered_map": {},
         "job": None,
         "job_since": 0,
@@ -3716,7 +3996,7 @@ class PetTameButton(discord.ui.View):
 
         roll = roll_dice()
         luck = get_luck(roll)
-        embed = discord.Embed(title=f"🎲 Tentativa de Domesticação", color=discord.Color.blue())
+        embed = discord.Embed(title="🎲 Tentativa de Domesticação", color=discord.Color.blue())
         embed.add_field(name="🎲 Dado", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
 
         if roll <= 3:
@@ -3733,13 +4013,36 @@ class PetTameButton(discord.ui.View):
             embed.color = discord.Color.orange()
         else:
             player = get_player(self.user_id)
-            player["pet"] = self.pet["name"]
-            save_player_db(self.user_id, player)
-            embed.add_field(
-                name="✨ Domesticado!",
-                value=f"*'{self.pet['emoji']} **{self.pet['name']}** agora é seu companheiro!'*\n\n💪 **+{self.pet['bonus_atk']} ATK**\n❤️ **+{self.pet['bonus_hp']} HP**",
-                inline=False
-            )
+            pet_entry = {**self.pet, "evo_stage": 1, "pet_xp": 0}
+            if not player.get("pet"):
+                # Sem pet ativo → torna-se pet ativo
+                player["pet"] = self.pet["name"]
+                save_player_db(self.user_id, player)
+                embed.add_field(
+                    name="✨ Domesticado! (Pet Ativo)",
+                    value=f"*'{self.pet['emoji']} **{self.pet['name']}** agora é seu companheiro ativo!'*\n\n"
+                          f"💪 **+{self.pet['bonus_atk']} ATK** | ❤️ **+{self.pet['bonus_hp']} HP**\n"
+                          f"*Use `ver fazenda` para ver todos seus pets.*",
+                    inline=False
+                )
+            else:
+                # Já tem pet ativo → vai pra fazenda automaticamente
+                pets_list = player.get("pets_list", [])
+                if len(pets_list) >= 15:
+                    embed.add_field(name="❌ Fazenda Cheia!", value="Sua fazenda já tem 15 pets! Use `ver fazenda` para gerenciar.", inline=False)
+                    embed.color = discord.Color.red()
+                else:
+                    pets_list.append(pet_entry)
+                    player["pets_list"] = pets_list
+                    save_player_db(self.user_id, player)
+                    embed.add_field(
+                        name=f"🐾 Domesticado! → Fazenda",
+                        value=f"*'{self.pet['emoji']} **{self.pet['name']}** foi para sua fazenda!'*\n\n"
+                              f"💪 **+{self.pet['bonus_atk']} ATK** | ❤️ **+{self.pet['bonus_hp']} HP**\n"
+                              f"Pet ativo atual: **{player['pet']}**\n"
+                              f"*Use `trocar pet [nome]` para definir como ativo, ou `ver fazenda`.*",
+                        inline=False
+                    )
             embed.color = discord.Color.gold()
 
         await interaction.response.edit_message(embed=embed, view=None)
@@ -4556,10 +4859,19 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 break
     if player.get("pet"):
         try:
-            pet_obj = json.loads(player["pet"]) if isinstance(player["pet"], str) else player["pet"]
-            p_atk += pet_obj.get("bonus_atk", 0)
+            pet_name = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", "")
+            # Find pet in PETS data
+            for world_pets in PETS.values():
+                for p in world_pets:
+                    if p["name"] == pet_name:
+                        p_atk += p.get("bonus_atk", 0)
+                        break
         except:
             pass
+    # Also add small bonus from farm pets (max 3 farm pets contribute)
+    pets_list = player.get("pets_list", [])
+    farm_bonus = sum(p.get("bonus_atk", 0) // 3 for p in pets_list[:3])
+    p_atk += farm_bonus
 
     # Ally bonus
     ally_bonus_atk = 0
@@ -4799,7 +5111,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         p_after = get_player(user_id)
         victory_embed.add_field(name="🆙 Level Up!", value=f"*Você chegou ao **Nível {p_after['level']}**!*", inline=False)
 
-    # Unlock next world for level bosses
+    # Unlock next world for level bosses + AUTO-TRAVEL
     boss_to_world = {
         "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
         "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
@@ -4809,12 +5121,33 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         p3 = get_player(user_id)
         if next_world not in p3["worlds"]:
             p3["worlds"].append(next_world)
+            # AUTO-TRAVEL: move player to new world (muda mundo atual)
+            # Garante que o novo mundo está na lista e marca como mundo atual
+            p3["worlds"] = sorted(list(set(p3["worlds"])))
             save_player_db(user_id, p3)
+            new_world_data = WORLDS[next_world]
             victory_embed.add_field(
-                name="🗺️ Novo Mundo Desbloqueado!",
-                value=f"{WORLDS[next_world]['emoji']} **{WORLDS[next_world]['name']}** agora está acessível!\n*'Novos desafios e glórias aguardam!'*",
+                name=f"🌍 REINO DESBLOQUEADO & VIAGEM AUTOMÁTICA!",
+                value=f"{new_world_data['emoji']} **{new_world_data['name']}** agora está acessível!\n\n"
+                      f"*'As correntes se rompem! As névoas se dissipam!'*\n"
+                      f"**Você foi automaticamente transportado para o novo reino!**\n"
+                      f"*Para voltar, use `abrir mapa` e viaje manualmente.*",
                 inline=False
             )
+            await channel.send(embed=victory_embed)
+            await asyncio.sleep(2)
+            # Enviar embed de chegada ao novo mundo
+            arrival_embed = discord.Embed(
+                title=f"{new_world_data['emoji']} BEM-VINDO: {new_world_data['name']}!",
+                description=f"*'{random.choice(new_world_data.get('events', ['Você chega a um novo reino...']))}'*\n\n"
+                            f"Um novo horizonte se abre diante de você! Este reino trará novos desafios, criaturas e segredos.\n\n"
+                            f"Use `explorar` para começar sua aventura aqui.\nUse `abrir mapa` para voltar ao reino anterior.",
+                color=discord.Color.gold()
+            )
+            arrival_embed.set_footer(text=f"Reino: {new_world_data['name']} | Use 'abrir mapa' para navegar entre reinos")
+            await channel.send(embed=arrival_embed)
+            # Drop + achievements after this return
+            return
 
     # Item drop (raridades MUITO reduzidas — boss é a ÚNICA fonte de itens altos)
     drop_rarity = None
@@ -5518,6 +5851,8 @@ async def on_ready():
 
     if not random_world_events.is_running():
         random_world_events.start()
+    if not weather_change_loop.is_running():
+        weather_change_loop.start()
 
     for guild in bot.guilds:
         await send_prologue(guild)
@@ -5683,10 +6018,7 @@ async def on_message(message):
     # ======================================================
     elif any(word in content for word in ["procurar pet", "procurar criatura", "buscar pet"]):
         player = get_player(user_id)
-
-        if player.get("pet"):
-            await message.channel.send(f"❌ Você já tem um pet: **{player['pet']}**!")
-            return
+        # Permite procurar novos pets mesmo com pet ativo — extras vão pra fazenda
 
         world = get_world(player["level"], player)
         roll = roll_dice()
@@ -5772,9 +6104,8 @@ async def on_message(message):
     # ======================================================
     elif any(word in content for word in ["domesticar", "tentar domesticar", "domar"]):
         player = get_player(user_id)
-        if player.get("pet"):
-            await message.channel.send(f"❌ Você já tem um pet: **{player['pet']}**!")
-            return
+        # Permite múltiplos pets — o ativo fica em player["pet"], os outros na fazenda
+        # Não bloqueia mais domesticação!
 
         world_level = player["level"] - (player["level"] % 10)
         if world_level == 0:
@@ -6510,10 +6841,28 @@ async def on_message(message):
             add_coins(user_id, coins)
 
             drop_item = None
+            drop_item = None
             drop_potion = None
 
-            # Caçar: NUNCA dropa equipamentos — apenas poções comuns/incomuns com baixa chance
-            if random.random() < 0.08:  # 8% chance poção comum/incomum
+            # Caçar: dropa armas/armaduras Comum/Incomum/Raro dos monstros (Mítico+ apenas de boss)
+            monster_drops_pool = MONSTER_DROPS.get(monster_name, MONSTER_DROPS.get("default", []))
+            equip_drops = [d for d in monster_drops_pool if d.get("type") in ("weapon", "armor")
+                           and d.get("rarity") in ("Comum", "Incomum", "Raro")]
+            # 15% chance arma/armadura de monstro
+            if equip_drops and random.random() < 0.15:
+                drop_def = random.choice(equip_drops)
+                rarity = drop_def["rarity"]
+                itype = drop_def["type"]
+                ilist = "weapons" if itype == "weapon" else "armor"
+                items_filtered = [i for i in ITEMS[ilist] if i["rarity"] == rarity]
+                if items_filtered:
+                    drop_item = random.choice(items_filtered)
+                    p2 = get_player(user_id)
+                    p2["inventory"].append(drop_item["name"])
+                    save_player_db(user_id, p2)
+
+            # 8% chance poção Comum/Incomum
+            if random.random() < 0.08:
                 potion_rarities = ["Comum", "Incomum"]
                 drop_potion = random.choice([name for name, data in POTIONS.items() if data["rarity"] in potion_rarities])
                 p2 = get_player(user_id)
@@ -6521,6 +6870,8 @@ async def on_message(message):
                 save_player_db(user_id, p2)
 
             drop_text = ""
+            if drop_item:
+                drop_text += f"\n{RARITIES[drop_item['rarity']]['emoji']} **{drop_item['name']}** ({drop_item['rarity']}) — drop do monstro!"
             if drop_potion:
                 drop_text += f"\n🧪 **{drop_potion}**!"
 
@@ -7831,27 +8182,83 @@ async def handle_new_commands(message):
         await message.channel.send(embed=embed)
 
     # ===== TROCAR PET =====
+    elif content.startswith("trocar pet") and "@" not in content and content != "trocar pet":
+        # trocar pet [nome] — troca diretamente por nome
+        player = get_player(uid)
+        if not player:
+            return
+        pet_name_search = content.replace("trocar pet", "").strip()
+        all_pets = player.get("pets_list", []) + player.get("pet_farm", [])
+        found = None
+        for p in all_pets:
+            if pet_name_search.lower() in p.get("name", "").lower():
+                found = p
+                break
+        if not found:
+            await message.channel.send(f"❌ Pet '{pet_name_search}' não encontrado na sua fazenda.\nUse `ver fazenda` para listar seus pets.")
+            return
+        # Swap active pet with found pet
+        current = player.get("pet")
+        new_active_name = found["name"]
+        # Remove found from farm lists
+        plist = player.get("pets_list", [])
+        pfarm = player.get("pet_farm", [])
+        if found in plist:
+            plist.remove(found)
+        elif found in pfarm:
+            pfarm.remove(found)
+        # Send current to farm
+        if current:
+            cur_name = current if isinstance(current, str) else current.get("name", "?")
+            # Find current pet data to store in farm
+            cur_pet_obj = {"name": cur_name, "emoji": "🐾", "rarity": "Comum", "bonus_hp": 0, "bonus_atk": 0}
+            for world_pets in PETS.values():
+                for pp in world_pets:
+                    if pp["name"] == cur_name:
+                        cur_pet_obj = {**pp, "evo_stage": 1, "pet_xp": 0}
+                        break
+            plist.append(cur_pet_obj)
+        player["pets_list"] = plist
+        player["pet_farm"] = pfarm
+        player["pet"] = new_active_name
+        save_player_db(uid, player)
+        # Find new pet data for display
+        new_pet_data = found
+        for world_pets in PETS.values():
+            for pp in world_pets:
+                if pp["name"] == new_active_name:
+                    new_pet_data = pp
+                    break
+        await message.channel.send(
+            f"🔄 **Pet trocado!**\n\n"
+            f"{new_pet_data.get('emoji','🐾')} **{new_active_name}** é agora seu pet ativo!\n"
+            f"+{new_pet_data.get('bonus_atk',0)} ATK | +{new_pet_data.get('bonus_hp',0)} HP\n"
+            f"*O pet anterior foi para a fazenda.*"
+        )
+
     elif content in ["trocar pet", "mudar pet", "escolher pet"]:
         player = get_player(uid)
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        farm = player.get("pet_farm", [])
-        if not farm:
-            await message.channel.send("🏡 Sua fazenda está vazia! Não há pets para trocar.\nCapture mais pets caçando com `caçar`.")
+        all_pets = player.get("pets_list", []) + player.get("pet_farm", [])
+        if not all_pets:
+            await message.channel.send("🏡 Sua fazenda está vazia! Não há pets para trocar.\nCapture mais pets com `domesticar`.")
             return
         embed = discord.Embed(
             title="🔄 Trocar Pet",
-            description="Escolha um pet da fazenda para equipar. O pet atual será enviado para a fazenda.",
+            description="Escolha um pet da fazenda para equipar. O pet atual será enviado para a fazenda.\nOu use `trocar pet [nome]` diretamente!",
             color=discord.Color.blurple()
         )
-        for pet in farm[:5]:
+        for pet in all_pets[:6]:
+            evo_info = PET_EVOLUTIONS.get(pet.get("name",""))
+            evo_txt = f"\n🔄 Evo: {evo_info['next']}" if evo_info else ""
             embed.add_field(
                 name=f"{pet.get('emoji','🐾')} {pet['name']}",
-                value=f"Raridade: **{pet.get('rarity','?')}**\n`+{pet.get('bonus_hp',0)} HP` | `+{pet.get('bonus_atk',0)} ATK`",
+                value=f"{RARITIES[pet.get('rarity','Comum')]['emoji']} {pet.get('rarity','?')}\n+{pet.get('bonus_hp',0)} HP | +{pet.get('bonus_atk',0)} ATK{evo_txt}",
                 inline=True
             )
-        view = PetFarmSelectView(uid, farm)
+        view = PetFarmSelectView(uid, all_pets)
         await message.channel.send(embed=embed, view=view)
 
     # ===== ENVIAR PET PARA FAZENDA =====
@@ -8664,6 +9071,652 @@ async def handle_npc_lore(message):
         await message.channel.send(embed=embed)
 
 
+
+
+# ================= FARM AFK =================
+@bot.listen("on_message")
+async def handle_afk_farm(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["farm afk", "iniciar afk", "afk", "modo afk"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        if player.get("afk_farming"):
+            # Coletar XP acumulado
+            elapsed = int(time.time()) - player.get("afk_start", int(time.time()))
+            minutes = elapsed // 60
+            # 1 XP por minuto (bem pouco, como pedido)
+            xp_earned = max(1, min(minutes * 1, 200))  # máx 200 XP por sessão
+            player["afk_farming"] = 0
+            player["afk_start"] = 0
+            leveled = add_xp(uid, xp_earned, bypass_boss_gate=False)
+            save_player_db(uid, player)
+            embed = discord.Embed(
+                title="⏹️ Farm AFK Encerrado!",
+                description=f"*'Você retorna ao mundo após um longo descanso...'*\n\n"
+                            f"⏱️ Tempo farmando: **{minutes} minutos**\n"
+                            f"⭐ XP Ganho: **+{xp_earned}**",
+                color=discord.Color.blue()
+            )
+            if leveled:
+                p2 = get_player(uid)
+                embed.add_field(name="🆙 Level Up!", value=f"**Nível {p2['level']}**", inline=False)
+            embed.set_footer(text="Use 'farm afk' novamente para começar nova sessão.")
+            await message.channel.send(embed=embed)
+        else:
+            player["afk_farming"] = 1
+            player["afk_start"] = int(time.time())
+            save_player_db(uid, player)
+            await message.channel.send(
+                f"🌙 **{message.author.mention}** entrou em modo **Farm AFK**!\n\n"
+                f"*Você está treinando enquanto ausente...*\n"
+                f"⭐ Você ganhará **~1 XP por minuto** (máx 200 XP).\n\n"
+                f"Use `farm afk` novamente ao voltar para coletar o XP ganho!"
+            )
+
+    elif content in ["ver clima", "clima", "tempo", "clima atual"]:
+        weather = CURRENT_WEATHER
+        wdata = WEATHER_TYPES.get(weather["type"], WEATHER_TYPES["sol"])
+        embed = discord.Embed(
+            title=f"{wdata['emoji']} Clima Atual: {wdata['name']}",
+            description=wdata["desc"],
+            color=discord.Color.blue() if weather["type"] != "lua_sangue" else discord.Color.red()
+        )
+        if wdata.get("special_monsters"):
+            embed.add_field(
+                name="👹 Criaturas Especiais Ativas",
+                value=" | ".join(wdata["special_monsters"]),
+                inline=False
+            )
+        embed.add_field(name="⚔️ Boost Monstros", value=f"×{wdata['monster_boost']}", inline=True)
+        embed.add_field(name="🎁 Boost Drops", value=f"×{wdata['drop_boost']}", inline=True)
+        embed.set_footer(text="O clima muda a cada 30 minutos. Lua de Sangue é rara mas muito recompensadora!")
+        await message.channel.send(embed=embed)
+
+
+# ================= PET EVOLUTION =================
+@bot.listen("on_message")
+async def handle_pet_evolution(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["evoluir pet", "evoluir meu pet", "evolução pet"]:
+        player = get_player(uid)
+        if not player or not player.get("pet"):
+            await message.channel.send("❌ Você não tem um pet ativo! Use `procurar pet` ou `domesticar`.")
+            return
+
+        pet_name = player["pet"]
+        if isinstance(pet_name, dict):
+            pet_name = pet_name.get("name", "")
+
+        evo_data = PET_EVOLUTIONS.get(pet_name)
+        if not evo_data:
+            await message.channel.send(f"😔 **{pet_name}** não tem evolução disponível ainda (ou já é a forma final).")
+            return
+
+        if player["level"] < evo_data["level_required"]:
+            await message.channel.send(
+                f"❌ **{pet_name}** precisa que você seja **Nível {evo_data['level_required']}** para evoluir!\n"
+                f"Seu nível atual: **{player['level']}**"
+            )
+            return
+
+        # Evoluir!
+        next_pet = evo_data["next_data"]
+        player["pet"] = next_pet["name"]
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title="⭐ EVOLUÇÃO DO PET! ⭐",
+            description=f"*'Uma luz intensa envolve {pet_name}...'*\n\n"
+                        f"🥚 **{pet_name}** → {next_pet['emoji']} **{next_pet['name']}**!\n\n"
+                        f"*'Seu companheiro se tornou mais forte!'*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="💪 Novo ATK Bônus", value=f"+{next_pet['bonus_atk']}", inline=True)
+        embed.add_field(name="❤️ Novo HP Bônus", value=f"+{next_pet['bonus_hp']}", inline=True)
+        embed.add_field(name="✨ Raridade", value=f"{RARITIES[next_pet['rarity']]['emoji']} {next_pet['rarity']}", inline=True)
+        await message.channel.send(embed=embed)
+
+    elif content in ["ver fazenda", "meus pets", "todos pets", "pets"]:
+        player = get_player(uid)
+        if not player:
+            return
+        pets_list = player.get("pets_list", [])
+        farm = player.get("pet_farm", [])
+        # Combine both lists for display
+        all_pets_farm = pets_list + farm
+        active = player.get("pet")
+
+        embed = discord.Embed(
+            title="🐾 Sua Fazenda de Pets",
+            description=f"Pets na fazenda: **{len(all_pets_farm)}/15**",
+            color=discord.Color.green()
+        )
+        if active:
+            aname = active if isinstance(active, str) else active.get("name", "?")
+            # Find pet data
+            pet_obj = None
+            for world_pets in PETS.values():
+                for p in world_pets:
+                    if p["name"] == aname:
+                        pet_obj = p
+                        break
+            if pet_obj:
+                evo_info = PET_EVOLUTIONS.get(aname)
+                evo_text = f"\n🔄 Próx. evo: **{evo_info['next']}** (Nv. {evo_info['level_required']})" if evo_info else "\n✨ Forma final!"
+                embed.add_field(
+                    name=f"⭐ Pet Ativo: {pet_obj['emoji']} {aname}",
+                    value=f"{RARITIES[pet_obj['rarity']]['emoji']} {pet_obj['rarity']} | +{pet_obj['bonus_atk']} ATK | +{pet_obj['bonus_hp']} HP{evo_text}",
+                    inline=False
+                )
+            else:
+                embed.add_field(name="⭐ Pet Ativo", value=aname, inline=False)
+        else:
+            embed.add_field(name="⭐ Pet Ativo", value="_Nenhum_", inline=False)
+
+        if all_pets_farm:
+            farm_lines = []
+            for i, p in enumerate(all_pets_farm[:15]):
+                pname = p.get("name", "?")
+                pemoji = p.get("emoji", "🐾")
+                prarity = p.get("rarity", "?")
+                batk = p.get("bonus_atk", 0)
+                bhp = p.get("bonus_hp", 0)
+                farm_lines.append(f"`{i+1}.` {pemoji} **{pname}** [{prarity}] +{batk}ATK/+{bhp}HP")
+            embed.add_field(name="🌾 Pets na Fazenda", value="\n".join(farm_lines), inline=False)
+        else:
+            embed.add_field(name="🌾 Fazenda", value="_Vazia! Use `domesticar` para capturar mais pets._", inline=False)
+
+        embed.set_footer(text="Use 'trocar pet [nome]' para definir ativo | 'evoluir pet' para evoluir | 'trocar pet @user [nome]' para trocar")
+        await message.channel.send(embed=embed)
+
+    elif content.startswith("trocar pet") and "@" in content:
+        # Pet trading between players
+        player = get_player(uid)
+        if not player:
+            return
+        parts = content.split()
+        # Format: trocar pet @user [nome do pet]
+        target_mention = None
+        pet_name_parts = []
+        for part in parts[2:]:
+            if part.startswith("<@"):
+                target_mention = part
+            else:
+                pet_name_parts.append(part)
+
+        if not target_mention or not pet_name_parts:
+            await message.channel.send("❌ Uso: `trocar pet @usuario [nome do pet]`")
+            return
+
+        target_id = target_mention.replace("<@", "").replace(">", "").replace("!", "")
+        target_player = get_player(target_id)
+        if not target_player:
+            await message.channel.send("❌ Jogador alvo não encontrado!")
+            return
+
+        pet_name = " ".join(pet_name_parts).title()
+        pets_list = player.get("pets_list", [])
+        farm = player.get("pet_farm", [])
+
+        # Find the pet in sender's farm
+        found_pet = None
+        for p in pets_list + farm:
+            if p.get("name", "").lower() == pet_name.lower():
+                found_pet = p
+                break
+
+        if not found_pet:
+            await message.channel.send(f"❌ Você não tem **{pet_name}** na sua fazenda!\nUse `ver fazenda` para ver seus pets.")
+            return
+
+        # Remove from sender, add to target farm
+        if found_pet in pets_list:
+            pets_list.remove(found_pet)
+            player["pets_list"] = pets_list
+        elif found_pet in farm:
+            farm.remove(found_pet)
+            player["pet_farm"] = farm
+
+        t_pets_list = target_player.get("pets_list", [])
+        t_pets_list.append(found_pet)
+        target_player["pets_list"] = t_pets_list
+
+        save_player_db(uid, player)
+        save_player_db(target_id, target_player)
+
+        await message.channel.send(
+            f"🤝 **{message.author.display_name}** enviou {found_pet.get('emoji','🐾')} **{found_pet['name']}** "
+            f"para <@{target_id}>!\n"
+            f"*A amizade une os aventureiros!*"
+        )
+
+
+# ================= SPELL BOOK / LIVRO DE FEITIÇOS =================
+@bot.listen("on_message")
+async def handle_spell_book(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["livro de feitiços", "abrir livro de feitiços", "feitiços", "ver feitiços", "spellbook"]:
+        player = get_player(uid)
+        if not player:
+            return
+
+        if player["level"] < 12:
+            await message.channel.send(
+                f"📚 **Livro de Feitiços** — Bloqueado!\n\n"
+                f"*'Você ainda não tem poder suficiente para acessar as artes arcanas...'*\n"
+                f"Desbloqueie ao atingir o **Nível 12**! (Atual: Nível {player['level']})"
+            )
+            return
+
+        cls = player.get("class")
+        mana_cat = player.get("mana_category", "none")
+
+        # Find current category index
+        cat_idx = -1
+        for i, cat in enumerate(MANA_CATEGORIES):
+            if cat["id"] == mana_cat:
+                cat_idx = i
+                break
+
+        # Find eligible categories
+        unlocked_cats = [cat for cat in MANA_CATEGORIES if player["level"] >= cat["level_req"]]
+        current_cat = MANA_CATEGORIES[cat_idx] if cat_idx >= 0 else None
+
+        embed = discord.Embed(
+            title="📚 Livro de Feitiços",
+            description=f"*'O livro brilha com energia arcana incontida...'*\n\n"
+                        f"🎭 Classe: **{cls or 'Sem Classe'}**\n"
+                        f"💎 Categoria de Mana: **{current_cat['name'] if current_cat else 'Nenhuma'}**",
+            color=discord.Color.purple()
+        )
+
+        # Show progression categories
+        cat_text = ""
+        for cat in MANA_CATEGORIES:
+            req = cat["level_req"]
+            status = "✅" if player["level"] >= req and cat["id"] in [c["id"] for c in unlocked_cats] else f"🔒 Nv.{req}"
+            active = " ◄ ATIVA" if cat["id"] == mana_cat else ""
+            cat_text += f"{status} {cat['name']} — {cat['desc']}{active}\n"
+        embed.add_field(name="📊 Categorias de Mana", value=cat_text, inline=False)
+
+        # Show class spells if has category
+        if cls and cls in SPELL_BOOK_SKILLS and current_cat:
+            class_spells = SPELL_BOOK_SKILLS.get(cls, [])
+            spell_list = [s for s in class_spells if s["cat"] == mana_cat]
+            if spell_list:
+                spell_text = "\n".join([f"• **{s['name']}** — Mana: {s['mana_cost']} | Dano: ×{s['dmg_mult']} | {s['desc']}" for s in spell_list])
+                embed.add_field(name=f"✨ Feitiços Desbloqueados ({cls})", value=spell_text, inline=False)
+
+        # Show how to advance
+        next_cats = [cat for cat in MANA_CATEGORIES if player["level"] < cat["level_req"]]
+        if next_cats:
+            nc = next_cats[0]
+            embed.add_field(
+                name="⬆️ Próxima Categoria",
+                value=f"{nc['name']} — Atinja **Nível {nc['level_req']}** para desbloquear!",
+                inline=False
+            )
+
+        embed.set_footer(text="Use 'avançar categoria mana' para subir de categoria | 'treinar mana' para aumentar mana máxima")
+        await message.channel.send(embed=embed)
+
+    elif content in ["avançar categoria mana", "subir categoria mana", "avançar mana", "upgrade mana"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player["level"] < 12:
+            await message.channel.send("❌ Desbloqueie o Livro de Feitiços primeiro (Nível 12)!")
+            return
+
+        mana_cat = player.get("mana_category", "none")
+        cat_idx = -1
+        for i, cat in enumerate(MANA_CATEGORIES):
+            if cat["id"] == mana_cat:
+                cat_idx = i
+                break
+
+        next_idx = cat_idx + 1
+        if cat_idx == -1:
+            # First unlock - start at goblin
+            first_cat = MANA_CATEGORIES[0]
+            if player["level"] < first_cat["level_req"]:
+                await message.channel.send(f"❌ Precisa ser Nível {first_cat['level_req']} para começar!")
+                return
+            player["mana_category"] = first_cat["id"]
+            player["spell_book_unlocked"] = 1
+            # Bonus max mana
+            player["max_mana"] = player.get("max_mana", 50) + int(20 * first_cat["mana_mult"])
+            save_player_db(uid, player)
+            await message.channel.send(
+                f"📚 **Livro de Feitiços Desbloqueado!**\n\n"
+                f"Você ingressou na categoria {first_cat['name']}!\n"
+                f"💎 Mana Máxima aumentada em **+{int(20 * first_cat['mana_mult'])}**!\n"
+                f"*Use `ver feitiços` para ver seus novos poderes!*"
+            )
+        elif next_idx >= len(MANA_CATEGORIES):
+            await message.channel.send("🏆 Você já atingiu a categoria máxima: **💎 Supremo**!")
+        else:
+            next_cat = MANA_CATEGORIES[next_idx]
+            if player["level"] < next_cat["level_req"]:
+                await message.channel.send(
+                    f"❌ Precisa ser **Nível {next_cat['level_req']}** para avançar para {next_cat['name']}!\n"
+                    f"Nível atual: {player['level']}"
+                )
+                return
+            player["mana_category"] = next_cat["id"]
+            bonus_mana = int(15 * next_cat["mana_mult"])
+            player["max_mana"] = player.get("max_mana", 50) + bonus_mana
+            save_player_db(uid, player)
+            await message.channel.send(
+                f"⬆️ **Categoria Avançada!**\n\n"
+                f"Você agora é **{next_cat['name']}**!\n"
+                f"💎 +{bonus_mana} Mana Máxima!\n"
+                f"*{next_cat['desc']}*"
+            )
+
+    elif content.startswith("treinar mana"):
+        player = get_player(uid)
+        if not player:
+            return
+        if not player.get("spell_book_unlocked"):
+            await message.channel.send("❌ Desbloqueie o Livro de Feitiços primeiro! (Nível 12 + `avançar categoria mana`)")
+            return
+        cost = 50
+        if player["coins"] < cost:
+            await message.channel.send(f"❌ Treinar mana custa **{cost} CSI**. Você tem: {player['coins']} CSI.")
+            return
+        player["coins"] -= cost
+        mana_boost = 15
+        player["max_mana"] = player.get("max_mana", 50) + mana_boost
+        player["mana"] = min(player.get("mana", 50) + mana_boost, player["max_mana"])
+        save_player_db(uid, player)
+        await message.channel.send(
+            f"💎 **Treino de Mana Concluído!**\n\n"
+            f"−{cost} CSI | +{mana_boost} Mana Máxima\n"
+            f"Nova mana máxima: **{player['max_mana']}**"
+        )
+
+
+# ================= KINGDOM SYSTEM =================
+@bot.listen("on_message")
+async def handle_kingdom(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    if content in ["meu reino", "ver reino", "status reino", "reino"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("city_title") != "Rei" and "Rei" not in str(player.get("city_title", "")):
+            await message.channel.send(
+                "👑 **Sistema de Reinos** — Apenas **Reis** podem gerenciar reinos!\n"
+                "*Use `me tornar rei` quando atingir os requisitos!*"
+            )
+            return
+
+        kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        kname = kd.get("name") or f"Reino de {message.author.display_name}"
+
+        embed = discord.Embed(
+            title=f"👑 {kname}",
+            description=f"*O seu domínio se estende pelo horizonte...*",
+            color=discord.Color.gold()
+        )
+        def status_icon(s):
+            return {"Ruim": "🔴", "Neutra": "🟡", "Boa": "🟢", "Excelente": "💎"}.get(s, "⚪")
+
+        embed.add_field(name="👥 População", value=f"{kd.get('population', 100)} habitantes", inline=True)
+        embed.add_field(name=f"💰 Economia {status_icon(kd.get('economy','Neutra'))}", value=kd.get("economy", "Neutra"), inline=True)
+        embed.add_field(name=f"⚔️ Exército {status_icon(kd.get('army','Neutra'))}", value=kd.get("army", "Neutra"), inline=True)
+        if kd.get("bio"):
+            embed.add_field(name="📜 Descrição", value=kd["bio"], inline=False)
+        embed.add_field(name="🏆 Guerras Vencidas", value=str(kd.get("wars_won", 0)), inline=True)
+        embed.add_field(name="🤝 Trocas Realizadas", value=str(kd.get("trades", 0)), inline=True)
+        embed.add_field(
+            name="🛠️ Comandos de Reino",
+            value="`personalizar reino [nome]` — Renomear seu reino\n"
+                  "`melhorar economia` — Invista CSI para melhorar\n"
+                  "`reforçar exercito` — Fortaleça suas tropas\n"
+                  "`atacar reino @rei` — Declare guerra!\n"
+                  "`trocar recursos @rei [valor]` — Coopere com outros reinos",
+            inline=False
+        )
+        await message.channel.send(embed=embed)
+
+    elif content.startswith("personalizar reino"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("city_title") != "Rei" and "Rei" not in str(player.get("city_title", "")):
+            await message.channel.send("❌ Apenas Reis podem personalizar reinos!")
+            return
+        parts = message.content.split(maxsplit=2)
+        if len(parts) < 3:
+            await message.channel.send("❌ Use: `personalizar reino [Nome do Reino]`")
+            return
+        new_name = parts[2].strip()[:40]
+        kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        kd["name"] = new_name
+        player["kingdom_data"] = kd
+        save_player_db(uid, player)
+        await message.channel.send(f"👑 Seu reino foi renomeado para **{new_name}**!\n*Que o nome ecoe por toda a terra!*")
+
+    elif content in ["melhorar economia", "investir economia"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("city_title") != "Rei" and "Rei" not in str(player.get("city_title", "")):
+            await message.channel.send("❌ Apenas Reis podem investir no reino!")
+            return
+        kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        levels = ["Ruim", "Neutra", "Boa", "Excelente"]
+        current = kd.get("economy", "Neutra")
+        cur_idx = levels.index(current) if current in levels else 1
+        costs = [500, 1000, 2500]
+        if cur_idx >= len(levels) - 1:
+            await message.channel.send("💎 Sua economia já está em nível **Excelente**!")
+            return
+        cost = costs[cur_idx]
+        if player["coins"] < cost:
+            await message.channel.send(f"❌ Melhorar a economia custa **{cost} CSI**. Você tem {player['coins']} CSI.")
+            return
+        player["coins"] -= cost
+        kd["economy"] = levels[cur_idx + 1]
+        player["kingdom_data"] = kd
+        save_player_db(uid, player)
+        await message.channel.send(
+            f"📈 **Economia melhorada!**\n\n{current} → **{kd['economy']}**\n*Seu povo prospera!*"
+        )
+
+    elif content in ["reforçar exercito", "reforcar exercito", "melhorar exercito"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("city_title") != "Rei" and "Rei" not in str(player.get("city_title", "")):
+            await message.channel.send("❌ Apenas Reis podem reforçar o exército!")
+            return
+        kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        levels = ["Ruim", "Neutra", "Boa", "Excelente"]
+        current = kd.get("army", "Neutra")
+        cur_idx = levels.index(current) if current in levels else 1
+        costs = [400, 900, 2000]
+        if cur_idx >= len(levels) - 1:
+            await message.channel.send("⚔️ Seu exército já está em nível **Excelente**!")
+            return
+        cost = costs[cur_idx]
+        if player["coins"] < cost:
+            await message.channel.send(f"❌ Reforçar o exército custa **{cost} CSI**. Você tem {player['coins']} CSI.")
+            return
+        player["coins"] -= cost
+        kd["army"] = levels[cur_idx + 1]
+        player["kingdom_data"] = kd
+        save_player_db(uid, player)
+        await message.channel.send(
+            f"⚔️ **Exército reforçado!**\n\n{current} → **{kd['army']}**\n*Suas tropas marcham com determinação!*"
+        )
+
+    elif content.startswith("atacar reino"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("city_title") != "Rei" and "Rei" not in str(player.get("city_title", "")):
+            await message.channel.send("❌ Apenas Reis podem declarar guerra!")
+            return
+        if "@" not in content:
+            await message.channel.send("❌ Use: `atacar reino @rei`")
+            return
+        mention = message.mentions[0] if message.mentions else None
+        if not mention:
+            await message.channel.send("❌ Mencione um @rei válido!")
+            return
+        target_player = get_player(mention.id)
+        if not target_player:
+            await message.channel.send("❌ Jogador não encontrado!")
+            return
+
+        my_kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        their_kd = target_player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+
+        army_power = {"Ruim": 1, "Neutra": 2, "Boa": 4, "Excelente": 7}
+        my_power = army_power.get(my_kd.get("army", "Neutra"), 2) + player.get("temp_atk_boost", 0) // 10
+        their_power = army_power.get(their_kd.get("army", "Neutra"), 2) + target_player.get("temp_atk_boost", 0) // 10
+
+        my_roll = roll_dice() + my_power
+        their_roll = roll_dice() + their_power
+
+        their_name = their_kd.get("name") or f"Reino de {mention.display_name}"
+        my_name = my_kd.get("name") or f"Reino de {message.author.display_name}"
+
+        embed = discord.Embed(title="⚔️ GUERRA DE REINOS!", color=discord.Color.red())
+        embed.add_field(name=f"🏰 {my_name}", value=f"Poder: {my_power} + Dado: {my_roll % 10}", inline=True)
+        embed.add_field(name="VS", value="⚔️", inline=True)
+        embed.add_field(name=f"🏰 {their_name}", value=f"Poder: {their_power} + Dado: {their_roll % 10}", inline=True)
+
+        if my_roll > their_roll:
+            reward = random.randint(200, 600)
+            my_kd["wars_won"] = my_kd.get("wars_won", 0) + 1
+            my_kd["population"] = my_kd.get("population", 100) + 20
+            player["kingdom_data"] = my_kd
+            player["coins"] += reward
+            save_player_db(uid, player)
+            save_player_db(mention.id, target_player)
+            embed.add_field(
+                name=f"🏆 {my_name} VENCEU!",
+                value=f"*'{my_name} domina {their_name}!'*\n\n+{reward} CSI | +20 população",
+                inline=False
+            )
+        else:
+            their_kd["wars_won"] = their_kd.get("wars_won", 0) + 1
+            target_player["kingdom_data"] = their_kd
+            save_player_db(uid, player)
+            save_player_db(mention.id, target_player)
+            embed.add_field(
+                name=f"💀 {their_name} DEFENDEU!",
+                value=f"*'{their_name} resistiu ao ataque!'*\n\n{their_name} ganhou +1 vitória de guerra.",
+                inline=False
+            )
+        await message.channel.send(embed=embed)
+
+    elif content.startswith("trocar recursos"):
+        player = get_player(uid)
+        if not player:
+            return
+        if "@" not in content:
+            await message.channel.send("❌ Use: `trocar recursos @rei [valor em CSI]`")
+            return
+        parts = content.split()
+        mention = message.mentions[0] if message.mentions else None
+        if not mention:
+            await message.channel.send("❌ Mencione um @rei válido!")
+            return
+        amount = 0
+        for p in parts:
+            if p.isdigit():
+                amount = int(p)
+                break
+        if amount <= 0:
+            await message.channel.send("❌ Use: `trocar recursos @rei [valor]` — ex: `trocar recursos @rei 500`")
+            return
+        if player["coins"] < amount:
+            await message.channel.send(f"❌ Você tem apenas **{player['coins']} CSI**!")
+            return
+
+        target_player = get_player(mention.id)
+        if not target_player:
+            await message.channel.send("❌ Jogador não encontrado!")
+            return
+
+        player["coins"] -= amount
+        target_player["coins"] += amount
+        my_kd = player.get("kingdom_data") or KINGDOM_DEFAULTS.copy()
+        my_kd["trades"] = my_kd.get("trades", 0) + 1
+        player["kingdom_data"] = my_kd
+        save_player_db(uid, player)
+        save_player_db(mention.id, target_player)
+        await message.channel.send(
+            f"🤝 **Troca de Recursos!**\n\n"
+            f"**{message.author.display_name}** enviou **{amount} CSI** para {mention.mention}!\n"
+            f"*Alianças entre reinos fortalecem a todos!*"
+        )
+
+
+# ================= WEATHER SYSTEM (muda a cada 30 min) =================
+@tasks.loop(minutes=30)
+async def weather_change_loop():
+    """Muda o clima global a cada 30 minutos"""
+    weights = [30, 20, 20, 10, 12, 8]  # sol, chuva, noite, tempestade, neblina, lua_sangue
+    new_type = random.choices(list(WEATHER_TYPES.keys()), weights=weights)[0]
+    CURRENT_WEATHER["type"] = new_type
+    CURRENT_WEATHER["changed_at"] = int(time.time())
+
+    # Anunciar em todos os canais configurados
+    wdata = WEATHER_TYPES[new_type]
+    for guild in bot.guilds:
+        chan = discord.utils.get(guild.text_channels, name=CANAL_BETA)
+        if chan:
+            embed = discord.Embed(
+                title=f"{wdata['emoji']} MUDANÇA DE CLIMA: {wdata['name']}",
+                description=wdata["desc"],
+                color=discord.Color.red() if new_type == "lua_sangue" else discord.Color.blue()
+            )
+            if wdata.get("special_monsters"):
+                embed.add_field(
+                    name="👹 Criaturas Especiais Surgem!",
+                    value=" | ".join(wdata["special_monsters"]),
+                    inline=False
+                )
+            embed.add_field(name="⚔️ Monstros Mais Fortes", value=f"×{wdata['monster_boost']}", inline=True)
+            embed.add_field(name="🎁 Drops Melhorados", value=f"×{wdata['drop_boost']}", inline=True)
+            if new_type == "lua_sangue":
+                embed.set_footer(text="⚠️ LUA DE SANGUE: Monstros extremamente perigosos mas recompensas lendárias!")
+            try:
+                await chan.send(embed=embed)
+            except:
+                pass
 
 
 # ================= RUN BOT =================
