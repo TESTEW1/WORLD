@@ -4944,20 +4944,24 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     else:
         effects = player.get("active_effects", {})
         pending_boss = effects.pop("pending_boss", None)
+        player["active_effects"] = effects
+        save_player_db(user_id, player)
+
+        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+
         if pending_boss:
-            player["active_effects"] = effects
-            save_player_db(user_id, player)
             boss_data = pending_boss
-        else:
-            boss_levels = {9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50}
-            world_key = boss_levels.get(player["level"])
-            if world_key is None:
+        elif player["level"] in boss_gate_levels:
+            # Segurança: força o boss de level correto mesmo sem pending_boss
+            boss_data = get_level_boss(player["level"])
+            if not boss_data or boss_data["name"] in player.get("bosses", []):
                 world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
-            else:
-                boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, [])
-                boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_key]["boss"]
+        else:
+            world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+            boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
+            boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
 
     # ---- Player stats ----
     p_cls = player.get("class", "Guerreiro")
@@ -5303,6 +5307,13 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
     }
     next_world = boss_to_world.get(boss_data["name"])
+    # Segurança: se boss_data tinha nome errado, checar pelos bosses derrotados
+    if not next_world:
+        p_check = get_player(user_id)
+        for b_name, w_key in boss_to_world.items():
+            if b_name in p_check.get("bosses", []) and w_key not in p_check.get("worlds", [1]) and w_key in WORLDS:
+                next_world = w_key
+                break
     if next_world and next_world in WORLDS:
         p3 = get_player(user_id)
         if next_world not in p3["worlds"]:
@@ -6363,10 +6374,12 @@ async def on_message(message):
                 world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
-                # Armazenar como pending_boss
-                effects["pending_boss"] = boss_data
-                player["active_effects"] = effects
-                save_player_db(user_id, player)
+
+        # *** CORREÇÃO: Salva SEMPRE o boss correto como pending_boss antes dos botões ***
+        effects = player.get("active_effects", {})
+        effects["pending_boss"] = boss_data
+        player["active_effects"] = effects
+        save_player_db(user_id, player)
 
         color = discord.Color.dark_red() if is_level_boss else discord.Color.red()
         title = "🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!" if is_level_boss else "⚔️ BOSS ENCONTRADO!"
@@ -7851,6 +7864,12 @@ async def check_level_boss(channel, user_id):
     if player["level"] in boss_levels:
         boss_data = get_level_boss(player["level"])
         if boss_data and boss_data["name"] not in player["bosses"]:
+            # *** CORREÇÃO: Salva o boss correto como pending_boss ***
+            effects = player.get("active_effects", {})
+            effects["pending_boss"] = boss_data
+            player["active_effects"] = effects
+            save_player_db(user_id, player)
+
             await asyncio.sleep(2)
             embed = discord.Embed(
                 title="🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!",
