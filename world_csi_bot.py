@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎・mundo-csi"
+CANAL_BETA = "mundo-csi"  # Apenas o nome sem emoji — Discord pode variar a representação do emoji
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
@@ -5854,8 +5854,8 @@ async def on_ready():
     if not weather_change_loop.is_running():
         weather_change_loop.start()
 
-    # Prologue only sent once at initial setup — removed auto-call on_ready
-    print("✅ Bot pronto! Prologue NÃO enviado automaticamente.")
+    for guild in bot.guilds:
+        await send_prologue(guild)
 
 
 @bot.event
