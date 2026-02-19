@@ -5439,7 +5439,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
 @tasks.loop(minutes=20)
 async def random_world_events():
     for guild in bot.guilds:
-        channel = discord.utils.get(guild.text_channels, name=CANAL_BETA)
+        channel = discord.utils.get(guild.text_channels, name=CANAL_BETA) or next((c for c in guild.text_channels if CANAL_BETA in c.name), None)
         if not channel:
             continue
 
@@ -5522,7 +5522,7 @@ async def random_world_events():
 
 # ================= PRÓLOGO =================
 async def send_prologue(guild):
-    channel = discord.utils.get(guild.text_channels, name=CANAL_BETA)
+    channel = discord.utils.get(guild.text_channels, name=CANAL_BETA) or next((c for c in guild.text_channels if CANAL_BETA in c.name), None)
     if not channel:
         return
 
@@ -5854,15 +5854,17 @@ async def on_ready():
     if not weather_change_loop.is_running():
         weather_change_loop.start()
 
-    for guild in bot.guilds:
-        await send_prologue(guild)
+    # Prologue only sent once at initial setup — removed auto-call on_ready
+    print("✅ Bot pronto! Prologue NÃO enviado automaticamente.")
 
 
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    # Aceita tanto nome exato quanto canal contendo "mundo-csi"
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
 
     content = message.content.lower().strip()
@@ -8144,7 +8146,8 @@ BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=s
 async def handle_new_commands(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -8968,7 +8971,8 @@ async def handle_new_commands(message):
 async def handle_mining_mimic(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9003,7 +9007,8 @@ async def handle_map_discovery(message):
     """Ao explorar, há chance de descobrir novo local no mapa"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9046,7 +9051,8 @@ async def handle_npc_lore(message):
     """NPCs extras que contam lore"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9078,7 +9084,8 @@ async def handle_npc_lore(message):
 async def handle_afk_farm(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9146,7 +9153,8 @@ async def handle_afk_farm(message):
 async def handle_pet_evolution(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9310,7 +9318,8 @@ async def handle_pet_evolution(message):
 async def handle_spell_book(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9462,7 +9471,8 @@ async def handle_spell_book(message):
 async def handle_kingdom(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    ch_name = getattr(message.channel, "name", "")
+    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
