@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎・mundo-csi"
+CANAL_BETA = "mundo-beta"
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
@@ -218,110 +218,110 @@ BOSS_SKILLS = {
 # ================= ACHIEVEMENTS =================
 ACHIEVEMENTS = [
     # === COMBATE (30) ===
-    {"id": "first_kill", "cat": "⚔️ Combate", "name": "Primeiro Sangue", "desc": "Derrote seu primeiro monstro", "xp": 500, "stat": "monsters_killed", "threshold": 1},
-    {"id": "kills_10", "cat": "⚔️ Combate", "name": "Caçador Iniciante", "desc": "Derrote 10 monstros", "xp": 800, "stat": "monsters_killed", "threshold": 10},
-    {"id": "kills_50", "cat": "⚔️ Combate", "name": "Caçador Experiente", "desc": "Derrote 50 monstros", "xp": 1500, "stat": "monsters_killed", "threshold": 50},
-    {"id": "kills_100", "cat": "⚔️ Combate", "name": "Caçador Veterano", "desc": "Derrote 100 monstros", "xp": 2500, "stat": "monsters_killed", "threshold": 100},
-    {"id": "kills_250", "cat": "⚔️ Combate", "name": "Exterminador", "desc": "Derrote 250 monstros", "xp": 4000, "stat": "monsters_killed", "threshold": 250},
-    {"id": "kills_500", "cat": "⚔️ Combate", "name": "Anjo da Morte", "desc": "Derrote 500 monstros", "xp": 6000, "stat": "monsters_killed", "threshold": 500},
-    {"id": "kills_1000", "cat": "⚔️ Combate", "name": "Lenda das Batalhas", "desc": "Derrote 1000 monstros", "xp": 10000, "stat": "monsters_killed", "threshold": 1000},
-    {"id": "boss_1", "cat": "⚔️ Combate", "name": "Caçador de Bosses", "desc": "Derrote seu primeiro boss", "xp": 1000, "stat": "bosses_defeated", "threshold": 1},
-    {"id": "boss_3", "cat": "⚔️ Combate", "name": "Domador de Colossais", "desc": "Derrote 3 bosses", "xp": 2000, "stat": "bosses_defeated", "threshold": 3},
-    {"id": "boss_5", "cat": "⚔️ Combate", "name": "Terror dos Bosses", "desc": "Derrote 5 bosses", "xp": 3500, "stat": "bosses_defeated", "threshold": 5},
-    {"id": "boss_10", "cat": "⚔️ Combate", "name": "Matador de Deuses", "desc": "Derrote 10 bosses", "xp": 6000, "stat": "bosses_defeated", "threshold": 10},
-    {"id": "boss_20", "cat": "⚔️ Combate", "name": "Lenda Imortal", "desc": "Derrote 20 bosses", "xp": 10000, "stat": "bosses_defeated", "threshold": 20},
-    {"id": "first_boss_unique", "cat": "⚔️ Combate", "name": "Primeiro Colossus", "desc": "Derrote o primeiro boss de level", "xp": 2000, "special": "level_boss_1"},
-    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 6 bosses de level", "xp": 15000, "special": "all_level_bosses"},
-    {"id": "slime_rei", "cat": "⚔️ Combate", "name": "Massacrador de Slimes", "desc": "Derrote o Slime Rei", "xp": 2000, "special": "boss_slime_rei"},
-    {"id": "dragon", "cat": "⚔️ Combate", "name": "Dragoneante", "desc": "Derrote o Dragão de Magma", "xp": 4000, "special": "boss_dragao"},
-    {"id": "shadow_lord", "cat": "⚔️ Combate", "name": "Derrotando as Sombras", "desc": "Derrote o Senhor das Sombras", "xp": 5000, "special": "boss_sombras"},
-    {"id": "pvp_win_1", "cat": "⚔️ Combate", "name": "Guerreiro PvP", "desc": "Vença seu primeiro duelo PvP", "xp": 1000, "special": "pvp_win_1"},
-    {"id": "pvp_win_10", "cat": "⚔️ Combate", "name": "Campeão de Duelos", "desc": "Vença 10 duelos PvP", "xp": 3000, "special": "pvp_win_10"},
-    {"id": "no_damage", "cat": "⚔️ Combate", "name": "Intocável", "desc": "Derrote um boss com HP acima de 80%", "xp": 3000, "special": "boss_no_damage"},
-    {"id": "crit_master", "cat": "⚔️ Combate", "name": "Mestre dos Críticos", "desc": "Acerte 50 golpes críticos", "xp": 2500, "special": "crit_50"},
-    {"id": "poison_master", "cat": "⚔️ Combate", "name": "Mestre dos Venenos", "desc": "Envenene 20 inimigos", "xp": 1500, "special": "poison_20"},
-    {"id": "stun_master", "cat": "⚔️ Combate", "name": "Mestre dos Atordoamentos", "desc": "Atordoe 15 inimigos", "xp": 1500, "special": "stun_15"},
-    {"id": "class_master", "cat": "⚔️ Combate", "name": "Mestre da Classe", "desc": "Use todas as habilidades da sua classe em batalha", "xp": 2000, "special": "all_skills_used"},
-    {"id": "dungeon_10", "cat": "⚔️ Combate", "name": "Explorador de Masmorras", "desc": "Complete 10 masmorras", "xp": 2000, "special": "dungeons_10"},
-    {"id": "dungeon_50", "cat": "⚔️ Combate", "name": "Mestre das Masmorras", "desc": "Complete 50 masmorras", "xp": 5000, "special": "dungeons_50"},
-    {"id": "legendary_drop", "cat": "⚔️ Combate", "name": "Agraciado pelos Deuses", "desc": "Receba um item Lendário de drop de boss", "xp": 3000, "special": "legendary_drop"},
-    {"id": "divine_drop", "cat": "⚔️ Combate", "name": "Toque Divino", "desc": "Receba um item Divino de drop de boss", "xp": 8000, "special": "divine_drop"},
-    {"id": "comeback_win", "cat": "⚔️ Combate", "name": "Vingança Épica", "desc": "Derrote um boss após usar o botão Vingança", "xp": 3000, "special": "comeback_win"},
-    {"id": "training_champion", "cat": "⚔️ Combate", "name": "Dedicação Suprema", "desc": "Use o sistema de treinamento 10 vezes", "xp": 2000, "special": "training_10"},
+    {"id": "first_kill", "cat": "⚔️ Combate", "name": "Primeiro Sangue", "desc": "Derrote seu primeiro monstro", "xp": 100, "stat": "monsters_killed", "threshold": 1},
+    {"id": "kills_10", "cat": "⚔️ Combate", "name": "Caçador Iniciante", "desc": "Derrote 10 monstros", "xp": 100, "stat": "monsters_killed", "threshold": 10},
+    {"id": "kills_50", "cat": "⚔️ Combate", "name": "Caçador Experiente", "desc": "Derrote 50 monstros", "xp": 200, "stat": "monsters_killed", "threshold": 50},
+    {"id": "kills_100", "cat": "⚔️ Combate", "name": "Caçador Veterano", "desc": "Derrote 100 monstros", "xp": 400, "stat": "monsters_killed", "threshold": 100},
+    {"id": "kills_250", "cat": "⚔️ Combate", "name": "Exterminador", "desc": "Derrote 250 monstros", "xp": 600, "stat": "monsters_killed", "threshold": 250},
+    {"id": "kills_500", "cat": "⚔️ Combate", "name": "Anjo da Morte", "desc": "Derrote 500 monstros", "xp": 900, "stat": "monsters_killed", "threshold": 500},
+    {"id": "kills_1000", "cat": "⚔️ Combate", "name": "Lenda das Batalhas", "desc": "Derrote 1000 monstros", "xp": 1500, "stat": "monsters_killed", "threshold": 1000},
+    {"id": "boss_1", "cat": "⚔️ Combate", "name": "Caçador de Bosses", "desc": "Derrote seu primeiro boss", "xp": 150, "stat": "bosses_defeated", "threshold": 1},
+    {"id": "boss_3", "cat": "⚔️ Combate", "name": "Domador de Colossais", "desc": "Derrote 3 bosses", "xp": 300, "stat": "bosses_defeated", "threshold": 3},
+    {"id": "boss_5", "cat": "⚔️ Combate", "name": "Terror dos Bosses", "desc": "Derrote 5 bosses", "xp": 500, "stat": "bosses_defeated", "threshold": 5},
+    {"id": "boss_10", "cat": "⚔️ Combate", "name": "Matador de Deuses", "desc": "Derrote 10 bosses", "xp": 900, "stat": "bosses_defeated", "threshold": 10},
+    {"id": "boss_20", "cat": "⚔️ Combate", "name": "Lenda Imortal", "desc": "Derrote 20 bosses", "xp": 1500, "stat": "bosses_defeated", "threshold": 20},
+    {"id": "first_boss_unique", "cat": "⚔️ Combate", "name": "Primeiro Colossus", "desc": "Derrote o primeiro boss de level", "xp": 300, "special": "level_boss_1"},
+    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 6 bosses de level", "xp": 2250, "special": "all_level_bosses"},
+    {"id": "slime_rei", "cat": "⚔️ Combate", "name": "Massacrador de Slimes", "desc": "Derrote o Slime Rei", "xp": 300, "special": "boss_slime_rei"},
+    {"id": "dragon", "cat": "⚔️ Combate", "name": "Dragoneante", "desc": "Derrote o Dragão de Magma", "xp": 600, "special": "boss_dragao"},
+    {"id": "shadow_lord", "cat": "⚔️ Combate", "name": "Derrotando as Sombras", "desc": "Derrote o Senhor das Sombras", "xp": 750, "special": "boss_sombras"},
+    {"id": "pvp_win_1", "cat": "⚔️ Combate", "name": "Guerreiro PvP", "desc": "Vença seu primeiro duelo PvP", "xp": 150, "special": "pvp_win_1"},
+    {"id": "pvp_win_10", "cat": "⚔️ Combate", "name": "Campeão de Duelos", "desc": "Vença 10 duelos PvP", "xp": 450, "special": "pvp_win_10"},
+    {"id": "no_damage", "cat": "⚔️ Combate", "name": "Intocável", "desc": "Derrote um boss com HP acima de 80%", "xp": 450, "special": "boss_no_damage"},
+    {"id": "crit_master", "cat": "⚔️ Combate", "name": "Mestre dos Críticos", "desc": "Acerte 50 golpes críticos", "xp": 400, "special": "crit_50"},
+    {"id": "poison_master", "cat": "⚔️ Combate", "name": "Mestre dos Venenos", "desc": "Envenene 20 inimigos", "xp": 200, "special": "poison_20"},
+    {"id": "stun_master", "cat": "⚔️ Combate", "name": "Mestre dos Atordoamentos", "desc": "Atordoe 15 inimigos", "xp": 200, "special": "stun_15"},
+    {"id": "class_master", "cat": "⚔️ Combate", "name": "Mestre da Classe", "desc": "Use todas as habilidades da sua classe em batalha", "xp": 300, "special": "all_skills_used"},
+    {"id": "dungeon_10", "cat": "⚔️ Combate", "name": "Explorador de Masmorras", "desc": "Complete 10 masmorras", "xp": 300, "special": "dungeons_10"},
+    {"id": "dungeon_50", "cat": "⚔️ Combate", "name": "Mestre das Masmorras", "desc": "Complete 50 masmorras", "xp": 750, "special": "dungeons_50"},
+    {"id": "legendary_drop", "cat": "⚔️ Combate", "name": "Agraciado pelos Deuses", "desc": "Receba um item Lendário de drop de boss", "xp": 450, "special": "legendary_drop"},
+    {"id": "divine_drop", "cat": "⚔️ Combate", "name": "Toque Divino", "desc": "Receba um item Divino de drop de boss", "xp": 1200, "special": "divine_drop"},
+    {"id": "comeback_win", "cat": "⚔️ Combate", "name": "Vingança Épica", "desc": "Derrote um boss após usar o botão Vingança", "xp": 450, "special": "comeback_win"},
+    {"id": "training_champion", "cat": "⚔️ Combate", "name": "Dedicação Suprema", "desc": "Use o sistema de treinamento 10 vezes", "xp": 300, "special": "training_10"},
     # === EXPLORAÇÃO (20) ===
-    {"id": "explore_1", "cat": "🗺️ Exploração", "name": "Aventureiro", "desc": "Explore pela primeira vez", "xp": 300, "stat": "areas_explored", "threshold": 1},
-    {"id": "explore_10", "cat": "🗺️ Exploração", "name": "Explorador", "desc": "Explore 10 áreas", "xp": 800, "stat": "areas_explored", "threshold": 10},
-    {"id": "explore_50", "cat": "🗺️ Exploração", "name": "Desbravador", "desc": "Explore 50 áreas", "xp": 2000, "stat": "areas_explored", "threshold": 50},
-    {"id": "explore_100", "cat": "🗺️ Exploração", "name": "Cartógrafo", "desc": "Explore 100 áreas", "xp": 4000, "stat": "areas_explored", "threshold": 100},
-    {"id": "explore_250", "cat": "🗺️ Exploração", "name": "Lenda dos Mapas", "desc": "Explore 250 áreas", "xp": 8000, "stat": "areas_explored", "threshold": 250},
-    {"id": "world_2", "cat": "🗺️ Exploração", "name": "Além das Fronteiras", "desc": "Desbloqueie o segundo mundo", "xp": 1500, "special": "world_2"},
-    {"id": "world_3", "cat": "🗺️ Exploração", "name": "Viajante dos Reinos", "desc": "Desbloqueie o terceiro mundo", "xp": 2500, "special": "world_3"},
-    {"id": "world_4", "cat": "🗺️ Exploração", "name": "Mestre dos Portais", "desc": "Desbloqueie o quarto mundo", "xp": 4000, "special": "world_4"},
-    {"id": "world_5", "cat": "🗺️ Exploração", "name": "Conquistador Dimensional", "desc": "Desbloqueie o quinto mundo", "xp": 6000, "special": "world_5"},
-    {"id": "all_worlds", "cat": "🗺️ Exploração", "name": "Senhor de Todos os Mundos", "desc": "Desbloqueie todos os mundos", "xp": 12000, "special": "all_worlds"},
-    {"id": "secret_dungeon", "cat": "🗺️ Exploração", "name": "Descobridor do Abismo", "desc": "Encontre uma masmorra secreta", "xp": 2000, "special": "secret_dungeon"},
-    {"id": "mimic_survive", "cat": "🗺️ Exploração", "name": "Sobrevivente do Mímico", "desc": "Sobreviva a um ataque de Mímico", "xp": 1500, "special": "mimic_survive"},
-    {"id": "hunt_10", "cat": "🗺️ Exploração", "name": "Caçador do Reino", "desc": "Cace 10 vezes no mesmo reino", "xp": 1000, "special": "hunt_10_same"},
-    {"id": "full_map", "cat": "🗺️ Exploração", "name": "Cartógrafo Completo", "desc": "Descubra todas as localizações de um mundo", "xp": 3000, "special": "full_map_world"},
-    {"id": "night_explorer", "cat": "🗺️ Exploração", "name": "Criatura da Noite", "desc": "Explore às 3 da manhã (horário do servidor)", "xp": 500, "special": "night_explore"},
-    {"id": "fast_explore", "cat": "🗺️ Exploração", "name": "Relâmpago", "desc": "Explore 5 áreas em uma hora", "xp": 1000, "special": "fast_5_explore"},
-    {"id": "dungeon_first_time", "cat": "🗺️ Exploração", "name": "Primeiro nas Sombras", "desc": "Entre em uma masmorra pela primeira vez", "xp": 500, "special": "first_dungeon"},
-    {"id": "loot_100", "cat": "🗺️ Exploração", "name": "Saqueador", "desc": "Colete 100 itens no total", "xp": 2000, "special": "loot_100"},
-    {"id": "survive_trap", "cat": "🗺️ Exploração", "name": "Sortudo", "desc": "Sobreviva a 5 armadilhas em masmorras", "xp": 1000, "special": "survive_5_traps"},
-    {"id": "no_fail_explore", "cat": "🗺️ Exploração", "name": "Explorador Invicto", "desc": "Explore 10 vezes seguidas sem falhar", "xp": 2500, "special": "explore_10_streak"},
+    {"id": "explore_1", "cat": "🗺️ Exploração", "name": "Aventureiro", "desc": "Explore pela primeira vez", "xp": 50, "stat": "areas_explored", "threshold": 1},
+    {"id": "explore_10", "cat": "🗺️ Exploração", "name": "Explorador", "desc": "Explore 10 áreas", "xp": 100, "stat": "areas_explored", "threshold": 10},
+    {"id": "explore_50", "cat": "🗺️ Exploração", "name": "Desbravador", "desc": "Explore 50 áreas", "xp": 300, "stat": "areas_explored", "threshold": 50},
+    {"id": "explore_100", "cat": "🗺️ Exploração", "name": "Cartógrafo", "desc": "Explore 100 áreas", "xp": 600, "stat": "areas_explored", "threshold": 100},
+    {"id": "explore_250", "cat": "🗺️ Exploração", "name": "Lenda dos Mapas", "desc": "Explore 250 áreas", "xp": 1200, "stat": "areas_explored", "threshold": 250},
+    {"id": "world_2", "cat": "🗺️ Exploração", "name": "Além das Fronteiras", "desc": "Desbloqueie o segundo mundo", "xp": 200, "special": "world_2"},
+    {"id": "world_3", "cat": "🗺️ Exploração", "name": "Viajante dos Reinos", "desc": "Desbloqueie o terceiro mundo", "xp": 400, "special": "world_3"},
+    {"id": "world_4", "cat": "🗺️ Exploração", "name": "Mestre dos Portais", "desc": "Desbloqueie o quarto mundo", "xp": 600, "special": "world_4"},
+    {"id": "world_5", "cat": "🗺️ Exploração", "name": "Conquistador Dimensional", "desc": "Desbloqueie o quinto mundo", "xp": 900, "special": "world_5"},
+    {"id": "all_worlds", "cat": "🗺️ Exploração", "name": "Senhor de Todos os Mundos", "desc": "Desbloqueie todos os mundos", "xp": 1800, "special": "all_worlds"},
+    {"id": "secret_dungeon", "cat": "🗺️ Exploração", "name": "Descobridor do Abismo", "desc": "Encontre uma masmorra secreta", "xp": 300, "special": "secret_dungeon"},
+    {"id": "mimic_survive", "cat": "🗺️ Exploração", "name": "Sobrevivente do Mímico", "desc": "Sobreviva a um ataque de Mímico", "xp": 200, "special": "mimic_survive"},
+    {"id": "hunt_10", "cat": "🗺️ Exploração", "name": "Caçador do Reino", "desc": "Cace 10 vezes no mesmo reino", "xp": 150, "special": "hunt_10_same"},
+    {"id": "full_map", "cat": "🗺️ Exploração", "name": "Cartógrafo Completo", "desc": "Descubra todas as localizações de um mundo", "xp": 450, "special": "full_map_world"},
+    {"id": "night_explorer", "cat": "🗺️ Exploração", "name": "Criatura da Noite", "desc": "Explore às 3 da manhã (horário do servidor)", "xp": 100, "special": "night_explore"},
+    {"id": "fast_explore", "cat": "🗺️ Exploração", "name": "Relâmpago", "desc": "Explore 5 áreas em uma hora", "xp": 150, "special": "fast_5_explore"},
+    {"id": "dungeon_first_time", "cat": "🗺️ Exploração", "name": "Primeiro nas Sombras", "desc": "Entre em uma masmorra pela primeira vez", "xp": 100, "special": "first_dungeon"},
+    {"id": "loot_100", "cat": "🗺️ Exploração", "name": "Saqueador", "desc": "Colete 100 itens no total", "xp": 300, "special": "loot_100"},
+    {"id": "survive_trap", "cat": "🗺️ Exploração", "name": "Sortudo", "desc": "Sobreviva a 5 armadilhas em masmorras", "xp": 150, "special": "survive_5_traps"},
+    {"id": "no_fail_explore", "cat": "🗺️ Exploração", "name": "Explorador Invicto", "desc": "Explore 10 vezes seguidas sem falhar", "xp": 400, "special": "explore_10_streak"},
     # === ECONOMIA (20) ===
-    {"id": "coins_1k", "cat": "💰 Economia", "name": "Primeiras Moedas", "desc": "Ganhe 1.000 CSI no total", "xp": 500, "stat": "total_coins_earned", "threshold": 1000},
-    {"id": "coins_10k", "cat": "💰 Economia", "name": "Comerciante", "desc": "Ganhe 10.000 CSI no total", "xp": 1500, "stat": "total_coins_earned", "threshold": 10000},
-    {"id": "coins_50k", "cat": "💰 Economia", "name": "Mercador Rico", "desc": "Ganhe 50.000 CSI no total", "xp": 3000, "stat": "total_coins_earned", "threshold": 50000},
-    {"id": "coins_100k", "cat": "💰 Economia", "name": "Milionário", "desc": "Ganhe 100.000 CSI no total", "xp": 6000, "stat": "total_coins_earned", "threshold": 100000},
-    {"id": "coins_500k", "cat": "💰 Economia", "name": "Magnata", "desc": "Ganhe 500.000 CSI no total", "xp": 12000, "stat": "total_coins_earned", "threshold": 500000},
-    {"id": "buy_first_item", "cat": "💰 Economia", "name": "Primeira Compra", "desc": "Compre seu primeiro item na loja", "xp": 300, "special": "buy_first"},
-    {"id": "buy_legendary", "cat": "💰 Economia", "name": "Comprador de Sonhos", "desc": "Compre um item Lendário", "xp": 2000, "special": "buy_legendary"},
-    {"id": "sell_items", "cat": "💰 Economia", "name": "Comerciante Nato", "desc": "Venda 20 itens", "xp": 1000, "special": "sell_20"},
-    {"id": "equip_epic", "cat": "💰 Economia", "name": "Equipado para a Guerra", "desc": "Equipe um item Épico ou melhor", "xp": 1000, "special": "equip_epic"},
-    {"id": "equip_legendary", "cat": "💰 Economia", "name": "Escolhido pelos Deuses", "desc": "Equipe um item Lendário", "xp": 3000, "special": "equip_legendary"},
-    {"id": "equip_divine", "cat": "💰 Economia", "name": "Avatar Divino", "desc": "Equipe um item Divino", "xp": 8000, "special": "equip_divine"},
-    {"id": "full_set", "cat": "💰 Economia", "name": "Arsenal Completo", "desc": "Equipe arma e armadura ao mesmo tempo", "xp": 800, "special": "full_equip"},
-    {"id": "inv_20", "cat": "💰 Economia", "name": "Colecionador", "desc": "Tenha 20 itens no inventário", "xp": 500, "special": "inv_20"},
-    {"id": "inv_50", "cat": "💰 Economia", "name": "Acumulador", "desc": "Tenha 50 itens no inventário", "xp": 1500, "special": "inv_50"},
-    {"id": "potion_10", "cat": "💰 Economia", "name": "Alquimista", "desc": "Beba 10 poções", "xp": 800, "special": "potion_10"},
-    {"id": "broke", "cat": "💰 Economia", "name": "Falido", "desc": "Fique com 0 moedas CSI", "xp": 200, "special": "broke"},
-    {"id": "xp_10k", "cat": "💰 Economia", "name": "Veterano", "desc": "Acumule 10.000 XP no total", "xp": 1000, "stat": "total_xp_earned", "threshold": 10000},
-    {"id": "xp_100k", "cat": "💰 Economia", "name": "Lendário do XP", "desc": "Acumule 100.000 XP no total", "xp": 5000, "stat": "total_xp_earned", "threshold": 100000},
-    {"id": "xp_500k", "cat": "💰 Economia", "name": "Transcendente", "desc": "Acumule 500.000 XP no total", "xp": 12000, "stat": "total_xp_earned", "threshold": 500000},
-    {"id": "work_first", "cat": "💰 Economia", "name": "Trabalhador Honesto", "desc": "Trabalhe pela primeira vez", "xp": 300, "special": "work_first"},
+    {"id": "coins_1k", "cat": "💰 Economia", "name": "Primeiras Moedas", "desc": "Ganhe 1.000 CSI no total", "xp": 100, "stat": "total_coins_earned", "threshold": 1000},
+    {"id": "coins_10k", "cat": "💰 Economia", "name": "Comerciante", "desc": "Ganhe 10.000 CSI no total", "xp": 200, "stat": "total_coins_earned", "threshold": 10000},
+    {"id": "coins_50k", "cat": "💰 Economia", "name": "Mercador Rico", "desc": "Ganhe 50.000 CSI no total", "xp": 450, "stat": "total_coins_earned", "threshold": 50000},
+    {"id": "coins_100k", "cat": "💰 Economia", "name": "Milionário", "desc": "Ganhe 100.000 CSI no total", "xp": 900, "stat": "total_coins_earned", "threshold": 100000},
+    {"id": "coins_500k", "cat": "💰 Economia", "name": "Magnata", "desc": "Ganhe 500.000 CSI no total", "xp": 1800, "stat": "total_coins_earned", "threshold": 500000},
+    {"id": "buy_first_item", "cat": "💰 Economia", "name": "Primeira Compra", "desc": "Compre seu primeiro item na loja", "xp": 50, "special": "buy_first"},
+    {"id": "buy_legendary", "cat": "💰 Economia", "name": "Comprador de Sonhos", "desc": "Compre um item Lendário", "xp": 300, "special": "buy_legendary"},
+    {"id": "sell_items", "cat": "💰 Economia", "name": "Comerciante Nato", "desc": "Venda 20 itens", "xp": 150, "special": "sell_20"},
+    {"id": "equip_epic", "cat": "💰 Economia", "name": "Equipado para a Guerra", "desc": "Equipe um item Épico ou melhor", "xp": 150, "special": "equip_epic"},
+    {"id": "equip_legendary", "cat": "💰 Economia", "name": "Escolhido pelos Deuses", "desc": "Equipe um item Lendário", "xp": 450, "special": "equip_legendary"},
+    {"id": "equip_divine", "cat": "💰 Economia", "name": "Avatar Divino", "desc": "Equipe um item Divino", "xp": 1200, "special": "equip_divine"},
+    {"id": "full_set", "cat": "💰 Economia", "name": "Arsenal Completo", "desc": "Equipe arma e armadura ao mesmo tempo", "xp": 100, "special": "full_equip"},
+    {"id": "inv_20", "cat": "💰 Economia", "name": "Colecionador", "desc": "Tenha 20 itens no inventário", "xp": 100, "special": "inv_20"},
+    {"id": "inv_50", "cat": "💰 Economia", "name": "Acumulador", "desc": "Tenha 50 itens no inventário", "xp": 200, "special": "inv_50"},
+    {"id": "potion_10", "cat": "💰 Economia", "name": "Alquimista", "desc": "Beba 10 poções", "xp": 100, "special": "potion_10"},
+    {"id": "broke", "cat": "💰 Economia", "name": "Falido", "desc": "Fique com 0 moedas CSI", "xp": 50, "special": "broke"},
+    {"id": "xp_10k", "cat": "💰 Economia", "name": "Veterano", "desc": "Acumule 10.000 XP no total", "xp": 150, "stat": "total_xp_earned", "threshold": 10000},
+    {"id": "xp_100k", "cat": "💰 Economia", "name": "Lendário do XP", "desc": "Acumule 100.000 XP no total", "xp": 750, "stat": "total_xp_earned", "threshold": 100000},
+    {"id": "xp_500k", "cat": "💰 Economia", "name": "Transcendente", "desc": "Acumule 500.000 XP no total", "xp": 1800, "stat": "total_xp_earned", "threshold": 500000},
+    {"id": "work_first", "cat": "💰 Economia", "name": "Trabalhador Honesto", "desc": "Trabalhe pela primeira vez", "xp": 50, "special": "work_first"},
     # === PROGRESSÃO (20) ===
-    {"id": "level_5", "cat": "🌟 Progressão", "name": "Primeiros Passos", "desc": "Alcance o nível 5", "xp": 500, "stat": "level", "threshold": 5},
-    {"id": "level_10", "cat": "🌟 Progressão", "name": "Guerreiro dos Campos", "desc": "Alcance o nível 10", "xp": 1000, "stat": "level", "threshold": 10},
-    {"id": "level_20", "cat": "🌟 Progressão", "name": "Cavaleiro do Reino", "desc": "Alcance o nível 20", "xp": 2000, "stat": "level", "threshold": 20},
-    {"id": "level_30", "cat": "🌟 Progressão", "name": "Herói Consagrado", "desc": "Alcance o nível 30", "xp": 3500, "stat": "level", "threshold": 30},
-    {"id": "level_40", "cat": "🌟 Progressão", "name": "Campeão dos Reinos", "desc": "Alcance o nível 40", "xp": 5000, "stat": "level", "threshold": 40},
-    {"id": "level_50", "cat": "🌟 Progressão", "name": "Lenda Viva", "desc": "Alcance o nível 50", "xp": 8000, "stat": "level", "threshold": 50},
-    {"id": "level_60", "cat": "🌟 Progressão", "name": "Deus Mortal", "desc": "Alcance o nível 60", "xp": 15000, "stat": "level", "threshold": 60},
-    {"id": "class_chosen", "cat": "🌟 Progressão", "name": "O Chamado", "desc": "Escolha sua classe", "xp": 500, "special": "class_chosen"},
-    {"id": "pet_first", "cat": "🌟 Progressão", "name": "Tamer", "desc": "Tenha seu primeiro pet", "xp": 800, "special": "pet_first"},
-    {"id": "pet_rare", "cat": "🌟 Progressão", "name": "Dono de Raridades", "desc": "Capture um pet Raro ou melhor", "xp": 2000, "special": "pet_rare"},
-    {"id": "guild_join", "cat": "🌟 Progressão", "name": "Companheiro de Guilda", "desc": "Entre em uma guilda", "xp": 1000, "special": "guild_join"},
-    {"id": "guild_master", "cat": "🌟 Progressão", "name": "Líder Supremo", "desc": "Crie ou lidere uma guilda", "xp": 3000, "special": "guild_master"},
-    {"id": "quest_1", "cat": "🌟 Progressão", "name": "Missão Aceita", "desc": "Complete sua primeira quest", "xp": 500, "special": "quest_1"},
-    {"id": "quest_10", "cat": "🌟 Progressão", "name": "Herói das Missões", "desc": "Complete 10 quests", "xp": 2000, "special": "quest_10"},
-    {"id": "quest_25", "cat": "🌟 Progressão", "name": "Lenda das Quests", "desc": "Complete 25 quests", "xp": 5000, "special": "quest_25"},
-    {"id": "alignment_hero", "cat": "🌟 Progressão", "name": "Coração de Herói", "desc": "Alcance o alinhamento Herói", "xp": 2000, "special": "alignment_hero"},
-    {"id": "alignment_villain", "cat": "🌟 Progressão", "name": "Sombra do Caos", "desc": "Alcance o alinhamento Vilão", "xp": 2000, "special": "alignment_villain"},
-    {"id": "job_first", "cat": "🌟 Progressão", "name": "Trabalhador da Cidade", "desc": "Aceite seu primeiro emprego", "xp": 800, "special": "job_first"},
-    {"id": "defend_city", "cat": "🌟 Progressão", "name": "Guardião das Muralhas", "desc": "Defenda a cidade pela primeira vez", "xp": 1000, "special": "defend_city"},
-    {"id": "farm_first_harvest", "cat": "🌟 Progressão", "name": "Fazendeiro", "desc": "Faça sua primeira colheita na fazenda", "xp": 500, "special": "farm_harvest"},
+    {"id": "level_5", "cat": "🌟 Progressão", "name": "Primeiros Passos", "desc": "Alcance o nível 5", "xp": 100, "stat": "level", "threshold": 5},
+    {"id": "level_10", "cat": "🌟 Progressão", "name": "Guerreiro dos Campos", "desc": "Alcance o nível 10", "xp": 150, "stat": "level", "threshold": 10},
+    {"id": "level_20", "cat": "🌟 Progressão", "name": "Cavaleiro do Reino", "desc": "Alcance o nível 20", "xp": 300, "stat": "level", "threshold": 20},
+    {"id": "level_30", "cat": "🌟 Progressão", "name": "Herói Consagrado", "desc": "Alcance o nível 30", "xp": 500, "stat": "level", "threshold": 30},
+    {"id": "level_40", "cat": "🌟 Progressão", "name": "Campeão dos Reinos", "desc": "Alcance o nível 40", "xp": 750, "stat": "level", "threshold": 40},
+    {"id": "level_50", "cat": "🌟 Progressão", "name": "Lenda Viva", "desc": "Alcance o nível 50", "xp": 1200, "stat": "level", "threshold": 50},
+    {"id": "level_60", "cat": "🌟 Progressão", "name": "Deus Mortal", "desc": "Alcance o nível 60", "xp": 2250, "stat": "level", "threshold": 60},
+    {"id": "class_chosen", "cat": "🌟 Progressão", "name": "O Chamado", "desc": "Escolha sua classe", "xp": 100, "special": "class_chosen"},
+    {"id": "pet_first", "cat": "🌟 Progressão", "name": "Tamer", "desc": "Tenha seu primeiro pet", "xp": 100, "special": "pet_first"},
+    {"id": "pet_rare", "cat": "🌟 Progressão", "name": "Dono de Raridades", "desc": "Capture um pet Raro ou melhor", "xp": 300, "special": "pet_rare"},
+    {"id": "guild_join", "cat": "🌟 Progressão", "name": "Companheiro de Guilda", "desc": "Entre em uma guilda", "xp": 150, "special": "guild_join"},
+    {"id": "guild_master", "cat": "🌟 Progressão", "name": "Líder Supremo", "desc": "Crie ou lidere uma guilda", "xp": 450, "special": "guild_master"},
+    {"id": "quest_1", "cat": "🌟 Progressão", "name": "Missão Aceita", "desc": "Complete sua primeira quest", "xp": 100, "special": "quest_1"},
+    {"id": "quest_10", "cat": "🌟 Progressão", "name": "Herói das Missões", "desc": "Complete 10 quests", "xp": 300, "special": "quest_10"},
+    {"id": "quest_25", "cat": "🌟 Progressão", "name": "Lenda das Quests", "desc": "Complete 25 quests", "xp": 750, "special": "quest_25"},
+    {"id": "alignment_hero", "cat": "🌟 Progressão", "name": "Coração de Herói", "desc": "Alcance o alinhamento Herói", "xp": 300, "special": "alignment_hero"},
+    {"id": "alignment_villain", "cat": "🌟 Progressão", "name": "Sombra do Caos", "desc": "Alcance o alinhamento Vilão", "xp": 300, "special": "alignment_villain"},
+    {"id": "job_first", "cat": "🌟 Progressão", "name": "Trabalhador da Cidade", "desc": "Aceite seu primeiro emprego", "xp": 100, "special": "job_first"},
+    {"id": "defend_city", "cat": "🌟 Progressão", "name": "Guardião das Muralhas", "desc": "Defenda a cidade pela primeira vez", "xp": 150, "special": "defend_city"},
+    {"id": "farm_first_harvest", "cat": "🌟 Progressão", "name": "Fazendeiro", "desc": "Faça sua primeira colheita na fazenda", "xp": 100, "special": "farm_harvest"},
     # === SECRETAS (10) ===
-    {"id": "death_cheat", "cat": "🔮 Secreta", "name": "Frágil Imortalidade", "desc": "Sobreviva com 1 HP em batalha", "xp": 5000, "special": "zero_hp_survive"},
-    {"id": "max_mana", "cat": "🔮 Secreta", "name": "Reservatório Arcano", "desc": "Use mana máxima em uma única batalha", "xp": 3000, "special": "max_mana_battle"},
-    {"id": "all_classes", "cat": "🔮 Secreta", "name": "O Polivalente", "desc": "Mude de classe 3 vezes", "xp": 8000, "special": "all_classes_tried"},
-    {"id": "midnight_boss", "cat": "🔮 Secreta", "name": "Criatura da Meia-Noite", "desc": "Derrote um boss à meia-noite", "xp": 4000, "special": "boss_midnight"},
-    {"id": "rich_broke", "cat": "🔮 Secreta", "name": "Ciclo da Fortuna", "desc": "Acumule 10k CSI e depois fique com 0", "xp": 3000, "special": "rich_then_broke"},
-    {"id": "solo_all_bosses", "cat": "🔮 Secreta", "name": "Solitário Lendário", "desc": "Derrote todos os bosses de level sozinho", "xp": 10000, "special": "solo_all_bosses"},
-    {"id": "perfect_boss", "cat": "🔮 Secreta", "name": "Combate Perfeito", "desc": "Derrote um boss sem ser envenenado/atordoado", "xp": 6000, "special": "perfect_boss_fight"},
-    {"id": "first_message", "cat": "🔮 Secreta", "name": "O Começo", "desc": "Seja o primeiro jogador do servidor", "xp": 1000, "special": "first_player"},
-    {"id": "born_survivor", "cat": "🔮 Secreta", "name": "Nascido para Sobreviver", "desc": "Sobreviva a 100 batalhas", "xp": 5000, "special": "survived_100_battles"},
-    {"id": "max_training", "cat": "🔮 Secreta", "name": "Além dos Limites", "desc": "Maximize todos os boosts de treinamento", "xp": 8000, "special": "max_all_training"},
+    {"id": "death_cheat", "cat": "🔮 Secreta", "name": "Frágil Imortalidade", "desc": "Sobreviva com 1 HP em batalha", "xp": 750, "special": "zero_hp_survive"},
+    {"id": "max_mana", "cat": "🔮 Secreta", "name": "Reservatório Arcano", "desc": "Use mana máxima em uma única batalha", "xp": 450, "special": "max_mana_battle"},
+    {"id": "all_classes", "cat": "🔮 Secreta", "name": "O Polivalente", "desc": "Mude de classe 3 vezes", "xp": 1200, "special": "all_classes_tried"},
+    {"id": "midnight_boss", "cat": "🔮 Secreta", "name": "Criatura da Meia-Noite", "desc": "Derrote um boss à meia-noite", "xp": 600, "special": "boss_midnight"},
+    {"id": "rich_broke", "cat": "🔮 Secreta", "name": "Ciclo da Fortuna", "desc": "Acumule 10k CSI e depois fique com 0", "xp": 450, "special": "rich_then_broke"},
+    {"id": "solo_all_bosses", "cat": "🔮 Secreta", "name": "Solitário Lendário", "desc": "Derrote todos os bosses de level sozinho", "xp": 1500, "special": "solo_all_bosses"},
+    {"id": "perfect_boss", "cat": "🔮 Secreta", "name": "Combate Perfeito", "desc": "Derrote um boss sem ser envenenado/atordoado", "xp": 900, "special": "perfect_boss_fight"},
+    {"id": "first_message", "cat": "🔮 Secreta", "name": "O Começo", "desc": "Seja o primeiro jogador do servidor", "xp": 150, "special": "first_player"},
+    {"id": "born_survivor", "cat": "🔮 Secreta", "name": "Nascido para Sobreviver", "desc": "Sobreviva a 100 batalhas", "xp": 750, "special": "survived_100_battles"},
+    {"id": "max_training", "cat": "🔮 Secreta", "name": "Além dos Limites", "desc": "Maximize todos os boosts de treinamento", "xp": 1200, "special": "max_all_training"},
 ]
 
 TRAINING_OPTIONS = {
@@ -3482,7 +3482,7 @@ def get_item_sell_price(item_name):
 
     return 3  # recursos
 
-def add_xp(user_id, amount):
+def add_xp(user_id, amount, bypass_boss_gate=False):
     player = get_player(user_id)
 
     # XP aumentado significativamente
@@ -3490,6 +3490,14 @@ def add_xp(user_id, amount):
 
     if player.get("class") == "Bardo":
         amount = int(amount * 1.2)
+
+    # BLOQUEIO DE BOSS: Se o jogador está no nível de boss e não derrotou ele, XP é bloqueado
+    boss_gate_levels = {9, 19, 29, 39, 49, 59}
+    if not bypass_boss_gate and player["level"] in boss_gate_levels:
+        boss_data = get_level_boss(player["level"])
+        if boss_data and boss_data["name"] not in player.get("bosses", []):
+            # XP bloqueado — jogador deve derrotar o boss primeiro
+            return False  # retorna False sem ganhar XP
 
     player["xp"] += amount
     player["total_xp_earned"] = player.get("total_xp_earned", 0) + amount
@@ -4778,7 +4786,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     player2["active_effects"] = effects2
     save_player_db(user_id, player2)
 
-    leveled = add_xp(user_id, xp)
+    leveled = add_xp(user_id, xp, bypass_boss_gate=True)
     add_coins(user_id, coins)
 
     victory_embed = discord.Embed(
@@ -4808,17 +4816,19 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 inline=False
             )
 
-    # Item drop
+    # Item drop (raridades MUITO reduzidas — boss é a ÚNICA fonte de itens altos)
     drop_rarity = None
     rand = random.random()
-    if rand < 0.003:  # 0.3% chance Divino/Primordial (BOSS ONLY)
+    if rand < 0.0005:  # 0.05% Divino/Primordial
         drop_rarity = random.choice(["Divino", "Primordial"])
-    elif rand < 0.05:  # 5% Mítico
+    elif rand < 0.005:  # 0.5% Mítico
         drop_rarity = "Mítico"
-    elif rand < 0.15:  # 10% Lendário
+    elif rand < 0.02:  # 2% Lendário
         drop_rarity = "Lendário"
-    elif rand < 0.35:  # 20% Épico
+    elif rand < 0.06:  # 6% Épico
         drop_rarity = "Épico"
+    elif rand < 0.12:  # 6% Raro
+        drop_rarity = "Raro"
 
     if drop_rarity:
         item_type = random.choice(["weapon", "armor"])
@@ -4848,9 +4858,9 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             await channel.send(embed=victory_embed)
     else:
         # Potion drop
-        if random.random() < 0.35:
-            pot_rarities = ["Raro", "Épico", "Lendário"]
-            pot_weights = [55, 35, 10]
+        if random.random() < 0.15:
+            pot_rarities = ["Raro", "Épico"]
+            pot_weights = [70, 30]
             chosen_rarity = random.choices(pot_rarities, weights=pot_weights)[0]
             pots = [name for name, data in POTIONS.items() if data["rarity"] == chosen_rarity]
             if pots:
@@ -5408,18 +5418,28 @@ async def send_prologue(guild):
     # EMBED 7 — Comandos completos
     # ══════════════════════════════════════════
     embed7 = discord.Embed(
-        title="⚔️ Guia de Comandos",
-        description="*Tudo que você precisa para começar sua lenda:*",
+        title="⚔️ Guia Completo de Comandos",
+        description="*Tudo que você precisa para conquistar o mundo:*",
         color=0x3498DB
     )
     embed7.add_field(
-        name="🌍 Exploração",
-        value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon` | `procurar pet` | `procurar cidade`",
+        name="🌍 Exploração & Caça",
+        value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon`",
         inline=False
     )
     embed7.add_field(
         name="👹 Boss & Combate",
-        value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+        value="`encontrar boss` — boss do reino atual\n`desafiar boss` — enfrente o boss (level boss se nível 9/19/29/39/49/59)\n`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+        inline=False
+    )
+    embed7.add_field(
+        name="💪 Treinamento (após derrota em boss)",
+        value="`treinar força` — +ATK\n`treinar defesa` — +DEF\n`treinar vitalidade` — +HP Máx\n`treinar intensivo` — +ATK+DEF+HP",
+        inline=False
+    )
+    embed7.add_field(
+        name="🏆 Conquistas",
+        value="`ver conquistas` — veja todas as 100 conquistas e seu progresso",
         inline=False
     )
     embed7.add_field(
@@ -5454,15 +5474,15 @@ async def send_prologue(guild):
     )
     embed7.add_field(
         name="🛒 Itens & Economia",
-        value="`[poção], usar` | `vender [item]` | `equipar [item]` | `trocar coins <valor>` | `minerar baú`",
+        value="`usar [poção]` | `vender [item]` | `equipar [item]` | `trocar coins <valor>` | `minerar baú`",
         inline=False
     )
     embed7.add_field(
-        name="📚 Lore",
-        value="`falar npc especial` | `procurar cidade` — descubra histórias dos NPCs e livros escondidos!",
+        name="📚 Info & Lore",
+        value="`comandos` — ver esta lista | `falar npc especial` | `abrir livro`",
         inline=False
     )
-    embed7.set_footer(text="🌟 \"E assim, uma nova história começa...\" — O Narrador")
+    embed7.set_footer(text="🌟 \"E assim, uma nova história começa...\" — O Narrador | Use 'comandos' para ver esta lista a qualquer momento!")
     await channel.send(embed=embed7)
     await asyncio.sleep(1)
 
@@ -5788,25 +5808,49 @@ async def on_message(message):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
 
-        # Verifica se tem boss de level
-        boss_data = get_level_boss(player["level"])
+        # PRIORIDADE: Boss de level (se nível 9/19/29/39/49/59 e ainda não derrotou)
+        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+        boss_data = None
+        is_level_boss = False
+
+        if player["level"] in boss_gate_levels:
+            boss_data = get_level_boss(player["level"])
+            if boss_data and boss_data["name"] not in player.get("bosses", []):
+                is_level_boss = True
+            else:
+                boss_data = None  # Já derrotou, vai pegar boss do mundo
+
         if not boss_data:
-            world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
-            boss_data = WORLDS[world_level]["boss"]
+            # Verifica se tem boss pendente (de encontrar boss)
+            effects = player.get("active_effects", {})
+            pending = effects.get("pending_boss")
+            if pending:
+                boss_data = pending
+            else:
+                # Boss do mundo atual
+                world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+                boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
+                boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
+                # Armazenar como pending_boss
+                effects["pending_boss"] = boss_data
+                player["active_effects"] = effects
+                save_player_db(user_id, player)
+
+        color = discord.Color.dark_red() if is_level_boss else discord.Color.red()
+        title = "🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!" if is_level_boss else "⚔️ BOSS ENCONTRADO!"
+        desc_extra = "\n\n⚠️ **Derrote-o para desbloquear o próximo reino e desbloquear o XP!**" if is_level_boss else ""
 
         embed = discord.Embed(
-            title="⚠️ PRESENÇA AMEAÇADORA",
-            description=f"*'O ar fica pesado... Uma sombra colossal se ergue diante de você...'*\n\n👹 **{boss_data['name']}** bloqueia seu caminho!",
-            color=discord.Color.dark_red()
+            title=title,
+            description=f"*'O ar fica pesado... Uma sombra colossal se ergue!'*\n\n👹 **{boss_data['name']}** surge!{desc_extra}",
+            color=color
         )
-        embed.add_field(name="❤️ HP do Boss", value=str(boss_data["hp"]), inline=True)
-        embed.add_field(name="⚔️ ATK do Boss", value=str(boss_data["atk"]), inline=True)
-        embed.add_field(name="⭐ XP de Recompensa", value=str(boss_data["xp"]), inline=True)
-        embed.add_field(
-            name="💡 Dica",
-            value="Você pode chamar aliados para aumentar suas chances de vitória!",
-            inline=False
-        )
+        embed.add_field(name="❤️ HP", value=f"`{boss_data['hp']:,}`", inline=True)
+        embed.add_field(name="⚔️ ATK", value=f"`{boss_data['atk']}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`{boss_data['xp']:,}`", inline=True)
+        if is_level_boss:
+            embed.add_field(name="🚫 XP Bloqueado", value="Ganhe XP novamente derrotando este boss!", inline=False)
+        embed.add_field(name="💡 Dica", value="Use os botões abaixo para lutar ou chamar aliados!", inline=False)
 
         view = BossButton(user_id, boss_data["name"])
         await message.channel.send(embed=embed, view=view)
@@ -6150,6 +6194,41 @@ async def on_message(message):
     # ======================================================
     # ================= EXPLORAR ===========================
     # ======================================================
+    if content in ["comandos", "ver comandos", "lista de comandos", "ajuda", "help", "/comandos"]:
+        embed_cmd = discord.Embed(
+            title="📋 TODOS OS COMANDOS — World CSI",
+            description="*Lista completa de comandos disponíveis:*",
+            color=0x3498DB
+        )
+        embed_cmd.add_field(name="🌍 Exploração & Caça", value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon`", inline=False)
+        embed_cmd.add_field(
+            name="👹 Boss & Combate",
+            value="`encontrar boss` — boss do reino atual (NÃO é boss de level)\n`desafiar boss` — enfrenta o boss atual/pendente\n`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+            inline=False
+        )
+        embed_cmd.add_field(
+            name="⚠️ Boss de Nível (9/19/29/39/49/59)",
+            value="Ao chegar nesses níveis, um boss bloqueará seu XP!\n🔒 XP fica bloqueado até derrotar o boss\n`desafiar boss` para enfrentá-lo\n`treinar força/defesa/vitalidade/intensivo` para se preparar",
+            inline=False
+        )
+        embed_cmd.add_field(
+            name="💪 Treinamento",
+            value="`treinar força` +ATK | `treinar defesa` +DEF\n`treinar vitalidade` +HP Max | `treinar intensivo` +tudo",
+            inline=False
+        )
+        embed_cmd.add_field(name="🏆 Conquistas", value="`ver conquistas` — 100 conquistas com recompensas de XP", inline=False)
+        embed_cmd.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher classe` | `ver mana`", inline=False)
+        embed_cmd.add_field(name="📋 Quests & Moral", value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`", inline=False)
+        embed_cmd.add_field(name="🐾 Pets & Fazenda", value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar`", inline=False)
+        embed_cmd.add_field(name="💼 Empregos", value="`procurar emprego` | `trabalhar` | `largar emprego` | `defender cidade`", inline=False)
+        embed_cmd.add_field(name="🗺️ Mapa", value="`abrir mapa` | `viajar <local>` | `procurar cidade`", inline=False)
+        embed_cmd.add_field(name="🏰 Guilda & Social", value="`criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`", inline=False)
+        embed_cmd.add_field(name="🛒 Itens", value="`usar [poção]` | `vender [item]` | `equipar [item]` | `minerar baú`", inline=False)
+        embed_cmd.add_field(name="👑 Títulos", value="`me tornar rei` | `ver títulos`", inline=False)
+        embed_cmd.set_footer(text="💡 Itens raros só caem de bosses ou exploração (dado 9-10)! Caçar só dropa poções comuns.")
+        await message.channel.send(embed=embed_cmd)
+        return
+
     if any(word in content for word in ["explorar", "vou explorar", "andar", "caminhar", "vou para"]):
         player = get_player(user_id)
         if player["level"] >= 2 and not player.get("class"):
@@ -6271,7 +6350,7 @@ async def on_message(message):
         elif roll == 9:
             item_type = random.choice(["weapon", "armor"])
             item_list = "weapons" if item_type == "weapon" else "armor"
-            rarity = random.choices(["Raro", "Épico", "Lendário"], weights=[50, 35, 15])[0]
+            rarity = random.choices(["Incomum", "Raro", "Épico"], weights=[55, 35, 10])[0]
             items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
             item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
             xp = random.randint(60, 100)
@@ -6296,8 +6375,8 @@ async def on_message(message):
         else:  # roll == 10
             item_type = random.choice(["weapon", "armor"])
             item_list = "weapons" if item_type == "weapon" else "armor"
-            legendary = [i for i in ITEMS[item_list] if i["rarity"] in ["Lendário", "Mítico", "Divino"]]
-            item = random.choice(legendary)
+            epic_pool = [i for i in ITEMS[item_list] if i["rarity"] in ["Raro", "Épico", "Lendário"]]
+            item = random.choice(epic_pool) if epic_pool else random.choice(ITEMS[item_list])
             xp = random.randint(120, 200)
             leveled = add_xp(user_id, xp)
             embed.add_field(
@@ -6389,7 +6468,7 @@ async def on_message(message):
             add_coins(user_id, coins)
             # Chance de drop de poção (baixa)
             drop_potion = None
-            if random.random() < 0.15:
+            if random.random() < 0.05:
                 potion_list = [name for name, data in POTIONS.items() if data["rarity"] in ["Comum", "Incomum"]]
                 drop_potion = random.choice(potion_list)
                 p2 = get_player(user_id)
@@ -6433,26 +6512,17 @@ async def on_message(message):
             drop_item = None
             drop_potion = None
 
-            if roll >= 9:
-                if roll == 10:
-                    item_type = random.choice(["weapon", "armor"])
-                    item_list_key = "weapons" if item_type == "weapon" else "armor"
-                    rarity = random.choices(["Raro", "Épico"], weights=[60, 40])[0]
-                    items_filtered = [i for i in ITEMS[item_list_key] if i["rarity"] == rarity]
-                    drop_item = random.choice(items_filtered) if items_filtered else None
-
-                if random.random() < 0.3:
-                    potion_rarities = ["Incomum", "Raro"]
-                    drop_potion = random.choice([name for name, data in POTIONS.items() if data["rarity"] in potion_rarities])
-                    p2 = get_player(user_id)
-                    p2["inventory"].append(drop_potion)
-                    save_player_db(user_id, p2)
+            # Caçar: NUNCA dropa equipamentos — apenas poções comuns/incomuns com baixa chance
+            if random.random() < 0.08:  # 8% chance poção comum/incomum
+                potion_rarities = ["Comum", "Incomum"]
+                drop_potion = random.choice([name for name, data in POTIONS.items() if data["rarity"] in potion_rarities])
+                p2 = get_player(user_id)
+                p2["inventory"].append(drop_potion)
+                save_player_db(user_id, p2)
 
             drop_text = ""
             if drop_potion:
                 drop_text += f"\n🧪 **{drop_potion}**!"
-            if drop_item:
-                drop_text += f"\n{RARITIES[drop_item['rarity']]['emoji']} **{drop_item['name']}**!"
 
             embed.add_field(
                 name="✨ Domínio Total!",
@@ -6470,11 +6540,6 @@ async def on_message(message):
             save_player_db(user_id, p_kill)
 
             await message.channel.send(embed=embed)
-
-            if drop_item:
-                await asyncio.sleep(1)
-                view = EquipButton(user_id, drop_item["name"], item_type)
-                await message.channel.send(f"⚔️ **{drop_item['name']}** está em suas mãos!\n\n*'Deseja equipar?'*", view=view)
 
             # Progresso de quest de caça
             player = get_player(user_id)
@@ -7231,13 +7296,14 @@ async def check_level_boss(channel, user_id):
         if boss_data and boss_data["name"] not in player["bosses"]:
             await asyncio.sleep(2)
             embed = discord.Embed(
-                title="⚠️ BOSS DE NÍVEL DETECTADO!",
-                description=f"*'O ar fica pesado... Um poder colossal se aproxima!'*\n\n👹 **{boss_data['name']}** surge para testar você!\n\n*'Para avançar ao próximo reino, você deve derrotá-lo!'*",
+                title="🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!",
+                description=f"*'Um poder colossal bloqueia seu caminho...'*\n\n👹 **{boss_data['name']}** surge para impedir seu avanço!\n\n⚠️ **Seu XP está BLOQUEADO até você derrotá-lo!**\n*'Não há glória sem superar os grandes obstáculos!'*",
                 color=discord.Color.dark_red()
             )
-            embed.add_field(name="❤️ HP", value=str(boss_data["hp"]), inline=True)
-            embed.add_field(name="⚔️ ATK", value=str(boss_data["atk"]), inline=True)
-            embed.add_field(name="💡 Dica", value="Use `desafiar boss` para enfrentá-lo, ou chame aliados!", inline=False)
+            embed.add_field(name="❤️ HP", value=f"`{boss_data['hp']:,}`", inline=True)
+            embed.add_field(name="⚔️ ATK", value=f"`{boss_data['atk']}`", inline=True)
+            embed.add_field(name="🚫 XP Bloqueado", value="Você não ganhará mais XP até derrotá-lo!", inline=False)
+            embed.add_field(name="💡 Opções", value="• `desafiar boss` — Enfrente o boss agora\n• `treinar força/defesa/vitalidade` — Fortaleça-se antes\n• `chamar aliados` — Peça ajuda!", inline=False)
             view = BossButton(user_id, boss_data["name"])
             await channel.send(embed=embed, view=view)
 
@@ -8443,6 +8509,16 @@ async def handle_new_commands(message):
         if not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
+        # encontrar boss NUNCA mostra bosses de level — apenas variantes do mundo
+        # Bosses de level (9/19/29/39/49/59) só aparecem via check_level_boss/desafiar boss
+        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+        if player["level"] in boss_gate_levels:
+            boss_data_gate = get_level_boss(player["level"])
+            if boss_data_gate and boss_data_gate["name"] not in player.get("bosses", []):
+                await message.channel.send(
+                    f"🚨 **Você tem um Boss de Nível pendente!**\n\n👹 **{boss_data_gate['name']}** bloqueia sua passagem.\n⚠️ Seu XP está bloqueado até derrotá-lo!\n\nUse `desafiar boss` para enfrentá-lo."
+                )
+                return
         world_key = max(k for k in player.get("worlds", [1]))
         boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, WORLD_BOSSES_VARIANTS.get(1, []))
         boss = random.choice(boss_pool)
