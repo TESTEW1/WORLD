@@ -174,6 +174,163 @@ CLASS_SKILLS = {
     ],
 }
 
+# ================= BOSS SKILLS =================
+BOSS_SKILLS = {
+    "default": [
+        {"name": "⚔️ Golpe Brutal", "dmg_mult": 1.5, "desc": "Um golpe poderoso!"},
+        {"name": "🌀 Rajada de Energia", "dmg_mult": 1.8, "desc": "Energia sombria liberada!", "weaken": True},
+        {"name": "💥 Impacto Sísmico", "dmg_mult": 2.0, "desc": "Tremor que abala a terra!", "stun_chance": 0.25},
+        {"name": "🔥 Chama Infernal", "dmg_mult": 1.6, "desc": "Fogo que corrói a alma!", "poison": True},
+        {"name": "💀 Golpe Devastador", "dmg_mult": 2.5, "desc": "Ataque com toda a força bestial!"},
+    ],
+    "Slime Rei": [
+        {"name": "🟢 Divisão Slime", "dmg_mult": 1.2, "desc": "Se divide em múltiplos ataques!", "poison": True},
+        {"name": "💧 Ácido Corrosivo", "dmg_mult": 1.8, "desc": "Ácido que corrói armaduras!", "weaken": True},
+        {"name": "🌊 Onda Viscosa", "dmg_mult": 2.0, "desc": "Uma onda de gosma envolve tudo!", "stun_chance": 0.3},
+    ],
+    "Ent Ancião": [
+        {"name": "🌿 Chicote de Raiz", "dmg_mult": 1.6, "desc": "Raízes presas nos tornozelos!"},
+        {"name": "🌪️ Tempestade de Espinhos", "dmg_mult": 1.9, "desc": "Espinhos cortam por todos os lados!", "poison": True},
+        {"name": "🌳 Esmagamento Arbóreo", "dmg_mult": 2.3, "desc": "Galhos gigantes esmagam!", "stun_chance": 0.35},
+    ],
+    "Faraó Amaldiçoado": [
+        {"name": "🔮 Maldição Antiga", "dmg_mult": 1.7, "desc": "Maldição que drena a vida!", "weaken": True},
+        {"name": "💀 Exército dos Mortos", "dmg_mult": 2.0, "desc": "Múmias surgem para atacar!"},
+        {"name": "⚡ Raio do Deserto", "dmg_mult": 2.4, "desc": "A energia do deserto em forma de raio!", "stun_chance": 0.2},
+    ],
+    "Yeti Colossal": [
+        {"name": "❄️ Sopro Ártico", "dmg_mult": 1.8, "desc": "Vento gelado que congela tudo!", "stun_chance": 0.4},
+        {"name": "🏔️ Avalanche", "dmg_mult": 2.1, "desc": "Uma avalanche de neve e pedra!"},
+        {"name": "💪 Soco Colossal", "dmg_mult": 2.6, "desc": "Punho do tamanho de uma rocha!"},
+    ],
+    "Dragão de Magma": [
+        {"name": "🔥 Chama Draconiana", "dmg_mult": 2.0, "desc": "Fogo que derrete aço!", "poison": True},
+        {"name": "💨 Rugido de Magma", "dmg_mult": 1.7, "desc": "O rugido causa ondas de calor!", "stun_chance": 0.2},
+        {"name": "🌋 Erupção Dracônica", "dmg_mult": 2.8, "desc": "O corpo do dragão explode em lava!"},
+    ],
+    "Senhor das Sombras": [
+        {"name": "🌑 Trevas Absolutas", "dmg_mult": 2.2, "desc": "A escuridão consome tudo!", "weaken": True},
+        {"name": "👁️ Olhar Paralisante", "dmg_mult": 1.5, "desc": "Um olhar que paralisa a alma!", "stun_chance": 0.5},
+        {"name": "💀 Ceifada da Morte", "dmg_mult": 3.0, "desc": "A foice da morte avança!", "poison": True},
+    ],
+}
+
+# ================= ACHIEVEMENTS =================
+ACHIEVEMENTS = [
+    # === COMBATE (30) ===
+    {"id": "first_kill", "cat": "⚔️ Combate", "name": "Primeiro Sangue", "desc": "Derrote seu primeiro monstro", "xp": 500, "stat": "monsters_killed", "threshold": 1},
+    {"id": "kills_10", "cat": "⚔️ Combate", "name": "Caçador Iniciante", "desc": "Derrote 10 monstros", "xp": 800, "stat": "monsters_killed", "threshold": 10},
+    {"id": "kills_50", "cat": "⚔️ Combate", "name": "Caçador Experiente", "desc": "Derrote 50 monstros", "xp": 1500, "stat": "monsters_killed", "threshold": 50},
+    {"id": "kills_100", "cat": "⚔️ Combate", "name": "Caçador Veterano", "desc": "Derrote 100 monstros", "xp": 2500, "stat": "monsters_killed", "threshold": 100},
+    {"id": "kills_250", "cat": "⚔️ Combate", "name": "Exterminador", "desc": "Derrote 250 monstros", "xp": 4000, "stat": "monsters_killed", "threshold": 250},
+    {"id": "kills_500", "cat": "⚔️ Combate", "name": "Anjo da Morte", "desc": "Derrote 500 monstros", "xp": 6000, "stat": "monsters_killed", "threshold": 500},
+    {"id": "kills_1000", "cat": "⚔️ Combate", "name": "Lenda das Batalhas", "desc": "Derrote 1000 monstros", "xp": 10000, "stat": "monsters_killed", "threshold": 1000},
+    {"id": "boss_1", "cat": "⚔️ Combate", "name": "Caçador de Bosses", "desc": "Derrote seu primeiro boss", "xp": 1000, "stat": "bosses_defeated", "threshold": 1},
+    {"id": "boss_3", "cat": "⚔️ Combate", "name": "Domador de Colossais", "desc": "Derrote 3 bosses", "xp": 2000, "stat": "bosses_defeated", "threshold": 3},
+    {"id": "boss_5", "cat": "⚔️ Combate", "name": "Terror dos Bosses", "desc": "Derrote 5 bosses", "xp": 3500, "stat": "bosses_defeated", "threshold": 5},
+    {"id": "boss_10", "cat": "⚔️ Combate", "name": "Matador de Deuses", "desc": "Derrote 10 bosses", "xp": 6000, "stat": "bosses_defeated", "threshold": 10},
+    {"id": "boss_20", "cat": "⚔️ Combate", "name": "Lenda Imortal", "desc": "Derrote 20 bosses", "xp": 10000, "stat": "bosses_defeated", "threshold": 20},
+    {"id": "first_boss_unique", "cat": "⚔️ Combate", "name": "Primeiro Colossus", "desc": "Derrote o primeiro boss de level", "xp": 2000, "special": "level_boss_1"},
+    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 6 bosses de level", "xp": 15000, "special": "all_level_bosses"},
+    {"id": "slime_rei", "cat": "⚔️ Combate", "name": "Massacrador de Slimes", "desc": "Derrote o Slime Rei", "xp": 2000, "special": "boss_slime_rei"},
+    {"id": "dragon", "cat": "⚔️ Combate", "name": "Dragoneante", "desc": "Derrote o Dragão de Magma", "xp": 4000, "special": "boss_dragao"},
+    {"id": "shadow_lord", "cat": "⚔️ Combate", "name": "Derrotando as Sombras", "desc": "Derrote o Senhor das Sombras", "xp": 5000, "special": "boss_sombras"},
+    {"id": "pvp_win_1", "cat": "⚔️ Combate", "name": "Guerreiro PvP", "desc": "Vença seu primeiro duelo PvP", "xp": 1000, "special": "pvp_win_1"},
+    {"id": "pvp_win_10", "cat": "⚔️ Combate", "name": "Campeão de Duelos", "desc": "Vença 10 duelos PvP", "xp": 3000, "special": "pvp_win_10"},
+    {"id": "no_damage", "cat": "⚔️ Combate", "name": "Intocável", "desc": "Derrote um boss com HP acima de 80%", "xp": 3000, "special": "boss_no_damage"},
+    {"id": "crit_master", "cat": "⚔️ Combate", "name": "Mestre dos Críticos", "desc": "Acerte 50 golpes críticos", "xp": 2500, "special": "crit_50"},
+    {"id": "poison_master", "cat": "⚔️ Combate", "name": "Mestre dos Venenos", "desc": "Envenene 20 inimigos", "xp": 1500, "special": "poison_20"},
+    {"id": "stun_master", "cat": "⚔️ Combate", "name": "Mestre dos Atordoamentos", "desc": "Atordoe 15 inimigos", "xp": 1500, "special": "stun_15"},
+    {"id": "class_master", "cat": "⚔️ Combate", "name": "Mestre da Classe", "desc": "Use todas as habilidades da sua classe em batalha", "xp": 2000, "special": "all_skills_used"},
+    {"id": "dungeon_10", "cat": "⚔️ Combate", "name": "Explorador de Masmorras", "desc": "Complete 10 masmorras", "xp": 2000, "special": "dungeons_10"},
+    {"id": "dungeon_50", "cat": "⚔️ Combate", "name": "Mestre das Masmorras", "desc": "Complete 50 masmorras", "xp": 5000, "special": "dungeons_50"},
+    {"id": "legendary_drop", "cat": "⚔️ Combate", "name": "Agraciado pelos Deuses", "desc": "Receba um item Lendário de drop de boss", "xp": 3000, "special": "legendary_drop"},
+    {"id": "divine_drop", "cat": "⚔️ Combate", "name": "Toque Divino", "desc": "Receba um item Divino de drop de boss", "xp": 8000, "special": "divine_drop"},
+    {"id": "comeback_win", "cat": "⚔️ Combate", "name": "Vingança Épica", "desc": "Derrote um boss após usar o botão Vingança", "xp": 3000, "special": "comeback_win"},
+    {"id": "training_champion", "cat": "⚔️ Combate", "name": "Dedicação Suprema", "desc": "Use o sistema de treinamento 10 vezes", "xp": 2000, "special": "training_10"},
+    # === EXPLORAÇÃO (20) ===
+    {"id": "explore_1", "cat": "🗺️ Exploração", "name": "Aventureiro", "desc": "Explore pela primeira vez", "xp": 300, "stat": "areas_explored", "threshold": 1},
+    {"id": "explore_10", "cat": "🗺️ Exploração", "name": "Explorador", "desc": "Explore 10 áreas", "xp": 800, "stat": "areas_explored", "threshold": 10},
+    {"id": "explore_50", "cat": "🗺️ Exploração", "name": "Desbravador", "desc": "Explore 50 áreas", "xp": 2000, "stat": "areas_explored", "threshold": 50},
+    {"id": "explore_100", "cat": "🗺️ Exploração", "name": "Cartógrafo", "desc": "Explore 100 áreas", "xp": 4000, "stat": "areas_explored", "threshold": 100},
+    {"id": "explore_250", "cat": "🗺️ Exploração", "name": "Lenda dos Mapas", "desc": "Explore 250 áreas", "xp": 8000, "stat": "areas_explored", "threshold": 250},
+    {"id": "world_2", "cat": "🗺️ Exploração", "name": "Além das Fronteiras", "desc": "Desbloqueie o segundo mundo", "xp": 1500, "special": "world_2"},
+    {"id": "world_3", "cat": "🗺️ Exploração", "name": "Viajante dos Reinos", "desc": "Desbloqueie o terceiro mundo", "xp": 2500, "special": "world_3"},
+    {"id": "world_4", "cat": "🗺️ Exploração", "name": "Mestre dos Portais", "desc": "Desbloqueie o quarto mundo", "xp": 4000, "special": "world_4"},
+    {"id": "world_5", "cat": "🗺️ Exploração", "name": "Conquistador Dimensional", "desc": "Desbloqueie o quinto mundo", "xp": 6000, "special": "world_5"},
+    {"id": "all_worlds", "cat": "🗺️ Exploração", "name": "Senhor de Todos os Mundos", "desc": "Desbloqueie todos os mundos", "xp": 12000, "special": "all_worlds"},
+    {"id": "secret_dungeon", "cat": "🗺️ Exploração", "name": "Descobridor do Abismo", "desc": "Encontre uma masmorra secreta", "xp": 2000, "special": "secret_dungeon"},
+    {"id": "mimic_survive", "cat": "🗺️ Exploração", "name": "Sobrevivente do Mímico", "desc": "Sobreviva a um ataque de Mímico", "xp": 1500, "special": "mimic_survive"},
+    {"id": "hunt_10", "cat": "🗺️ Exploração", "name": "Caçador do Reino", "desc": "Cace 10 vezes no mesmo reino", "xp": 1000, "special": "hunt_10_same"},
+    {"id": "full_map", "cat": "🗺️ Exploração", "name": "Cartógrafo Completo", "desc": "Descubra todas as localizações de um mundo", "xp": 3000, "special": "full_map_world"},
+    {"id": "night_explorer", "cat": "🗺️ Exploração", "name": "Criatura da Noite", "desc": "Explore às 3 da manhã (horário do servidor)", "xp": 500, "special": "night_explore"},
+    {"id": "fast_explore", "cat": "🗺️ Exploração", "name": "Relâmpago", "desc": "Explore 5 áreas em uma hora", "xp": 1000, "special": "fast_5_explore"},
+    {"id": "dungeon_first_time", "cat": "🗺️ Exploração", "name": "Primeiro nas Sombras", "desc": "Entre em uma masmorra pela primeira vez", "xp": 500, "special": "first_dungeon"},
+    {"id": "loot_100", "cat": "🗺️ Exploração", "name": "Saqueador", "desc": "Colete 100 itens no total", "xp": 2000, "special": "loot_100"},
+    {"id": "survive_trap", "cat": "🗺️ Exploração", "name": "Sortudo", "desc": "Sobreviva a 5 armadilhas em masmorras", "xp": 1000, "special": "survive_5_traps"},
+    {"id": "no_fail_explore", "cat": "🗺️ Exploração", "name": "Explorador Invicto", "desc": "Explore 10 vezes seguidas sem falhar", "xp": 2500, "special": "explore_10_streak"},
+    # === ECONOMIA (20) ===
+    {"id": "coins_1k", "cat": "💰 Economia", "name": "Primeiras Moedas", "desc": "Ganhe 1.000 CSI no total", "xp": 500, "stat": "total_coins_earned", "threshold": 1000},
+    {"id": "coins_10k", "cat": "💰 Economia", "name": "Comerciante", "desc": "Ganhe 10.000 CSI no total", "xp": 1500, "stat": "total_coins_earned", "threshold": 10000},
+    {"id": "coins_50k", "cat": "💰 Economia", "name": "Mercador Rico", "desc": "Ganhe 50.000 CSI no total", "xp": 3000, "stat": "total_coins_earned", "threshold": 50000},
+    {"id": "coins_100k", "cat": "💰 Economia", "name": "Milionário", "desc": "Ganhe 100.000 CSI no total", "xp": 6000, "stat": "total_coins_earned", "threshold": 100000},
+    {"id": "coins_500k", "cat": "💰 Economia", "name": "Magnata", "desc": "Ganhe 500.000 CSI no total", "xp": 12000, "stat": "total_coins_earned", "threshold": 500000},
+    {"id": "buy_first_item", "cat": "💰 Economia", "name": "Primeira Compra", "desc": "Compre seu primeiro item na loja", "xp": 300, "special": "buy_first"},
+    {"id": "buy_legendary", "cat": "💰 Economia", "name": "Comprador de Sonhos", "desc": "Compre um item Lendário", "xp": 2000, "special": "buy_legendary"},
+    {"id": "sell_items", "cat": "💰 Economia", "name": "Comerciante Nato", "desc": "Venda 20 itens", "xp": 1000, "special": "sell_20"},
+    {"id": "equip_epic", "cat": "💰 Economia", "name": "Equipado para a Guerra", "desc": "Equipe um item Épico ou melhor", "xp": 1000, "special": "equip_epic"},
+    {"id": "equip_legendary", "cat": "💰 Economia", "name": "Escolhido pelos Deuses", "desc": "Equipe um item Lendário", "xp": 3000, "special": "equip_legendary"},
+    {"id": "equip_divine", "cat": "💰 Economia", "name": "Avatar Divino", "desc": "Equipe um item Divino", "xp": 8000, "special": "equip_divine"},
+    {"id": "full_set", "cat": "💰 Economia", "name": "Arsenal Completo", "desc": "Equipe arma e armadura ao mesmo tempo", "xp": 800, "special": "full_equip"},
+    {"id": "inv_20", "cat": "💰 Economia", "name": "Colecionador", "desc": "Tenha 20 itens no inventário", "xp": 500, "special": "inv_20"},
+    {"id": "inv_50", "cat": "💰 Economia", "name": "Acumulador", "desc": "Tenha 50 itens no inventário", "xp": 1500, "special": "inv_50"},
+    {"id": "potion_10", "cat": "💰 Economia", "name": "Alquimista", "desc": "Beba 10 poções", "xp": 800, "special": "potion_10"},
+    {"id": "broke", "cat": "💰 Economia", "name": "Falido", "desc": "Fique com 0 moedas CSI", "xp": 200, "special": "broke"},
+    {"id": "xp_10k", "cat": "💰 Economia", "name": "Veterano", "desc": "Acumule 10.000 XP no total", "xp": 1000, "stat": "total_xp_earned", "threshold": 10000},
+    {"id": "xp_100k", "cat": "💰 Economia", "name": "Lendário do XP", "desc": "Acumule 100.000 XP no total", "xp": 5000, "stat": "total_xp_earned", "threshold": 100000},
+    {"id": "xp_500k", "cat": "💰 Economia", "name": "Transcendente", "desc": "Acumule 500.000 XP no total", "xp": 12000, "stat": "total_xp_earned", "threshold": 500000},
+    {"id": "work_first", "cat": "💰 Economia", "name": "Trabalhador Honesto", "desc": "Trabalhe pela primeira vez", "xp": 300, "special": "work_first"},
+    # === PROGRESSÃO (20) ===
+    {"id": "level_5", "cat": "🌟 Progressão", "name": "Primeiros Passos", "desc": "Alcance o nível 5", "xp": 500, "stat": "level", "threshold": 5},
+    {"id": "level_10", "cat": "🌟 Progressão", "name": "Guerreiro dos Campos", "desc": "Alcance o nível 10", "xp": 1000, "stat": "level", "threshold": 10},
+    {"id": "level_20", "cat": "🌟 Progressão", "name": "Cavaleiro do Reino", "desc": "Alcance o nível 20", "xp": 2000, "stat": "level", "threshold": 20},
+    {"id": "level_30", "cat": "🌟 Progressão", "name": "Herói Consagrado", "desc": "Alcance o nível 30", "xp": 3500, "stat": "level", "threshold": 30},
+    {"id": "level_40", "cat": "🌟 Progressão", "name": "Campeão dos Reinos", "desc": "Alcance o nível 40", "xp": 5000, "stat": "level", "threshold": 40},
+    {"id": "level_50", "cat": "🌟 Progressão", "name": "Lenda Viva", "desc": "Alcance o nível 50", "xp": 8000, "stat": "level", "threshold": 50},
+    {"id": "level_60", "cat": "🌟 Progressão", "name": "Deus Mortal", "desc": "Alcance o nível 60", "xp": 15000, "stat": "level", "threshold": 60},
+    {"id": "class_chosen", "cat": "🌟 Progressão", "name": "O Chamado", "desc": "Escolha sua classe", "xp": 500, "special": "class_chosen"},
+    {"id": "pet_first", "cat": "🌟 Progressão", "name": "Tamer", "desc": "Tenha seu primeiro pet", "xp": 800, "special": "pet_first"},
+    {"id": "pet_rare", "cat": "🌟 Progressão", "name": "Dono de Raridades", "desc": "Capture um pet Raro ou melhor", "xp": 2000, "special": "pet_rare"},
+    {"id": "guild_join", "cat": "🌟 Progressão", "name": "Companheiro de Guilda", "desc": "Entre em uma guilda", "xp": 1000, "special": "guild_join"},
+    {"id": "guild_master", "cat": "🌟 Progressão", "name": "Líder Supremo", "desc": "Crie ou lidere uma guilda", "xp": 3000, "special": "guild_master"},
+    {"id": "quest_1", "cat": "🌟 Progressão", "name": "Missão Aceita", "desc": "Complete sua primeira quest", "xp": 500, "special": "quest_1"},
+    {"id": "quest_10", "cat": "🌟 Progressão", "name": "Herói das Missões", "desc": "Complete 10 quests", "xp": 2000, "special": "quest_10"},
+    {"id": "quest_25", "cat": "🌟 Progressão", "name": "Lenda das Quests", "desc": "Complete 25 quests", "xp": 5000, "special": "quest_25"},
+    {"id": "alignment_hero", "cat": "🌟 Progressão", "name": "Coração de Herói", "desc": "Alcance o alinhamento Herói", "xp": 2000, "special": "alignment_hero"},
+    {"id": "alignment_villain", "cat": "🌟 Progressão", "name": "Sombra do Caos", "desc": "Alcance o alinhamento Vilão", "xp": 2000, "special": "alignment_villain"},
+    {"id": "job_first", "cat": "🌟 Progressão", "name": "Trabalhador da Cidade", "desc": "Aceite seu primeiro emprego", "xp": 800, "special": "job_first"},
+    {"id": "defend_city", "cat": "🌟 Progressão", "name": "Guardião das Muralhas", "desc": "Defenda a cidade pela primeira vez", "xp": 1000, "special": "defend_city"},
+    {"id": "farm_first_harvest", "cat": "🌟 Progressão", "name": "Fazendeiro", "desc": "Faça sua primeira colheita na fazenda", "xp": 500, "special": "farm_harvest"},
+    # === SECRETAS (10) ===
+    {"id": "death_cheat", "cat": "🔮 Secreta", "name": "Frágil Imortalidade", "desc": "Sobreviva com 1 HP em batalha", "xp": 5000, "special": "zero_hp_survive"},
+    {"id": "max_mana", "cat": "🔮 Secreta", "name": "Reservatório Arcano", "desc": "Use mana máxima em uma única batalha", "xp": 3000, "special": "max_mana_battle"},
+    {"id": "all_classes", "cat": "🔮 Secreta", "name": "O Polivalente", "desc": "Mude de classe 3 vezes", "xp": 8000, "special": "all_classes_tried"},
+    {"id": "midnight_boss", "cat": "🔮 Secreta", "name": "Criatura da Meia-Noite", "desc": "Derrote um boss à meia-noite", "xp": 4000, "special": "boss_midnight"},
+    {"id": "rich_broke", "cat": "🔮 Secreta", "name": "Ciclo da Fortuna", "desc": "Acumule 10k CSI e depois fique com 0", "xp": 3000, "special": "rich_then_broke"},
+    {"id": "solo_all_bosses", "cat": "🔮 Secreta", "name": "Solitário Lendário", "desc": "Derrote todos os bosses de level sozinho", "xp": 10000, "special": "solo_all_bosses"},
+    {"id": "perfect_boss", "cat": "🔮 Secreta", "name": "Combate Perfeito", "desc": "Derrote um boss sem ser envenenado/atordoado", "xp": 6000, "special": "perfect_boss_fight"},
+    {"id": "first_message", "cat": "🔮 Secreta", "name": "O Começo", "desc": "Seja o primeiro jogador do servidor", "xp": 1000, "special": "first_player"},
+    {"id": "born_survivor", "cat": "🔮 Secreta", "name": "Nascido para Sobreviver", "desc": "Sobreviva a 100 batalhas", "xp": 5000, "special": "survived_100_battles"},
+    {"id": "max_training", "cat": "🔮 Secreta", "name": "Além dos Limites", "desc": "Maximize todos os boosts de treinamento", "xp": 8000, "special": "max_all_training"},
+]
+
+TRAINING_OPTIONS = {
+    "forca": {"cost": 200, "atk_boost": 8, "emoji": "⚔️", "desc": "Aumenta ATK em +8 permanentemente"},
+    "defesa": {"cost": 200, "def_boost": 8, "emoji": "🛡️", "desc": "Aumenta DEF em +8 permanentemente"},
+    "vitalidade": {"cost": 300, "hp_boost": 30, "emoji": "❤️", "desc": "Aumenta HP Máximo em +30 permanentemente"},
+    "intensivo": {"cost": 800, "atk_boost": 15, "def_boost": 15, "hp_boost": 50, "emoji": "🔥", "desc": "Treino intensivo: +15 ATK, +15 DEF, +50 HP Max"},
+}
+
 # ================= RARITY DICE BONUS =================
 RARITY_DICE_BONUS = {
     "Comum": 0,
@@ -2984,6 +3141,17 @@ def init_db():
         "ALTER TABLE players ADD COLUMN knights TEXT DEFAULT '[]'",
         "ALTER TABLE players ADD COLUMN last_work INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN last_defend INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN achievements TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN training_points INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN temp_atk_boost INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN temp_def_boost INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN temp_hp_boost INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN level_boss_attempts TEXT DEFAULT '{}'",
+        "ALTER TABLE players ADD COLUMN monsters_killed INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN bosses_defeated INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN total_coins_earned INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN total_xp_earned INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN areas_explored INTEGER DEFAULT 0",
     ]:
         try:
             c.execute(col_def)
@@ -3085,6 +3253,17 @@ def get_player_db(user_id):
             "knights": json.loads(result[26]) if len(result) > 26 and result[26] else [],
             "last_work": result[27] if len(result) > 27 else 0,
             "last_defend": result[28] if len(result) > 28 else 0,
+            "achievements": json.loads(result[29]) if len(result) > 29 and result[29] else [],
+            "training_points": result[30] if len(result) > 30 else 0,
+            "temp_atk_boost": result[31] if len(result) > 31 else 0,
+            "temp_def_boost": result[32] if len(result) > 32 else 0,
+            "temp_hp_boost": result[33] if len(result) > 33 else 0,
+            "level_boss_attempts": json.loads(result[34]) if len(result) > 34 and result[34] else {},
+            "monsters_killed": result[35] if len(result) > 35 else 0,
+            "bosses_defeated": result[36] if len(result) > 36 else 0,
+            "total_coins_earned": result[37] if len(result) > 37 else 0,
+            "total_xp_earned": result[38] if len(result) > 38 else 0,
+            "areas_explored": result[39] if len(result) > 39 else 0,
         }
     return None
 
@@ -3096,8 +3275,12 @@ def save_player_db(user_id, player):
                  (user_id, level, xp, hp, max_hp, coins, inventory, weapon, armor,
                   worlds, bosses, class, pet, guild_id, active_effects, active_quest, completed_quests,
                   mana, max_mana, pvp_battles, alignment_points, pet_farm, discovered_map,
-                  job, job_since, city_title, knights, last_work, last_defend)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                  job, job_since, city_title, knights, last_work, last_defend,
+                  achievements, training_points, temp_atk_boost, temp_def_boost, temp_hp_boost,
+                  level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
+                  total_xp_earned, areas_explored)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -3113,10 +3296,68 @@ def save_player_db(user_id, player):
                player.get("job"), player.get("job_since", 0),
                player.get("city_title"),
                json.dumps(player.get("knights", [])),
-               player.get("last_work", 0), player.get("last_defend", 0)))
+               player.get("last_work", 0), player.get("last_defend", 0),
+               json.dumps(player.get("achievements", [])),
+               player.get("training_points", 0),
+               player.get("temp_atk_boost", 0),
+               player.get("temp_def_boost", 0),
+               player.get("temp_hp_boost", 0),
+               json.dumps(player.get("level_boss_attempts", {})),
+               player.get("monsters_killed", 0),
+               player.get("bosses_defeated", 0),
+               player.get("total_coins_earned", 0),
+               player.get("total_xp_earned", 0),
+               player.get("areas_explored", 0)))
 
     conn.commit()
     conn.close()
+
+
+# ================= CONQUISTAS =================
+
+async def check_achievements(channel, user_id, trigger_special=None):
+    """Verifica e concede conquistas desbloqueadas ao jogador."""
+    player = get_player(user_id)
+    if not player:
+        return
+    earned = player.get("achievements", [])
+    new_earned = []
+
+    for ach in ACHIEVEMENTS:
+        if ach["id"] in earned:
+            continue  # Já tem
+        unlocked = False
+
+        if "stat" in ach:
+            val = player.get(ach["stat"], 0)
+            if val >= ach["threshold"]:
+                unlocked = True
+
+        if "special" in ach and trigger_special == ach["special"]:
+            unlocked = True
+
+        if unlocked:
+            new_earned.append(ach)
+            earned.append(ach["id"])
+
+    if new_earned:
+        player["achievements"] = earned
+        total_xp = sum(a["xp"] for a in new_earned)
+        save_player_db(user_id, player)
+        add_xp(user_id, total_xp)
+
+        for ach in new_earned:
+            is_secret = ach["cat"] == "🔮 Secreta"
+            secret_note = "\n🔮 *Uma conquista secreta foi revelada!*" if is_secret else ""
+            embed = discord.Embed(
+                title="🏆 CONQUISTA DESBLOQUEADA!",
+                description=f"*'O narrador anuncia com voz trovejante!'*{secret_note}",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name=f"{ach['cat']} — {ach['name']}", value=f"_{ach['desc']}_\n\n⭐ **+{ach['xp']:,} XP** de recompensa!", inline=False)
+            embed.set_footer(text=f"Conquistas desbloqueadas: {len(earned)}/{len(ACHIEVEMENTS)}")
+            await channel.send(embed=embed)
+
 
 # ================= FUNÇÕES BASE =================
 
@@ -3251,6 +3492,7 @@ def add_xp(user_id, amount):
         amount = int(amount * 1.2)
 
     player["xp"] += amount
+    player["total_xp_earned"] = player.get("total_xp_earned", 0) + amount
     leveled = False
 
     while player["xp"] >= calc_xp(player["level"]):
@@ -3343,6 +3585,8 @@ def remove_xp(user_id, amount):
 def add_coins(user_id, amount):
     player = get_player(user_id)
     player["coins"] += amount
+    if amount > 0:
+        player["total_coins_earned"] = player.get("total_coins_earned", 0) + amount
     save_player_db(user_id, player)
 
 def remove_coins(user_id, amount):
@@ -3598,6 +3842,144 @@ class BossButton(discord.ui.View):
         await interaction.response.edit_message(
             content=f"🏃 **Você recua estrategicamente.**\n\n*'A prudência também é sabedoria.'*", view=None
         )
+
+
+class RevengeTrainingView(discord.ui.View):
+    """Mostrado ao jogador após derrota em boss de level — opções de Vingança ou Treinamento"""
+    def __init__(self, user_id, boss_data, timeout=180):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.boss_data = boss_data
+        self.answered = False
+
+    @discord.ui.button(label="⚔️ Vingança!", style=discord.ButtonStyle.red, emoji="🔥")
+    async def revenge(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa escolha não é sua!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        # Store revenge flag and boss for the next fight
+        player = get_player(self.user_id)
+        effects = player.get("active_effects", {})
+        effects["pending_boss"] = self.boss_data
+        effects["used_revenge"] = True
+        player["active_effects"] = effects
+        save_player_db(self.user_id, player)
+        await interaction.response.edit_message(
+            content=f"🔥 **A raiva te toma! Você avança novamente contra {self.boss_data['name']}!**\n\n*'O ódio pode ser a maior das forças!'*",
+            view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(interaction.channel, self.user_id)
+
+    @discord.ui.button(label="🏋️ Treinamento", style=discord.ButtonStyle.green, emoji="💪")
+    async def training(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa escolha não é sua!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        player = get_player(self.user_id)
+        effects = player.get("active_effects", {})
+        effects["pending_boss"] = self.boss_data
+        player["active_effects"] = effects
+        save_player_db(self.user_id, player)
+        embed = discord.Embed(
+            title="🏋️ CENTRO DE TREINAMENTO",
+            description=f"*'Um sábio ancião te guia: Seu corpo precisa de mais força para enfrentar {self.boss_data['name']}...'*\n\nEscolha o tipo de treino abaixo. Após treinar, use `desafiar boss` para renfrentar o boss!",
+            color=discord.Color.green()
+        )
+        for name, data in TRAINING_OPTIONS.items():
+            boosts = []
+            if data.get("atk_boost"):
+                boosts.append(f"+{data['atk_boost']} ATK")
+            if data.get("def_boost"):
+                boosts.append(f"+{data['def_boost']} DEF")
+            if data.get("hp_boost"):
+                boosts.append(f"+{data['hp_boost']} HP Max")
+            embed.add_field(
+                name=f"{data['emoji']} Treino de {name.capitalize()}",
+                value=f"**{data['desc']}**\n💰 Custo: `{data['cost']:,}` CSI\n📈 Bônus: {', '.join(boosts)}",
+                inline=True
+            )
+        embed.set_footer(text="Use: treinar força | treinar defesa | treinar vitalidade | treinar intensivo")
+        view = TrainingView(self.user_id, self.boss_data)
+        await interaction.response.edit_message(content=None, embed=embed, view=view)
+
+    @discord.ui.button(label="🏃 Recuar", style=discord.ButtonStyle.gray)
+    async def flee(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa escolha não é sua!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        await interaction.response.edit_message(
+            content="🏃 *Você recua para recuperar suas forças. Às vezes, a prudência é a maior virtude.*",
+            view=None
+        )
+
+
+class TrainingView(discord.ui.View):
+    """Botões de treinamento após derrota em boss"""
+    def __init__(self, user_id, boss_data=None, timeout=180):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.boss_data = boss_data
+        self.answered = False
+        for key, data in TRAINING_OPTIONS.items():
+            label = f"{data['emoji']} {key.capitalize()} ({data['cost']} CSI)"
+            btn = discord.ui.Button(label=label, style=discord.ButtonStyle.primary)
+            btn.callback = self._make_callback(key)
+            self.add_item(btn)
+
+    def _make_callback(self, training_key):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Essa escolha não é sua!", ephemeral=True)
+            if self.answered:
+                return
+            self.answered = True
+            player = get_player(self.user_id)
+            opt = TRAINING_OPTIONS[training_key]
+            cost = opt["cost"]
+            if player["coins"] < cost:
+                self.answered = False
+                return await interaction.response.send_message(
+                    f"❌ Você não tem CSI suficiente! Precisa de `{cost:,}` mas tem `{player['coins']:,}`.", ephemeral=True
+                )
+            player["coins"] -= cost
+            boosts = []
+            if opt.get("atk_boost"):
+                player["temp_atk_boost"] = player.get("temp_atk_boost", 0) + opt["atk_boost"]
+                boosts.append(f"+{opt['atk_boost']} ATK")
+            if opt.get("def_boost"):
+                player["temp_def_boost"] = player.get("temp_def_boost", 0) + opt["def_boost"]
+                boosts.append(f"+{opt['def_boost']} DEF")
+            if opt.get("hp_boost"):
+                player["temp_hp_boost"] = player.get("temp_hp_boost", 0) + opt["hp_boost"]
+                player["max_hp"] = player.get("max_hp", 100) + opt["hp_boost"]
+                player["hp"] = min(player["hp"] + opt["hp_boost"], player["max_hp"])
+                boosts.append(f"+{opt['hp_boost']} HP Max")
+
+            # Training counter for achievement
+            training_count = player.get("training_points", 0) + 1
+            player["training_points"] = training_count
+            save_player_db(self.user_id, player)
+
+            embed = discord.Embed(
+                title=f"💪 Treino Completo!",
+                description=f"*'O ancião sorri: Você ficou mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}** concluído!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{cost:,} CSI",
+                color=discord.Color.green()
+            )
+            if self.boss_data:
+                embed.set_footer(text=f"Use 'desafiar boss' para enfrentar {self.boss_data['name']} novamente!")
+
+            await interaction.response.edit_message(embed=embed, view=None)
+            await check_achievements(interaction.channel, self.user_id, "training_10" if training_count >= 10 else None)
+            if training_count >= 10:
+                await check_achievements(interaction.channel, self.user_id, "training_10")
+        return callback
 
 
 class TradeButton(discord.ui.View):
@@ -4117,12 +4499,12 @@ async def fight_pvp(channel, challenger_id, target_id):
 # ================= FUNÇÕES DE BATALHA E EXPLORAÇÃO =================
 
 async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, allies=None):
+    """Batalha de boss estilo Pokémon — turno a turno usando habilidades de classe"""
     player = get_player(user_id)
 
     if is_dungeon and dungeon_boss:
         boss_data = dungeon_boss
     else:
-        # Check for a custom boss set via encontrar boss command
         effects = player.get("active_effects", {})
         pending_boss = effects.pop("pending_boss", None)
         if pending_boss:
@@ -4133,230 +4515,386 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             boss_levels = {9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50}
             world_key = boss_levels.get(player["level"])
             if world_key is None:
-                # Usa boss do mundo atual — randomizado da pool de variantes
                 world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
-                if boss_pool:
-                    boss_data = random.choice(boss_pool)
-                else:
-                    boss_data = WORLDS[world_level]["boss"]
+                boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
             else:
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, [])
-                if boss_pool:
-                    boss_data = random.choice(boss_pool)
-                else:
-                    boss_data = WORLDS[world_key]["boss"]
+                boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_key]["boss"]
 
-    # Calcula bônus de aliados
-    ally_bonus_roll = 0
+    # ---- Player stats ----
+    p_cls = player.get("class", "Guerreiro")
+    p_skills = CLASS_SKILLS.get(p_cls, CLASS_SKILLS["Guerreiro"])
+    p_icon = CLASSES.get(p_cls, {}).get("emoji", "⚔️")
+
+    p_max_hp = player["max_hp"] + player.get("temp_hp_boost", 0)
+    p_hp = min(player["hp"], p_max_hp)
+    p_mana = calc_max_mana(player)
+    p_cur_mana = p_mana
+
+    p_atk = CLASSES.get(p_cls, {}).get("atk_bonus", 5) + player["level"] * 2 + player.get("temp_atk_boost", 0)
+    p_def = CLASSES.get(p_cls, {}).get("def_bonus", 3) + player["level"] + player.get("temp_def_boost", 0)
+
+    # Item bonuses
+    if player.get("weapon"):
+        for w in ITEMS["weapons"]:
+            if w["name"] == player["weapon"]:
+                p_atk += w.get("atk", 0) // 4
+                break
+    if player.get("armor"):
+        for a in ITEMS["armor"]:
+            if a["name"] == player["armor"]:
+                p_def += a.get("def", 0) // 4
+                break
+    if player.get("pet"):
+        try:
+            pet_obj = json.loads(player["pet"]) if isinstance(player["pet"], str) else player["pet"]
+            p_atk += pet_obj.get("bonus_atk", 0)
+        except:
+            pass
+
+    # Ally bonus
+    ally_bonus_atk = 0
     ally_names = []
     if allies:
         for ally_id in allies:
             if str(ally_id) != str(user_id):
-                ally_player = get_player(ally_id)
-                if ally_player:
-                    ally_bonus_roll += 1  # +1 no dado por aliado
+                ally_p = get_player(ally_id)
+                if ally_p:
+                    ally_bonus_atk += ally_p["level"]
                     try:
-                        ally_user = await bot.fetch_user(int(ally_id))
-                        ally_names.append(ally_user.name)
+                        au = await bot.fetch_user(int(ally_id))
+                        ally_names.append(au.display_name)
                     except:
                         pass
+    p_atk += ally_bonus_atk // 2
 
-    roll = roll_dice()
-    if player.get("class") == "Bardo":
-        roll = min(10, roll + 1)
-    roll = min(10, roll + ally_bonus_roll)
-    luck = get_luck(roll)
+    # ---- Boss stats ----
+    boss_hp = boss_data["hp"]
+    boss_atk = boss_data["atk"]
+    boss_skills = BOSS_SKILLS.get(boss_data["name"], BOSS_SKILLS["default"])
+    boss_cur_hp = boss_hp
+    boss_poison = False
+    boss_weakened = False
 
-    player_atk = 0
-    player_def = 0
-    if player.get("class") and player["class"] in CLASSES:
-        player_atk += CLASSES[player["class"]]["atk_bonus"]
-        player_def += CLASSES[player["class"]]["def_bonus"]
-    if player.get("pet"):
-        try:
-            pet_obj = json.loads(player["pet"]) if isinstance(player["pet"], str) else player["pet"]
-            player_atk += pet_obj.get("bonus_atk", 0)
-        except:
-            for world_pets in PETS.values():
-                for pet in world_pets:
-                    if pet["name"] == player["pet"]:
-                        player_atk += pet["bonus_atk"]
+    try:
+        player_user = await bot.fetch_user(int(user_id))
+        p_name = player_user.display_name
+    except:
+        p_name = "Herói"
 
-    embed = discord.Embed(
-        title=f"👹 BATALHA ÉPICA",
-        description=f"**{'Equipe' if ally_names else player.display_name if hasattr(player, 'display_name') else 'Você'} vs {boss_data['name']}**\n\n*O narrador narra intensamente a batalha...*",
+    # ---- Intro embed ----
+    intro = discord.Embed(
+        title=f"👹 BATALHA ÉPICA — {p_name} vs {boss_data['name']}",
+        description=f"*'O narrador anuncia com voz trovejante: A batalha começa agora!'*",
         color=discord.Color.dark_red()
     )
-
     if ally_names:
-        embed.add_field(name="👥 Aliados de Batalha", value="\n".join(ally_names), inline=False)
-    embed.add_field(name="🎲 Dado do Destino", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
+        intro.add_field(name="👥 Aliados", value=", ".join(ally_names), inline=False)
+    intro.add_field(
+        name=f"{p_icon} {p_name} ({p_cls})",
+        value=f"❤️ HP: `{p_hp}/{p_max_hp}` | ✨ Mana: `{p_cur_mana}`\n⚔️ ATK: `{p_atk}` | 🛡️ DEF: `{p_def}`",
+        inline=True
+    )
+    intro.add_field(
+        name=f"👹 {boss_data['name']}",
+        value=f"❤️ HP: `{boss_cur_hp:,}` | ⚔️ ATK: `{boss_atk}`\n_{boss_data.get('desc','')[:60]}_",
+        inline=True
+    )
+    await channel.send(embed=intro)
+    await asyncio.sleep(2)
 
-    if roll <= 4:
-        result, xp_loss = remove_xp(user_id, random.randint(100, 200))
-        narratives_pool = [
-            [
-                f"💥 *O {boss_data['name']} dá um rugido ensurdecedor que faz o chão tremer!*",
-                f"⚔️ *Você avança com determinação, mas o boss desvia com velocidade sobrenatural!*",
-                f"💀 *Um golpe devastador te atinge em cheio — você voa metros para trás!*",
-                f"🩸 *Sangrando e exausto, você cai de joelhos. A batalha se encerra.*",
-            ],
-            [
-                f"🌑 *{boss_data['name']} ergue os braços e o céu escurece ao redor!*",
-                f"⚡ *Uma descarga de energia sombria te atravessa antes que você possa reagir!*",
-                f"💫 *Sua visão gira. Seus joelhos cedem. O poder é grande demais...*",
-                f"😵 *'Fraco.'* — sussurra o boss enquanto você cai.*",
-            ],
-            [
-                f"🔥 *O {boss_data['name']} ataca com uma velocidade impossível para sua classe!*",
-                f"🗡️ *Você tenta aparar o golpe mas a força é três vezes maior que a sua!*",
-                f"💔 *Cada osso do seu corpo ressoa com a dor do impacto!*",
-                f"🏃 *Você recua às pressas, derrotado mais uma vez pelo colosso.*",
-            ],
-            [
-                f"👹 *{boss_data['name']} ri de você — um som que ecoa por todo o mundo!*",
-                f"🌀 *Uma onda de energia te joga contra a parede com força devastadora!*",
-                f"⚰️ *As estrelas piscam à sua frente enquanto a consciência escapa...*",
-                f"🔴 *'Volte quando for digno.'* — ecoa na sua mente enquanto você foge.*",
-            ],
-        ]
-        narratives = random.choice(narratives_pool)
-        embed.add_field(
-            name="💀 Derrota Devastadora",
-            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Nem todo herói vence na primeira tentativa... Treine mais!'*",
+    # ---- Turn-based combat ----
+    p_cur_hp = p_hp
+    p_poison = False
+    p_weakened = False
+    p_stunned = False
+    crits_done = 0
+    poisons_done = 0
+    stuns_done = 0
+    skills_used = set()
+    was_poisoned = False
+    was_stunned = False
+
+    for turn in range(1, 9):
+        if p_cur_hp <= 0 or boss_cur_hp <= 0:
+            break
+
+        turn_embed = discord.Embed(title=f"⚔️ TURNO {turn}", color=discord.Color.red())
+
+        # === Player action ===
+        available = [s for s in p_skills if s["mana_cost"] <= p_cur_mana]
+        if not available:
+            available = [p_skills[0]]
+        p_skill = random.choice(available)
+        p_cur_mana = max(0, p_cur_mana - p_skill["mana_cost"])
+        skills_used.add(p_skill["name"])
+
+        dmg_raw = int(p_atk * p_skill["dmg_mult"])
+        if p_weakened:
+            dmg_raw = int(dmg_raw * 0.7)
+
+        is_crit = random.random() < p_skill.get("crit_chance", 0.1)
+        if is_crit:
+            dmg_raw = int(dmg_raw * 1.8)
+            crits_done += 1
+            skill_display = f"💥 CRÍTICO! {p_skill['name']}"
+        else:
+            skill_display = p_skill["name"]
+
+        if p_skill.get("ignore_def"):
+            p_dmg = max(1, dmg_raw)
+        else:
+            boss_def = max(0, boss_atk // 4)  # boss tem alguma defesa
+            p_dmg = max(1, dmg_raw - boss_def)
+
+        boss_cur_hp -= p_dmg
+
+        if p_skill.get("self_heal"):
+            p_cur_hp = min(p_max_hp, p_cur_hp + p_skill["self_heal"])
+
+        boss_stun = random.random() < p_skill.get("stun_chance", 0)
+        if p_skill.get("poison"):
+            boss_poison = True
+            poisons_done += 1
+        if p_skill.get("weaken"):
+            boss_weakened = True
+
+        p_action = f"{p_icon} **{p_name}** usa **{skill_display}**!\n💥 `−{p_dmg:,} HP` para {boss_data['name']}\n_{p_skill['desc']}_"
+        if boss_stun:
+            p_action += "\n⚡ **O boss foi paralisado!**"
+            stuns_done += 1
+        if p_skill.get("self_heal"):
+            p_action += f"\n💚 **{p_name} recuperou {p_skill['self_heal']} HP!**"
+        turn_embed.add_field(name=f"🔴 Você ataca!", value=p_action, inline=False)
+
+        if boss_cur_hp <= 0:
+            turn_embed.add_field(name="💥 BOSS DESTRUÍDO!", value=f"**{boss_data['name']}** foi derrotado!", inline=False)
+            await channel.send(embed=turn_embed)
+            break
+
+        # Boss poison
+        if boss_poison:
+            boss_poison_dmg = max(10, int(boss_hp * 0.04))
+            boss_cur_hp -= boss_poison_dmg
+            turn_embed.add_field(name="☠️ Veneno!", value=f"**{boss_data['name']}** sofre `{boss_poison_dmg}` de veneno!", inline=False)
+            if boss_cur_hp <= 0:
+                await channel.send(embed=turn_embed)
+                break
+
+        # === Boss action (if not stunned) ===
+        if not boss_stun:
+            b_skill = random.choice(boss_skills)
+            b_dmg_raw = int(boss_atk * b_skill["dmg_mult"])
+            if boss_weakened:
+                b_dmg_raw = int(b_dmg_raw * 0.6)
+
+            if random.random() < 0.1:
+                b_dmg_raw = int(b_dmg_raw * 1.5)
+                b_skill_name = f"💥 CRÍTICO! {b_skill['name']}"
+            else:
+                b_skill_name = b_skill["name"]
+
+            b_dmg = max(1, b_dmg_raw - p_def)
+            p_cur_hp -= b_dmg
+
+            if b_skill.get("poison"):
+                p_poison = True
+                was_poisoned = True
+            if b_skill.get("weaken"):
+                p_weakened = True
+            b_stun = random.random() < b_skill.get("stun_chance", 0)
+            if b_stun:
+                p_stunned = True
+                was_stunned = True
+
+            b_action = f"👹 **{boss_data['name']}** usa **{b_skill_name}**!\n💥 `−{b_dmg}` de dano!\n_{b_skill['desc']}_"
+            if b_stun:
+                b_action += f"\n⚡ **{p_name} foi paralisado no próximo turno!**"
+            if b_skill.get("poison"):
+                b_action += f"\n☠️ **{p_name} foi envenenado!**"
+            turn_embed.add_field(name=f"🔵 Boss ataca!", value=b_action, inline=False)
+        else:
+            turn_embed.add_field(name=f"⚡ Boss paralisado!", value="O boss perdeu o turno!", inline=False)
+
+        # Player poison
+        if p_poison:
+            p_poison_dmg = max(5, int(p_max_hp * 0.04))
+            p_cur_hp -= p_poison_dmg
+            turn_embed.add_field(name="☠️ Veneno!", value=f"**{p_name}** sofre `{p_poison_dmg}` de veneno!", inline=False)
+
+        # HP bars
+        p_pct = max(0, int(p_cur_hp / p_max_hp * 100))
+        b_pct = max(0, int(boss_cur_hp / boss_hp * 100))
+        p_bar = "🟥" * (p_pct // 20) + "⬛" * (5 - p_pct // 20)
+        b_bar = "🟦" * (b_pct // 20) + "⬛" * (5 - b_pct // 20)
+
+        turn_embed.add_field(
+            name="📊 Status",
+            value=f"{p_icon} **{p_name}**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
+                  f"👹 **{boss_data['name']}**: {b_bar} `{max(0,boss_cur_hp):,}/{boss_hp:,}` ❤️",
             inline=False
         )
-        if result == "reset":
-            embed.add_field(
-                name="🌑 Fim da Jornada",
-                value="*'Sua visão escurece... tudo que você conquistou se perde nas sombras...'*\n\n**Você desperta novamente nos Campos Iniciais, sem memórias.**",
+        await channel.send(embed=turn_embed)
+        await asyncio.sleep(2)
+
+    # ---- Battle result ----
+    await asyncio.sleep(1)
+
+    if p_cur_hp <= 0 or (boss_cur_hp > 0 and p_cur_hp <= 0):
+        # === DERROTA ===
+        result, xp_loss = remove_xp(user_id, random.randint(80, 150))
+        defeat_embed = discord.Embed(
+            title="💀 DERROTA...",
+            description=f"*'{boss_data['name']} permanece de pé enquanto você cai...'*\n\n❌ **−{xp_loss} XP**",
+            color=discord.Color.dark_red()
+        )
+        defeat_embed.add_field(
+            name="💡 O que fazer agora?",
+            value="• **Vingança** — Enfrente o mesmo boss imediatamente\n• **Treinamento** — Fortaleça seus stats antes da revanche\n• **Recuar** — Recolha suas forças",
+            inline=False
+        )
+        await channel.send(embed=defeat_embed)
+        # Show revenge/training buttons for level bosses
+        boss_levels_set = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+        if boss_data["name"] in boss_levels_set or player.get("level") in [9,19,29,39,49,59]:
+            view = RevengeTrainingView(user_id, boss_data)
+            await channel.send("**O que você deseja fazer?**", view=view)
+        return
+
+    # === VITÓRIA ===
+    xp = boss_data["xp"] + (player["level"] * 10)
+    coins = random.randint(boss_data["coins"][0], boss_data["coins"][1])
+
+    player2 = get_player(user_id)
+    if boss_data["name"] not in player2["bosses"]:
+        player2["bosses"].append(boss_data["name"])
+    player2["bosses_defeated"] = player2.get("bosses_defeated", 0) + 1
+    player2["total_coins_earned"] = player2.get("total_coins_earned", 0) + coins
+    player2["total_xp_earned"] = player2.get("total_xp_earned", 0) + xp
+    # Check for revenge achievement
+    effects2 = player2.get("active_effects", {})
+    was_revenge = effects2.pop("used_revenge", False)
+    player2["active_effects"] = effects2
+    save_player_db(user_id, player2)
+
+    leveled = add_xp(user_id, xp)
+    add_coins(user_id, coins)
+
+    victory_embed = discord.Embed(
+        title="🏆 VITÓRIA GLORIOSA!",
+        description=f"*'{boss_data['name']} cai derrotado! A lenda de {p_name} cresce!'*\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} CSI**",
+        color=discord.Color.gold()
+    )
+
+    if leveled:
+        p_after = get_player(user_id)
+        victory_embed.add_field(name="🆙 Level Up!", value=f"*Você chegou ao **Nível {p_after['level']}**!*", inline=False)
+
+    # Unlock next world for level bosses
+    boss_to_world = {
+        "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
+        "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
+    }
+    next_world = boss_to_world.get(boss_data["name"])
+    if next_world and next_world in WORLDS:
+        p3 = get_player(user_id)
+        if next_world not in p3["worlds"]:
+            p3["worlds"].append(next_world)
+            save_player_db(user_id, p3)
+            victory_embed.add_field(
+                name="🗺️ Novo Mundo Desbloqueado!",
+                value=f"{WORLDS[next_world]['emoji']} **{WORLDS[next_world]['name']}** agora está acessível!\n*'Novos desafios e glórias aguardam!'*",
                 inline=False
             )
-            embed.color = discord.Color.black()
 
-    elif roll <= 6:
-        result, xp_loss = remove_xp(user_id, random.randint(50, 80))
-        narratives_pool = [
-            [
-                f"⚔️ *Você e o {boss_data['name']} trocam golpes por longos minutos!*",
-                f"💢 *Cada ataque seu encontra uma defesa. Cada golpe dele, você desvia por pouco!*",
-                f"😰 *Mas a resistência não é eterna — você começa a ceder...*",
-                f"🚪 *Ferido e esgotado, você recua antes que seja tarde demais.*",
-            ],
-            [
-                f"🔥 *A batalha é intensa! Você está se saindo melhor que da última vez!*",
-                f"💥 *Você até acerta o boss! Mas ele mal sente o impacto...*",
-                f"😤 *'Interessante.'* — diz o boss, pela primeira vez te levando a sério.*",
-                f"🩹 *Mas o preço foi alto. Você precisa de mais poder para vencer.*",
-            ],
-        ]
-        narratives = random.choice(narratives_pool)
-        embed.add_field(
-            name="😰 Empate Amargo",
-            value="\n".join(narratives) + f"\n\n❌ **−{xp_loss} XP**\n\n*'Você está mais próximo. Continue tentando.'*",
-            inline=False
-        )
-        embed.color = discord.Color.orange()
+    # Item drop
+    drop_rarity = None
+    rand = random.random()
+    if rand < 0.003:  # 0.3% chance Divino/Primordial (BOSS ONLY)
+        drop_rarity = random.choice(["Divino", "Primordial"])
+    elif rand < 0.05:  # 5% Mítico
+        drop_rarity = "Mítico"
+    elif rand < 0.15:  # 10% Lendário
+        drop_rarity = "Lendário"
+    elif rand < 0.35:  # 20% Épico
+        drop_rarity = "Épico"
 
-    else:
-        xp = boss_data["xp"] + (300 if roll >= 9 else 100)
-        coins = max(1, random.randint(boss_data["coins"][0] // 3, boss_data["coins"][1] // 3))
-
-        if boss_data["name"] not in player["bosses"]:
-            player["bosses"].append(boss_data["name"])
-
-        save_player_db(user_id, player)
-        leveled = add_xp(user_id, xp)
-        add_coins(user_id, coins)
-
-        # Drop de poção do boss
-        if random.random() < 0.3:
-            potion_rarities = ["Raro", "Épico", "Lendário"]
-            weights = [50, 35, 15]
-            chosen_rarity = random.choices(potion_rarities, weights=weights)[0]
-            potions_of_rarity = [name for name, data in POTIONS.items() if data["rarity"] == chosen_rarity]
-            if potions_of_rarity:
-                dropped_potion = random.choice(potions_of_rarity)
-                player = get_player(user_id)
-                player["inventory"].append(dropped_potion)
-                save_player_db(user_id, player)
-
-        narratives_pool = [
-            [
-                f"⚡ *Você esquiva do primeiro golpe do {boss_data['name']} com precisão cirúrgica!*",
-                f"🗡️ *Contra-ataca na abertura perfeita — o boss recua pela primeira vez!*",
-                f"💫 *A batalha se intensifica, mas você mantém a vantagem!*",
-                f"✨ *Um golpe final com toda sua força — o {boss_data['name']} cai rugindo!*",
-                f"🌟 *Um silêncio épico... e então o chão treme com a queda do colosso.*",
-            ],
-            [
-                f"🔥 *'Você está diferente hoje!'* — grunhe o {boss_data['name']} sentindo sua força!*",
-                f"⚔️ *Uma sequência de ataques impecáveis — cada golpe encontra seu alvo!*",
-                f"💥 *O boss tenta sua técnica mais letal... mas você já conhecia o movimento!*",
-                f"🏆 *Com um grito de vitória, você desferindo o golpe decisivo!*",
-                f"👑 *{boss_data['name']} cai de joelhos. Derrotado. Por você.*",
-            ],
-            [
-                f"🌀 *A batalha começa com uma explosão de energia que ilumina o céu!*",
-                f"😤 *Você absorve cada golpe e responde com o dobro de força!*",
-                f"🩸 *O boss sangra — algo que parecia impossível até agora!*",
-                f"💀 *'Como...?!'* — não consegue terminar a frase. O golpe final o cala.*",
-                f"🎺 *Lendas serão contadas desta batalha por gerações.*",
-            ],
-        ]
-        narratives = random.choice(narratives_pool)
-
-        embed.add_field(
-            name="🏆 VITÓRIA GLORIOSA!",
-            value="\n".join(narratives) + f"\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**\n\n*'Uma lenda nasce!'*",
-            inline=False
-        )
-
-        # Desbloqueia próximo mundo APENAS ao derrotar boss
-        boss_to_world = {
-            "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
-            "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
-        }
-        next_world = boss_to_world.get(boss_data["name"])
-        if next_world and next_world in WORLDS:
-            player = get_player(user_id)
-            if next_world not in player["worlds"]:
-                player["worlds"].append(next_world)
-                save_player_db(user_id, player)
-                embed.add_field(
-                    name="🗺️ Novo Mundo Revelado!",
-                    value=f"*'As correntes se rompem! As névoas se dissipam!'*\n\n{WORLDS[next_world]['emoji']} **{WORLDS[next_world]['name']}** foi desbloqueado!\n\n*'Novos desafios — e novas glórias — aguardam!'*",
-                    inline=False
-                )
-
-        if roll >= 9:
-            item_type = random.choice(["weapon", "armor"])
-            item_list = "weapons" if item_type == "weapon" else "armor"
-            legendary = [i for i in ITEMS[item_list] if i["rarity"] in ["Lendário", "Mítico", "Divino"]]
-            item = random.choice(legendary)
-
-            embed.add_field(
-                name="🌟 Drop Lendário!",
-                value=f"Do corpo do {boss_data['name']} surge:\n\n{RARITIES[item['rarity']]['emoji']} **{item['name']}**\n\n*'Os deuses sorriem para você!'*",
+    if drop_rarity:
+        item_type = random.choice(["weapon", "armor"])
+        item_list = "weapons" if item_type == "weapon" else "armor"
+        items_of_rarity = [i for i in ITEMS[item_list] if i["rarity"] == drop_rarity]
+        if items_of_rarity:
+            item = random.choice(items_of_rarity)
+            victory_embed.add_field(
+                name=f"{'🌟' if drop_rarity in ['Divino','Primordial'] else '✨'} Drop Especial!",
+                value=f"{RARITIES[drop_rarity]['emoji']} **{item['name']}** ({drop_rarity}) caiu do boss!\n*'Os deuses sorriem para você!'*",
                 inline=False
             )
-
-            await channel.send(embed=embed)
-            await asyncio.sleep(1)
+            await channel.send(embed=victory_embed)
             view = EquipButton(user_id, item["name"], item_type)
-            await channel.send(
-                f"⚔️ **{item['name']}** brilha em suas mãos!\n\n*'Deseja equipar?'*", view=view
-            )
-            return
+            await channel.send(f"⚔️ **{item['name']}** brilha em suas mãos! Deseja equipar?", view=view)
 
-        if leveled:
-            player = get_player(user_id)
-            embed.add_field(name="🆙 Ascensão!", value=f"*'Seu corpo pulsa com nova energia!'*\n\n**Nível {player['level']}**", inline=False)
+            # Achievements for drops
+            if drop_rarity in ["Divino", "Primordial"]:
+                await check_achievements(channel, user_id, "divine_drop")
+            elif drop_rarity == "Lendário":
+                await check_achievements(channel, user_id, "legendary_drop")
 
-        embed.color = discord.Color.gold()
+            p4 = get_player(user_id)
+            p4["inventory"].append(item["name"])
+            save_player_db(user_id, p4)
+        else:
+            await channel.send(embed=victory_embed)
+    else:
+        # Potion drop
+        if random.random() < 0.35:
+            pot_rarities = ["Raro", "Épico", "Lendário"]
+            pot_weights = [55, 35, 10]
+            chosen_rarity = random.choices(pot_rarities, weights=pot_weights)[0]
+            pots = [name for name, data in POTIONS.items() if data["rarity"] == chosen_rarity]
+            if pots:
+                dropped_pot = random.choice(pots)
+                p4 = get_player(user_id)
+                p4["inventory"].append(dropped_pot)
+                save_player_db(user_id, p4)
+                victory_embed.add_field(name="🧪 Poção Encontrada!", value=f"{RARITIES[chosen_rarity]['emoji']} **{dropped_pot}** adicionado ao inventário!", inline=False)
+        await channel.send(embed=victory_embed)
 
-    await channel.send(embed=embed)
+    # Check achievements
+    await check_achievements(channel, user_id)
+    if was_revenge:
+        await check_achievements(channel, user_id, "comeback_win")
+    if p_cur_hp >= int(p_max_hp * 0.8):
+        await check_achievements(channel, user_id, "boss_no_damage")
+    if not was_poisoned and not was_stunned:
+        await check_achievements(channel, user_id, "perfect_boss_fight")
+    if boss_data["name"] == "Slime Rei":
+        await check_achievements(channel, user_id, "boss_slime_rei")
+    if boss_data["name"] == "Dragão de Magma":
+        await check_achievements(channel, user_id, "boss_dragao")
+    if boss_data["name"] == "Senhor das Sombras":
+        await check_achievements(channel, user_id, "boss_sombras")
+    # Check level boss
+    p_bosses_beaten = player2.get("bosses", [])
+    if len(p_bosses_beaten) >= 1:
+        await check_achievements(channel, user_id, "level_boss_1")
+    level_bosses_names = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+    p3_final = get_player(user_id)
+    if all(b in p3_final.get("bosses", []) for b in level_bosses_names):
+        await check_achievements(channel, user_id, "all_level_bosses")
+    # World unlocks
+    worlds_count = len(p3_final.get("worlds", [1]))
+    if worlds_count >= 2:
+        await check_achievements(channel, user_id, "world_2")
+    if worlds_count >= 3:
+        await check_achievements(channel, user_id, "world_3")
+    if worlds_count >= 4:
+        await check_achievements(channel, user_id, "world_4")
+    if worlds_count >= 5:
+        await check_achievements(channel, user_id, "world_5")
+    if len(WORLDS) <= worlds_count:
+        await check_achievements(channel, user_id, "all_worlds")
 
 
 async def explore_dungeon(channel, user_id, dungeon, world):
@@ -5779,6 +6317,12 @@ async def on_message(message):
             return
 
         await message.channel.send(embed=embed)
+        # Track exploration
+        p_explore = get_player(user_id)
+        if roll >= 5:  # Count successful explorations
+            p_explore["areas_explored"] = p_explore.get("areas_explored", 0) + 1
+            save_player_db(user_id, p_explore)
+        await check_achievements(message.channel, user_id)
         await check_level_boss(message.channel, user_id)
         return
 
@@ -5863,6 +6407,11 @@ async def on_message(message):
                 embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
             embed.color = discord.Color.green()
 
+            # Track monster kill
+            p_kill2 = get_player(user_id)
+            p_kill2["monsters_killed"] = p_kill2.get("monsters_killed", 0) + 1
+            save_player_db(user_id, p_kill2)
+
             # Progresso de quest de caça
             player = get_player(user_id)
             if player.get("active_quest") and player["active_quest"].get("objective") == "hunt":
@@ -5915,6 +6464,11 @@ async def on_message(message):
                 embed.add_field(name="🆙 Evolução!", value=f"**Nível {player['level']}**", inline=False)
             embed.color = discord.Color.gold()
 
+            # Track monster kill
+            p_kill = get_player(user_id)
+            p_kill["monsters_killed"] = p_kill.get("monsters_killed", 0) + 1
+            save_player_db(user_id, p_kill)
+
             await message.channel.send(embed=embed)
 
             if drop_item:
@@ -5933,6 +6487,7 @@ async def on_message(message):
                     else:
                         save_player_db(user_id, player)
 
+            await check_achievements(message.channel, user_id)
             await check_level_boss(message.channel, user_id)
             return
 
@@ -6198,21 +6753,67 @@ async def on_message(message):
             for item in player["inventory"]:
                 items_count[item] = items_count.get(item, 0) + 1
 
+            RARITY_ORDER = ["Primordial", "Divino", "Mítico", "Lendário", "Épico", "Raro", "Incomum", "Comum"]
+
+            def get_item_rarity_name(item_name):
+                for w in ITEMS["weapons"]:
+                    if w["name"] == item_name:
+                        return w.get("rarity", "Comum")
+                for a in ITEMS["armor"]:
+                    if a["name"] == item_name:
+                        return a.get("rarity", "Comum")
+                if item_name in POTIONS:
+                    return POTIONS[item_name].get("rarity", "Comum")
+                return "Comum"
+
             weapons_in_inv = [i for i in items_count if any(w["name"] == i for w in ITEMS["weapons"])]
             armors_in_inv = [i for i in items_count if any(a["name"] == i for a in ITEMS["armor"])]
             potions_in_inv = [i for i in items_count if i in POTIONS]
             resources_in_inv = [i for i in items_count if i not in potions_in_inv and i not in weapons_in_inv and i not in armors_in_inv]
 
-            if weapons_in_inv:
-                embed.add_field(name="⚔️ Armas", value="\n".join([f"• **{i}** x{items_count[i]}" for i in weapons_in_inv]), inline=False)
-            if armors_in_inv:
-                embed.add_field(name="🛡️ Armaduras", value="\n".join([f"• **{i}** x{items_count[i]}" for i in armors_in_inv]), inline=False)
-            if potions_in_inv:
-                embed.add_field(name="🧪 Poções", value="\n".join([f"• **{i}** x{items_count[i]}" for i in potions_in_inv]), inline=False)
-            if resources_in_inv:
-                embed.add_field(name="📦 Recursos", value="\n".join([f"• **{i}** x{items_count[i]}" for i in resources_in_inv]), inline=False)
+            def sort_by_rarity(item_list):
+                return sorted(item_list, key=lambda i: RARITY_ORDER.index(get_item_rarity_name(i)) if get_item_rarity_name(i) in RARITY_ORDER else 99)
 
-        embed.set_footer(text=f"Total: {len(player['inventory'])} itens | Moedas CSI: {player['coins']}")
+            def format_items_by_rarity(item_list, category_emoji):
+                lines = []
+                for rarity in RARITY_ORDER:
+                    r_items = [i for i in item_list if get_item_rarity_name(i) == rarity]
+                    if r_items:
+                        r_emoji = RARITIES.get(rarity, {}).get("emoji", "•")
+                        for i in r_items:
+                            lines.append(f"{r_emoji} **{i}** x{items_count[i]}")
+                return lines
+
+            fields_added = 0
+            if weapons_in_inv:
+                lines = format_items_by_rarity(weapons_in_inv, "⚔️")
+                chunk = "\n".join(lines)[:1024]
+                embed.add_field(name="⚔️ Armas", value=chunk or "—", inline=False)
+                fields_added += 1
+            if armors_in_inv:
+                lines = format_items_by_rarity(armors_in_inv, "🛡️")
+                chunk = "\n".join(lines)[:1024]
+                embed.add_field(name="🛡️ Armaduras", value=chunk or "—", inline=False)
+                fields_added += 1
+            if potions_in_inv:
+                lines = format_items_by_rarity(potions_in_inv, "🧪")
+                chunk = "\n".join(lines)[:1024]
+                embed.add_field(name="🧪 Poções", value=chunk or "—", inline=False)
+                fields_added += 1
+            if resources_in_inv:
+                embed.add_field(name="📦 Recursos", value="\n".join([f"• **{i}** x{items_count[i]}" for i in resources_in_inv])[:1024], inline=False)
+
+            if player.get("weapon") or player.get("armor"):
+                equip_txt = []
+                if player.get("weapon"):
+                    r = get_item_rarity_name(player["weapon"])
+                    equip_txt.append(f"{RARITIES.get(r,{}).get('emoji','⚔️')} Arma: **{player['weapon']}**")
+                if player.get("armor"):
+                    r = get_item_rarity_name(player["armor"])
+                    equip_txt.append(f"{RARITIES.get(r,{}).get('emoji','🛡️')} Armadura: **{player['armor']}**")
+                embed.add_field(name="🎖️ Equipado", value="\n".join(equip_txt), inline=False)
+
+        embed.set_footer(text=f"Total: {len(player['inventory'])} itens | Moedas CSI: {player['coins']:,} | Conquistas: {len(player.get('achievements', []))}/{len(ACHIEVEMENTS)}")
         await message.channel.send(embed=embed)
         return
 
@@ -6240,6 +6841,105 @@ async def on_message(message):
             embed.add_field(name=f"⚡ Habilidades de {cls}", value=skills_text[:1024], inline=False)
         embed.set_footer(text="Mana se recupera ao subir de nível e ao descansar!")
         await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= VER CONQUISTAS ====================
+    # ======================================================
+    elif any(word in content for word in ["ver conquista", "conquistas", "ver conquistas", "achievements", "minhas conquistas"]):
+        player = get_player(user_id)
+        earned_ids = player.get("achievements", [])
+        earned_set = set(earned_ids)
+
+        # Group by category
+        cats = {}
+        for ach in ACHIEVEMENTS:
+            c = ach["cat"]
+            if c not in cats:
+                cats[c] = {"earned": [], "locked": []}
+            if ach["id"] in earned_set:
+                cats[c]["earned"].append(ach)
+            else:
+                cats[c]["locked"].append(ach)
+
+        total = len(ACHIEVEMENTS)
+        earned_count = len(earned_ids)
+        pct = int(earned_count / total * 100) if total > 0 else 0
+        bar_filled = pct // 10
+        prog_bar = "🟨" * bar_filled + "⬛" * (10 - bar_filled)
+
+        embed = discord.Embed(
+            title=f"🏆 Conquistas de {message.author.display_name}",
+            description=f"*'O narrador registra seus feitos na Grande Crônica...'*\n\n{prog_bar} `{earned_count}/{total}` ({pct}%)",
+            color=discord.Color.gold()
+        )
+
+        for cat_name, data in cats.items():
+            is_secret = cat_name == "🔮 Secreta"
+            earned_list = data["earned"]
+            locked_list = data["locked"]
+            value_parts = []
+            for ach in earned_list[:5]:
+                value_parts.append(f"✅ **{ach['name']}** — {ach['desc']} *(+{ach['xp']:,} XP)*")
+            if locked_list:
+                remaining = len(locked_list)
+                if is_secret:
+                    value_parts.append(f"🔒 *{remaining} conquista(s) secreta(s) ainda oculta(s)...*")
+                else:
+                    # Show next 2 locked
+                    for ach in locked_list[:2]:
+                        value_parts.append(f"🔒 ~~{ach['name']}~~ — {ach['desc']}")
+                    if len(locked_list) > 2:
+                        value_parts.append(f"*... e mais {len(locked_list)-2} conquista(s) bloqueada(s)*")
+            if value_parts:
+                embed.add_field(name=f"{cat_name} ({len(earned_list)}/{len(earned_list)+len(locked_list)})", value="\n".join(value_parts)[:1024], inline=False)
+
+        embed.set_footer(text=f"XP total de conquistas: {sum(a['xp'] for a in ACHIEVEMENTS if a['id'] in earned_set):,} XP")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= TREINAR ==========================
+    # ======================================================
+    elif content.startswith("treinar "):
+        player = get_player(user_id)
+        training_key = content[8:].strip().lower()
+        opt = TRAINING_OPTIONS.get(training_key)
+        if not opt:
+            opts_list = " | ".join([f"`treinar {k}`" for k in TRAINING_OPTIONS])
+            await message.channel.send(f"❌ Tipo de treino inválido!\n\nOpções disponíveis: {opts_list}")
+            return
+        cost = opt["cost"]
+        if player["coins"] < cost:
+            await message.channel.send(f"❌ Você não tem CSI suficiente! Precisa de `{cost:,}` mas tem `{player['coins']:,}`.")
+            return
+        player["coins"] -= cost
+        boosts = []
+        if opt.get("atk_boost"):
+            player["temp_atk_boost"] = player.get("temp_atk_boost", 0) + opt["atk_boost"]
+            boosts.append(f"+{opt['atk_boost']} ATK")
+        if opt.get("def_boost"):
+            player["temp_def_boost"] = player.get("temp_def_boost", 0) + opt["def_boost"]
+            boosts.append(f"+{opt['def_boost']} DEF")
+        if opt.get("hp_boost"):
+            player["temp_hp_boost"] = player.get("temp_hp_boost", 0) + opt["hp_boost"]
+            player["max_hp"] = player.get("max_hp", 100) + opt["hp_boost"]
+            player["hp"] = min(player["hp"] + opt["hp_boost"], player["max_hp"])
+            boosts.append(f"+{opt['hp_boost']} HP Max")
+        training_count = player.get("training_points", 0) + 1
+        player["training_points"] = training_count
+        save_player_db(user_id, player)
+        embed = discord.Embed(
+            title=f"💪 Treino Completo!",
+            description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}** realizado!\n\n📈 **Melhorias permanentes:** {', '.join(boosts)}\n💰 **Custo:** −{cost:,} CSI",
+            color=discord.Color.green()
+        )
+        embed.add_field(name="📊 Novos Stats", value=f"⚔️ ATK Bônus: +{player.get('temp_atk_boost',0)}\n🛡️ DEF Bônus: +{player.get('temp_def_boost',0)}\n❤️ HP Max Extra: +{player.get('temp_hp_boost',0)}", inline=False)
+        embed.set_footer(text=f"Treinos realizados: {training_count}")
+        await message.channel.send(embed=embed)
+        if training_count >= 10:
+            await check_achievements(message.channel, user_id, "training_10")
+        await check_achievements(message.channel, user_id)
         return
 
     # ======================================================
