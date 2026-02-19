@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎・mundo-csi"  # Apenas o nome sem emoji — Discord pode variar a representação do emoji
+CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 
 # ================= CLASSES =================
@@ -3479,58 +3479,60 @@ def init_db():
 
 def get_player_db(user_id):
     conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
     c = conn.cursor()
     c.execute("SELECT * FROM players WHERE user_id = ?", (str(user_id),))
     result = c.fetchone()
     conn.close()
 
     if result:
+        r = dict(result)
         return {
-            "level": result[1],
-            "xp": result[2],
-            "hp": result[3],
-            "max_hp": result[4],
-            "coins": result[5],
-            "inventory": json.loads(result[6]),
-            "weapon": result[7],
-            "armor": result[8],
-            "worlds": json.loads(result[9]),
-            "bosses": json.loads(result[10]),
-            "class": result[11],
-            "pet": result[12],
-            "guild_id": result[13],
-            "active_effects": json.loads(result[14]) if result[14] else {},
-            "active_quest": json.loads(result[15]) if result[15] else None,
-            "completed_quests": json.loads(result[16]) if result[16] else [],
-            "mana": result[17] if len(result) > 17 else 50,
-            "max_mana": result[18] if len(result) > 18 else 50,
-            "pvp_battles": json.loads(result[19]) if len(result) > 19 and result[19] else {},
-            "alignment_points": result[20] if len(result) > 20 else 0,
-            "pet_farm": json.loads(result[21]) if len(result) > 21 and result[21] else [],
-            "discovered_map": json.loads(result[22]) if len(result) > 22 and result[22] else {},
-            "job": result[23] if len(result) > 23 else None,
-            "job_since": result[24] if len(result) > 24 else 0,
-            "city_title": result[25] if len(result) > 25 else None,
-            "knights": json.loads(result[26]) if len(result) > 26 and result[26] else [],
-            "last_work": result[27] if len(result) > 27 else 0,
-            "last_defend": result[28] if len(result) > 28 else 0,
-            "achievements": json.loads(result[29]) if len(result) > 29 and result[29] else [],
-            "training_points": result[30] if len(result) > 30 else 0,
-            "temp_atk_boost": result[31] if len(result) > 31 else 0,
-            "temp_def_boost": result[32] if len(result) > 32 else 0,
-            "temp_hp_boost": result[33] if len(result) > 33 else 0,
-            "level_boss_attempts": json.loads(result[34]) if len(result) > 34 and result[34] else {},
-            "monsters_killed": result[35] if len(result) > 35 else 0,
-            "bosses_defeated": result[36] if len(result) > 36 else 0,
-            "total_coins_earned": result[37] if len(result) > 37 else 0,
-            "total_xp_earned": result[38] if len(result) > 38 else 0,
-            "areas_explored": result[39] if len(result) > 39 else 0,
-            "mana_category": result[40] if len(result) > 40 else "none",
-            "spell_book_unlocked": result[41] if len(result) > 41 else 0,
-            "afk_farming": result[42] if len(result) > 42 else 0,
-            "afk_start": result[43] if len(result) > 43 else 0,
-            "kingdom_data": json.loads(result[44]) if len(result) > 44 and result[44] and result[44] != "null" else None,
-            "pets_list": json.loads(result[45]) if len(result) > 45 and result[45] else [],
+            "level": r.get("level", 1),
+            "xp": r.get("xp", 0),
+            "hp": r.get("hp", 100),
+            "max_hp": r.get("max_hp", 100),
+            "coins": r.get("coins", 0),
+            "inventory": json.loads(r["inventory"]) if r.get("inventory") else [],
+            "weapon": r.get("weapon"),
+            "armor": r.get("armor"),
+            "worlds": json.loads(r["worlds"]) if r.get("worlds") else [1],
+            "bosses": json.loads(r["bosses"]) if r.get("bosses") else [],
+            "class": r.get("class"),
+            "pet": r.get("pet"),
+            "guild_id": r.get("guild_id"),
+            "active_effects": json.loads(r["active_effects"]) if r.get("active_effects") else {},
+            "active_quest": json.loads(r["active_quest"]) if r.get("active_quest") else None,
+            "completed_quests": json.loads(r["completed_quests"]) if r.get("completed_quests") else [],
+            "mana": r.get("mana", 50),
+            "max_mana": r.get("max_mana", 50),
+            "pvp_battles": json.loads(r["pvp_battles"]) if r.get("pvp_battles") else {},
+            "alignment_points": r.get("alignment_points", 0),
+            "pet_farm": json.loads(r["pet_farm"]) if r.get("pet_farm") else [],
+            "discovered_map": json.loads(r["discovered_map"]) if r.get("discovered_map") else {},
+            "job": r.get("job"),
+            "job_since": r.get("job_since", 0),
+            "city_title": r.get("city_title"),
+            "knights": json.loads(r["knights"]) if r.get("knights") else [],
+            "last_work": r.get("last_work", 0),
+            "last_defend": r.get("last_defend", 0),
+            "achievements": json.loads(r["achievements"]) if r.get("achievements") else [],
+            "training_points": r.get("training_points", 0),
+            "temp_atk_boost": r.get("temp_atk_boost", 0),
+            "temp_def_boost": r.get("temp_def_boost", 0),
+            "temp_hp_boost": r.get("temp_hp_boost", 0),
+            "level_boss_attempts": json.loads(r["level_boss_attempts"]) if r.get("level_boss_attempts") else {},
+            "monsters_killed": r.get("monsters_killed", 0),
+            "bosses_defeated": r.get("bosses_defeated", 0),
+            "total_coins_earned": r.get("total_coins_earned", 0),
+            "total_xp_earned": r.get("total_xp_earned", 0),
+            "areas_explored": r.get("areas_explored", 0),
+            "mana_category": r.get("mana_category", "none"),
+            "spell_book_unlocked": r.get("spell_book_unlocked", 0),
+            "afk_farming": r.get("afk_farming", 0),
+            "afk_start": r.get("afk_start", 0),
+            "kingdom_data": json.loads(r["kingdom_data"]) if r.get("kingdom_data") and r["kingdom_data"] != "null" else None,
+            "pets_list": json.loads(r["pets_list"]) if r.get("pets_list") else [],
         }
     return None
 
@@ -5439,7 +5441,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
 @tasks.loop(minutes=20)
 async def random_world_events():
     for guild in bot.guilds:
-        channel = discord.utils.get(guild.text_channels, name=CANAL_BETA) or next((c for c in guild.text_channels if CANAL_BETA in c.name), None)
+        channel = discord.utils.get(guild.text_channels, name=CANAL_BETA)
         if not channel:
             continue
 
@@ -5522,7 +5524,7 @@ async def random_world_events():
 
 # ================= PRÓLOGO =================
 async def send_prologue(guild):
-    channel = discord.utils.get(guild.text_channels, name=CANAL_BETA) or next((c for c in guild.text_channels if CANAL_BETA in c.name), None)
+    channel = discord.utils.get(guild.text_channels, name=CANAL_BETA)
     if not channel:
         return
 
@@ -5862,9 +5864,7 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return
-    # Aceita tanto nome exato quanto canal contendo "mundo-csi"
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
 
     content = message.content.lower().strip()
@@ -8146,8 +8146,7 @@ BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=s
 async def handle_new_commands(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -8971,8 +8970,7 @@ async def handle_new_commands(message):
 async def handle_mining_mimic(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9007,8 +9005,7 @@ async def handle_map_discovery(message):
     """Ao explorar, há chance de descobrir novo local no mapa"""
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9051,8 +9048,7 @@ async def handle_npc_lore(message):
     """NPCs extras que contam lore"""
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9084,8 +9080,7 @@ async def handle_npc_lore(message):
 async def handle_afk_farm(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9153,8 +9148,7 @@ async def handle_afk_farm(message):
 async def handle_pet_evolution(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9318,8 +9312,7 @@ async def handle_pet_evolution(message):
 async def handle_spell_book(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -9471,8 +9464,7 @@ async def handle_spell_book(message):
 async def handle_kingdom(message):
     if message.author.bot:
         return
-    ch_name = getattr(message.channel, "name", "")
-    if CANAL_BETA not in ch_name and ch_name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA:
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
