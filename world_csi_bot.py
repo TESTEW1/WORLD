@@ -2172,15 +2172,22 @@ RARITIES = {
 PETS = {
     1: [
         {"name": "Slime Bebê", "emoji": "💧", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3},
+        {"name": "Rato Selvagem Domesticado", "emoji": "🐀", "rarity": "Comum", "bonus_hp": 8, "bonus_atk": 4},
+        {"name": "Lagarta Arcana", "emoji": "🐛", "rarity": "Comum", "bonus_hp": 9, "bonus_atk": 3},
+        {"name": "Fungo Espiritual", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 12, "bonus_atk": 2},
         {"name": "Coelho Mágico", "emoji": "🐰", "rarity": "Incomum", "bonus_hp": 15, "bonus_atk": 5},
         {"name": "Fada da Floresta", "emoji": "🧚", "rarity": "Raro", "bonus_hp": 20, "bonus_atk": 8}
     ],
     10: [
+        {"name": "Toupeira das Sombras", "emoji": "🦡", "rarity": "Comum", "bonus_hp": 18, "bonus_atk": 6},
+        {"name": "Cogumelo Sombrio", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 16, "bonus_atk": 7},
         {"name": "Lobo Cinzento", "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12},
         {"name": "Coruja Espectral", "emoji": "🦉", "rarity": "Raro", "bonus_hp": 30, "bonus_atk": 15},
         {"name": "Espírito da Floresta", "emoji": "👻", "rarity": "Épico", "bonus_hp": 40, "bonus_atk": 20}
     ],
     20: [
+        {"name": "Besouro do Deserto", "emoji": "🪲", "rarity": "Comum", "bonus_hp": 22, "bonus_atk": 9},
+        {"name": "Cobra das Areias", "emoji": "🐍", "rarity": "Comum", "bonus_hp": 20, "bonus_atk": 11},
         {"name": "Escorpião Dourado", "emoji": "🦂", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 18},
         {"name": "Escaravelho Místico", "emoji": "🪲", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 23},
         {"name": "Esfinge Menor", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30}
@@ -6318,30 +6325,75 @@ class ClassEvolutionView(discord.ui.View):
             self.answered = True
             player = get_player(self.user_id)
             spec_data = CLASS_SPECIALIZATIONS.get(spec_name, {})
-            player["class"] = self.base_class  # class stays same, spec changes style
+            player["class"] = self.base_class
             player["specialization"] = spec_name
             player["class_tier"] = new_tier
-            # Apply spec bonuses
-            player["max_hp"] += spec_data.get("bonus_hp", 0)
-            player["hp"] = min(player["hp"] + spec_data.get("bonus_hp", 0), player["max_hp"])
+
+            # ── Status escalonados por tier ─────────────────────────────
+            # Tier 1 (nível 40):  1× base
+            # Tier 2 (nível 80):  2.5× base + bônus extra
+            # Tier 3 (nível 120): 5× base + bônus extra grande
+            # Tier 4 (nível 160): 10× base + bônus máximo (poder divino)
+            BASE_HP  = spec_data.get("bonus_hp",  0)
+            BASE_ATK = spec_data.get("bonus_atk", 0)
+            BASE_DEF = spec_data.get("bonus_def", 0)
+
+            TIER_MULTIPLIERS = {
+                1: {"hp": 1.0,  "atk": 1.0,  "def": 1.0,  "extra_hp":   0, "extra_atk":  0, "extra_def":  0},
+                2: {"hp": 2.5,  "atk": 2.5,  "def": 2.5,  "extra_hp":  50, "extra_atk": 20, "extra_def": 15},
+                3: {"hp": 5.0,  "atk": 5.0,  "def": 5.0,  "extra_hp": 150, "extra_atk": 60, "extra_def": 45},
+                4: {"hp": 10.0, "atk": 10.0, "def": 10.0, "extra_hp": 400, "extra_atk":150, "extra_def":120},
+            }
+            mult = TIER_MULTIPLIERS.get(new_tier, TIER_MULTIPLIERS[1])
+
+            bonus_hp  = int(BASE_HP  * mult["hp"])  + mult["extra_hp"]
+            bonus_atk = int(BASE_ATK * mult["atk"]) + mult["extra_atk"]
+            bonus_def = int(BASE_DEF * mult["def"]) + mult["extra_def"]
+
+            # Garantir mínimos por tier (mesmo specs sem bônus base ganham algo)
+            MIN_HP  = {1: 10, 2: 80,  3: 200, 4: 500}
+            MIN_ATK = {1:  5, 2: 30,  3:  80, 4: 200}
+            MIN_DEF = {1:  0, 2: 20,  3:  55, 4: 130}
+            bonus_hp  = max(bonus_hp,  MIN_HP[new_tier])
+            bonus_atk = max(bonus_atk, MIN_ATK[new_tier])
+            bonus_def = max(bonus_def, MIN_DEF[new_tier])
+
+            # Aplicar bônus ao jogador
+            player["max_hp"] += bonus_hp
+            player["hp"] = min(player["hp"] + bonus_hp, player["max_hp"])
             save_player_db(self.user_id, player)
+
+            # Nomes dos tiers para exibição
+            TIER_NAMES = {1: "Tier I — Elite", 2: "Tier II — Mestre", 3: "Tier III — Lendário", 4: "Tier IV — Divino"}
+            TIER_COLORS = {1: discord.Color.blue(), 2: discord.Color.gold(), 3: discord.Color.from_rgb(255, 60, 0), 4: discord.Color.from_rgb(200, 0, 255)}
+            TIER_EMOJIS = {1: "🔵", 2: "🌟", 3: "🔥", 4: "👑"}
+
             embed = discord.Embed(
-                title=f"✨ Especialização Escolhida!",
+                title=f"{TIER_EMOJIS[new_tier]} EVOLUÇÃO {TIER_NAMES[new_tier].upper()}!",
                 description=(
                     f"Você evoluiu para **{self.evolved_name}**!\n"
                     f"Especialização: **{spec_name}** {spec_data.get('emoji','')}\n\n"
                     f"*{spec_data.get('desc', '')}*\n\n"
                     f"**Passiva:** {spec_data.get('passive', '')}"
                 ),
-                color=discord.Color.gold()
+                color=TIER_COLORS[new_tier]
             )
             if spec_data.get("special_skill"):
                 sk = spec_data["special_skill"]
                 embed.add_field(name="⚡ Habilidade Especial", value=f"{sk['name']} — {sk['desc']}", inline=False)
-            embed.add_field(name="❤️ Bônus HP", value=f"+{spec_data.get('bonus_hp',0)}", inline=True)
-            embed.add_field(name="⚔️ Bônus ATK", value=f"+{spec_data.get('bonus_atk',0)}", inline=True)
-            embed.add_field(name="🛡️ Bônus DEF", value=f"+{spec_data.get('bonus_def',0)}", inline=True)
-            embed.set_footer(text="Use 'habilidades' para ver suas skills atualizadas!")
+            embed.add_field(name="❤️ HP Ganho",  value=f"**+{bonus_hp}**",  inline=True)
+            embed.add_field(name="⚔️ ATK Ganho", value=f"**+{bonus_atk}**", inline=True)
+            embed.add_field(name="🛡️ DEF Ganho", value=f"**+{bonus_def}**", inline=True)
+            if new_tier >= 2:
+                embed.add_field(
+                    name=f"📈 Por que tão forte?",
+                    value=(
+                        f"*Cada tier de evolução multiplica os bônus da especialização.*\n"
+                        f"Tier I: ×1 | Tier II: ×2.5 | Tier III: ×5 | Tier IV: ×10"
+                    ),
+                    inline=False
+                )
+            embed.set_footer(text=f"Tier {new_tier}/4 — Use 'habilidades' para ver suas skills!")
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
@@ -13381,13 +13433,72 @@ async def handle_pet_battle(message):
 # Pets de nível mais alto (Lendário+) podem ter Forma Bestial (desbloqueada no nível 80 do jogador)
 
 COMMON_PET_FOURTH_FORMS = {
+    # ── Mundo 1 ───────────────────────────────────────────────────────
     "Slime Bebê": {
-        "level_required": 3,  # Nível do jogador
+        "level_required": 3,
         "next": "Slime Rei Menor",
-        "next_data": {"name": "Slime Rei Menor", "emoji": "👑", "rarity": "Comum", "bonus_hp": 80, "bonus_atk": 30,
-                      "special": True, "form": "quarta_forma", "desc": "A forma final exclusiva dos slimes comuns — um Rei Slime em miniatura!"}
+        "next_data": {"name": "Slime Rei Menor", "emoji": "👑", "rarity": "Comum",
+                      "bonus_hp": 80, "bonus_atk": 30, "special": True, "form": "quarta_forma",
+                      "desc": "A forma final dos Slimes Comuns — um Rei Slime em miniatura! Nenhum pet raro jamais alcançará isto."}
     },
-    # Pets comuns sem evoluções definidas anteriormente ganham a forma:
+    "Slime Adolescente": {
+        "level_required": 5,
+        "next": "Slime Rei do Abismo",
+        "next_data": {"name": "Slime Rei do Abismo", "emoji": "🌑", "rarity": "Comum",
+                      "bonus_hp": 100, "bonus_atk": 40, "special": True, "form": "quarta_forma",
+                      "desc": "O Slime que tocou o Abismo. Uma mutação única que nenhuma raridade superior pode replicar!"}
+    },
+    "Rato Selvagem Domesticado": {
+        "level_required": 2,
+        "next": "Rato Ancestral",
+        "next_data": {"name": "Rato Ancestral", "emoji": "🐀", "rarity": "Comum",
+                      "bonus_hp": 60, "bonus_atk": 22, "special": True, "form": "quarta_forma",
+                      "desc": "Pequeno mas absolutamente implacável. Superou todos os limites da sua raça!"}
+    },
+    "Fungo Espiritual": {
+        "level_required": 4,
+        "next": "Fungo Primordial",
+        "next_data": {"name": "Fungo Primordial", "emoji": "🍄", "rarity": "Comum",
+                      "bonus_hp": 75, "bonus_atk": 18, "special": True, "form": "quarta_forma",
+                      "desc": "Absorveu energia espiritual dos Campos Iniciais por gerações. Tóxico e misterioso!"}
+    },
+    "Lagarta Arcana": {
+        "level_required": 3,
+        "next": "Mariposa do Caos",
+        "next_data": {"name": "Mariposa do Caos", "emoji": "🦋", "rarity": "Comum",
+                      "bonus_hp": 65, "bonus_atk": 25, "special": True, "form": "quarta_forma",
+                      "desc": "Nunca virou borboleta — virou Caos! Uma forma que nenhum pet raro pode imitar."}
+    },
+    # ── Mundo 10 ──────────────────────────────────────────────────────
+    "Toupeira das Sombras": {
+        "level_required": 5,
+        "next": "Toupeira Cega Ancestral",
+        "next_data": {"name": "Toupeira Cega Ancestral", "emoji": "🦡", "rarity": "Comum",
+                      "bonus_hp": 90, "bonus_atk": 28, "special": True, "form": "quarta_forma",
+                      "desc": "Cega mas percebe o mundo de formas impossíveis. Poder através da escuridão absoluta!"}
+    },
+    "Cogumelo Sombrio": {
+        "level_required": 5,
+        "next": "Cogumelo Maldito Eterno",
+        "next_data": {"name": "Cogumelo Maldito Eterno", "emoji": "🍄", "rarity": "Comum",
+                      "bonus_hp": 85, "bonus_atk": 32, "special": True, "form": "quarta_forma",
+                      "desc": "Absorveu a maldição da floresta inteira. Venenoso ao extremo!"}
+    },
+    # ── Mundo 20 ──────────────────────────────────────────────────────
+    "Besouro do Deserto": {
+        "level_required": 8,
+        "next": "Besouro Faraó",
+        "next_data": {"name": "Besouro Faraó", "emoji": "🪲", "rarity": "Comum",
+                      "bonus_hp": 110, "bonus_atk": 38, "special": True, "form": "quarta_forma",
+                      "desc": "O Faraó dos besouros! Sobreviveu ao sol ardente por séculos. Carrega toda a força do deserto!"}
+    },
+    "Cobra das Areias": {
+        "level_required": 8,
+        "next": "Cobra Guardiã das Areias",
+        "next_data": {"name": "Cobra Guardiã das Areias", "emoji": "🐍", "rarity": "Comum",
+                      "bonus_hp": 95, "bonus_atk": 42, "special": True, "form": "quarta_forma",
+                      "desc": "Guardou os segredos das pirâmides por milênios. Veneno que carrega memória de mil faraós!"}
+    },
 }
 
 BESTIAL_FORMS = {
@@ -13609,46 +13720,71 @@ async def handle_mundo_proprio(message):
     uid = str(message.author.id)
 
     # ─── CRIAR MUNDO PRÓPRIO ────────────────────────────────────────────
-    if content in ["criar mundo proprio", "criar mundo próprio", "criar meu mundo"]:
+    # Pode ser usado em qualquer canal do servidor
+    if content in ["criar mundo proprio", "criar mundo próprio", "criar meu mundo", "criar meu mundo proprio", "criar meu mundo próprio"]:
+        if not message.guild:
+            await message.channel.send("❌ Este comando só funciona em servidores!")
+            return
+
         player = get_player(uid)
         if not player:
             await message.channel.send(f"❌ {message.author.mention} Crie seu personagem primeiro com `começar`!")
             return
 
-        # Verificar se já tem um mundo próprio
+        # Verificar se já tem um mundo próprio ativo
         if uid in MUNDO_PROPRIO_CHANNELS:
             ch = message.guild.get_channel(MUNDO_PROPRIO_CHANNELS[uid])
             if ch:
                 await message.channel.send(f"🌍 {message.author.mention} Você já tem um mundo próprio: {ch.mention}!")
                 return
+            else:
+                # Canal foi deletado, limpar do dicionário
+                del MUNDO_PROPRIO_CHANNELS[uid]
 
         # Categoria: ╭━━━━━✦Monstrinho (ID: 1471273874204397578)
         CATEGORIA_ID = 1471273874204397578
         categoria = message.guild.get_channel(CATEGORIA_ID)
-        if not categoria:
-            await message.channel.send("❌ Categoria de mundos não encontrada! Contate um administrador.")
-            return
 
-        # Nome do canal baseado no jogador
-        nome_canal = f"mundo-{message.author.display_name.lower().replace(' ', '-')}"[:100]
+        # Nome do canal baseado no jogador (limpar caracteres especiais)
+        import re as _re
+        nome_limpo = _re.sub(r'[^a-z0-9\-]', '', message.author.display_name.lower().replace(' ', '-'))
+        if not nome_limpo:
+            nome_limpo = str(message.author.id)
+        nome_canal = f"mundo-{nome_limpo}"[:100]
 
-        # Permissões: todos podem ver, só criador pode escrever
+        # Permissões: todos podem ver, só criador e bot podem escrever
         overwrites = {
-            message.guild.default_role: discord.PermissionOverwrite(read_messages=True, send_messages=False),
-            message.author: discord.PermissionOverwrite(read_messages=True, send_messages=True, use_slash_commands=True),
-            message.guild.me: discord.PermissionOverwrite(read_messages=True, send_messages=True),
+            message.guild.default_role: discord.PermissionOverwrite(
+                read_messages=True, send_messages=False, view_channel=True
+            ),
+            message.author: discord.PermissionOverwrite(
+                read_messages=True, send_messages=True, view_channel=True,
+                embed_links=True, attach_files=True
+            ),
+            message.guild.me: discord.PermissionOverwrite(
+                read_messages=True, send_messages=True, view_channel=True,
+                embed_links=True, manage_messages=True
+            ),
         }
 
         try:
-            novo_canal = await message.guild.create_text_channel(
-                name=nome_canal,
-                category=categoria,
-                overwrites=overwrites,
-                topic=f"🌍 Mundo próprio de {message.author.display_name} | Use 'adicionar jogador @user' para convidar alguém!"
-            )
+            if categoria:
+                novo_canal = await message.guild.create_text_channel(
+                    name=nome_canal,
+                    category=categoria,
+                    overwrites=overwrites,
+                    topic=f"🌍 Mundo próprio de {message.author.display_name} | Use 'adicionar jogador @user' para convidar!"
+                )
+            else:
+                # Se a categoria não existir, cria sem categoria
+                novo_canal = await message.guild.create_text_channel(
+                    name=nome_canal,
+                    overwrites=overwrites,
+                    topic=f"🌍 Mundo próprio de {message.author.display_name} | Use 'adicionar jogador @user' para convidar!"
+                )
+
             MUNDO_PROPRIO_CHANNELS[uid] = novo_canal.id
 
-            # Mensagem de boas-vindas
             embed = discord.Embed(
                 title="🌍 SEU MUNDO FOI CRIADO!",
                 description=(
@@ -13669,9 +13805,12 @@ async def handle_mundo_proprio(message):
             await novo_canal.send(embed=embed)
             await message.channel.send(f"✅ {message.author.mention} Seu mundo foi criado: {novo_canal.mention}!")
         except discord.Forbidden:
-            await message.channel.send("❌ O bot não tem permissão para criar canais! Peça ajuda a um admin.")
+            await message.channel.send(
+                f"❌ {message.author.mention} O bot não tem permissão para criar canais!\n"
+                f"Um administrador precisa dar ao bot a permissão **Gerenciar Canais**."
+            )
         except Exception as e:
-            await message.channel.send(f"❌ Erro ao criar o mundo: {e}")
+            await message.channel.send(f"❌ Erro ao criar o mundo: `{e}`")
         return
 
     # ─── ADICIONAR JOGADOR AO MUNDO PRÓPRIO ──────────────────────────────
