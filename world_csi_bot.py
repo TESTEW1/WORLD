@@ -10115,7 +10115,10 @@ async def on_message(message):
         await message.channel.send(embed=e_atu)
         return
 
-
+    # ======================================================
+    # ================= EXPLORAR ===========================
+    # ======================================================
+    if any(word in content for word in ["explorar", "vou explorar", "andar", "caminhar", "vou para"]):
         player = get_player(user_id)
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
