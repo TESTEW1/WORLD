@@ -6529,7 +6529,7 @@ async def send_prologue(guild):
             "*Uma voz grave ecoa por todo o servidor...*\n\n"
             "**\"No princípio, havia apenas o Vazio — um silêncio perfeito e eterno.**\n"
             "Então, a Primeira Chama surgiu do nada, e com ela nasceu o Mundo.\n\n"
-            "Sete reinos se formaram das cinzas da criação.\n"
+            "Vinte reinos se formaram das cinzas da criação.\n"
             "Cada um guarda segredos que poucos ousam descobrir.\n"
             "Cada um testa aqueles que o atravessam de formas diferentes.\n\n"
             "**Você... é o próximo herói desta história.**\n"
@@ -6546,7 +6546,7 @@ async def send_prologue(guild):
     # EMBED 2 — Os Sete Reinos (lore)
     # ══════════════════════════════════════════
     embed2 = discord.Embed(
-        title="🗺️ Os Sete Reinos do Mundo",
+        title="🗺️ Os Vinte Reinos do Mundo",
         description="*O pergaminho se desenrola revelando terras que poucos mortais conhecem...*",
         color=0x8B4513
     )
@@ -6587,7 +6587,7 @@ async def send_prologue(guild):
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 3 — Mais reinos
+    # EMBED 3 — Os Reinos Clássicos (além dos 3 iniciais)
     # ══════════════════════════════════════════
     embed3 = discord.Embed(
         title="🗺️ Os Reinos Além",
@@ -6639,6 +6639,173 @@ async def send_prologue(guild):
         inline=False
     )
     await channel.send(embed=embed3)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 3B — Os 13 Novos Reinos (Expansão)
+    # ══════════════════════════════════════════
+    embed3b = discord.Embed(
+        title="🌌 A Expansão — Treze Reinos Ocultos",
+        description=(
+            "*O pergaminho se rasga revelando um segundo mapa, costurado por trás do primeiro...*\n\n"
+            "*\"Acreditávamos que o Trono Celestial era o fim. Estávamos errados.\n"
+            "Havia mais. Havia sempre mais.\"*\n"
+            "— Última anotação do Explorador Maren, desaparecido após o Trono"
+        ),
+        color=0x0a0a2e
+    )
+    embed3b.add_field(
+        name="🌿 Pântano das Almas Perdidas — O Limbo Vivo",
+        value=(
+            "*\"Neste pântano as almas não vão embora. Ficam presas na lama,\n"
+            "ainda tentando lembrar quem foram. A Hidra se alimenta dessas memórias.\"*\n"
+            "— Xamã Morrek\n\n"
+            "Um reino entre a vida e a morte, onde a lama guarda segredos de civilizações submersas."
+        ),
+        inline=False
+    )
+    embed3b.add_field(
+        name="💎 Floresta Cristalina — O Espelho do Mundo",
+        value=(
+            "*\"Cada cristal aqui reflete uma versão diferente de você. A maioria\n"
+            "das versões não sobreviveu. Aprenda com elas.\"*\n"
+            "— Guardião Vitreo\n\n"
+            "Árvores de quartzo e diamante que guardam reflexos do passado e do futuro."
+        ),
+        inline=False
+    )
+    embed3b.add_field(
+        name="🌑 Reino das Sombras Eternas — A Noite que Pensa",
+        value=(
+            "*\"A escuridão aqui não é ausência de luz. É uma presença.\n"
+            "E ela sabe seu nome desde antes de você nascer.\"*\n"
+            "— Espectro do Explorador Anônimo\n\n"
+            "Onde os Lichs ancestrais governam e toda sombra tem consciência própria."
+        ),
+        inline=False
+    )
+    embed3b.add_field(
+        name="⚡ Planícies do Trovão — A Ira do Céu",
+        value=(
+            "*\"Zeus Menor não é um deus caído. É um deus em treinamento.\n"
+            "E ele treina em cima de você.\"*\n"
+            "— Sobrevivente das Planícies (único registrado)\n\n"
+            "Planícies eternas onde relâmpagos são criaturas vivas e o céu nunca para de gritar."
+        ),
+        inline=False
+    )
+    await channel.send(embed=embed3b)
+    await asyncio.sleep(2)
+
+    embed3c = discord.Embed(
+        title="🌌 A Expansão — Os Reinos do Abismo",
+        description="*...a escrita no segundo pergaminho fica cada vez mais perturbadora...*",
+        color=0x0d0d0d
+    )
+    embed3c.add_field(
+        name="🗿 Terra dos Gigantes — Onde o Chão Respira",
+        value=(
+            "*\"As montanhas que você escala são costas de gigantes dormindo.\n"
+            "Se eles acordarem ao mesmo tempo, não haverá terra suficiente.\"*\n"
+            "— Anão Geólogo Durgin\n\n"
+            "O Primeiro Gigante Primordial ainda carrega no corpo cicatrizes de batalhas\n"
+            "que antecederam o universo atual."
+        ),
+        inline=False
+    )
+    embed3c.add_field(
+        name="🌊 Mar das Almas — O Oceano que Devora o Tempo",
+        value=(
+            "*\"Cada onda neste mar carrega o último pensamento de alguém que se afogou.\n"
+            "O Leviatã não ataca. Ele coleciona.\"*\n"
+            "— Capitão Spectros, navegando há 400 anos sem envelhecer\n\n"
+            "Um oceano onde o tempo não flui normalmente e cidades afundadas ainda têm habitantes."
+        ),
+        inline=False
+    )
+    embed3c.add_field(
+        name="🌀 Reino do Caos — A Antítese da Existência",
+        value=(
+            "*\"Aqui as leis da física são sugestões. A gravidade é uma opinião.\n"
+            "Paradoxos caminham como pessoas. E O Caos em Pessoa te observa.\"*\n"
+            "— Registro ilegível de um explorador sem nome\n\n"
+            "O único reino onde a realidade em si é o inimigo."
+        ),
+        inline=False
+    )
+    embed3c.add_field(
+        name="🌸 Jardim dos Deuses — O Paraíso Armado",
+        value=(
+            "*\"Bonito demais para ser seguro. Cada flor é uma armadilha.\n"
+            "Cada fruto é um teste. E o Jardineiro Divino não perdoa os que colhem sem permissão.\"*\n"
+            "— Anjo Desertor\n\n"
+            "Um paraíso literal — mas os deuses não deixaram portão destrancado."
+        ),
+        inline=False
+    )
+    await channel.send(embed=embed3c)
+    await asyncio.sleep(2)
+
+    embed3d = discord.Embed(
+        title="🌌 A Expansão — Os Reinos Além da Compreensão",
+        description="*...as últimas páginas do segundo pergaminho parecem escritas com algo que não é tinta...*",
+        color=0x000011
+    )
+    embed3d.add_field(
+        name="🧊 Reino do Gelo Eterno — O Inverno que Sempre Foi",
+        value=(
+            "*\"Não é frio. É a temperatura da ausência. É como seria o universo\n"
+            "se nenhuma estrela tivesse nascido. A Imperadora lembra disso.\"*\n"
+            "— Dragão de Gelo Ancião, em sonho\n\n"
+            "O frio aqui antecede o próprio universo. A Imperadora do Gelo Eterno existia antes da luz."
+        ),
+        inline=False
+    )
+    embed3d.add_field(
+        name="🏛️ Ruínas da Civilização Perdida — O Que Viemos Depois",
+        value=(
+            "*\"Eles tinham tecnologia que nós chamamos de magia.\n"
+            "Tinham magia que nós chamamos de impossível.\n"
+            "E ainda assim morreram. Algo os matou.\"*\n"
+            "— Construto Arcano, em loop de memória\n\n"
+            "Uma civilização tão avançada que criou autômatos que sobreviveram ao fim deles mesmos."
+        ),
+        inline=False
+    )
+    embed3d.add_field(
+        name="✨ Plano Astral — O Espaço Entre os Pensamentos",
+        value=(
+            "*\"Você não viaja para o Plano Astral. Você percebe que já estava nele,\n"
+            "o tempo todo, e só agora abriu os olhos.\"*\n"
+            "— Ser Astral Sem Nome\n\n"
+            "Onde o cosmos tem consciência e cada estrela é uma memória de um deus morto."
+        ),
+        inline=False
+    )
+    embed3d.add_field(
+        name="🌌 Além da Existência — O Fim da Pergunta",
+        value=(
+            "*\"Não existe descrição. A linguagem não alcança.\n"
+            "Tudo que posso dizer é: você vai entender quando chegar.\n"
+            "E vai querer não ter chegado. E vai querer não ter voltado.\"*\n"
+            "— Único explorador que retornou, incapaz de falar desde então\n\n"
+            "O penúltimo reino. Aqui a existência questiona a si mesma."
+        ),
+        inline=False
+    )
+    embed3d.add_field(
+        name="⭐ O Trono Primordial — O Começo do Fim",
+        value=(
+            "*\"O Criador Primordial não é um boss. É uma resposta.\n"
+            "A pergunta é: você merece saber?\"*\n"
+            "— Inscrição gravada na entrada do Trono Primordial\n\n"
+            "O vigésimo e último reino. Chegar aqui significa ter atravessado tudo.\n"
+            "O Criador Primordial espera. Ele sempre esperou. Ele sabia que você viria."
+        ),
+        inline=False
+    )
+    embed3d.set_footer(text="⚠️ Os 13 novos reinos são desbloqueados ao derrotar o Boss do Trono Celestial.")
+    await channel.send(embed=embed3d)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
@@ -6806,6 +6973,84 @@ async def send_prologue(guild):
     await asyncio.sleep(1)
 
     # ══════════════════════════════════════════
+    # EMBED NOTA DE ATUALIZAÇÃO — O que há de novo
+    # ══════════════════════════════════════════
+    embed_update = discord.Embed(
+        title="📋 Nota de Atualização — Expansão dos Reinos",
+        description=(
+            "*O Narrador desdobra um pergaminho oficial com o selo do Conselho do Mundo...*\n\n"
+            "**\"Uma era de descobertas começou. O mundo é maior do que pensávamos.\"**"
+        ),
+        color=0x2ECC71
+    )
+    embed_update.add_field(
+        name="🗺️ 13 Novos Reinos Desbloqueados",
+        value=(
+            "O mundo expandiu de **7 para 20 reinos**!\n"
+            "Cada reino tem cidade, NPCs, lore, monstros, dungeons e boss únicos.\n"
+            "Desbloqueie novos reinos derrotando o Boss do reino atual."
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="🗝️ Sistema de Chaves — Dungeons Secretas",
+        value=(
+            "Dungeons secretas agora exigem uma **Chave específica** para entrar.\n"
+            "• Explore **dungeons comuns** → encontre **baús** → chance de dropar chaves\n"
+            "• Use `dungeon` para ver a dungeon comum e a **Dungeon Misteriosa** do seu reino\n"
+            "• Use `chaves` para ver suas chaves atuais\n"
+            "• Dungeons secretas têm inimigos muito mais fortes e drops **Míticos ou superiores**"
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="🟠 Nova Raridade: Ancestral",
+        value=(
+            "Uma nova raridade foi adicionada entre Mítico 🔴 e Divino 💎:\n"
+            "**🟠 Ancestral** — Armas e armaduras de eras esquecidas.\n"
+            "Obtenível via bosses especiais de dungeons secretas nos novos reinos."
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="👹 Bosses Especiais de Dungeon Secreta",
+        value=(
+            "Cada dungeon secreta tem um **Boss Especial Exclusivo** muito mais poderoso.\n"
+            "Derrotar esse boss é a **única forma** de obter recompensas Míticas ou superiores.\n"
+            "A raridade garantida varia por dungeon — quanto mais fundo, melhor o loot."
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="⚔️ Drops Expandidos por Reino",
+        value=(
+            "Monstros dos 13 novos reinos têm tabela de drop própria.\n"
+            "Monstros de elite nos reinos avançados podem dropar **Lendário** (0.8%) e **Mítico** (0.1%).\n"
+            "Cada reino tem **itens exclusivos** que só podem ser obtidos lá."
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="📊 Hierarquia de Raridades (atualizada)",
+        value=(
+            "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
+            "🔴 Mítico → 🟠 **Ancestral** *(NOVO)* → 💎 Divino → 🌈 Primordial"
+        ),
+        inline=False
+    )
+    embed_update.add_field(
+        name="🏆 Conquista Atualizada",
+        value=(
+            "**Conquistador dos Reinos** agora exige derrotar os **20 bosses de level** (antes: 6).\n"
+            "Recompensa aumentada para **10.000 XP**."
+        ),
+        inline=False
+    )
+    embed_update.set_footer(text="📅 Expansão dos Reinos | Use 'dungeon' para começar a explorar as novas masmorras!")
+    await channel.send(embed=embed_update)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
     # MENSAGEM FINAL — Chamada para ação
     # ══════════════════════════════════════════
     embed8 = discord.Embed(
@@ -6823,7 +7068,7 @@ async def send_prologue(guild):
         ),
         color=0xF1C40F
     )
-    embed8.set_footer(text="⚠️ O boss só aparece nos níveis 9, 19, 29, 39, 49, 59 — e só passará de reino ao vencê-lo!")
+    embed8.set_footer(text="⚠️ O boss de cada reino aparece nos níveis 9, 19, 29... até 179 e 199 — derrote-o para desbloquear o próximo reino! | 20 reinos • 20 bosses • raridades até Primordial")
     await channel.send(embed=embed8)
 
 
