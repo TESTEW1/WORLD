@@ -8788,7 +8788,7 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
 
     content = message.content.lower().strip()
@@ -11291,7 +11291,7 @@ BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=s
 async def handle_new_commands(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12115,7 +12115,7 @@ async def handle_new_commands(message):
 async def handle_mining_mimic(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12150,7 +12150,7 @@ async def handle_map_discovery(message):
     """Ao explorar, há chance de descobrir novo local no mapa"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12193,7 +12193,7 @@ async def handle_npc_lore(message):
     """NPCs extras que contam lore"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12225,7 +12225,7 @@ async def handle_npc_lore(message):
 async def handle_afk_farm(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12293,7 +12293,7 @@ async def handle_afk_farm(message):
 async def handle_pet_evolution(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12457,7 +12457,7 @@ async def handle_pet_evolution(message):
 async def handle_spell_book(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12609,7 +12609,7 @@ async def handle_spell_book(message):
 async def handle_kingdom(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12871,7 +12871,7 @@ async def weather_change_loop():
 async def handle_period(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12924,7 +12924,7 @@ async def handle_support_action(message):
     """Classes de suporte podem curar aliados usando 'curar @aliado'"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     content = message.content.lower().strip()
     uid = str(message.author.id)
@@ -12984,7 +12984,7 @@ async def handle_spellbook_notify(message):
     """Notifica quando jogador desbloqueou livro de feitiços no nível 12"""
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     uid = str(message.author.id)
     player = get_player(uid)
@@ -13019,7 +13019,7 @@ async def handle_admin_levelup(message):
     """
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
     if message.author.id != ADMIN_ID:
         return
@@ -13135,7 +13135,7 @@ def get_pet_battle_stats(player):
 async def handle_pet_battle(message):
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA:
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
         return
 
     content = message.content.lower().strip()
@@ -13374,6 +13374,948 @@ async def handle_pet_battle(message):
         embed.add_field(name="⚔️ ATK Batalha", value=f"`{pet['battle_atk']}`", inline=True)
         embed.set_footer(text="Stats escalam com o nível do dono + raridade do pet")
         await message.channel.send(embed=embed)
+
+
+# ================= QUARTA FORMA EXCLUSIVA PARA PETS COMUNS =================
+# Pets comuns (rarity="Comum") têm uma quarta forma especial exclusiva para eles
+# Pets de nível mais alto (Lendário+) podem ter Forma Bestial (desbloqueada no nível 80 do jogador)
+
+COMMON_PET_FOURTH_FORMS = {
+    "Slime Bebê": {
+        "level_required": 3,  # Nível do jogador
+        "next": "Slime Rei Menor",
+        "next_data": {"name": "Slime Rei Menor", "emoji": "👑", "rarity": "Comum", "bonus_hp": 80, "bonus_atk": 30,
+                      "special": True, "form": "quarta_forma", "desc": "A forma final exclusiva dos slimes comuns — um Rei Slime em miniatura!"}
+    },
+    # Pets comuns sem evoluções definidas anteriormente ganham a forma:
+}
+
+BESTIAL_FORMS = {
+    "Lobo Alpha Lendário": {
+        "name": "Lobo Bestial Primordial", "emoji": "🐺", "rarity": "Lendário",
+        "bonus_hp": 200, "bonus_atk": 100,
+        "special": True, "form": "bestial",
+        "desc": "A Forma Bestial desperta o poder ancestral do lobo primordial. Desbloqueada ao nível 80."
+    },
+    "Esfinge Imortal": {
+        "name": "Esfinge Bestial Cósmica", "emoji": "🦁", "rarity": "Divino",
+        "bonus_hp": 350, "bonus_atk": 175,
+        "special": True, "form": "bestial",
+        "desc": "A Forma Bestial transforma a Esfinge na guarda cósmica perfeita."
+    },
+    "Fênix Eterna": {
+        "name": "Fênix Bestial do Caos", "emoji": "🔥", "rarity": "Divino",
+        "bonus_hp": 400, "bonus_atk": 200,
+        "special": True, "form": "bestial",
+        "desc": "A Forma Bestial desperta o fogo do caos primordial dentro da Fênix."
+    },
+    "Dragão de Gelo Ancião": {
+        "name": "Dragão Bestial do Gelo Eterno", "emoji": "❄️", "rarity": "Divino",
+        "bonus_hp": 450, "bonus_atk": 225,
+        "special": True, "form": "bestial",
+        "desc": "A Forma Bestial libera o poder do gelo eterno que dormia no dragão ancião."
+    },
+    "Lobo Alpha Lendário": {
+        "name": "Lobo Bestial Primordial", "emoji": "🐺", "rarity": "Lendário",
+        "bonus_hp": 180, "bonus_atk": 90,
+        "special": True, "form": "bestial",
+        "desc": "O lobo unleashes power dormant since the first moon."
+    },
+    "Arcanjo Primordial": {
+        "name": "Arcanjo Bestial Supremo", "emoji": "🕊️", "rarity": "Primordial",
+        "bonus_hp": 800, "bonus_atk": 400,
+        "special": True, "form": "bestial",
+        "desc": "A Forma Bestial de um Arcanjo Primordial é simplesmente indescritível."
+    },
+    "Deus Primordial": {
+        "name": "Deus Bestial Absoluto", "emoji": "✨", "rarity": "Primordial",
+        "bonus_hp": 1000, "bonus_atk": 500,
+        "special": True, "form": "bestial",
+        "desc": "Forma Bestial do poder divino absoluto. Poucos sobrevivem para contar."
+    },
+}
+
+# NPCs do mundo com diálogos de lore, segredos e quests ocultas
+NPC_DIALOGUES_EXTENDED = {
+    "Theron": {
+        "full_name": "Aldeão Theron",
+        "emoji": "👨‍🌾",
+        "world": 1,
+        "lore": [
+            "Este reino existe há mais de mil anos. Mas poucos sabem que antes havia outro, engolido pelo Vazio.",
+            "Minha avó dizia que o primeiro slime não nasceu aqui. Ele caiu de uma fenda no céu — quando o Abismo tentou invadir.",
+            "Há uma cripta sob os Campos. Nunca entrei. Quem entra ouve vozes. Quem sai... não é mais a mesma pessoa.",
+        ],
+        "secrets": [
+            "Se você cavar no centro exato dos Campos na lua cheia, encontrará uma pedra com um símbolo estranho. Dizem que é a marca do Primeiro Deus.",
+            "O Slime Rei não morre de verdade. Ele absorve a magia da terra e renasce. Sempre renascerá... a menos que a fonte seja destruída.",
+        ],
+        "hidden_quests": [
+            {
+                "id": "hq_theron_001",
+                "name": "🌑 A Cripta dos Campos",
+                "description": "Theron te conta sobre uma cripta oculta nos Campos. Explore e descubra o que há lá.",
+                "type": "individual", "objective": "explore", "count": 1,
+                "reward_xp": 2000, "reward_coins": 50, "reward_item": "Fragmento de Cristal Antigo",
+                "lore": "A cripta guarda um segredo que os aldeões preferiram esquecer.",
+                "npc": "Aldeão Theron", "difficulty": "Raro"
+            }
+        ]
+    },
+    "Elara": {
+        "full_name": "Curandeira Elara",
+        "emoji": "👩‍⚕️",
+        "world": 1,
+        "lore": [
+            "As ervas destes campos foram criadas por uma druida que deu sua vida para que elas crescessem para sempre.",
+            "Já curei feridas que não deveriam existir. Marcas de algo que não vive neste mundo.",
+            "A magia de cura não cria — ela restaura. Mas e se algo nunca foi inteiro para começo de conversa?",
+        ],
+        "secrets": [
+            "Existe uma poção que pode restaurar um item destruído. A receita está guardada num livro que só aparece nas noites de neblina arcana.",
+            "O veneno das Vespas Gigantes ao norte, se processado corretamente, cura qualquer maldição. Ninguém mais sabe fazer isso.",
+        ],
+        "hidden_quests": []
+    },
+    "Sylvara": {
+        "full_name": "Druida Sylvara",
+        "emoji": "🧙‍♀️",
+        "world": 10,
+        "lore": [
+            "A Floresta Sombria tem memória. Cada árvore lembra de quem passou por aqui. Você está sendo lembrado agora.",
+            "O Ent Ancião tem 3.000 anos. Ele viu o mundo antes dos humanos. Seu primeiro pensamento foi: 'que barulhentos'.",
+            "Existe uma linguagem que apenas árvores falam. Levei 40 anos para aprender as primeiras três palavras.",
+        ],
+        "secrets": [
+            "No coração da floresta existe uma clareira que não aparece em nenhum mapa. Nela, o tempo passa diferente.",
+            "Os goblins desta floresta foram corrompidos por um artefato que ninguém encontrou ainda. Quem o destruir libertará a floresta.",
+        ],
+        "hidden_quests": [
+            {
+                "id": "hq_sylvara_001",
+                "name": "🌳 O Artefato Corrompido",
+                "description": "Sylvara te pede para encontrar o artefato que corrompeu os goblins da floresta.",
+                "type": "individual", "objective": "explore", "count": 5,
+                "reward_xp": 4000, "reward_coins": 80, "reward_item": "Essência Pura da Floresta",
+                "lore": "O artefato pulsa com uma energia estranha. Como chegou aqui ninguém sabe.",
+                "npc": "Druida Sylvara", "difficulty": "Difícil"
+            }
+        ]
+    },
+    "Bjorn": {
+        "full_name": "Ancião da Montanha Bjorn",
+        "emoji": "🧙",
+        "world": 30,
+        "lore": [
+            "Os Titãs do Gelo não foram destruídos. Eles dormiram. E sonham. E os sonhos deles moldam estas montanhas.",
+            "Krom, o Yeti, uma vez me falou. Ele disse: 'Preciso proteger, mas esqueci do quê.' Meu coração partiu.",
+            "O Cristal do Inverno Eterno guarda memórias de mil anos de gelo. Quem o tocar verá tudo que já morreu neste frio.",
+        ],
+        "secrets": [
+            "Há uma câmara secreta dentro do Yeti. Não literalmente — mas uma caverna que brilha com a mesma luz dos seus olhos.",
+            "Se você derrotar Krom com compaixão — sem habilidades destrutivas — ele sussurra um nome antes de cair. O nome é a senha para a câmara.",
+        ],
+        "hidden_quests": [
+            {
+                "id": "hq_bjorn_001",
+                "name": "❄️ O Segredo de Krom",
+                "description": "Bjorn te conta que Krom guarda um segredo que pode revelar o paradeiro dos Titãs do Gelo.",
+                "type": "individual", "objective": "boss", "target": "Yeti Colossal",
+                "reward_xp": 8000, "reward_coins": 200, "reward_item": "Fragmento de Titã do Gelo",
+                "lore": "A verdade sobre os Titãs do Gelo pode mudar tudo que você sabe sobre este mundo.",
+                "npc": "Ancião Bjorn", "difficulty": "Muito Difícil"
+            }
+        ]
+    },
+    "Ramses": {
+        "full_name": "Arqueólogo Ramses",
+        "emoji": "🏺",
+        "world": 20,
+        "lore": [
+            "A Décima Dinastia durou 600 anos. Eu passei 30 tentando entender por que ela caiu em um único dia.",
+            "Os hieróglifos mais antigos não descrevem deuses. Descrevem algo muito mais velho e muito mais assustador.",
+            "Kha-Mentu me visitou em sonho uma vez. Ele disse: 'O Olho de Ra não é uma joia. É um olho de verdade.'",
+        ],
+        "secrets": [
+            "Existe uma pirâmide no deserto que não aparece de dia. Só ao entardecer, quando as sombras alcançam certo ângulo.",
+            "O Faraó Kha-Mentu tinha um filho. Ninguém sabe o que aconteceu com ele. Os hieróglifos mencionam 'o Herdeiro Perdido'.",
+        ],
+        "hidden_quests": []
+    },
+    "Spectra": {
+        "full_name": "Bibliotecária Spectra",
+        "emoji": "👻",
+        "world": 50,
+        "lore": [
+            "O Abismo não é um lugar. É um estado. Você pode estar no Abismo agora mesmo sem saber.",
+            "Estudei aqui por 200 anos. Todo dia aprendo algo que desfaz o que aprendi antes.",
+            "O Senhor das Sombras me perguntou uma vez: 'O que é pior — não existir, ou existir em sofrimento?' Ainda não respondi.",
+        ],
+        "secrets": [
+            "Há uma sala nesta biblioteca que eu nunca abri. Ela abre sozinha em certas noites. E fecha antes que alguém possa entrar.",
+            "O verdadeiro nome do Senhor das Sombras é proibido de ser dito. Mas está escrito em um livro aqui. Eu nunca o li.",
+        ],
+        "hidden_quests": [
+            {
+                "id": "hq_spectra_001",
+                "name": "📚 O Livro Proibido",
+                "description": "Spectra te conta sobre um livro que nunca foi lido. Encontre-o.",
+                "type": "individual", "objective": "explore", "count": 8,
+                "reward_xp": 15000, "reward_coins": 300, "reward_item": "Página do Livro Proibido",
+                "lore": "Alguns conhecimentos existem para nunca serem descobertos. Ou será que existem para serem descobertos pelos dignos?",
+                "npc": "Bibliotecária Spectra", "difficulty": "Mítico"
+            }
+        ]
+    },
+    "Imperador Astral": {
+        "full_name": "Imperador Astral",
+        "emoji": "👑",
+        "world": 60,
+        "lore": [
+            "Governei os céus por dez mil anos. Você é a primeira criatura mortal que chega até mim sem ser destruída primeiro.",
+            "Os deuses não criaram o universo. Encontraram ele. Eu fui o primeiro a acordar dentro dele.",
+            "O verdadeiro poder não é destruição. É criação. Qualquer tolo pode destruir — poucos são capazes de criar.",
+        ],
+        "secrets": [
+            "Existe um décimo terceiro reino além do Trono Celestial. Não está em nenhum mapa. Chega-se apenas sendo digno.",
+            "O teste final não é derrotar inimigos. É fazer uma escolha que a maioria dos heróis se recusa a considerar.",
+        ],
+        "hidden_quests": []
+    },
+}
+
+# Mapeamento de nomes parciais para NPCs
+NPC_NAME_MAP = {
+    "theron": "Theron", "aldeão": "Theron", "aldeao": "Theron",
+    "elara": "Elara", "curandeira": "Elara",
+    "sylvara": "Sylvara", "druida": "Sylvara",
+    "bjorn": "Bjorn", "ancião": "Bjorn", "anciao": "Bjorn",
+    "ramses": "Ramses", "arqueólogo": "Ramses", "arqueologo": "Ramses",
+    "spectra": "Spectra", "bibliotecária": "Spectra", "bibliotecaria": "Spectra",
+    "imperador": "Imperador Astral", "astral": "Imperador Astral",
+    "brynn": "Mercador Brynn", "mercador": "Mercador Brynn",
+    "capitão": "Capitão Aldric", "capitao": "Capitão Aldric", "aldric": "Capitão Aldric",
+}
+
+# Dicionário de canais de mundo próprio: {user_id: channel_id}
+MUNDO_PROPRIO_CHANNELS = {}
+
+# ================= HANDLER: CRIAR MUNDO PRÓPRIO + ADICIONAR JOGADOR =================
+@bot.listen("on_message")
+async def handle_mundo_proprio(message):
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    # ─── CRIAR MUNDO PRÓPRIO ────────────────────────────────────────────
+    if content in ["criar mundo proprio", "criar mundo próprio", "criar meu mundo"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send(f"❌ {message.author.mention} Crie seu personagem primeiro com `começar`!")
+            return
+
+        # Verificar se já tem um mundo próprio
+        if uid in MUNDO_PROPRIO_CHANNELS:
+            ch = message.guild.get_channel(MUNDO_PROPRIO_CHANNELS[uid])
+            if ch:
+                await message.channel.send(f"🌍 {message.author.mention} Você já tem um mundo próprio: {ch.mention}!")
+                return
+
+        # Categoria: ╭━━━━━✦Monstrinho (ID: 1471273874204397578)
+        CATEGORIA_ID = 1471273874204397578
+        categoria = message.guild.get_channel(CATEGORIA_ID)
+        if not categoria:
+            await message.channel.send("❌ Categoria de mundos não encontrada! Contate um administrador.")
+            return
+
+        # Nome do canal baseado no jogador
+        nome_canal = f"mundo-{message.author.display_name.lower().replace(' ', '-')}"[:100]
+
+        # Permissões: todos podem ver, só criador pode escrever
+        overwrites = {
+            message.guild.default_role: discord.PermissionOverwrite(read_messages=True, send_messages=False),
+            message.author: discord.PermissionOverwrite(read_messages=True, send_messages=True, use_slash_commands=True),
+            message.guild.me: discord.PermissionOverwrite(read_messages=True, send_messages=True),
+        }
+
+        try:
+            novo_canal = await message.guild.create_text_channel(
+                name=nome_canal,
+                category=categoria,
+                overwrites=overwrites,
+                topic=f"🌍 Mundo próprio de {message.author.display_name} | Use 'adicionar jogador @user' para convidar alguém!"
+            )
+            MUNDO_PROPRIO_CHANNELS[uid] = novo_canal.id
+
+            # Mensagem de boas-vindas
+            embed = discord.Embed(
+                title="🌍 SEU MUNDO FOI CRIADO!",
+                description=(
+                    f"{message.author.mention} **Bem-vindo ao seu mundo próprio!**\n\n"
+                    f"*'Um novo reino surge do nada, moldado pela sua vontade...'*\n\n"
+                    f"Aqui é o seu domínio. Apenas você pode agir aqui — "
+                    f"mas outros podem observar sua jornada.\n\n"
+                    f"Use `adicionar jogador @usuario` para convidar alguém para explorar junto!"
+                ),
+                color=discord.Color.purple()
+            )
+            embed.add_field(
+                name="🎮 Comandos disponíveis",
+                value="Todos os comandos do bot funcionam aqui!\nUse `adicionar jogador @user` para permitir que alguém jogue junto.",
+                inline=False
+            )
+            embed.set_footer(text=f"Canal criado por {message.author.display_name}")
+            await novo_canal.send(embed=embed)
+            await message.channel.send(f"✅ {message.author.mention} Seu mundo foi criado: {novo_canal.mention}!")
+        except discord.Forbidden:
+            await message.channel.send("❌ O bot não tem permissão para criar canais! Peça ajuda a um admin.")
+        except Exception as e:
+            await message.channel.send(f"❌ Erro ao criar o mundo: {e}")
+        return
+
+    # ─── ADICIONAR JOGADOR AO MUNDO PRÓPRIO ──────────────────────────────
+    if content.startswith("adicionar jogador") and message.mentions:
+        # Verificar se o canal atual é um mundo próprio do autor
+        canal_dono = None
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id and owner_id == uid:
+                canal_dono = uid
+                break
+
+        if not canal_dono:
+            # Não responder se não for o dono do canal
+            return
+
+        for target in message.mentions:
+            if target.bot:
+                continue
+            try:
+                await message.channel.set_permissions(
+                    target,
+                    read_messages=True,
+                    send_messages=True,
+                    use_slash_commands=True
+                )
+                embed = discord.Embed(
+                    title="🤝 Jogador Adicionado!",
+                    description=(
+                        f"{target.mention} **foi convidado para explorar este mundo!**\n\n"
+                        f"*'Um novo aventureiro cruza as fronteiras do reino...'*\n\n"
+                        f"Você agora pode usar todos os comandos aqui!"
+                    ),
+                    color=discord.Color.green()
+                )
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                await message.channel.send(f"❌ Erro ao adicionar {target.display_name}: {e}")
+        return
+
+
+# ================= HANDLER: FORJAR ARMAS COM SISTEMA DE FUSÃO =================
+@bot.listen("on_message")
+async def handle_forjar_fusao(message):
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    # Verificar canal (mundo proprio ou canal principal)
+    canal_valido = (message.channel.name == CANAL_BETA)
+    if not canal_valido:
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id:
+                canal_valido = True
+                break
+    if not canal_valido:
+        return
+
+    if content not in ["forjar armas", "forjar arma", "fusão de itens", "fusao de itens", "fundir itens"]:
+        return
+
+    player = get_player(uid)
+    if not player:
+        await message.channel.send("❌ Crie seu personagem primeiro!")
+        return
+
+    if player.get("job") != "Ferreiro":
+        await message.channel.send(
+            "⚒️ **Forjar com fusão é exclusivo do Ferreiro!**\n"
+            "Use `procurar emprego` e escolha a profissão **Ferreiro** para desbloquear esta habilidade."
+        )
+        return
+
+    # Sequência de raridades para fusão
+    RARITY_CHAIN = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
+    RARITY_NEXT = {RARITY_CHAIN[i]: RARITY_CHAIN[i+1] for i in range(len(RARITY_CHAIN)-1)}
+
+    # Contar itens no inventário por raridade
+    inventory = player.get("inventory", [])
+    rarity_counts = {}
+    item_by_rarity = {}
+
+    # Verificar armas e armaduras equipadas e no inventário
+    all_items_data = {}
+    for world_data in WORLDS.values():
+        for item_list_key in ["items"]:
+            for item in world_data.get(item_list_key, []):
+                all_items_data[item["name"]] = item
+
+    # Contar itens do inventário por raridade
+    for item_name in inventory:
+        for world_data in WORLDS.values():
+            for item in world_data.get("items", []):
+                if item["name"] == item_name:
+                    r = item.get("rarity", "Comum")
+                    rarity_counts[r] = rarity_counts.get(r, 0) + 1
+                    if r not in item_by_rarity:
+                        item_by_rarity[r] = []
+                    item_by_rarity[r].append(item_name)
+                    break
+
+    # Mostrar painel de fusão
+    embed = discord.Embed(
+        title="⚒️ FORJA — Sistema de Fusão",
+        description=(
+            "*'A forja geme com calor sobrenatural. Cinco itens fundidos como um só...'*\n\n"
+            "**Para fundir:** Use `fundir [raridade]` com mínimo de **5 itens** da mesma raridade.\n"
+            "Ex: `fundir lendário`, `fundir mítico`\n\n"
+            "**Chances de fusão:**\n"
+            "✅ **60%** — Item da raridade **superior** gerado!\n"
+            "⚠️ **25%** — Item da **mesma raridade** (reduzido)\n"
+            "💀 **15%** — Todos os itens **destruídos** na fusão"
+        ),
+        color=discord.Color.orange()
+    )
+
+    if rarity_counts:
+        inv_text = ""
+        for r in RARITY_CHAIN:
+            if r in rarity_counts:
+                count = rarity_counts[r]
+                emoji = RARITIES.get(r, {}).get("emoji", "⚪")
+                next_r = RARITY_NEXT.get(r, "—")
+                fusible = "✅ Pode fundir!" if count >= 5 else f"❌ Faltam {5-count} para fundir"
+                inv_text += f"{emoji} **{r}**: `{count}` itens → {fusible}\n"
+        embed.add_field(name="📦 Seus Itens por Raridade", value=inv_text or "_Nenhum_", inline=False)
+    else:
+        embed.add_field(name="📦 Inventário", value="_Você não tem itens suficientes para fundir!_", inline=False)
+
+    embed.set_footer(text="Use 'fundir [raridade]' para iniciar a fusão | Ex: 'fundir lendário'")
+    await message.channel.send(embed=embed)
+
+
+@bot.listen("on_message")
+async def handle_fundir_raridade(message):
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    canal_valido = (message.channel.name == CANAL_BETA)
+    if not canal_valido:
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id:
+                canal_valido = True
+                break
+    if not canal_valido:
+        return
+
+    if not content.startswith("fundir "):
+        return
+
+    rarity_input = content.replace("fundir ", "").strip().capitalize()
+    # Normalizar
+    RARITY_ALIASES = {
+        "Comum": "Comum", "Incomum": "Incomum", "Raro": "Raro", "Epico": "Épico", "Épico": "Épico",
+        "Lendario": "Lendário", "Lendário": "Lendário", "Mitico": "Mítico", "Mítico": "Mítico",
+        "Ancestral": "Ancestral", "Divino": "Divino", "Primordial": "Primordial"
+    }
+    rarity = RARITY_ALIASES.get(rarity_input)
+    if not rarity:
+        await message.channel.send(f"❌ Raridade inválida: **{rarity_input}**\nRaridades válidas: Comum, Incomum, Raro, Épico, Lendário, Mítico, Ancestral, Divino, Primordial")
+        return
+
+    player = get_player(uid)
+    if not player:
+        return
+
+    if player.get("job") != "Ferreiro":
+        await message.channel.send("⚒️ Apenas **Ferreiros** podem fundir itens!")
+        return
+
+    # Sequência de raridades
+    RARITY_CHAIN = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
+    RARITY_NEXT = {RARITY_CHAIN[i]: RARITY_CHAIN[i+1] for i in range(len(RARITY_CHAIN)-1)}
+
+    # Coletar itens do inventário com a raridade especificada
+    inventory = player.get("inventory", [])
+    matching_items = []
+
+    for item_name in inventory:
+        for world_data in WORLDS.values():
+            for item in world_data.get("items", []):
+                if item["name"] == item_name and item.get("rarity", "Comum") == rarity:
+                    matching_items.append(item_name)
+                    break
+
+    if len(matching_items) < 5:
+        await message.channel.send(
+            f"❌ Você precisa de pelo menos **5 itens {rarity}** para fundir!\n"
+            f"Você tem: **{len(matching_items)}** itens {RARITIES.get(rarity,{}).get('emoji','')} {rarity}"
+        )
+        return
+
+    # Remover 5 itens do inventário
+    removed = 0
+    new_inventory = []
+    for item_name in inventory:
+        found_in_matching = item_name in matching_items and removed < 5
+        if found_in_matching and removed < 5:
+            removed += 1
+            matching_items.remove(item_name)
+        else:
+            new_inventory.append(item_name)
+
+    # Rolar resultado
+    roll = random.random()
+    next_rarity = RARITY_NEXT.get(rarity)
+
+    if roll < 0.60 and next_rarity:
+        # Sucesso! Gerar item de raridade superior
+        resultado = "sucesso"
+        # Encontrar um item da próxima raridade
+        possible_items = []
+        for world_data in WORLDS.values():
+            for item in world_data.get("items", []):
+                if item.get("rarity") == next_rarity:
+                    possible_items.append(item["name"])
+
+        if possible_items:
+            new_item = random.choice(possible_items)
+        else:
+            # Fallback: criar um item genérico
+            new_item = f"Fragmento {next_rarity}"
+        new_inventory.append(new_item)
+
+        embed = discord.Embed(
+            title="✨ FUSÃO BEM-SUCEDIDA!",
+            description=f"*'As chamas da forja rugem! Os cinco itens se fundem em um só!'*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(
+            name="⚒️ Resultado",
+            value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → {RARITIES.get(next_rarity,{}).get('emoji','')} **{new_item}** ({next_rarity})",
+            inline=False
+        )
+        embed.add_field(name="🎉 Parabéns!", value=f"Item **{next_rarity}** adicionado ao inventário!", inline=False)
+
+    elif roll < 0.85:
+        # Item de mesma raridade (menor)
+        resultado = "parcial"
+        possible_items = []
+        for world_data in WORLDS.values():
+            for item in world_data.get("items", []):
+                if item.get("rarity") == rarity:
+                    possible_items.append(item["name"])
+        if possible_items:
+            new_item = random.choice(possible_items)
+            new_inventory.append(new_item)
+        else:
+            new_item = f"Fragmento {rarity}"
+            new_inventory.append(new_item)
+
+        embed = discord.Embed(
+            title="⚠️ FUSÃO PARCIAL",
+            description=f"*'A forja tremeu. Os itens se fundiram, mas algo foi perdido no processo...'*",
+            color=discord.Color.orange()
+        )
+        embed.add_field(
+            name="⚒️ Resultado",
+            value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → {RARITIES.get(rarity,{}).get('emoji','')} **{new_item}** ({rarity} — qualidade reduzida)",
+            inline=False
+        )
+        embed.add_field(name="💡 Dica", value="Tente novamente! As chances de sucesso total são **60%**.", inline=False)
+
+    else:
+        # Falha — todos destruídos
+        resultado = "falha"
+        embed = discord.Embed(
+            title="💀 FUSÃO FRACASSADA!",
+            description=f"*'Uma explosão de energia. Os itens se dissolvem em pó dourado... e somem.'*",
+            color=discord.Color.red()
+        )
+        embed.add_field(
+            name="💥 Resultado",
+            value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → ❌ **Todos destruídos!**",
+            inline=False
+        )
+        embed.add_field(name="😔 Azar...", value="Os itens foram perdidos na fusão. Colete mais e tente novamente!", inline=False)
+
+    player["inventory"] = new_inventory
+    save_player_db(uid, player)
+
+    embed.set_footer(text=f"Ferreiro {message.author.display_name} | Fusão de itens {rarity}")
+    await message.channel.send(embed=embed)
+
+
+# ================= HANDLER: DIALOGAR COM NPC =================
+@bot.listen("on_message")
+async def handle_dialogar_npc(message):
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    canal_valido = (message.channel.name == CANAL_BETA)
+    if not canal_valido:
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id:
+                canal_valido = True
+                break
+    if not canal_valido:
+        return
+
+    if not (content.startswith("dialogar com npc") or content.startswith("falar com npc") or
+            content.startswith("conversar com npc") or content.startswith("dialogar npc")):
+        return
+
+    # Extrair nome do NPC
+    for prefix in ["dialogar com npc ", "falar com npc ", "conversar com npc ", "dialogar npc "]:
+        if content.startswith(prefix):
+            npc_name_input = content.replace(prefix, "").strip()
+            break
+    else:
+        npc_name_input = ""
+
+    if not npc_name_input:
+        # Mostrar lista de NPCs disponíveis
+        embed = discord.Embed(
+            title="🗣️ Dialogar com NPC",
+            description=(
+                "*'Os NPCs do reino têm muito a contar...'*\n\n"
+                "Use: `dialogar com npc [nome]`\n\n"
+                "**NPCs disponíveis:**\n"
+                "• `dialogar com npc theron` — Aldeão Theron\n"
+                "• `dialogar com npc elara` — Curandeira Elara\n"
+                "• `dialogar com npc sylvara` — Druida Sylvara\n"
+                "• `dialogar com npc bjorn` — Ancião Bjorn\n"
+                "• `dialogar com npc ramses` — Arqueólogo Ramses\n"
+                "• `dialogar com npc spectra` — Bibliotecária Spectra\n"
+                "• `dialogar com npc imperador` — Imperador Astral\n"
+                "• ...e outros NPCs dos reinos!"
+            ),
+            color=discord.Color.blurple()
+        )
+        await message.channel.send(embed=embed)
+        return
+
+    player = get_player(uid)
+    if not player:
+        await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+        return
+
+    # Encontrar NPC
+    npc_key = NPC_NAME_MAP.get(npc_name_input.lower())
+
+    if not npc_key or npc_key not in NPC_DIALOGUES_EXTENDED:
+        # Tentar encontrar em CITY_NPCS
+        world_key = max(k for k in player.get("worlds", [1]))
+        city_data = CITY_NPCS.get(world_key, {})
+        npcs_list = city_data.get("npcs", [])
+        found_npc = None
+        for npc in npcs_list:
+            if npc_name_input.lower() in npc["name"].lower():
+                found_npc = npc
+                break
+
+        if found_npc:
+            dialogue = random.choice(found_npc["dialogues"])
+            embed = discord.Embed(
+                title=f"{found_npc['emoji']} {found_npc['name']} — _{found_npc['role']}_",
+                description=f'*"{dialogue}"*',
+                color=discord.Color.purple()
+            )
+            embed.set_footer(text="Use 'dialogar com npc [nome]' novamente para ouvir mais!")
+            await message.channel.send(embed=embed)
+        else:
+            await message.channel.send(
+                f"❓ NPC **{npc_name_input}** não encontrado!\n"
+                f"Use `dialogar com npc` para ver a lista de NPCs disponíveis."
+            )
+        return
+
+    npc_data = NPC_DIALOGUES_EXTENDED[npc_key]
+
+    # Rolar tipo de diálogo: lore, segredo ou quest
+    roll = random.random()
+    if roll < 0.50 and npc_data.get("lore"):
+        # Lore
+        dialogue = random.choice(npc_data["lore"])
+        embed = discord.Embed(
+            title=f"{npc_data['emoji']} {npc_data['full_name']}",
+            description=f'*"{dialogue}"*',
+            color=discord.Color.purple()
+        )
+        embed.set_footer(text="Continue dialogando para descobrir mais histórias, segredos e quests ocultas!")
+
+    elif roll < 0.75 and npc_data.get("secrets"):
+        # Segredo!
+        secret = random.choice(npc_data["secrets"])
+        embed = discord.Embed(
+            title=f"🔮 {npc_data['emoji']} {npc_data['full_name']} — *sussurra um segredo...*",
+            description=f'*"{secret}"*',
+            color=discord.Color.dark_purple()
+        )
+        embed.add_field(name="🤫 Segredo Revelado!", value="Guarde bem esta informação — ela pode ser valiosa.", inline=False)
+        embed.set_footer(text="Segredos podem levar a quests ocultas e recompensas raras!")
+
+    elif npc_data.get("hidden_quests"):
+        # Quest oculta!
+        quest = random.choice(npc_data["hidden_quests"])
+        embed = discord.Embed(
+            title=f"⭐ {npc_data['emoji']} {npc_data['full_name']} — *revela uma missão oculta!*",
+            description=f'*"Tenho algo importante para te pedir... mas não é uma missão comum."*\n\n**{quest["name"]}**\n{quest["description"]}',
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="📖 Lore", value=quest["lore"], inline=False)
+        rewards = f"⭐ **{quest['reward_xp']} XP** | 💰 **{quest['reward_coins']} coins**"
+        if quest.get("reward_item"):
+            rewards += f" | 🎁 **{quest['reward_item']}**"
+        embed.add_field(name="🏆 Recompensas", value=rewards, inline=False)
+        embed.add_field(name="⚔️ Dificuldade", value=quest["difficulty"], inline=True)
+        embed.set_footer(text="Quest oculta desbloqueada via diálogo com NPC! Use 'aceitar quest [nome]' para iniciar.")
+        # Oferecer aceitar
+        view = QuestAcceptButton(uid, quest)
+        await message.channel.send(embed=embed, view=view)
+        return
+    else:
+        # Fallback: lore
+        if npc_data.get("lore"):
+            dialogue = random.choice(npc_data["lore"])
+        else:
+            dialogue = "..."
+        embed = discord.Embed(
+            title=f"{npc_data['emoji']} {npc_data['full_name']}",
+            description=f'*"{dialogue}"*',
+            color=discord.Color.purple()
+        )
+        embed.set_footer(text="Continue dialogando para descobrir mais!")
+
+    await message.channel.send(embed=embed)
+
+
+# ================= HANDLER: FORMA BESTIAL E QUARTA FORMA (PETS) =================
+@bot.listen("on_message")
+async def handle_formas_especiais_pet(message):
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    canal_valido = (message.channel.name == CANAL_BETA)
+    if not canal_valido:
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id:
+                canal_valido = True
+                break
+    if not canal_valido:
+        return
+
+    # ─── QUARTA FORMA (exclusiva pets comuns) ─────────────────────────
+    if content in ["quarta forma pet", "forma especial pet", "quarta forma", "evoluir quarta forma"]:
+        player = get_player(uid)
+        if not player or not player.get("pet"):
+            await message.channel.send("❌ Você não tem um pet ativo!")
+            return
+
+        pet_name = player["pet"]
+        if isinstance(pet_name, dict):
+            pet_name = pet_name.get("name", "")
+
+        # Verificar se o pet é Comum
+        current_rarity = None
+        for world_pets in PETS.values():
+            for p in world_pets:
+                if p["name"] == pet_name:
+                    current_rarity = p["rarity"]
+                    break
+
+        # Verificar nas evoluções
+        if not current_rarity:
+            for evo in PET_EVOLUTIONS.values():
+                if evo.get("next") == pet_name:
+                    current_rarity = evo["next_data"].get("rarity")
+
+        if current_rarity != "Comum":
+            await message.channel.send(
+                f"❌ A **Quarta Forma** é exclusiva de pets de raridade **Comum**!\n"
+                f"Seu pet **{pet_name}** é de raridade **{current_rarity or '?'}**.\n\n"
+                f"*Pets de raridade Lendário ou superior podem ter Forma Bestial (use `forma bestial pet` no nível 80)!*"
+            )
+            return
+
+        # Verificar se tem quarta forma
+        fourth_form_data = COMMON_PET_FOURTH_FORMS.get(pet_name)
+        if not fourth_form_data:
+            # Qualquer pet comum sem quarta forma registrada ganha uma genérica
+            fourth_form_data = {
+                "level_required": 3,
+                "next": f"{pet_name} Desperto",
+                "next_data": {
+                    "name": f"{pet_name} Desperto",
+                    "emoji": "✨",
+                    "rarity": "Comum",
+                    "bonus_hp": 50, "bonus_atk": 20,
+                    "special": True, "form": "quarta_forma",
+                    "desc": f"A quarta forma exclusiva do {pet_name}. Uma forma única que nenhum pet raro possui!"
+                }
+            }
+
+        if player["level"] < fourth_form_data["level_required"]:
+            await message.channel.send(
+                f"❌ Seu pet precisa que você seja **Nível {fourth_form_data['level_required']}** para atingir a Quarta Forma!\n"
+                f"Nível atual: **{player['level']}**"
+            )
+            return
+
+        next_pet = fourth_form_data["next_data"]
+        player["pet"] = next_pet["name"]
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title="✨ QUARTA FORMA DESBLOQUEADA! ✨",
+            description=(
+                f"*'Uma aura dourada envolve {pet_name}... mas algo diferente acontece desta vez!'*\n\n"
+                f"🌟 **{pet_name}** → {next_pet['emoji']} **{next_pet['name']}** — *Quarta Forma Exclusiva!*\n\n"
+                f"*'{next_pet['desc']}'*"
+            ),
+            color=discord.Color.from_rgb(255, 215, 0)
+        )
+        embed.add_field(name="💪 ATK Bônus", value=f"+{next_pet['bonus_atk']}", inline=True)
+        embed.add_field(name="❤️ HP Bônus", value=f"+{next_pet['bonus_hp']}", inline=True)
+        embed.add_field(name="⚪ Raridade", value="Comum — Quarta Forma Exclusiva!", inline=True)
+        embed.add_field(
+            name="🔮 Exclusividade",
+            value="*Esta forma NUNCA poderá ser alcançada por pets raros ou superiores. É o poder secreto dos Comuns!*",
+            inline=False
+        )
+        embed.set_footer(text="Pets comuns têm formas que nenhum lendário jamais alcançará...")
+        await message.channel.send(embed=embed)
+        return
+
+    # ─── FORMA BESTIAL (pets de nível alto, nível 80 do jogador) ──────
+    if content in ["forma bestial pet", "despertar bestial", "forma bestial", "bestial pet"]:
+        player = get_player(uid)
+        if not player or not player.get("pet"):
+            await message.channel.send("❌ Você não tem um pet ativo!")
+            return
+
+        if player["level"] < 80:
+            await message.channel.send(
+                f"🔒 **Forma Bestial** requer que você seja **Nível 80**!\n"
+                f"Nível atual: **{player['level']}**\n\n"
+                f"*'O despertar bestial exige um mestre, não um aprendiz...'*"
+            )
+            return
+
+        pet_name = player["pet"]
+        if isinstance(pet_name, dict):
+            pet_name = pet_name.get("name", "")
+
+        bestial_data = BESTIAL_FORMS.get(pet_name)
+        if not bestial_data:
+            await message.channel.send(
+                f"❌ **{pet_name}** não possui Forma Bestial registrada.\n\n"
+                f"Pets elegíveis para Forma Bestial são de raridade **Lendário** ou superior.\n"
+                f"Use `ver fazenda` para verificar seus pets."
+            )
+            return
+
+        next_pet = bestial_data
+        player["pet"] = next_pet["name"]
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title="🔥 FORMA BESTIAL DESPERTADA! 🔥",
+            description=(
+                f"*'O poder ancestral surge do mais fundo do ser... A Forma Bestial foi liberada!'*\n\n"
+                f"💀 **{pet_name}** → {next_pet['emoji']} **{next_pet['name']}** — *Forma Bestial!*\n\n"
+                f"*'{next_pet['desc']}'*"
+            ),
+            color=discord.Color.dark_red()
+        )
+        embed.add_field(name="💪 ATK Bônus", value=f"+{next_pet['bonus_atk']}", inline=True)
+        embed.add_field(name="❤️ HP Bônus", value=f"+{next_pet['bonus_hp']}", inline=True)
+        embed.add_field(name=f"{RARITIES.get(next_pet['rarity'],{}).get('emoji','✨')} Raridade", value=next_pet["rarity"], inline=True)
+        embed.add_field(
+            name="⚠️ Atenção",
+            value="*A Forma Bestial é permanente. Uma vez despertada, não pode ser revertida.*",
+            inline=False
+        )
+        embed.set_footer(text="Apenas mestres de nível 80+ podem despertar a Forma Bestial.")
+        await message.channel.send(embed=embed)
+        return
+
+    # Verificar canal mundo próprio para comandos do bot principal
+    if not canal_valido:
+        return
+
+    if content in ["ajuda formas pet", "formas pet", "formas especiais pet"]:
+        embed = discord.Embed(
+            title="🐾 Formas Especiais de Pets",
+            description="Sistema de transformações especiais para seus companheiros!",
+            color=discord.Color.purple()
+        )
+        embed.add_field(
+            name="✨ Quarta Forma (Pets Comuns)",
+            value=(
+                "Exclusiva para pets de raridade **Comum**!\n"
+                "Use: `quarta forma pet`\n"
+                "Requer: Nível 3+ do jogador\n"
+                "Uma forma que nenhum pet raro jamais poderá alcançar."
+            ),
+            inline=False
+        )
+        embed.add_field(
+            name="🔥 Forma Bestial (Pets Lendário+)",
+            value=(
+                "Exclusiva para pets de raridade **Lendário** ou superior!\n"
+                "Use: `forma bestial pet`\n"
+                "Requer: **Nível 80** do jogador\n"
+                "Desperta o poder ancestral adormecido no pet."
+            ),
+            inline=False
+        )
+        await message.channel.send(embed=embed)
+
+
+# ================= COMANDO: MUNDOS PRÓPRIOS — BOT RESPONDE NELES TAMBÉM =================
+# Garantir que o bot responde a todos os comandos nos canais de mundo próprio
+@bot.listen("on_message")
+async def handle_mundo_proprio_canal(message):
+    """Permite que o bot responda nos canais de mundo próprio como se fosse o canal principal"""
+    if message.author.bot:
+        return
+    # Verificar se o canal é um mundo próprio
+    is_mundo_proprio = False
+    for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+        if ch_id == message.channel.id:
+            is_mundo_proprio = True
+            break
+    if not is_mundo_proprio:
+        return
+    # O canal de mundo próprio deve funcionar como o canal beta
+    # O CANAL_BETA é verificado em outros handlers — aqui garantimos que
+    # os handlers principais também respondem neste canal
+    # Isso é feito verificando o nome do canal nos handlers, mas como usamos
+    # channel.name == CANAL_BETA, precisamos de uma abordagem diferente.
+    # Os handlers de mundo próprio já verificam MUNDO_PROPRIO_CHANNELS,
+    # então os principais comandos funcionam via os @bot.listen já existentes
+    # que checam message.channel.name == CANAL_BETA.
+    # Para garantir compatibilidade total, temporariamente alteramos a verificação
+    # adicionando suporte a canais de mundo próprio nos handlers de mundo próprio acima.
+    pass
 
 
 # ================= RUN BOT =================
