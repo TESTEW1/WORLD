@@ -97,7 +97,1303 @@ CLASSES = {
     }
 }
 
-# ================= MANA POR CLASSE =================
+# ================= RAÇAS =================
+RACES = {
+    "Humano": {
+        "emoji": "👤",
+        "hp_bonus": 20,
+        "atk_bonus": 8,
+        "def_bonus": 8,
+        "xp_mult": 1.10,
+        "description": "Adaptáveis e resilientes. Ganham 10% a mais de XP em todas as ações.",
+        "passive": "Adaptabilidade: +10% XP ganho permanentemente.",
+        "lore": "Os humanos são os mais jovens entre as raças, mas sua ambição supera qualquer limitação natural."
+    },
+    "Élfico": {
+        "emoji": "🧝",
+        "hp_bonus": 12,
+        "atk_bonus": 18,
+        "def_bonus": 6,
+        "xp_mult": 1.05,
+        "description": "Ágeis e precisos, com afinidade natural por magia e arco.",
+        "passive": "Visão Élfica: +15% chance de crítico com ataques à distância.",
+        "lore": "Os elfos habitam as florestas eternas, guardiões da memória do mundo antes dos humanos."
+    },
+    "Anão": {
+        "emoji": "⚒️",
+        "hp_bonus": 35,
+        "atk_bonus": 12,
+        "def_bonus": 20,
+        "xp_mult": 1.0,
+        "description": "Robustos e resistentes, mestres da forja e da batalha em espaços fechados.",
+        "passive": "Pele de Pedra: Reduz o dano recebido em 10%.",
+        "lore": "Os anões nasceram das rochas primordiais. Cada golpe deles ecoa como um martelo na bigorna."
+    },
+    "Orc": {
+        "emoji": "🟢",
+        "hp_bonus": 40,
+        "atk_bonus": 22,
+        "def_bonus": 5,
+        "xp_mult": 0.95,
+        "description": "Brutais e selvagens, força física incomparável mas baixa resistência mágica.",
+        "passive": "Fúria Tribal: +20% ATK quando HP < 40%.",
+        "lore": "Os orcs vieram das estepes vermelhas. Sua força é lendária — dizem que um orc raivoso vale dez guerreiros humanos."
+    },
+    "Anjo": {
+        "emoji": "👼",
+        "hp_bonus": 18,
+        "atk_bonus": 14,
+        "def_bonus": 16,
+        "xp_mult": 1.05,
+        "description": "Seres celestiais com cura poderosa e proteção divina.",
+        "passive": "Graça Divina: Recupera 5% HP ao início de cada turno de batalha.",
+        "lore": "Os anjos desceram do Trono Celestial. Poucos escolhem o caminho mortal — aqueles que o fazem carregam um propósito eterno."
+    },
+    "Demônio": {
+        "emoji": "😈",
+        "hp_bonus": 15,
+        "atk_bonus": 25,
+        "def_bonus": 8,
+        "xp_mult": 1.0,
+        "description": "Seres infernais com poder destrutivo e corrupção.",
+        "passive": "Essência Corrompida: +25% dano de veneno e maldições.",
+        "lore": "Os demônios emergem do Abismo Ardente. Sua presença corrói a realidade ao redor."
+    },
+    "Dragônico": {
+        "emoji": "🐉",
+        "hp_bonus": 30,
+        "atk_bonus": 20,
+        "def_bonus": 12,
+        "xp_mult": 1.0,
+        "description": "Descendentes de dragões com escamas resistentes e sopro de fogo.",
+        "passive": "Sangue de Dragão: Imune a veneno; +15% dano de fogo.",
+        "lore": "Os dragônicos são filhos da aliança proibida entre humanos e dragões. Carregam o fardo e a glória de dois mundos."
+    },
+    "Vampiro": {
+        "emoji": "🧛",
+        "hp_bonus": 10,
+        "atk_bonus": 22,
+        "def_bonus": 10,
+        "xp_mult": 1.05,
+        "description": "Imortais sedentes de sangue, drenam vida dos inimigos.",
+        "passive": "Sede de Sangue: 15% de chance de drenar 10% do dano causado como HP.",
+        "lore": "Os vampiros são os primeiros imortais criados pela Lua Negra. Eles lembram de tudo — inclusive do fim do mundo anterior."
+    },
+    "Lobisomem": {
+        "emoji": "🐺",
+        "hp_bonus": 28,
+        "atk_bonus": 20,
+        "def_bonus": 8,
+        "xp_mult": 1.0,
+        "description": "Metamorfos furiosos, mais fortes à noite e em batalhas prolongadas.",
+        "passive": "Instinto Predatório: +10% ATK para cada turno passado em batalha.",
+        "lore": "Os lobisomens nasceram da primeira lua cheia após a Queda. Vivem entre dois mundos sem pertencer a nenhum."
+    },
+    "Espectro": {
+        "emoji": "👻",
+        "hp_bonus": 5,
+        "atk_bonus": 28,
+        "def_bonus": 4,
+        "xp_mult": 1.05,
+        "description": "Seres etéreos, difíceis de acertar e com ataques que atravessam defesas.",
+        "passive": "Forma Etérea: 20% de chance de esquivar completamente de um ataque.",
+        "lore": "Os espectros são almas que recusaram morrer. Existem em ambos os planos — e não pertencem a nenhum."
+    },
+    "Golem": {
+        "emoji": "🗿",
+        "hp_bonus": 60,
+        "atk_bonus": 10,
+        "def_bonus": 30,
+        "xp_mult": 0.90,
+        "description": "Construções animadas com HP e DEF extremos mas baixo ATK.",
+        "passive": "Corpo de Pedra: Reduz dano recebido em 20%, mas ganha 10% menos XP.",
+        "lore": "Os golems foram criados para serem perfeitos. Alguns desenvolveram consciência — e nenhum de seus criadores sobreviveu para contar."
+    },
+    "Sereia": {
+        "emoji": "🧜",
+        "hp_bonus": 14,
+        "atk_bonus": 16,
+        "def_bonus": 10,
+        "xp_mult": 1.08,
+        "description": "Criaturas aquáticas com magias de encantamento e controle.",
+        "passive": "Voz Encantada: 25% de chance de encantar o inimigo, fazendo-o perder um turno.",
+        "lore": "As sereias governam os oceanos há mais tempo do que existem cidades. Sua voz é a coisa mais perigosa do mundo."
+    },
+    "Titã": {
+        "emoji": "🏔️",
+        "hp_bonus": 50,
+        "atk_bonus": 25,
+        "def_bonus": 15,
+        "xp_mult": 0.92,
+        "description": "Descendentes dos Titãs primordiais, força e tamanho colossal.",
+        "passive": "Herança Titânica: +30% HP máximo ao evoluir de classe.",
+        "lore": "Os titãs são os filhos dos primeiros seres criados pelo universo. Poucos existem — e cada um é uma força da natureza."
+    },
+    "Fada": {
+        "emoji": "🧚",
+        "hp_bonus": 8,
+        "atk_bonus": 12,
+        "def_bonus": 6,
+        "xp_mult": 1.15,
+        "description": "Seres mágicos minúsculos com sorte extrema e bônus de XP elevado.",
+        "passive": "Benção da Fada: +15% XP e +1 ponto de sorte permanentemente.",
+        "lore": "As fadas são os espíritos do primeiro jardim do mundo. Pequenas em tamanho, imensas em poder mágico."
+    },
+    "Elementário": {
+        "emoji": "🌀",
+        "hp_bonus": 20,
+        "atk_bonus": 20,
+        "def_bonus": 10,
+        "xp_mult": 1.0,
+        "description": "Seres compostos de elementos puros, mudam de forma em batalha.",
+        "passive": "Mudança Elemental: Alterna entre bônus de fogo, gelo ou raio a cada batalha.",
+        "lore": "Os elementários são os pensamentos dos elementos ganhos em forma. Não nasceram — simplesmente sempre existiram."
+    },
+    "Goblin": {
+        "emoji": "👺",
+        "hp_bonus": 10,
+        "atk_bonus": 15,
+        "def_bonus": 5,
+        "xp_mult": 1.12,
+        "description": "Pequenos e astutos, alta sorte e ganho de moedas aumentado.",
+        "passive": "Ganância Goblin: +20% moedas de qualquer fonte.",
+        "lore": "Os goblins são desprezados por todos — e ricos como poucos. Sua astúcia transforma sucata em ouro."
+    },
+    "Gnomo": {
+        "emoji": "🔧",
+        "hp_bonus": 12,
+        "atk_bonus": 14,
+        "def_bonus": 14,
+        "xp_mult": 1.05,
+        "description": "Inventores natos, equipamentos têm efeito dobrado.",
+        "passive": "Engenharia: Bônus de arma e armadura aumentados em 25%.",
+        "lore": "Os gnomos construíram a primeira máquina a vapor no Ano 1 da Nova Era. Ninguém sabe o que eles estão construindo agora."
+    },
+    "Ciclope": {
+        "emoji": "👁️",
+        "hp_bonus": 45,
+        "atk_bonus": 30,
+        "def_bonus": 5,
+        "xp_mult": 0.95,
+        "description": "Um olho que vê tudo — visão perfeita garante críticos mais frequentes.",
+        "passive": "Olho Perfeito: +30% chance de crítico; críticos causam 2x dano.",
+        "lore": "Os ciclopes vivem nas montanhas proibidas. Cada um guarda um segredo do universo em seu único olho."
+    },
+    "Sombra": {
+        "emoji": "🌑",
+        "hp_bonus": 8,
+        "atk_bonus": 26,
+        "def_bonus": 6,
+        "xp_mult": 1.05,
+        "description": "Seres das trevas, invisíveis e letais, especializados em ataques furtivos.",
+        "passive": "Invisibilidade das Sombras: Primeiro ataque de cada batalha é sempre crítico.",
+        "lore": "As sombras são o que sobrou das entidades do Vazio após a criação do mundo. Existem onde a luz não alcança."
+    },
+    "Ancião": {
+        "emoji": "🧙",
+        "hp_bonus": 15,
+        "atk_bonus": 15,
+        "def_bonus": 15,
+        "xp_mult": 1.20,
+        "description": "Seres de sabedoria suprema, ganham muito mais XP e têm acesso a magias proibidas.",
+        "passive": "Sabedoria Eterna: +20% XP e desbloqueia habilidades com 5 níveis de antecedência.",
+        "lore": "Os anciões existem desde antes da memória. Cada um passou por mil vidas — e ainda buscam respostas."
+    },
+}
+
+# ================= 20 NOVAS CLASSES =================
+NEW_CLASSES = {
+    "Cavaleiro das Sombras": {
+        "emoji": "🌑",
+        "hp_bonus": 28,
+        "atk_bonus": 20,
+        "def_bonus": 12,
+        "description": "Guerreiro das trevas que combina força bruta e magia sombria.",
+        "race_affinity": ["Sombra", "Vampiro", "Demônio"],
+    },
+    "Invocador": {
+        "emoji": "🌀",
+        "hp_bonus": 12,
+        "atk_bonus": 22,
+        "def_bonus": 8,
+        "description": "Conjura criaturas de outros planos para lutar em seu lugar.",
+        "race_affinity": ["Elementário", "Anjo", "Espectro"],
+    },
+    "Runesmith": {
+        "emoji": "🔣",
+        "hp_bonus": 16,
+        "atk_bonus": 18,
+        "def_bonus": 16,
+        "description": "Grava runas em armas e armaduras para potencializar seus efeitos.",
+        "race_affinity": ["Gnomo", "Anão", "Humano"],
+    },
+    "Cazador de Recompensas": {
+        "emoji": "🎯",
+        "hp_bonus": 18,
+        "atk_bonus": 24,
+        "def_bonus": 8,
+        "description": "Especialista em rastrear e eliminar alvos específicos.",
+        "race_affinity": ["Humano", "Élfico", "Goblin"],
+    },
+    "Xamã": {
+        "emoji": "🪶",
+        "hp_bonus": 20,
+        "atk_bonus": 14,
+        "def_bonus": 14,
+        "description": "Canaliza os espíritos ancestrais para curar, amaldiçoar e destruir.",
+        "race_affinity": ["Lobisomem", "Orc", "Titã"],
+    },
+    "Tempesteiro": {
+        "emoji": "⛈️",
+        "hp_bonus": 12,
+        "atk_bonus": 28,
+        "def_bonus": 5,
+        "description": "Controla raios e tempestades com poder devastador.",
+        "race_affinity": ["Elementário", "Dragônico", "Titã"],
+    },
+    "Ilusionista": {
+        "emoji": "🪄",
+        "hp_bonus": 10,
+        "atk_bonus": 20,
+        "def_bonus": 10,
+        "description": "Cria ilusões para confundir e destruir inimigos.",
+        "race_affinity": ["Fada", "Espectro", "Sereia"],
+    },
+    "Alquimista": {
+        "emoji": "⚗️",
+        "hp_bonus": 14,
+        "atk_bonus": 16,
+        "def_bonus": 12,
+        "description": "Transforma elementos em poderosas poções e bombas.",
+        "race_affinity": ["Gnomo", "Goblin", "Humano"],
+    },
+    "Guardião do Abismo": {
+        "emoji": "♾️",
+        "hp_bonus": 22,
+        "atk_bonus": 22,
+        "def_bonus": 10,
+        "description": "Canaliza o poder do Abismo Arcano para aniquilar inimigos.",
+        "race_affinity": ["Espectro", "Demônio", "Sombra"],
+    },
+    "Dançarino da Morte": {
+        "emoji": "💃",
+        "hp_bonus": 10,
+        "atk_bonus": 26,
+        "def_bonus": 6,
+        "description": "Combina dança e lâminas em movimentos letais e imprevisíveis.",
+        "race_affinity": ["Vampiro", "Sombra", "Élfico"],
+    },
+    "Oráculo": {
+        "emoji": "🔮",
+        "hp_bonus": 8,
+        "atk_bonus": 18,
+        "def_bonus": 8,
+        "description": "Vê o futuro e manipula o destino dos inimigos.",
+        "race_affinity": ["Ancião", "Fada", "Anjo"],
+    },
+    "Colossus": {
+        "emoji": "🗿",
+        "hp_bonus": 55,
+        "atk_bonus": 18,
+        "def_bonus": 25,
+        "description": "Corpo transformado em fortaleza viva — quase indestrutível.",
+        "race_affinity": ["Golem", "Titã", "Orc"],
+    },
+    "Devorador de Almas": {
+        "emoji": "💫",
+        "hp_bonus": 14,
+        "atk_bonus": 30,
+        "def_bonus": 5,
+        "description": "Consome as almas dos inimigos para ganhar poder crescente.",
+        "race_affinity": ["Demônio", "Vampiro", "Lobisomem"],
+    },
+    "Arauto Celestial": {
+        "emoji": "✨",
+        "hp_bonus": 20,
+        "atk_bonus": 16,
+        "def_bonus": 18,
+        "description": "Mensageiro dos deuses, combina cura divina e golpes sagrados.",
+        "race_affinity": ["Anjo", "Humano", "Élfico"],
+    },
+    "Lançador de Venenos": {
+        "emoji": "☠️",
+        "hp_bonus": 12,
+        "atk_bonus": 22,
+        "def_bonus": 8,
+        "description": "Especialista em venenos, doenças e debuffs devastadores.",
+        "race_affinity": ["Goblin", "Vampiro", "Dragônico"],
+    },
+    "Gladiador": {
+        "emoji": "🏟️",
+        "hp_bonus": 32,
+        "atk_bonus": 22,
+        "def_bonus": 8,
+        "description": "Combatente de arena, quanto mais mata mais forte fica.",
+        "race_affinity": ["Orc", "Humano", "Ciclope"],
+    },
+    "Mestre das Correntes": {
+        "emoji": "⛓️",
+        "hp_bonus": 20,
+        "atk_bonus": 20,
+        "def_bonus": 12,
+        "description": "Usa correntes de energia para prender e devastar inimigos.",
+        "race_affinity": ["Golem", "Anão", "Titã"],
+    },
+    "Profeta da Destruição": {
+        "emoji": "📯",
+        "hp_bonus": 10,
+        "atk_bonus": 25,
+        "def_bonus": 8,
+        "description": "Prediz e causa calamidades. Seus feitiços se tornam realidade.",
+        "race_affinity": ["Ancião", "Demônio", "Espectro"],
+    },
+    "Ferreiro de Guerra": {
+        "emoji": "🔨",
+        "hp_bonus": 25,
+        "atk_bonus": 20,
+        "def_bonus": 20,
+        "description": "Forja equipamentos durante batalha, melhorando armas e armaduras em tempo real.",
+        "race_affinity": ["Anão", "Gnomo", "Golem"],
+    },
+    "Dragonlancer": {
+        "emoji": "🐲",
+        "hp_bonus": 24,
+        "atk_bonus": 28,
+        "def_bonus": 10,
+        "description": "Cavaleiro dracônico que monta dragões e usa lança de fogo.",
+        "race_affinity": ["Dragônico", "Humano", "Titã"],
+    },
+}
+
+# Merge NEW_CLASSES into CLASSES
+CLASSES.update(NEW_CLASSES)
+
+# ================= SISTEMA DE RAÇAS =================
+# Adicionado ao perfil do jogador como player["race"]
+
+# ================= ÁRVORES DE EVOLUÇÃO DE CLASSE =================
+# Cada classe pode evoluir nos níveis 40, 80, 120 e 160
+# Ao evoluir, o jogador escolhe uma especialização
+CLASS_EVOLUTION_TREE = {
+    # ── CLASSES ORIGINAIS ──────────────────────────────────────────
+    "Guerreiro": {
+        40:  {"name": "Guerreiro Elite",     "spec_options": ["Campeão", "Guardião Inabalável"]},
+        80:  {"name": "Lorde da Guerra",     "spec_options": ["Berserker Sagrado", "Comandante Tático"]},
+        120: {"name": "Titan da Batalha",    "spec_options": ["Avatar da Guerra", "Senhor dos Exércitos"]},
+        160: {"name": "Imperador Guerreiro", "spec_options": ["Deus da Guerra Mortal", "Lenda Imortal"]},
+    },
+    "Mago": {
+        40:  {"name": "Arcano Iniciado",   "spec_options": ["Piromante", "Criomante"]},
+        80:  {"name": "Arquimago",         "spec_options": ["Mago do Caos", "Conjurador Estelar"]},
+        120: {"name": "Sábio Eterno",      "spec_options": ["Deus Arcano", "Tecedor da Realidade"]},
+        160: {"name": "Transcendente",     "spec_options": ["Onisciente do Cosmos", "Destruidor de Planos"]},
+    },
+    "Arqueiro": {
+        40:  {"name": "Atirador de Elite",   "spec_options": ["Caçador Sombrio", "Arqueiro da Tempestade"]},
+        80:  {"name": "Mestre dos Arcos",    "spec_options": ["Atirador Fantasma", "Arqueiro Divino"]},
+        120: {"name": "Lenda do Arco",       "spec_options": ["Caçador de Deuses", "Vendaval de Flechas"]},
+        160: {"name": "Flecha Primordial",   "spec_options": ["Atirador do Fim dos Tempos", "Sombra Alada"]},
+    },
+    "Paladino": {
+        40:  {"name": "Cavaleiro Sagrado",   "spec_options": ["Cruzado", "Sentinela Divina"]},
+        80:  {"name": "Arauto da Luz",       "spec_options": ["Campeão Celestial", "Protetor Eterno"]},
+        120: {"name": "Lorde Sagrado",       "spec_options": ["Avatar Divino", "Juiz dos Deuses"]},
+        160: {"name": "Divindade Encarnada", "spec_options": ["Santo Guerreiro", "Escudo do Universo"]},
+    },
+    "Assassino": {
+        40:  {"name": "Phantom Blade",     "spec_options": ["Mestre das Sombras", "Envenenador Letal"]},
+        80:  {"name": "Sombra Absoluta",   "spec_options": ["Caçador Dimensional", "Executor Supremo"]},
+        120: {"name": "Espectro Mortal",   "spec_options": ["Sombra do Abismo", "Dançarino da Morte Noir"]},
+        160: {"name": "Void Walker",       "spec_options": ["Ceifador do Vazio", "Aniquilador Silencioso"]},
+    },
+    "Necromante": {
+        40:  {"name": "Mestre dos Mortos",   "spec_options": ["Invocador Sombrio", "Lich Aprendiz"]},
+        80:  {"name": "Lorde dos Não-Mortos","spec_options": ["Lich Verdadeiro", "Senhor das Almas"]},
+        120: {"name": "Soberano Eterno",     "spec_options": ["Deus Morto-Vivo", "Destruidor de Almas"]},
+        160: {"name": "Lich Primordial",     "spec_options": ["Rei da Morte Eterna", "Corrompedor do Cosmos"]},
+    },
+    "Berserker": {
+        40:  {"name": "Bárbaro Sangrento",   "spec_options": ["Carnificina", "Orc-Sangue"]},
+        80:  {"name": "Destruidor",          "spec_options": ["Avatar da Fúria", "Berserker Divino"]},
+        120: {"name": "Flagelo Vivo",        "spec_options": ["Destruidor de Mundos", "Cataclismo Ambulante"]},
+        160: {"name": "Fúria Primordial",    "spec_options": ["Ira dos Titãs", "Apocalipse em Forma"]},
+    },
+    "Druida": {
+        40:  {"name": "Guardião da Floresta","spec_options": ["Metamorfo", "Druida Lunar"]},
+        80:  {"name": "Ancião da Natureza",  "spec_options": ["Druida do Caos", "Guardião Primordial"]},
+        120: {"name": "Espírito da Terra",   "spec_options": ["Avatar da Natureza", "Ent Vivente"]},
+        160: {"name": "Gaia Encarnada",      "spec_options": ["A Própria Floresta", "Senhor das Bestas Eternas"]},
+    },
+    "Monge": {
+        40:  {"name": "Mestre do Ki",         "spec_options": ["Punho de Aço", "Monge do Vento"]},
+        80:  {"name": "Mestre Supremo",       "spec_options": ["Monge Celestial", "Fúria Controlada"]},
+        120: {"name": "Iluminado",            "spec_options": ["Monge Transcendente", "Dançarino do Ki"]},
+        160: {"name": "Além do Mortal",       "spec_options": ["Ki Primordial", "Vazio em Movimento"]},
+    },
+    "Bardo": {
+        40:  {"name": "Maestro",            "spec_options": ["Bardo da Batalha", "Encantador Supremo"]},
+        80:  {"name": "Lenda Viva",         "spec_options": ["Bardo do Destino", "Cantor dos Deuses"]},
+        120: {"name": "Voz do Cosmos",      "spec_options": ["Sinfonia da Destruição", "Música do Universo"]},
+        160: {"name": "A Canção Eterna",    "spec_options": ["Compositor do Fim", "Eco Primordial"]},
+    },
+    # ── NOVAS CLASSES ──────────────────────────────────────────────
+    "Cavaleiro das Sombras": {
+        40:  {"name": "Lorde das Sombras",     "spec_options": ["Cavaleiro do Vazio", "Sombra Armada"]},
+        80:  {"name": "Guardião Sombrio",      "spec_options": ["Dragão das Trevas", "Fantasma de Aço"]},
+        120: {"name": "Soberano das Trevas",   "spec_options": ["Lich Cavaleiro", "Sombra Imortal"]},
+        160: {"name": "Abismo Encarnado",      "spec_options": ["Ceifeiro das Sombras", "Vazio Armado"]},
+    },
+    "Invocador": {
+        40:  {"name": "Senhor das Criaturas",  "spec_options": ["Invocador Elemental", "Portão do Abismo"]},
+        80:  {"name": "Mestre dos Planos",     "spec_options": ["Invocador Divino", "Abridor de Portais"]},
+        120: {"name": "Soberano das Dimensões","spec_options": ["Senhor das Legiões", "Tecedor de Planos"]},
+        160: {"name": "Criador de Mundos",     "spec_options": ["Pai das Criaturas", "Nexo Dimensional"]},
+    },
+    "Runesmith": {
+        40:  {"name": "Gravador de Runas",     "spec_options": ["Runesmith de Batalha", "Arquiteto de Runas"]},
+        80:  {"name": "Mestre das Runas",      "spec_options": ["Runas Proibidas", "Construtor Arcano"]},
+        120: {"name": "Runa Viva",             "spec_options": ["Avatar das Runas", "Runas Primordiais"]},
+        160: {"name": "A Primeira Runa",       "spec_options": ["Origem do Poder", "Runa do Fim"]},
+    },
+    "Cazador de Recompensas": {
+        40:  {"name": "Caçador Lendário",      "spec_options": ["Sniper Arcano", "Caçador de Monstros"]},
+        80:  {"name": "Caçador de Bosses",     "spec_options": ["Exterminador Elite", "Sombra Caçadora"]},
+        120: {"name": "Lenda da Caça",         "spec_options": ["Caçador de Deuses", "Predador Supremo"]},
+        160: {"name": "O Último Caçador",      "spec_options": ["Fim de Tudo", "Caçador Imortal"]},
+    },
+    "Xamã": {
+        40:  {"name": "Guardião Espiritual",   "spec_options": ["Xamã de Guerra", "Curandeiro dos Espíritos"]},
+        80:  {"name": "Ancestral Vivo",        "spec_options": ["Xamã do Caos", "Portador dos Ancestrais"]},
+        120: {"name": "Espírito Encarnado",    "spec_options": ["Espírito da Destruição", "Ancião dos Espíritos"]},
+        160: {"name": "Pai dos Espíritos",     "spec_options": ["Espírito Primordial", "Voz dos Mortos"]},
+    },
+    "Tempesteiro": {
+        40:  {"name": "Senhor do Trovão",      "spec_options": ["Tempesteiro de Plasma", "Deus do Raio"]},
+        80:  {"name": "Tempestade Viva",       "spec_options": ["Furacão Arcano", "Relâmpago Encarnado"]},
+        120: {"name": "Olho da Tempestade",    "spec_options": ["Tempesteiro Divino", "Zeus Menor"]},
+        160: {"name": "A Tempestade Eterna",   "spec_options": ["Armageddon Elétrico", "Tempestade Primordial"]},
+    },
+    "Ilusionista": {
+        40:  {"name": "Mestre das Ilusões",    "spec_options": ["Ilusionista de Batalha", "Sonhador Arcano"]},
+        80:  {"name": "Arquiteto de Sonhos",   "spec_options": ["Senhor dos Pesadelos", "Criador de Realidades"]},
+        120: {"name": "Realidade Alternativa", "spec_options": ["Deus das Ilusões", "Espelho do Cosmos"]},
+        160: {"name": "A Ilusão Suprema",      "spec_options": ["Realidade que Mente", "Ilusionista Primordial"]},
+    },
+    "Alquimista": {
+        40:  {"name": "Alquimista de Elite",   "spec_options": ["Bombardeiro", "Alquimista Curador"]},
+        80:  {"name": "Mestre Alquimista",     "spec_options": ["Transmutador", "Fabricante do Caos"]},
+        120: {"name": "Grão-Alquimista",       "spec_options": ["Pedra Filosofal Viva", "Alquimista Divino"]},
+        160: {"name": "Primeiro Alquimista",   "spec_options": ["Criador da Vida", "Destruidor da Matéria"]},
+    },
+    "Guardião do Abismo": {
+        40:  {"name": "Sentinela do Vazio",    "spec_options": ["Guardião das Almas", "Soldado do Abismo"]},
+        80:  {"name": "Lorde do Abismo",       "spec_options": ["Entidade do Vazio", "Comandante das Sombras"]},
+        120: {"name": "Soberano do Nada",      "spec_options": ["Avatar do Abismo", "Guardião Eterno"]},
+        160: {"name": "O Abismo em Pessoa",    "spec_options": ["Vazio Primordial", "O Nada que Destrói"]},
+    },
+    "Dançarino da Morte": {
+        40:  {"name": "Executora da Sombra",   "spec_options": ["Lâminas do Vento", "Dança Mortal"]},
+        80:  {"name": "Ceifadora Elegante",    "spec_options": ["Fantasma Dançante", "Morte Personificada"]},
+        120: {"name": "Dança do Apocalipse",   "spec_options": ["Última Dança", "Ceifadora do Cosmos"]},
+        160: {"name": "A Morte Dança",         "spec_options": ["Fim do Mundo Bailado", "Extinção Graciosa"]},
+    },
+    "Oráculo": {
+        40:  {"name": "Vidente do Destino",    "spec_options": ["Oráculo de Batalha", "Manipulador do Tempo"]},
+        80:  {"name": "Profeta dos Deuses",    "spec_options": ["Reescritor do Destino", "Senhor do Futuro"]},
+        120: {"name": "Olho do Cosmos",        "spec_options": ["Onisciente", "Paradoxo Vivo"]},
+        160: {"name": "O Destino em Pessoa",   "spec_options": ["Fim Predestinado", "Tecedor do Cosmos"]},
+    },
+    "Colossus": {
+        40:  {"name": "Fortaleza Viva",        "spec_options": ["Titan da Defesa", "Colosso de Batalha"]},
+        80:  {"name": "Muralha Inquebrável",   "spec_options": ["Monolito Eterno", "Colosso Sagrado"]},
+        120: {"name": "Fundação do Mundo",     "spec_options": ["Rocha Primordial", "Colossus Divino"]},
+        160: {"name": "A Montanha Que Caminha","spec_options": ["Continente Animado", "Titã Imortal"]},
+    },
+    "Devorador de Almas": {
+        40:  {"name": "Colecionador de Almas", "spec_options": ["Devorador de Guerreiros", "Absorvedor Eterno"]},
+        80:  {"name": "Ladrão de Essências",   "spec_options": ["Devorador de Deuses", "Vazio Faminto"]},
+        120: {"name": "O Vazio Faminto",       "spec_options": ["Consumidor de Realidades", "Fome Eterna"]},
+        160: {"name": "Devor. do Universo",    "spec_options": ["Fim de Toda Existência", "O Vácuo Primordial"]},
+    },
+    "Arauto Celestial": {
+        40:  {"name": "Mensageiro dos Deuses", "spec_options": ["Arauto da Luz", "Protetor Divino"]},
+        80:  {"name": "Voz do Trono",          "spec_options": ["Arauto da Destruição", "Escudo dos Céus"]},
+        120: {"name": "Avatar Celestial",      "spec_options": ["Braço dos Deuses", "Sentença Divina"]},
+        160: {"name": "Deus Mensageiro",       "spec_options": ["Vontade do Cosmos", "Portador do Fim"]},
+    },
+    "Lançador de Venenos": {
+        40:  {"name": "Mestre das Toxinas",    "spec_options": ["Envenenador Supremo", "Corrosivo Letal"]},
+        80:  {"name": "Senhor das Pragas",     "spec_options": ["Praga Viva", "Destruidor Silencioso"]},
+        120: {"name": "Catalisador da Morte",  "spec_options": ["Pandemia Personificada", "Toxina Primordial"]},
+        160: {"name": "A Praga Final",         "spec_options": ["Extintor de Mundos", "Veneno do Cosmos"]},
+    },
+    "Gladiador": {
+        40:  {"name": "Campeão da Arena",      "spec_options": ["Gladiador Impiedoso", "Gladiador Protetor"]},
+        80:  {"name": "Lenda da Arena",        "spec_options": ["Gladiador Divino", "Mestre do Espetáculo"]},
+        120: {"name": "Senhor dos Combates",   "spec_options": ["Invicto Eterno", "Arena Personificada"]},
+        160: {"name": "Gladiador Imortal",     "spec_options": ["O Último em Pé", "Combate Primordial"]},
+    },
+    "Mestre das Correntes": {
+        40:  {"name": "Aprisionador",          "spec_options": ["Correntes de Fogo", "Correntes do Abismo"]},
+        80:  {"name": "Controlador Supremo",   "spec_options": ["Correntes da Realidade", "Aprisionador Eterno"]},
+        120: {"name": "Deus das Correntes",    "spec_options": ["Correntes Primordiais", "Ligação do Cosmos"]},
+        160: {"name": "Corrente do Universo",  "spec_options": ["Tudo Acorrentado", "Fim da Liberdade"]},
+    },
+    "Profeta da Destruição": {
+        40:  {"name": "Anunciador do Caos",    "spec_options": ["Profeta do Fogo", "Voz do Abismo"]},
+        80:  {"name": "Catalisador do Fim",    "spec_options": ["Profeta Demoníaco", "Anunciador do Juízo"]},
+        120: {"name": "A Profecia em Pessoa",  "spec_options": ["Destruição Inevitável", "Profeta do Cosmos"]},
+        160: {"name": "O Fim Anunciado",       "spec_options": ["Apocalipse Ambulante", "Profecia Primordial"]},
+    },
+    "Ferreiro de Guerra": {
+        40:  {"name": "Armeiro de Batalha",    "spec_options": ["Ferreiro Divino", "Construtor de Lendas"]},
+        80:  {"name": "Forjador de Heróis",    "spec_options": ["Mestre da Forja Sagrada", "Armeiro Eterno"]},
+        120: {"name": "Forjador de Deuses",    "spec_options": ["Criador de Armas Divinas", "Ferreiro Primordial"]},
+        160: {"name": "A Primeira Forja",      "spec_options": ["Forja do Cosmos", "Armeiro do Universo"]},
+    },
+    "Dragonlancer": {
+        40:  {"name": "Cavaleiro de Dragão",   "spec_options": ["Lançador de Chamas", "Cavaleiro do Gelo"]},
+        80:  {"name": "Senhor dos Dragões",    "spec_options": ["Avatar Dracônico", "Dragonlord"]},
+        120: {"name": "Dragão Encarnado",      "spec_options": ["Forma Final do Dragão", "Último Dragão"]},
+        160: {"name": "Dragão Primordial",     "spec_options": ["Pai dos Dragões", "Chama da Criação"]},
+    },
+}
+
+# ================= HABILIDADES POR TIER DE EVOLUÇÃO =================
+# basic=nível 1-39, intermediate=40-79, advanced=80-119, supreme=desbloqueada por boss
+CLASS_TIERED_SKILLS = {
+    # ── GUERREIRO ──────────────────────────────────────────────────
+    "Guerreiro": {
+        "basic": [
+            {"name": "🗡️ Golpe Devastador",  "mana_cost": 0,  "dmg_mult": 1.4, "desc": "Um golpe poderoso com toda a força!"},
+            {"name": "🛡️ Ataque Protetor",   "mana_cost": 10, "dmg_mult": 1.2, "def_bonus": 10, "desc": "Ataca enquanto se defende."},
+        ],
+        "intermediate": [
+            {"name": "⚔️ Fúria do Guerreiro", "mana_cost": 20, "dmg_mult": 1.8, "desc": "Rajada de golpes furiosos!"},
+            {"name": "🔥 Grito de Batalha",   "mana_cost": 15, "dmg_mult": 1.5, "stun_chance": 0.2, "desc": "Paralisa o inimigo."},
+            {"name": "💪 Postura do Titã",    "mana_cost": 25, "dmg_mult": 1.3, "def_bonus": 25, "self_heal": 20, "desc": "Postura defensiva que também cura."},
+        ],
+        "advanced": [
+            {"name": "🌪️ Redemoinho de Aço", "mana_cost": 35, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Gira causando dano em área!"},
+            {"name": "🩸 Golpe do Colosso",  "mana_cost": 45, "dmg_mult": 2.8, "ignore_def": True, "desc": "Força dos titãs em um golpe!"},
+        ],
+        "supreme": {
+            "name": "☠️ Aniquilação Total", "mana_cost": 80, "dmg_mult": 5.0, "stun_chance": 0.5, "ignore_def": True,
+            "desc": "O poder de um deus mortal. Destrói qualquer defesa!",
+            "unlock_boss": "Yeti Colossal"
+        },
+    },
+    # ── MAGO ───────────────────────────────────────────────────────
+    "Mago": {
+        "basic": [
+            {"name": "🔥 Bola de Fogo",      "mana_cost": 25, "dmg_mult": 2.0, "desc": "Uma esfera flamejante!"},
+            {"name": "❄️ Toque Gelado",      "mana_cost": 20, "dmg_mult": 1.6, "slow_chance": 0.4, "desc": "Congela o adversário."},
+        ],
+        "intermediate": [
+            {"name": "⚡ Relâmpago Arcano",  "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Eletricidade arcana!"},
+            {"name": "🌀 Explosão do Vazio", "mana_cost": 40, "dmg_mult": 2.8, "desc": "Poder do abismo!"},
+            {"name": "🌌 Chuva de Meteoros", "mana_cost": 50, "dmg_mult": 2.5, "poison": True, "desc": "Meteoros arcanos caem!"},
+        ],
+        "advanced": [
+            {"name": "⭐ Colapso Estelar",   "mana_cost": 60, "dmg_mult": 3.5, "stun_chance": 0.4, "desc": "Estrelas colapsam no alvo!"},
+            {"name": "💥 Singularidade",     "mana_cost": 70, "dmg_mult": 3.8, "ignore_def": True, "desc": "Buraco negro arcano!"},
+        ],
+        "supreme": {
+            "name": "🌠 Extinção Arcana", "mana_cost": 100, "dmg_mult": 6.5, "ignore_def": True, "stun_chance": 0.6,
+            "desc": "Destrói a realidade ao redor do alvo. O poder mais destrutivo da magia arcana!",
+            "unlock_boss": "Olho do Abismo"
+        },
+    },
+    # ── ARQUEIRO ───────────────────────────────────────────────────
+    "Arqueiro": {
+        "basic": [
+            {"name": "🏹 Flecha Certeira",   "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Flecha com precisão mortal."},
+            {"name": "🌿 Flecha Envenenada", "mana_cost": 10, "dmg_mult": 1.3, "poison": True, "desc": "Veneno corrosivo."},
+        ],
+        "intermediate": [
+            {"name": "💨 Chuva de Flechas",  "mana_cost": 20, "dmg_mult": 1.7, "desc": "Múltiplas flechas!"},
+            {"name": "🎯 Tiro Perfurante",   "mana_cost": 15, "dmg_mult": 2.0, "ignore_def": True, "desc": "Perfura qualquer defesa."},
+            {"name": "⚡ Flecha do Trovão",  "mana_cost": 25, "dmg_mult": 2.2, "stun_chance": 0.35, "desc": "Paralisa com raio."},
+        ],
+        "advanced": [
+            {"name": "🌌 Flecha Cósmica",    "mana_cost": 35, "dmg_mult": 2.8, "ignore_def": True, "desc": "Flecha imbuída de energia estelar!"},
+            {"name": "🔥 Inferno Balístico", "mana_cost": 45, "dmg_mult": 3.2, "poison": True, "stun_chance": 0.2, "desc": "Flechas de fogo infernal!"},
+        ],
+        "supreme": {
+            "name": "🌠 A Última Flecha", "mana_cost": 90, "dmg_mult": 5.5, "ignore_def": True, "crit_chance": 0.8,
+            "desc": "Uma única flecha que atravessa dimensões. Não falha. Nunca.",
+            "unlock_boss": "Arquimago Zephyr Corrompido"
+        },
+    },
+    # ── PALADINO ───────────────────────────────────────────────────
+    "Paladino": {
+        "basic": [
+            {"name": "✨ Golpe Sagrado",     "mana_cost": 15, "dmg_mult": 1.6, "desc": "Energia divina!"},
+            {"name": "🛡️ Escudo da Fé",     "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 30, "desc": "Cura ao defender."},
+        ],
+        "intermediate": [
+            {"name": "☀️ Julgamento Divino", "mana_cost": 35, "dmg_mult": 2.0, "desc": "Julgamento dos céus!"},
+            {"name": "🌟 Aura de Proteção",  "mana_cost": 25, "dmg_mult": 1.2, "def_bonus": 20, "desc": "Aura protetora."},
+            {"name": "🕊️ Bênção dos Anjos", "mana_cost": 30, "dmg_mult": 1.5, "self_heal": 40, "desc": "Cura massiva divina."},
+        ],
+        "advanced": [
+            {"name": "⚡ Espada do Juízo",   "mana_cost": 50, "dmg_mult": 2.8, "ignore_def": True, "desc": "Espada forjada no céu!"},
+            {"name": "🌈 Nova Sagrada",      "mana_cost": 55, "dmg_mult": 2.5, "self_heal": 60, "stun_chance": 0.3, "desc": "Explosão de luz divina!"},
+        ],
+        "supreme": {
+            "name": "👑 Juízo Final Divino", "mana_cost": 95, "dmg_mult": 5.0, "self_heal": 100, "ignore_def": True,
+            "desc": "O poder do Trono Celestial canalizado. Cura completamente e destrói o inimigo!",
+            "unlock_boss": "Imperador Astral"
+        },
+    },
+    # ── ASSASSINO ──────────────────────────────────────────────────
+    "Assassino": {
+        "basic": [
+            {"name": "🗡️ Golpe Sorrateiro",  "mana_cost": 0,  "dmg_mult": 1.8, "crit_chance": 0.4, "desc": "Das sombras, golpe mortal!"},
+            {"name": "☠️ Veneno Assassino",  "mana_cost": 15, "dmg_mult": 1.3, "poison": True, "desc": "Veneno letal."},
+        ],
+        "intermediate": [
+            {"name": "💨 Dança das Lâminas", "mana_cost": 20, "dmg_mult": 1.5, "desc": "Sequência vertiginosa."},
+            {"name": "🌑 Golpe das Sombras", "mana_cost": 30, "dmg_mult": 2.5, "crit_chance": 0.5, "desc": "Alta chance crítica!"},
+            {"name": "🎭 Ilusão Mortal",     "mana_cost": 25, "dmg_mult": 2.2, "stun_chance": 0.4, "desc": "Ilude e golpeia."},
+        ],
+        "advanced": [
+            {"name": "⚡ Tempestade de Lâminas","mana_cost": 40, "dmg_mult": 3.0, "crit_chance": 0.6, "desc": "Cem lâminas em um segundo!"},
+            {"name": "🌀 Portal Sombrio",    "mana_cost": 45, "dmg_mult": 3.3, "ignore_def": True, "desc": "Aparece atrás do inimigo."},
+        ],
+        "supreme": {
+            "name": "💀 Morte Certa", "mana_cost": 85, "dmg_mult": 6.0, "crit_chance": 0.9, "ignore_def": True, "poison": True,
+            "desc": "Um golpe que não pode ser evitado. Veneno, crítico e ignora toda defesa.",
+            "unlock_boss": "Senhor das Sombras"
+        },
+    },
+    # ── NECROMANTE ─────────────────────────────────────────────────
+    "Necromante": {
+        "basic": [
+            {"name": "💀 Dreno de Vida",    "mana_cost": 20, "dmg_mult": 1.5, "self_heal": 20, "desc": "Rouba HP!"},
+            {"name": "🌑 Maldição Sombria", "mana_cost": 25, "dmg_mult": 1.4, "weaken": True, "desc": "Enfraquece o inimigo."},
+        ],
+        "intermediate": [
+            {"name": "🦴 Invocar Esqueleto", "mana_cost": 30, "dmg_mult": 1.7, "desc": "Esqueleto guerreiro!"},
+            {"name": "☠️ Morte Instantânea", "mana_cost": 50, "dmg_mult": 3.0, "desc": "Toca a morte!"},
+            {"name": "🩸 Praga dos Mortos",  "mana_cost": 35, "dmg_mult": 1.8, "poison": True, "weaken": True, "desc": "Praga que drena e enfraquece."},
+        ],
+        "advanced": [
+            {"name": "🌒 Exército Espectral","mana_cost": 55, "dmg_mult": 2.8, "self_heal": 50, "desc": "Horda de espectros ataca!"},
+            {"name": "💀 Apocalipse Morto",  "mana_cost": 65, "dmg_mult": 3.5, "weaken": True, "poison": True, "desc": "A morte vem em ondas."},
+        ],
+        "supreme": {
+            "name": "♾️ Extinction Protocol", "mana_cost": 100, "dmg_mult": 5.8, "self_heal": 80, "ignore_def": True, "weaken": True,
+            "desc": "Convoca todos os mortos do campo de batalha. A morte absoluta.",
+            "unlock_boss": "Rei das Sombras Eternas"
+        },
+    },
+    # ── BERSERKER ──────────────────────────────────────────────────
+    "Berserker": {
+        "basic": [
+            {"name": "🪓 Frenesi",           "mana_cost": 0,  "dmg_mult": 2.0, "desc": "Ataque frenético!"},
+            {"name": "💢 Ira Incontrolável", "mana_cost": 15, "dmg_mult": 2.2, "self_dmg": 10, "desc": "Sacrifica HP por poder."},
+        ],
+        "intermediate": [
+            {"name": "🩸 Sede de Sangue",    "mana_cost": 10, "dmg_mult": 1.8, "hp_scale": True, "desc": "Quanto menos HP, mais forte!"},
+            {"name": "💥 Explosão de Fúria", "mana_cost": 25, "dmg_mult": 2.8, "desc": "Toda raiva liberada!"},
+            {"name": "🔥 Fúria Sanguinária", "mana_cost": 20, "dmg_mult": 2.5, "self_dmg": 15, "stun_chance": 0.3, "desc": "Corre sangrando e paralisa."},
+        ],
+        "advanced": [
+            {"name": "🌋 Terremoto",         "mana_cost": 40, "dmg_mult": 3.2, "stun_chance": 0.45, "desc": "Soca o chão rachando tudo!"},
+            {"name": "💀 Modo Deus da Fúria", "mana_cost": 50, "dmg_mult": 3.8, "ignore_def": True, "desc": "Além do limite humano."},
+        ],
+        "supreme": {
+            "name": "🌪️ Ragnarök Pessoal", "mana_cost": 70, "dmg_mult": 6.2, "ignore_def": True, "stun_chance": 0.5, "self_dmg": 30,
+            "desc": "O fim do mundo concentrado em um único ser. Devastação total.",
+            "unlock_boss": "Primeiro Gigante Primordial"
+        },
+    },
+    # ── DRUIDA ─────────────────────────────────────────────────────
+    "Druida": {
+        "basic": [
+            {"name": "🌿 Golpe Natural",     "mana_cost": 0,  "dmg_mult": 1.3, "self_heal": 15, "desc": "Natureza cura ao atacar."},
+            {"name": "🌪️ Tempestade de Folhas","mana_cost": 20,"dmg_mult": 1.6, "desc": "Tempestade de espinhos!"},
+        ],
+        "intermediate": [
+            {"name": "🐺 Fúria Animal",      "mana_cost": 30, "dmg_mult": 2.0, "desc": "Transforma-se em besta!"},
+            {"name": "⚡ Trovão da Terra",   "mana_cost": 35, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "Terra responde com trovão!"},
+            {"name": "🌊 Maré da Floresta",  "mana_cost": 30, "dmg_mult": 1.9, "self_heal": 35, "desc": "A floresta cura e destrói."},
+        ],
+        "advanced": [
+            {"name": "🌳 Abraço do Ent",     "mana_cost": 45, "dmg_mult": 2.6, "stun_chance": 0.5, "desc": "Raízes gigantes prendem e esmagam!"},
+            {"name": "🌏 Pulso da Terra",    "mana_cost": 55, "dmg_mult": 3.0, "self_heal": 50, "desc": "A própria terra ataca!"},
+        ],
+        "supreme": {
+            "name": "🌌 Gaia's Wrath", "mana_cost": 90, "dmg_mult": 5.3, "self_heal": 120, "stun_chance": 0.4,
+            "desc": "A raiva do planeta em forma de ataque. A natureza em seu estado mais puro e destrutivo.",
+            "unlock_boss": "Ent Ancião"
+        },
+    },
+    # ── MONGE ──────────────────────────────────────────────────────
+    "Monge": {
+        "basic": [
+            {"name": "👊 Soco do Dragão",    "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Soco carregado de ki!"},
+            {"name": "🌀 Cem Golpes",        "mana_cost": 20, "dmg_mult": 1.7, "desc": "Cem golpes em um segundo!"},
+        ],
+        "intermediate": [
+            {"name": "⚡ Raio de Ki",        "mana_cost": 25, "dmg_mult": 2.0, "desc": "Energia vital projetada!"},
+            {"name": "🧘 Golpe Transcendente","mana_cost": 40,"dmg_mult": 2.5, "desc": "Corpo e mente em harmonia."},
+            {"name": "🌊 Onda de Ki",        "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Onda de energia pura."},
+        ],
+        "advanced": [
+            {"name": "💫 Explosão de Ki",    "mana_cost": 50, "dmg_mult": 3.2, "ignore_def": True, "desc": "Ki explode em todas as direções!"},
+            {"name": "🌟 Modo Ultra-Ki",     "mana_cost": 60, "dmg_mult": 3.5, "stun_chance": 0.4, "desc": "Além do limite do ki mortal."},
+        ],
+        "supreme": {
+            "name": "☯️ Transcendência Absoluta", "mana_cost": 85, "dmg_mult": 5.8, "ignore_def": True, "self_heal": 80,
+            "desc": "A alma e o universo se tornam um. O golpe que existe além da física.",
+            "unlock_boss": "Loop Temporal"
+        },
+    },
+    # ── BARDO ──────────────────────────────────────────────────────
+    "Bardo": {
+        "basic": [
+            {"name": "🎵 Nota Dissonante",   "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.3, "desc": "Nota que atordoa!"},
+            {"name": "🎸 Acorde do Caos",    "mana_cost": 20, "dmg_mult": 1.6, "desc": "Confunde os sentidos."},
+        ],
+        "intermediate": [
+            {"name": "🎺 Fanfarra da Ruína", "mana_cost": 15, "dmg_mult": 1.5, "weaken": True, "desc": "Enfraquece com música."},
+            {"name": "🎻 Sinfonia da Destruição","mana_cost": 35,"dmg_mult": 2.2, "desc": "Música torna-se força!"},
+            {"name": "🎹 Requiem do Inimigo", "mana_cost": 30, "dmg_mult": 2.0, "weaken": True, "stun_chance": 0.25, "desc": "Canta a morte do inimigo."},
+        ],
+        "advanced": [
+            {"name": "🎼 Apocalipse Sônico", "mana_cost": 50, "dmg_mult": 2.8, "stun_chance": 0.4, "weaken": True, "desc": "Som que racha o espaço!"},
+            {"name": "🌌 Canto das Estrelas","mana_cost": 55, "dmg_mult": 3.0, "self_heal": 40, "desc": "Música das esferas cura e destrói."},
+        ],
+        "supreme": {
+            "name": "🎵 A Canção Que Encerra o Mundo", "mana_cost": 90, "dmg_mult": 5.0, "weaken": True, "stun_chance": 0.7, "self_heal": 60,
+            "desc": "Uma melodia tão perfeita que a realidade se recusa a continuar. O inimigo simplesmente para.",
+            "unlock_boss": "Querubim Corrompido Makhael"
+        },
+    },
+    # ── CAVALEIRO DAS SOMBRAS ───────────────────────────────────────
+    "Cavaleiro das Sombras": {
+        "basic": [
+            {"name": "🌑 Estocada das Trevas","mana_cost": 0, "dmg_mult": 1.6, "desc": "Lança sombria perfura o inimigo."},
+            {"name": "⛓️ Correntes Sombrias", "mana_cost": 15,"dmg_mult": 1.4, "stun_chance": 0.25, "desc": "Correntes de trevas prendem."},
+        ],
+        "intermediate": [
+            {"name": "💀 Cavalgar nas Sombras","mana_cost": 25,"dmg_mult": 2.0, "desc": "Surge das sombras em alta velocidade."},
+            {"name": "🐴 Corcel das Trevas",  "mana_cost": 30, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "Cavalo sombrio esmaga o inimigo."},
+            {"name": "🌑 Aura Corrompida",    "mana_cost": 20, "dmg_mult": 1.5, "weaken": True, "def_bonus": 15, "desc": "Aura que enfraquece e protege."},
+        ],
+        "advanced": [
+            {"name": "💫 Lance do Apocalipse","mana_cost": 50, "dmg_mult": 3.0, "ignore_def": True, "desc": "Lança atravessa qualquer coisa."},
+            {"name": "🌪️ Vendaval Sombrio",  "mana_cost": 55, "dmg_mult": 3.4, "stun_chance": 0.4, "desc": "Tufão de energia sombria."},
+        ],
+        "supreme": {
+            "name": "🏇 Cavaleiro do Apocalipse", "mana_cost": 90, "dmg_mult": 5.5, "ignore_def": True, "stun_chance": 0.5, "weaken": True,
+            "desc": "Monta o corcel da morte e arrasa tudo em seu caminho.",
+            "unlock_boss": "Senhor das Sombras"
+        },
+    },
+    # ── INVOCADOR ──────────────────────────────────────────────────
+    "Invocador": {
+        "basic": [
+            {"name": "🌀 Invocar Elemental", "mana_cost": 20, "dmg_mult": 1.5, "desc": "Elemental menor ataca."},
+            {"name": "👁️ Olho Observador",   "mana_cost": 15, "dmg_mult": 1.3, "weaken": True, "desc": "Olho arcano debilita o inimigo."},
+        ],
+        "intermediate": [
+            {"name": "🔥 Invocar Demônio",   "mana_cost": 35, "dmg_mult": 2.2, "desc": "Demônio menor combate junto."},
+            {"name": "💀 Portão da Morte",   "mana_cost": 40, "dmg_mult": 2.5, "poison": True, "desc": "Portal libera criaturas mortais."},
+            {"name": "🌌 Invocar Colossus",  "mana_cost": 45, "dmg_mult": 2.8, "stun_chance": 0.3, "desc": "Golem gigante esmaga."},
+        ],
+        "advanced": [
+            {"name": "⭐ Invocar Lendário",  "mana_cost": 60, "dmg_mult": 3.5, "desc": "Uma criatura lendária entra em batalha!"},
+            {"name": "🌠 Portão Celestial",  "mana_cost": 65, "dmg_mult": 3.8, "ignore_def": True, "desc": "Anjo de guerra desce à batalha."},
+        ],
+        "supreme": {
+            "name": "♾️ Invocar a Extinção", "mana_cost": 100, "dmg_mult": 5.5, "ignore_def": True, "stun_chance": 0.4, "weaken": True,
+            "desc": "Abre um portal para o fim dos tempos. Criaturas primordiais devoram o inimigo.",
+            "unlock_boss": "Vácuo da Criação"
+        },
+    },
+    # ── RUNESMITH ──────────────────────────────────────────────────
+    "Runesmith": {
+        "basic": [
+            {"name": "🔣 Runa de Fogo",      "mana_cost": 15, "dmg_mult": 1.5, "desc": "Runa explode em chamas."},
+            {"name": "❄️ Runa de Gelo",      "mana_cost": 15, "dmg_mult": 1.4, "stun_chance": 0.2, "desc": "Runa congela o inimigo."},
+        ],
+        "intermediate": [
+            {"name": "⚡ Runa do Trovão",    "mana_cost": 25, "dmg_mult": 2.0, "stun_chance": 0.35, "desc": "Runa elétrica paralisa."},
+            {"name": "💀 Runa da Morte",     "mana_cost": 30, "dmg_mult": 2.2, "weaken": True, "desc": "Runa que drena a vida."},
+            {"name": "🛡️ Runa Protetora",   "mana_cost": 20, "dmg_mult": 1.2, "def_bonus": 30, "self_heal": 25, "desc": "Runa escuda e cura."},
+        ],
+        "advanced": [
+            {"name": "🌟 Runa Suprema",      "mana_cost": 50, "dmg_mult": 3.0, "ignore_def": True, "desc": "Runa inscrita na realidade."},
+            {"name": "♾️ Runa do Abismo",    "mana_cost": 60, "dmg_mult": 3.5, "poison": True, "weaken": True, "desc": "Runa do vazio corrompido."},
+        ],
+        "supreme": {
+            "name": "🌌 Runa Primordial", "mana_cost": 95, "dmg_mult": 5.8, "ignore_def": True, "stun_chance": 0.5,
+            "desc": "A primeira runa gravada no universo. Poder irresistível.",
+            "unlock_boss": "O Caos em Pessoa"
+        },
+    },
+    # ── CAZADOR DE RECOMPENSAS ─────────────────────────────────────
+    "Cazador de Recompensas": {
+        "basic": [
+            {"name": "🎯 Disparo Preciso",   "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Tiro certeiro na fraqueza."},
+            {"name": "🔍 Marcar Alvo",       "mana_cost": 10, "dmg_mult": 1.3, "weaken": True, "desc": "Marca o alvo para mais dano."},
+        ],
+        "intermediate": [
+            {"name": "💣 Bomba de Fragmentos","mana_cost": 25,"dmg_mult": 2.0, "stun_chance": 0.3, "desc": "Explosão de estilhaços."},
+            {"name": "☠️ Disparo Envenenado","mana_cost": 20, "dmg_mult": 1.8, "poison": True, "desc": "Bala com veneno mortal."},
+            {"name": "🌪️ Rajada Rápida",    "mana_cost": 30, "dmg_mult": 2.2, "desc": "Cinco tiros em um segundo."},
+        ],
+        "advanced": [
+            {"name": "🔫 Tiro Fatal",        "mana_cost": 45, "dmg_mult": 3.0, "crit_chance": 0.5, "desc": "Tiro com 50% de crítico."},
+            {"name": "💥 Explosão Suprema",  "mana_cost": 55, "dmg_mult": 3.5, "ignore_def": True, "desc": "Projétil que ignora armaduras."},
+        ],
+        "supreme": {
+            "name": "👁️ O Tiro Impossível", "mana_cost": 80, "dmg_mult": 5.8, "crit_chance": 0.85, "ignore_def": True,
+            "desc": "Um tiro que viaja através do tempo para acertar o alvo. Impossível de desviar.",
+            "unlock_boss": "♾️ Loop Temporal"
+        },
+    },
+    # ── XAMÃ ───────────────────────────────────────────────────────
+    "Xamã": {
+        "basic": [
+            {"name": "🪶 Espírito Guerreiro", "mana_cost": 15,"dmg_mult": 1.5, "desc": "Espírito ancestral ataca."},
+            {"name": "🌊 Maldição Tribal",    "mana_cost": 20, "dmg_mult": 1.3, "weaken": True, "desc": "Maldição dos ancestrais."},
+        ],
+        "intermediate": [
+            {"name": "🐺 Espírito do Lobo",  "mana_cost": 30, "dmg_mult": 2.0, "desc": "Lobo espiritual desmembra."},
+            {"name": "⚡ Trovão dos Ancestrais","mana_cost": 35,"dmg_mult": 2.3, "stun_chance": 0.35, "desc": "Raio convocado pelos mortos."},
+            {"name": "💚 Cura dos Espíritos", "mana_cost": 25, "dmg_mult": 1.2, "self_heal": 60, "desc": "Espíritos curam ferimentos."},
+        ],
+        "advanced": [
+            {"name": "🌋 Fúria dos Totens",  "mana_cost": 50, "dmg_mult": 2.8, "poison": True, "stun_chance": 0.3, "desc": "Totens ancestrais despertam furiosos."},
+            {"name": "💀 Possessão Espiritual","mana_cost": 55,"dmg_mult": 3.2, "weaken": True, "ignore_def": True, "desc": "Espírito penetra o inimigo por dentro."},
+        ],
+        "supreme": {
+            "name": "🌌 Convocação Primordial", "mana_cost": 90, "dmg_mult": 5.2, "self_heal": 100, "stun_chance": 0.5,
+            "desc": "Chama todos os ancestrais de todas as eras. O maior poder espiritual do mundo.",
+            "unlock_boss": "Yeti Colossal"
+        },
+    },
+    # ── TEMPESTEIRO ────────────────────────────────────────────────
+    "Tempesteiro": {
+        "basic": [
+            {"name": "⚡ Raio Simples",      "mana_cost": 10, "dmg_mult": 1.5, "stun_chance": 0.2, "desc": "Raio básico."},
+            {"name": "💨 Rajada de Vento",   "mana_cost": 15, "dmg_mult": 1.4, "desc": "Vento cortante."},
+        ],
+        "intermediate": [
+            {"name": "⛈️ Tempestade Local",  "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Tempestade concentrada."},
+            {"name": "🌊 Ciclone Elétrico",  "mana_cost": 35, "dmg_mult": 2.5, "stun_chance": 0.4, "desc": "Furacão elétrico devasta."},
+            {"name": "🌩️ Cadeia de Raios",  "mana_cost": 40, "dmg_mult": 2.0, "poison": True, "desc": "Raios encadeados que queimam."},
+        ],
+        "advanced": [
+            {"name": "🌪️ Furacão Arcano",   "mana_cost": 55, "dmg_mult": 3.2, "stun_chance": 0.45, "desc": "Furacão que leva o inimigo."},
+            {"name": "⚡ Plasma Absoluto",   "mana_cost": 60, "dmg_mult": 3.6, "ignore_def": True, "desc": "Plasma que dissolve matéria."},
+        ],
+        "supreme": {
+            "name": "🌩️ Zeus Menor II — A Tempestade Eterna", "mana_cost": 100, "dmg_mult": 6.0, "stun_chance": 0.7, "ignore_def": True,
+            "desc": "Invoca o poder de Zeus Menor. Relâmpagos sem fim que nunca param.",
+            "unlock_boss": "Zeus Menor, o Trovejante"
+        },
+    },
+    # ── ILUSIONISTA ────────────────────────────────────────────────
+    "Ilusionista": {
+        "basic": [
+            {"name": "🪄 Ilusão Básica",     "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.2, "desc": "Ilusão confunde o inimigo."},
+            {"name": "🌀 Espelho Falso",      "mana_cost": 15, "dmg_mult": 1.2, "def_bonus": 15, "desc": "Cria cópia para desviar ataques."},
+        ],
+        "intermediate": [
+            {"name": "🎭 Pesadelo Vívido",   "mana_cost": 30, "dmg_mult": 2.0, "stun_chance": 0.4, "weaken": True, "desc": "Faz o inimigo ver seus medos."},
+            {"name": "💫 Doppelgänger",       "mana_cost": 35, "dmg_mult": 2.2, "desc": "Clone que ataca o inimigo."},
+            {"name": "🌑 Realidade Alternativa","mana_cost": 40,"dmg_mult": 2.4, "ignore_def": True, "desc": "Move o ataque para uma realidade sem defesas."},
+        ],
+        "advanced": [
+            {"name": "👁️ Labirinto Mental",  "mana_cost": 50, "dmg_mult": 2.8, "stun_chance": 0.6, "desc": "Prende a mente do inimigo."},
+            {"name": "🌌 Grande Ilusão",      "mana_cost": 60, "dmg_mult": 3.2, "weaken": True, "stun_chance": 0.4, "desc": "Ilusão tão real que causa dano físico."},
+        ],
+        "supreme": {
+            "name": "♾️ Fim da Realidade", "mana_cost": 90, "dmg_mult": 5.0, "stun_chance": 0.8, "weaken": True,
+            "desc": "Faz o inimigo acreditar que já morreu. Tão poderoso que pode se tornar realidade.",
+            "unlock_boss": "Olho do Abismo"
+        },
+    },
+    # ── ALQUIMISTA ─────────────────────────────────────────────────
+    "Alquimista": {
+        "basic": [
+            {"name": "⚗️ Bomba Ácida",       "mana_cost": 10, "dmg_mult": 1.4, "poison": True, "desc": "Ácido corroi o inimigo."},
+            {"name": "🧪 Poção Explosiva",    "mana_cost": 15, "dmg_mult": 1.5, "desc": "Poção que explode no contato."},
+        ],
+        "intermediate": [
+            {"name": "☠️ Gás Tóxico",        "mana_cost": 25, "dmg_mult": 1.8, "poison": True, "weaken": True, "desc": "Nuvem de gás envenena e debilita."},
+            {"name": "🔥 Napalm Arcano",     "mana_cost": 30, "dmg_mult": 2.2, "poison": True, "desc": "Líquido flamejante grudento."},
+            {"name": "💊 Elixir de Combate", "mana_cost": 20, "dmg_mult": 1.3, "self_heal": 50, "def_bonus": 20, "desc": "Elixir que potencializa capacidades."},
+        ],
+        "advanced": [
+            {"name": "💥 Bomba de Fragmentos Arcanos","mana_cost": 50,"dmg_mult": 3.0, "stun_chance": 0.35, "poison": True, "desc": "Estilhaços envenenados!"},
+            {"name": "⚗️ Transmutação Letal", "mana_cost": 55, "dmg_mult": 3.4, "ignore_def": True, "desc": "Transmuta a armadura do inimigo em pó."},
+        ],
+        "supreme": {
+            "name": "☢️ Grande Transmutação", "mana_cost": 85, "dmg_mult": 5.5, "ignore_def": True, "poison": True, "weaken": True,
+            "desc": "Transmuta toda matéria do inimigo em elemento instável. A pedra filosofal da destruição.",
+            "unlock_boss": "O Caos em Pessoa"
+        },
+    },
+    # ── GUARDIÃO DO ABISMO ─────────────────────────────────────────
+    "Guardião do Abismo": {
+        "basic": [
+            {"name": "♾️ Toque do Vazio",    "mana_cost": 15, "dmg_mult": 1.5, "weaken": True, "desc": "O vazio corrói o inimigo."},
+            {"name": "🌑 Barreira do Abismo","mana_cost": 20, "dmg_mult": 1.2, "def_bonus": 25, "desc": "Barreira de energia do vazio."},
+        ],
+        "intermediate": [
+            {"name": "💀 Fissura do Vazio",  "mana_cost": 30, "dmg_mult": 2.2, "ignore_def": True, "desc": "Fenda dimensional ataca."},
+            {"name": "🌀 Espiral do Nada",   "mana_cost": 35, "dmg_mult": 2.4, "stun_chance": 0.35, "desc": "Espiral suga e destrói."},
+            {"name": "👁️ Olhar do Abismo",  "mana_cost": 25, "dmg_mult": 1.8, "weaken": True, "poison": True, "desc": "Olhar que corrói alma e corpo."},
+        ],
+        "advanced": [
+            {"name": "♾️ Colapso Dimensional","mana_cost": 55,"dmg_mult": 3.3, "stun_chance": 0.4, "desc": "Dimensão colapsa sobre o inimigo!"},
+            {"name": "🌌 Pureza do Vazio",   "mana_cost": 65, "dmg_mult": 3.8, "ignore_def": True, "weaken": True, "desc": "Poder puro do nada absoluto."},
+        ],
+        "supreme": {
+            "name": "☯️ O Nada Que Devora", "mana_cost": 100, "dmg_mult": 6.0, "ignore_def": True, "weaken": True, "stun_chance": 0.5,
+            "desc": "O abismo engole o inimigo completamente. Não existe defesa contra o nada.",
+            "unlock_boss": "O Senhor das Sombras"
+        },
+    },
+    # ── DANÇARINO DA MORTE ─────────────────────────────────────────
+    "Dançarino da Morte": {
+        "basic": [
+            {"name": "💃 Passo Letal",        "mana_cost": 0,  "dmg_mult": 1.5, "crit_chance": 0.3, "desc": "Dança e golpeia sem parar."},
+            {"name": "🗡️ Lâminas Dançantes", "mana_cost": 15, "dmg_mult": 1.6, "desc": "Lâminas giram em dança."},
+        ],
+        "intermediate": [
+            {"name": "💀 Valsa da Morte",     "mana_cost": 25, "dmg_mult": 2.2, "crit_chance": 0.4, "desc": "Dança mortal e hipnótica."},
+            {"name": "🩸 Sangue na Pista",    "mana_cost": 20, "dmg_mult": 2.0, "poison": True, "desc": "Deixa rastro de veneno na dança."},
+            {"name": "🌀 Girar do Caos",      "mana_cost": 30, "dmg_mult": 2.3, "stun_chance": 0.35, "desc": "Gira causando tontura no inimigo."},
+        ],
+        "advanced": [
+            {"name": "🌪️ Turbilhão de Lâminas","mana_cost": 45,"dmg_mult": 3.0, "crit_chance": 0.5, "desc": "Tufão de lâminas afiadas!"},
+            {"name": "💫 Último Passo",       "mana_cost": 55, "dmg_mult": 3.5, "ignore_def": True, "crit_chance": 0.4, "desc": "O golpe final da dança."},
+        ],
+        "supreme": {
+            "name": "☠️ Dança do Apocalipse", "mana_cost": 85, "dmg_mult": 5.8, "crit_chance": 0.9, "ignore_def": True, "poison": True,
+            "desc": "Uma dança tão rápida que cria réplicas. Cortes em cada dimensão do espaço.",
+            "unlock_boss": "Dançarino da Morte"
+        },
+    },
+    # ── ORÁCULO ────────────────────────────────────────────────────
+    "Oráculo": {
+        "basic": [
+            {"name": "🔮 Visão do Futuro",   "mana_cost": 15, "dmg_mult": 1.4, "weaken": True, "desc": "Vê o próximo ataque e debilita."},
+            {"name": "⭐ Maldição do Destino","mana_cost": 20, "dmg_mult": 1.5, "desc": "Predestina dano ao inimigo."},
+        ],
+        "intermediate": [
+            {"name": "⏱️ Distorção Temporal", "mana_cost": 30, "dmg_mult": 2.0, "stun_chance": 0.45, "desc": "Temporariamente paralisa o tempo do inimigo."},
+            {"name": "💫 Fio do Destino",     "mana_cost": 25, "dmg_mult": 2.2, "ignore_def": True, "desc": "Ataca através do destino predestinado."},
+            {"name": "🌌 Paradoxo",           "mana_cost": 35, "dmg_mult": 2.4, "weaken": True, "stun_chance": 0.3, "desc": "Cria paradoxo que confunde e debilita."},
+        ],
+        "advanced": [
+            {"name": "♾️ Reescrever o Passado","mana_cost": 55,"dmg_mult": 3.2, "ignore_def": True, "desc": "Reescreve a batalha a seu favor."},
+            {"name": "🌠 Visão do Fim",       "mana_cost": 60, "dmg_mult": 3.5, "weaken": True, "stun_chance": 0.4, "desc": "Mostra ao inimigo sua própria morte."},
+        ],
+        "supreme": {
+            "name": "⏳ O Destino Era Este", "mana_cost": 95, "dmg_mult": 5.5, "stun_chance": 0.7, "ignore_def": True, "weaken": True,
+            "desc": "Desde o início do universo, estava escrito que este golpe acertaria. Irresistível.",
+            "unlock_boss": "Loop Temporal"
+        },
+    },
+    # ── COLOSSUS ───────────────────────────────────────────────────
+    "Colossus": {
+        "basic": [
+            {"name": "🗿 Soco de Pedra",     "mana_cost": 0,  "dmg_mult": 1.6, "stun_chance": 0.2, "desc": "Punho do tamanho de uma rocha."},
+            {"name": "🏔️ Postura de Granito","mana_cost": 10, "dmg_mult": 0.8, "def_bonus": 35, "desc": "Postura impenetrável."},
+        ],
+        "intermediate": [
+            {"name": "🌋 Pisar do Colossus", "mana_cost": 25, "dmg_mult": 2.0, "stun_chance": 0.4, "desc": "Pisada que racha o chão."},
+            {"name": "💪 Golpe Monolítico",  "mana_cost": 30, "dmg_mult": 2.3, "ignore_def": True, "desc": "Força de uma montanha."},
+            {"name": "🛡️ Fortaleza Viva",   "mana_cost": 20, "dmg_mult": 1.0, "def_bonus": 50, "self_heal": 40, "desc": "Torna-se uma fortaleza."},
+        ],
+        "advanced": [
+            {"name": "🌍 Terremoto",         "mana_cost": 50, "dmg_mult": 3.0, "stun_chance": 0.5, "desc": "Abala a terra causando tremores."},
+            {"name": "💥 Colapso Gravitacional","mana_cost": 55,"dmg_mult": 3.4, "ignore_def": True, "desc": "Gravidade aumentada esmaga."},
+        ],
+        "supreme": {
+            "name": "🏔️ A Montanha Desperta", "mana_cost": 80, "dmg_mult": 5.2, "stun_chance": 0.6, "ignore_def": True, "def_bonus": 40,
+            "desc": "A força de uma cordilheira inteira. Nada sobrevive a este golpe.",
+            "unlock_boss": "Primeiro Gigante Primordial"
+        },
+    },
+    # ── DEVORADOR DE ALMAS ──────────────────────────────────────────
+    "Devorador de Almas": {
+        "basic": [
+            {"name": "💫 Devorar Fragmento", "mana_cost": 15, "dmg_mult": 1.5, "self_heal": 15, "desc": "Consume fragmento da alma do inimigo."},
+            {"name": "🌑 Fome das Sombras",  "mana_cost": 20, "dmg_mult": 1.4, "weaken": True, "desc": "Fome que drena energia."},
+        ],
+        "intermediate": [
+            {"name": "💀 Ingestão da Força", "mana_cost": 30, "dmg_mult": 2.0, "self_heal": 30, "desc": "Devora a força do inimigo."},
+            {"name": "🌀 Vórtice da Fome",   "mana_cost": 35, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "Vórtice que suga energia."},
+            {"name": "☠️ Roubo de Essência", "mana_cost": 25, "dmg_mult": 1.8, "self_heal": 40, "weaken": True, "desc": "Rouba essência vital."},
+        ],
+        "advanced": [
+            {"name": "💫 Devorar a Alma",    "mana_cost": 55, "dmg_mult": 3.2, "self_heal": 60, "ignore_def": True, "desc": "Consome a alma diretamente."},
+            {"name": "🌌 Fome Infinita",     "mana_cost": 60, "dmg_mult": 3.5, "self_heal": 80, "desc": "Fome sem fim que cresce com cada golpe."},
+        ],
+        "supreme": {
+            "name": "♾️ Consumir a Existência", "mana_cost": 100, "dmg_mult": 5.8, "self_heal": 150, "ignore_def": True, "weaken": True,
+            "desc": "Devora a própria existência do inimigo. Cada partícula consumida restaura o Devorador.",
+            "unlock_boss": "Vácuo da Criação"
+        },
+    },
+    # ── ARAUTO CELESTIAL ───────────────────────────────────────────
+    "Arauto Celestial": {
+        "basic": [
+            {"name": "✨ Mensagem Divina",   "mana_cost": 10, "dmg_mult": 1.4, "desc": "Mensagem dos deuses como força."},
+            {"name": "🕊️ Escudo da Graça",  "mana_cost": 15, "dmg_mult": 0.9, "def_bonus": 20, "self_heal": 20, "desc": "Graça divina protege e cura."},
+        ],
+        "intermediate": [
+            {"name": "☀️ Proclama Sagrada",  "mana_cost": 25, "dmg_mult": 2.0, "stun_chance": 0.3, "desc": "Proclama santa atordoa."},
+            {"name": "👼 Chamado dos Anjos", "mana_cost": 30, "dmg_mult": 2.2, "self_heal": 40, "desc": "Anjos respondem ao chamado."},
+            {"name": "🌟 Luz Celestial",     "mana_cost": 35, "dmg_mult": 2.4, "weaken": True, "desc": "Luz que queima seres das trevas."},
+        ],
+        "advanced": [
+            {"name": "⚡ Lança dos Céus",    "mana_cost": 50, "dmg_mult": 3.0, "ignore_def": True, "desc": "Lança forjada no Trono Celestial."},
+            {"name": "🌈 Julgamento Celestial","mana_cost": 55,"dmg_mult": 3.3, "stun_chance": 0.4, "self_heal": 60, "desc": "Julgamento dos céus cai."},
+        ],
+        "supreme": {
+            "name": "👑 Vontade dos Deuses", "mana_cost": 90, "dmg_mult": 5.2, "ignore_def": True, "self_heal": 120, "stun_chance": 0.4,
+            "desc": "Os próprios deuses falam através do Arauto. O golpe e a cura máxima simultaneamente.",
+            "unlock_boss": "Imperador Astral"
+        },
+    },
+    # ── LANÇADOR DE VENENOS ────────────────────────────────────────
+    "Lançador de Venenos": {
+        "basic": [
+            {"name": "☠️ Inoculação Básica", "mana_cost": 0,  "dmg_mult": 1.3, "poison": True, "desc": "Veneno básico inoculado."},
+            {"name": "🧪 Spray Tóxico",      "mana_cost": 10, "dmg_mult": 1.2, "poison": True, "weaken": True, "desc": "Spray que envenena e debilita."},
+        ],
+        "intermediate": [
+            {"name": "💀 Veneno Paralisante","mana_cost": 25, "dmg_mult": 1.8, "poison": True, "stun_chance": 0.35, "desc": "Veneno que paralisa os nervos."},
+            {"name": "🌑 Praga Sombria",     "mana_cost": 30, "dmg_mult": 2.0, "poison": True, "weaken": True, "desc": "Praga que se espalha."},
+            {"name": "⚗️ Toxina Corrosiva",  "mana_cost": 20, "dmg_mult": 1.6, "poison": True, "ignore_def": True, "desc": "Corrói armaduras e carne."},
+        ],
+        "advanced": [
+            {"name": "☢️ Veneno Arcano",     "mana_cost": 45, "dmg_mult": 2.8, "poison": True, "ignore_def": True, "desc": "Veneno que ignora proteções mágicas."},
+            {"name": "💫 Morte Lenta Total", "mana_cost": 55, "dmg_mult": 3.2, "poison": True, "weaken": True, "stun_chance": 0.3, "desc": "Veneno que destrói todos os sistemas."},
+        ],
+        "supreme": {
+            "name": "☠️ O Veneno de Todos os Venenos", "mana_cost": 80, "dmg_mult": 4.8, "poison": True, "weaken": True, "ignore_def": True, "stun_chance": 0.5,
+            "desc": "Combina todo veneno existente. Paralisa, corrói, enfraquece e mata simultaneamente.",
+            "unlock_boss": "Dragão de Magma"
+        },
+    },
+    # ── GLADIADOR ──────────────────────────────────────────────────
+    "Gladiador": {
+        "basic": [
+            {"name": "🏟️ Golpe da Arena",    "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Golpe calibrado para matar."},
+            {"name": "🛡️ Bloquear e Golpear","mana_cost": 10, "dmg_mult": 1.3, "def_bonus": 15, "desc": "Defende e contra-ataca."},
+        ],
+        "intermediate": [
+            {"name": "⚔️ Combo da Vitória",  "mana_cost": 25, "dmg_mult": 2.0, "desc": "Sequência treinada para matar."},
+            {"name": "💥 Golpe do Campeão",  "mana_cost": 30, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "Golpe de campeão invicto."},
+            {"name": "🩸 Sede de Glória",    "mana_cost": 20, "dmg_mult": 2.2, "self_heal": 30, "desc": "A glória cura ferimentos."},
+        ],
+        "advanced": [
+            {"name": "🏆 Execução Lendária", "mana_cost": 50, "dmg_mult": 3.2, "ignore_def": True, "desc": "Execução digna de lendas."},
+            {"name": "🌟 Aura do Invicto",   "mana_cost": 45, "dmg_mult": 2.8, "def_bonus": 30, "self_heal": 50, "desc": "Aura de um guerreiro sem derrota."},
+        ],
+        "supreme": {
+            "name": "🏟️ O Último Combate", "mana_cost": 85, "dmg_mult": 5.5, "ignore_def": True, "stun_chance": 0.45, "self_heal": 80,
+            "desc": "O golpe final de uma carreira de mil batalhas. Tudo aprendido, tudo liberado.",
+            "unlock_boss": "Imperador Astral"
+        },
+    },
+    # ── MESTRE DAS CORRENTES ────────────────────────────────────────
+    "Mestre das Correntes": {
+        "basic": [
+            {"name": "⛓️ Corrente Básica",   "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.2, "desc": "Corrente prende brevemente."},
+            {"name": "💪 Açoite de Ferro",   "mana_cost": 0,  "dmg_mult": 1.4, "desc": "Açoite metálico poderoso."},
+        ],
+        "intermediate": [
+            {"name": "⛓️ Aprisionamento",    "mana_cost": 25, "dmg_mult": 1.8, "stun_chance": 0.45, "desc": "Correntes prendem o inimigo."},
+            {"name": "🔥 Correntes Flamejantes","mana_cost": 30,"dmg_mult": 2.2, "poison": True, "desc": "Correntes de fogo queimam."},
+            {"name": "💫 Dança das Correntes","mana_cost": 20, "dmg_mult": 2.0, "desc": "Múltiplas correntes giram e golpeiam."},
+        ],
+        "advanced": [
+            {"name": "🌑 Correntes do Abismo","mana_cost": 50, "dmg_mult": 3.0, "weaken": True, "stun_chance": 0.4, "desc": "Correntes do vazio prendem a alma."},
+            {"name": "♾️ Laço da Realidade", "mana_cost": 55, "dmg_mult": 3.3, "ignore_def": True, "desc": "Corrente prende na própria realidade."},
+        ],
+        "supreme": {
+            "name": "⛓️ Acorrentar o Universo", "mana_cost": 90, "dmg_mult": 5.3, "stun_chance": 0.7, "ignore_def": True, "weaken": True,
+            "desc": "Correntes que aprisionam até a alma. Nada pode se mover.",
+            "unlock_boss": "Caos em Pessoa"
+        },
+    },
+    # ── PROFETA DA DESTRUIÇÃO ───────────────────────────────────────
+    "Profeta da Destruição": {
+        "basic": [
+            {"name": "📯 Anúncio do Caos",   "mana_cost": 10, "dmg_mult": 1.4, "weaken": True, "desc": "Profecia que enfraquece."},
+            {"name": "🌑 Sombra da Profecia", "mana_cost": 15, "dmg_mult": 1.5, "desc": "Sombra da destruição futura."},
+        ],
+        "intermediate": [
+            {"name": "🔥 Profecias em Chamas","mana_cost": 25, "dmg_mult": 2.0, "poison": True, "desc": "Profecia se manifesta em fogo."},
+            {"name": "💀 Decreto do Fim",     "mana_cost": 30, "dmg_mult": 2.3, "weaken": True, "stun_chance": 0.3, "desc": "Decreta a destruição do inimigo."},
+            {"name": "🌪️ Tempestade Profética","mana_cost": 35,"dmg_mult": 2.5, "desc": "Tempestade do futuro atinge agora."},
+        ],
+        "advanced": [
+            {"name": "🌋 Armageddon Menor",  "mana_cost": 55, "dmg_mult": 3.2, "stun_chance": 0.4, "ignore_def": True, "desc": "Versão menor do fim do mundo."},
+            {"name": "💫 A Profecia Se Cumpre","mana_cost": 60,"dmg_mult": 3.6, "weaken": True, "poison": True, "desc": "O inevitável ocorre agora."},
+        ],
+        "supreme": {
+            "name": "🌌 O Fim Que Profetizei", "mana_cost": 100, "dmg_mult": 6.0, "ignore_def": True, "stun_chance": 0.5, "weaken": True, "poison": True,
+            "desc": "A profecia que sempre foi. O universo colapsa em torno do inimigo.",
+            "unlock_boss": "O Caos em Pessoa"
+        },
+    },
+    # ── FERREIRO DE GUERRA ──────────────────────────────────────────
+    "Ferreiro de Guerra": {
+        "basic": [
+            {"name": "🔨 Martelada Brutal",  "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Martelo de guerra esmaga."},
+            {"name": "⚒️ Forjar na Batalha", "mana_cost": 15, "dmg_mult": 1.2, "def_bonus": 20, "desc": "Forja armadura adicional no campo."},
+        ],
+        "intermediate": [
+            {"name": "🔥 Golpe da Forja",    "mana_cost": 25, "dmg_mult": 2.0, "stun_chance": 0.3, "desc": "Golpe com metal incandescente."},
+            {"name": "⚙️ Bomba da Engrenagem","mana_cost": 30, "dmg_mult": 2.2, "desc": "Engrenagem explosiva arremessada."},
+            {"name": "🛡️ Armadura de Batalha","mana_cost": 20, "dmg_mult": 1.0, "def_bonus": 40, "self_heal": 35, "desc": "Forja armadura sagrada em segundos."},
+        ],
+        "advanced": [
+            {"name": "💫 Arma Perfeita",     "mana_cost": 50, "dmg_mult": 3.0, "ignore_def": True, "desc": "Forja a arma perfeita para este momento."},
+            {"name": "🌟 Lenda da Forja",    "mana_cost": 55, "dmg_mult": 3.4, "def_bonus": 30, "stun_chance": 0.3, "desc": "Arma forjada com memórias de batalha."},
+        ],
+        "supreme": {
+            "name": "⚒️ A Forja Sagrada Desperta", "mana_cost": 90, "dmg_mult": 5.5, "ignore_def": True, "def_bonus": 50, "self_heal": 80,
+            "desc": "A Forja Sagrada dos Anões primordiais. A arma e a armadura definitivas.",
+            "unlock_boss": "Golem da Forja Corrompida"
+        },
+    },
+    # ── DRAGONLANCER ───────────────────────────────────────────────
+    "Dragonlancer": {
+        "basic": [
+            {"name": "🐲 Lança de Fogo",     "mana_cost": 15, "dmg_mult": 1.6, "desc": "Lança imbuída de fogo dracônico."},
+            {"name": "🔥 Sopro do Dragão",   "mana_cost": 20, "dmg_mult": 1.5, "poison": True, "desc": "Sopro de fogo queima o inimigo."},
+        ],
+        "intermediate": [
+            {"name": "🐉 Carga Dracônica",   "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Monta dragão e carrega o inimigo."},
+            {"name": "💥 Golpe de Cauda",    "mana_cost": 25, "dmg_mult": 2.0, "stun_chance": 0.4, "desc": "Cauda de dragão golpeia brutalmente."},
+            {"name": "🌋 Chuva de Lava",     "mana_cost": 35, "dmg_mult": 2.4, "poison": True, "desc": "Lava cai do céu."},
+        ],
+        "advanced": [
+            {"name": "🌌 Voo Dracônico",     "mana_cost": 50, "dmg_mult": 3.0, "ignore_def": True, "desc": "Ataca em alta velocidade do céu."},
+            {"name": "⭐ Lança das Estrelas", "mana_cost": 55, "dmg_mult": 3.4, "crit_chance": 0.4, "desc": "Lança de energia estelar."},
+        ],
+        "supreme": {
+            "name": "🐉 O Último Dragão Desperta", "mana_cost": 95, "dmg_mult": 5.8, "ignore_def": True, "stun_chance": 0.4, "poison": True,
+            "desc": "O primeiro e último dragão primordial emerge. Fogo que não tem temperatura — apenas destruição.",
+            "unlock_boss": "Dragão de Magma"
+        },
+    },
+}
+
+# ================= ESPECIALIZAÇÕES (desbloqueadas ao evoluir de classe) =================
+CLASS_SPECIALIZATIONS = {
+    # ── GUERREIRO ──────────────────────────────────────────────────
+    "Campeão": {
+        "emoji": "🏆",
+        "desc": "Especializado em golpes críticos e combate ofensivo.",
+        "passive": "+20% chance de crítico. Críticos causam 2.5x dano.",
+        "bonus_atk": 15, "bonus_hp": 10, "bonus_def": 0,
+        "special_skill": {"name": "🏆 Golpe do Campeão", "mana_cost": 35, "dmg_mult": 2.8, "crit_chance": 0.6, "desc": "Golpe do verdadeiro campeão!"}
+    },
+    "Guardião Inabalável": {
+        "emoji": "🛡️",
+        "desc": "Especializado em defesa extrema e proteção de aliados.",
+        "passive": "+30 DEF permanente. Reflete 10% do dano recebido.",
+        "bonus_atk": 0, "bonus_hp": 25, "bonus_def": 30,
+        "special_skill": {"name": "🛡️ Bastião", "mana_cost": 25, "dmg_mult": 1.0, "def_bonus": 60, "self_heal": 50, "desc": "Nada atravessa este escudo!"}
+    },
+    # ── MAGO ───────────────────────────────────────────────────────
+    "Piromante": {
+        "emoji": "🔥",
+        "desc": "Controla o fogo com poder sem igual.",
+        "passive": "+30% dano de fogo. Todos ataques têm chance de queimar.",
+        "bonus_atk": 20, "bonus_hp": 0, "bonus_def": 0,
+        "special_skill": {"name": "🌋 Inferno Absoluto", "mana_cost": 60, "dmg_mult": 3.8, "poison": True, "desc": "Fogo que queima até as almas!"}
+    },
+    "Criomante": {
+        "emoji": "❄️",
+        "desc": "Mestre do gelo e do congelamento.",
+        "passive": "+35% chance de congelar. Inimigos congelados recebem +20% dano.",
+        "bonus_atk": 15, "bonus_hp": 5, "bonus_def": 5,
+        "special_skill": {"name": "❄️ Blizzard Eterno", "mana_cost": 55, "dmg_mult": 3.5, "stun_chance": 0.7, "desc": "Tempestade de gelo que imobiliza tudo!"}
+    },
+    # ── ARQUEIRO ───────────────────────────────────────────────────
+    "Caçador Sombrio": {
+        "emoji": "🌑",
+        "desc": "Usa as sombras para golpes letais.",
+        "passive": "Primeiro ataque de cada combate é sempre crítico. +15% crit.",
+        "bonus_atk": 18, "bonus_hp": 5, "bonus_def": 0,
+        "special_skill": {"name": "🌑 Flecha Sombria", "mana_cost": 40, "dmg_mult": 3.5, "crit_chance": 0.7, "desc": "Flecha que surge das sombras!"}
+    },
+    "Arqueiro da Tempestade": {
+        "emoji": "⚡",
+        "desc": "Flechas carregadas com energia elétrica.",
+        "passive": "+30% chance de paralisar com flechas. Cada flecha causa dano em área.",
+        "bonus_atk": 20, "bonus_hp": 0, "bonus_def": 0,
+        "special_skill": {"name": "⚡ Tempestade de Raios", "mana_cost": 45, "dmg_mult": 3.2, "stun_chance": 0.6, "desc": "Raios disparam em todas as direções!"}
+    },
+    # ── GENÉRICO (demais especializações seguem o mesmo padrão) ────
+    "Berserker Sagrado": {
+        "emoji": "🔥",
+        "desc": "Fúria abençoada pelos deuses da guerra.",
+        "passive": "+25% ATK quando HP < 50%. Regenera HP ao matar.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 0,
+        "special_skill": {"name": "🔥 Fúria Sagrada", "mana_cost": 40, "dmg_mult": 3.5, "ignore_def": True, "desc": "Fúria abençoada que ignora defesas!"}
+    },
+    "Mestre das Sombras": {
+        "emoji": "🌑",
+        "desc": "Invísivel aos olhos mortais.",
+        "passive": "30% de esquiva. Ataques furtivos causam 2x dano.",
+        "bonus_atk": 20, "bonus_hp": 0, "bonus_def": 5,
+        "special_skill": {"name": "🌑 Extinção Furtiva", "mana_cost": 45, "dmg_mult": 3.8, "crit_chance": 0.65, "desc": "Ataque do invisível — impossível de desviar!"}
+    },
+    "Lich Aprendiz": {
+        "emoji": "💀",
+        "desc": "Primeiro passo para a imortalidade dos lich.",
+        "passive": "Revive com 25% HP uma vez por batalha.",
+        "bonus_atk": 15, "bonus_hp": 10, "bonus_def": 5,
+        "special_skill": {"name": "💀 Ressurreição Negra", "mana_cost": 50, "dmg_mult": 2.5, "self_heal": 60, "desc": "Morre e renasce com o poder dos mortos!"}
+    },
+    "Carnificina": {
+        "emoji": "🩸",
+        "desc": "Cada kill aumenta o dano do próximo ataque.",
+        "passive": "Acumula stacks de fúria a cada dano recebido. +5% ATK por stack.",
+        "bonus_atk": 30, "bonus_hp": 0, "bonus_def": 0,
+        "special_skill": {"name": "🩸 Modo Carnificina", "mana_cost": 35, "dmg_mult": 4.0, "self_dmg": 20, "desc": "Dano máximo com sacrifício de HP!"}
+    },
+    "Metamorfo": {
+        "emoji": "🐺",
+        "desc": "Transforma-se em diferentes bestas para diferentes situações.",
+        "passive": "Pode alternar entre forma de ataque (+20% ATK) e forma de cura (+30 HP regen).",
+        "bonus_atk": 12, "bonus_hp": 20, "bonus_def": 8,
+        "special_skill": {"name": "🐺 Forma Primordial", "mana_cost": 45, "dmg_mult": 3.2, "self_heal": 60, "desc": "Transforma-se na besta mais antiga!"}
+    },
+    "Punho de Aço": {
+        "emoji": "👊",
+        "desc": "Mãos tornam-se armas sagradas.",
+        "passive": "+25% dano de golpes sem armas. Cada crítico cura 15 HP.",
+        "bonus_atk": 22, "bonus_hp": 12, "bonus_def": 5,
+        "special_skill": {"name": "👊 Punho Divino", "mana_cost": 40, "dmg_mult": 3.5, "ignore_def": True, "desc": "Punho sagrado que atravessa qualquer coisa!"}
+    },
+    "Bardo da Batalha": {
+        "emoji": "🎸",
+        "desc": "Música inspira e destrói em igual medida.",
+        "passive": "+15% ATK para cada aliado na batalha. Música causa dano em área.",
+        "bonus_atk": 18, "bonus_hp": 10, "bonus_def": 5,
+        "special_skill": {"name": "🎸 Solo da Morte", "mana_cost": 40, "dmg_mult": 3.2, "stun_chance": 0.5, "desc": "Solo tão poderoso que desintegra!"}
+    },
+}
+
+# ================= MANA POR CLASSE (novas classes incluídas) =================
 CLASS_MANA = {
     "Guerreiro":  {"base_mana": 30,  "mana_per_level": 2},
     "Mago":       {"base_mana": 100, "mana_per_level": 8},
@@ -109,6 +1405,27 @@ CLASS_MANA = {
     "Druida":     {"base_mana": 70,  "mana_per_level": 5},
     "Monge":      {"base_mana": 55,  "mana_per_level": 4},
     "Bardo":      {"base_mana": 65,  "mana_per_level": 5},
+    # Novas classes
+    "Cavaleiro das Sombras": {"base_mana": 55, "mana_per_level": 4},
+    "Invocador":             {"base_mana": 90, "mana_per_level": 7},
+    "Runesmith":             {"base_mana": 60, "mana_per_level": 4},
+    "Cazador de Recompensas":{"base_mana": 45, "mana_per_level": 3},
+    "Xamã":                  {"base_mana": 75, "mana_per_level": 5},
+    "Tempesteiro":           {"base_mana": 85, "mana_per_level": 7},
+    "Ilusionista":           {"base_mana": 80, "mana_per_level": 6},
+    "Alquimista":            {"base_mana": 55, "mana_per_level": 4},
+    "Guardião do Abismo":    {"base_mana": 75, "mana_per_level": 6},
+    "Dançarino da Morte":    {"base_mana": 50, "mana_per_level": 3},
+    "Oráculo":               {"base_mana": 95, "mana_per_level": 7},
+    "Colossus":              {"base_mana": 25, "mana_per_level": 2},
+    "Devorador de Almas":    {"base_mana": 70, "mana_per_level": 5},
+    "Arauto Celestial":      {"base_mana": 65, "mana_per_level": 5},
+    "Lançador de Venenos":   {"base_mana": 45, "mana_per_level": 3},
+    "Gladiador":             {"base_mana": 35, "mana_per_level": 2},
+    "Mestre das Correntes":  {"base_mana": 60, "mana_per_level": 4},
+    "Profeta da Destruição": {"base_mana": 80, "mana_per_level": 6},
+    "Ferreiro de Guerra":    {"base_mana": 40, "mana_per_level": 3},
+    "Dragonlancer":          {"base_mana": 55, "mana_per_level": 4},
 }
 
 # ================= HABILIDADES POR CLASSE (PvP) =================
@@ -4137,6 +5454,10 @@ def init_db():
         "ALTER TABLE players ADD COLUMN total_xp_earned INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN areas_explored INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN dungeons_completed INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN race TEXT DEFAULT NULL",
+        "ALTER TABLE players ADD COLUMN specialization TEXT DEFAULT NULL",
+        "ALTER TABLE players ADD COLUMN class_tier INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN supreme_skills TEXT DEFAULT '[]'",
     ]:
         try:
             c.execute(col_def)
@@ -4258,6 +5579,10 @@ def get_player_db(user_id):
             "afk_start": r.get("afk_start", 0),
             "kingdom_data": json.loads(r["kingdom_data"]) if r.get("kingdom_data") and r["kingdom_data"] != "null" else None,
             "pets_list": json.loads(r["pets_list"]) if r.get("pets_list") else [],
+            "race": r.get("race"),
+            "specialization": r.get("specialization"),
+            "class_tier": r.get("class_tier", 0),
+            "supreme_skills": json.loads(r["supreme_skills"]) if r.get("supreme_skills") else [],
         }
     return None
 
@@ -4273,9 +5598,10 @@ def save_player_db(user_id, player):
                   achievements, training_points, temp_atk_boost, temp_def_boost, temp_hp_boost,
                   level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
-                  afk_farming, afk_start, kingdom_data, pets_list)
+                  afk_farming, afk_start, kingdom_data, pets_list,
+                  race, specialization, class_tier, supreme_skills)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -4309,7 +5635,11 @@ def save_player_db(user_id, player):
                player.get("afk_farming", 0),
                player.get("afk_start", 0),
                json.dumps(player.get("kingdom_data")) if player.get("kingdom_data") else None,
-               json.dumps(player.get("pets_list", []))))
+               json.dumps(player.get("pets_list", [])),
+               player.get("race"),
+               player.get("specialization"),
+               player.get("class_tier", 0),
+               json.dumps(player.get("supreme_skills", []))))
 
     conn.commit()
     conn.close()
@@ -4499,6 +5829,11 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
     if player.get("class") == "Bardo":
         amount = int(amount * 1.2)
 
+    # Race XP multiplier
+    race_name = player.get("race")
+    if race_name and race_name in RACES:
+        amount = int(amount * RACES[race_name].get("xp_mult", 1.0))
+
     # Multiplicador de período
     period_data = TIME_PERIODS.get(CURRENT_PERIOD.get("type", "dia"), TIME_PERIODS["dia"])
     amount = int(amount * period_data.get("xp_mult", 1.0))
@@ -4554,6 +5889,12 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
             player["active_effects"] = effects
 
         leveled = True
+        # Mark that evolution should be checked after level-up
+        evol_levels = {40, 80, 120, 160}
+        if player["level"] in evol_levels and player.get("class"):
+            effects = player.get("active_effects", {})
+            effects["check_evolution"] = True
+            player["active_effects"] = effects
 
     save_player_db(user_id, player)
 
@@ -4669,22 +6010,127 @@ def get_level_boss(level):
 
 # ================= VIEWS / BOTÕES =================
 
-class ClassSelectButton(discord.ui.View):
-    def __init__(self, user_id, timeout=120):
+# ─────────────────────────────────────────────────────────────
+# HELPER: apply race bonuses to player
+# ─────────────────────────────────────────────────────────────
+def apply_race_bonuses(player, race_name):
+    race = RACES[race_name]
+    player["max_hp"]  += race["hp_bonus"]
+    player["hp"]       = player["max_hp"]
+    player["race"]     = race_name
+    return player
+
+
+# ─────────────────────────────────────────────────────────────
+# HELPER: get current skills for player (tiered system)
+# ─────────────────────────────────────────────────────────────
+def get_player_skills(player):
+    cls = player.get("class", "Guerreiro") or "Guerreiro"
+    lvl = player.get("level", 1)
+    tier_data = CLASS_TIERED_SKILLS.get(cls)
+    if not tier_data:
+        # fallback to old CLASS_SKILLS
+        return CLASS_SKILLS.get(cls, CLASS_SKILLS["Guerreiro"])
+
+    skills = list(tier_data["basic"])
+    if lvl >= 40:
+        skills += tier_data.get("intermediate", [])
+    if lvl >= 80:
+        skills += tier_data.get("advanced", [])
+    # Supreme skill
+    supreme = tier_data.get("supreme")
+    if supreme and supreme["name"] in player.get("supreme_skills", []):
+        skills.append(supreme)
+    # Specialization special skill
+    spec = player.get("specialization")
+    if spec and spec in CLASS_SPECIALIZATIONS:
+        spec_skill = CLASS_SPECIALIZATIONS[spec].get("special_skill")
+        if spec_skill:
+            skills.append(spec_skill)
+    return skills
+
+
+# ─────────────────────────────────────────────────────────────
+# HELPER: check and trigger class evolution prompt
+# ─────────────────────────────────────────────────────────────
+async def check_class_evolution(channel, user_id):
+    player = get_player(user_id)
+    if not player or not player.get("class"):
+        return
+    cls = player["class"]
+    lvl = player["level"]
+    tree = CLASS_EVOLUTION_TREE.get(cls)
+    if not tree:
+        return
+    current_tier = player.get("class_tier", 0)
+    evolution_levels = sorted(tree.keys())
+    # Which tiers haven't been taken yet
+    for evo_lvl in evolution_levels:
+        tier_index = evolution_levels.index(evo_lvl) + 1
+        if lvl >= evo_lvl and current_tier < tier_index:
+            evo_data = tree[evo_lvl]
+            specs = evo_data["spec_options"]
+            embed = discord.Embed(
+                title=f"🌟 Evolução de Classe Disponível!",
+                description=(
+                    f"**{cls}** pode evoluir para **{evo_data['name']}**!\n\n"
+                    f"Escolha sua especialização abaixo.\n"
+                    f"*A escolha altera suas habilidades, passivas e estilo de combate.*"
+                ),
+                color=discord.Color.gold()
+            )
+            for s in specs:
+                spec_data = CLASS_SPECIALIZATIONS.get(s)
+                if spec_data:
+                    embed.add_field(
+                        name=f"{spec_data['emoji']} {s}",
+                        value=f"{spec_data['desc']}\n**Passiva:** {spec_data['passive']}",
+                        inline=False
+                    )
+            view = ClassEvolutionView(user_id, cls, evo_data["name"], specs, tier_index)
+            await channel.send(embed=embed, view=view)
+            return  # show one at a time
+
+
+# ─────────────────────────────────────────────────────────────
+# VIEW: Race selection (page 1 of 4)
+# ─────────────────────────────────────────────────────────────
+class RaceSelectView(discord.ui.View):
+    def __init__(self, user_id, page=0, timeout=180):
         super().__init__(timeout=timeout)
         self.user_id = user_id
+        self.page = page
         self.answered = False
-
-        class_names = list(CLASSES.keys())[:5]
-        for class_name in class_names:
-            class_data = CLASSES[class_name]
-            button = discord.ui.Button(
-                label=class_name, style=discord.ButtonStyle.primary, emoji=class_data["emoji"]
+        all_races = list(RACES.keys())
+        # 5 per page
+        chunk = all_races[page*5:(page+1)*5]
+        colors = [
+            discord.ButtonStyle.primary, discord.ButtonStyle.success,
+            discord.ButtonStyle.danger, discord.ButtonStyle.secondary,
+            discord.ButtonStyle.primary
+        ]
+        for i, race_name in enumerate(chunk):
+            race_data = RACES[race_name]
+            btn = discord.ui.Button(
+                label=race_name,
+                style=colors[i % len(colors)],
+                emoji=race_data["emoji"],
+                row=0
             )
-            button.callback = self.create_callback(class_name)
-            self.add_item(button)
+            btn.callback = self.make_cb(race_name)
+            self.add_item(btn)
+        # Nav buttons
+        total_pages = (len(all_races) + 4) // 5
+        if page > 0:
+            prev_btn = discord.ui.Button(label="◀ Anterior", style=discord.ButtonStyle.secondary, row=1)
+            prev_btn.callback = self.make_nav(page - 1)
+            self.add_item(prev_btn)
+        if page < total_pages - 1:
+            next_btn = discord.ui.Button(label="Próxima ▶", style=discord.ButtonStyle.secondary, row=1)
+            next_btn.callback = self.make_nav(page + 1)
+            self.add_item(next_btn)
 
-    def create_callback(self, class_name):
+    def make_cb(self, race_name):
         async def callback(interaction: discord.Interaction):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
@@ -4692,40 +6138,84 @@ class ClassSelectButton(discord.ui.View):
                 return
             self.answered = True
             player = get_player(self.user_id)
-            player["class"] = class_name
-            class_data = CLASSES[class_name]
-            player["max_hp"] += class_data["hp_bonus"]
-            player["hp"] = player["max_hp"]
+            if player.get("race"):
+                return await interaction.response.send_message(f"❌ Você já é um(a) **{player['race']}**!", ephemeral=True)
+            apply_race_bonuses(player, race_name)
             save_player_db(self.user_id, player)
-
+            race_data = RACES[race_name]
             embed = discord.Embed(
-                title=f"{class_data['emoji']} Classe Escolhida!",
-                description=f"*O narrador anuncia:*\n\n'Você se tornou um **{class_name}**!'\n\n{class_data['description']}",
-                color=discord.Color.gold()
+                title=f"{race_data['emoji']} Raça Escolhida: {race_name}!",
+                description=f"*{race_data['lore']}*\n\n{race_data['description']}",
+                color=discord.Color.purple()
             )
-            embed.add_field(name="💪 Bônus de ATK", value=f"+{class_data['atk_bonus']}", inline=True)
-            embed.add_field(name="🛡️ Bônus de DEF", value=f"+{class_data['def_bonus']}", inline=True)
-            embed.add_field(name="❤️ Bônus de HP", value=f"+{class_data['hp_bonus']}", inline=True)
+            embed.add_field(name="❤️ Bônus HP",  value=f"+{race_data['hp_bonus']}",  inline=True)
+            embed.add_field(name="⚔️ Bônus ATK", value=f"+{race_data['atk_bonus']}", inline=True)
+            embed.add_field(name="🛡️ Bônus DEF", value=f"+{race_data['def_bonus']}", inline=True)
+            embed.add_field(name="✨ Passiva",    value=race_data["passive"],          inline=False)
+            embed.set_footer(text="Agora use 'escolher classe' para completar seu personagem!")
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
+    def make_nav(self, new_page):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Esta não é sua seleção!", ephemeral=True)
+            all_races = list(RACES.keys())
+            chunk = all_races[new_page*5:(new_page+1)*5]
+            embed = discord.Embed(
+                title=f"🧬 Escolha sua Raça (Página {new_page+1})",
+                description="Sua raça define bônus permanentes e passivas únicas.",
+                color=discord.Color.purple()
+            )
+            for rn in chunk:
+                rd = RACES[rn]
+                embed.add_field(
+                    name=f"{rd['emoji']} {rn}",
+                    value=f"{rd['description']}\n**Passiva:** {rd['passive']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}",
+                    inline=False
+                )
+            new_view = RaceSelectView(self.user_id, page=new_page)
+            await interaction.response.edit_message(embed=embed, view=new_view)
+        return callback
 
-class ClassSelectButton2(discord.ui.View):
-    def __init__(self, user_id, timeout=120):
+
+# ─────────────────────────────────────────────────────────────
+# VIEW: Class selection (paginated, 5 per page across 6 pages)
+# ─────────────────────────────────────────────────────────────
+class ClassSelectView(discord.ui.View):
+    def __init__(self, user_id, page=0, timeout=180):
         super().__init__(timeout=timeout)
         self.user_id = user_id
+        self.page = page
         self.answered = False
-
-        class_names = list(CLASSES.keys())[5:]
-        for class_name in class_names:
+        all_classes = list(CLASSES.keys())
+        chunk = all_classes[page*5:(page+1)*5]
+        colors = [
+            discord.ButtonStyle.primary, discord.ButtonStyle.success,
+            discord.ButtonStyle.danger, discord.ButtonStyle.secondary,
+            discord.ButtonStyle.primary
+        ]
+        for i, class_name in enumerate(chunk):
             class_data = CLASSES[class_name]
-            button = discord.ui.Button(
-                label=class_name, style=discord.ButtonStyle.primary, emoji=class_data["emoji"]
+            btn = discord.ui.Button(
+                label=class_name[:25],
+                style=colors[i % len(colors)],
+                emoji=class_data["emoji"],
+                row=0
             )
-            button.callback = self.create_callback(class_name)
-            self.add_item(button)
+            btn.callback = self.make_cb(class_name)
+            self.add_item(btn)
+        total_pages = (len(all_classes) + 4) // 5
+        if page > 0:
+            prev_btn = discord.ui.Button(label="◀ Anterior", style=discord.ButtonStyle.secondary, row=1)
+            prev_btn.callback = self.make_nav(page - 1)
+            self.add_item(prev_btn)
+        if page < total_pages - 1:
+            next_btn = discord.ui.Button(label="Próxima ▶", style=discord.ButtonStyle.secondary, row=1)
+            next_btn.callback = self.make_nav(page + 1)
+            self.add_item(next_btn)
 
-    def create_callback(self, class_name):
+    def make_cb(self, class_name):
         async def callback(interaction: discord.Interaction):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
@@ -4733,20 +6223,125 @@ class ClassSelectButton2(discord.ui.View):
                 return
             self.answered = True
             player = get_player(self.user_id)
+            if player.get("class"):
+                return await interaction.response.send_message(f"❌ Você já é um(a) **{player['class']}**!", ephemeral=True)
             player["class"] = class_name
             class_data = CLASSES[class_name]
             player["max_hp"] += class_data["hp_bonus"]
             player["hp"] = player["max_hp"]
+            # Apply race affinity bonus if player has a race
+            race = player.get("race")
+            affinity_bonus = ""
+            if race and race in class_data.get("race_affinity", []):
+                player["max_hp"] += 15
+                player["hp"] = player["max_hp"]
+                affinity_bonus = f"\n\n🌟 **Bônus de Afinidade!** Sua raça **{race}** tem afinidade com esta classe!\n+15 HP bônus adicional."
             save_player_db(self.user_id, player)
-
             embed = discord.Embed(
-                title=f"{class_data['emoji']} Classe Escolhida!",
-                description=f"*O narrador anuncia:*\n\n'Você se tornou um **{class_name}**!'\n\n{class_data['description']}",
+                title=f"{class_data['emoji']} Classe Escolhida: {class_name}!",
+                description=f"{class_data['description']}{affinity_bonus}",
                 color=discord.Color.gold()
             )
-            embed.add_field(name="💪 Bônus de ATK", value=f"+{class_data['atk_bonus']}", inline=True)
-            embed.add_field(name="🛡️ Bônus de DEF", value=f"+{class_data['def_bonus']}", inline=True)
-            embed.add_field(name="❤️ Bônus de HP", value=f"+{class_data['hp_bonus']}", inline=True)
+            embed.add_field(name="💪 Bônus ATK", value=f"+{class_data['atk_bonus']}", inline=True)
+            embed.add_field(name="🛡️ Bônus DEF", value=f"+{class_data['def_bonus']}", inline=True)
+            embed.add_field(name="❤️ Bônus HP",  value=f"+{class_data['hp_bonus']}", inline=True)
+            tree = CLASS_EVOLUTION_TREE.get(class_name)
+            if tree:
+                evo_levels = sorted(tree.keys())
+                evo_text = " → ".join([f"Nv.{lvl} ({tree[lvl]['name']})" for lvl in evo_levels])
+                embed.add_field(name="🌟 Árvore de Evolução", value=evo_text, inline=False)
+            embed.set_footer(text="Use 'habilidades' para ver suas skills. Evolua nos níveis 40, 80, 120 e 160!")
+            await interaction.response.edit_message(embed=embed, view=None)
+        return callback
+
+    def make_nav(self, new_page):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Esta não é sua seleção!", ephemeral=True)
+            all_classes = list(CLASSES.keys())
+            chunk = all_classes[new_page*5:(new_page+1)*5]
+            total_pages = (len(all_classes) + 4) // 5
+            embed = discord.Embed(
+                title=f"🎭 Escolha sua Classe (Página {new_page+1}/{total_pages})",
+                description="Cada classe tem árvore de evolução e especializações únicas.",
+                color=discord.Color.blue()
+            )
+            for cn in chunk:
+                cd = CLASSES[cn]
+                tree = CLASS_EVOLUTION_TREE.get(cn)
+                evo_hint = ""
+                if tree:
+                    evo_hint = f"\n🌟 Evolui nos níveis: {', '.join(str(k) for k in sorted(tree.keys()))}"
+                embed.add_field(
+                    name=f"{cd['emoji']} {cn}",
+                    value=f"{cd['description']}\n**ATK:** +{cd['atk_bonus']} | **DEF:** +{cd['def_bonus']} | **HP:** +{cd['hp_bonus']}{evo_hint}",
+                    inline=False
+                )
+            new_view = ClassSelectView(self.user_id, page=new_page)
+            await interaction.response.edit_message(embed=embed, view=new_view)
+        return callback
+
+
+# Keep old aliases for backward compat
+ClassSelectButton  = ClassSelectView
+ClassSelectButton2 = ClassSelectView
+
+
+# ─────────────────────────────────────────────────────────────
+# VIEW: Class Evolution / Specialization choice
+# ─────────────────────────────────────────────────────────────
+class ClassEvolutionView(discord.ui.View):
+    def __init__(self, user_id, base_class, evolved_name, spec_options, new_tier, timeout=180):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.base_class = base_class
+        self.evolved_name = evolved_name
+        self.answered = False
+        colors = [discord.ButtonStyle.success, discord.ButtonStyle.danger]
+        for i, spec in enumerate(spec_options):
+            spec_data = CLASS_SPECIALIZATIONS.get(spec, {})
+            btn = discord.ui.Button(
+                label=spec[:25],
+                style=colors[i % len(colors)],
+                emoji=spec_data.get("emoji", "⭐"),
+                row=0
+            )
+            btn.callback = self.make_cb(spec, new_tier)
+            self.add_item(btn)
+
+    def make_cb(self, spec_name, new_tier):
+        async def callback(interaction: discord.Interaction):
+            if str(interaction.user.id) != str(self.user_id):
+                return await interaction.response.send_message("❌ Esta evolução não é sua!", ephemeral=True)
+            if self.answered:
+                return
+            self.answered = True
+            player = get_player(self.user_id)
+            spec_data = CLASS_SPECIALIZATIONS.get(spec_name, {})
+            player["class"] = self.base_class  # class stays same, spec changes style
+            player["specialization"] = spec_name
+            player["class_tier"] = new_tier
+            # Apply spec bonuses
+            player["max_hp"] += spec_data.get("bonus_hp", 0)
+            player["hp"] = min(player["hp"] + spec_data.get("bonus_hp", 0), player["max_hp"])
+            save_player_db(self.user_id, player)
+            embed = discord.Embed(
+                title=f"✨ Especialização Escolhida!",
+                description=(
+                    f"Você evoluiu para **{self.evolved_name}**!\n"
+                    f"Especialização: **{spec_name}** {spec_data.get('emoji','')}\n\n"
+                    f"*{spec_data.get('desc', '')}*\n\n"
+                    f"**Passiva:** {spec_data.get('passive', '')}"
+                ),
+                color=discord.Color.gold()
+            )
+            if spec_data.get("special_skill"):
+                sk = spec_data["special_skill"]
+                embed.add_field(name="⚡ Habilidade Especial", value=f"{sk['name']} — {sk['desc']}", inline=False)
+            embed.add_field(name="❤️ Bônus HP", value=f"+{spec_data.get('bonus_hp',0)}", inline=True)
+            embed.add_field(name="⚔️ Bônus ATK", value=f"+{spec_data.get('bonus_atk',0)}", inline=True)
+            embed.add_field(name="🛡️ Bônus DEF", value=f"+{spec_data.get('bonus_def',0)}", inline=True)
+            embed.set_footer(text="Use 'habilidades' para ver suas skills atualizadas!")
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
@@ -5335,8 +6930,8 @@ async def fight_pvp(channel, challenger_id, target_id):
 
     ch_cls = challenger.get("class", "Guerreiro")
     tg_cls = target.get("class", "Guerreiro")
-    ch_skills = CLASS_SKILLS.get(ch_cls, CLASS_SKILLS["Guerreiro"])
-    tg_skills = CLASS_SKILLS.get(tg_cls, CLASS_SKILLS["Guerreiro"])
+    ch_skills = get_player_skills(challenger)
+    tg_skills = get_player_skills(target)
 
     # Stats de batalha (baseados nos stats reais + nível)
     ch_hp = challenger["max_hp"]
@@ -5645,7 +7240,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
     # ---- Player stats ----
     p_cls = player.get("class", "Guerreiro")
-    p_skills = CLASS_SKILLS.get(p_cls, CLASS_SKILLS["Guerreiro"])
+    p_skills = get_player_skills(player)
     p_icon = CLASSES.get(p_cls, {}).get("emoji", "⚔️")
 
     p_max_hp = player["max_hp"] + player.get("temp_hp_boost", 0)
@@ -6251,6 +7846,39 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         await check_achievements(channel, user_id, "world_5")
     if len(WORLDS) <= worlds_count:
         await check_achievements(channel, user_id, "all_worlds")
+
+    # ── Check class evolution after boss fight (levels 40/80/120/160) ──
+    p_evo = get_player(user_id)
+    effects_evo = p_evo.get("active_effects", {})
+    if effects_evo.pop("check_evolution", False):
+        p_evo["active_effects"] = effects_evo
+        save_player_db(user_id, p_evo)
+        await check_class_evolution(channel, user_id)
+
+    # ── Check supreme skill unlock (boss-specific) ──
+    cls = p_evo.get("class")
+    if cls and cls in CLASS_TIERED_SKILLS:
+        supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
+        if supreme:
+            unlock_boss = supreme.get("unlock_boss", "")
+            if boss_data["name"] == unlock_boss:
+                supreme_skills = p_evo.get("supreme_skills", [])
+                if supreme["name"] not in supreme_skills:
+                    supreme_skills.append(supreme["name"])
+                    p_evo["supreme_skills"] = supreme_skills
+                    save_player_db(user_id, p_evo)
+                    unlock_embed = discord.Embed(
+                        title="👑 HABILIDADE SUPREMA DESBLOQUEADA!",
+                        description=(
+                            f"**{supreme['name']}**\n\n"
+                            f"*{supreme['desc']}*\n\n"
+                            f"Derrotou **{unlock_boss}** e dominou o poder supremo da sua classe!"
+                        ),
+                        color=discord.Color.from_rgb(255, 215, 0)
+                    )
+                    unlock_embed.add_field(name="💥 Dano", value=f"{supreme['dmg_mult']}x", inline=True)
+                    unlock_embed.add_field(name="🔵 Mana", value=f"{supreme['mana_cost']}", inline=True)
+                    await channel.send(embed=unlock_embed)
 
 
 async def explore_dungeon(channel, user_id, dungeon, world):
@@ -7002,7 +8630,7 @@ async def send_prologue(guild):
     )
     embed7.add_field(
         name="👤 Personagem",
-        value="`ver perfil` | `inventário` | `escolher classe` | `ver mana` | `ver emprego`",
+        value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`",
         inline=False
     )
     embed7.add_field(
@@ -7277,38 +8905,152 @@ async def on_message(message):
         player = get_player(user_id)
 
         if player.get("class"):
-            await message.channel.send(f"❌ Você já é um **{player['class']}**! Não pode mudar de classe.")
+            await message.channel.send(f"❌ Você já é um **{player['class']}**! Use `evolução classe` para ver sua árvore de evolução.")
             return
         if player["level"] < 2:
             await message.channel.send("❌ Você precisa ser **nível 2** para escolher uma classe!")
             return
 
+        all_classes = list(CLASSES.keys())
+        total_pages = (len(all_classes) + 4) // 5
+        page = 0
+        chunk = all_classes[:5]
+
         embed = discord.Embed(
-            title="🎭 Escolha sua Classe",
-            description="*'Qual caminho você deseja seguir?'*",
+            title=f"🎭 Escolha sua Classe (Página 1/{total_pages})",
+            description="*'Qual caminho você deseja seguir?'*\nCada classe tem árvore de evolução única com especializações nos níveis 40, 80, 120 e 160!",
             color=discord.Color.blue()
         )
-        for class_name in list(CLASSES.keys())[:5]:
-            class_data = CLASSES[class_name]
+        for cn in chunk:
+            cd = CLASSES[cn]
+            tree = CLASS_EVOLUTION_TREE.get(cn)
+            evo_hint = f"\n🌟 Evolui: {', '.join(str(k) for k in sorted(tree.keys()))}" if tree else ""
             embed.add_field(
-                name=f"{class_data['emoji']} {class_name}",
-                value=f"{class_data['description']}\n**ATK:** +{class_data['atk_bonus']} | **DEF:** +{class_data['def_bonus']} | **HP:** +{class_data['hp_bonus']}",
+                name=f"{cd['emoji']} {cn}",
+                value=f"{cd['description']}\n**ATK:** +{cd['atk_bonus']} | **DEF:** +{cd['def_bonus']} | **HP:** +{cd['hp_bonus']}{evo_hint}",
                 inline=False
             )
-        view = ClassSelectButton(user_id)
+        view = ClassSelectView(user_id, page=0)
         await message.channel.send(embed=embed, view=view)
-        await asyncio.sleep(1)
+        return
 
-        embed2 = discord.Embed(title="🎭 Mais Classes", color=discord.Color.blue())
-        for class_name in list(CLASSES.keys())[5:]:
-            class_data = CLASSES[class_name]
-            embed2.add_field(
-                name=f"{class_data['emoji']} {class_name}",
-                value=f"{class_data['description']}\n**ATK:** +{class_data['atk_bonus']} | **DEF:** +{class_data['def_bonus']} | **HP:** +{class_data['hp_bonus']}",
+    # ======================================================
+    # ================= ESCOLHER RAÇA ======================
+    # ======================================================
+    elif any(word in content for word in ["escolher raça", "escolher raca", "ver raças", "ver racas", "raças", "racas"]):
+        player = get_player(user_id)
+
+        if player.get("race"):
+            race_data = RACES[player["race"]]
+            await message.channel.send(
+                f"❌ Você já é um(a) **{race_data['emoji']} {player['race']}**!\n"
+                f"**Passiva:** {race_data['passive']}"
+            )
+            return
+        if player["level"] < 1:
+            await message.channel.send("❌ Você precisa estar registrado para escolher uma raça!")
+            return
+
+        all_races = list(RACES.keys())
+        total_pages = (len(all_races) + 4) // 5
+        chunk = all_races[:5]
+
+        embed = discord.Embed(
+            title=f"🧬 Escolha sua Raça (Página 1/{total_pages})",
+            description="*'De onde você vem? Sua origem define seu destino.'*\nSua raça concede bônus permanentes e uma passiva única!",
+            color=discord.Color.purple()
+        )
+        for rn in chunk:
+            rd = RACES[rn]
+            embed.add_field(
+                name=f"{rd['emoji']} {rn}",
+                value=f"{rd['description']}\n**Passiva:** {rd['passive']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}",
                 inline=False
             )
-        view2 = ClassSelectButton2(user_id)
-        await message.channel.send(embed=embed2, view=view2)
+        view = RaceSelectView(user_id, page=0)
+        await message.channel.send(embed=embed, view=view)
+        return
+
+    # ======================================================
+    # ================= HABILIDADES ========================
+    # ======================================================
+    elif any(word in content for word in ["habilidades", "ver habilidades", "skills", "magias"]):
+        player = get_player(user_id)
+        cls = player.get("class")
+        if not cls:
+            await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
+            return
+
+        skills = get_player_skills(player)
+        tier_data = CLASS_TIERED_SKILLS.get(cls)
+
+        embed = discord.Embed(
+            title=f"⚔️ Habilidades de {message.author.display_name}",
+            description=f"**Classe:** {CLASSES[cls]['emoji']} {cls}{(' • **Spec:** ' + player['specialization']) if player.get('specialization') else ''}",
+            color=discord.Color.red()
+        )
+
+        lvl = player["level"]
+        tiers_shown = {"🟢 Básicas": [], "🔵 Intermediárias": [], "🟣 Avançadas": [], "⭐ Especial": [], "👑 Suprema": []}
+
+        if tier_data:
+            for sk in tier_data["basic"]:
+                tiers_shown["🟢 Básicas"].append(sk)
+            if lvl >= 40:
+                for sk in tier_data.get("intermediate", []):
+                    tiers_shown["🔵 Intermediárias"].append(sk)
+            else:
+                embed.add_field(name="🔵 Intermediárias", value=f"*Desbloqueiam no nível 40*", inline=False)
+            if lvl >= 80:
+                for sk in tier_data.get("advanced", []):
+                    tiers_shown["🟣 Avançadas"].append(sk)
+            else:
+                embed.add_field(name="🟣 Avançadas", value=f"*Desbloqueiam no nível 80*", inline=False)
+            supreme = tier_data.get("supreme")
+            if supreme:
+                if supreme["name"] in player.get("supreme_skills", []):
+                    tiers_shown["👑 Suprema"].append(supreme)
+                else:
+                    embed.add_field(name="👑 Suprema", value=f"*Desbloqueie derrotando: **{supreme['unlock_boss']}***", inline=False)
+        else:
+            for sk in CLASS_SKILLS.get(cls, []):
+                tiers_shown["🟢 Básicas"].append(sk)
+
+        spec = player.get("specialization")
+        if spec and spec in CLASS_SPECIALIZATIONS:
+            sk = CLASS_SPECIALIZATIONS[spec].get("special_skill")
+            if sk:
+                tiers_shown["⭐ Especial"].append(sk)
+
+        for tier_label, sk_list in tiers_shown.items():
+            if sk_list:
+                val = "\n".join([f"**{sk['name']}** — {sk['mana_cost']} mana | {sk['desc']}" for sk in sk_list])
+                embed.add_field(name=tier_label, value=val, inline=False)
+
+        # Show evolution tree
+        tree = CLASS_EVOLUTION_TREE.get(cls)
+        if tree:
+            current_tier = player.get("class_tier", 0)
+            evo_lines = []
+            for evo_lvl in sorted(tree.keys()):
+                tier_idx = sorted(tree.keys()).index(evo_lvl) + 1
+                status = "✅" if current_tier >= tier_idx else ("🔓" if lvl >= evo_lvl else "🔒")
+                evo_lines.append(f"{status} **Nv.{evo_lvl}** → {tree[evo_lvl]['name']}")
+            embed.add_field(name="🌳 Árvore de Evolução", value="\n".join(evo_lines), inline=False)
+
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= EVOLUÇÃO CLASSE ====================
+    # ======================================================
+    elif any(word in content for word in ["evolução classe", "evoluir classe", "evolucao classe", "evoluir minha classe"]):
+        player = get_player(user_id)
+        cls = player.get("class")
+        if not cls:
+            await message.channel.send("⚠️ Escolha uma classe primeiro!")
+            return
+        await check_class_evolution(message.channel, user_id)
         return
 
     # ======================================================
@@ -7848,7 +9590,7 @@ async def on_message(message):
             inline=False
         )
         embed_cmd.add_field(name="🏆 Conquistas", value="`ver conquistas` — 100 conquistas com recompensas de XP", inline=False)
-        embed_cmd.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher classe` | `ver mana`", inline=False)
+        embed_cmd.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
         embed_cmd.add_field(name="📋 Quests & Moral", value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`", inline=False)
         embed_cmd.add_field(name="🐾 Pets & Fazenda", value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar` | `evoluir pet`\n*Pets entram automaticamente nas batalhas de boss!*", inline=False)
         embed_cmd.add_field(name="💼 Empregos", value="`procurar emprego` | `trabalhar` | `largar emprego` | `defender cidade`", inline=False)
@@ -8463,7 +10205,15 @@ async def on_message(message):
 
         if player.get("class"):
             class_data = CLASSES[player["class"]]
-            embed.add_field(name=f"{class_data['emoji']} Classe", value=player["class"], inline=True)
+            spec = player.get("specialization")
+            class_display = f"{player['class']}"
+            if spec:
+                spec_emoji = CLASS_SPECIALIZATIONS.get(spec, {}).get("emoji", "⭐")
+                class_display += f" › {spec_emoji} {spec}"
+            embed.add_field(name=f"{class_data['emoji']} Classe", value=class_display, inline=True)
+        if player.get("race"):
+            race_data = RACES.get(player["race"], {})
+            embed.add_field(name=f"{race_data.get('emoji','🧬')} Raça", value=player["race"], inline=True)
         if player.get("pet"):
             embed.add_field(name="🐉 Pet", value=player["pet"], inline=True)
         embed.add_field(name="🌍 Localização", value=f"{world['emoji']} **{world['name']}**", inline=False)
@@ -8643,8 +10393,8 @@ async def on_message(message):
         )
         mana_bar = "🔵" * (player["mana"] // 10) + "⚫" * ((max_mana - player["mana"]) // 10)
         embed.add_field(name="💙 Mana Atual", value=f"`{player['mana']}/{max_mana}`\n{mana_bar}", inline=False)
-        if cls and cls in CLASS_SKILLS:
-            skills_text = "\n".join([f"{s['name']} — {s['mana_cost']} mana | {s['desc']}" for s in CLASS_SKILLS[cls]])
+        if cls and cls in CLASSES:
+            skills_text = "\n".join([f"{s['name']} — {s['mana_cost']} mana | {s['desc']}" for s in get_player_skills(player)[:6]])
             embed.add_field(name=f"⚡ Habilidades de {cls}", value=skills_text[:1024], inline=False)
         embed.set_footer(text="Mana se recupera ao subir de nível e ao descansar!")
         await message.channel.send(embed=embed)
