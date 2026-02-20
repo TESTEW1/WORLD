@@ -9620,44 +9620,502 @@ async def on_message(message):
     # ================= EXPLORAR ===========================
     # ======================================================
     if content in ["comandos", "ver comandos", "lista de comandos", "ajuda", "help", "/comandos"]:
-        embed_cmd = discord.Embed(
-            title="📋 TODOS OS COMANDOS — World CSI",
-            description="*Lista completa de comandos disponíveis:*",
+        # ── Página 1: Início & Personagem ──────────────────────────────
+        e1 = discord.Embed(
+            title="📋 COMANDOS — World CSI  [1/5]",
+            description="*Guia completo de todos os comandos disponíveis no bot!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
             color=0x3498DB
         )
-        embed_cmd.add_field(name="🌍 Exploração & Caça", value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon`", inline=False)
-        embed_cmd.add_field(
-            name="👹 Boss & Combate",
-            value="`encontrar boss` — boss do reino atual (NÃO é boss de level)\n`desafiar boss` — enfrenta o boss atual/pendente\n`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+        e1.add_field(
+            name="🆕 Início",
+            value=(
+                "O personagem é criado automaticamente na primeira ação!\n"
+                "Use `escolher raça` e `escolher classe` para configurar.\n"
+                "**Raças:** Humano, Elfo, Anão, Orc, Vampiro, Fada, Dragônio e mais!\n"
+                "**Classes:** Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante,\n"
+                "Berserker, Druida, Monge, Bardo, e mais 20 classes!"
+            ),
             inline=False
         )
-        embed_cmd.add_field(
-            name="⚠️ Boss de Nível (9/19/29/39/49/59)",
-            value="Ao chegar nesses níveis, um boss bloqueará seu XP!\n🔒 XP acumula durante o bloqueio e é liberado ao vencer\n`desafiar boss` para enfrentá-lo\n`treinar força/defesa/vitalidade/intensivo` para se preparar",
+        e1.add_field(
+            name="👤 Personagem",
+            value=(
+                "`ver perfil` — Ver seus stats, nível, classe e raça\n"
+                "`inventário` — Ver todos seus itens e equipamentos\n"
+                "`escolher raça` — Escolher raça (só uma vez, permanente!)\n"
+                "`escolher classe` — Escolher classe base\n"
+                "`habilidades` — Ver habilidades e skills disponíveis\n"
+                "`evolução classe` — Ver seu caminho de evolução atual\n"
+                "`ver mana` — Ver mana atual e máxima"
+            ),
             inline=False
         )
-        embed_cmd.add_field(
+        e1.add_field(
+            name="🌟 Evolução de Classe (Níveis 40 / 80 / 120 / 160)",
+            value=(
+                "Ao atingir nível 40, 80, 120 e 160 sua classe evolui automaticamente!\n"
+                "Você escolhe uma **especialização** que dá bônus escalonados:\n"
+                "• **Tier I (nível 40):** ×1 — introdução à especialização\n"
+                "• **Tier II (nível 80):** ×2.5 + bônus extra — poder crescendo\n"
+                "• **Tier III (nível 120):** ×5 + bônus grande — força lendária\n"
+                "• **Tier IV (nível 160):** ×10 + poder divino — o topo absoluto\n"
+                "`evolução classe` para ver as opções disponíveis"
+            ),
+            inline=False
+        )
+        e1.add_field(
             name="💪 Treinamento",
-            value="`treinar força` +ATK | `treinar defesa` +DEF\n`treinar vitalidade` +HP Max | `treinar intensivo` +tudo",
+            value=(
+                "`treinar força` — +ATK permanente\n"
+                "`treinar defesa` — +DEF permanente\n"
+                "`treinar vitalidade` — +HP Máximo permanente\n"
+                "`treinar intensivo` — +ATK, +DEF e +HP de uma vez (mais caro)"
+            ),
             inline=False
         )
-        embed_cmd.add_field(name="🏆 Conquistas", value="`ver conquistas` — 100 conquistas com recompensas de XP", inline=False)
-        embed_cmd.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
-        embed_cmd.add_field(name="📋 Quests & Moral", value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`", inline=False)
-        embed_cmd.add_field(name="🐾 Pets & Fazenda", value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar` | `evoluir pet`\n*Pets entram automaticamente nas batalhas de boss!*", inline=False)
-        embed_cmd.add_field(name="💼 Empregos", value="`procurar emprego` | `trabalhar` | `largar emprego` | `defender cidade`", inline=False)
-        embed_cmd.add_field(name="🗺️ Mapa", value="`abrir mapa` | `viajar <local>` | `procurar cidade`\n*Ao vencer boss de level, você viaja automaticamente ao novo reino!*", inline=False)
-        embed_cmd.add_field(name="🏰 Guilda & Social", value="`criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`", inline=False)
-        embed_cmd.add_field(name="🛒 Itens", value="`usar [poção]` | `vender [item]` | `equipar [item]` | `minerar baú`\n*Monstros agora dropam equipamentos e armaduras!*", inline=False)
-        embed_cmd.add_field(name="👑 Títulos & Reino", value="`me tornar rei` | `ver títulos` | `meu reino` | `personalizar reino [nome]`\n`melhorar economia` | `reforçar exercito` | `atacar reino @rei` | `trocar recursos @rei [valor]`", inline=False)
-        embed_cmd.add_field(name="🌙 Período & Clima", value="`período` — Ver período atual (dia/noite)\n`descansar` — Avança o período e restaura HP/Mana\n`clima` — Ver clima atual", inline=False)
-        embed_cmd.add_field(name="✨ Suporte & Magias", value="`curar @aliado` — Classes de suporte curam aliados (Paladino/Druida/Mago/Bardo)\n`livro de feitiços` — Ver feitiços disponíveis (desbloqueia no Nível 12)", inline=False)
-        embed_cmd.add_field(name="🌙 Farm AFK", value="`farm afk` — Ativa/desativa farm AFK (+1 XP/min)\n*Use novamente ao voltar para coletar o XP!*", inline=False)
-        embed_cmd.set_footer(text="💡 Drops míticos+ APENAS de bosses! Monstros dropam até Épico. Pets participam de batalhas de boss automaticamente!")
-        await message.channel.send(embed=embed_cmd)
+        e1.add_field(
+            name="🏆 Conquistas & XP",
+            value=(
+                "`ver conquistas` — 100 conquistas com recompensas de XP\n"
+                "`alinhamento` — Ver seu alinhamento moral (Bem/Neutro/Mal)\n"
+                "`ver títulos` — Ver títulos desbloqueados pelo alinhamento"
+            ),
+            inline=False
+        )
+        e1.set_footer(text="Página 1/5 — Use 'comandos 2' para continuar")
+
+        # ── Página 2: Exploração, Caça & Combate ───────────────────────
+        e2 = discord.Embed(
+            title="📋 COMANDOS — World CSI  [2/5]",
+            description="*Exploração, caça, dungeons e combate*",
+            color=0x2ECC71
+        )
+        e2.add_field(
+            name="🌍 Exploração",
+            value=(
+                "`explorar` — Explora a região atual. Resultado baseado no dado (1-10):\n"
+                "• 1-2: Perde XP | 3-4: Nada | 5: Recurso | 6-7: Recurso+XP\n"
+                "• 8: 2 recursos+XP+chance dungeon secreta | 9-10: Item raro!"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="⚔️ Caça",
+            value=(
+                "`caçar` — Ataca monstros da região. Drops escalam por raridade:\n"
+                "• Monstros normais: drops até **Épico**\n"
+                "• Bosses de nível: drops **Mítico** e acima\n"
+                "• Monstros também dropam armas e armaduras!"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="🗺️ Coletar & Minerar",
+            value=(
+                "`coletar` — Coleta recursos naturais da região\n"
+                "`minerar` — Mineração profunda, mais recursos de uma vez\n"
+                "`minerar baú` — Tenta abrir um baú secreto (precisa de chave!)"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="🏰 Dungeons",
+            value=(
+                "`dungeon` — Procura uma dungeon na região atual\n"
+                "`achar dungeon` / `procurar dungeon` — Mesma função\n"
+                "Dungeons têm recompensas melhores que exploração normal!\n"
+                "Dungeons secretas aparecem com 15% de chance ao explorar (dado 8)"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="👹 Boss do Reino",
+            value=(
+                "`encontrar boss` — Procura o boss do reino atual *(NÃO é boss de nível)*\n"
+                "`desafiar boss` — Enfrenta o boss encontrado / boss de nível pendente\n"
+                "`juntar boss` — Entra na batalha de boss de outro jogador\n"
+                "`iniciar batalha boss` — Inicia a batalha após juntar jogadores\n"
+                "`defender cidade` — Modo defesa cooperativo contra invasão"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="⚠️ Boss de Nível (9 / 19 / 29 / ... / 189 / 199)",
+            value=(
+                "Ao atingir esses níveis, um **boss bloqueia seu XP!**\n"
+                "🔒 XP continua acumulando em segundo plano durante o bloqueio\n"
+                "🏆 Ao vencer, o XP acumulado é liberado de uma vez!\n"
+                "`desafiar boss` para enfrentar | `treinar *` para se preparar"
+            ),
+            inline=False
+        )
+        e2.add_field(
+            name="⚔️ PvP",
+            value=(
+                "`desafiar @jogador` — Desafia outro jogador para duelo PvP\n"
+                "Vencedor ganha XP e coins do perdedor!"
+            ),
+            inline=False
+        )
+        e2.set_footer(text="Página 2/5 — Use 'comandos 3' para continuar")
+
+        # ── Página 3: Pets, Empregos, Quests, Mapa ─────────────────────
+        e3 = discord.Embed(
+            title="📋 COMANDOS — World CSI  [3/5]",
+            description="*Pets, fazenda, empregos, quests e mapa*",
+            color=0xF39C12
+        )
+        e3.add_field(
+            name="🐾 Pets & Fazenda",
+            value=(
+                "`procurar pet` — Procura pets disponíveis na região\n"
+                "`domesticar` — Tenta domesticar o pet encontrado\n"
+                "`evoluir pet` — Evolui seu pet ativo (requer nível do jogador)\n"
+                "`fazenda` / `ver fazenda` — Ver todos os seus pets armazenados\n"
+                "`trocar pet [nome]` — Define um pet da fazenda como ativo\n"
+                "`guardar pet` — Envia o pet ativo para a fazenda\n"
+                "`stats pet` — Ver stats detalhados do pet ativo\n"
+                "*Pets participam automaticamente das batalhas de boss!*"
+            ),
+            inline=False
+        )
+        e3.add_field(
+            name="🐾 Formas Especiais de Pets",
+            value=(
+                "`quarta forma pet` — Exclusivo de pets **Comuns**! (Nível 3+)\n"
+                "  *Uma 4ª forma que nenhum pet raro jamais alcançará*\n"
+                "`forma bestial pet` — Exclusivo de pets **Lendário+**! (Nível 80+)\n"
+                "  *Transformação permanente — não tem volta!*\n"
+                "`ajuda formas pet` — Explicação completa das formas especiais"
+            ),
+            inline=False
+        )
+        e3.add_field(
+            name="💼 Empregos",
+            value=(
+                "`procurar emprego` — Lista empregos disponíveis\n"
+                "`ver emprego` — Ver emprego atual e progresso\n"
+                "`trabalhar` — Trabalha no emprego atual (ganha coins e XP)\n"
+                "`largar emprego` — Larga o emprego atual\n"
+                "`defender cidade` — Trabalho especial do emprego de guarda\n"
+                "🔨 **Ferreiro (nível 5+):** `forjar armas` e `fundir [raridade]`\n"
+                "  *Funde 5 itens da mesma raridade para tentar subir a raridade!*"
+            ),
+            inline=False
+        )
+        e3.add_field(
+            name="📋 Quests",
+            value=(
+                "`ver quests` — Lista de quests disponíveis na região atual\n"
+                "`realizar quest` — Inicia / ver status da quest ativa\n"
+                "`finalizar quest` — Entrega a quest concluída por recompensas\n"
+                "`abandonar quest` — Abandona a quest ativa\n"
+                "`cenário` — Evento moral aleatório (escolhas afetam alinhamento)\n"
+                "`missão moral` — Quest especial baseada no alinhamento atual"
+            ),
+            inline=False
+        )
+        e3.add_field(
+            name="🗺️ Mapa & Viagem",
+            value=(
+                "`abrir mapa` — Ver o mapa com todos os reinos disponíveis\n"
+                "`procurar cidade` — Procura cidades próximas para viajar\n"
+                "`viajar [local]` — Viaja para outro reino (precisa ter desbloqueado)\n"
+                "*Ao vencer boss de nível, você viaja automaticamente ao próximo reino!*"
+            ),
+            inline=False
+        )
+        e3.set_footer(text="Página 3/5 — Use 'comandos 4' para continuar")
+
+        # ── Página 4: Itens, Magia, Guilda, Reino ──────────────────────
+        e4 = discord.Embed(
+            title="📋 COMANDOS — World CSI  [4/5]",
+            description="*Itens, magias, guildas, reinos e mundo próprio*",
+            color=0x9B59B6
+        )
+        e4.add_field(
+            name="🛒 Itens & Equipamentos",
+            value=(
+                "`equipar [nome do item]` — Equipa arma ou armadura do inventário\n"
+                "`[item], usar` — Usa uma poção (ex: `poção de vida, usar`)\n"
+                "`usar poção` / `beber [poção]` — Usa poção pelo nome\n"
+                "`vender [item]` — Vende um item por coins\n"
+                "`trocar [item] com @user` — Troca itens com outro jogador\n"
+                "`trocar coins` / `converter coins` — Converte coins para CSI"
+            ),
+            inline=False
+        )
+        e4.add_field(
+            name="✨ Magias & Livro de Feitiços",
+            value=(
+                "`livro de feitiços` — Abre o livro (desbloqueia no **Nível 12**)\n"
+                "`feitiços` / `ver feitiços` — Ver feitiços disponíveis\n"
+                "`avançar categoria mana` — Sobe de categoria no livro de feitiços\n"
+                "`treinar mana` — Treina a mana para desbloquear novas categorias\n"
+                "`curar @aliado` — Cura um aliado (Paladino / Druida / Mago / Bardo)"
+            ),
+            inline=False
+        )
+        e4.add_field(
+            name="🏰 Guilda",
+            value=(
+                "`criar guilda [nome]` — Cria uma guilda\n"
+                "`entrar guilda [nome]` — Entra em uma guilda existente\n"
+                "`ver guilda` — Ver membros e stats da guilda\n"
+                "*Guildas compartilham XP e têm rankings próprios!*"
+            ),
+            inline=False
+        )
+        e4.add_field(
+            name="👑 Sistema de Reino",
+            value=(
+                "`me tornar rei` — Proclama-se rei (requer nível alto)\n"
+                "`meu reino` — Ver status do seu reino\n"
+                "`personalizar reino [nome]` — Renomeia o reino\n"
+                "`melhorar economia` — Investe na economia do reino\n"
+                "`reforçar exercito` — Reforça o exército\n"
+                "`atacar reino @rei` — Declara guerra ao reino de outro jogador\n"
+                "`trocar recursos @rei [valor]` — Troca recursos com outro reino\n"
+                "`nomear cavaleiro @user` — Nomeia um jogador cavaleiro do seu reino"
+            ),
+            inline=False
+        )
+        e4.add_field(
+            name="🌍 Mundo Próprio",
+            value=(
+                "`criar mundo próprio` — Cria um canal privado só seu no servidor!\n"
+                "  *Pode ser usado em qualquer canal — cria na categoria Monstrinho*\n"
+                "`adicionar jogador @user` — No seu canal, dá permissão a outro jogador\n"
+                "  *Use dentro do seu canal mundo próprio*\n"
+                "*Todos os comandos do bot funcionam no mundo próprio!*"
+            ),
+            inline=False
+        )
+        e4.add_field(
+            name="🌙 Período, Clima & AFK",
+            value=(
+                "`período` — Ver período atual (dia/entardecer/noite/madrugada)\n"
+                "`descansar` — Avança o período e restaura HP e Mana\n"
+                "`clima` — Ver clima atual (afeta drops e XP)\n"
+                "`farm afk` — Ativa/desativa farm AFK (+XP por minuto)\n"
+                "  *Use novamente ao voltar para coletar o XP acumulado!*"
+            ),
+            inline=False
+        )
+        e4.set_footer(text="Página 4/5 — Use 'comandos 5' para continuar")
+
+        # ── Página 5: NPCs, Fusão, Sistemas Especiais ──────────────────
+        e5 = discord.Embed(
+            title="📋 COMANDOS — World CSI  [5/5]",
+            description="*NPCs, fusão de itens, sistemas especiais e dicas*",
+            color=0xE74C3C
+        )
+        e5.add_field(
+            name="🗣️ Dialogar com NPCs",
+            value=(
+                "`dialogar com npc [nome]` — Conversa com um NPC do mundo\n"
+                "  *NPCs disponíveis:* Theron, Elara, Sylvara, Bjorn, Ramses,\n"
+                "  Spectra, Imperador Astral, Mercador Brynn, Capitão Aldric\n"
+                "**Tipos de resposta (aleatório):**\n"
+                "• 50% → **Lore** — história do mundo e backstory do NPC\n"
+                "• 25% → **Segredo** — dicas ocultas e mecânicas escondidas\n"
+                "• 25% → **Quest Oculta** — quests exclusivas com ótimas recompensas!"
+            ),
+            inline=False
+        )
+        e5.add_field(
+            name="🔨 Fusão de Itens (Ferreiro nível 5+)",
+            value=(
+                "`forjar armas` — Abre o menu de fusão de itens\n"
+                "`fundir [raridade]` — Funde 5 itens da raridade indicada\n"
+                "  *Ex:* `fundir comum` | `fundir raro` | `fundir épico`\n"
+                "**Resultados possíveis:**\n"
+                "• 60% → Sobe para próxima raridade *(Comum→Incomum→Raro→...)*\n"
+                "• 25% → Fica na mesma raridade (reduzido para 2 itens)\n"
+                "• 15% → Todos os 5 itens são destruídos!\n"
+                "*Cadeia:* Comum → Incomum → Raro → Épico → Lendário → Mítico → Ancestral → Divino → Primordial"
+            ),
+            inline=False
+        )
+        e5.add_field(
+            name="💬 NPC Lore (Legado)",
+            value=(
+                "`falar npc especial` — Conversa aleatória com NPC de lore\n"
+                "`npc lore` — Mesma função"
+            ),
+            inline=False
+        )
+        e5.add_field(
+            name="💡 Dicas Importantes",
+            value=(
+                "• **Drops:** Monstros dropam até **Épico** | Bosses dropam **Mítico+**\n"
+                "• **Pets:** Participam automaticamente de batalhas de boss!\n"
+                "• **Boss de Nível:** XP acumula durante o bloqueio e é liberado ao vencer\n"
+                "• **Raça:** Só pode ser escolhida uma vez — escolha com cuidado!\n"
+                "• **Classe:** Pode ser trocada, mas perde bônus da antiga\n"
+                "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos\n"
+                "• Use `atualização` para ver o que foi adicionado recentemente!"
+            ),
+            inline=False
+        )
+        e5.set_footer(text="World CSI Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
+
+        # Enviar todos os 5 embeds
+        await message.channel.send(embed=e1)
+        await message.channel.send(embed=e2)
+        await message.channel.send(embed=e3)
+        await message.channel.send(embed=e4)
+        await message.channel.send(embed=e5)
         return
 
-    if any(word in content for word in ["explorar", "vou explorar", "andar", "caminhar", "vou para"]):
+    # ── PÁGINAS INDIVIDUAIS DE COMANDOS ────────────────────────────────
+    if content in ["comandos 1"]:
+        e1 = discord.Embed(title="📋 COMANDOS [1/5] — Personagem & Início", color=0x3498DB)
+        e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
+        e1.add_field(name="💪 Treinamento", value="`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`", inline=False)
+        e1.add_field(name="🏆 Conquistas", value="`ver conquistas` | `alinhamento` | `ver títulos`", inline=False)
+        e1.add_field(name="🌟 Evoluções", value="Nível 40/80/120/160 — evolução automática com bônus escalonados!\nTier I ×1 → Tier II ×2.5 → Tier III ×5 → Tier IV ×10", inline=False)
+        await message.channel.send(embed=e1)
+        return
+    if content in ["comandos 2"]:
+        e2 = discord.Embed(title="📋 COMANDOS [2/5] — Exploração & Combate", color=0x2ECC71)
+        e2.add_field(name="🌍 Exploração", value="`explorar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon`", inline=False)
+        e2.add_field(name="👹 Boss", value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss`", inline=False)
+        e2.add_field(name="⚠️ Boss de Nível", value="Nos níveis 9/19/29/.../199 o XP é bloqueado até vencer o boss!", inline=False)
+        e2.add_field(name="⚔️ PvP", value="`desafiar @jogador`", inline=False)
+        await message.channel.send(embed=e2)
+        return
+    if content in ["comandos 3"]:
+        e3 = discord.Embed(title="📋 COMANDOS [3/5] — Pets, Empregos & Quests", color=0xF39C12)
+        e3.add_field(name="🐾 Pets", value="`procurar pet` | `domesticar` | `evoluir pet` | `fazenda` | `ver fazenda` | `trocar pet` | `guardar pet` | `stats pet`", inline=False)
+        e3.add_field(name="🐾 Formas Especiais", value="`quarta forma pet` (Comuns, nível 3+) | `forma bestial pet` (Lendário+, nível 80+)", inline=False)
+        e3.add_field(name="💼 Empregos", value="`procurar emprego` | `ver emprego` | `trabalhar` | `largar emprego` | `forjar armas` | `fundir [raridade]`", inline=False)
+        e3.add_field(name="📋 Quests", value="`ver quests` | `realizar quest` | `finalizar quest` | `abandonar quest` | `cenário` | `missão moral`", inline=False)
+        e3.add_field(name="🗺️ Mapa", value="`abrir mapa` | `procurar cidade` | `viajar [local]`", inline=False)
+        await message.channel.send(embed=e3)
+        return
+    if content in ["comandos 4"]:
+        e4 = discord.Embed(title="📋 COMANDOS [4/5] — Itens, Magia, Guilda & Reino", color=0x9B59B6)
+        e4.add_field(name="🛒 Itens", value="`equipar [item]` | `[item], usar` | `usar poção` | `vender [item]` | `trocar [item] com @user`", inline=False)
+        e4.add_field(name="✨ Magias", value="`livro de feitiços` | `avançar categoria mana` | `treinar mana` | `curar @aliado`", inline=False)
+        e4.add_field(name="🏰 Guilda", value="`criar guilda [nome]` | `entrar guilda [nome]` | `ver guilda`", inline=False)
+        e4.add_field(name="👑 Reino", value="`me tornar rei` | `meu reino` | `personalizar reino [nome]` | `melhorar economia` | `reforçar exercito` | `atacar reino @rei`", inline=False)
+        e4.add_field(name="🌍 Mundo Próprio", value="`criar mundo próprio` | `adicionar jogador @user` (dentro do canal)", inline=False)
+        e4.add_field(name="🌙 AFK & Clima", value="`farm afk` | `período` | `descansar` | `clima`", inline=False)
+        await message.channel.send(embed=e4)
+        return
+    if content in ["comandos 5"]:
+        e5 = discord.Embed(title="📋 COMANDOS [5/5] — NPCs, Fusão & Dicas", color=0xE74C3C)
+        e5.add_field(name="🗣️ NPCs", value="`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\nNPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...", inline=False)
+        e5.add_field(name="🔨 Fusão", value="`forjar armas` | `fundir [raridade]` — Ferreiro nível 5+\n60% sobe raridade | 25% fica igual | 15% tudo destruído!", inline=False)
+        e5.add_field(name="💡 Dicas", value="Drops Épico+ só em bosses | Pets participam de boss | `atualização` para novidades", inline=False)
+        await message.channel.send(embed=e5)
+        return
+
+    # ── ATUALIZAÇÃO / NOVIDADES / CHANGELOG ────────────────────────────
+    if content in ["atualização", "atualizacao", "novidades", "update", "changelog", "o que é novo", "o que foi adicionado", "novidades do bot", "patch notes"]:
+        e_atu = discord.Embed(
+            title="📰 ATUALIZAÇÃO — World CSI",
+            description=(
+                "**Última atualização:** Fevereiro 2026\n"
+                "*Confira tudo que foi adicionado ao bot recentemente!*"
+            ),
+            color=0xFF6B00
+        )
+        e_atu.add_field(
+            name="🌍 Mundo Próprio",
+            value=(
+                "**Comando:** `criar mundo próprio`\n"
+                "Cria um canal de texto privado só seu no servidor!\n"
+                "• Pode ser usado em **qualquer canal** do servidor\n"
+                "• Canal criado na categoria **╭━━━━━✦Monstrinho**\n"
+                "• Todos podem **ver** mas só você pode **escrever**\n"
+                "• **Todos os comandos do bot funcionam** dentro do canal\n"
+                "• Use `adicionar jogador @user` (dentro do canal) para convidar alguém"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="🔨 Sistema de Fusão de Itens",
+            value=(
+                "**Requer:** Emprego de Ferreiro (nível 5+)\n"
+                "**Comando:** `forjar armas` para menu | `fundir [raridade]` para fundir\n"
+                "• Funde **5 itens** da mesma raridade em 1\n"
+                "• **60%** chance de subir para a próxima raridade\n"
+                "• **25%** fica na mesma raridade (mas você recebe só 2 itens)\n"
+                "• **15%** todos os itens são destruídos — cuidado!\n"
+                "• Cadeia completa: Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="🐾 Quarta Forma — Pets Comuns (NOVO)",
+            value=(
+                "**Comando:** `quarta forma pet`\n"
+                "Pets de raridade **Comum** têm uma quarta forma exclusiva!\n"
+                "• Requer **Nível 3+** do jogador\n"
+                "• **Pets comuns disponíveis** nos mundos 1, 10 e 20:\n"
+                "  Slime Bebê, Rato Selvagem Domesticado, Lagarta Arcana,\n"
+                "  Fungo Espiritual, Toupeira das Sombras, Cogumelo Sombrio,\n"
+                "  Besouro do Deserto, Cobra das Areias\n"
+                "• Pets sem forma registrada ganham a forma **[Nome] Desperto**\n"
+                "*Uma forma que NENHUM pet raro jamais alcançará!*"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="🐺 Forma Bestial — Pets Lendário+",
+            value=(
+                "**Comando:** `forma bestial pet`\n"
+                "Pets **Lendário ou superior** podem despertar a Forma Bestial!\n"
+                "• Requer **Nível 80** do jogador\n"
+                "• Transformação **permanente** — não tem volta!\n"
+                "• Bônus massivos de HP e ATK\n"
+                "• Pets suportados: Lobo Alpha, Esfinge, Fênix, Dragão de Gelo,\n"
+                "  Arcanjo Primordial, Deus Primordial e mais!\n"
+                "• Use `ajuda formas pet` para ver todos os detalhes"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="🌟 Status Escalonados na Evolução de Classe",
+            value=(
+                "As evoluções de classe agora dão **bônus crescentes por tier!**\n"
+                "• **Tier I (nível 40):** ×1 base — primeira especialização\n"
+                "• **Tier II (nível 80):** ×2.5 + bônus extra (+50 HP mín, +30 ATK mín)\n"
+                "• **Tier III (nível 120):** ×5 + bônus grande (+200 HP mín, +80 ATK mín)\n"
+                "• **Tier IV (nível 160):** ×10 + poder divino (+500 HP mín, +200 ATK mín)\n"
+                "*Cada tier tem visual diferente: 🔵 → 🌟 → 🔥 → 👑*"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="🗣️ Sistema de Diálogo com NPCs",
+            value=(
+                "**Comando:** `dialogar com npc [nome]`\n"
+                "• **50%** chance de ouvir **lore** do mundo e do NPC\n"
+                "• **25%** chance de revelar um **segredo** oculto do jogo\n"
+                "• **25%** chance de desbloquear uma **quest oculta** exclusiva!\n"
+                "NPCs disponíveis: Theron, Elara, Sylvara, Bjorn, Ramses,\n"
+                "Spectra, Imperador Astral, Mercador Brynn, Capitão Aldric"
+            ),
+            inline=False
+        )
+        e_atu.add_field(
+            name="📋 Lista de Comandos Renovada",
+            value=(
+                "O comando `comandos` foi completamente refeito!\n"
+                "Agora envia **5 embeds separados** com TODOS os comandos explicados:\n"
+                "`comandos` — todos de uma vez | `comandos 1` a `comandos 5` — página individual\n"
+                "Use `atualização` a qualquer hora para rever este changelog."
+            ),
+            inline=False
+        )
+        e_atu.set_footer(text="World CSI Bot — Use 'comandos' para ver todos os comandos disponíveis")
+        await message.channel.send(embed=e_atu)
+        return
+
+
         player = get_player(user_id)
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
