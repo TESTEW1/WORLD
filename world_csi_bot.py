@@ -459,7 +459,7 @@ MONSTER_DROPS = {
 
 # ================= SISTEMA DE CHAVES DE DUNGEON SECRETA =================
 # Chaves são dropadas de baús nas dungeons comuns e desbloqueiam dungeons secretas
-DUNGEON_KEY_DROP_CHANCE = 0.20  # 20% de chance de chave em baú de dungeon comum
+DUNGEON_KEY_DROP_CHANCE = 0.001  # 0.1% de sorte — chave também cai a cada 20 dungeons completadas
 
 def get_world_secret_dungeon_keys(world_data):
     """Retorna lista de chaves de dungeons secretas do mundo atual."""
@@ -4136,6 +4136,7 @@ def init_db():
         "ALTER TABLE players ADD COLUMN total_coins_earned INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN total_xp_earned INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN areas_explored INTEGER DEFAULT 0",
+        "ALTER TABLE players ADD COLUMN dungeons_completed INTEGER DEFAULT 0",
     ]:
         try:
             c.execute(col_def)
@@ -4250,6 +4251,7 @@ def get_player_db(user_id):
             "total_coins_earned": r.get("total_coins_earned", 0),
             "total_xp_earned": r.get("total_xp_earned", 0),
             "areas_explored": r.get("areas_explored", 0),
+            "dungeons_completed": r.get("dungeons_completed", 0),
             "mana_category": r.get("mana_category", "none"),
             "spell_book_unlocked": r.get("spell_book_unlocked", 0),
             "afk_farming": r.get("afk_farming", 0),
@@ -4270,10 +4272,10 @@ def save_player_db(user_id, player):
                   job, job_since, city_title, knights, last_work, last_defend,
                   achievements, training_points, temp_atk_boost, temp_def_boost, temp_hp_boost,
                   level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
-                  total_xp_earned, areas_explored, mana_category, spell_book_unlocked,
+                  total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -4301,6 +4303,7 @@ def save_player_db(user_id, player):
                player.get("total_coins_earned", 0),
                player.get("total_xp_earned", 0),
                player.get("areas_explored", 0),
+               player.get("dungeons_completed", 0),
                player.get("mana_category", "none"),
                player.get("spell_book_unlocked", 0),
                player.get("afk_farming", 0),
@@ -4502,7 +4505,7 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
 
     # BLOQUEIO DE BOSS: Se o jogador está no nível de boss e não derrotou ele, XP vai para
     # um "balde" de XP pendente que é liberado ao vencer o boss
-    boss_gate_levels = {9, 19, 29, 39, 49, 59}
+    boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
     if not bypass_boss_gate and player["level"] in boss_gate_levels:
         boss_data = get_level_boss(player["level"])
         if boss_data and boss_data["name"] not in player.get("bosses", []):
@@ -4651,13 +4654,17 @@ def get_level_boss(level):
     """Retorna boss de level correspondente ao nível do jogador"""
     boss_levels = {
         9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50,
-        69: 62, 79: 70, 89: 80, 99: 90, 109: 100,
+        69: 60, 79: 70, 89: 80, 99: 90, 109: 100,
         119: 110, 129: 120, 139: 130, 149: 140, 159: 150,
-        169: 160, 179: 170, 199: 180
+        169: 160, 179: 170, 189: 180, 199: 190
     }
     world_key = boss_levels.get(level)
-    if world_key:
+    if world_key and world_key in WORLDS:
         return WORLDS[world_key]["boss"]
+    # Fallback: usar o mundo mais próximo disponível
+    if world_key:
+        nearest = max((k for k in WORLDS.keys() if k <= world_key), default=1)
+        return WORLDS[nearest]["boss"]
     return None
 
 # ================= VIEWS / BOTÕES =================
@@ -4895,7 +4902,7 @@ class BossButton(discord.ui.View):
             return
         self.answered = True
         await interaction.response.edit_message(
-            content=f"📣 **{interaction.user.mention} está convocando aliados para enfrentar o {self.boss_name}!**\n\nUse `juntar boss` para participar desta batalha!\n\nO líder deverá usar `iniciar batalha boss` quando estiver pronto.",
+            content=f"📣 **{interaction.user.mention} está convocando aliados para enfrentar o {self.boss_name}!**\n\nUse `juntar boss` para participar desta batalha! (até 5 jogadores)\n\nO líder deverá usar `iniciar batalha boss` quando estiver pronto.",
             view=None
         )
         # Registra na DB
@@ -5680,6 +5687,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     ally_bonus_atk = 0
     ally_names = []
     if allies:
+        num_allies = len([a for a in allies if str(a) != str(user_id)])
         for ally_id in allies:
             if str(ally_id) != str(user_id):
                 ally_p = get_player(ally_id)
@@ -5690,6 +5698,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         ally_names.append(au.display_name)
                     except:
                         pass
+        # Boss escala com o número de aliados (cada aliado adiciona 20% ao HP e ATK do boss)
+        if num_allies > 0:
+            scale_factor = 1.0 + (num_allies * 0.20)
+            boss_data = dict(boss_data)  # cópia para não modificar o original
+            boss_data["hp"] = int(boss_data["hp"] * scale_factor)
+            boss_data["atk"] = int(boss_data["atk"] * scale_factor)
     p_atk += ally_bonus_atk // 2
 
     # ---- Pet combat bonus (pet entra automaticamente junto) ----
@@ -5716,7 +5730,16 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     boss_atk = boss_data["atk"]
 
     # Bosses de level são MUITO mais difíceis
-    level_boss_names = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+    # Todos os bosses de level (níveis 9, 19, 29... 199)
+    level_boss_names = set()
+    boss_level_map = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
+                      109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+    for wk in boss_level_map.values():
+        if wk in WORLDS:
+            level_boss_names.add(WORLDS[wk]["boss"]["name"])
+        else:
+            nearest = max((k for k in WORLDS.keys() if k <= wk), default=1)
+            level_boss_names.add(WORLDS[nearest]["boss"]["name"])
     is_level_boss = boss_data["name"] in level_boss_names
     if is_level_boss:
         pass  # stats ja ajustados diretamente nos dados do boss
@@ -5957,10 +5980,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
     # === RECOMPENSA PARA ALIADOS (boss de nível) ===
     if is_level_boss and allies:
-        boss_to_world_ally = {
-            "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
-            "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
-        }
+        boss_to_world_ally = {}
+        boss_level_map_ally = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
+                               109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+        for gate_lvl, wk in boss_level_map_ally.items():
+            nearest = wk if wk in WORLDS else max((k for k in WORLDS.keys() if k <= wk), default=1)
+            boss_to_world_ally[WORLDS[nearest]["boss"]["name"]] = nearest
         next_world_ally = boss_to_world_ally.get(boss_data["name"])
         ally_xp = boss_data["xp"] // 2  # aliados recebem metade do XP
         ally_coins = coins // 2
@@ -5992,6 +6017,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             release_pending_xp(ally_id)
             add_coins(ally_id, ally_coins)
 
+            # Drop próprio para cada aliado
+            ally_drop_rand = random.random()
+            ally_drop_rarity = None
+            if ally_drop_rand < 0.002:
+                ally_drop_rarity = random.choice(["Divino", "Primordial"])
+            elif ally_drop_rand < 0.015:
+                ally_drop_rarity = "Mítico"
+            elif ally_drop_rand < 0.05:
+                ally_drop_rarity = "Lendário"
+            elif ally_drop_rand < 0.14:
+                ally_drop_rarity = "Épico"
+            elif ally_drop_rand < 0.28:
+                ally_drop_rarity = "Raro"
+
             # Notifica o aliado
             try:
                 ally_user = await bot.fetch_user(int(ally_id))
@@ -6010,6 +6049,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         value=f"{nw['emoji']} **{nw['name']}** agora está acessível!\nUse `abrir mapa` para viajar.",
                         inline=False
                     )
+                if ally_drop_rarity:
+                    item_type_ally = random.choice(["weapon", "armor"])
+                    item_list_ally = "weapons" if item_type_ally == "weapon" else "armor"
+                    items_of_rarity_ally = [i for i in ITEMS[item_list_ally] if i["rarity"] == ally_drop_rarity]
+                    if items_of_rarity_ally:
+                        item_ally = random.choice(items_of_rarity_ally)
+                        ap2 = get_player(ally_id)
+                        ap2["inventory"].append(item_ally["name"])
+                        save_player_db(ally_id, ap2)
+                        ally_embed.add_field(
+                            name=f"✨ Drop Especial para você!",
+                            value=f"{RARITIES[ally_drop_rarity]['emoji']} **{item_ally['name']}** ({ally_drop_rarity})",
+                            inline=False
+                        )
                 ally_embed.set_footer(text=f"Aliado de {p_name} na batalha contra {boss_data['name']}")
                 await channel.send(f"{ally_user.mention}", embed=ally_embed)
             except:
@@ -6034,10 +6087,17 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         victory_embed.add_field(name="🆙 Level Up!", value=f"*Você chegou ao **Nível {p_after['level']}**!*", inline=False)
 
     # Unlock next world for level bosses + AUTO-TRAVEL
-    boss_to_world = {
-        "Slime Rei": 10, "Ent Ancião": 20, "Faraó Amaldiçoado": 30,
-        "Yeti Colossal": 40, "Dragão de Magma": 50, "Senhor das Sombras": 60
-    }
+    boss_to_world = {}
+    _boss_level_map = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
+                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+    for _gate_lvl, _wk in _boss_level_map.items():
+        _nearest = _wk if _wk in WORLDS else max((k for k in WORLDS.keys() if k <= _wk), default=1)
+        _boss_name = WORLDS[_nearest]["boss"]["name"]
+        # Map this boss to the NEXT world (one tier up)
+        _all_world_keys = sorted(WORLDS.keys())
+        _idx = _all_world_keys.index(_nearest) if _nearest in _all_world_keys else -1
+        if _idx >= 0 and _idx + 1 < len(_all_world_keys):
+            boss_to_world[_boss_name] = _all_world_keys[_idx + 1]
     next_world = boss_to_world.get(boss_data["name"])
     # Segurança: se boss_data tinha nome errado, checar pelos bosses derrotados
     if not next_world:
@@ -6299,17 +6359,24 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             player["inventory"].append(potion_dropped)
             save_player_db(user_id, player)
 
-        # ─── DROP DE CHAVE EM DUNGEON COMUM (20% de chance) ────────────
-        if not is_secret and random.random() < DUNGEON_KEY_DROP_CHANCE:
-            secret_dungeons = world.get("secret_dungeons", [])
-            if secret_dungeons:
-                chosen_sd = random.choice(secret_dungeons)
-                key_name = chosen_sd.get("key_name", "")
-                if key_name:
-                    player = get_player(user_id)
-                    player["inventory"].append(key_name)
-                    save_player_db(user_id, player)
-                    key_dropped = key_name
+        # ─── DROP DE CHAVE EM DUNGEON COMUM (1 a cada 20 dungeons ou 0.1% de sorte) ──
+        if not is_secret:
+            player_for_key = get_player(user_id)
+            dungeons_done = player_for_key.get("dungeons_completed", 0) + 1
+            player_for_key["dungeons_completed"] = dungeons_done
+            save_player_db(user_id, player_for_key)
+            key_by_count = (dungeons_done % 20 == 0)  # a cada 20 dungeons
+            key_by_luck = random.random() < DUNGEON_KEY_DROP_CHANCE  # 0.1%
+            if key_by_count or key_by_luck:
+                secret_dungeons = world.get("secret_dungeons", [])
+                if secret_dungeons:
+                    chosen_sd = random.choice(secret_dungeons)
+                    key_name = chosen_sd.get("key_name", "")
+                    if key_name:
+                        player = get_player(user_id)
+                        player["inventory"].append(key_name)
+                        save_player_db(user_id, player)
+                        key_dropped = key_name
 
         chest_bonus = ""
         if potion_dropped:
@@ -7371,7 +7438,7 @@ async def on_message(message):
             return
 
         # PRIORIDADE: Boss de level (se nível 9/19/29/39/49/59 e ainda não derrotou)
-        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
         boss_data = None
         is_level_boss = False
 
@@ -7443,8 +7510,8 @@ async def on_message(message):
             await message.channel.send("❌ Você já está nesta batalha!")
             return
 
-        if len(members) >= 3:
-            await message.channel.send("❌ Esta batalha já está cheia (máximo 3 jogadores)!")
+        if len(members) >= 5:
+            await message.channel.send("❌ Esta batalha já está cheia (máximo 5 jogadores)!")
             return
 
         members.append(str(user_id))
@@ -7455,7 +7522,7 @@ async def on_message(message):
         conn.close()
 
         await message.channel.send(
-            f"✅ **{message.author.mention}** entrou na batalha contra **{boss_name}**!\n\n👥 Jogadores: {len(members)}/3\n\nO líder pode usar `iniciar batalha boss` quando estiver pronto!"
+            f"✅ **{message.author.mention}** entrou na batalha contra **{boss_name}**!\n\n👥 Jogadores: {len(members)}/5\n\nO líder pode usar `iniciar batalha boss` quando estiver pronto!"
         )
         return
 
@@ -10248,7 +10315,7 @@ async def handle_new_commands(message):
             return
         # encontrar boss NUNCA mostra bosses de level — apenas variantes do mundo
         # Bosses de level (9/19/29/39/49/59) só aparecem via check_level_boss/desafiar boss
-        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
         if player["level"] in boss_gate_levels:
             boss_data_gate = get_level_boss(player["level"])
             if boss_data_gate and boss_data_gate["name"] not in player.get("bosses", []):
