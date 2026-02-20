@@ -232,7 +232,7 @@ ACHIEVEMENTS = [
     {"id": "boss_10", "cat": "⚔️ Combate", "name": "Matador de Deuses", "desc": "Derrote 10 bosses", "xp": 900, "stat": "bosses_defeated", "threshold": 10},
     {"id": "boss_20", "cat": "⚔️ Combate", "name": "Lenda Imortal", "desc": "Derrote 20 bosses", "xp": 1500, "stat": "bosses_defeated", "threshold": 20},
     {"id": "first_boss_unique", "cat": "⚔️ Combate", "name": "Primeiro Colossus", "desc": "Derrote o primeiro boss de level", "xp": 300, "special": "level_boss_1"},
-    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 6 bosses de level", "xp": 2250, "special": "all_level_bosses"},
+    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 20 bosses de level (um por reino)", "xp": 10000, "special": "all_level_bosses"},
     {"id": "slime_rei", "cat": "⚔️ Combate", "name": "Massacrador de Slimes", "desc": "Derrote o Slime Rei", "xp": 300, "special": "boss_slime_rei"},
     {"id": "dragon", "cat": "⚔️ Combate", "name": "Dragoneante", "desc": "Derrote o Dragão de Magma", "xp": 600, "special": "boss_dragao"},
     {"id": "shadow_lord", "cat": "⚔️ Combate", "name": "Derrotando as Sombras", "desc": "Derrote o Senhor das Sombras", "xp": 750, "special": "boss_sombras"},
@@ -457,13 +457,46 @@ MONSTER_DROPS = {
     ]
 }
 
+# ================= SISTEMA DE CHAVES DE DUNGEON SECRETA =================
+# Chaves são dropadas de baús nas dungeons comuns e desbloqueiam dungeons secretas
+DUNGEON_KEY_DROP_CHANCE = 0.20  # 20% de chance de chave em baú de dungeon comum
+
+def get_world_secret_dungeon_keys(world_data):
+    """Retorna lista de chaves de dungeons secretas do mundo atual."""
+    keys = []
+    for sd in world_data.get("secret_dungeons", []):
+        if "key_name" in sd:
+            keys.append(sd["key_name"])
+    return keys
+
+def player_has_key(player, key_name):
+    """Verifica se o jogador tem a chave especificada."""
+    return key_name in player.get("inventory", [])
+
+def consume_key(player, key_name):
+    """Remove a chave do inventário do jogador."""
+    if key_name in player.get("inventory", []):
+        player["inventory"].remove(key_name)
+        return True
+    return False
+
 # Raridade de drop por tipo de monstro por dado
 HUNT_DROP_CHANCE = {
-    "resource": 0.40,       # 40% recurso
-    "weapon_common": 0.15,  # 15% arma comum/incomum
-    "weapon_rare": 0.05,    # 5% arma rara (do monstro)
-    "weapon_epic": 0.02,    # 2% épico (só monstros fortes)
-    # Mítico/Lendário/Divino/Primordial: apenas via boss
+    "resource": 0.40,           # 40% recurso
+    "weapon_common": 0.15,      # 15% arma comum/incomum
+    "weapon_rare": 0.05,        # 5% arma rara (do monstro)
+    "weapon_epic": 0.02,        # 2% épico (só monstros fortes)
+    "weapon_legendary": 0.005,  # 0.5% lendário (monstros de elite em reinos altos)
+    "weapon_mythic": 0.0005,    # 0.05% Mítico (monstros de elite nos 13 novos reinos)
+    # Ancestral/Divino/Primordial: apenas via boss especial de dungeon secreta
+}
+
+# Reinos avançados (novas áreas) permitem drops mais raros de monstros
+HIGH_LEVEL_WORLDS = {62, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180}
+HIGH_LEVEL_DROP_BONUS = {
+    "legendary": 0.008,   # 0.8% lendário em reinos avançados
+    "mythic": 0.001,      # 0.1% Mítico em reinos avançados
+    "ancestral": 0.0002   # 0.02% Ancestral nos reinos mais altos (100+)
 }
 
 # ================= SISTEMA DE CLIMA =================
@@ -813,6 +846,7 @@ RARITIES = {
     "Épico": {"color": 0x800080, "emoji": "🟣"},
     "Lendário": {"color": 0xFFD700, "emoji": "🟡"},
     "Mítico": {"color": 0xFF4400, "emoji": "🔴"},
+    "Ancestral": {"color": 0xFF8C00, "emoji": "🟠"},
     "Divino": {"color": 0x00FFFF, "emoji": "💎"},
     "Primordial": {"color": 0xFF00FF, "emoji": "🌈"}
 }
@@ -3319,6 +3353,477 @@ WORLDS = {
             "Sua mortalidade é questionada pela própria existência.",
             "Você está a um passo de se tornar uma lenda eterna."
         ]
+    },
+    # ─── REINO 8: PÂNTANO DAS ALMAS PERDIDAS (desbloqueado no nível 62) ───
+    62: {
+        "name": "🌿 Pântano das Almas Perdidas",
+        "emoji": "🌿",
+        "xp_loss_multiplier": 2.1,
+        "monsters": {
+            "Criatura do Pântano": {"xp": (170, 210), "hp": 520, "atk": 78, "coins": (22, 38)},
+            "Espírito Lamacento": {"xp": (175, 215), "hp": 540, "atk": 80, "coins": (23, 40)},
+            "Serpente das Profundezas": {"xp": (180, 220), "hp": 560, "atk": 83, "coins": (24, 42)},
+            "Bruxo das Trevas Úmidas": {"xp": (185, 225), "hp": 580, "atk": 85, "coins": (25, 44)},
+            "Jacaré Arcano": {"xp": (190, 230), "hp": 600, "atk": 88, "coins": (26, 46)}
+        },
+        "boss": {"name": "Hidra das Almas", "hp": 8500, "atk": 320, "xp": 6000, "level": 69, "coins": (900, 1600)},
+        "resources": ["Lama mágica", "Essência pantanosa", "Pele de serpente ancestral", "Cogumelo sombrio", "Raiz corrompida"],
+        "dungeons": [
+            {"name": "Covil da Hidra Menor", "level": 22, "boss": "Hidra Jovem"},
+            {"name": "Ruínas Submersas", "level": 23, "boss": "Guardião Submerso"},
+            {"name": "Câmara das Almas Presas", "level": 24, "boss": "Necromante do Pântano"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌑 Coração do Pântano Eterno", "level": 22, "boss": "Entidade das Águas Negras", "secret": True,
+             "special_boss_drop": "Ancestral", "key_name": "🗝️ Chave do Pântano Eterno"},
+            {"name": "💀 Templo Afundado de Morthak", "level": 23, "boss": "Morthak, o Imortal Pantanoso", "secret": True,
+             "special_boss_drop": "Ancestral", "key_name": "🗝️ Chave de Morthak"}
+        ],
+        "events": [
+            "Bolhas negras sobem à superfície lamacenta.", "Você sente seus pés afundando na lama.",
+            "Fogos-fátuos guiam você para um caminho perigoso.", "Um espírito perdido pede que você entregue uma mensagem.",
+            "A lama parece ter consciência própria.", "Criaturas invisíveis se movem sob as águas escuras.",
+            "Você encontra um barco afundado com tesouro dentro.", "O ar fétido envenena seus pulmões.",
+            "Uma caravana de mortos-vivos marcha em silêncio.", "Raízes gigantes tentam te prender."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Cajado das Almas Perdidas", "Lâmina Pantanosa"],
+            "armor": ["Manto das Almas", "Couraça do Pântano"]
+        }
+    },
+    # ─── REINO 9: FLORESTA CRISTALINA (desbloqueado no nível 70) ───
+    70: {
+        "name": "💎 Floresta Cristalina",
+        "emoji": "💎",
+        "xp_loss_multiplier": 2.3,
+        "monsters": {
+            "Golem de Cristal": {"xp": (200, 250), "hp": 650, "atk": 92, "coins": (28, 50)},
+            "Fada de Diamante": {"xp": (205, 255), "hp": 620, "atk": 90, "coins": (27, 48)},
+            "Elemental Cristalino": {"xp": (210, 260), "hp": 670, "atk": 95, "coins": (29, 52)},
+            "Dragão de Quartzo": {"xp": (220, 270), "hp": 700, "atk": 98, "coins": (31, 55)},
+            "Guardião de Safira": {"xp": (215, 265), "hp": 680, "atk": 96, "coins": (30, 53)}
+        },
+        "boss": {"name": "Senhor dos Cristais", "hp": 12000, "atk": 380, "xp": 8000, "level": 79, "coins": (1100, 2000)},
+        "resources": ["Cristal puro", "Fragmento de diamante", "Essência cristalina", "Pó de safira", "Núcleo de quartzo"],
+        "dungeons": [
+            {"name": "Caverna das Gemas Vivas", "level": 25, "boss": "Guardião das Gemas"},
+            {"name": "Palácio de Diamante", "level": 26, "boss": "Rei Cristalino"},
+            {"name": "Labirinto de Esmeralda", "level": 27, "boss": "Araña de Rubi"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌟 Núcleo Cristalino Primordial", "level": 25, "boss": "Entidade do Cristal Vivo", "secret": True,
+             "special_boss_drop": "Ancestral", "key_name": "🗝️ Chave do Cristal Primordial"},
+            {"name": "💠 Câmara do Diamante Negro", "level": 26, "boss": "Sombra Cristalizada", "secret": True,
+             "special_boss_drop": "Mítico", "key_name": "🗝️ Chave do Diamante Negro"}
+        ],
+        "events": [
+            "Árvores de cristal cantam com o vento.", "Seu reflexo se move sozinho nos cristais.",
+            "Um cristal explode liberando energia pura.", "Você encontra uma floresta de estalactites coloridas.",
+            "Luz se refrata criando arco-íris em todas as direções.", "Um elemental cristalino te oferece um fragmento.",
+            "Você vê o futuro refletido em um cristal gigante.", "Cristais pulsam com batimentos cardíacos."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Espada de Diamante Negro", "Cajado Cristalino"],
+            "armor": ["Armadura de Cristal Vivo", "Manto de Safira"]
+        }
+    },
+    # ─── REINO 10: REINO DAS SOMBRAS ETERNAS (desbloqueado no nível 80) ───
+    80: {
+        "name": "🌑 Reino das Sombras Eternas",
+        "emoji": "🌑",
+        "xp_loss_multiplier": 2.5,
+        "monsters": {
+            "Sombra Viva": {"xp": (240, 290), "hp": 720, "atk": 105, "coins": (32, 58)},
+            "Espectro Eterno": {"xp": (245, 295), "hp": 740, "atk": 108, "coins": (33, 60)},
+            "Lich Ancestral": {"xp": (250, 300), "hp": 760, "atk": 112, "coins": (35, 63)},
+            "Demônio das Trevas": {"xp": (255, 305), "hp": 780, "atk": 115, "coins": (36, 65)},
+            "Senhor das Sombras Menor": {"xp": (260, 310), "hp": 800, "atk": 118, "coins": (38, 68)}
+        },
+        "boss": {"name": "Rei das Sombras Eternas", "hp": 16000, "atk": 450, "xp": 10000, "level": 89, "coins": (1400, 2500)},
+        "resources": ["Essência das trevas", "Cristal da sombra", "Núcleo espectral", "Poeira negra", "Lágrima de espectro"],
+        "dungeons": [
+            {"name": "Torre do Vazio", "level": 28, "boss": "Arquimago das Trevas"},
+            {"name": "Catacumba Eterna", "level": 29, "boss": "Lich Supremo"},
+            {"name": "Portal das Sombras", "level": 30, "boss": "Guardião do Vazio"}
+        ],
+        "secret_dungeons": [
+            {"name": "♾️ Coração das Trevas Infinitas", "level": 28, "boss": "Entidade Sem Forma", "secret": True,
+             "special_boss_drop": "Ancestral", "key_name": "🗝️ Chave das Trevas Infinitas"},
+            {"name": "💀 Trono do Lich Eterno", "level": 29, "boss": "Lich da Eternidade", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Lich Eterno"}
+        ],
+        "events": [
+            "A escuridão aqui é diferente — ela te observa.", "Suas próprias sombras tentam te prender.",
+            "Vozes dos mortos sussurram seus maiores medos.", "Luz não existe aqui — apenas graus de escuridão.",
+            "Um portal para o vazio se abre brevemente.", "Espectros de aventureiros mortos vagam perdidos.",
+            "Você sente sua essência sendo drenada.", "O tempo aqui se move de forma diferente."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Foice das Sombras Eternas", "Cajado do Vazio Profundo"],
+            "armor": ["Manto da Escuridão Absoluta", "Armadura Espectral"]
+        }
+    },
+    # ─── REINO 11: PLANÍCIES DO TROVÃO (desbloqueado no nível 90) ───
+    90: {
+        "name": "⚡ Planícies do Trovão",
+        "emoji": "⚡",
+        "xp_loss_multiplier": 2.7,
+        "monsters": {
+            "Elemental do Trovão": {"xp": (270, 320), "hp": 820, "atk": 122, "coins": (40, 70)},
+            "Gigante da Tempestade": {"xp": (275, 325), "hp": 850, "atk": 125, "coins": (42, 73)},
+            "Grifo da Relâmpago": {"xp": (280, 330), "hp": 870, "atk": 128, "coins": (43, 75)},
+            "Titã do Vento": {"xp": (285, 335), "hp": 900, "atk": 132, "coins": (45, 78)},
+            "Dragão do Trovão": {"xp": (290, 340), "hp": 920, "atk": 135, "coins": (46, 80)}
+        },
+        "boss": {"name": "Zeus Menor, o Trovejante", "hp": 20000, "atk": 520, "xp": 12000, "level": 99, "coins": (1700, 3000)},
+        "resources": ["Essência do trovão", "Cristal elétrico", "Pena de grifo", "Núcleo da tempestade", "Relâmpago engarrafado"],
+        "dungeons": [
+            {"name": "Fortaleza da Tempestade", "level": 31, "boss": "Lorde da Tempestade"},
+            {"name": "Caverna do Raio", "level": 32, "boss": "Elemental de Plasma"},
+            {"name": "Pico do Trovão", "level": 33, "boss": "Grifo Ancião"}
+        ],
+        "secret_dungeons": [
+            {"name": "⚡ Olho da Tempestade Eterna", "level": 31, "boss": "A Tempestade Consciente", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave da Tempestade Eterna"},
+            {"name": "🌩️ Câmara do Primeiro Relâmpago", "level": 32, "boss": "Relâmpago Primordial Vivo", "secret": True,
+             "special_boss_drop": "Ancestral", "key_name": "🗝️ Chave do Primeiro Relâmpago"}
+        ],
+        "events": [
+            "Relâmpagos caem ao seu redor sem parar.", "O chão conduz eletricidade — cada passo doi.",
+            "Uma tempestade eterna bloqueia a visão.", "Você vê figuras de trovão no céu.",
+            "Grifos gigantes duelam acima de você.", "O ar cheira a ozônio e morte.",
+            "Um raio atinge o chão perto de você criando uma cratera.", "Titãs da tempestade marcham ao longe."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Lança do Trovão Divino", "Martelo de Zeus"],
+            "armor": ["Armadura da Tempestade", "Manto do Relâmpago"]
+        }
+    },
+    # ─── REINO 12: TERRA DOS GIGANTES (desbloqueado no nível 100) ───
+    100: {
+        "name": "🗿 Terra dos Gigantes",
+        "emoji": "🗿",
+        "xp_loss_multiplier": 3.0,
+        "monsters": {
+            "Gigante de Pedra": {"xp": (300, 360), "hp": 1000, "atk": 145, "coins": (50, 88)},
+            "Titã da Terra": {"xp": (310, 370), "hp": 1050, "atk": 150, "coins": (53, 92)},
+            "Golias das Ruínas": {"xp": (320, 380), "hp": 1100, "atk": 155, "coins": (56, 96)},
+            "Colosso Antigo": {"xp": (330, 390), "hp": 1150, "atk": 160, "coins": (58, 100)},
+            "Gigante de Gelo e Fogo": {"xp": (340, 400), "hp": 1200, "atk": 165, "coins": (60, 105)}
+        },
+        "boss": {"name": "Primeiro Gigante Primordial", "hp": 25000, "atk": 600, "xp": 15000, "level": 109, "coins": (2000, 3500)},
+        "resources": ["Osso de gigante", "Pedra colossal", "Couro de titã", "Essência primordial", "Cinza de colossus"],
+        "dungeons": [
+            {"name": "Fortaleza Colossal", "level": 34, "boss": "Guardião Colossus"},
+            {"name": "Sepultura dos Gigantes", "level": 35, "boss": "Espírito Gigante"},
+            {"name": "Palácio do Titã", "level": 36, "boss": "Titã Guerreiro"}
+        ],
+        "secret_dungeons": [
+            {"name": "🗿 Coração da Terra Antiga", "level": 34, "boss": "Titã da Criação", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave da Terra Antiga"},
+            {"name": "💀 Mausoléu do Primeiro Gigante", "level": 35, "boss": "Alma do Primeiro Gigante", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Primeiro Gigante"}
+        ],
+        "events": [
+            "Pegadas do tamanho de lagos marcam o solo.", "Um gigante dorme e sua respiração causa ventos.",
+            "Montanhas são na verdade gigantes adormecidos.", "Você é pequeno demais para ser notado.",
+            "Uma batalha de gigantes sacode o chão.", "Os ossos dos gigantes caídos formam colinas.",
+            "Um gigante jovem te confunde com um inseto.", "A terra treme com cada passo dos colossos."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Clava do Titã Primordial", "Lança Colossal"],
+            "armor": ["Placas do Primeiro Gigante", "Couraça Colossal"]
+        }
+    },
+    # ─── REINO 13: MAR DAS ALMAS (desbloqueado no nível 110) ───
+    110: {
+        "name": "🌊 Mar das Almas",
+        "emoji": "🌊",
+        "xp_loss_multiplier": 3.2,
+        "monsters": {
+            "Kraken Jovem": {"xp": (350, 420), "hp": 1250, "atk": 170, "coins": (62, 110)},
+            "Sereia Maldita": {"xp": (355, 425), "hp": 1200, "atk": 168, "coins": (60, 108)},
+            "Leviatã Menor": {"xp": (360, 430), "hp": 1300, "atk": 175, "coins": (65, 115)},
+            "Fantasma Marinho": {"xp": (365, 435), "hp": 1250, "atk": 172, "coins": (63, 112)},
+            "Guardião das Profundezas": {"xp": (370, 440), "hp": 1350, "atk": 178, "coins": (67, 118)}
+        },
+        "boss": {"name": "Leviatã das Almas", "hp": 30000, "atk": 680, "xp": 18000, "level": 119, "coins": (2300, 4000)},
+        "resources": ["Escama de leviatã", "Pérola das profundezas", "Essência oceânica", "Coral mágico", "Água das almas"],
+        "dungeons": [
+            {"name": "Navio Fantasma", "level": 37, "boss": "Capitão Espectral"},
+            {"name": "Templo Submerso", "level": 38, "boss": "Sacerdote do Mar"},
+            {"name": "Abismo Oceânico", "level": 39, "boss": "Kraken Ancião"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌊 Coração do Oceano Eterno", "level": 37, "boss": "O Mar Consciente", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Oceano Eterno"},
+            {"name": "🐙 Câmara do Leviatã Primordial", "level": 38, "boss": "Leviatã Primordial", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Leviatã Primordial"}
+        ],
+        "events": [
+            "Ondas gigantescas surgem do nada.", "Você vê cidades afundadas nas profundezas.",
+            "Sereias cantam tentando te hipnotizar.", "Um kraken emerge brevemente.",
+            "O mar muda de cor para vermelho sangue.", "Almas de marinheiros mortos pedem ajuda.",
+            "Um vórtice gigante se forma ao longe.", "Criaturas abissais sobem à superfície."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Tridente do Leviatã", "Lança das Profundezas"],
+            "armor": ["Armadura das Almas Marinhas", "Manto do Oceano Eterno"]
+        }
+    },
+    # ─── REINO 14: REINO DO CAOS (desbloqueado no nível 120) ───
+    120: {
+        "name": "🌀 Reino do Caos",
+        "emoji": "🌀",
+        "xp_loss_multiplier": 3.5,
+        "monsters": {
+            "Entidade do Caos": {"xp": (400, 480), "hp": 1400, "atk": 190, "coins": (70, 125)},
+            "Fragmento de Realidade": {"xp": (410, 490), "hp": 1350, "atk": 185, "coins": (68, 122)},
+            "Demônio do Vazio Caótico": {"xp": (420, 500), "hp": 1450, "atk": 195, "coins": (72, 128)},
+            "Paradoxo Vivo": {"xp": (430, 510), "hp": 1500, "atk": 200, "coins": (75, 132)},
+            "Contradição Manifesta": {"xp": (440, 520), "hp": 1550, "atk": 205, "coins": (78, 136)}
+        },
+        "boss": {"name": "O Caos em Pessoa", "hp": 38000, "atk": 780, "xp": 22000, "level": 129, "coins": (2800, 4800)},
+        "resources": ["Essência caótica", "Fragmento de paradoxo", "Cristal do vazio caótico", "Pó dimensional", "Runa do caos"],
+        "dungeons": [
+            {"name": "Nexo Caótico", "level": 40, "boss": "Guardião do Nexo"},
+            {"name": "Dimensão Fragmentada", "level": 41, "boss": "Entidade Fragmentada"},
+            {"name": "Câmara do Paradoxo", "level": 42, "boss": "O Paradoxo Absoluto"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌀 Epicentro do Caos Primordial", "level": 40, "boss": "Caos Puro Manifestado", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Caos Primordial"},
+            {"name": "♾️ Loop do Caos Eterno", "level": 41, "boss": "O Infinito Consciente", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Caos Eterno"}
+        ],
+        "events": [
+            "A realidade se dobra ao seu redor.", "Você existe em dois lugares ao mesmo tempo.",
+            "O passado e o futuro se misturam.", "Criaturas impossíveis vagam livres.",
+            "Você vê sua própria morte — mas em outra linha temporal.", "A gravidade muda de direção.",
+            "Cores impossíveis preenchem o horizonte.", "Tudo aqui viola as leis da física."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Lâmina do Caos Absoluto", "Cetro da Entropia"],
+            "armor": ["Vestes do Caos Vivente", "Armadura do Paradoxo"]
+        }
+    },
+    # ─── REINO 15: JARDIM DOS DEUSES (desbloqueado no nível 130) ───
+    130: {
+        "name": "🌸 Jardim dos Deuses",
+        "emoji": "🌸",
+        "xp_loss_multiplier": 3.8,
+        "monsters": {
+            "Guardião Divino Menor": {"xp": (460, 550), "hp": 1600, "atk": 215, "coins": (82, 145)},
+            "Criatura do Paraíso": {"xp": (470, 560), "hp": 1650, "atk": 220, "coins": (85, 150)},
+            "Anjo Renegado": {"xp": (480, 570), "hp": 1700, "atk": 225, "coins": (88, 155)},
+            "Serafim Caído": {"xp": (490, 580), "hp": 1750, "atk": 230, "coins": (90, 160)},
+            "Querubim Corrompido": {"xp": (500, 590), "hp": 1800, "atk": 235, "coins": (93, 165)}
+        },
+        "boss": {"name": "Jardineiro Divino", "hp": 46000, "atk": 880, "xp": 26000, "level": 139, "coins": (3300, 5600)},
+        "resources": ["Pétala divina", "Semente celestial", "Néctar dos deuses", "Espinho sagrado", "Raiz do paraíso"],
+        "dungeons": [
+            {"name": "Labirinto do Paraíso", "level": 43, "boss": "Guardião do Labirinto"},
+            {"name": "Templo da Deusa Floral", "level": 44, "boss": "Avatar da Deusa"},
+            {"name": "Câmara das Sementes Proibidas", "level": 45, "boss": "Espírito da Natureza Divina"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌸 Câmara da Primeira Flor", "level": 43, "boss": "A Primeira Flor Consciente", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave da Primeira Flor"},
+            {"name": "✨ Núcleo do Jardim Proibido", "level": 44, "boss": "Deus Jardineiro Oculto", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Jardim Proibido"}
+        ],
+        "events": [
+            "Flores que cantam te rodeiam.", "Frutos proibidos brilham convidativamente.",
+            "Anjos fazem rondas pelo jardim.", "Uma fonte de água da vida surge no caminho.",
+            "O perfume de mil flores te envolve.", "Um deus menor passeia distraído.",
+            "Árvores da vida crescem até o céu.", "Você sente paz absoluta — e perigo absoluto."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Espada da Primeira Flor", "Arco do Paraíso"],
+            "armor": ["Vestes do Jardim Divino", "Armadura de Pétalas Sagradas"]
+        }
+    },
+    # ─── REINO 16: REINO DO GELO ETERNO (desbloqueado no nível 140) ───
+    140: {
+        "name": "🧊 Reino do Gelo Eterno",
+        "emoji": "🧊",
+        "xp_loss_multiplier": 4.0,
+        "monsters": {
+            "Dragão de Gelo Ancião": {"xp": (520, 620), "hp": 1900, "atk": 248, "coins": (96, 170)},
+            "Titã do Gelo": {"xp": (530, 630), "hp": 1950, "atk": 252, "coins": (98, 174)},
+            "Colosso Glacial": {"xp": (540, 640), "hp": 2000, "atk": 256, "coins": (100, 178)},
+            "Elemental do Gelo Eterno": {"xp": (550, 650), "hp": 2050, "atk": 260, "coins": (102, 182)},
+            "Rainha das Banshees": {"xp": (560, 660), "hp": 2100, "atk": 265, "coins": (105, 186)}
+        },
+        "boss": {"name": "Imperadora do Gelo Eterno", "hp": 55000, "atk": 980, "xp": 30000, "level": 149, "coins": (3800, 6500)},
+        "resources": ["Gelo eterno", "Cristal do frio absoluto", "Fragmento glacial divino", "Alma congelada", "Núcleo do inverno eterno"],
+        "dungeons": [
+            {"name": "Fortaleza do Gelo Eterno", "level": 46, "boss": "General Glacial"},
+            {"name": "Câmara da Rainha das Neves", "level": 47, "boss": "Rainha das Neves"},
+            {"name": "Núcleo do Inverno Absoluto", "level": 48, "boss": "Espírito do Inverno Eterno"}
+        ],
+        "secret_dungeons": [
+            {"name": "🧊 Coração do Gelo Primordial", "level": 46, "boss": "Gelo Primordial Consciente", "secret": True,
+             "special_boss_drop": "Divino", "key_name": "🗝️ Chave do Gelo Primordial"},
+            {"name": "❄️ Câmara da Extinção Gelada", "level": 47, "boss": "O Frio Absoluto", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave da Extinção Gelada"}
+        ],
+        "events": [
+            "O frio aqui congela os próprios pensamentos.", "Dragões de gelo dormem em torno de você.",
+            "Tudo que você toca vira gelo.", "A temperatura é impossível para mortais suportarem.",
+            "Cristais de gelo formam figuras de antigas batalhas.", "Você encontra heróis congelados no tempo.",
+            "Uma tempestade de gelo absoluto surge.", "O reino inteiro parece respirar frio."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Lança do Gelo Eterno", "Espada da Extinção Glacial"],
+            "armor": ["Armadura do Inverno Absoluto", "Vestes da Imperadora Glacial"]
+        }
+    },
+    # ─── REINO 17: RUÍNAS DA CIVILIZAÇÃO PERDIDA (desbloqueado no nível 150) ───
+    150: {
+        "name": "🏛️ Ruínas da Civilização Perdida",
+        "emoji": "🏛️",
+        "xp_loss_multiplier": 4.3,
+        "monsters": {
+            "Guardião Autômato": {"xp": (580, 690), "hp": 2200, "atk": 275, "coins": (108, 192)},
+            "Construto Arcano": {"xp": (590, 700), "hp": 2250, "atk": 280, "coins": (110, 196)},
+            "Seninela Antiga": {"xp": (600, 710), "hp": 2300, "atk": 285, "coins": (112, 200)},
+            "Arma Viva Abandonada": {"xp": (610, 720), "hp": 2350, "atk": 290, "coins": (115, 205)},
+            "Espírito do Inventor": {"xp": (620, 730), "hp": 2400, "atk": 295, "coins": (118, 210)}
+        },
+        "boss": {"name": "Rei-Autômato da Civilização Perdida", "hp": 65000, "atk": 1100, "xp": 35000, "level": 159, "coins": (4400, 7500)},
+        "resources": ["Engrenagem arcana", "Metal da era perdida", "Cristal de memória", "Runa esquecida", "Núcleo de construto"],
+        "dungeons": [
+            {"name": "Fábrica de Golens Arcanos", "level": 49, "boss": "Mestre Construtor"},
+            {"name": "Biblioteca da Civilização Perdida", "level": 50, "boss": "Guardião do Conhecimento Perdido"},
+            {"name": "Câmara do Último Rei", "level": 51, "boss": "Fantasma do Último Rei"}
+        ],
+        "secret_dungeons": [
+            {"name": "🏛️ Coração da Civilização Proibida", "level": 49, "boss": "O Criador Esquecido", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave da Civilização Proibida"},
+            {"name": "⚙️ Câmara da Arma Final", "level": 50, "boss": "A Arma que Destruiu Tudo", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave da Arma Final"}
+        ],
+        "events": [
+            "Máquinas antigas ainda funcionam sem operadores.", "Hologramas de uma civilização florescente.",
+            "Registros de uma civilização mais avançada que a atual.", "Autômatos te saúdam como se você fosse seu mestre.",
+            "Você encontra a memória coletiva de uma civilização.", "Armas proibidas estão guardadas aqui.",
+            "A tecnologia aqui é incompreensível para os atuais.", "Você lê profecias que já se realizaram."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma da Civilização Perdida", "Cajado do Último Mago"],
+            "armor": ["Armadura do Rei-Autômato", "Vestes do Inventor Supremo"]
+        }
+    },
+    # ─── REINO 18: PLANO ASTRAL (desbloqueado no nível 160) ───
+    160: {
+        "name": "✨ Plano Astral",
+        "emoji": "✨",
+        "xp_loss_multiplier": 4.6,
+        "monsters": {
+            "Ser Astral": {"xp": (650, 770), "hp": 2500, "atk": 310, "coins": (122, 218)},
+            "Entidade Cósmica Menor": {"xp": (660, 780), "hp": 2550, "atk": 315, "coins": (125, 222)},
+            "Guardião da Realidade": {"xp": (670, 790), "hp": 2600, "atk": 320, "coins": (128, 226)},
+            "Viajante entre Mundos": {"xp": (680, 800), "hp": 2650, "atk": 325, "coins": (130, 230)},
+            "Avatar Astral": {"xp": (690, 810), "hp": 2700, "atk": 330, "coins": (133, 235)}
+        },
+        "boss": {"name": "Senhor do Plano Astral", "hp": 78000, "atk": 1250, "xp": 42000, "level": 169, "coins": (5200, 9000)},
+        "resources": ["Essência astral pura", "Cristal da consciência", "Fragmento cósmico", "Luz das estrelas mortas", "Núcleo astral"],
+        "dungeons": [
+            {"name": "Nexo das Consciências", "level": 52, "boss": "Mente Coletiva"},
+            {"name": "Portal das Estrelas Mortas", "level": 53, "boss": "Guardião das Estrelas"},
+            {"name": "Câmara da Existência", "level": 54, "boss": "Entidade da Existência"}
+        ],
+        "secret_dungeons": [
+            {"name": "✨ Coração do Cosmos", "level": 52, "boss": "O Cosmos em Pessoa", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Coração do Cosmos"},
+            {"name": "🌌 Câmara Além da Existência", "level": 53, "boss": "O Que Existe Além", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Além da Existência"}
+        ],
+        "events": [
+            "Você flutua entre estrelas e galáxias.", "Seu corpo astral se separa do físico.",
+            "Você vê todos os mundos simultaneamente.", "Entidades cósmicas conversam sobre você.",
+            "O tempo não existe aqui — tudo é eterno.", "Você encontra sua própria alma.",
+            "Galáxias nascem e morrem ao seu redor.", "O universo inteiro parece ser um ser vivo."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Espada do Cosmos", "Cajado da Consciência Universal"],
+            "armor": ["Armadura do Plano Astral", "Vestes da Entidade Cósmica"]
+        }
+    },
+    # ─── REINO 19: ALÉM DA EXISTÊNCIA (desbloqueado no nível 170) ───
+    170: {
+        "name": "🌌 Além da Existência",
+        "emoji": "🌌",
+        "xp_loss_multiplier": 5.0,
+        "monsters": {
+            "Conceito Vivo": {"xp": (720, 860), "hp": 2900, "atk": 350, "coins": (138, 248)},
+            "Ideia Manifestada": {"xp": (730, 870), "hp": 2950, "atk": 355, "coins": (140, 252)},
+            "Possibilidade Mortal": {"xp": (740, 880), "hp": 3000, "atk": 360, "coins": (142, 256)},
+            "Destino em Forma": {"xp": (750, 890), "hp": 3050, "atk": 365, "coins": (145, 260)},
+            "O Fim Personificado": {"xp": (760, 900), "hp": 3100, "atk": 370, "coins": (148, 265)}
+        },
+        "boss": {"name": "O Que Existe Além de Tudo", "hp": 95000, "atk": 1450, "xp": 52000, "level": 179, "coins": (6200, 10800)},
+        "resources": ["Essência do nada", "Fragmento do além", "Cristal da não-existência", "Pó do antes do começo", "Núcleo da possibilidade"],
+        "dungeons": [
+            {"name": "Câmara do Nada Absoluto", "level": 55, "boss": "Guardião do Nada"},
+            {"name": "Portal para o Além", "level": 56, "boss": "Aquele que Guarda a Porta"},
+            {"name": "O Fim de Tudo", "level": 57, "boss": "A Morte em Pessoa"}
+        ],
+        "secret_dungeons": [
+            {"name": "🌌 O Verdadeiro Fim", "level": 55, "boss": "A Última Coisa que Existe", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Verdadeiro Fim"},
+            {"name": "♾️ Câmara do Começo e do Fim", "level": 56, "boss": "O Alpha e o Omega", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Alpha e Omega"}
+        ],
+        "events": [
+            "Você existe mas não deveria.", "Suas memórias começam a desaparecer.",
+            "O nada te chama pelo nome.", "Você vê o fim de todas as coisas.",
+            "Conceitos se materializam e te atacam.", "A linguagem não consegue descrever o que você vê.",
+            "Você encontra coisas que ainda não foram criadas.", "O próprio universo parece terminar aqui."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Espada do Além", "Cetro da Não-Existência"],
+            "armor": ["Armadura do Nada Absoluto", "Vestes do Conceito de Poder"]
+        }
+    },
+    # ─── REINO 20: O TRONO PRIMORDIAL (desbloqueado no nível 180) ───
+    180: {
+        "name": "⭐ O Trono Primordial",
+        "emoji": "⭐",
+        "xp_loss_multiplier": 6.0,
+        "monsters": {
+            "Guardião Primordial": {"xp": (800, 960), "hp": 3500, "atk": 420, "coins": (160, 285)},
+            "Entidade Anterior à Criação": {"xp": (820, 980), "hp": 3600, "atk": 430, "coins": (165, 292)},
+            "Ser do Antes do Tempo": {"xp": (840, 1000), "hp": 3700, "atk": 440, "coins": (170, 300)},
+            "Conceito de Divindade": {"xp": (860, 1020), "hp": 3800, "atk": 450, "coins": (175, 308)},
+            "A Própria Criação": {"xp": (880, 1040), "hp": 3900, "atk": 460, "coins": (180, 316)}
+        },
+        "boss": {"name": "O Criador Primordial", "hp": 150000, "atk": 2000, "xp": 80000, "level": 200, "coins": (10000, 18000)},
+        "resources": ["Essência da criação", "Fragmento primordial puro", "Cristal do antes do começo", "Luz da primeira estrela", "Semente de universo"],
+        "dungeons": [
+            {"name": "Câmara do Primeiro Ser", "level": 58, "boss": "O Primeiro Ser"},
+            {"name": "Trono da Criação", "level": 59, "boss": "Guardião do Trono"},
+            {"name": "O Centro de Tudo", "level": 60, "boss": "A Fonte de Todo Poder"}
+        ],
+        "secret_dungeons": [
+            {"name": "⭐ O Verdadeiro Trono Primordial", "level": 58, "boss": "O Criador Oculto", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Trono Primordial"},
+            {"name": "🌌 Câmara do Criador Esquecido", "level": 59, "boss": "Aquele que Criou os Criadores", "secret": True,
+             "special_boss_drop": "Primordial", "key_name": "🗝️ Chave do Criador Esquecido"}
+        ],
+        "events": [
+            "Você está no centro de toda existência.", "O Criador te testa silenciosamente.",
+            "Universos nascem ao seu redor como bolhas.", "Você ouve a voz que disse 'que haja luz'.",
+            "Tudo que você tocou foi criado por uma vontade superior.", "O trono está vazio — esperando.",
+            "Você vê o plano de toda a existência.", "A própria realidade te reverencia.",
+            "Você encontra o sentido de tudo.", "Sua chegada aqui era esperada desde o início.",
+            "O Criador sorri. Você chegou até aqui.", "A última aventura começa agora."
+        ],
+        "exclusive_drops": {
+            "weapons": ["Espada do Criador Primordial", "O Cetro que Criou Tudo"],
+            "armor": ["Armadura da Criação Absoluta", "Vestes do Guardião do Trono"]
+        }
     }
 }
 
@@ -3397,6 +3902,12 @@ ITEMS = {
         {"name": "Cetro da Eternidade", "rarity": "Mítico", "atk": 210},
         {"name": "Lâmina do Destino", "rarity": "Mítico", "atk": 205},
         {"name": "Arco do Apocalipse", "rarity": "Mítico", "atk": 208},
+        # Ancestral
+        {"name": "Espada dos Antepassados", "rarity": "Ancestral", "atk": 280},
+        {"name": "Cajado do Primeiro Mago", "rarity": "Ancestral", "atk": 295},
+        {"name": "Lança da Era Perdida", "rarity": "Ancestral", "atk": 285},
+        {"name": "Arco dos Antigos Caçadores", "rarity": "Ancestral", "atk": 290},
+        {"name": "Machado da Raça Extinta", "rarity": "Ancestral", "atk": 288},
         # Divino (NOVO)
         {"name": "Espada da Ascensão", "rarity": "Divino", "atk": 380},
         {"name": "Cajado da Criação Divina", "rarity": "Divino", "atk": 400},
@@ -3482,6 +3993,11 @@ ITEMS = {
         {"name": "Vestes da Criação", "rarity": "Mítico", "def": 190},
         {"name": "Placas da Eternidade", "rarity": "Mítico", "def": 185},
         {"name": "Armadura do Destino", "rarity": "Mítico", "def": 188},
+        # Ancestral
+        {"name": "Armadura dos Guardiões Ancestrais", "rarity": "Ancestral", "def": 260},
+        {"name": "Vestes do Elo Perdido", "rarity": "Ancestral", "def": 275},
+        {"name": "Placas da Civilização Extinta", "rarity": "Ancestral", "def": 268},
+        {"name": "Manto do Tempo Esquecido", "rarity": "Ancestral", "def": 272},
         # Divino (NOVO)
         {"name": "Manto da Ascensão", "rarity": "Divino", "def": 350},
         {"name": "Armadura do Serafim", "rarity": "Divino", "def": 370},
@@ -4134,7 +4650,10 @@ def remove_coins(user_id, amount):
 def get_level_boss(level):
     """Retorna boss de level correspondente ao nível do jogador"""
     boss_levels = {
-        9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50
+        9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50,
+        69: 62, 79: 70, 89: 80, 99: 90, 109: 100,
+        119: 110, 129: 120, 139: 130, 149: 140, 159: 150,
+        169: 160, 179: 170, 199: 180
     }
     world_key = boss_levels.get(level)
     if world_key:
@@ -4659,13 +5178,47 @@ class DungeonSelectButton(discord.ui.View):
                 return await interaction.response.send_message("❌ Esta dungeon não é para você!", ephemeral=True)
             if self.answered:
                 return
+            dungeon = self.dungeons[index]
+            is_secret = dungeon.get("secret", False)
+            is_locked = dungeon.get("locked", False)
+
+            # ─── Verificação de chave para dungeon secreta ──────────────
+            if is_secret and is_locked:
+                key_name = dungeon.get("key_name", "")
+                return await interaction.response.send_message(
+                    f"🔒 **Dungeon Bloqueada!**\n\n"
+                    f"Você descobriu **{dungeon['name']}** mas não possui a chave.\n"
+                    f"Necessário: **{key_name}**\n"
+                    f"*Explore dungeons comuns desta região para encontrar a chave em baús!*",
+                    ephemeral=True
+                )
+            if is_secret and not is_locked:
+                key_name = dungeon.get("key_name", "")
+                if key_name:
+                    player = get_player(self.user_id)
+                    if not player_has_key(player, key_name):
+                        return await interaction.response.send_message(
+                            f"🔒 **Dungeon Secreta Bloqueada!**\n\nNecessário: **{key_name}**\n"
+                            f"*Explore dungeons comuns desta região para encontrar a chave em baús!*",
+                            ephemeral=True
+                        )
+                    # Consome a chave ao entrar
+                    consume_key(player, key_name)
+                    save_player_db(self.user_id, player)
+
             self.answered = True
-            await interaction.response.edit_message(
-                content=f"🏛️ **Você entra na {self.dungeons[index]['name']}!**\n\n*'Que a sorte esteja com você...'*",
-                view=None
-            )
+            if is_secret:
+                await interaction.response.edit_message(
+                    content=f"🔮 **ENTRANDO NA DUNGEON SECRETA: {dungeon['name']}!**\n\n*'A chave brilha e a porta se abre... Que os deuses te protejam!'*",
+                    view=None
+                )
+            else:
+                await interaction.response.edit_message(
+                    content=f"🏛️ **Você entra na {dungeon['name']}!**\n\n*'Que a sorte esteja com você...'*",
+                    view=None
+                )
             await asyncio.sleep(2)
-            await explore_dungeon(interaction.channel, self.user_id, self.dungeons[index], self.world)
+            await explore_dungeon(interaction.channel, self.user_id, dungeon, self.world)
         return callback
 
 
@@ -5067,7 +5620,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         player["active_effects"] = effects
         save_player_db(user_id, player)
 
-        boss_gate_levels = {9, 19, 29, 39, 49, 59}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 199}
 
         if pending_boss:
             boss_data = pending_boss
@@ -5528,31 +6081,40 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # Item drop — boss é a ÚNICA fonte de Mítico+
     # Bosses de level têm chance maior de drops raros
     drop_rarity = None
-    rand = random.random()
-    if is_level_boss:
-        # Boss de level: chances maiores
-        if rand < 0.002:    # 0.2% Divino/Primordial
-            drop_rarity = random.choice(["Divino", "Primordial"])
-        elif rand < 0.015:  # 1.5% Mítico
-            drop_rarity = "Mítico"
-        elif rand < 0.05:   # 5% Lendário
-            drop_rarity = "Lendário"
-        elif rand < 0.14:   # 9% Épico
-            drop_rarity = "Épico"
-        elif rand < 0.28:   # 14% Raro
-            drop_rarity = "Raro"
+    # Boss especial de dungeon secreta GARANTE drop da raridade definida
+    if boss_data.get("is_secret_boss") and boss_data.get("special_drop_rarity"):
+        _min_rarity = boss_data["special_drop_rarity"]
+        _rarity_order = ["Mítico", "Ancestral", "Divino", "Primordial"]
+        _min_idx = _rarity_order.index(_min_rarity) if _min_rarity in _rarity_order else 0
+        _rarity_pool = _rarity_order[_min_idx:]
+        _weights = [50, 30, 20, 10][:len(_rarity_pool)]
+        drop_rarity = random.choices(_rarity_pool, weights=_weights)[0]
     else:
-        # Boss comum: chances menores em Mítico+
-        if rand < 0.0003:   # 0.03% Divino/Primordial
-            drop_rarity = random.choice(["Divino", "Primordial"])
-        elif rand < 0.002:  # 0.2% Mítico
-            drop_rarity = "Mítico"
-        elif rand < 0.015:  # 1.5% Lendário
-            drop_rarity = "Lendário"
-        elif rand < 0.05:   # 5% Épico
-            drop_rarity = "Épico"
-        elif rand < 0.11:   # 6% Raro
-            drop_rarity = "Raro"
+        rand = random.random()
+        if is_level_boss:
+            # Boss de level: chances maiores
+            if rand < 0.002:    # 0.2% Divino/Primordial
+                drop_rarity = random.choice(["Divino", "Primordial"])
+            elif rand < 0.015:  # 1.5% Mítico
+                drop_rarity = "Mítico"
+            elif rand < 0.05:   # 5% Lendário
+                drop_rarity = "Lendário"
+            elif rand < 0.14:   # 9% Épico
+                drop_rarity = "Épico"
+            elif rand < 0.28:   # 14% Raro
+                drop_rarity = "Raro"
+        else:
+            # Boss comum: chances menores em Mítico+
+            if rand < 0.0003:   # 0.03% Divino/Primordial
+                drop_rarity = random.choice(["Divino", "Primordial"])
+            elif rand < 0.002:  # 0.2% Mítico
+                drop_rarity = "Mítico"
+            elif rand < 0.015:  # 1.5% Lendário
+                drop_rarity = "Lendário"
+            elif rand < 0.05:   # 5% Épico
+                drop_rarity = "Épico"
+            elif rand < 0.11:   # 6% Raro
+                drop_rarity = "Raro"
 
     if drop_rarity:
         item_type = random.choice(["weapon", "armor"])
@@ -5727,16 +6289,37 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         leveled = add_xp(user_id, xp)
         add_coins(user_id, coins)
 
+        key_dropped = None
+        potion_dropped = None
+
         if random.random() < (0.50 if is_secret else 0.25):
             potion_list = list(POTIONS.keys())
-            dropped_potion = random.choice(potion_list[-5:] if is_secret else potion_list)
+            potion_dropped = random.choice(potion_list[-5:] if is_secret else potion_list)
             player = get_player(user_id)
-            player["inventory"].append(dropped_potion)
+            player["inventory"].append(potion_dropped)
             save_player_db(user_id, player)
+
+        # ─── DROP DE CHAVE EM DUNGEON COMUM (20% de chance) ────────────
+        if not is_secret and random.random() < DUNGEON_KEY_DROP_CHANCE:
+            secret_dungeons = world.get("secret_dungeons", [])
+            if secret_dungeons:
+                chosen_sd = random.choice(secret_dungeons)
+                key_name = chosen_sd.get("key_name", "")
+                if key_name:
+                    player = get_player(user_id)
+                    player["inventory"].append(key_name)
+                    save_player_db(user_id, player)
+                    key_dropped = key_name
+
+        chest_bonus = ""
+        if potion_dropped:
+            chest_bonus += f"\n🧪 **{potion_dropped}** dropada!"
+        if key_dropped:
+            chest_bonus += f"\n🗝️ **{key_dropped}** encontrada no baú! *(Use para entrar na dungeon secreta!)*"
 
         embed.add_field(
             name="💎 Câmara do Tesouro!",
-            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
+            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{chest_bonus}",
             inline=False
         )
         if leveled:
@@ -5748,8 +6331,17 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         item_type = random.choice(["weapon", "armor"])
         item_list = "weapons" if item_type == "weapon" else "armor"
         if is_secret:
-            rarity_pool = ["Mítico", "Divino", "Primordial"]
-            weights = [50, 35, 15]
+            # Usa raridade mínima definida na dungeon, ou Mítico por padrão
+            min_rarity = dungeon.get("special_boss_drop", "Mítico")
+            rarity_order = ["Mítico", "Ancestral", "Divino", "Primordial"]
+            min_idx = rarity_order.index(min_rarity) if min_rarity in rarity_order else 0
+            rarity_pool = rarity_order[min_idx:]
+            # Pesos decrescentes
+            all_weights = [50, 30, 25, 15]
+            weights = all_weights[min_idx:min_idx + len(rarity_pool)]
+            if not weights:
+                rarity_pool = ["Mítico", "Ancestral", "Divino", "Primordial"]
+                weights = [50, 30, 25, 15]
         else:
             rarity_pool = ["Raro", "Épico", "Lendário"]
             weights = [40, 40, 20]
@@ -5805,12 +6397,15 @@ async def explore_dungeon(channel, user_id, dungeon, world):
 
         # Boss de dungeon secreta é MUITO mais forte
         if is_secret:
+            special_drop_rarity = dungeon.get("special_boss_drop", "Mítico")
             boss_data = {
                 "name": dungeon["boss"],
-                "hp": int((500 + dungeon["level"] * 100) * level_mult),
-                "atk": int((45 + dungeon["level"] * 8) * level_mult),
-                "xp": int((1000 + dungeon["level"] * 200) * level_mult),
-                "coins": (int((30 + dungeon["level"] * 5) * level_mult), int((80 + dungeon["level"] * 10) * level_mult))
+                "hp": int((800 + dungeon["level"] * 150) * level_mult),
+                "atk": int((60 + dungeon["level"] * 10) * level_mult),
+                "xp": int((2000 + dungeon["level"] * 300) * level_mult),
+                "coins": (int((60 + dungeon["level"] * 8) * level_mult), int((150 + dungeon["level"] * 15) * level_mult)),
+                "special_drop_rarity": special_drop_rarity,  # Boss especial garante drop desta raridade
+                "is_secret_boss": True
             }
         else:
             boss_data = {
@@ -7458,42 +8053,75 @@ async def on_message(message):
         luck = get_luck(roll)
 
         embed = discord.Embed(
-            title="🔍 Procurando Dungeons...",
-            description="*'Você procura por entradas secretas e ruínas antigas...'*",
+            title="🗺️ Mapa de Dungeons da Região",
+            description="*'Você consulta seu mapa e identifica as masmorras desta região...'*",
             color=discord.Color.purple()
         )
-        embed.add_field(name="🎲 Dado da Busca", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
+        embed.add_field(name="🎲 Dado da Exploração", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
 
         if roll <= 3:
-            embed.add_field(name="❌ Busca Fracassada", value="*'Você vaga por horas mas não encontra nenhuma entrada...'*", inline=False)
+            embed.add_field(name="❌ Exploração Fracassada", value="*'Você vaga por horas mas não encontra nenhuma entrada...'*", inline=False)
             embed.color = discord.Color.red()
             await message.channel.send(embed=embed)
             return
 
-        dungeons = list(world["dungeons"])
-
-        # Dungeons secretas têm chance menor de aparecer
-        if "secret_dungeons" in world and roll >= 8:
-            for sd in world["secret_dungeons"]:
-                if random.random() < 0.3:
-                    dungeons.append(sd)
-
+        # ─── DUNGEONS COMUNS (sempre visíveis) ─────────────────
+        dungeons_comuns = list(world["dungeons"])
         embed.add_field(
-            name="🏛️ Dungeons Encontradas!",
-            value=f"*'Você descobre {len(dungeons)} dungeons nesta região!'*",
+            name="🏛️ ─── DUNGEONS COMUNS ───",
+            value="*'Masmorras conhecidas da região. Explore para encontrar baús com recompensas e chaves!'*",
             inline=False
         )
-        for i, dungeon in enumerate(dungeons, 1):
-            secret_tag = " 🔮 *[SECRETA]*" if dungeon.get("secret") else ""
+        for i, dungeon in enumerate(dungeons_comuns, 1):
             embed.add_field(
-                name=f"{i}. {dungeon['name']}{secret_tag} (Nível {dungeon['level']})",
-                value=f"Boss: **{dungeon['boss']}**",
+                name=f"  {i}. {dungeon['name']} (Nível {dungeon['level']})",
+                value=f"  ⚔️ Boss: **{dungeon['boss']}**\n  🎁 Baús podem conter: ouro, equipamentos, materiais raros e **chaves de dungeon secreta**",
                 inline=False
             )
+
+        # ─── DUNGEONS MISTERIOSAS / SECRETAS ─────────────────
+        secret_dungeons_all = world.get("secret_dungeons", [])
+        embed.add_field(
+            name="🔮 ─── DUNGEON MISTERIOSA (SECRETA) ───",
+            value="*'Masmorras ocultas e perigosas. Requerem uma Chave específica para entrar. Inimigos muito mais fortes — recompensas de raridade Mítica ou superior!'*",
+            inline=False
+        )
+
+        if secret_dungeons_all:
+            for sd in secret_dungeons_all:
+                key_name = sd.get("key_name", "🗝️ Chave Desconhecida")
+                has_key = player_has_key(player, key_name)
+                key_status = f"✅ **Você TEM a chave!**" if has_key else f"🔒 Necessita: **{key_name}**\n  *(Encontre esta chave em baús de dungeons comuns desta região)*"
+                drop_rarity = sd.get("special_boss_drop", "Mítico")
+                rarity_info = RARITIES.get(drop_rarity, RARITIES["Mítico"])
+                embed.add_field(
+                    name=f"  🔮 {sd['name']} (Nível {sd['level']})",
+                    value=(
+                        f"  👹 Boss Especial: **{sd['boss']}**\n"
+                        f"  {rarity_info['emoji']} Recompensa máxima: **{drop_rarity}**\n"
+                        f"  {key_status}"
+                    ),
+                    inline=False
+                )
+        else:
+            embed.add_field(name="  🔒 Sem dungeons secretas", value="  *'Nenhuma dungeon secreta foi descoberta nesta região.'*", inline=False)
+
         embed.color = discord.Color.gold()
+        embed.set_footer(text="💡 Complete dungeons comuns para obter chaves | Chaves desbloqueiam dungeons secretas com drops Míticos ou superiores!")
         await message.channel.send(embed=embed)
         await asyncio.sleep(1)
-        view = DungeonSelectButton(user_id, dungeons, world)
+
+        # Monta lista para seleção: comuns primeiro, depois secretas (com verificação de chave)
+        dungeons_para_selecao = list(dungeons_comuns)
+        if secret_dungeons_all and roll >= 6:
+            for sd in secret_dungeons_all:
+                key_name = sd.get("key_name", "")
+                if player_has_key(player, key_name):
+                    dungeons_para_selecao.append(sd)
+                elif roll >= 9:  # Alta sorte: mostra secretas mesmo sem chave (mas não deixa entrar)
+                    dungeons_para_selecao.append(dict(sd, **{"locked": True}))
+
+        view = DungeonSelectButton(user_id, dungeons_para_selecao, world)
         await message.channel.send("*'Qual dungeon deseja explorar?'*", view=view)
         return
 
@@ -7615,7 +8243,17 @@ async def on_message(message):
                 embed.add_field(name="🧪 Poções", value=chunk or "—", inline=False)
                 fields_added += 1
             if resources_in_inv:
-                embed.add_field(name="📦 Recursos", value="\n".join([f"• **{i}** x{items_count[i]}" for i in resources_in_inv])[:1024], inline=False)
+                # Separar chaves de dungeon dos demais recursos
+                keys_in_inv = [i for i in resources_in_inv if i.startswith("🗝️")]
+                regular_resources = [i for i in resources_in_inv if not i.startswith("🗝️")]
+                if keys_in_inv:
+                    embed.add_field(
+                        name="🗝️ Chaves de Dungeon Secreta",
+                        value="\n".join([f"🗝️ **{i}** x{items_count[i]}" for i in keys_in_inv])[:1024],
+                        inline=False
+                    )
+                if regular_resources:
+                    embed.add_field(name="📦 Recursos", value="\n".join([f"• **{i}** x{items_count[i]}" for i in regular_resources])[:1024], inline=False)
 
             if player.get("weapon") or player.get("armor"):
                 equip_txt = []
@@ -7628,6 +8266,49 @@ async def on_message(message):
                 embed.add_field(name="🎖️ Equipado", value="\n".join(equip_txt), inline=False)
 
         embed.set_footer(text=f"Total: {len(player['inventory'])} itens | Moedas CSI: {player['coins']:,} | Conquistas: {len(player.get('achievements', []))}/{len(ACHIEVEMENTS)}")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= VER CHAVES ========================
+    # ======================================================
+    elif any(word in content for word in ["ver chaves", "minhas chaves", "chaves dungeon", "chaves"]):
+        player = get_player(user_id)
+        world = get_world(player["level"], player)
+
+        keys_in_inv = [i for i in player.get("inventory", []) if i.startswith("🗝️")]
+        keys_count = {}
+        for k in keys_in_inv:
+            keys_count[k] = keys_count.get(k, 0) + 1
+
+        embed = discord.Embed(
+            title=f"🗝️ Chaves de Dungeon de {message.author.display_name}",
+            description="*'Chaves desbloqueiam as Dungeons Secretas de cada reino. Encontre-as em baús de dungeons comuns!'*",
+            color=discord.Color.dark_gold()
+        )
+
+        if not keys_count:
+            embed.add_field(name="🔒 Sem Chaves", value="*'Você não possui nenhuma chave de dungeon secreta ainda.'*\n\n💡 **Dica:** Explore dungeons comuns (comando `dungeon`) para encontrar chaves em baús!", inline=False)
+        else:
+            for key, qty in keys_count.items():
+                embed.add_field(name=f"{key} x{qty}", value="✅ Pronta para usar! (use `dungeon` e selecione a dungeon secreta)", inline=False)
+
+        # Mostrar quais chaves são necessárias no reino atual
+        secret_dungeons = world.get("secret_dungeons", [])
+        if secret_dungeons:
+            needed_keys = []
+            for sd in secret_dungeons:
+                kn = sd.get("key_name", "")
+                if kn and kn not in keys_count:
+                    needed_keys.append(f"🔒 **{kn}** → Dungeon: {sd['name']}")
+            if needed_keys:
+                embed.add_field(
+                    name=f"🔒 Chaves Necessárias no {world['name']}",
+                    value="\n".join(needed_keys),
+                    inline=False
+                )
+
+        embed.set_footer(text="Use 'dungeon' para ver e explorar dungeons | Baús de dungeons comuns podem conter chaves!")
         await message.channel.send(embed=embed)
         return
 
