@@ -7,7 +7,7 @@ import sqlite3
 from datetime import datetime, timedelta
 import json
 import time
-##
+#
 # ================= INTENTS =================
 intents = discord.Intents.default()
 intents.message_content = True
@@ -2510,6 +2510,66 @@ PETS_EXTRA = {
         {"name": "Cervo Celestial",   "emoji": "🦌", "rarity": "Divino",   "bonus_hp": 210,"bonus_atk": 105,"can_mount": True,  "mount_bonus_def": 90, "mount_bonus_spd": 50},
         {"name": "Dragão Primordial", "emoji": "🐉", "rarity": "Primordial","bonus_hp":420,"bonus_atk": 210,"can_mount": True,  "mount_bonus_def": 180,"mount_bonus_spd": 90},
     ],
+    70: [
+        {"name": "Lobo das Almas",        "emoji": "🐺", "rarity": "Ancestral",  "bonus_hp": 180, "bonus_atk": 90,  "can_mount": True,  "mount_bonus_def": 80,  "mount_bonus_spd": 45},
+        {"name": "Hidra de Cristal",      "emoji": "🐍", "rarity": "Divino",     "bonus_hp": 260, "bonus_atk": 130, "can_mount": True,  "mount_bonus_def": 110, "mount_bonus_spd": 55},
+        {"name": "Leviatã das Sombras",   "emoji": "🌊", "rarity": "Primordial", "bonus_hp": 500, "bonus_atk": 250, "can_mount": True,  "mount_bonus_def": 200, "mount_bonus_spd": 100},
+        {"name": "Tartaruga Ancestre",    "emoji": "🐢", "rarity": "Ancestral",  "bonus_hp": 320, "bonus_atk": 60,  "can_mount": True,  "mount_bonus_def": 160, "mount_bonus_spd": 20},
+    ],
+    80: [
+        {"name": "Pantera das Trevas",    "emoji": "🐆", "rarity": "Divino",     "bonus_hp": 290, "bonus_atk": 145, "can_mount": True,  "mount_bonus_def": 120, "mount_bonus_spd": 65},
+        {"name": "Grifo de Cristal",      "emoji": "🦅", "rarity": "Divino",     "bonus_hp": 270, "bonus_atk": 155, "can_mount": True,  "mount_bonus_def": 125, "mount_bonus_spd": 70},
+        {"name": "Dragão dos Cristais",   "emoji": "💎", "rarity": "Primordial", "bonus_hp": 580, "bonus_atk": 290, "can_mount": True,  "mount_bonus_def": 230, "mount_bonus_spd": 110},
+        {"name": "Espectro Equino",       "emoji": "👻", "rarity": "Ancestral",  "bonus_hp": 200, "bonus_atk": 110, "can_mount": True,  "mount_bonus_def": 95,  "mount_bonus_spd": 75},
+    ],
+    90: [
+        {"name": "Corvo da Eternidade",   "emoji": "🐦", "rarity": "Divino",     "bonus_hp": 300, "bonus_atk": 160, "can_mount": False},
+        {"name": "Leão das Tempestades",  "emoji": "🦁", "rarity": "Divino",     "bonus_hp": 310, "bonus_atk": 165, "can_mount": True,  "mount_bonus_def": 130, "mount_bonus_spd": 60},
+        {"name": "Fênix das Relâmpagos",  "emoji": "⚡", "rarity": "Primordial", "bonus_hp": 650, "bonus_atk": 325, "can_mount": True,  "mount_bonus_def": 260, "mount_bonus_spd": 120},
+        {"name": "Touro do Trovão",       "emoji": "⚡", "rarity": "Ancestral",  "bonus_hp": 240, "bonus_atk": 120, "can_mount": True,  "mount_bonus_def": 105, "mount_bonus_spd": 50},
+    ],
+    100: [
+        {"name": "Golias das Montanhas",  "emoji": "🏔️", "rarity": "Divino",     "bonus_hp": 380, "bonus_atk": 180, "can_mount": True,  "mount_bonus_def": 150, "mount_bonus_spd": 40},
+        {"name": "Dragão Primordial de Pedra","emoji":"🐉","rarity":"Primordial","bonus_hp": 720, "bonus_atk": 360, "can_mount": True,  "mount_bonus_def": 290, "mount_bonus_spd": 90},
+        {"name": "Wyvern Cósmico",        "emoji": "🌌", "rarity": "Primordial", "bonus_hp": 680, "bonus_atk": 380, "can_mount": True,  "mount_bonus_def": 280, "mount_bonus_spd": 130},
+        {"name": "Urso Espectral",        "emoji": "🐻", "rarity": "Divino",     "bonus_hp": 350, "bonus_atk": 140, "can_mount": True,  "mount_bonus_def": 145, "mount_bonus_spd": 45},
+    ],
+    110: [
+        {"name": "Quimera Primordial",    "emoji": "🦁", "rarity": "Primordial", "bonus_hp": 800, "bonus_atk": 400, "can_mount": True,  "mount_bonus_def": 320, "mount_bonus_spd": 140},
+        {"name": "Fênix do Primeiro Sol", "emoji": "☀️", "rarity": "Primordial", "bonus_hp": 750, "bonus_atk": 420, "can_mount": True,  "mount_bonus_def": 310, "mount_bonus_spd": 150},
+        {"name": "Kraken Jovem",          "emoji": "🐙", "rarity": "Divino",     "bonus_hp": 420, "bonus_atk": 190, "can_mount": False},
+        {"name": "Cavalo do Oceano Eterno","emoji":"🌊", "rarity": "Primordial", "bonus_hp": 780, "bonus_atk": 390, "can_mount": True,  "mount_bonus_def": 300, "mount_bonus_spd": 135},
+    ],
+    120: [
+        {"name": "Basilisco Arcano",      "emoji": "🐍", "rarity": "Primordial", "bonus_hp": 880, "bonus_atk": 440, "can_mount": True,  "mount_bonus_def": 350, "mount_bonus_spd": 140},
+        {"name": "Titã Equino",           "emoji": "🐴", "rarity": "Primordial", "bonus_hp": 900, "bonus_atk": 450, "can_mount": True,  "mount_bonus_def": 360, "mount_bonus_spd": 155},
+        {"name": "Salamandra Cósmica",    "emoji": "🔥", "rarity": "Primordial", "bonus_hp": 840, "bonus_atk": 470, "can_mount": True,  "mount_bonus_def": 340, "mount_bonus_spd": 160},
+    ],
+    130: [
+        {"name": "Dragão do Caos",        "emoji": "🌀", "rarity": "Primordial", "bonus_hp": 980, "bonus_atk": 490, "can_mount": True,  "mount_bonus_def": 390, "mount_bonus_spd": 165},
+        {"name": "Grifo do Caos Eterno",  "emoji": "🦅", "rarity": "Primordial", "bonus_hp": 960, "bonus_atk": 510, "can_mount": True,  "mount_bonus_def": 380, "mount_bonus_spd": 170},
+        {"name": "Hidra do Caos",         "emoji": "🐲", "rarity": "Primordial", "bonus_hp": 1050,"bonus_atk": 480, "can_mount": False},
+    ],
+    140: [
+        {"name": "Fênix do Gelo Eterno",  "emoji": "❄️", "rarity": "Primordial", "bonus_hp": 1100,"bonus_atk": 550, "can_mount": True,  "mount_bonus_def": 440, "mount_bonus_spd": 180},
+        {"name": "Dragão da Extinção",    "emoji": "💀", "rarity": "Primordial", "bonus_hp": 1200,"bonus_atk": 600, "can_mount": True,  "mount_bonus_def": 480, "mount_bonus_spd": 190},
+    ],
+    150: [
+        {"name": "Titã da Civilização",   "emoji": "🏛️", "rarity": "Primordial", "bonus_hp": 1350,"bonus_atk": 675, "can_mount": True,  "mount_bonus_def": 540, "mount_bonus_spd": 200},
+        {"name": "Guardião da Arma Final","emoji": "⚔️", "rarity": "Primordial", "bonus_hp": 1400,"bonus_atk": 700, "can_mount": True,  "mount_bonus_def": 560, "mount_bonus_spd": 210},
+    ],
+    160: [
+        {"name": "Dragão do Plano Astral","emoji": "🌟", "rarity": "Primordial", "bonus_hp": 1600,"bonus_atk": 800, "can_mount": True,  "mount_bonus_def": 640, "mount_bonus_spd": 230},
+        {"name": "Basilisco do Cosmos",   "emoji": "🌌", "rarity": "Primordial", "bonus_hp": 1500,"bonus_atk": 820, "can_mount": True,  "mount_bonus_def": 620, "mount_bonus_spd": 240},
+    ],
+    170: [
+        {"name": "A Besta Além da Existência","emoji":"👁️","rarity": "Primordial","bonus_hp": 1800,"bonus_atk": 900, "can_mount": False},
+        {"name": "Dragão do Além de Tudo","emoji": "♾️", "rarity": "Primordial", "bonus_hp": 1900,"bonus_atk": 950, "can_mount": True,  "mount_bonus_def": 760, "mount_bonus_spd": 270},
+    ],
+    180: [
+        {"name": "Fênix da Criação",      "emoji": "🌈", "rarity": "Primordial", "bonus_hp": 2100,"bonus_atk": 1050,"can_mount": True,  "mount_bonus_def": 840, "mount_bonus_spd": 300},
+        {"name": "O Dragão Primordial Final","emoji":"🐉","rarity":"Primordial", "bonus_hp": 2500,"bonus_atk": 1250,"can_mount": True,  "mount_bonus_def": 1000,"mount_bonus_spd": 350},
+    ],
 }
 
 # Pets que já existiam no PETS original que também podem virar montaria
@@ -2581,8 +2641,8 @@ QUESTS = {
             "objective": "hunt",
             "target": "Rato Selvagem",
             "count": 5,
-            "reward_xp": 150,
-            "reward_coins": 30,
+            "reward_xp": 450,
+            "reward_coins": 90,
             "reward_item": "Poção de Vida",
             "lore": "Os aldeões sussurram sobre uma criatura maior controlando os ratos... O Rato Rei.",
             "npc": "Aldeão Theron",
@@ -2595,8 +2655,8 @@ QUESTS = {
             "type": "individual",
             "objective": "collect",
             "count": 8,
-            "reward_xp": 100,
-            "reward_coins": 20,
+            "reward_xp": 300,
+            "reward_coins": 60,
             "reward_item": "Poção de XP Menor",
             "lore": "O curandeiro menciona que as ervas desta região têm propriedades mágicas únicas desde a queda do primeiro meteoro.",
             "npc": "Curandeira Elara",
@@ -2611,8 +2671,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Slime Rei",
-            "reward_xp": 400,
-            "reward_coins": 80,
+            "reward_xp": 1200,
+            "reward_coins": 240,
             "reward_item": "Espada de Ferro",
             "lore": "O Slime Rei absorveu a magia de um cristal antigo e agora é imune a ataques solitários. Apenas a força combinada pode pará-lo.",
             "npc": "Capitão Aldric",
@@ -2625,8 +2685,8 @@ QUESTS = {
             "type": "individual",
             "objective": "explore",
             "count": 3,
-            "reward_xp": 80,
-            "reward_coins": 15,
+            "reward_xp": 240,
+            "reward_coins": 45,
             "reward_item": None,
             "lore": "O diário menciona uma rota secreta para as Montanhas Geladas... algo que nenhum mapa oficial mostra.",
             "npc": "Explorador Miko",
@@ -2642,8 +2702,8 @@ QUESTS = {
             "objective": "hunt",
             "target": "Aranha Gigante",
             "count": 6,
-            "reward_xp": 350,
-            "reward_coins": 50,
+            "reward_xp": 1050,
+            "reward_coins": 150,
             "reward_item": "Poção de Vida Maior",
             "lore": "As aranhas foram atraídas por um artefato élfico enterrado nas profundezas da floresta.",
             "npc": "Mercador Brynn",
@@ -2658,8 +2718,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Ent Ancião",
-            "reward_xp": 900,
-            "reward_coins": 150,
+            "reward_xp": 2700,
+            "reward_coins": 450,
             "reward_item": "Armadura Élfica",
             "lore": "O Ent Ancião tem 3.000 anos. Ele guarda em sua memória o segredo da origem da floresta.",
             "npc": "Druida Sylvara",
@@ -2672,8 +2732,8 @@ QUESTS = {
             "type": "individual",
             "objective": "explore",
             "count": 5,
-            "reward_xp": 280,
-            "reward_coins": 40,
+            "reward_xp": 840,
+            "reward_coins": 120,
             "reward_item": "Poção de XP",
             "lore": "Os espíritos mencionam uma 'Chave de Ébano' escondida nas raízes da árvore mais antiga.",
             "npc": "Espírito Ancião Vel",
@@ -2690,8 +2750,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Faraó Amaldiçoado",
-            "reward_xp": 1200,
-            "reward_coins": 200,
+            "reward_xp": 3600,
+            "reward_coins": 600,
             "reward_item": "Lâmina Flamejante",
             "lore": "O Faraó Kha-Mentu foi traído por seus sacerdotes e amaldiçoado para guardar seus próprios tesouros por toda a eternidade.",
             "npc": "Arqueólogo Ramses",
@@ -2704,8 +2764,8 @@ QUESTS = {
             "type": "individual",
             "objective": "collect",
             "count": 10,
-            "reward_xp": 500,
-            "reward_coins": 70,
+            "reward_xp": 1500,
+            "reward_coins": 210,
             "reward_item": "Poção de Vida Superior",
             "lore": "Os artefatos da Dinastia de Ouro revelam que os humanos não foram os primeiros a habitar este mundo.",
             "npc": "Sábia Nefertiri",
@@ -2719,8 +2779,8 @@ QUESTS = {
             "objective": "hunt",
             "target": "Escorpião Gigante",
             "count": 8,
-            "reward_xp": 600,
-            "reward_coins": 90,
+            "reward_xp": 1800,
+            "reward_coins": 270,
             "reward_item": "Antídoto",
             "lore": "O veneno dos escorpiões, se processado corretamente, pode curar qualquer doença conhecida.",
             "npc": "Nômade Hassan",
@@ -2737,8 +2797,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Yeti Colossal",
-            "reward_xp": 1800,
-            "reward_coins": 280,
+            "reward_xp": 5400,
+            "reward_coins": 840,
             "reward_item": "Armadura Rúnica",
             "lore": "O Yeti Colossal é na verdade um guardião criado pelos Titãs do Gelo para proteger um segredo nas profundezas da montanha.",
             "npc": "Ancião da Montanha Bjorn",
@@ -2751,8 +2811,8 @@ QUESTS = {
             "type": "individual",
             "objective": "collect",
             "count": 12,
-            "reward_xp": 700,
-            "reward_coins": 100,
+            "reward_xp": 2100,
+            "reward_coins": 300,
             "reward_item": "Poção de XP Maior",
             "lore": "Os cristais de gelo desta região têm memória. Ao tocá-los, você vê fragmentos do passado.",
             "npc": "Ferreiro Helga",
@@ -2769,8 +2829,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Dragão de Magma",
-            "reward_xp": 2500,
-            "reward_coins": 400,
+            "reward_xp": 7500,
+            "reward_coins": 1200,
             "reward_item": "Excalibur",
             "lore": "O Dragão de Magma Ignarius foi o primeiro ser criado quando o mundo era apenas fogo e pedra. Ele guarda a Chama Original.",
             "npc": "Profeta Ignar",
@@ -2783,8 +2843,8 @@ QUESTS = {
             "type": "individual",
             "objective": "collect",
             "count": 15,
-            "reward_xp": 900,
-            "reward_coins": 130,
+            "reward_xp": 2700,
+            "reward_coins": 390,
             "reward_item": "Martelo do Trovão",
             "lore": "A Forja Sagrada foi usada para criar as primeiras armas dos deuses. Está apagada há 1.000 anos.",
             "npc": "Anão-Mestre Doran",
@@ -2801,8 +2861,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Senhor das Sombras",
-            "reward_xp": 4000,
-            "reward_coins": 600,
+            "reward_xp": 12000,
+            "reward_coins": 1800,
             "reward_item": "Cetro da Eternidade",
             "lore": "O Senhor das Sombras é um ser que existia antes do universo. Ele não deseja destruição — deseja retornar ao vazio primordial.",
             "npc": "Arquimago Zephyr",
@@ -2815,8 +2875,8 @@ QUESTS = {
             "type": "individual",
             "objective": "explore",
             "count": 7,
-            "reward_xp": 1200,
-            "reward_coins": 160,
+            "reward_xp": 3600,
+            "reward_coins": 480,
             "reward_item": "Poção de XP Maior",
             "lore": "Os tomos foram escritos por entidades que existiram antes dos deuses. Seu conteúdo pode enlouquecer mortais despreparados.",
             "npc": "Bibliotecária Spectra",
@@ -2833,8 +2893,8 @@ QUESTS = {
             "max_players": 3,
             "objective": "boss",
             "target": "Imperador Astral",
-            "reward_xp": 10000,
-            "reward_coins": 1000,
+            "reward_xp": 30000,
+            "reward_coins": 3000,
             "reward_item": "Armadura do Primeiro Deus",
             "lore": "O Imperador Astral não é um inimigo — é um teste. Aqueles dignos de passar herdarão o trono do universo.",
             "npc": "Voz do Cosmos",
@@ -2847,8 +2907,8 @@ QUESTS = {
             "type": "individual",
             "objective": "collect",
             "count": 20,
-            "reward_xp": 3000,
-            "reward_coins": 500,
+            "reward_xp": 9000,
+            "reward_coins": 1500,
             "reward_item": "Elixir Divino",
             "lore": "O Cristal da Origem foi destruído durante a Primeira Guerra Celestial. Sua reconstrução poderia criar — ou destruir — um novo universo.",
             "npc": "Guardião Estelar Auron",
@@ -2863,8 +2923,8 @@ JOBS = {
         "emoji": "⚒️",
         "min_level": 5,
         "description": "Mestre das forjas. Cria e melhora equipamentos com materiais coletados.",
-        "salary_coins": (8, 18),
-        "salary_xp": (50, 120),
+        "salary_coins": (40, 90),
+        "salary_xp": (100, 240),
         "perks": [
             "Pode craftar armas únicas com `forjar arma`",
             "20% desconto ao comprar equipamentos na loja",
@@ -2884,8 +2944,8 @@ JOBS = {
         "emoji": "🔮",
         "min_level": 5,
         "description": "Estudioso dos mistérios mágicos. Pesquisa feitiços e fenômenos sobrenaturais.",
-        "salary_coins": (5, 12),
-        "salary_xp": (80, 180),
+        "salary_coins": (25, 60),
+        "salary_xp": (160, 360),
         "perks": [
             "+15 de mana máxima permanente",
             "Pode usar `estudar magia` para ganhar XP extra",
@@ -2905,8 +2965,8 @@ JOBS = {
         "emoji": "💚",
         "min_level": 5,
         "description": "Guardião da vida. Cura ferimentos e doenças usando ervas e magia de cura.",
-        "salary_coins": (6, 14),
-        "salary_xp": (40, 100),
+        "salary_coins": (30, 70),
+        "salary_xp": (80, 200),
         "perks": [
             "Regenera +10 HP ao usar `trabalhar` além do salário",
             "Poções custam 30% menos na loja",
@@ -2926,8 +2986,8 @@ JOBS = {
         "emoji": "💰",
         "min_level": 5,
         "description": "Comerciante astuto. Compra e vende itens obtendo lucro em cada transação.",
-        "salary_coins": (15, 30),
-        "salary_xp": (20, 60),
+        "salary_coins": (75, 150),
+        "salary_xp": (40, 120),
         "perks": [
             "Vende itens por 25% a mais de valor",
             "Acesso a `mercado negro` com itens raros",
@@ -2947,8 +3007,8 @@ JOBS = {
         "emoji": "📜",
         "min_level": 5,
         "description": "Guardião do conhecimento. Registra histórias, cria mapas e decifra textos antigos.",
-        "salary_coins": (4, 10),
-        "salary_xp": (100, 220),
+        "salary_coins": (20, 50),
+        "salary_xp": (200, 440),
         "perks": [
             "Descobre locais no mapa 2x mais rápido ao explorar",
             "Pode escrever `crônica` para ganhar XP bônus registrando aventuras",
@@ -2968,8 +3028,8 @@ JOBS = {
         "emoji": "⚔️",
         "min_level": 10,
         "description": "Protetor jurado das cidades e do povo. Defende contra invasões, patrulha e mantém a ordem.",
-        "salary_coins": (10, 22),
-        "salary_xp": (60, 140),
+        "salary_coins": (50, 110),
+        "salary_xp": (120, 280),
         "perks": [
             "+20 HP máximos permanentes",
             "Pode usar `patrulhar` para ganhar XP e defender a cidade",
@@ -2990,8 +3050,8 @@ JOBS = {
         "emoji": "🛡️",
         "min_level": 15,
         "description": "Elite da proteção real. Defende o reino com força e lealdade absolutas.",
-        "salary_coins": (15, 30),
-        "salary_xp": (80, 180),
+        "salary_coins": (75, 150),
+        "salary_xp": (160, 360),
         "perks": [
             "+35 HP máximos permanentes",
             "Pode usar `defender reino` em invasões de monstros",
@@ -3658,6 +3718,124 @@ MAP_LOCATIONS = {
             {"id": "celestial_alem", "name": "🌌 Além do Trono", "type": "dungeon_secreta", "discovered": False},
             {"id": "celestial_raiz", "name": "✨ Raiz da Criação", "type": "dungeon_secreta", "discovered": False},
             {"id": "celestial_arquivo", "name": "📜 Arquivo do Destino", "type": "lore", "discovered": False},
+        ]
+    },
+    62: {
+        "world_name": "💧 Pântano Eterno",
+        "locations": [
+            {"id": "pantano_aldeia", "name": "🛖 Aldeia dos Sobreviventes", "type": "cidade", "discovered": True},
+            {"id": "pantano_coracao", "name": "🌑 Coração do Pântano", "type": "dungeon_secreta", "discovered": False},
+            {"id": "pantano_templo", "name": "💀 Templo Afundado de Morthak", "type": "dungeon_secreta", "discovered": False},
+            {"id": "pantano_rio", "name": "🌿 Rio das Águas Negras", "type": "recurso", "discovered": False},
+        ]
+    },
+    70: {
+        "world_name": "💎 Montanhas dos Cristais",
+        "locations": [
+            {"id": "cristal_fortaleza", "name": "🏔️ Fortaleza dos Cristais", "type": "cidade", "discovered": True},
+            {"id": "cristal_nucleo", "name": "🌟 Núcleo Cristalino Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "cristal_camara", "name": "💠 Câmara do Diamante Negro", "type": "dungeon_secreta", "discovered": False},
+            {"id": "cristal_mina", "name": "⛏️ Mina Profunda dos Cristais", "type": "recurso", "discovered": False},
+            {"id": "cristal_boss", "name": "💎 Sala do Cristal Vivo", "type": "boss_local", "discovered": False},
+        ]
+    },
+    80: {
+        "world_name": "🌑 Reino das Trevas Eternas",
+        "locations": [
+            {"id": "trevas_cidadela", "name": "🏰 Cidadela das Sombras", "type": "cidade", "discovered": True},
+            {"id": "trevas_dungeon", "name": "🌑 Trevas Infinitas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trevas_lich", "name": "💀 Cripta do Lich Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trevas_boss", "name": "👑 Trono das Sombras", "type": "boss_local", "discovered": False},
+        ]
+    },
+    90: {
+        "world_name": "⚡ Planalto das Tempestades",
+        "locations": [
+            {"id": "tempestade_base", "name": "⛺ Acampamento do Relâmpago", "type": "cidade", "discovered": True},
+            {"id": "tempestade_dungeon1", "name": "🌩️ Câmara da Tempestade Eterna", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tempestade_dungeon2", "name": "⚡ Fonte do Primeiro Relâmpago", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tempestade_boss", "name": "🌪️ Olho da Tempestade", "type": "boss_local", "discovered": False},
+        ]
+    },
+    100: {
+        "world_name": "🌍 Terra Antiga dos Titãs",
+        "locations": [
+            {"id": "titã_cidade", "name": "🏛️ Cidade dos Antigos", "type": "cidade", "discovered": True},
+            {"id": "titã_dungeon1", "name": "🌍 Câmara da Terra Antiga", "type": "dungeon_secreta", "discovered": False},
+            {"id": "titã_dungeon2", "name": "🗿 Santuário do Primeiro Gigante", "type": "dungeon_secreta", "discovered": False},
+            {"id": "titã_boss", "name": "🌋 Colosseu dos Titãs", "type": "boss_local", "discovered": False},
+        ]
+    },
+    110: {
+        "world_name": "🌊 Abismo Oceânico Eterno",
+        "locations": [
+            {"id": "oceano_base", "name": "🏝️ Ilha dos Últimos Navegantes", "type": "cidade", "discovered": True},
+            {"id": "oceano_dungeon1", "name": "🌊 Câmara do Oceano Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceano_dungeon2", "name": "🐋 Leito do Leviatã Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceano_boss", "name": "🌀 Vórtice do Fim dos Mares", "type": "boss_local", "discovered": False},
+        ]
+    },
+    120: {
+        "world_name": "🌀 Plano do Caos Primordial",
+        "locations": [
+            {"id": "caos_nexo", "name": "🌀 Nexo do Caos", "type": "cidade", "discovered": True},
+            {"id": "caos_dungeon1", "name": "🌀 Câmara do Caos Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "caos_dungeon2", "name": "♾️ Portal do Caos Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "caos_boss", "name": "💥 Centro do Caos em Pessoa", "type": "boss_local", "discovered": False},
+        ]
+    },
+    130: {
+        "world_name": "🌸 Jardim da Primeira Flor",
+        "locations": [
+            {"id": "jardim_sanctum", "name": "🌸 Sanctum da Primeira Flor", "type": "cidade", "discovered": True},
+            {"id": "jardim_dungeon1", "name": "🌺 Câmara da Primeira Flor", "type": "dungeon_secreta", "discovered": False},
+            {"id": "jardim_dungeon2", "name": "🌿 Jardim Proibido", "type": "dungeon_secreta", "discovered": False},
+            {"id": "jardim_boss", "name": "🌳 Árvore da Criação", "type": "boss_local", "discovered": False},
+        ]
+    },
+    140: {
+        "world_name": "❄️ Reino do Gelo Primordial",
+        "locations": [
+            {"id": "gelo_trono", "name": "🧊 Trono do Gelo Eterno", "type": "cidade", "discovered": True},
+            {"id": "gelo_dungeon1", "name": "❄️ Câmara do Gelo Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "gelo_dungeon2", "name": "💀 Câmara da Extinção Gelada", "type": "dungeon_secreta", "discovered": False},
+            {"id": "gelo_boss", "name": "🌨️ Núcleo do Inverno Primordial", "type": "boss_local", "discovered": False},
+        ]
+    },
+    150: {
+        "world_name": "🏛️ Civilização Proibida",
+        "locations": [
+            {"id": "civpro_ruins", "name": "🏚️ Ruínas da Civilização Proibida", "type": "cidade", "discovered": True},
+            {"id": "civpro_dungeon1", "name": "🏛️ Câmara da Civilização Proibida", "type": "dungeon_secreta", "discovered": False},
+            {"id": "civpro_dungeon2", "name": "⚔️ Arsenal da Arma Final", "type": "dungeon_secreta", "discovered": False},
+            {"id": "civpro_boss", "name": "🤖 Centro de Controle do Rei-Autômato", "type": "boss_local", "discovered": False},
+        ]
+    },
+    160: {
+        "world_name": "🌟 Plano Astral Superior",
+        "locations": [
+            {"id": "astral_portal", "name": "🌟 Portal do Plano Astral", "type": "cidade", "discovered": True},
+            {"id": "astral_dungeon1", "name": "🌌 Câmara do Coração do Cosmos", "type": "dungeon_secreta", "discovered": False},
+            {"id": "astral_dungeon2", "name": "✨ Além da Existência", "type": "dungeon_secreta", "discovered": False},
+            {"id": "astral_boss", "name": "♾️ Trono do Senhor do Plano Astral", "type": "boss_local", "discovered": False},
+        ]
+    },
+    170: {
+        "world_name": "⚫ O Verdadeiro Fim",
+        "locations": [
+            {"id": "fim_portal", "name": "🌑 Portal do Verdadeiro Fim", "type": "cidade", "discovered": True},
+            {"id": "fim_dungeon1", "name": "⚫ Câmara do Verdadeiro Fim", "type": "dungeon_secreta", "discovered": False},
+            {"id": "fim_dungeon2", "name": "♾️ Câmara do Alpha e Omega", "type": "dungeon_secreta", "discovered": False},
+            {"id": "fim_boss", "name": "👁️ Trono do Que Existe Além de Tudo", "type": "boss_local", "discovered": False},
+        ]
+    },
+    180: {
+        "world_name": "🌌 A Origem",
+        "locations": [
+            {"id": "origem_nexo", "name": "🌌 Nexo da Criação", "type": "cidade", "discovered": True},
+            {"id": "origem_dungeon1", "name": "💠 Câmara do Caos Eterno Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "origem_dungeon2", "name": "🌈 Câmara do Jardim Final", "type": "dungeon_secreta", "discovered": False},
+            {"id": "origem_boss", "name": "✨ Trono do Criador Primordial", "type": "boss_local", "discovered": False},
         ]
     },
 }
@@ -4697,7 +4875,7 @@ WORLDS = {
             "Javali Jovem": {"xp": (13, 23), "hp": 35, "atk": 8, "coins": (2, 5)},
             "Vespa Gigante": {"xp": (12, 22), "hp": 22, "atk": 7, "coins": (1, 4)}
         },
-        "boss": {"name": "Slime Rei", "hp": 420, "atk": 38, "xp": 500, "level": 9, "coins": (50, 100)},
+        "boss": {"name": "Slime Rei", "hp": 567, "atk": 49, "xp": 500, "level": 9, "coins": (50, 100)},
         "resources": ["Pedra fraca", "Grama mágica", "Couro de rato", "Flor silvestre", "Mel selvagem"],
         "dungeons": [
             {"name": "Caverna dos Slimes", "level": 1, "boss": "Slime Ancião"},
@@ -4744,7 +4922,7 @@ WORLDS = {
             "Ogro Menor": {"xp": (32, 47), "hp": 80, "atk": 16, "coins": (5, 10)},
             "Espectro Florestal": {"xp": (29, 44), "hp": 55, "atk": 13, "coins": (4, 9)}
         },
-        "boss": {"name": "Ent Ancião", "hp": 840, "atk": 63, "xp": 900, "level": 19, "coins": (100, 200)},
+        "boss": {"name": "Ent Ancião", "hp": 1134, "atk": 81, "xp": 900, "level": 19, "coins": (100, 200)},
         "resources": ["Madeira escura", "Ervas raras", "Pele de lobo", "Teia mágica", "Musgo brilhante"],
         "dungeons": [
             {"name": "Covil dos Goblins", "level": 4, "boss": "Chefe Goblin"},
@@ -4791,7 +4969,7 @@ WORLDS = {
             "Guardião de Tumba": {"xp": (47, 67), "hp": 130, "atk": 24, "coins": (7, 14)},
             "Espírito do Deserto": {"xp": (44, 64), "hp": 105, "atk": 20, "coins": (5, 12)}
         },
-        "boss": {"name": "Faraó Amaldiçoado", "hp": 1400, "atk": 98, "xp": 1400, "level": 29, "coins": (180, 350)},
+        "boss": {"name": "Faraó Amaldiçoado", "hp": 1890, "atk": 127, "xp": 1400, "level": 29, "coins": (180, 350)},
         "resources": ["Areia mágica", "Ossos antigos", "Vendas místicas", "Escaravelho dourado", "Papiro antigo"],
         "dungeons": [
             {"name": "Pirâmide Perdida", "level": 7, "boss": "Faraó Esquecido"},
@@ -4838,7 +5016,7 @@ WORLDS = {
             "Dragão de Gelo Jovem": {"xp": (70, 90), "hp": 200, "atk": 32, "coins": (10, 18)},
             "Elemental de Gelo": {"xp": (67, 87), "hp": 170, "atk": 31, "coins": (8, 16)}
         },
-        "boss": {"name": "Yeti Colossal", "hp": 2100, "atk": 133, "xp": 2000, "level": 39, "coins": (280, 500)},
+        "boss": {"name": "Yeti Colossal", "hp": 2835, "atk": 172, "xp": 2000, "level": 39, "coins": (280, 500)},
         "resources": ["Cristal de gelo", "Minério frio", "Pele de yeti", "Neve eterna", "Gema congelada"],
         "dungeons": [
             {"name": "Caverna Congelada", "level": 10, "boss": "Guardião do Gelo"},
@@ -4885,7 +5063,7 @@ WORLDS = {
             "Hidra de Magma": {"xp": (90, 110), "hp": 250, "atk": 45, "coins": (13, 23)},
             "Fênix Negra": {"xp": (87, 107), "hp": 220, "atk": 43, "coins": (12, 22)}
         },
-        "boss": {"name": "Dragão de Magma", "hp": 3150, "atk": 182, "xp": 2800, "level": 49, "coins": (400, 700)},
+        "boss": {"name": "Dragão de Magma", "hp": 4252, "atk": 236, "xp": 2800, "level": 49, "coins": (400, 700)},
         "resources": ["Pedra vulcânica", "Núcleo de fogo", "Escamas de dragão", "Obsidiana pura", "Cinza sagrada"],
         "dungeons": [
             {"name": "Caldeirão de Lava", "level": 13, "boss": "Senhor do Fogo"},
@@ -4932,7 +5110,7 @@ WORLDS = {
             "Lich": {"xp": (110, 140), "hp": 320, "atk": 55, "coins": (15, 25)},
             "Golem Arcano": {"xp": (107, 137), "hp": 310, "atk": 53, "coins": (14, 24)}
         },
-        "boss": {"name": "Senhor das Sombras", "hp": 4900, "atk": 245, "xp": 4000, "level": 59, "coins": (600, 1000)},
+        "boss": {"name": "Senhor das Sombras", "hp": 6615, "atk": 318, "xp": 4000, "level": 59, "coins": (600, 1000)},
         "resources": ["Essência arcana", "Fragmento sombrio", "Cristal do vazio", "Poeira estelar", "Runa mística"],
         "dungeons": [
             {"name": "Torre Arcana", "level": 16, "boss": "Arquimago Corrupto"},
@@ -4979,7 +5157,7 @@ WORLDS = {
             "Querubim Guerreiro": {"xp": (155, 195), "hp": 480, "atk": 73, "coins": (19, 34)},
             "Arcanjo Negro": {"xp": (160, 200), "hp": 500, "atk": 75, "coins": (20, 35)}
         },
-        "boss": {"name": "Imperador Astral", "hp": 2500, "atk": 100, "xp": 2500, "level": 60, "coins": (80, 160)},
+        "boss": {"name": "Imperador Astral", "hp": 3375, "atk": 130, "xp": 2500, "level": 60, "coins": (80, 160)},
         "resources": ["Essência celestial", "Fragmento estelar", "Coroa divina", "Lágrima de deus", "Pluma sagrada"],
         "dungeons": [
             {"name": "Santuário Celestial", "level": 19, "boss": "Avatar Divino"},
@@ -5027,7 +5205,7 @@ WORLDS = {
             "Bruxo das Trevas Úmidas": {"xp": (185, 225), "hp": 580, "atk": 85, "coins": (25, 44)},
             "Jacaré Arcano": {"xp": (190, 230), "hp": 600, "atk": 88, "coins": (26, 46)}
         },
-        "boss": {"name": "Hidra das Almas", "hp": 8500, "atk": 320, "xp": 6000, "level": 69, "coins": (900, 1600)},
+        "boss": {"name": "Hidra das Almas", "hp": 11475, "atk": 416, "xp": 6000, "level": 69, "coins": (900, 1600)},
         "resources": ["Lama mágica", "Essência pantanosa", "Pele de serpente ancestral", "Cogumelo sombrio", "Raiz corrompida"],
         "dungeons": [
             {"name": "Covil da Hidra Menor", "level": 22, "boss": "Hidra Jovem"},
@@ -5064,7 +5242,7 @@ WORLDS = {
             "Dragão de Quartzo": {"xp": (220, 270), "hp": 700, "atk": 98, "coins": (31, 55)},
             "Guardião de Safira": {"xp": (215, 265), "hp": 680, "atk": 96, "coins": (30, 53)}
         },
-        "boss": {"name": "Senhor dos Cristais", "hp": 12000, "atk": 380, "xp": 8000, "level": 79, "coins": (1100, 2000)},
+        "boss": {"name": "Senhor dos Cristais", "hp": 16200, "atk": 494, "xp": 8000, "level": 79, "coins": (1100, 2000)},
         "resources": ["Cristal puro", "Fragmento de diamante", "Essência cristalina", "Pó de safira", "Núcleo de quartzo"],
         "dungeons": [
             {"name": "Caverna das Gemas Vivas", "level": 25, "boss": "Guardião das Gemas"},
@@ -5100,7 +5278,7 @@ WORLDS = {
             "Demônio das Trevas": {"xp": (255, 305), "hp": 780, "atk": 115, "coins": (36, 65)},
             "Senhor das Sombras Menor": {"xp": (260, 310), "hp": 800, "atk": 118, "coins": (38, 68)}
         },
-        "boss": {"name": "Rei das Sombras Eternas", "hp": 16000, "atk": 450, "xp": 10000, "level": 89, "coins": (1400, 2500)},
+        "boss": {"name": "Rei das Sombras Eternas", "hp": 21600, "atk": 585, "xp": 10000, "level": 89, "coins": (1400, 2500)},
         "resources": ["Essência das trevas", "Cristal da sombra", "Núcleo espectral", "Poeira negra", "Lágrima de espectro"],
         "dungeons": [
             {"name": "Torre do Vazio", "level": 28, "boss": "Arquimago das Trevas"},
@@ -5136,7 +5314,7 @@ WORLDS = {
             "Titã do Vento": {"xp": (285, 335), "hp": 900, "atk": 132, "coins": (45, 78)},
             "Dragão do Trovão": {"xp": (290, 340), "hp": 920, "atk": 135, "coins": (46, 80)}
         },
-        "boss": {"name": "Zeus Menor, o Trovejante", "hp": 20000, "atk": 520, "xp": 12000, "level": 99, "coins": (1700, 3000)},
+        "boss": {"name": "Zeus Menor, o Trovejante", "hp": 27000, "atk": 676, "xp": 12000, "level": 99, "coins": (1700, 3000)},
         "resources": ["Essência do trovão", "Cristal elétrico", "Pena de grifo", "Núcleo da tempestade", "Relâmpago engarrafado"],
         "dungeons": [
             {"name": "Fortaleza da Tempestade", "level": 31, "boss": "Lorde da Tempestade"},
@@ -5172,7 +5350,7 @@ WORLDS = {
             "Colosso Antigo": {"xp": (330, 390), "hp": 1150, "atk": 160, "coins": (58, 100)},
             "Gigante de Gelo e Fogo": {"xp": (340, 400), "hp": 1200, "atk": 165, "coins": (60, 105)}
         },
-        "boss": {"name": "Primeiro Gigante Primordial", "hp": 25000, "atk": 600, "xp": 15000, "level": 109, "coins": (2000, 3500)},
+        "boss": {"name": "Primeiro Gigante Primordial", "hp": 33750, "atk": 780, "xp": 15000, "level": 109, "coins": (2000, 3500)},
         "resources": ["Osso de gigante", "Pedra colossal", "Couro de titã", "Essência primordial", "Cinza de colossus"],
         "dungeons": [
             {"name": "Fortaleza Colossal", "level": 34, "boss": "Guardião Colossus"},
@@ -5208,7 +5386,7 @@ WORLDS = {
             "Fantasma Marinho": {"xp": (365, 435), "hp": 1250, "atk": 172, "coins": (63, 112)},
             "Guardião das Profundezas": {"xp": (370, 440), "hp": 1350, "atk": 178, "coins": (67, 118)}
         },
-        "boss": {"name": "Leviatã das Almas", "hp": 30000, "atk": 680, "xp": 18000, "level": 119, "coins": (2300, 4000)},
+        "boss": {"name": "Leviatã das Almas", "hp": 40500, "atk": 884, "xp": 18000, "level": 119, "coins": (2300, 4000)},
         "resources": ["Escama de leviatã", "Pérola das profundezas", "Essência oceânica", "Coral mágico", "Água das almas"],
         "dungeons": [
             {"name": "Navio Fantasma", "level": 37, "boss": "Capitão Espectral"},
@@ -5244,7 +5422,7 @@ WORLDS = {
             "Paradoxo Vivo": {"xp": (430, 510), "hp": 1500, "atk": 200, "coins": (75, 132)},
             "Contradição Manifesta": {"xp": (440, 520), "hp": 1550, "atk": 205, "coins": (78, 136)}
         },
-        "boss": {"name": "O Caos em Pessoa", "hp": 38000, "atk": 780, "xp": 22000, "level": 129, "coins": (2800, 4800)},
+        "boss": {"name": "O Caos em Pessoa", "hp": 51300, "atk": 1014, "xp": 22000, "level": 129, "coins": (2800, 4800)},
         "resources": ["Essência caótica", "Fragmento de paradoxo", "Cristal do vazio caótico", "Pó dimensional", "Runa do caos"],
         "dungeons": [
             {"name": "Nexo Caótico", "level": 40, "boss": "Guardião do Nexo"},
@@ -5280,7 +5458,7 @@ WORLDS = {
             "Serafim Caído": {"xp": (490, 580), "hp": 1750, "atk": 230, "coins": (90, 160)},
             "Querubim Corrompido": {"xp": (500, 590), "hp": 1800, "atk": 235, "coins": (93, 165)}
         },
-        "boss": {"name": "Jardineiro Divino", "hp": 46000, "atk": 880, "xp": 26000, "level": 139, "coins": (3300, 5600)},
+        "boss": {"name": "Jardineiro Divino", "hp": 62100, "atk": 1144, "xp": 26000, "level": 139, "coins": (3300, 5600)},
         "resources": ["Pétala divina", "Semente celestial", "Néctar dos deuses", "Espinho sagrado", "Raiz do paraíso"],
         "dungeons": [
             {"name": "Labirinto do Paraíso", "level": 43, "boss": "Guardião do Labirinto"},
@@ -5316,7 +5494,7 @@ WORLDS = {
             "Elemental do Gelo Eterno": {"xp": (550, 650), "hp": 2050, "atk": 260, "coins": (102, 182)},
             "Rainha das Banshees": {"xp": (560, 660), "hp": 2100, "atk": 265, "coins": (105, 186)}
         },
-        "boss": {"name": "Imperadora do Gelo Eterno", "hp": 55000, "atk": 980, "xp": 30000, "level": 149, "coins": (3800, 6500)},
+        "boss": {"name": "Imperadora do Gelo Eterno", "hp": 74250, "atk": 1274, "xp": 30000, "level": 149, "coins": (3800, 6500)},
         "resources": ["Gelo eterno", "Cristal do frio absoluto", "Fragmento glacial divino", "Alma congelada", "Núcleo do inverno eterno"],
         "dungeons": [
             {"name": "Fortaleza do Gelo Eterno", "level": 46, "boss": "General Glacial"},
@@ -5352,7 +5530,7 @@ WORLDS = {
             "Arma Viva Abandonada": {"xp": (610, 720), "hp": 2350, "atk": 290, "coins": (115, 205)},
             "Espírito do Inventor": {"xp": (620, 730), "hp": 2400, "atk": 295, "coins": (118, 210)}
         },
-        "boss": {"name": "Rei-Autômato da Civilização Perdida", "hp": 65000, "atk": 1100, "xp": 35000, "level": 159, "coins": (4400, 7500)},
+        "boss": {"name": "Rei-Autômato da Civilização Perdida", "hp": 87750, "atk": 1430, "xp": 35000, "level": 159, "coins": (4400, 7500)},
         "resources": ["Engrenagem arcana", "Metal da era perdida", "Cristal de memória", "Runa esquecida", "Núcleo de construto"],
         "dungeons": [
             {"name": "Fábrica de Golens Arcanos", "level": 49, "boss": "Mestre Construtor"},
@@ -5388,7 +5566,7 @@ WORLDS = {
             "Viajante entre Mundos": {"xp": (680, 800), "hp": 2650, "atk": 325, "coins": (130, 230)},
             "Avatar Astral": {"xp": (690, 810), "hp": 2700, "atk": 330, "coins": (133, 235)}
         },
-        "boss": {"name": "Senhor do Plano Astral", "hp": 78000, "atk": 1250, "xp": 42000, "level": 169, "coins": (5200, 9000)},
+        "boss": {"name": "Senhor do Plano Astral", "hp": 105300, "atk": 1625, "xp": 42000, "level": 169, "coins": (5200, 9000)},
         "resources": ["Essência astral pura", "Cristal da consciência", "Fragmento cósmico", "Luz das estrelas mortas", "Núcleo astral"],
         "dungeons": [
             {"name": "Nexo das Consciências", "level": 52, "boss": "Mente Coletiva"},
@@ -5424,7 +5602,7 @@ WORLDS = {
             "Destino em Forma": {"xp": (750, 890), "hp": 3050, "atk": 365, "coins": (145, 260)},
             "O Fim Personificado": {"xp": (760, 900), "hp": 3100, "atk": 370, "coins": (148, 265)}
         },
-        "boss": {"name": "O Que Existe Além de Tudo", "hp": 95000, "atk": 1450, "xp": 52000, "level": 179, "coins": (6200, 10800)},
+        "boss": {"name": "O Que Existe Além de Tudo", "hp": 128250, "atk": 1885, "xp": 52000, "level": 179, "coins": (6200, 10800)},
         "resources": ["Essência do nada", "Fragmento do além", "Cristal da não-existência", "Pó do antes do começo", "Núcleo da possibilidade"],
         "dungeons": [
             {"name": "Câmara do Nada Absoluto", "level": 55, "boss": "Guardião do Nada"},
@@ -5460,7 +5638,7 @@ WORLDS = {
             "Conceito de Divindade": {"xp": (860, 1020), "hp": 3800, "atk": 450, "coins": (175, 308)},
             "A Própria Criação": {"xp": (880, 1040), "hp": 3900, "atk": 460, "coins": (180, 316)}
         },
-        "boss": {"name": "O Criador Primordial", "hp": 150000, "atk": 2000, "xp": 80000, "level": 200, "coins": (10000, 18000)},
+        "boss": {"name": "O Criador Primordial", "hp": 202500, "atk": 2600, "xp": 80000, "level": 200, "coins": (10000, 18000)},
         "resources": ["Essência da criação", "Fragmento primordial puro", "Cristal do antes do começo", "Luz da primeira estrela", "Semente de universo"],
         "dungeons": [
             {"name": "Câmara do Primeiro Ser", "level": 58, "boss": "O Primeiro Ser"},
@@ -8769,6 +8947,31 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         return
 
     else:  # roll == 10
+        # Boss só aparece em 35% dos roll==10 (reduz frequência excessiva)
+        if not is_secret and random.random() > 0.35:
+            # Sem boss — dá item bom em vez disso
+            item_type = random.choice(["weapon", "armor"])
+            item_list = "weapons" if item_type == "weapon" else "armor"
+            epic_pool = [i for i in ITEMS[item_list] if i["rarity"] in ["Épico", "Lendário"]]
+            item = random.choice(epic_pool) if epic_pool else random.choice(ITEMS[item_list])
+            xp_base = random.randint(150, 280)
+            coins_base = random.randint(20, 50)
+            xp = int(xp_base * level_mult)
+            coins = int(coins_base * level_mult)
+            leveled = add_xp(user_id, xp)
+            add_coins(user_id, coins)
+            rarity_info = RARITIES.get(item["rarity"], RARITIES["Épico"])
+            embed.add_field(
+                name="💎 Câmara do Tesouro Oculta!",
+                value=f"*'No fundo da dungeon, você encontra uma câmara escondida...'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP** | 💰 **+{coins} CSI**",
+                inline=False
+            )
+            player = get_player(user_id)
+            player["inventory"].append(item["name"])
+            save_player_db(user_id, player)
+            embed.color = rarity_info["color"]
+            await channel.send(embed=embed)
+            return
         if is_secret:
             boss_power_msgs = [
                 "👁️ *Uma entidade primordial abre os olhos. Ela existia antes do tempo.*",
@@ -8791,24 +8994,33 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         await asyncio.sleep(2)
 
         # Boss de dungeon secreta é MUITO mais forte
+        player_level = player.get("level", 1)
         if is_secret:
             special_drop_rarity = dungeon.get("special_boss_drop", "Mítico")
+            # Escala fortemente pelo nível do jogador
             boss_data = {
                 "name": dungeon["boss"],
-                "hp": int((800 + dungeon["level"] * 150) * level_mult),
-                "atk": int((60 + dungeon["level"] * 10) * level_mult),
-                "xp": int((2000 + dungeon["level"] * 300) * level_mult),
-                "coins": (int((60 + dungeon["level"] * 8) * level_mult), int((150 + dungeon["level"] * 15) * level_mult)),
-                "special_drop_rarity": special_drop_rarity,  # Boss especial garante drop desta raridade
+                "hp":   int((player_level * 180 + dungeon["level"] * 300) * level_mult),
+                "atk":  int((player_level * 8  + dungeon["level"] * 20)  * level_mult),
+                "xp":   int((2000 + dungeon["level"] * 300 + player_level * 50) * level_mult),
+                "coins": (
+                    int((60 + dungeon["level"] * 10 + player_level * 3) * level_mult),
+                    int((150 + dungeon["level"] * 20 + player_level * 6) * level_mult)
+                ),
+                "special_drop_rarity": special_drop_rarity,
                 "is_secret_boss": True
             }
         else:
+            # Boss comum de dungeon — agora escala pelo nível do jogador também
             boss_data = {
                 "name": dungeon["boss"],
-                "hp": 200 + (dungeon["level"] * 50),
-                "atk": 20 + (dungeon["level"] * 3),
-                "xp": 150 + (dungeon["level"] * 40),
-                "coins": (10 + dungeon["level"] * 2, 25 + dungeon["level"] * 4)
+                "hp":   player_level * 120 + dungeon["level"] * 80,
+                "atk":  player_level * 5  + dungeon["level"] * 8,
+                "xp":   250 + dungeon["level"] * 60 + player_level * 15,
+                "coins": (
+                    20 + dungeon["level"] * 5  + player_level * 2,
+                    60 + dungeon["level"] * 10 + player_level * 4
+                )
             }
         await fight_boss(channel, user_id, is_dungeon=True, dungeon_boss=boss_data)
         return
@@ -11155,10 +11367,10 @@ async def on_message(message):
         elif roll == 9:
             item_type = random.choice(["weapon", "armor"])
             item_list = "weapons" if item_type == "weapon" else "armor"
-            rarity = random.choices(["Incomum", "Raro", "Épico"], weights=[55, 35, 10])[0]
+            rarity = random.choices(["Incomum", "Raro", "Épico"], weights=[40, 40, 20])[0]
             items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
             item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
-            xp = random.randint(60, 100)
+            xp = random.randint(80, 140)
             leveled = add_xp(user_id, xp)
             rarity_info = RARITIES[item["rarity"]]
             embed.add_field(
@@ -11170,6 +11382,22 @@ async def on_message(message):
                 player = get_player(user_id)
                 embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
             embed.color = rarity_info["color"]
+            # Chance de dungeon secreta no 9 (15%)
+            secret_dungeons_avail = world.get("secret_dungeons", [])
+            if secret_dungeons_avail and random.random() < 0.15:
+                secret_dungeon = random.choice(secret_dungeons_avail)
+                await message.channel.send(embed=embed)
+                await asyncio.sleep(1)
+                player_now = get_player(user_id)
+                player_now["inventory"].append(item["name"])
+                save_player_db(user_id, player_now)
+                view = DungeonSelectButton(user_id, [secret_dungeon], world)
+                await message.channel.send(f"🔮 **Você encontrou uma entrada oculta: {secret_dungeon['name']}!** Deseja explorar?", view=view)
+                await check_level_boss(message.channel, user_id)
+                return
+            player_now = get_player(user_id)
+            player_now["inventory"].append(item["name"])
+            save_player_db(user_id, player_now)
             await message.channel.send(embed=embed)
             await asyncio.sleep(1)
             view = EquipButton(user_id, item["name"], item_type)
@@ -11182,7 +11410,7 @@ async def on_message(message):
             item_list = "weapons" if item_type == "weapon" else "armor"
             epic_pool = [i for i in ITEMS[item_list] if i["rarity"] in ["Raro", "Épico", "Lendário"]]
             item = random.choice(epic_pool) if epic_pool else random.choice(ITEMS[item_list])
-            xp = random.randint(120, 200)
+            xp = random.randint(150, 250)
             leveled = add_xp(user_id, xp)
             embed.add_field(
                 name="🌟 EVENTO LENDÁRIO!",
@@ -11193,6 +11421,25 @@ async def on_message(message):
                 player = get_player(user_id)
                 embed.add_field(name="🆙 Ascensão!", value=f"**Nível {player['level']}**", inline=False)
             embed.color = discord.Color.gold()
+            # Chance de dungeon secreta no 10 (30%)
+            secret_dungeons_avail = world.get("secret_dungeons", [])
+            if secret_dungeons_avail and random.random() < 0.30:
+                secret_dungeon = random.choice(secret_dungeons_avail)
+                await message.channel.send(embed=embed)
+                await asyncio.sleep(1)
+                player_now = get_player(user_id)
+                player_now["inventory"].append(item["name"])
+                save_player_db(user_id, player_now)
+                view_eq = EquipButton(user_id, item["name"], item_type)
+                await message.channel.send(f"🌟 **{item['name']}** pulsa com poder!\n*Deseja equipar?*", view=view_eq)
+                await asyncio.sleep(1)
+                view_sd = DungeonSelectButton(user_id, [secret_dungeon], world)
+                await message.channel.send(f"🔮 **Você encontrou uma entrada oculta: {secret_dungeon['name']}!** Deseja explorar?", view=view_sd)
+                await check_level_boss(message.channel, user_id)
+                return
+            player_now = get_player(user_id)
+            player_now["inventory"].append(item["name"])
+            save_player_db(user_id, player_now)
             await message.channel.send(embed=embed)
             await asyncio.sleep(1)
             view = EquipButton(user_id, item["name"], item_type)
@@ -11248,8 +11495,8 @@ async def on_message(message):
             embed.color = discord.Color.dark_red()
 
         elif roll <= 5:
-            xp = random.randint(monster["xp"][0], monster["xp"][0] + 5)
-            coins = random.randint(monster["coins"][0], monster["coins"][1])
+            xp = random.randint(monster["xp"][0], monster["xp"][0] + 5) * 2
+            coins = random.randint(monster["coins"][0], monster["coins"][1]) * 2
             dmg = random.randint(5, 15)
             player = get_player(user_id)
             player["hp"] -= dmg
@@ -11267,13 +11514,13 @@ async def on_message(message):
             embed.color = discord.Color.orange()
 
         elif roll <= 7:
-            xp = random.randint(monster["xp"][0], monster["xp"][1])
-            coins = random.randint(monster["coins"][0], monster["coins"][1])
+            xp = random.randint(monster["xp"][0], monster["xp"][1]) * 3
+            coins = random.randint(monster["coins"][0], monster["coins"][1]) * 3
             leveled = add_xp(user_id, xp)
             add_coins(user_id, coins)
             # Chance de drop de poção (baixa)
             drop_potion = None
-            if random.random() < 0.05:
+            if random.random() < 0.10:
                 potion_list = [name for name, data in POTIONS.items() if data["rarity"] in ["Comum", "Incomum"]]
                 drop_potion = random.choice(potion_list)
                 p2 = get_player(user_id)
@@ -11309,8 +11556,8 @@ async def on_message(message):
                         save_player_db(user_id, player)
 
         else:  # 8-10
-            xp = random.randint(monster["xp"][1], monster["xp"][1] + 15)
-            coins = random.randint(monster["coins"][1], monster["coins"][1] + 5)
+            xp = random.randint(monster["xp"][1], monster["xp"][1] + 15) * 4
+            coins = random.randint(monster["coins"][1], monster["coins"][1] + 5) * 4
             leveled = add_xp(user_id, xp)
             add_coins(user_id, coins)
 
@@ -11913,38 +12160,71 @@ async def on_message(message):
     elif content.startswith("treinar "):
         player = get_player(user_id)
         training_key = content[8:].strip().lower()
+
+        # Detectar multiplicador: "treinar força 10x" ou "treinar intensivo 20x"
+        multiplier = 1
+        for suffix in ["20x", "10x"]:
+            if training_key.endswith(f" {suffix}"):
+                multiplier = int(suffix[:-1])
+                training_key = training_key[: -(len(suffix) + 1)].strip()
+                break
+
         opt = TRAINING_OPTIONS.get(training_key)
         if not opt:
             opts_list = " | ".join([f"`treinar {k}`" for k in TRAINING_OPTIONS])
-            await message.channel.send(f"❌ Tipo de treino inválido!\n\nOpções disponíveis: {opts_list}")
+            await message.channel.send(
+                f"❌ Tipo de treino inválido!\n\nOpções disponíveis: {opts_list}\n\n"
+                f"💡 **Treino múltiplo:** `treinar força 10x` | `treinar intensivo 20x`"
+            )
             return
-        cost = opt["cost"]
-        if player["coins"] < cost:
-            await message.channel.send(f"❌ Você não tem CSI suficiente! Precisa de `{cost:,}` mas tem `{player['coins']:,}`.")
+
+        # Custo escala com training_points: base + (training_points * 1 a 5 coins por treino)
+        training_done = player.get("training_points", 0)
+        base_cost = opt["cost"]
+        scaling = min(training_done * 3, 500)  # +3 CSI por treino feito, máximo +500
+        cost_per = base_cost + scaling
+        total_cost = cost_per * multiplier
+
+        if player["coins"] < total_cost:
+            await message.channel.send(
+                f"❌ Você não tem CSI suficiente!\n"
+                f"Custo: `{total_cost:,}` CSI ({multiplier}× `{cost_per:,}`) | Você tem: `{player['coins']:,}`\n"
+                f"*O preço sobe a cada treino realizado (+3 CSI por treino acumulado)*"
+            )
             return
-        player["coins"] -= cost
+
+        player["coins"] -= total_cost
         boosts = []
+        for _ in range(multiplier):
+            if opt.get("atk_boost"):
+                player["temp_atk_boost"] = player.get("temp_atk_boost", 0) + opt["atk_boost"]
+            if opt.get("def_boost"):
+                player["temp_def_boost"] = player.get("temp_def_boost", 0) + opt["def_boost"]
+            if opt.get("hp_boost"):
+                player["temp_hp_boost"] = player.get("temp_hp_boost", 0) + opt["hp_boost"]
+                player["max_hp"] = player.get("max_hp", 100) + opt["hp_boost"]
+                player["hp"] = min(player["hp"] + opt["hp_boost"], player["max_hp"])
+
         if opt.get("atk_boost"):
-            player["temp_atk_boost"] = player.get("temp_atk_boost", 0) + opt["atk_boost"]
-            boosts.append(f"+{opt['atk_boost']} ATK")
+            boosts.append(f"+{opt['atk_boost'] * multiplier} ATK")
         if opt.get("def_boost"):
-            player["temp_def_boost"] = player.get("temp_def_boost", 0) + opt["def_boost"]
-            boosts.append(f"+{opt['def_boost']} DEF")
+            boosts.append(f"+{opt['def_boost'] * multiplier} DEF")
         if opt.get("hp_boost"):
-            player["temp_hp_boost"] = player.get("temp_hp_boost", 0) + opt["hp_boost"]
-            player["max_hp"] = player.get("max_hp", 100) + opt["hp_boost"]
-            player["hp"] = min(player["hp"] + opt["hp_boost"], player["max_hp"])
-            boosts.append(f"+{opt['hp_boost']} HP Max")
-        training_count = player.get("training_points", 0) + 1
+            boosts.append(f"+{opt['hp_boost'] * multiplier} HP Max")
+
+        training_count = player.get("training_points", 0) + multiplier
         player["training_points"] = training_count
         save_player_db(user_id, player)
+
+        mult_txt = f" ×{multiplier}" if multiplier > 1 else ""
         embed = discord.Embed(
-            title=f"💪 Treino Completo!",
-            description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}** realizado!\n\n📈 **Melhorias permanentes:** {', '.join(boosts)}\n💰 **Custo:** −{cost:,} CSI",
+            title=f"💪 Treino{mult_txt} Completo!",
+            description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}**{mult_txt} realizado!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{total_cost:,} CSI",
             color=discord.Color.green()
         )
-        embed.add_field(name="📊 Novos Stats", value=f"⚔️ ATK Bônus: +{player.get('temp_atk_boost',0)}\n🛡️ DEF Bônus: +{player.get('temp_def_boost',0)}\n❤️ HP Max Extra: +{player.get('temp_hp_boost',0)}", inline=False)
-        embed.set_footer(text=f"Treinos realizados: {training_count}")
+        embed.add_field(name="📊 Stats Bônus Totais", value=f"⚔️ ATK: +{player.get('temp_atk_boost',0)}\n🛡️ DEF: +{player.get('temp_def_boost',0)}\n❤️ HP Max: +{player.get('temp_hp_boost',0)}", inline=True)
+        embed.add_field(name="📈 Próximo custo", value=f"`{base_cost + min((training_count)*3, 500):,}` CSI por treino", inline=True)
+        embed.set_footer(text=f"Treinos realizados: {training_count} | Use 'treinar força 10x' para treinos em massa")
         await message.channel.send(embed=embed)
         if training_count >= 10:
             await check_achievements(message.channel, user_id, "training_10")
@@ -12809,9 +13089,10 @@ async def handle_new_commands(message):
         # Send current to farm
         if current:
             cur_name = current if isinstance(current, str) else current.get("name", "?")
-            # Find current pet data to store in farm
+            # Find current pet data in PETS and PETS_EXTRA to preserve rarity/bonuses
             cur_pet_obj = {"name": cur_name, "emoji": "🐾", "rarity": "Comum", "bonus_hp": 0, "bonus_atk": 0}
-            for world_pets in PETS.values():
+            all_pet_sources = list(PETS.values()) + list(PETS_EXTRA.values())
+            for world_pets in all_pet_sources:
                 for pp in world_pets:
                     if pp["name"] == cur_name:
                         cur_pet_obj = {**pp, "evo_stage": 1, "pet_xp": 0}
@@ -12821,9 +13102,10 @@ async def handle_new_commands(message):
         player["pet_farm"] = pfarm
         player["pet"] = new_active_name
         save_player_db(uid, player)
-        # Find new pet data for display
+        # Find new pet data for display — check PETS and PETS_EXTRA
         new_pet_data = found
-        for world_pets in PETS.values():
+        all_pet_sources = list(PETS.values()) + list(PETS_EXTRA.values())
+        for world_pets in all_pet_sources:
             for pp in world_pets:
                 if pp["name"] == new_active_name:
                     new_pet_data = pp
@@ -13085,19 +13367,22 @@ async def handle_new_commands(message):
         await message.channel.send(embed=embed, view=view)
 
     # ===== ABRIR MAPA =====
-    elif content in ["abrir mapa", "mapa", "meu mapa", "ver mapa"]:
+    elif content in ["abrir mapa", "mapa", "meu mapa", "ver mapa", "mapa 1"]:
         player = get_player(uid)
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
         player_map = get_player_map(player)
         embed = discord.Embed(
-            title="🗺️ Mapa do Mundo",
-            description="Locais descobertos durante sua jornada. Use `viajar <nome do local>` para se locomover.",
+            title="🗺️ Mapa do Mundo — Parte 1 (Reinos 1–60)",
+            description="Locais descobertos durante sua jornada. Use `viajar <local>` para se locomover.\n*Use `mapa 2` para ver os reinos além do nível 60!*",
             color=discord.Color.blue()
         )
         current_world = max(player.get("worlds", [1]))
+        worlds_shown = 0
         for world_id, wdata in player_map.items():
+            if world_id > 60:
+                continue
             locs_text = ""
             for loc in wdata["locations"]:
                 if loc.get("visible"):
@@ -13118,7 +13403,56 @@ async def handle_new_commands(message):
                     value=locs_text or "_Nenhum local descoberto_",
                     inline=False
                 )
-        embed.set_footer(text="💡 Dica: Explore com `explorar` para descobrir novos locais!")
+                worlds_shown += 1
+        if worlds_shown == 0:
+            embed.add_field(name="🗺️ Mapa Vazio", value="Explore para descobrir novos locais!", inline=False)
+        embed.set_footer(text="💡 Use `mapa 2` para reinos avançados (nível 60+) | Explore com `explorar`!")
+        await message.channel.send(embed=embed)
+
+    elif content in ["mapa 2", "abrir mapa 2", "ver mapa 2", "mapa avançado"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        player_map = get_player_map(player)
+        embed = discord.Embed(
+            title="🗺️ Mapa do Mundo — Parte 2 (Reinos 60+)",
+            description="Reinos avançados além do nível 60. *Use `mapa` para ver os reinos iniciais.*",
+            color=discord.Color.dark_purple()
+        )
+        current_world = max(player.get("worlds", [1]))
+        worlds_shown = 0
+        for world_id, wdata in player_map.items():
+            if world_id <= 60:
+                continue
+            locs_text = ""
+            for loc in wdata["locations"]:
+                if loc.get("visible"):
+                    type_icons = {
+                        "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
+                        "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
+                        "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
+                    }
+                    icon = type_icons.get(loc["type"], "📍")
+                    marker = "📌" if world_id == current_world else ""
+                    locs_text += f"{icon} {loc['name']} {marker}\n"
+                else:
+                    locs_text += f"❓ *Local Desconhecido*\n"
+            if locs_text:
+                current_marker = " ← **AQUI**" if world_id == current_world else ""
+                embed.add_field(
+                    name=f"{wdata['world_name']}{current_marker}",
+                    value=locs_text or "_Nenhum local descoberto_",
+                    inline=False
+                )
+                worlds_shown += 1
+        if worlds_shown == 0:
+            embed.add_field(
+                name="🔒 Reinos Bloqueados",
+                value="*Você ainda não alcançou os reinos avançados (nível 60+).*\n\nContinue sua jornada para desbloquear estes territórios!",
+                inline=False
+            )
+        embed.set_footer(text="Use `mapa` para reinos iniciais | `viajar <local>` para se locomover")
         await message.channel.send(embed=embed)
 
     # ===== VIAJAR =====
@@ -15287,29 +15621,18 @@ async def handle_forjar_fusao(message):
     RARITY_CHAIN = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
     RARITY_NEXT = {RARITY_CHAIN[i]: RARITY_CHAIN[i+1] for i in range(len(RARITY_CHAIN)-1)}
 
-    # Contar itens no inventário por raridade
+    # Contar itens no inventário por raridade — usa ITEMS (weapons + armor)
     inventory = player.get("inventory", [])
     rarity_counts = {}
-    item_by_rarity = {}
 
-    # Verificar armas e armaduras equipadas e no inventário
-    all_items_data = {}
-    for world_data in WORLDS.values():
-        for item_list_key in ["items"]:
-            for item in world_data.get(item_list_key, []):
-                all_items_data[item["name"]] = item
+    all_equip = ITEMS["weapons"] + ITEMS["armor"]
+    all_equip_by_name = {i["name"]: i for i in all_equip}
 
-    # Contar itens do inventário por raridade
     for item_name in inventory:
-        for world_data in WORLDS.values():
-            for item in world_data.get("items", []):
-                if item["name"] == item_name:
-                    r = item.get("rarity", "Comum")
-                    rarity_counts[r] = rarity_counts.get(r, 0) + 1
-                    if r not in item_by_rarity:
-                        item_by_rarity[r] = []
-                    item_by_rarity[r].append(item_name)
-                    break
+        item_data = all_equip_by_name.get(item_name)
+        if item_data:
+            r = item_data.get("rarity", "Comum")
+            rarity_counts[r] = rarity_counts.get(r, 0) + 1
 
     # Mostrar painel de fusão
     embed = discord.Embed(
@@ -15335,9 +15658,9 @@ async def handle_forjar_fusao(message):
                 next_r = RARITY_NEXT.get(r, "—")
                 fusible = "✅ Pode fundir!" if count >= 5 else f"❌ Faltam {5-count} para fundir"
                 inv_text += f"{emoji} **{r}**: `{count}` itens → {fusible}\n"
-        embed.add_field(name="📦 Seus Itens por Raridade", value=inv_text or "_Nenhum_", inline=False)
+        embed.add_field(name="📦 Seus Equipamentos por Raridade", value=inv_text or "_Nenhum_", inline=False)
     else:
-        embed.add_field(name="📦 Inventário", value="_Você não tem itens suficientes para fundir!_", inline=False)
+        embed.add_field(name="📦 Inventário", value="_Você não tem armas ou armaduras para fundir!\nComplete dungeons e explore para conseguir equipamentos._", inline=False)
 
     embed.set_footer(text="Use 'fundir [raridade]' para iniciar a fusão | Ex: 'fundir lendário'")
     await message.channel.send(embed=embed)
@@ -15386,56 +15709,44 @@ async def handle_fundir_raridade(message):
     RARITY_CHAIN = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
     RARITY_NEXT = {RARITY_CHAIN[i]: RARITY_CHAIN[i+1] for i in range(len(RARITY_CHAIN)-1)}
 
-    # Coletar itens do inventário com a raridade especificada
+    # Coletar itens do inventário com a raridade especificada — usa ITEMS real
     inventory = player.get("inventory", [])
-    matching_items = []
+    all_equip = ITEMS["weapons"] + ITEMS["armor"]
+    all_equip_by_name = {i["name"]: i for i in all_equip}
 
-    for item_name in inventory:
-        for world_data in WORLDS.values():
-            for item in world_data.get("items", []):
-                if item["name"] == item_name and item.get("rarity", "Comum") == rarity:
-                    matching_items.append(item_name)
-                    break
+    matching_items = [
+        item_name for item_name in inventory
+        if all_equip_by_name.get(item_name, {}).get("rarity", "") == rarity
+    ]
 
     if len(matching_items) < 5:
         await message.channel.send(
-            f"❌ Você precisa de pelo menos **5 itens {rarity}** para fundir!\n"
-            f"Você tem: **{len(matching_items)}** itens {RARITIES.get(rarity,{}).get('emoji','')} {rarity}"
+            f"❌ Você precisa de pelo menos **5 equipamentos {rarity}** para fundir!\n"
+            f"Você tem: **{len(matching_items)}** {RARITIES.get(rarity,{}).get('emoji','')} {rarity}\n\n"
+            f"*Dica: Complete dungeons, explore e caçe para conseguir mais equipamentos.*"
         )
         return
 
     # Remover 5 itens do inventário
     removed = 0
-    new_inventory = []
-    for item_name in inventory:
-        found_in_matching = item_name in matching_items and removed < 5
-        if found_in_matching and removed < 5:
+    new_inventory = list(inventory)
+    for item_name in matching_items[:5]:
+        if item_name in new_inventory:
+            new_inventory.remove(item_name)
             removed += 1
-            matching_items.remove(item_name)
-        else:
-            new_inventory.append(item_name)
 
     # Rolar resultado
     roll = random.random()
     next_rarity = RARITY_NEXT.get(rarity)
 
+    # Pool de itens da raridade alvo — de ITEMS real
+    def get_items_of_rarity(target_rarity):
+        return [i["name"] for i in (ITEMS["weapons"] + ITEMS["armor"]) if i.get("rarity") == target_rarity]
+
     if roll < 0.60 and next_rarity:
-        # Sucesso! Gerar item de raridade superior
-        resultado = "sucesso"
-        # Encontrar um item da próxima raridade
-        possible_items = []
-        for world_data in WORLDS.values():
-            for item in world_data.get("items", []):
-                if item.get("rarity") == next_rarity:
-                    possible_items.append(item["name"])
-
-        if possible_items:
-            new_item = random.choice(possible_items)
-        else:
-            # Fallback: criar um item genérico
-            new_item = f"Fragmento {next_rarity}"
+        possible = get_items_of_rarity(next_rarity)
+        new_item = random.choice(possible) if possible else f"Fragmento {next_rarity}"
         new_inventory.append(new_item)
-
         embed = discord.Embed(
             title="✨ FUSÃO BEM-SUCEDIDA!",
             description=f"*'As chamas da forja rugem! Os cinco itens se fundem em um só!'*",
@@ -15446,23 +15757,12 @@ async def handle_fundir_raridade(message):
             value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → {RARITIES.get(next_rarity,{}).get('emoji','')} **{new_item}** ({next_rarity})",
             inline=False
         )
-        embed.add_field(name="🎉 Parabéns!", value=f"Item **{next_rarity}** adicionado ao inventário!", inline=False)
+        embed.add_field(name="🎉 Parabéns!", value=f"**{new_item}** ({next_rarity}) adicionado ao inventário!\nUse `equipar {new_item}` para equipar.", inline=False)
 
     elif roll < 0.85:
-        # Item de mesma raridade (menor)
-        resultado = "parcial"
-        possible_items = []
-        for world_data in WORLDS.values():
-            for item in world_data.get("items", []):
-                if item.get("rarity") == rarity:
-                    possible_items.append(item["name"])
-        if possible_items:
-            new_item = random.choice(possible_items)
-            new_inventory.append(new_item)
-        else:
-            new_item = f"Fragmento {rarity}"
-            new_inventory.append(new_item)
-
+        possible = get_items_of_rarity(rarity)
+        new_item = random.choice(possible) if possible else f"Fragmento {rarity}"
+        new_inventory.append(new_item)
         embed = discord.Embed(
             title="⚠️ FUSÃO PARCIAL",
             description=f"*'A forja tremeu. Os itens se fundiram, mas algo foi perdido no processo...'*",
@@ -15470,14 +15770,12 @@ async def handle_fundir_raridade(message):
         )
         embed.add_field(
             name="⚒️ Resultado",
-            value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → {RARITIES.get(rarity,{}).get('emoji','')} **{new_item}** ({rarity} — qualidade reduzida)",
+            value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → {RARITIES.get(rarity,{}).get('emoji','')} **{new_item}** ({rarity})",
             inline=False
         )
         embed.add_field(name="💡 Dica", value="Tente novamente! As chances de sucesso total são **60%**.", inline=False)
 
     else:
-        # Falha — todos destruídos
-        resultado = "falha"
         embed = discord.Embed(
             title="💀 FUSÃO FRACASSADA!",
             description=f"*'Uma explosão de energia. Os itens se dissolvem em pó dourado... e somem.'*",
@@ -15488,12 +15786,11 @@ async def handle_fundir_raridade(message):
             value=f"5× {RARITIES.get(rarity,{}).get('emoji','')} **{rarity}** → ❌ **Todos destruídos!**",
             inline=False
         )
-        embed.add_field(name="😔 Azar...", value="Os itens foram perdidos na fusão. Colete mais e tente novamente!", inline=False)
+        embed.add_field(name="😔 Azar...", value="Os equipamentos foram perdidos. Colete mais e tente novamente!", inline=False)
 
     player["inventory"] = new_inventory
     save_player_db(uid, player)
-
-    embed.set_footer(text=f"Ferreiro {message.author.display_name} | Fusão de itens {rarity}")
+    embed.set_footer(text=f"Ferreiro {message.author.display_name} | Fusão de {rarity}")
     await message.channel.send(embed=embed)
 
 
