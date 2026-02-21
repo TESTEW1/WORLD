@@ -13,7 +13,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.guilds = True
-#
+
 bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 # ================= CONFIG =================
@@ -2031,7 +2031,7 @@ MONSTER_DROPS = {
 
 # ================= SISTEMA DE CHAVES DE DUNGEON SECRETA =================
 # Chaves são dropadas de baús nas dungeons comuns e desbloqueiam dungeons secretas
-DUNGEON_KEY_DROP_CHANCE = 0.001  # 0.1% de sorte — chave também cai a cada 20 dungeons completadas
+DUNGEON_KEY_DROP_CHANCE = 0.08  # 8% de sorte — chave também cai a cada 5 dungeons completadas
 
 def get_world_secret_dungeon_keys(world_data):
     """Retorna lista de chaves de dungeons secretas do mundo atual."""
@@ -6455,6 +6455,8 @@ def release_pending_xp(user_id):
     return 0
 
 def distribute_guild_xp(guild_id, amount):
+    """Distribui apenas 5% do XP ganho para os demais membros da guilda (nerf)."""
+    shared = max(1, int(amount * 0.05))  # 5% do XP original, mínimo 1
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute("SELECT members FROM guilds WHERE id = ?", (guild_id,))
@@ -6465,7 +6467,7 @@ def distribute_guild_xp(guild_id, amount):
         for member_id in members:
             member = get_player(member_id)
             if member:
-                member["xp"] += amount
+                member["xp"] += shared
                 while member["xp"] >= calc_xp(member["level"]):
                     member["xp"] -= calc_xp(member["level"])
                     member["level"] += 1
@@ -8654,24 +8656,40 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             player["inventory"].append(potion_dropped)
             save_player_db(user_id, player)
 
-        # ─── DROP DE CHAVE EM DUNGEON COMUM (1 a cada 20 dungeons ou 0.1% de sorte) ──
+        # ─── DROP DE CHAVE EM DUNGEON COMUM (1 a cada 5 dungeons ou 8% de sorte) ──
         if not is_secret:
             player_for_key = get_player(user_id)
             dungeons_done = player_for_key.get("dungeons_completed", 0) + 1
             player_for_key["dungeons_completed"] = dungeons_done
             save_player_db(user_id, player_for_key)
-            key_by_count = (dungeons_done % 20 == 0)  # a cada 20 dungeons
-            key_by_luck = random.random() < DUNGEON_KEY_DROP_CHANCE  # 0.1%
+            key_by_count = (dungeons_done % 5 == 0)   # garantido a cada 5 dungeons
+            key_by_luck  = random.random() < DUNGEON_KEY_DROP_CHANCE  # 8%
             if key_by_count or key_by_luck:
+                # Tenta pegar secret_dungeons do mundo atual; se não tiver, busca qualquer mundo
                 secret_dungeons = world.get("secret_dungeons", [])
+                if not secret_dungeons:
+                    for w_data in WORLDS.values():
+                        sds = w_data.get("secret_dungeons", [])
+                        if sds:
+                            secret_dungeons = sds
+                            break
                 if secret_dungeons:
                     chosen_sd = random.choice(secret_dungeons)
                     key_name = chosen_sd.get("key_name", "")
+                    if not key_name:
+                        key_name = chosen_sd.get("name", "Chave Misteriosa") + " — Chave"
                     if key_name:
                         player = get_player(user_id)
                         player["inventory"].append(key_name)
                         save_player_db(user_id, player)
                         key_dropped = key_name
+                else:
+                    # Fallback: drop de chave genérica se nenhum mundo tiver secret_dungeons
+                    key_name = "Chave da Dungeon Secreta"
+                    player = get_player(user_id)
+                    player["inventory"].append(key_name)
+                    save_player_db(user_id, player)
+                    key_dropped = key_name
 
         chest_bonus = ""
         if potion_dropped:
