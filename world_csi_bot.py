@@ -6791,6 +6791,7 @@ def create_player(user_id):
         "last_defend": 0,
         "bio": "",
         "last_force_entry": 0,
+        "job_works": {},
     }
     save_player_db(user_id, player)
     return player
@@ -18340,7 +18341,6 @@ async def handle_definir_bio(message):
     content_lower = content.lower()
     uid = str(message.author.id)
 
-    # Apagar bio
     if content_lower in ["apagar bio", "apagar biografia", "limpar bio"]:
         player = get_player(uid)
         if not player:
@@ -18353,7 +18353,6 @@ async def handle_definir_bio(message):
         )
         return
 
-    # Ver bio
     if content_lower in ["ver bio", "minha biografia"]:
         player = get_player(uid)
         if not player:
@@ -18374,7 +18373,6 @@ async def handle_definir_bio(message):
             await message.channel.send(embed=embed)
         return
 
-    # Definir bio
     bio_prefixes = ["definir bio ", "definir biografia ", "minha bio "]
     matched_prefix = None
     for prefix in bio_prefixes:
@@ -18432,7 +18430,7 @@ async def handle_definir_bio(message):
         color=discord.Color.teal()
     )
     embed.set_thumbnail(url=message.author.display_avatar.url)
-    embed.set_footer(text="Sua bio aparece em 'ver perfil' | Use 'apagar bio' para remover")
+    embed.set_footer(text="Sua bio já aparece em 'ver perfil' | Use 'apagar bio' para remover")
     await message.channel.send(embed=embed)
 
 
@@ -18448,7 +18446,6 @@ async def handle_forcar_entrada(message):
     content_lower = content.lower()
     uid = str(message.author.id)
 
-    # Mostrar ajuda/lista
     if content_lower in ["forçar entrada", "forcar entrada", "invadir dungeon"]:
         player = get_player(uid)
         if not player:
@@ -18498,7 +18495,6 @@ async def handle_forcar_entrada(message):
         await message.channel.send(embed=embed)
         return
 
-    # Tentar forçar entrada
     force_prefixes = ["forçar entrada ", "forcar entrada ", "invadir dungeon "]
     matched_prefix = None
     for prefix in force_prefixes:
@@ -18523,7 +18519,6 @@ async def handle_forcar_entrada(message):
         )
         return
 
-    # Cooldown de 1 hora
     now = time.time()
     last_force = player.get("last_force_entry", 0)
     cooldown_secs = 3600
@@ -18538,7 +18533,6 @@ async def handle_forcar_entrada(message):
         )
         return
 
-    # Procura dungeon secreta pelo nome em todos os mundos
     import re as _re
     found_dungeon = None
     found_world_data = None
@@ -18563,7 +18557,6 @@ async def handle_forcar_entrada(message):
         )
         return
 
-    # Calcula chance de sucesso
     player_level = player.get("level", 1)
     atk = player.get("atk", 10)
     def_stat = player.get("def", 5)
@@ -18579,14 +18572,12 @@ async def handle_forcar_entrada(message):
     roll = random.randint(1, 100)
     sucesso = roll <= chance
 
-    # Registra cooldown antes de tudo
     player["last_force_entry"] = now
     save_player_db(uid, player)
 
     dungeon_name = found_dungeon["name"]
     boss_name = found_dungeon.get("boss", "Boss Desconhecido")
 
-    # ---- FALHA ----
     if not sucesso:
         max_hp = player.get("max_hp", 100)
         dano_pct = random.uniform(0.30, 0.60)
@@ -18602,7 +18593,6 @@ async def handle_forcar_entrada(message):
             "*'A porta permanece fechada. Mas a armadilha escondida no portal não.'*",
             "*'Você força a entrada... e paga o preço com seu próprio sangue.'*",
         ]
-
         embed = discord.Embed(
             title=f"💥 FALHA AO FORÇAR ENTRADA — {dungeon_name}",
             description=random.choice(mensagens_falha),
@@ -18616,7 +18606,6 @@ async def handle_forcar_entrada(message):
         await message.channel.send(embed=embed)
         return
 
-    # ---- SUCESSO ----
     mensagens_sucesso = [
         "*'Com um grito de guerra, você arrebenta a porta e entra na escuridão!'*",
         "*'Sua determinação supera as runas de proteção — a porta cede!'*",
@@ -18624,7 +18613,6 @@ async def handle_forcar_entrada(message):
         "*'O próprio Boss lá dentro deve ter sentido o impacto. Você está dentro!'*",
         "*'As correntes mágicas se partem sob sua força bruta. Caminho aberto!'*",
     ]
-
     embed = discord.Embed(
         title=f"💥 ENTRADA FORÇADA — {dungeon_name}!",
         description=random.choice(mensagens_sucesso),
@@ -18636,8 +18624,754 @@ async def handle_forcar_entrada(message):
     embed.set_footer(text="Nenhuma chave foi consumida. Boa sorte na dungeon!")
     await message.channel.send(embed=embed)
     await asyncio.sleep(2)
-
     await explore_dungeon(message.channel, uid, found_dungeon, found_world_data)
+
+
+# ================= HANDLER: COMANDOS EXCLUSIVOS DOS EMPREGOS =================
+@bot.listen("on_message")
+async def handle_job_commands(message):
+    """
+    Implementa todos os comandos exclusivos de cada emprego:
+    Arcano:     estudar magia, biblioteca arcana
+    Curandeiro: curar aliado @user
+    Mercador:   mercado negro, negociar [item]
+    Escriba:    crônica [texto], mapear, ler arquivo, ver biblioteca
+    Cavaleiro:  patrulhar
+    Guarda_Real:defender reino
+    Rei:        governar, decretar lei [texto], nomear cavaleiro @user
+    """
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
+
+    content = message.content.strip()
+    content_lower = content.lower()
+    uid = str(message.author.id)
+
+    def _get_job_level(player, job):
+        jd = JOBS.get(job, {})
+        job_works = player.get("job_works", {})
+        job_work_count = job_works.get(job, 0)
+        job_levels = jd.get("levels", {})
+        job_level = 1
+        for lvl_num in sorted(job_levels.keys(), reverse=True):
+            req = job_levels[lvl_num].get("req_work", 0)
+            if job_work_count >= req:
+                job_level = lvl_num
+                break
+        return job_level, job_levels.get(job_level, {})
+
+    # ============================
+    # ARCANO: estudar magia
+    # ============================
+    if content_lower in ["estudar magia", "estudar feitiço", "estudar feitico"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Arcano":
+            await message.channel.send("🔮 Apenas **Arcanos** podem estudar magia!\nUse `procurar emprego` para se tornar um Arcano.")
+            return
+        last_study = player.get("last_study_magic", 0)
+        now = time.time()
+        if now - last_study < 1800:
+            rest = int(1800 - (now - last_study))
+            await message.channel.send(f"📚 Seu cérebro ainda processa os estudos anteriores. Próximo estudo em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Arcano")
+        xp_gain = random.randint(200, 500) * job_level
+        mana_gain = random.randint(5, 15) * job_level
+        player["last_study_magic"] = now
+        cur_mana = player.get("mana", 50)
+        max_mana = player.get("max_mana", 50)
+        player["mana"] = min(max_mana, cur_mana + mana_gain)
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        msgs = [
+            "📖 Você decifra um feitiço antigo que ninguém mais sabia pronunciar.",
+            "✨ Uma teoria arcana toma forma na sua mente — brilhante e perigosa.",
+            "🔮 Os cristais do laboratório brilham enquanto sua compreensão aprofunda.",
+            "💫 Você conecta dois feitiços aparentemente opostos numa síntese surpreendente.",
+            "🌀 Uma anomalia arcana surge no pergaminho — você a estuda em vez de fugir.",
+        ]
+        embed = discord.Embed(
+            title="🔮 Estudar Magia — Sessão Concluída",
+            description=random.choice(msgs),
+            color=discord.Color.purple()
+        )
+        embed.add_field(name="⭐ XP Arcano", value=f"`+{xp_gain}` XP", inline=True)
+        embed.add_field(name="💙 Mana Recuperada", value=f"`+{mana_gain}` mana", inline=True)
+        embed.add_field(name="📊 Nível Arcano", value=f"`{job_level}/3` — {lvl_data.get('name','Arcano')}", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text="Próximo estudo em 30 minutos | Use 'biblioteca arcana' para lore exclusivo")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ARCANO: biblioteca arcana
+    # ============================
+    if content_lower in ["biblioteca arcana", "ver biblioteca arcana", "lore arcano"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Arcano":
+            await message.channel.send("🔮 A biblioteca arcana é restrita aos **Arcanos**.\nUse `procurar emprego` para se tornar um.")
+            return
+        job_level, _ = _get_job_level(player, "Arcano")
+        lore_entries = [
+            ("📜 O Primeiro Feitiço", "Antes da linguagem, havia o Verbo Arcano. Diz-se que o primeiro mago não aprendeu magia — ele a inventou. Seu nome foi apagado de todos os registros, mas sua obra persiste em cada feitiço que existe."),
+            ("🌀 O Paradoxo do Vazio", "O Vazio não é ausência de magia — é magia em seu estado mais puro, antes da forma. Entrar no Vazio é possível; sair é opcional."),
+            ("💠 As Sete Leis Arcanas", "Lei 1: Toda magia tem um custo. Lei 2: O custo nunca é o que você espera. Lei 3: Feitiços esquecidos não desaparecem — esperam. Lei 4: A mente é o primeiro e último campo de batalha. Lei 5: Nenhum encantamento é permanente, exceto os feitos com sangue. Lei 6: O nome verdadeiro de algo lhe dá poder sobre ele. Lei 7: A Lei 7 não pode ser escrita."),
+            ("🔮 O Abismo e o Arquimago", "O Arquimago Valdren passou 40 anos estudando o Abismo. No 41º ano, o Abismo começou a estudá-lo. O que restou foi encontrado em pedaços — cada pedaço em um continente diferente."),
+            ("✨ Magia Elementar Avançada", "Fogo não é calor — é transformação. Água não é fluidez — é memória. Terra não é solidez — é paciência. Ar não é movimento — é possibilidade. O Quinto Elemento é a consciência de quem lança o feitiço."),
+        ]
+        if job_level >= 2:
+            lore_entries += [
+                ("🚫 Feitiços Proibidos — Capítulo 1", "A Lista Negra contém 108 feitiços. Os primeiros 50 foram proibidos por serem perigosos. Os próximos 40, por serem eficazes demais. Os últimos 18 foram proibidos porque não se sabe o que fazem — e ninguém que os usou voltou para explicar."),
+                ("👁️ O Olho que Tudo Vê", "Existe uma criatura no plano astral que observa cada uso de magia no mundo. Ela não interfere. Ela apenas... anota. Os Arcanos de nível suficiente às vezes sentem o peso desse olhar durante os estudos."),
+            ]
+        if job_level >= 3:
+            lore_entries += [
+                ("☠️ A Magia do Fim", "Existe um feitiço que pode apagar uma palavra da realidade. Não do idioma — da realidade. Qualquer coisa nomeada por essa palavra deixaria de existir retroativamente. O feitiço foi usado uma vez. Ninguém sabe qual palavra foi apagada — porque ninguém pode se lembrar que ela existia."),
+            ]
+        entry = random.choice(lore_entries)
+        embed = discord.Embed(
+            title=f"📚 Biblioteca Arcana — {entry[0]}",
+            description=entry[1],
+            color=discord.Color.dark_purple()
+        )
+        embed.set_footer(text=f"Arcano nível {job_level}/3 | Novos textos a cada consulta | Use 'estudar magia' para XP")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # CURANDEIRO: curar aliado
+    # ============================
+    if content_lower.startswith("curar aliado") or content_lower.startswith("curar @"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Curandeiro":
+            await message.channel.send("💚 Apenas **Curandeiros** podem curar aliados!\nUse `procurar emprego`.")
+            return
+        if not message.mentions:
+            await message.channel.send(
+                "💚 **Curar Aliado**\n\n"
+                "**Uso:** `curar aliado @jogador`\n"
+                "**Exemplo:** `curar aliado @Sr.Reality`\n\n"
+                "*Cura uma porção do HP máximo do aliado.*"
+            )
+            return
+        last_heal = player.get("last_heal_ally", 0)
+        now = time.time()
+        if now - last_heal < 600:
+            rest = int(600 - (now - last_heal))
+            await message.channel.send(f"💚 Suas mãos ainda brilham da última cura. Próxima em **{rest//60}m {rest%60}s**.")
+            return
+        target = message.mentions[0]
+        if target.id == message.author.id:
+            await message.channel.send("💚 Você não pode se curar com esta habilidade! Use `usar poção` para se curar.")
+            return
+        target_player = get_player(str(target.id))
+        if not target_player:
+            await message.channel.send(f"❌ **{target.display_name}** não tem personagem criado.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Curandeiro")
+        hp_regen = lvl_data.get("hp_regen_bonus", 10)
+        base_cure = int(target_player["max_hp"] * 0.20) + (hp_regen * job_level)
+        if job_level >= 3 and random.random() < 0.25:
+            base_cure = target_player["max_hp"]
+            full_heal = True
+        else:
+            full_heal = False
+        old_hp = target_player["hp"]
+        target_player["hp"] = min(target_player["max_hp"], old_hp + base_cure)
+        save_player_db(str(target.id), target_player)
+        player["last_heal_ally"] = now
+        save_player_db(uid, player)
+        msgs = [
+            f"💚 Suas mãos brilham sobre **{target.display_name}**. A energia de cura flui como um rio.",
+            f"🌿 Ervas e magia combinadas fazem as feridas de **{target.display_name}** fecharem.",
+            f"⚕️ Com precisão cirúrgica, você restaura a vitalidade de **{target.display_name}**.",
+            f"✨ A luz da cura envolve **{target.display_name}** por completo.",
+        ]
+        embed = discord.Embed(
+            title="💚 Cura de Aliado",
+            description=random.choice(msgs),
+            color=discord.Color.green()
+        )
+        embed.add_field(name="🎯 Aliado", value=f"**{target.display_name}**", inline=True)
+        embed.add_field(name="❤️ HP Restaurado", value=f"`+{target_player['hp'] - old_hp}` HP", inline=True)
+        embed.add_field(name="❤️ HP Atual do Aliado", value=f"`{target_player['hp']}/{target_player['max_hp']}`", inline=True)
+        if full_heal:
+            embed.add_field(name="✨ CURA SAGRADA!", value="*Nível 3 ativado — cura completa instantânea!*", inline=False)
+        embed.set_footer(text=f"Curandeiro nível {job_level}/3 | Próxima cura em 10 minutos")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # MERCADOR: mercado negro
+    # ============================
+    if content_lower in ["mercado negro", "mercado vip", "loja secreta"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Mercador":
+            await message.channel.send("💰 O **Mercado Negro** é exclusivo dos **Mercadores**!\nUse `procurar emprego` para se tornar um.")
+            return
+        job_level, _ = _get_job_level(player, "Mercador")
+        last_black = player.get("last_black_market", 0)
+        now = time.time()
+        if now - last_black < 3600:
+            rest = int(3600 - (now - last_black))
+            await message.channel.send(f"🕵️ O mercador misterioso ainda não voltou. Tente em **{rest//60}m {rest%60}s**.")
+            return
+        # Itens disponíveis no mercado negro
+        black_market_items = [
+            {"name": "🗝️ Chave Sombria", "price": 150, "desc": "Abre dungeons secretas de trevas"},
+            {"name": "💊 Elixir Proibido", "price": 200, "desc": "+50 HP máximo permanente (item único)"},
+            {"name": "📜 Pergaminho Maldito", "price": 120, "desc": "+30% XP por 1 hora"},
+            {"name": "🗡️ Adaga Venenosa", "price": 300, "desc": "Arma rara do mercado subterrâneo"},
+            {"name": "💎 Gema do Abismo", "price": 400, "desc": "Recurso extremamente raro"},
+            {"name": "🧪 Poção de Invisibilidade", "price": 180, "desc": "Evita combate obrigatório uma vez"},
+        ]
+        if job_level >= 2:
+            black_market_items += [
+                {"name": "⚔️ Lâmina do Mercado Negro", "price": 600, "desc": "Arma épica exclusiva"},
+                {"name": "🔮 Orbe de Poder", "price": 500, "desc": "+100 Mana máxima permanente"},
+            ]
+        if job_level >= 3:
+            black_market_items += [
+                {"name": "👑 Coroa do Submundo", "price": 1500, "desc": "Artefato lendário exclusivo de magnatas"},
+            ]
+        player["last_black_market"] = now
+        save_player_db(uid, player)
+
+        sell_bonus = JOBS["Mercador"]["levels"].get(job_level, {}).get("sell_bonus", 0.25)
+        embed = discord.Embed(
+            title="🕵️ Mercado Negro — Itens Exclusivos",
+            description=(
+                f"*'Psst... você conhece as pessoas certas.'*\n\n"
+                f"Como Mercador nível **{job_level}/3**, você tem acesso a {len(black_market_items)} itens exclusivos.\n"
+                f"Bônus de venda atual: **+{int(sell_bonus*100)}%**\n\n"
+                f"**Itens disponíveis:**"
+            ),
+            color=discord.Color.dark_gold()
+        )
+        for item in black_market_items:
+            embed.add_field(
+                name=f"{item['name']} — {item['price']} 💰",
+                value=item['desc'],
+                inline=True
+            )
+        embed.set_footer(text="Use 'comprar [nome do item]' para adquirir | Mercado refresca a cada hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # MERCADOR: negociar [item]
+    # ============================
+    if content_lower.startswith("negociar "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Mercador":
+            await message.channel.send("💰 Apenas **Mercadores** sabem negociar profissionalmente!\nUse `procurar emprego`.")
+            return
+        item_name = content[9:].strip()
+        if not item_name:
+            await message.channel.send(
+                "💰 **Negociar**\n\n"
+                "**Uso:** `negociar [nome do item]`\n"
+                "**Exemplo:** `negociar Poção de Cura`\n\n"
+                "*Reduz o preço de compra de um item em 20–40%.*"
+            )
+            return
+        job_level, _ = _get_job_level(player, "Mercador")
+        desconto_pct = random.randint(20, 40) + (job_level * 5)
+        msgs = [
+            f"🤝 Sua lábia funciona! **{item_name}** agora custa **{desconto_pct}% menos** nesta compra.",
+            f"💬 Você envolve o vendedor numa conversa e arranca um desconto de **{desconto_pct}%** em **{item_name}**.",
+            f"📊 Sua análise de mercado convence o lojista a baixar **{desconto_pct}%** no preço de **{item_name}**.",
+        ]
+        player["active_effects"] = player.get("active_effects", {})
+        player["active_effects"]["negociar_desconto"] = {
+            "item": item_name.lower(),
+            "pct": desconto_pct,
+            "expires": int(time.time()) + 600
+        }
+        save_player_db(uid, player)
+        embed = discord.Embed(
+            title="🤝 Negociação Bem-sucedida!",
+            description=random.choice(msgs),
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="💸 Desconto", value=f"`{desconto_pct}%` no próximo **{item_name}**", inline=True)
+        embed.add_field(name="⏳ Válido por", value="`10 minutos`", inline=True)
+        embed.set_footer(text="Use 'comprar' dentro de 10 min para aplicar o desconto")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ESCRIBA: crônica
+    # ============================
+    if content_lower.startswith("crônica ") or content_lower.startswith("cronica "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📜 Apenas **Escribas** podem escrever crônicas!\nUse `procurar emprego`.")
+            return
+        prefix_len = 8 if content_lower.startswith("crônica ") else 8
+        texto = content[prefix_len:].strip()
+        if not texto:
+            await message.channel.send(
+                "📜 **Crônica**\n\n"
+                "**Uso:** `crônica [texto da crônica]`\n"
+                "**Exemplo:** `crônica Hoje venci um dragão nas montanhas do norte...`\n\n"
+                "*Registre suas aventuras e ganhe XP bônus! Mínimo 20 caracteres.*"
+            )
+            return
+        if len(texto) < 20:
+            await message.channel.send(f"📜 Crônica muito curta! Escreva pelo menos 20 caracteres ({len(texto)} escritos).")
+            return
+        last_cronica = player.get("last_cronica", 0)
+        now = time.time()
+        if now - last_cronica < 3600:
+            rest = int(3600 - (now - last_cronica))
+            await message.channel.send(f"📜 Você já registrou uma crônica recentemente. Próxima em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, _ = _get_job_level(player, "Escriba")
+        xp_bonus = min(len(texto) * 3, 800) * job_level
+        player["last_cronica"] = now
+        cronicas = player.get("cronicas", [])
+        cronicas.append({"texto": texto[:500], "data": int(now)})
+        player["cronicas"] = cronicas[-20:]
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_bonus)
+        embed = discord.Embed(
+            title="📜 Crônica Registrada!",
+            description=f"*\"{texto[:300]}{'...' if len(texto)>300 else ''}\"*",
+            color=discord.Color.orange()
+        )
+        embed.add_field(name="⭐ XP Bônus", value=f"`+{xp_bonus}` XP pela crônica", inline=True)
+        embed.add_field(name="📚 Crônicas Totais", value=f"`{len(cronicas)}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text="Escriba nível " + str(job_level) + "/3 | Próxima crônica em 1 hora | Use 'ver biblioteca' para rever")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ESCRIBA: mapear
+    # ============================
+    if content_lower in ["mapear", "mapear area", "mapear área"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("🗺️ Apenas **Escribas** sabem mapear áreas com precisão!\nUse `procurar emprego`.")
+            return
+        last_map = player.get("last_mapear", 0)
+        now = time.time()
+        if now - last_map < 1800:
+            rest = int(1800 - (now - last_map))
+            await message.channel.send(f"🗺️ Seus mapas ainda estão sendo finalizados. Próximo mapeamento em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, _ = _get_job_level(player, "Escriba")
+        player["last_mapear"] = now
+        xp_gain = random.randint(100, 300) * job_level
+        coins_gain = random.randint(20, 60) * job_level
+        # Chance de revelar dungeon secreta
+        revealed_secret = None
+        world = get_world(player["level"], player)
+        undiscovered = [loc for loc in world.get("locations", []) if not loc.get("discovered", False) and loc.get("type") == "dungeon_secreta"]
+        if undiscovered and random.random() < (0.15 * job_level):
+            revealed_secret = random.choice(undiscovered)
+        save_player_db(uid, player)
+        add_coins(uid, coins_gain)
+        leveled = add_xp(uid, xp_gain)
+        resultados = [
+            "🗺️ Você percorre cada viela e trilha do reino, registrando tudo com precisão absoluta.",
+            "🧭 Sua bússola e pena trabalham em harmonia — o mapa toma forma.",
+            "📐 Cada distância medida, cada curva registrada. Uma obra de cartografia.",
+            "🔍 Você descobre que mapas anteriores estavam errados. Corrigido agora.",
+        ]
+        embed = discord.Embed(
+            title="🗺️ Área Mapeada!",
+            description=random.choice(resultados),
+            color=discord.Color.teal()
+        )
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if revealed_secret:
+            embed.add_field(
+                name="🔍 LOCAL SECRETO DESCOBERTO!",
+                value=f"**{revealed_secret['name']}** foi revelado no mapa!",
+                inline=False
+            )
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text="Próximo mapeamento em 30 minutos | Use 'abrir mapa' para ver locais")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ESCRIBA: ler arquivo
+    # ============================
+    if content_lower in ["ler arquivo", "arquivos secretos", "textos proibidos"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📚 Os arquivos do Escriba são restritos à profissão!\nUse `procurar emprego`.")
+            return
+        job_level, _ = _get_job_level(player, "Escriba")
+        arquivos = [
+            ("📜 A Profecia dos Sete Selos", "Quando o sétimo herói quebrar o sétimo selo, o mundo não terminará — começará. O que vem depois é o que os deuses têm medo de nomear."),
+            ("🗺️ O Mapa do Fim do Mundo", "Existe um local marcado em todos os mapas antigos como 'Aqui Os Dragões Terminam'. Nenhum cartógrafo que foi até lá voltou. Os que quase chegaram descreveram uma porta. A porta estava aberta."),
+            ("📖 Diário do Primeiro Aventureiro", "Dia 1: Saí da aldeia. Dia 47: Encontrei algo que não devia existir. Dia 48: [página rasgada]. Dia 302: Estou de volta. Mas a aldeia... a aldeia sumiu."),
+            ("🔐 O Arquivo dos Nomes Verdadeiros", "Todo ser tem um nome verdadeiro. Pronunciar o nome verdadeiro de algo lhe dá poder absoluto sobre ele. Esta lista contém os nomes verdadeiros de 12 entidades. Onze foram riscados. O décimo segundo está sublinhado três vezes com uma nota: 'NUNCA'."),
+            ("⚔️ Crônicas da Guerra Esquecida", "Houve uma guerra antes da História. Tão devastadora que os vencedores apagaram qualquer registro — inclusive de si mesmos. O que você está lendo são fragmentos que sobreviveram ao apagamento. Isso significa que algo não quis que fossem destruídos."),
+        ]
+        if job_level >= 3:
+            arquivos += [
+                ("☠️ O Texto Proibido de Valdis", "Este texto foi proibido não por ser perigoso, mas por ser preciso. Ele descreve em detalhes a natureza dos deuses: o que eles são, o que eles temem, e como terminam. Ler até o fim é uma escolha irreversível."),
+            ]
+        entry = random.choice(arquivos)
+        embed = discord.Embed(
+            title=f"📚 Arquivo Secreto — {entry[0]}",
+            description=entry[1],
+            color=discord.Color.dark_teal()
+        )
+        embed.set_footer(text=f"Escriba nível {job_level}/3 | Arquivo aleatório a cada leitura | Use 'crônica' para registrar suas descobertas")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ESCRIBA: ver biblioteca (crônicas)
+    # ============================
+    if content_lower in ["ver biblioteca", "minhas cronicas", "minhas crônicas", "ver cronicas"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📚 Apenas **Escribas** têm biblioteca!\nUse `procurar emprego`.")
+            return
+        cronicas = player.get("cronicas", [])
+        scrolls = [i for i in player.get("inventory", []) if isinstance(i, dict) and i.get("type") == "scroll"]
+        npc_records = player.get("npc_records", [])
+        books = player.get("stored_books", [])
+        embed = discord.Embed(
+            title=f"📚 Biblioteca de {message.author.display_name}",
+            description="*O conhecimento acumulado ao longo da sua jornada.*",
+            color=discord.Color.dark_teal()
+        )
+        if cronicas:
+            last = cronicas[-1]
+            embed.add_field(
+                name=f"📜 Última Crônica ({len(cronicas)} total)",
+                value=f"*\"{last['texto'][:200]}{'...' if len(last['texto'])>200 else ''}\"*",
+                inline=False
+            )
+        else:
+            embed.add_field(name="📜 Crônicas", value="*Nenhuma crônica registrada ainda. Use `crônica [texto]`.*", inline=False)
+        embed.add_field(name="📜 Pergaminhos", value=f"`{len(scrolls)}` no inventário", inline=True)
+        embed.add_field(name="👥 NPCs Registrados", value=f"`{len(npc_records)}`", inline=True)
+        embed.add_field(name="📖 Livros Armazenados", value=f"`{len(books)}`", inline=True)
+        embed.set_footer(text="Use 'crônica [texto]' | 'coletar pergaminho' | 'registrar npc' | 'armazenar livro'")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # CAVALEIRO: patrulhar
+    # ============================
+    if content_lower in ["patrulhar", "fazer patrulha", "ronda"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") not in ["Cavaleiro", "Guarda_Real"]:
+            await message.channel.send("⚔️ Apenas **Cavaleiros** e **Guardas Reais** podem patrulhar!\nUse `procurar emprego`.")
+            return
+        last_patrol = player.get("last_patrol", 0)
+        now = time.time()
+        if now - last_patrol < 1200:
+            rest = int(1200 - (now - last_patrol))
+            await message.channel.send(f"🛡️ Você acabou de terminar uma patrulha. Próxima em **{rest//60}m {rest%60}s**.")
+            return
+        job = player.get("job")
+        job_level, lvl_data = _get_job_level(player, job)
+        xp_gain = random.randint(150, 400) * job_level
+        coins_gain = random.randint(30, 80) * job_level
+        # Chance de encontrar invasor
+        encontrou_invasor = random.random() < 0.25
+        player["last_patrol"] = now
+        save_player_db(uid, player)
+        add_coins(uid, coins_gain)
+        leveled = add_xp(uid, xp_gain)
+        msgs_patrol = [
+            "🗡️ Você percorre cada rua e beco do reino. Tudo em paz — por enquanto.",
+            "⚔️ Uma luta no mercado é encerrada com sua simples presença. Respeito merecido.",
+            "🛡️ Você escolta um mercador vulnerável até o portão da cidade. Ele agradece emocionado.",
+            "🏰 A patrulha noturna revela uma brecha no muro sul. Você organiza o reparo.",
+            "👁️ Algo estranho nas sombras do beco 7. Investigado. Nada encontrado. Por ora.",
+        ]
+        embed = discord.Embed(
+            title=f"{'⚔️' if job == 'Cavaleiro' else '🛡️'} Patrulha Concluída",
+            description=random.choice(msgs_patrol),
+            color=discord.Color.blue()
+        )
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if encontrou_invasor:
+            invasor_dano = random.randint(10, 30)
+            player["hp"] = max(1, player.get("hp", 100) - invasor_dano)
+            xp_extra = random.randint(100, 250)
+            save_player_db(uid, player)
+            add_xp(uid, xp_extra)
+            embed.add_field(
+                name="⚠️ INVASOR ENCONTRADO!",
+                value=f"Você encontrou e combateu um invasor!\n`-{invasor_dano} HP` sofrido | `+{xp_extra} XP` extra de combate",
+                inline=False
+            )
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name', job)} nível {job_level}/3 | Próxima patrulha em 20 min | Use 'defender cidade' para invasões")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # GUARDA REAL: defender reino
+    # ============================
+    if content_lower in ["defender reino", "modo defesa", "guardar reino"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Guarda_Real":
+            await message.channel.send("🛡️ Apenas **Guardas Reais** podem ativar o modo de defesa do reino!\nUse `procurar emprego`.")
+            return
+        last_defend_reino = player.get("last_defend_reino", 0)
+        now = time.time()
+        if now - last_defend_reino < 3600:
+            rest = int(3600 - (now - last_defend_reino))
+            await message.channel.send(f"🛡️ Você ainda está em posição de guarda. Próxima defesa em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Guarda_Real")
+        player["last_defend_reino"] = now
+        dano_recebido = random.randint(5, 20) * (3 - job_level + 1)
+        player["hp"] = max(1, player.get("hp", 100) - dano_recebido)
+        xp_gain = random.randint(300, 700) * job_level
+        coins_gain = random.randint(60, 130) * job_level
+        save_player_db(uid, player)
+        add_coins(uid, coins_gain)
+        leveled = add_xp(uid, xp_gain)
+        ameacas = [
+            ("🗡️ Assassino Real", "Um assassino tentou chegar ao trono. Você o interceptou no corredor das sombras."),
+            ("💣 Espião Infiltrado", "Uma espiã disfarçada de serva foi detectada pelo seu instinto aguçado."),
+            ("⚔️ Ataque Surpresa", "Um ataque surpresa na madrugada foi repelido sob seu comando direto."),
+            ("🔮 Mago Renegado", "Um mago renegado tentou lançar um feitiço no salão do trono. Neutralizado."),
+            ("🏹 Arqueiro na Torre", "Um arqueiro estava posicionado na torre norte. Você chegou antes da flecha."),
+        ]
+        ameaca = random.choice(ameacas)
+        embed = discord.Embed(
+            title=f"🛡️ Defesa do Reino — {ameaca[0]}",
+            description=ameaca[1],
+            color=discord.Color.dark_blue()
+        )
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        embed.add_field(name="💔 Dano sofrido", value=f"`-{dano_recebido} HP`", inline=True)
+        embed.add_field(name="❤️ HP atual", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Guarda Real')} nível {job_level}/3 | Próxima defesa em 1 hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # REI: governar
+    # ============================
+    if content_lower in ["governar", "governar reino", "tomar decisão", "tomar decisao"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Rei":
+            await message.channel.send("👑 Apenas **Reis** podem governar!\nUse `me tornar rei` para assumir o trono (nível 30+).")
+            return
+        last_gov = player.get("last_governar", 0)
+        now = time.time()
+        if now - last_gov < 7200:
+            rest = int(7200 - (now - last_gov))
+            await message.channel.send(f"👑 Você já governou recentemente. Próximas decisões em **{rest//60}m {rest%60}s**.")
+            return
+        decisoes = [
+            {
+                "titulo": "📊 Crise Econômica",
+                "desc": "O tesouro está baixo. Como decidir?",
+                "opcoes": [
+                    ("Aumentar impostos (+coins, -popularidade)", 150, 50, -5),
+                    ("Cortar gastos (+pequeno coins, +-)", 60, 100, 0),
+                    ("Abrir rotas de comércio (-tempo, +muito coins)", 200, 200, 5),
+                ]
+            },
+            {
+                "titulo": "⚔️ Conflito nas Fronteiras",
+                "desc": "Uma tribo vizinha ameaça a fronteira.",
+                "opcoes": [
+                    ("Enviar diplomatas (chance paz, +alinhamento)", 0, 150, 10),
+                    ("Reforçar defesas (+DEF, -coins)", -80, 120, 2),
+                    ("Ataque preventivo (-alinhamento, +XP)", 0, 300, -8),
+                ]
+            },
+            {
+                "titulo": "🌾 Colheita Escassa",
+                "desc": "O povo passa fome. Suas reservas estão baixas.",
+                "opcoes": [
+                    ("Distribuir reservas reais (-coins, +popularidade)", -100, 80, 8),
+                    ("Importar alimentos (-muitos coins, +estabilidade)", -200, 50, 3),
+                    ("Ignorar e esperar (nada, -alinhamento)", 0, 30, -10),
+                ]
+            },
+        ]
+        decisao = random.choice(decisoes)
+        opcao_escolhida = random.choice(decisao["opcoes"])
+        coins_delta, xp_gain, align_delta = opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3]
+        player["last_governar"] = now
+        ap = player.get("alignment_points", 0) + align_delta
+        player["alignment_points"] = max(-100, min(100, ap))
+        save_player_db(uid, player)
+        if coins_delta > 0:
+            add_coins(uid, coins_delta)
+        elif coins_delta < 0:
+            player["coins"] = max(0, player.get("coins", 0) + coins_delta)
+            save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        job_level, lvl_data = _get_job_level(player, "Rei")
+        embed = discord.Embed(
+            title=f"👑 Decisão Real — {decisao['titulo']}",
+            description=f"*{decisao['desc']}*\n\n**Decisão tomada:** {opcao_escolhida[0]}",
+            color=discord.Color.gold()
+        )
+        if coins_delta != 0:
+            embed.add_field(name="💰 Tesouro", value=f"`{'+' if coins_delta>0 else ''}{coins_delta}` coins", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="⚖️ Alinhamento", value=f"`{'+' if align_delta>=0 else ''}{align_delta}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Rei')} | Próximas decisões em 2 horas | Use 'decretar lei' para efeitos especiais")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # REI: decretar lei
+    # ============================
+    if content_lower.startswith("decretar lei ") or content_lower.startswith("decretar "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Rei":
+            await message.channel.send("👑 Apenas **Reis** podem decretar leis!\nUse `me tornar rei` (nível 30+).")
+            return
+        lei = content[13:].strip() if content_lower.startswith("decretar lei ") else content[9:].strip()
+        if not lei:
+            await message.channel.send(
+                "👑 **Decretar Lei**\n\n"
+                "**Uso:** `decretar lei [nome da lei]`\n"
+                "**Exemplo:** `decretar lei Todos os monstros pagam pedágio`\n\n"
+                "*Seu decreto terá um efeito especial no reino!*"
+            )
+            return
+        last_decree = player.get("last_decree", 0)
+        now = time.time()
+        if now - last_decree < 14400:
+            rest = int(14400 - (now - last_decree))
+            await message.channel.send(f"📜 Seu último decreto ainda está em vigor. Próximo em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, _ = _get_job_level(player, "Rei")
+        efeitos = [
+            ("🛡️ Proteção Reforçada", "Todo o reino recebe +10% DEF por 2 horas", "def_boost", 0.10),
+            ("💰 Incentivo Econômico", "+15% coins em trabalhos por 2 horas", "coin_boost", 0.15),
+            ("⭐ Decreto de Treinamento", "+20% XP ganho por 2 horas", "xp_boost", 0.20),
+            ("🌿 Lei da Colheita", "+30% recursos coletados por 2 horas", "resource_boost", 0.30),
+        ]
+        efeito = random.choice(efeitos)
+        player["last_decree"] = now
+        player["active_effects"] = player.get("active_effects", {})
+        player["active_effects"][efeito[2]] = {"value": efeito[3], "expires": int(now) + 7200}
+        save_player_db(uid, player)
+        embed = discord.Embed(
+            title=f"📜 DECRETO REAL — *\"{lei}\"*",
+            description=f"*O arauto anuncia seu decreto pelas ruas do reino...*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="⚖️ Lei Decretada", value=f"*\"{lei}\"*", inline=False)
+        embed.add_field(name=f"{efeito[0]}", value=efeito[1], inline=False)
+        embed.add_field(name="⏳ Duração", value="`2 horas`", inline=True)
+        embed.add_field(name="👑 Nível Real", value=f"`{job_level}/3`", inline=True)
+        embed.set_footer(text="Próximo decreto em 4 horas | Use 'governar' para tomar decisões")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # REI: nomear cavaleiro @user
+    # ============================
+    if content_lower.startswith("nomear cavaleiro"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Rei":
+            await message.channel.send("👑 Apenas **Reis** podem nomear cavaleiros!\nUse `me tornar rei` (nível 30+).")
+            return
+        if not message.mentions:
+            await message.channel.send(
+                "👑 **Nomear Cavaleiro**\n\n"
+                "**Uso:** `nomear cavaleiro @jogador`\n"
+                "**Exemplo:** `nomear cavaleiro @Sr.Reality`\n\n"
+                "*Concede o título de Cavaleiro do Reino ao jogador escolhido.*"
+            )
+            return
+        target = message.mentions[0]
+        if target.id == message.author.id:
+            await message.channel.send("👑 Um rei não pode se nomear cavaleiro!")
+            return
+        target_player = get_player(str(target.id))
+        if not target_player:
+            await message.channel.send(f"❌ **{target.display_name}** não tem personagem criado.")
+            return
+        knights = player.get("knights", [])
+        if str(target.id) in knights:
+            await message.channel.send(f"⚔️ **{target.display_name}** já é cavaleiro do seu reino!")
+            return
+        if len(knights) >= 5:
+            await message.channel.send("👑 Você já tem 5 cavaleiros. Máximo atingido!")
+            return
+        knights.append(str(target.id))
+        player["knights"] = knights
+        save_player_db(uid, player)
+        target_player["city_title"] = f"Cavaleiro de {message.author.display_name}"
+        target_player["hp"] = min(target_player["max_hp"], target_player.get("hp", 100) + 30)
+        save_player_db(str(target.id), target_player)
+        embed = discord.Embed(
+            title="⚔️ NOMEAÇÃO REAL!",
+            description=(
+                f"*'Ajoelhe-se, {target.display_name}. Levante-se, Cavaleiro do Reino!'*\n\n"
+                f"Pelo poder real de **{message.author.display_name}**, "
+                f"**{target.display_name}** é agora **Cavaleiro do Reino**!"
+            ),
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="🏅 Título Concedido", value=f"`Cavaleiro de {message.author.display_name}`", inline=True)
+        embed.add_field(name="❤️ HP Bônus", value="`+30 HP` pela honra", inline=True)
+        embed.add_field(name="⚔️ Cavaleiros do Reino", value=f"`{len(knights)}/5`", inline=True)
+        await message.channel.send(embed=embed)
+        return
 
 
 # ================= RUN BOT =================
