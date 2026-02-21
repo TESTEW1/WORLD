@@ -6906,12 +6906,14 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
             class_bonus = CLASSES[player["class"]]["hp_bonus"] // 10
 
         player["max_hp"] += (10 + class_bonus)
-        player["hp"] = player["max_hp"]
+        # NÃO restaurar HP ao máximo — apenas aumenta o cap. Use descansar/poções para recuperar!
+        player["hp"] = min(player["hp"] + (10 + class_bonus), player["max_hp"])
 
         # Atualiza mana ao subir de nível
         new_max_mana = calc_max_mana(player)
         player["max_mana"] = new_max_mana
-        player["mana"] = new_max_mana  # Recupera toda a mana ao subir de nível
+        # Mana também não recupera totalmente — só aumenta o cap
+        player["mana"] = min(player.get("mana", 0) + 10, new_max_mana)
 
         # Verificar desbloqueio livro de feitiços no nível 12
         if player["level"] == 12 and not player.get("spell_book_unlocked"):
@@ -14240,11 +14242,13 @@ async def handle_new_commands(message):
         jd = JOBS[job]
         last_work = player.get("last_work", 0)
         now = int(time.time())
-        cooldown = 1800  # 30 min
+        cooldown = 300  # 5 min
         if now - last_work < cooldown:
             remaining = cooldown - (now - last_work)
+            secs = remaining % 60
             mins = remaining // 60
-            await message.channel.send(f"⏳ Você já trabalhou recentemente! Próximo turno em **{mins} minutos**.")
+            wait_txt = f"{mins}m {secs}s" if mins > 0 else f"{secs}s"
+            await message.channel.send(f"⏳ Você já trabalhou recentemente! Próximo turno em **{wait_txt}**.")
             return
 
         # Determinar nível do emprego
@@ -14340,7 +14344,7 @@ async def handle_new_commands(message):
         if leveled:
             p2 = get_player(uid)
             embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
-        embed.set_footer(text=f"Próximo turno em 30 minutos. | Use 'ver emprego' para detalhes do cargo")
+        embed.set_footer(text=f"Próximo turno em 5 minutos. | Use 'ver emprego' para detalhes do cargo")
         await message.channel.send(embed=embed)
 
     elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
@@ -16733,6 +16737,354 @@ async def handle_forjar_fusao(message):
 
     embed.set_footer(text="Use 'fundir [raridade]' para iniciar a fusão | Ex: 'fundir lendário'")
     await message.channel.send(embed=embed)
+
+
+# ================= RECEITAS DE FORJA MANUAL =================
+FORGE_RECIPES = {
+    # ===== ARMAS =====
+    "Espada de Ferro": {
+        "type": "weapon", "rarity": "Incomum", "atk": 12,
+        "materials": {"Minério de Ferro": 3, "Madeira": 1},
+        "cost": 50, "level_req": 1, "job_req": None,
+        "desc": "Uma espada sólida de ferro. Confiável e resistente."
+    },
+    "Machado de Batalha Forjado": {
+        "type": "weapon", "rarity": "Incomum", "atk": 15,
+        "materials": {"Minério de Ferro": 4, "Couro": 1},
+        "cost": 70, "level_req": 5, "job_req": None,
+        "desc": "Machado balanceado para combate."
+    },
+    "Espada Rúnica": {
+        "type": "weapon", "rarity": "Raro", "atk": 28,
+        "materials": {"Minério de Aço": 4, "Cristal Arcano": 2, "Madeira Élfica": 1},
+        "cost": 200, "level_req": 15, "job_req": "Ferreiro",
+        "desc": "Gravada com runas de poder. Brilha no escuro."
+    },
+    "Katana do Trovão": {
+        "type": "weapon", "rarity": "Raro", "atk": 30,
+        "materials": {"Minério de Aço": 3, "Pedra de Trovão": 2, "Seda Venenosa": 1},
+        "cost": 250, "level_req": 18, "job_req": "Ferreiro",
+        "desc": "Conduz eletricidade em cada corte."
+    },
+    "Lâmina do Eclipse": {
+        "type": "weapon", "rarity": "Épico", "atk": 50,
+        "materials": {"Minério de Mithril": 5, "Essência das Sombras": 3, "Pedra Lunar": 2},
+        "cost": 800, "level_req": 30, "job_req": "Ferreiro",
+        "desc": "Forjada sob eclipse total. Devora a luz ao redor."
+    },
+    "Espada dos Titãs": {
+        "type": "weapon", "rarity": "Épico", "atk": 53,
+        "materials": {"Minério de Titânio": 5, "Osso de Titã": 3, "Núcleo de Fogo": 2},
+        "cost": 900, "level_req": 35, "job_req": "Ferreiro",
+        "desc": "Carregada com a força de um titã derrotado."
+    },
+    "Excalibur Forjada": {
+        "type": "weapon", "rarity": "Lendário", "atk": 105,
+        "materials": {"Minério Sagrado": 10, "Lágrima do Dragão": 5, "Fragmento Celestial": 3, "Essência Divina": 2},
+        "cost": 5000, "level_req": 60, "job_req": "Ferreiro",
+        "desc": "A lâmina sagrada recriada por mãos mestres. Brilha com luz dourada."
+    },
+    "Arma do Cataclismo": {
+        "type": "weapon", "rarity": "Mítico", "atk": 210,
+        "materials": {"Minério do Abismo": 15, "Coração de Dragão Ancião": 5, "Fragmento do Vazio": 5, "Alma Cristalizada": 3},
+        "cost": 20000, "level_req": 90, "job_req": "Ferreiro",
+        "desc": "Uma arma que ameaça rasgar a realidade ao ser empunhada."
+    },
+    "Lâmina da Extinção": {
+        "type": "weapon", "rarity": "Ancestral", "atk": 295,
+        "materials": {"Fragmento Ancestral": 20, "Pó de Estrela Extinta": 8, "Sangue de Dragão Primordial": 5, "Núcleo do Cosmos": 3},
+        "cost": 50000, "level_req": 120, "job_req": "Ferreiro",
+        "desc": "Forjada com o material de uma estrela morta. Existe desde antes dos reinos."
+    },
+    "Vontade Primordial": {
+        "type": "weapon", "rarity": "Primordial", "atk": 820,
+        "materials": {"Essência Primordial": 30, "Fragmento do Início": 10, "Chama Eterna": 7, "Lágrima do Cosmos": 5},
+        "cost": 200000, "level_req": 180, "job_req": "Ferreiro",
+        "desc": "A arma mais poderosa que pode ser criada. Dizem que ela existia antes do tempo."
+    },
+    # ===== ARMADURAS =====
+    "Armadura de Couro Reforçada": {
+        "type": "armor", "rarity": "Incomum", "def": 10,
+        "materials": {"Couro": 4, "Metal Básico": 2},
+        "cost": 60, "level_req": 1, "job_req": None,
+        "desc": "Couro endurecido com reforços metálicos."
+    },
+    "Armadura de Aço": {
+        "type": "armor", "rarity": "Raro", "def": 22,
+        "materials": {"Minério de Aço": 5, "Couro Tratado": 2, "Parafuso de Bronze": 3},
+        "cost": 300, "level_req": 15, "job_req": "Ferreiro",
+        "desc": "Proteção sólida de aço. Boa resistência a cortes e perfurações."
+    },
+    "Armadura Rúnica Forjada": {
+        "type": "armor", "rarity": "Raro", "def": 25,
+        "materials": {"Minério de Aço": 4, "Cristal Arcano": 3, "Pena de Grifo": 2},
+        "cost": 350, "level_req": 20, "job_req": "Ferreiro",
+        "desc": "Runas gravadas concedem resistência mágica adicional."
+    },
+    "Armadura do Dragão Forjada": {
+        "type": "armor", "rarity": "Épico", "def": 42,
+        "materials": {"Escama de Dragão": 6, "Minério de Mithril": 4, "Cristal de Fogo": 3},
+        "cost": 1200, "level_req": 35, "job_req": "Ferreiro",
+        "desc": "Forjada com escamas reais de dragão. Resistente ao fogo."
+    },
+    "Armadura das Sombras Forjada": {
+        "type": "armor", "rarity": "Épico", "def": 40,
+        "materials": {"Essência das Sombras": 5, "Couro de Besta Sombria": 4, "Pó Noturno": 3},
+        "cost": 1000, "level_req": 32, "job_req": "Ferreiro",
+        "desc": "Absorve parte da luz ao redor. Dificulta ser visto no escuro."
+    },
+    "Égide dos Deuses Forjada": {
+        "type": "armor", "rarity": "Lendário", "def": 88,
+        "materials": {"Metal Sagrado": 10, "Bênção Divina": 5, "Armadura de Zeus": 1, "Pedra da Eternidade": 3},
+        "cost": 8000, "level_req": 65, "job_req": "Ferreiro",
+        "desc": "Proteção digna dos deuses. Ningum deve usá-la sem mérito."
+    },
+    "Armadura do Além": {
+        "type": "armor", "rarity": "Mítico", "def": 195,
+        "materials": {"Minério do Abismo": 12, "Tecido do Vazio": 6, "Cristal do Destino": 4, "Fragmento Eterno": 3},
+        "cost": 25000, "level_req": 95, "job_req": "Ferreiro",
+        "desc": "Proteção que existe além do plano material. Impossível de ser destruída."
+    },
+    "Couraça Ancestral Forjada": {
+        "type": "armor", "rarity": "Ancestral", "def": 280,
+        "materials": {"Fragmento Ancestral": 18, "Essência do Tempo": 8, "Metal da Era Perdida": 6, "Osso de Guardião": 4},
+        "cost": 60000, "level_req": 130, "job_req": "Ferreiro",
+        "desc": "Armadura dos guardiões da era primordial. Pesa menos do que parece."
+    },
+    "Vestes do Silêncio Forjadas": {
+        "type": "armor", "rarity": "Primordial", "def": 740,
+        "materials": {"Essência Primordial": 25, "Tecido do Antes": 10, "Cristal do Cosmos": 6, "Vontade Solidificada": 4},
+        "cost": 250000, "level_req": 185, "job_req": "Ferreiro",
+        "desc": "A proteção mais absoluta que pode ser criada. Forjada no início de tudo."
+    },
+}
+
+
+@bot.listen("on_message")
+async def handle_forge_craft(message):
+    """Sistema de forja manual de armas e armaduras"""
+    if message.author.bot:
+        return
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    canal_valido = (message.channel.name == CANAL_BETA)
+    if not canal_valido:
+        for owner_id, ch_id in MUNDO_PROPRIO_CHANNELS.items():
+            if ch_id == message.channel.id:
+                canal_valido = True
+                break
+    if not canal_valido:
+        return
+
+    # ===== RECEITAS DE FORJA =====
+    if content in ["receitas de forja", "receitas forja", "o que posso forjar", "forjar o quê", "forjar o que"]:
+        player = get_player(uid)
+        if not player:
+            return
+
+        RARITY_EMOJIS = {
+            "Comum": "⬜", "Incomum": "🟩", "Raro": "🟦",
+            "Épico": "🟪", "Lendário": "🟨", "Mítico": "🔴",
+            "Ancestral": "🟠", "Divino": "✨", "Primordial": "💠"
+        }
+        embed = discord.Embed(
+            title="⚒️ Receitas de Forja",
+            description="*'Cada peça-prima começa com uma centelha e materiais certos.'*\n\nUse `forjar [nome]` para criar um item!\n**Ferreiros** têm acesso a receitas raras+.",
+            color=discord.Color.orange()
+        )
+        # Agrupar por raridade
+        by_rarity = {}
+        for item_name, recipe in FORGE_RECIPES.items():
+            r = recipe["rarity"]
+            by_rarity.setdefault(r, []).append((item_name, recipe))
+
+        RARITY_ORDER = ["Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
+        for rar in RARITY_ORDER:
+            if rar not in by_rarity:
+                continue
+            lines = []
+            for iname, irec in by_rarity[rar]:
+                emoji = RARITY_EMOJIS.get(rar, "⚪")
+                type_icon = "⚔️" if irec["type"] == "weapon" else "🛡️"
+                job_txt = f" _(Ferreiro)_" if irec.get("job_req") else ""
+                lvl_txt = f" Lv.{irec['level_req']}+" if irec["level_req"] > 1 else ""
+                lines.append(f"{type_icon} **{iname}**{lvl_txt}{job_txt}")
+            if lines:
+                embed.add_field(
+                    name=f"{RARITY_EMOJIS.get(rar,'⚪')} {rar}",
+                    value="\n".join(lines),
+                    inline=True
+                )
+        embed.set_footer(text="Use 'detalhes forja [nome]' para ver materiais | 'forjar [nome]' para criar")
+        await message.channel.send(embed=embed)
+        return
+
+    # ===== DETALHES DA RECEITA =====
+    if content.startswith("detalhes forja "):
+        player = get_player(uid)
+        if not player:
+            return
+        item_query = content[15:].strip()
+        found = None
+        for iname, recipe in FORGE_RECIPES.items():
+            if item_query in iname.lower() or iname.lower() in item_query:
+                found = (iname, recipe)
+                break
+        if not found:
+            await message.channel.send(f"❌ Receita não encontrada para **'{item_query}'**.\nUse `receitas de forja` para ver todas.")
+            return
+        iname, recipe = found
+        RARITY_COLORS = {
+            "Incomum": discord.Color.green(), "Raro": discord.Color.blue(),
+            "Épico": discord.Color.purple(), "Lendário": discord.Color.gold(),
+            "Mítico": discord.Color.red(), "Ancestral": discord.Color.orange(),
+            "Primordial": discord.Color.from_rgb(0, 200, 255)
+        }
+        embed = discord.Embed(
+            title=f"⚒️ Receita: {iname}",
+            description=f"_{recipe['desc']}_",
+            color=RARITY_COLORS.get(recipe["rarity"], discord.Color.light_grey())
+        )
+        type_icon = "⚔️" if recipe["type"] == "weapon" else "🛡️"
+        stat_key = "atk" if recipe["type"] == "weapon" else "def"
+        embed.add_field(name="📋 Tipo", value=f"{type_icon} {recipe['type'].capitalize()} | {stat_key.upper()}: +{recipe[stat_key]}", inline=True)
+        embed.add_field(name="⭐ Raridade", value=recipe["rarity"], inline=True)
+        embed.add_field(name="📊 Requisitos", value=f"Nível {recipe['level_req']}+ | {'Ferreiro' if recipe.get('job_req') else 'Qualquer classe'}", inline=True)
+        # Materiais
+        mat_lines = []
+        inv_counts = {}
+        inv = player.get("inventory", [])
+        for item in inv:
+            item_n = item if isinstance(item, str) else item.get("name", "")
+            inv_counts[item_n] = inv_counts.get(item_n, 0) + 1
+        for mat, qty in recipe["materials"].items():
+            have = inv_counts.get(mat, 0)
+            status = "✅" if have >= qty else f"❌ ({have}/{qty})"
+            mat_lines.append(f"{status} **{mat}** × {qty}")
+        embed.add_field(name="🧱 Materiais Necessários", value="\n".join(mat_lines), inline=False)
+        embed.add_field(name="💰 Custo de Forja", value=f"`{recipe['cost']:,}` CSI", inline=True)
+        can_forge = player["level"] >= recipe["level_req"] and (not recipe.get("job_req") or player.get("job") == recipe["job_req"])
+        has_mats = all(inv_counts.get(m, 0) >= q for m, q in recipe["materials"].items())
+        has_coins = player["coins"] >= recipe["cost"]
+        status_txt = "✅ **Você pode forjar este item!**" if (can_forge and has_mats and has_coins) else "❌ Requisitos não atendidos (veja acima)"
+        embed.add_field(name="📌 Status", value=status_txt, inline=False)
+        embed.set_footer(text=f"Use 'forjar {iname}' para criar este item!")
+        await message.channel.send(embed=embed)
+        return
+
+    # ===== FORJAR ITEM =====
+    if content.startswith("forjar ") and content not in ["forjar armas", "forjar arma", "fusão de itens", "fusao de itens", "fundir itens"]:
+        item_query = content[7:].strip()
+        # Evitar conflito com o sistema de fusão
+        if item_query in ["armas", "arma", "fusão", "fusao"]:
+            return
+
+        player = get_player(uid)
+        if not player:
+            return
+
+        # Encontrar receita (busca parcial)
+        found = None
+        for iname, recipe in FORGE_RECIPES.items():
+            if item_query in iname.lower() or iname.lower() in item_query:
+                found = (iname, recipe)
+                break
+        if not found:
+            await message.channel.send(
+                f"❌ Receita **'{item_query}'** não encontrada!\n"
+                f"Use `receitas de forja` para ver todas as receitas disponíveis.\n"
+                f"Use `detalhes forja [nome]` para ver materiais de uma receita."
+            )
+            return
+
+        iname, recipe = found
+
+        # Verificar nível
+        if player["level"] < recipe["level_req"]:
+            await message.channel.send(f"❌ Você precisa ser **nível {recipe['level_req']}** para forjar **{iname}**!\nSeu nível: {player['level']}")
+            return
+
+        # Verificar emprego (se necessário)
+        if recipe.get("job_req") and player.get("job") != recipe["job_req"]:
+            await message.channel.send(f"❌ Apenas **{recipe['job_req']}** pode forjar **{iname}**!\nUse `procurar emprego` para mudar de profissão.")
+            return
+
+        # Verificar moedas
+        if player["coins"] < recipe["cost"]:
+            await message.channel.send(f"❌ Você precisa de **{recipe['cost']:,} CSI** para forjar **{iname}**!\nVocê tem: `{player['coins']:,}` CSI.")
+            return
+
+        # Verificar e consumir materiais
+        inv = list(player.get("inventory", []))
+        inv_counts = {}
+        for item in inv:
+            item_n = item if isinstance(item, str) else item.get("name", "")
+            inv_counts[item_n] = inv_counts.get(item_n, 0) + 1
+
+        missing = []
+        for mat, qty in recipe["materials"].items():
+            if inv_counts.get(mat, 0) < qty:
+                missing.append(f"**{mat}** (precisa {qty}, tem {inv_counts.get(mat, 0)})")
+
+        if missing:
+            await message.channel.send(
+                f"❌ Materiais insuficientes para forjar **{iname}**!\n\n"
+                f"Faltam:\n" + "\n".join(missing)
+            )
+            return
+
+        # Consumir materiais
+        for mat, qty in recipe["materials"].items():
+            removed = 0
+            new_inv = []
+            for item in inv:
+                item_n = item if isinstance(item, str) else item.get("name", "")
+                if item_n == mat and removed < qty:
+                    removed += 1
+                else:
+                    new_inv.append(item)
+            inv = new_inv
+
+        # Adicionar item forjado
+        inv.append(iname)
+        player["inventory"] = inv
+        player["coins"] -= recipe["cost"]
+        save_player_db(uid, player)
+
+        RARITY_COLORS = {
+            "Incomum": discord.Color.green(), "Raro": discord.Color.blue(),
+            "Épico": discord.Color.purple(), "Lendário": discord.Color.gold(),
+            "Mítico": discord.Color.red(), "Ancestral": discord.Color.orange(),
+            "Primordial": discord.Color.from_rgb(0, 200, 255)
+        }
+        RARITY_EMOJIS = {
+            "Comum": "⬜", "Incomum": "🟩", "Raro": "🟦", "Épico": "🟪",
+            "Lendário": "🟨", "Mítico": "🔴", "Ancestral": "🟠",
+            "Divino": "✨", "Primordial": "💠"
+        }
+        rar = recipe["rarity"]
+        type_icon = "⚔️" if recipe["type"] == "weapon" else "🛡️"
+        stat_key = "atk" if recipe["type"] == "weapon" else "def"
+
+        embed = discord.Embed(
+            title=f"⚒️ {RARITY_EMOJIS.get(rar,'⚪')} {iname} FORJADO!",
+            description=f"*'O metal resfria. Sua obra-prima está completa.'*\n\n_{recipe['desc']}_",
+            color=RARITY_COLORS.get(rar, discord.Color.orange())
+        )
+        embed.add_field(name=f"{type_icon} Tipo", value=f"{recipe['type'].capitalize()}", inline=True)
+        embed.add_field(name=f"{'⚔️' if stat_key=='atk' else '🛡️'} {stat_key.upper()}", value=f"+{recipe[stat_key]}", inline=True)
+        embed.add_field(name="⭐ Raridade", value=rar, inline=True)
+        mat_txt = " | ".join([f"{mat} ×{qty}" for mat, qty in recipe["materials"].items()])
+        embed.add_field(name="🧱 Materiais Usados", value=mat_txt, inline=False)
+        embed.add_field(name="💰 CSI Gasto", value=f"`{recipe['cost']:,}` CSI", inline=True)
+        embed.set_footer(text=f"Use 'equipar {iname}' para equipar | 'inspecionar arma {iname}' para detalhes")
+        await message.channel.send(embed=embed)
+        # Adicionar ao ITEMS para ser reconhecida pelo sistema
+        existing = [i["name"] for i in ITEMS[recipe["type"] + "s"]]
+        if iname not in existing:
+            ITEMS[recipe["type"] + "s"].append({"name": iname, "rarity": rar, stat_key: recipe[stat_key]})
+        return
 
 
 @bot.listen("on_message")
