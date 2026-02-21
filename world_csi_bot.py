@@ -4705,8 +4705,8 @@ WORLDS = {
             {"name": "Ninho de Vespas", "level": 3, "boss": "Vespa Rainha"}
         ],
         "secret_dungeons": [
-            {"name": "🕳️ Gruta Esquecida", "level": 1, "boss": "Guardião Primordial dos Campos", "secret": True},
-            {"name": "🌀 Buraco no Tecido da Realidade", "level": 2, "boss": "Anomalia Viva", "secret": True}
+            {"name": "🕳️ Gruta Esquecida", "level": 1, "boss": "Guardião Primordial dos Campos", "secret": True, "special_boss_drop": "Raro", "key_name": "🗝️ Chave da Gruta Esquecida"},
+            {"name": "🌀 Buraco no Tecido da Realidade", "level": 2, "boss": "Anomalia Viva", "secret": True, "special_boss_drop": "Épico", "key_name": "🗝️ Chave da Anomalia"}
         ],
         "events": [
             "Você encontra um riacho cristalino. A água brilha sob o sol.",
@@ -4752,8 +4752,8 @@ WORLDS = {
             {"name": "Caverna do Ogro", "level": 6, "boss": "Ogro Cruel"}
         ],
         "secret_dungeons": [
-            {"name": "🌑 Floresta Invertida", "level": 4, "boss": "Reflexo Sombrio", "secret": True},
-            {"name": "🍄 Reino dos Cogumelos", "level": 5, "boss": "Rei Fúngico", "secret": True}
+            {"name": "🌑 Floresta Invertida", "level": 4, "boss": "Reflexo Sombrio", "secret": True, "special_boss_drop": "Raro", "key_name": "🗝️ Chave da Floresta Invertida"},
+            {"name": "🍄 Reino dos Cogumelos", "level": 5, "boss": "Rei Fúngico", "secret": True, "special_boss_drop": "Épico", "key_name": "🗝️ Chave do Reino Fúngico"}
         ],
         "events": [
             "Galhos se movem sozinhos ao seu redor, como se estivessem vivos.",
@@ -8656,40 +8656,39 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             player["inventory"].append(potion_dropped)
             save_player_db(user_id, player)
 
-        # ─── DROP DE CHAVE EM DUNGEON COMUM (1 a cada 5 dungeons ou 8% de sorte) ──
+        # ─── DROP DE CHAVE EM DUNGEON COMUM (garantido a cada 5 dungeons ou 8% de sorte) ──
         if not is_secret:
             player_for_key = get_player(user_id)
             dungeons_done = player_for_key.get("dungeons_completed", 0) + 1
             player_for_key["dungeons_completed"] = dungeons_done
             save_player_db(user_id, player_for_key)
-            key_by_count = (dungeons_done % 5 == 0)   # garantido a cada 5 dungeons
-            key_by_luck  = random.random() < DUNGEON_KEY_DROP_CHANCE  # 8%
+
+            key_by_count = (dungeons_done % 5 == 0)
+            key_by_luck  = random.random() < DUNGEON_KEY_DROP_CHANCE
+
             if key_by_count or key_by_luck:
-                # Tenta pegar secret_dungeons do mundo atual; se não tiver, busca qualquer mundo
-                secret_dungeons = world.get("secret_dungeons", [])
-                if not secret_dungeons:
-                    for w_data in WORLDS.values():
-                        sds = w_data.get("secret_dungeons", [])
-                        if sds:
-                            secret_dungeons = sds
-                            break
-                if secret_dungeons:
-                    chosen_sd = random.choice(secret_dungeons)
-                    key_name = chosen_sd.get("key_name", "")
-                    if not key_name:
-                        key_name = chosen_sd.get("name", "Chave Misteriosa") + " — Chave"
-                    if key_name:
-                        player = get_player(user_id)
-                        player["inventory"].append(key_name)
-                        save_player_db(user_id, player)
-                        key_dropped = key_name
-                else:
-                    # Fallback: drop de chave genérica se nenhum mundo tiver secret_dungeons
-                    key_name = "Chave da Dungeon Secreta"
+                # Coleta TODAS as chaves com key_name definido em qualquer mundo
+                all_valid_keys = []
+                for w_data in WORLDS.values():
+                    for sd in w_data.get("secret_dungeons", []):
+                        kn = sd.get("key_name", "").strip()
+                        if kn:
+                            all_valid_keys.append(kn)
+
+                # Prefere chaves do mundo atual
+                current_world_keys = [
+                    sd.get("key_name", "").strip()
+                    for sd in world.get("secret_dungeons", [])
+                    if sd.get("key_name", "").strip()
+                ]
+                pool = current_world_keys if current_world_keys else all_valid_keys
+
+                if pool:
+                    chosen_key = random.choice(pool)
                     player = get_player(user_id)
-                    player["inventory"].append(key_name)
+                    player["inventory"].append(chosen_key)
                     save_player_db(user_id, player)
-                    key_dropped = key_name
+                    key_dropped = chosen_key
 
         chest_bonus = ""
         if potion_dropped:
@@ -8707,7 +8706,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             await asyncio.sleep(1)
             key_embed = discord.Embed(
                 title="🗝️ CHAVE ENCONTRADA!",
-                description=random.choice(key_msgs) + f"\n\n🔑 Você obteve: **{key_dropped}**\n\n*Esta chave abre uma dungeon secreta desta região! Use `ver chaves` para gerenciar suas chaves.*",
+                description=random.choice(key_msgs) + f"\n\n🔑 Você obteve: **{key_dropped}**\n\n*Esta chave abre uma dungeon secreta! Use `usar chave [nome da dungeon]` para entrar diretamente, ou `ver chaves` para saber qual dungeon ela abre.*",
                 color=discord.Color.from_rgb(255, 200, 0)
             )
             key_embed.set_footer(text="Use 'dungeon' e encontre a dungeon secreta para usar esta chave!")
@@ -11793,10 +11792,20 @@ async def on_message(message):
         )
 
         if not keys_count:
-            embed.add_field(name="🔒 Sem Chaves", value="*'Você não possui nenhuma chave de dungeon secreta ainda.'*\n\n💡 **Dica:** Explore dungeons comuns (comando `dungeon`) para encontrar chaves em baús!", inline=False)
+            embed.add_field(name="🔒 Sem Chaves", value="*'Você não possui nenhuma chave de dungeon secreta ainda.'*\n\n💡 **Dica:** Explore dungeons comuns (comando `dungeon`) para encontrar chaves em baús!\n\n*A cada 5 dungeons completadas, uma chave cai garantida!*", inline=False)
         else:
             for key, qty in keys_count.items():
-                embed.add_field(name=f"{key} x{qty}", value="✅ Pronta para usar! (use `dungeon` e selecione a dungeon secreta)", inline=False)
+                # Encontra qual dungeon esta chave abre
+                dungeon_alvo = None
+                for w_data in WORLDS.values():
+                    for sd in w_data.get("secret_dungeons", []):
+                        if sd.get("key_name", "") == key:
+                            dungeon_alvo = sd["name"]
+                            break
+                    if dungeon_alvo:
+                        break
+                uso_txt = f"**Abre:** {dungeon_alvo}\n`usar chave {dungeon_alvo.split(' ', 1)[-1] if dungeon_alvo else '...'}`" if dungeon_alvo else "✅ Use: `usar chave [nome da dungeon]`"
+                embed.add_field(name=f"{key} x{qty}", value=uso_txt, inline=False)
 
         # Mostrar quais chaves são necessárias no reino atual
         secret_dungeons = world.get("secret_dungeons", [])
@@ -11813,7 +11822,7 @@ async def on_message(message):
                     inline=False
                 )
 
-        embed.set_footer(text="Use 'dungeon' para ver e explorar dungeons | Baús de dungeons comuns podem conter chaves!")
+        embed.set_footer(text="Como usar: 'usar chave [nome da dungeon]' | Ex: 'usar chave Gruta Esquecida'")
         await message.channel.send(embed=embed)
         return
 
@@ -15817,6 +15826,119 @@ async def handle_formas_especiais_pet(message):
             inline=False
         )
         await message.channel.send(embed=embed)
+
+
+# ================= COMANDO: USAR CHAVE =================
+@bot.listen("on_message")
+async def handle_usar_chave(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
+
+    content = message.content.strip()
+    content_lower = content.lower()
+    uid = str(message.author.id)
+
+    # Aceita: "usar chave [nome]" ou "usar chave da dungeon [nome]"
+    if not content_lower.startswith("usar chave"):
+        return
+
+    player = get_player(uid)
+    if not player:
+        await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+        return
+
+    # Extrai a parte depois de "usar chave"
+    query = content[len("usar chave"):].strip()
+    # Remove prefixos comuns como "da", "do", "de", "da dungeon"
+    for prefix in ["da dungeon ", "do dungeon ", "de dungeon ", "da ", "do ", "de "]:
+        if query.lower().startswith(prefix):
+            query = query[len(prefix):]
+            break
+
+    if not query:
+        # Mostra ajuda
+        keys_in_inv = [i for i in player.get("inventory", []) if i.startswith("🗝️")]
+        if not keys_in_inv:
+            await message.channel.send(
+                "❌ Você não tem nenhuma chave!\n\n"
+                "💡 Complete dungeons comuns com `dungeon` para encontrar chaves nos baús."
+            )
+        else:
+            chaves_txt = "\n".join(f"• `{k}`" for k in set(keys_in_inv))
+            await message.channel.send(
+                f"🗝️ **Suas chaves:**\n{chaves_txt}\n\n"
+                f"**Como usar:** `usar chave [nome da dungeon]`\n"
+                f"**Exemplo:** `usar chave Gruta Esquecida`\n\n"
+                f"Use `ver chaves` para ver quais dungeons cada chave abre."
+            )
+        return
+
+    # Procura a dungeon secreta pelo nome em TODOS os mundos
+    found_dungeon = None
+    found_world_data = None
+    query_lower = query.lower()
+
+    for w_data in WORLDS.values():
+        for sd in w_data.get("secret_dungeons", []):
+            sd_name_clean = sd["name"].lower()
+            # Remove emojis para comparação mais flexível
+            import re as _re
+            sd_name_text = _re.sub(r'[^\w\s]', '', sd_name_clean).strip()
+            q_text = _re.sub(r'[^\w\s]', '', query_lower).strip()
+            if q_text in sd_name_text or sd_name_text in q_text or q_text in sd_name_clean:
+                found_dungeon = sd
+                found_world_data = w_data
+                break
+        if found_dungeon:
+            break
+
+    if not found_dungeon:
+        await message.channel.send(
+            f"❌ Nenhuma dungeon secreta encontrada com o nome **'{query}'**.\n\n"
+            f"Use `ver chaves` para ver as dungeons disponíveis no seu reino atual, ou `dungeon` para explorar."
+        )
+        return
+
+    key_name = found_dungeon.get("key_name", "")
+    if not key_name:
+        await message.channel.send(f"❌ Esta dungeon não precisa de chave. Use `dungeon` para acessá-la.")
+        return
+
+    # Verifica se o jogador tem a chave
+    if key_name not in player.get("inventory", []):
+        await message.channel.send(
+            f"🔒 **Você não tem a chave certa!**\n\n"
+            f"A dungeon **{found_dungeon['name']}** requer: **{key_name}**\n\n"
+            f"🗝️ Suas chaves atuais: {', '.join(set(i for i in player.get('inventory', []) if i.startswith('🗝️'))) or '*nenhuma*'}\n\n"
+            f"💡 Complete dungeons comuns com `dungeon` para encontrar chaves."
+        )
+        return
+
+    # Consome a chave e entra na dungeon
+    player["inventory"].remove(key_name)
+    save_player_db(uid, player)
+
+    drop_rarity = found_dungeon.get("special_boss_drop", "Épico")
+    rarity_info = RARITIES.get(drop_rarity, RARITIES.get("Épico", {"emoji": "🟣"}))
+
+    embed = discord.Embed(
+        title=f"🔮 DUNGEON SECRETA — {found_dungeon['name']}",
+        description=(
+            f"*'A chave brilha ao toque... a porta de pedra começa a tremer e se abre lentamente!'*\n\n"
+            f"🗝️ **{key_name}** foi consumida.\n"
+            f"👹 Boss: **{found_dungeon['boss']}**\n"
+            f"{rarity_info['emoji']} Drop máximo: **{drop_rarity}**"
+        ),
+        color=discord.Color.purple()
+    )
+    embed.set_footer(text="Preparado? A dungeon secreta aguarda...")
+    await message.channel.send(embed=embed)
+    await asyncio.sleep(2)
+
+    # Usa found_world_data como contexto do mundo
+    await explore_dungeon(message.channel, uid, found_dungeon, found_world_data)
 
 
 # ================= COMANDO: MONTARIA =================
