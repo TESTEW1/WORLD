@@ -301,6 +301,261 @@ RACES = {
     },
 }
 
+# ================= EVOLUÇÃO DE RAÇA =================
+# Cada raça tem 3 estágios de evolução com bônus em dobro
+# Req: level 30 → Evo1, level 70 → Evo2, level 130 → Evo3
+RACE_EVOLUTION_TREE = {
+    "Humano": [
+        {"level": 30,  "name": "Humano Desperto",     "emoji": "👤✨", "suffix": " Desperto",
+         "lore": "Sua ambição ultrapassou os limites do comum. O potencial humano começa a se revelar.",
+         "hp_bonus": 40, "atk_bonus": 16, "def_bonus": 16},
+        {"level": 70,  "name": "Humano Transcendente","emoji": "👤🔥", "suffix": " Transcendente",
+         "lore": "Você transcendeu a limitação humana. O seu corpo e mente operam em outro plano.",
+         "hp_bonus": 80, "atk_bonus": 32, "def_bonus": 32},
+        {"level": 130, "name": "Além-Humano",         "emoji": "👤💎", "suffix": " Além-Humano",
+         "lore": "Você não é mais humano no sentido comum. Você é o passo seguinte da evolução.",
+         "hp_bonus": 160, "atk_bonus": 64, "def_bonus": 64},
+    ],
+    "Élfico": [
+        {"level": 30,  "name": "Alto Élfico",         "emoji": "🧝✨", "suffix": " Alto",
+         "lore": "A magia élfica flui com mais pureza em suas veias. Seus olhos enxergam além do véu.",
+         "hp_bonus": 24, "atk_bonus": 36, "def_bonus": 12},
+        {"level": 70,  "name": "Élfico Estelar",      "emoji": "🧝⭐", "suffix": " Estelar",
+         "lore": "As estrelas respondem ao seu chamado. Você se tornou um canal vivo da magia estelar.",
+         "hp_bonus": 48, "atk_bonus": 72, "def_bonus": 24},
+        {"level": 130, "name": "Élfico Primordial",   "emoji": "🧝👑", "suffix": " Primordial",
+         "lore": "Você carrega a memória do primeiro elfos — e o poder que veio com ela.",
+         "hp_bonus": 96, "atk_bonus": 144, "def_bonus": 48},
+    ],
+    "Anão": [
+        {"level": 30,  "name": "Anão de Ferro",       "emoji": "⚒️🔩", "suffix": " de Ferro",
+         "lore": "Seu corpo endureceu como o metal que forja. Cada golpe que você absorve te torna mais forte.",
+         "hp_bonus": 70, "atk_bonus": 24, "def_bonus": 40},
+        {"level": 70,  "name": "Anão de Adamantio",   "emoji": "⚒️💎", "suffix": " de Adamantio",
+         "lore": "Sua pele rivaliza com o adamantio. Nada penetra sua defesa sem pagar um alto preço.",
+         "hp_bonus": 140, "atk_bonus": 48, "def_bonus": 80},
+        {"level": 130, "name": "Anão Primordial",     "emoji": "⚒️👑", "suffix": " Primordial",
+         "lore": "Você é a rocha viva em forma de anão. Os próprios titãs curvam-se ante sua resistência.",
+         "hp_bonus": 280, "atk_bonus": 96, "def_bonus": 160},
+    ],
+    "Orc": [
+        {"level": 30,  "name": "Orc Warchief",        "emoji": "🟢⚔️", "suffix": " Warchief",
+         "lore": "Sua fúria não é cega — é calculada. Os outros orcs te seguem sem questionar.",
+         "hp_bonus": 80, "atk_bonus": 44, "def_bonus": 10},
+        {"level": 70,  "name": "Orc Lendário",        "emoji": "🟢🔥", "suffix": " Lendário",
+         "lore": "Lendas são contadas sobre sua fúria. Inimigos fogem apenas ao ouvir seu nome.",
+         "hp_bonus": 160, "atk_bonus": 88, "def_bonus": 20},
+        {"level": 130, "name": "Orc Primordial",      "emoji": "🟢👑", "suffix": " Primordial",
+         "lore": "Você é a encarnação da fúria tribal. Uma força da natureza com forma de guerreiro.",
+         "hp_bonus": 320, "atk_bonus": 176, "def_bonus": 40},
+    ],
+    "Anjo": [
+        {"level": 30,  "name": "Anjo Guardião",       "emoji": "👼✨", "suffix": " Guardião",
+         "lore": "Sua luz divina se intensificou. Você protege não apenas a si, mas todos ao redor.",
+         "hp_bonus": 36, "atk_bonus": 28, "def_bonus": 32},
+        {"level": 70,  "name": "Anjo Celestial",      "emoji": "👼⭐", "suffix": " Celestial",
+         "lore": "Suas asas tocam os céus mais altos. O próprio divino reconhece seu poder.",
+         "hp_bonus": 72, "atk_bonus": 56, "def_bonus": 64},
+        {"level": 130, "name": "Arcanjo",             "emoji": "👼👑", "suffix": " Arcanjo",
+         "lore": "Você ascendeu ao posto de Arcanjo. Poucos mortais chegaram tão alto — ou voltaram para contar.",
+         "hp_bonus": 144, "atk_bonus": 112, "def_bonus": 128},
+    ],
+    "Demônio": [
+        {"level": 30,  "name": "Demônio Maior",       "emoji": "😈🔥", "suffix": " Maior",
+         "lore": "Sua essência corrompida se intensificou. Você não apenas destrói — você consome.",
+         "hp_bonus": 30, "atk_bonus": 50, "def_bonus": 16},
+        {"level": 70,  "name": "Arquidemônio",        "emoji": "😈💀", "suffix": " Arqui",
+         "lore": "Você lidera legiões do abismo. Sua simples presença corrói a realidade.",
+         "hp_bonus": 60, "atk_bonus": 100, "def_bonus": 32},
+        {"level": 130, "name": "Demônio Primordial",  "emoji": "😈👑", "suffix": " Primordial",
+         "lore": "Você é uma das primeiras forças do caos. Anterior ao próprio tempo.",
+         "hp_bonus": 120, "atk_bonus": 200, "def_bonus": 64},
+    ],
+    "Dragônico": [
+        {"level": 30,  "name": "Meio-Dragão",         "emoji": "🐉✨", "suffix": " Meio-Dragão",
+         "lore": "O sangue dracônico queima mais forte em suas veias. Suas escamas brilham como metal.",
+         "hp_bonus": 60, "atk_bonus": 40, "def_bonus": 24},
+        {"level": 70,  "name": "Dragônico Puro",      "emoji": "🐉🔥", "suffix": " Puro",
+         "lore": "A herança dracônica se revelou por completo. Você é mais dragão do que humano agora.",
+         "hp_bonus": 120, "atk_bonus": 80, "def_bonus": 48},
+        {"level": 130, "name": "Dragão Encarnado",    "emoji": "🐉👑", "suffix": " Encarnado",
+         "lore": "Você é a reencarnação de um dragão ancião em forma humanoide. Lendas te tratam como divindade.",
+         "hp_bonus": 240, "atk_bonus": 160, "def_bonus": 96},
+    ],
+    "Vampiro": [
+        {"level": 30,  "name": "Vampiro Antigo",      "emoji": "🧛🌙", "suffix": " Antigo",
+         "lore": "Séculos de existência te tornaram mais refinado. Seu toque drena mais do que sangue.",
+         "hp_bonus": 20, "atk_bonus": 44, "def_bonus": 20},
+        {"level": 70,  "name": "Vampiro Nobre",       "emoji": "🧛👑", "suffix": " Nobre",
+         "lore": "Você lidera a nobreza vampírica. Sua sede transforma batalhas em banquetes.",
+         "hp_bonus": 40, "atk_bonus": 88, "def_bonus": 40},
+        {"level": 130, "name": "Vampiro Primordial",  "emoji": "🧛💎", "suffix": " Primordial",
+         "lore": "Você existia antes da Lua Negra. Os outros vampiros são crianças perto de você.",
+         "hp_bonus": 80, "atk_bonus": 176, "def_bonus": 80},
+    ],
+    "Lobisomem": [
+        {"level": 30,  "name": "Lobisomem Alfa",      "emoji": "🐺⚡", "suffix": " Alfa",
+         "lore": "Sua matilha te reconhece como líder. A lua cheia te obedece.",
+         "hp_bonus": 56, "atk_bonus": 40, "def_bonus": 16},
+        {"level": 70,  "name": "Lobisomem Lendário",  "emoji": "🐺🔥", "suffix": " Lendário",
+         "lore": "Lendas de aldeias inteiras falam do lobo que nunca morre. Esse lobo é você.",
+         "hp_bonus": 112, "atk_bonus": 80, "def_bonus": 32},
+        {"level": 130, "name": "Lobisomem Primordial","emoji": "🐺👑", "suffix": " Primordial",
+         "lore": "Você é o primeiro — o lobo antes de todos os lobos. A própria lua te teme.",
+         "hp_bonus": 224, "atk_bonus": 160, "def_bonus": 64},
+    ],
+    "Espectro": [
+        {"level": 30,  "name": "Espectro Sombrio",    "emoji": "👻🌑", "suffix": " Sombrio",
+         "lore": "Você dominou a fronteira entre os planos. Seus ataques atravessam até armaduras mágicas.",
+         "hp_bonus": 10, "atk_bonus": 56, "def_bonus": 8},
+        {"level": 70,  "name": "Espectro Eterno",     "emoji": "👻💀", "suffix": " Eterno",
+         "lore": "Nem o tempo nem a morte te alcançam mais. Você simplesmente existe — para sempre.",
+         "hp_bonus": 20, "atk_bonus": 112, "def_bonus": 16},
+        {"level": 130, "name": "Espectro Primordial", "emoji": "👻👑", "suffix": " Primordial",
+         "lore": "Você é o eco de uma era anterior ao mundo. Sua existência dobra a realidade.",
+         "hp_bonus": 40, "atk_bonus": 224, "def_bonus": 32},
+    ],
+    "Golem": [
+        {"level": 30,  "name": "Golem de Aço",        "emoji": "🗿⚙️", "suffix": " de Aço",
+         "lore": "Você absorveu metal puro em sua estrutura. Agora você é uma fortaleza ambulante.",
+         "hp_bonus": 120, "atk_bonus": 20, "def_bonus": 60},
+        {"level": 70,  "name": "Golem Arcano",        "emoji": "🗿🔮", "suffix": " Arcano",
+         "lore": "Runa mágicas foram gravadas em sua pedra. Você conduz magia através de seu próprio corpo.",
+         "hp_bonus": 240, "atk_bonus": 40, "def_bonus": 120},
+        {"level": 130, "name": "Golem Primordial",    "emoji": "🗿👑", "suffix": " Primordial",
+         "lore": "Você é a pedra mais antiga do mundo. Nem deuses conseguem arranhar sua superfície.",
+         "hp_bonus": 480, "atk_bonus": 80, "def_bonus": 240},
+    ],
+    "Sereia": [
+        {"level": 30,  "name": "Sereia das Profundezas","emoji": "🧜🌊", "suffix": " das Profundezas",
+         "lore": "Você dominou as correntes abissais. Sua voz ressoa em todos os oceanos.",
+         "hp_bonus": 28, "atk_bonus": 32, "def_bonus": 20},
+        {"level": 70,  "name": "Rainha do Mar",       "emoji": "🧜👑", "suffix": " Rainha",
+         "lore": "Os oceanos te obedecem. Criaturas marinhas caem de joelhos ante sua presença.",
+         "hp_bonus": 56, "atk_bonus": 64, "def_bonus": 40},
+        {"level": 130, "name": "Sereia Primordial",   "emoji": "🧜💎", "suffix": " Primordial",
+         "lore": "Você é mais velha que os oceanos. O mar não te criou — você criou o mar.",
+         "hp_bonus": 112, "atk_bonus": 128, "def_bonus": 80},
+    ],
+    "Titã": [
+        {"level": 30,  "name": "Titã Guerreiro",      "emoji": "🏔️⚔️", "suffix": " Guerreiro",
+         "lore": "Seu tamanho e força atingiram proporcoes míticas. Exércitos inteiros fogem.",
+         "hp_bonus": 100, "atk_bonus": 50, "def_bonus": 30},
+        {"level": 70,  "name": "Titã Ancião",         "emoji": "🏔️🌟", "suffix": " Ancião",
+         "lore": "Você viveu mais do que civilizações. Sua sabedoria e força rivalizam com deuses.",
+         "hp_bonus": 200, "atk_bonus": 100, "def_bonus": 60},
+        {"level": 130, "name": "Titã Primordial",     "emoji": "🏔️👑", "suffix": " Primordial",
+         "lore": "Você é um dos primeiros seres criados pelo universo. Sua existência move montanhas.",
+         "hp_bonus": 400, "atk_bonus": 200, "def_bonus": 120},
+    ],
+    "Fada": [
+        {"level": 30,  "name": "Fada Encantada",      "emoji": "🧚✨", "suffix": " Encantada",
+         "lore": "Sua magia se tornou impossível de ignorar. Você distorce a sorte ao seu redor.",
+         "hp_bonus": 16, "atk_bonus": 24, "def_bonus": 12},
+        {"level": 70,  "name": "Fada Mística",        "emoji": "🧚🌟", "suffix": " Mística",
+         "lore": "Você é uma anomalia da sorte. Coisas impossíveis acontecem ao seu favor.",
+         "hp_bonus": 32, "atk_bonus": 48, "def_bonus": 24},
+        {"level": 130, "name": "Rainha das Fadas",    "emoji": "🧚👑", "suffix": " Rainha",
+         "lore": "Você governa o primeiro jardim do mundo. Toda a magia de sorte emana de você.",
+         "hp_bonus": 64, "atk_bonus": 96, "def_bonus": 48},
+    ],
+    "Elementário": [
+        {"level": 30,  "name": "Elementário Puro",    "emoji": "🌀🔥", "suffix": " Puro",
+         "lore": "Você não alterna mais — você domina todos os elementos simultaneamente.",
+         "hp_bonus": 40, "atk_bonus": 40, "def_bonus": 20},
+        {"level": 70,  "name": "Elementário Mestre",  "emoji": "🌀⚡", "suffix": " Mestre",
+         "lore": "Os elementos te obedecem. Fogo, gelo e raio respondem ao seu pensamento.",
+         "hp_bonus": 80, "atk_bonus": 80, "def_bonus": 40},
+        {"level": 130, "name": "Elementário Primordial","emoji": "🌀👑", "suffix": " Primordial",
+         "lore": "Você É os elementos. Você não usa magia — você é a magia em sua forma mais pura.",
+         "hp_bonus": 160, "atk_bonus": 160, "def_bonus": 80},
+    ],
+    "Goblin": [
+        {"level": 30,  "name": "Goblin Mestre",       "emoji": "👺💰", "suffix": " Mestre",
+         "lore": "Sua astúcia ultrapassou qualquer goblin comum. O ouro te encontra antes de você o procurar.",
+         "hp_bonus": 20, "atk_bonus": 30, "def_bonus": 10},
+        {"level": 70,  "name": "Goblin Lendário",     "emoji": "👺👑", "suffix": " Lendário",
+         "lore": "Sua riqueza e influência tornaram-se lendárias. Reinos inteiros devem favores a você.",
+         "hp_bonus": 40, "atk_bonus": 60, "def_bonus": 20},
+        {"level": 130, "name": "Rei Goblin",          "emoji": "👺💎", "suffix": " Rei",
+         "lore": "Você é o rei absoluto dos goblins. Sua ganância moldou impérios.",
+         "hp_bonus": 80, "atk_bonus": 120, "def_bonus": 40},
+    ],
+    "Gnomo": [
+        {"level": 30,  "name": "Gnomo Inventor",      "emoji": "🔧⚙️", "suffix": " Inventor",
+         "lore": "Suas criações desafiam as leis da física. Engenharia virou arte em suas mãos.",
+         "hp_bonus": 24, "atk_bonus": 28, "def_bonus": 28},
+        {"level": 70,  "name": "Gnomo Arcano",        "emoji": "🔧🔮", "suffix": " Arcano",
+         "lore": "Você fundiu magia e engenharia. Suas máquinas funcionam com energia pura do cosmos.",
+         "hp_bonus": 48, "atk_bonus": 56, "def_bonus": 56},
+        {"level": 130, "name": "Grande Gnomo",        "emoji": "🔧👑", "suffix": " Grande",
+         "lore": "Você é a mente mais brilhante já criada. Suas invenções moldaram o curso da história.",
+         "hp_bonus": 96, "atk_bonus": 112, "def_bonus": 112},
+    ],
+    "Ciclope": [
+        {"level": 30,  "name": "Ciclope Guerreiro",   "emoji": "👁️⚔️", "suffix": " Guerreiro",
+         "lore": "Seu olho único vê através de ilusões, armaduras e até o tempo. Nada escapa.",
+         "hp_bonus": 90, "atk_bonus": 60, "def_bonus": 10},
+        {"level": 70,  "name": "Ciclope Ancião",      "emoji": "👁️🌟", "suffix": " Ancião",
+         "lore": "Você guarda dois segredos do universo agora. Seu olho vê coisas que não deveriam existir.",
+         "hp_bonus": 180, "atk_bonus": 120, "def_bonus": 20},
+        {"level": 130, "name": "Ciclope Primordial",  "emoji": "👁️👑", "suffix": " Primordial",
+         "lore": "Você guarda o segredo da criação. Seu olho viu o nascimento do universo.",
+         "hp_bonus": 360, "atk_bonus": 240, "def_bonus": 40},
+    ],
+    "Sombra": [
+        {"level": 30,  "name": "Sombra Viva",         "emoji": "🌑⚡", "suffix": " Viva",
+         "lore": "Você não habita as sombras — você é a sombra. Luz alguma te revela.",
+         "hp_bonus": 16, "atk_bonus": 52, "def_bonus": 12},
+        {"level": 70,  "name": "Sombra Eterna",       "emoji": "🌑💀", "suffix": " Eterna",
+         "lore": "Você existirá enquanto houver ausência de luz. O vazio te alimenta.",
+         "hp_bonus": 32, "atk_bonus": 104, "def_bonus": 24},
+        {"level": 130, "name": "Sombra Primordial",   "emoji": "🌑👑", "suffix": " Primordial",
+         "lore": "Você era a escuridão antes do primeiro raio de luz. Você viu o universo nascer — do seu interior.",
+         "hp_bonus": 64, "atk_bonus": 208, "def_bonus": 48},
+    ],
+    "Ancião": [
+        {"level": 30,  "name": "Ancião Sábio",        "emoji": "🧙📚", "suffix": " Sábio",
+         "lore": "Sua sabedoria transcendeu o aprendizado. Você não busca conhecimento — ele te encontra.",
+         "hp_bonus": 30, "atk_bonus": 30, "def_bonus": 30},
+        {"level": 70,  "name": "Ancião Eterno",       "emoji": "🧙⭐", "suffix": " Eterno",
+         "lore": "Você viveu mais vidas do que a maioria existiu. Cada ciclo te tornou mais poderoso.",
+         "hp_bonus": 60, "atk_bonus": 60, "def_bonus": 60},
+        {"level": 130, "name": "Ancião Primordial",   "emoji": "🧙👑", "suffix": " Primordial",
+         "lore": "Você é mais velho que o próprio universo. Sua existência é a resposta que todos buscam.",
+         "hp_bonus": 120, "atk_bonus": 120, "def_bonus": 120},
+    ],
+}
+
+def get_race_evolution_stage(race_name, player_level):
+    """Retorna o estágio de evolução atual da raça (0=base, 1/2/3=evoluída)"""
+    evos = RACE_EVOLUTION_TREE.get(race_name, [])
+    stage = 0
+    for i, evo in enumerate(evos):
+        if player_level >= evo["level"]:
+            stage = i + 1
+    return stage
+
+def get_race_current_data(race_name, stage):
+    """Retorna os dados da raça no estágio informado"""
+    if stage == 0:
+        return RACES.get(race_name)
+    evos = RACE_EVOLUTION_TREE.get(race_name, [])
+    if stage <= len(evos):
+        evo = evos[stage - 1]
+        base = RACES.get(race_name, {})
+        return {
+            **base,
+            "name": evo["name"],
+            "emoji": evo["emoji"],
+            "hp_bonus": evo["hp_bonus"],
+            "atk_bonus": evo["atk_bonus"],
+            "def_bonus": evo["def_bonus"],
+            "lore": evo["lore"],
+        }
+    return RACES.get(race_name)
+
+
 # ================= 20 NOVAS CLASSES =================
 NEW_CLASSES = {
     "Cavaleiro das Sombras": {
@@ -8698,7 +8953,7 @@ async def send_prologue(guild):
     )
     embed7.add_field(
         name="👤 Personagem",
-        value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`",
+        value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`",
         inline=False
     )
     embed7.add_field(
@@ -9005,6 +9260,107 @@ async def on_message(message):
     # ======================================================
     # ================= ESCOLHER RAÇA ======================
     # ======================================================
+    elif any(word in content for word in ["evoluir raça", "evoluir raca", "evolução raça", "evolucao raca", "evo raça", "evo raca", "ver evolução raça", "evoluções de raça"]):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+
+        race_name = player.get("race")
+        if not race_name:
+            await message.channel.send("❌ Você ainda não escolheu uma raça! Use `escolher raça` primeiro.")
+            return
+
+        player_level = player.get("level", 1)
+        evos = RACE_EVOLUTION_TREE.get(race_name, [])
+        current_stage = player.get("race_stage", 0)
+
+        if not evos:
+            await message.channel.send(f"❌ A raça **{race_name}** não possui evoluções registradas.")
+            return
+
+        base_race = RACES.get(race_name, {})
+
+        # Montar embed de status de evolução
+        embed = discord.Embed(
+            title=f"🧬 Evolução de Raça — {base_race.get('emoji','')} {race_name}",
+            description=(
+                f"*'Cada ciclo de vida forja um ser mais poderoso. Sua linhagem está evoluindo...'*\n\n"
+                f"**Estágio atual:** `{current_stage}/3`\n"
+                f"**Nível:** `{player_level}`"
+            ),
+            color=discord.Color.from_rgb(100, 0, 200)
+        )
+
+        # Mostrar todos os 3 estágios
+        stage_emojis = ["1️⃣", "2️⃣", "3️⃣"]
+        for i, evo in enumerate(evos):
+            stage_num = i + 1
+            unlocked = current_stage >= stage_num
+            available = player_level >= evo["level"] and current_stage == stage_num - 1
+            if unlocked:
+                status = "✅ **DESBLOQUEADO**"
+            elif available:
+                status = "🔓 **DISPONÍVEL — Use `evoluir raça` para evoluir!**"
+            else:
+                status = f"🔒 Requer Nível **{evo['level']}**"
+            embed.add_field(
+                name=f"{stage_emojis[i]} {evo['emoji']} {evo['name']}",
+                value=(
+                    f"{status}\n"
+                    f"*{evo['lore']}*\n"
+                    f"❤️ HP: **+{evo['hp_bonus']}** | ⚔️ ATK: **+{evo['atk_bonus']}** | 🛡️ DEF: **+{evo['def_bonus']}**"
+                ),
+                inline=False
+            )
+
+        # Verificar se pode evoluir agora
+        next_stage = current_stage + 1
+        if next_stage > 3:
+            embed.set_footer(text="🏆 Você atingiu a evolução máxima da sua raça!")
+            await message.channel.send(embed=embed)
+            return
+
+        next_evo = evos[next_stage - 1]
+        if player_level < next_evo["level"]:
+            embed.set_footer(text=f"Próxima evolução disponível no Nível {next_evo['level']}")
+            await message.channel.send(embed=embed)
+            return
+
+        # Pode evoluir! Aplicar evolução
+        old_hp  = player.get("max_hp",  100)
+        old_atk = player.get("atk",     10)
+        old_def = player.get("def",     5)
+
+        player["max_hp"] = old_hp  + next_evo["hp_bonus"]
+        player["hp"]     = player["max_hp"]
+        player["atk"]    = old_atk + next_evo["atk_bonus"]
+        player["def"]    = old_def + next_evo["def_bonus"]
+        player["race_stage"] = next_stage
+        save_player_db(user_id, player)
+
+        evo_embed = discord.Embed(
+            title=f"🌟 EVOLUÇÃO DE RAÇA — ESTÁGIO {next_stage}!",
+            description=(
+                f"*'{next_evo['lore']}'*\n\n"
+                f"{base_race.get('emoji','')} **{race_name}** → {next_evo['emoji']} **{next_evo['name']}**\n\n"
+                f"✨ *Seu poder racial atingiu um novo patamar!*"
+            ),
+            color=discord.Color.gold()
+        )
+        evo_embed.add_field(name="❤️ HP Ganho",  value=f"+{next_evo['hp_bonus']}  → `{player['max_hp']}`", inline=True)
+        evo_embed.add_field(name="⚔️ ATK Ganho", value=f"+{next_evo['atk_bonus']} → `{player['atk']}`",    inline=True)
+        evo_embed.add_field(name="🛡️ DEF Ganho", value=f"+{next_evo['def_bonus']} → `{player['def']}`",    inline=True)
+        if next_stage == 3:
+            evo_embed.add_field(
+                name="👑 EVOLUÇÃO MÁXIMA ATINGIDA!",
+                value="*Você chegou ao ápice da sua linhagem racial. Nenhum ser da sua raça é mais poderoso.*",
+                inline=False
+            )
+        evo_embed.set_footer(text=f"Estágio {next_stage}/3 | Use 'ver perfil' para ver seus atributos atualizados")
+        await message.channel.send(embed=evo_embed)
+        return
+
     elif any(word in content for word in ["escolher raça", "escolher raca", "ver raças", "ver racas", "raças", "racas"]):
         player = get_player(user_id)
 
@@ -9242,6 +9598,78 @@ async def on_message(message):
     # ======================================================
     elif any(word in content for word in ["desafiar boss", "ir atrás do boss", "ir atras do boss", "chamar boss", "invocar boss", "enfrentar boss"]):
         player = get_player(user_id)
+
+        # ── REDIRECIONAR: desafiar boss do level X ──────────────────────
+        import re as _re
+        _m = _re.match(r"desafiar boss (?:do )?level (\d+)", content)
+        if _m:
+            target_level = int(_m.group(1))
+            boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199]
+            if target_level not in boss_gate_levels:
+                niveis_str = ", ".join(str(x) for x in boss_gate_levels[:10]) + "..."
+                await message.channel.send(
+                    f"❌ **Level {target_level}** não tem boss de nível!\n\n"
+                    f"Bosses de nível existem apenas nos níveis: **{niveis_str}**\n"
+                    f"Exemplo: `desafiar boss do level 9`, `desafiar boss do level 19`"
+                )
+                return
+            player_level = player.get("level", 1)
+            if player_level < target_level:
+                await message.channel.send(
+                    f"🔒 **Boss do Level {target_level}** bloqueado!\n\n"
+                    f"Você está no nível **{player_level}**. Alcance o nível **{target_level}** para desafiar este boss.\n"
+                    f"*\'O guardião desta passagem não reconhece sua presença... ainda.\'*"
+                )
+                return
+            boss_data_lv = get_level_boss(target_level)
+            if not boss_data_lv:
+                await message.channel.send(f"❌ Não foi possível encontrar o boss do level {target_level}.")
+                return
+            already_defeated = boss_data_lv["name"] in player.get("bosses", [])
+            effects = player.get("active_effects", {})
+            effects["pending_boss"] = boss_data_lv
+            player["active_effects"] = effects
+            save_player_db(user_id, player)
+            if already_defeated:
+                boss_level_to_world = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
+                                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                world_key = boss_level_to_world.get(target_level, 1)
+                world_data_lv = WORLDS.get(world_key, {})
+                world_name_lv = world_data_lv.get("name", "Reino " + str(target_level))
+                world_emoji_lv = world_data_lv.get("emoji", "🌍")
+                boss_nm = boss_data_lv["name"]
+                embed_lv = discord.Embed(
+                    title=f"⚔️ REVANCHE — BOSS DO LEVEL {target_level}!",
+                    description=(
+                        f"*\'As névoas do tempo se desfazem... O guardião ressurge das sombras para um novo duelo!\'*\n\n"
+                        f"👹 **{boss_nm}** retorna para uma batalha épica!\n\n"
+                        f"{world_emoji_lv} **{world_name_lv}** — Este foi o guardião que desbloqueou este reino para você.\n\n"
+                        f"*A lenda diz que reviver grandes batalhas fortalece a alma do guerreiro...*"
+                    ),
+                    color=discord.Color.from_rgb(150, 0, 200)
+                )
+            else:
+                boss_nm = boss_data_lv["name"]
+                embed_lv = discord.Embed(
+                    title=f"🚨 BOSS DE NÍVEL {target_level} — PASSAGEM BLOQUEADA!",
+                    description=(
+                        f"*\'O ar fica pesado... Uma sombra colossal bloqueia seu caminho!\'*\n\n"
+                        f"👹 **{boss_nm}** surge diante de você!\n\n"
+                        f"⚠️ **Derrote-o para desbloquear o próximo reino e desbloquear o XP!**"
+                    ),
+                    color=discord.Color.dark_red()
+                )
+            embed_lv.add_field(name="❤️ HP", value=f"`{boss_data_lv['hp']:,}`", inline=True)
+            embed_lv.add_field(name="⚔️ ATK", value=f"`{boss_data_lv['atk']}`", inline=True)
+            embed_lv.add_field(name="⭐ XP", value=f"`{boss_data_lv['xp']:,}`", inline=True)
+            embed_lv.add_field(name="🎯 Level do Boss", value=f"`{target_level}`", inline=True)
+            if already_defeated:
+                embed_lv.add_field(name="🏆 Status", value="*Revanche — Boss já derrotado anteriormente*", inline=False)
+            embed_lv.add_field(name="💡 Dica", value="Use os botões abaixo para lutar ou chamar aliados!", inline=False)
+            view_lv = BossButton(user_id, boss_data_lv["name"])
+            await message.channel.send(embed=embed_lv, view=view_lv)
+            return
+        # ── FIM REDIRECT DESAFIAR BOSS DO LEVEL ─────────────────────────
 
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
@@ -10082,7 +10510,7 @@ async def on_message(message):
     # ── PÁGINAS INDIVIDUAIS DE COMANDOS ────────────────────────────────
     if content in ["comandos 1"]:
         e1 = discord.Embed(title="📋 COMANDOS [1/5] — Personagem & Início", color=0x3498DB)
-        e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
+        e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
         e1.add_field(name="💪 Treinamento", value="`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`", inline=False)
         e1.add_field(name="🏆 Conquistas", value="`ver conquistas` | `alinhamento` | `ver títulos`", inline=False)
         e1.add_field(name="🌟 Evoluções", value="Nível 40/80/120/160 — evolução automática com bônus escalonados!\nTier I ×1 → Tier II ×2.5 → Tier III ×5 → Tier IV ×10", inline=False)
@@ -10837,7 +11265,20 @@ async def on_message(message):
             embed.add_field(name=f"{class_data['emoji']} Classe", value=class_display, inline=True)
         if player.get("race"):
             race_data = RACES.get(player["race"], {})
-            embed.add_field(name=f"{race_data.get('emoji','🧬')} Raça", value=player["race"], inline=True)
+            race_stage = player.get("race_stage", 0)
+            evos = RACE_EVOLUTION_TREE.get(player["race"], [])
+            if race_stage > 0 and race_stage <= len(evos):
+                evo_data = evos[race_stage - 1]
+                race_display = f"{evo_data['name']} *(Estágio {race_stage}/3)*"
+                race_emoji = evo_data['emoji']
+            else:
+                race_display = player["race"]
+                race_emoji = race_data.get('emoji', '🧬')
+                if evos:
+                    next_req = evos[0]["level"]
+                    if player.get("level", 1) >= next_req:
+                        race_display += " ⚡ *(evolução disponível!)*"
+            embed.add_field(name=f"{race_emoji} Raça", value=race_display, inline=True)
         if player.get("pet"):
             embed.add_field(name="🐉 Pet", value=player["pet"], inline=True)
         embed.add_field(name="🌍 Localização", value=f"{world['emoji']} **{world['name']}**", inline=False)
