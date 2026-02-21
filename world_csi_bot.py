@@ -2469,7 +2469,89 @@ PETS = {
     ]
 }
 
-# ================= POÇÕES =================
+# ================= PETS NOVOS (EXPANSÃO) =================
+PETS_EXTRA = {
+    1: [
+        {"name": "Girino Mágico",     "emoji": "🐸", "rarity": "Comum",    "bonus_hp": 8,  "bonus_atk": 3,  "can_mount": False},
+        {"name": "Borboleta de Cristal","emoji":"🦋","rarity": "Comum",    "bonus_hp": 9,  "bonus_atk": 2,  "can_mount": False},
+        {"name": "Filhote de Urso",   "emoji": "🐻", "rarity": "Incomum",  "bonus_hp": 18, "bonus_atk": 6,  "can_mount": True,  "mount_bonus_def": 5,  "mount_bonus_spd": 2},
+        {"name": "Raposa das Ruínas", "emoji": "🦊", "rarity": "Raro",     "bonus_hp": 22, "bonus_atk": 9,  "can_mount": True,  "mount_bonus_def": 8,  "mount_bonus_spd": 5},
+        {"name": "Unicórnio Bebê",    "emoji": "🦄", "rarity": "Épico",    "bonus_hp": 40, "bonus_atk": 18, "can_mount": True,  "mount_bonus_def": 15, "mount_bonus_spd": 10},
+    ],
+    10: [
+        {"name": "Morcego das Cavernas","emoji":"🦇","rarity": "Comum",    "bonus_hp": 14, "bonus_atk": 6,  "can_mount": False},
+        {"name": "Tritão Sombrio",    "emoji": "🦎", "rarity": "Incomum",  "bonus_hp": 22, "bonus_atk": 9,  "can_mount": False},
+        {"name": "Cavalo Negro Élfico","emoji":"🐴", "rarity": "Raro",     "bonus_hp": 30, "bonus_atk": 10, "can_mount": True,  "mount_bonus_def": 12, "mount_bonus_spd": 8},
+        {"name": "Grifo Menor",       "emoji": "🦅", "rarity": "Épico",    "bonus_hp": 45, "bonus_atk": 22, "can_mount": True,  "mount_bonus_def": 18, "mount_bonus_spd": 14},
+    ],
+    20: [
+        {"name": "Escorpião das Areias","emoji":"🦂","rarity": "Incomum",  "bonus_hp": 20, "bonus_atk": 10, "can_mount": False},
+        {"name": "Camelo Místico",    "emoji": "🐪", "rarity": "Raro",     "bonus_hp": 32, "bonus_atk": 12, "can_mount": True,  "mount_bonus_def": 10, "mount_bonus_spd": 6},
+        {"name": "Serpente Faraônica","emoji": "🐍", "rarity": "Épico",    "bonus_hp": 48, "bonus_atk": 24, "can_mount": True,  "mount_bonus_def": 20, "mount_bonus_spd": 12},
+        {"name": "Roc das Dunas",     "emoji": "🦅", "rarity": "Lendário", "bonus_hp": 65, "bonus_atk": 33, "can_mount": True,  "mount_bonus_def": 30, "mount_bonus_spd": 20},
+    ],
+    30: [
+        {"name": "Lobo do Ártico",    "emoji": "🐺", "rarity": "Raro",     "bonus_hp": 30, "bonus_atk": 15, "can_mount": True,  "mount_bonus_def": 12, "mount_bonus_spd": 9},
+        {"name": "Urso Polar Místico","emoji": "🐻", "rarity": "Épico",    "bonus_hp": 55, "bonus_atk": 27, "can_mount": True,  "mount_bonus_def": 22, "mount_bonus_spd": 10},
+        {"name": "Cão do Permafrost", "emoji": "❄️", "rarity": "Lendário", "bonus_hp": 75, "bonus_atk": 38, "can_mount": True,  "mount_bonus_def": 35, "mount_bonus_spd": 18},
+    ],
+    40: [
+        {"name": "Lagartixa de Magma","emoji": "🦎", "rarity": "Raro",     "bonus_hp": 35, "bonus_atk": 17, "can_mount": False},
+        {"name": "Touro de Fogo",     "emoji": "🐂", "rarity": "Épico",    "bonus_hp": 58, "bonus_atk": 29, "can_mount": True,  "mount_bonus_def": 24, "mount_bonus_spd": 8},
+        {"name": "Dragão de Cinzas",  "emoji": "🐲", "rarity": "Lendário", "bonus_hp": 88, "bonus_atk": 44, "can_mount": True,  "mount_bonus_def": 40, "mount_bonus_spd": 22},
+        {"name": "Fênix Ancestral",   "emoji": "🔥", "rarity": "Mítico",   "bonus_hp": 130,"bonus_atk": 65, "can_mount": True,  "mount_bonus_def": 60, "mount_bonus_spd": 35},
+    ],
+    50: [
+        {"name": "Sombra Equina",     "emoji": "🌑", "rarity": "Épico",    "bonus_hp": 55, "bonus_atk": 27, "can_mount": True,  "mount_bonus_def": 20, "mount_bonus_spd": 16},
+        {"name": "Leviathan Menor",   "emoji": "🐋", "rarity": "Lendário", "bonus_hp": 92, "bonus_atk": 46, "can_mount": True,  "mount_bonus_def": 42, "mount_bonus_spd": 18},
+        {"name": "Cavalo do Vazio",   "emoji": "🌀", "rarity": "Mítico",   "bonus_hp": 140,"bonus_atk": 70, "can_mount": True,  "mount_bonus_def": 65, "mount_bonus_spd": 38},
+    ],
+    60: [
+        {"name": "Cervo Celestial",   "emoji": "🦌", "rarity": "Divino",   "bonus_hp": 210,"bonus_atk": 105,"can_mount": True,  "mount_bonus_def": 90, "mount_bonus_spd": 50},
+        {"name": "Dragão Primordial", "emoji": "🐉", "rarity": "Primordial","bonus_hp":420,"bonus_atk": 210,"can_mount": True,  "mount_bonus_def": 180,"mount_bonus_spd": 90},
+    ],
+}
+
+# Pets que já existiam no PETS original que também podem virar montaria
+EXISTING_PETS_MOUNT = {
+    "Lobo Cinzento":       {"can_mount": True,  "mount_bonus_def": 8,  "mount_bonus_spd": 5},
+    "Raposa Ártica":       {"can_mount": True,  "mount_bonus_def": 14, "mount_bonus_spd": 9},
+    "Dragão de Gelo Bebê": {"can_mount": True,  "mount_bonus_def": 20, "mount_bonus_spd": 12},
+    "Fênix de Gelo":       {"can_mount": True,  "mount_bonus_def": 30, "mount_bonus_spd": 18},
+    "Salamandra de Fogo":  {"can_mount": True,  "mount_bonus_def": 16, "mount_bonus_spd": 10},
+    "Fênix Carmesim":      {"can_mount": True,  "mount_bonus_def": 25, "mount_bonus_spd": 16},
+    "Dragão de Magma":     {"can_mount": True,  "mount_bonus_def": 35, "mount_bonus_spd": 22},
+    "Esfinge Menor":       {"can_mount": True,  "mount_bonus_def": 18, "mount_bonus_spd": 12},
+    "Arcanjo Primordial":  {"can_mount": True,  "mount_bonus_def": 120,"mount_bonus_spd": 60},
+    "Entidade Cósmica":    {"can_mount": True,  "mount_bonus_def": 55, "mount_bonus_spd": 30},
+    "Anjo Guardião":       {"can_mount": True,  "mount_bonus_def": 65, "mount_bonus_spd": 35},
+    "Querubim Guerreiro":  {"can_mount": True,  "mount_bonus_def": 80, "mount_bonus_spd": 42},
+}
+
+def get_all_pets():
+    """Retorna todos os pets (originais + extras) como lista flat por mundo"""
+    all_pets = {}
+    for world, pets in PETS.items():
+        all_pets[world] = list(pets)
+    for world, pets in PETS_EXTRA.items():
+        if world not in all_pets:
+            all_pets[world] = []
+        all_pets[world].extend(pets)
+    return all_pets
+
+def get_pet_mount_data(pet_name):
+    """Retorna dados de montaria de um pet, ou None se não pode ser montaria"""
+    # Checar pets extras
+    for pets in PETS_EXTRA.values():
+        for p in pets:
+            if p["name"] == pet_name:
+                if p.get("can_mount"):
+                    return {"mount_bonus_def": p.get("mount_bonus_def", 0), "mount_bonus_spd": p.get("mount_bonus_spd", 0)}
+                return None
+    # Checar pets originais com montaria
+    if pet_name in EXISTING_PETS_MOUNT:
+        return EXISTING_PETS_MOUNT[pet_name]
+    return None
 POTIONS = {
     "Poção de Vida Menor": {"rarity": "Comum", "hp_restore": 30, "emoji": "🧪"},
     "Poção de Vida": {"rarity": "Incomum", "hp_restore": 60, "emoji": "🧪"},
@@ -5590,7 +5672,194 @@ ITEMS = {
     ]
 }
 
-# ================= ESTRUTURAS =================
+# ================= NOVOS EQUIPAMENTOS (EXPANSÃO — DOBRO) =================
+ITEMS_EXTRA = {
+    "weapons": [
+        # Comum
+        {"name": "Faca Lascada",          "rarity": "Comum",    "atk": 4},
+        {"name": "Vara de Madeira",        "rarity": "Comum",    "atk": 5},
+        {"name": "Pedra Afiada",           "rarity": "Comum",    "atk": 4},
+        {"name": "Osso Endurecido",        "rarity": "Comum",    "atk": 5},
+        {"name": "Garfo de Ferro Velho",   "rarity": "Comum",    "atk": 4},
+        {"name": "Bordão Rachado",         "rarity": "Comum",    "atk": 5},
+        {"name": "Espeto de Caçador",      "rarity": "Comum",    "atk": 6},
+        {"name": "Clava de Pedra",         "rarity": "Comum",    "atk": 5},
+        # Incomum
+        {"name": "Espada de Cobre",        "rarity": "Incomum",  "atk": 12},
+        {"name": "Arco Curto Élfico",      "rarity": "Incomum",  "atk": 13},
+        {"name": "Lança de Bronze",        "rarity": "Incomum",  "atk": 12},
+        {"name": "Bastão de Ferro",        "rarity": "Incomum",  "atk": 14},
+        {"name": "Adaga de Ferro Dupla",   "rarity": "Incomum",  "atk": 13},
+        {"name": "Machado Leve",           "rarity": "Incomum",  "atk": 13},
+        {"name": "Florete de Aço",         "rarity": "Incomum",  "atk": 14},
+        {"name": "Estrela de Arremesso",   "rarity": "Incomum",  "atk": 13},
+        {"name": "Espada Curta de Ferro",  "rarity": "Incomum",  "atk": 12},
+        {"name": "Bastão de Batalha",      "rarity": "Incomum",  "atk": 14},
+        {"name": "Kunai de Ferro",         "rarity": "Incomum",  "atk": 13},
+        {"name": "Maça de Ferro",          "rarity": "Incomum",  "atk": 14},
+        # Raro
+        {"name": "Katana de Vento",        "rarity": "Raro",     "atk": 26},
+        {"name": "Arco de Osso de Dragão", "rarity": "Raro",     "atk": 27},
+        {"name": "Espada das Marés",       "rarity": "Raro",     "atk": 25},
+        {"name": "Lança do Trovejante",    "rarity": "Raro",     "atk": 28},
+        {"name": "Machado das Trevas",     "rarity": "Raro",     "atk": 26},
+        {"name": "Florete da Névoa",       "rarity": "Raro",     "atk": 27},
+        {"name": "Cajado das Raízes",      "rarity": "Raro",     "atk": 25},
+        {"name": "Alabarda do Caçador",    "rarity": "Raro",     "atk": 28},
+        {"name": "Espada de Cristal",      "rarity": "Raro",     "atk": 26},
+        {"name": "Tridente Sombrio",       "rarity": "Raro",     "atk": 27},
+        {"name": "Adaga do Espectro",      "rarity": "Raro",     "atk": 25},
+        {"name": "Mangual Rúnico",         "rarity": "Raro",     "atk": 28},
+        {"name": "Lança de Coral",         "rarity": "Raro",     "atk": 26},
+        {"name": "Cimitarra Lunar",        "rarity": "Raro",     "atk": 27},
+        {"name": "Machado da Lua",         "rarity": "Raro",     "atk": 26},
+        # Épico
+        {"name": "Espada do Caos Menor",   "rarity": "Épico",    "atk": 46},
+        {"name": "Lança do Dilúvio",       "rarity": "Épico",    "atk": 48},
+        {"name": "Arco do Crepúsculo",     "rarity": "Épico",    "atk": 47},
+        {"name": "Machado do Abismo",      "rarity": "Épico",    "atk": 50},
+        {"name": "Cajado da Tempestade",   "rarity": "Épico",    "atk": 49},
+        {"name": "Foice do Pesadelo",      "rarity": "Épico",    "atk": 48},
+        {"name": "Florete do Vazio",       "rarity": "Épico",    "atk": 46},
+        {"name": "Tridente Celestial",     "rarity": "Épico",    "atk": 49},
+        {"name": "Espada da Aurora",       "rarity": "Épico",    "atk": 47},
+        {"name": "Alabarda Demoníaca",     "rarity": "Épico",    "atk": 50},
+        {"name": "Katana das Estrelas",    "rarity": "Épico",    "atk": 48},
+        {"name": "Lança do Dragão Negro",  "rarity": "Épico",    "atk": 51},
+        {"name": "Arco do Destino",        "rarity": "Épico",    "atk": 47},
+        {"name": "Machado do Titã Sombrio","rarity": "Épico",    "atk": 50},
+        {"name": "Cajado do Necromante",   "rarity": "Épico",    "atk": 49},
+        {"name": "Adaga Gêmea das Sombras","rarity": "Épico",    "atk": 48},
+        {"name": "Espada do Crepúsculo",   "rarity": "Épico",    "atk": 46},
+        # Lendário
+        {"name": "Fragarach",              "rarity": "Lendário", "atk": 101},
+        {"name": "Hauteclaire",            "rarity": "Lendário", "atk": 103},
+        {"name": "Joyeuse",                "rarity": "Lendário", "atk": 102},
+        {"name": "Skofnung",               "rarity": "Lendário", "atk": 104},
+        {"name": "Curtana",                "rarity": "Lendário", "atk": 101},
+        {"name": "Claiomh Solais",         "rarity": "Lendário", "atk": 105},
+        {"name": "Harpe",                  "rarity": "Lendário", "atk": 102},
+        {"name": "Shamshir-e Zomorrodnegar","rarity":"Lendário", "atk": 103},
+        {"name": "Dáinsleif",              "rarity": "Lendário", "atk": 104},
+        {"name": "Chandrahas",             "rarity": "Lendário", "atk": 102},
+        # Mítico
+        {"name": "Lâmina do Caos Absoluto","rarity": "Mítico",   "atk": 205},
+        {"name": "Foice da Eternidade",    "rarity": "Mítico",   "atk": 215},
+        {"name": "Espada do Juízo",        "rarity": "Mítico",   "atk": 208},
+        {"name": "Martelo dos Deuses",     "rarity": "Mítico",   "atk": 212},
+        # Ancestral
+        {"name": "Lança da Aurora Primeva","rarity": "Ancestral","atk": 285},
+        {"name": "Espada do Primeiro Rei", "rarity": "Ancestral","atk": 292},
+        {"name": "Cajado do Cosmos Antigo","rarity": "Ancestral","atk": 288},
+        {"name": "Arco dos Profetas Extintos","rarity":"Ancestral","atk":291},
+        {"name": "Machado do Titã Primordial","rarity":"Ancestral","atk":286},
+        # Divino
+        {"name": "Lança da Redenção Divina","rarity": "Divino",  "atk": 388},
+        {"name": "Espada do Sol Negro",    "rarity": "Divino",   "atk": 395},
+        {"name": "Cajado da Aniquilação",  "rarity": "Divino",   "atk": 392},
+        {"name": "Foice do Arcanjo Caído", "rarity": "Divino",   "atk": 385},
+        {"name": "Tridente do Poseidon Divino","rarity":"Divino","atk": 398},
+        # Primordial
+        {"name": "Silêncio Feito Arma",    "rarity": "Primordial","atk": 755},
+        {"name": "A Última Vontade",       "rarity": "Primordial","atk": 810},
+        {"name": "Ecos do Não-Ser",        "rarity": "Primordial","atk": 775},
+        {"name": "Raiz da Criação",        "rarity": "Primordial","atk": 790},
+    ],
+    "armor": [
+        # Comum
+        {"name": "Tapa de Couro",          "rarity": "Comum",    "def": 3},
+        {"name": "Vestes de Palha",        "rarity": "Comum",    "def": 4},
+        {"name": "Escudo de Madeira Leve", "rarity": "Comum",    "def": 3},
+        {"name": "Manto Rasgado",          "rarity": "Comum",    "def": 4},
+        {"name": "Colete de Osso",         "rarity": "Comum",    "def": 3},
+        {"name": "Vestes do Aldeão",       "rarity": "Comum",    "def": 4},
+        {"name": "Peitoral de Madeira",    "rarity": "Comum",    "def": 3},
+        {"name": "Gibão Velho",            "rarity": "Comum",    "def": 4},
+        # Incomum
+        {"name": "Armadura de Bronze",     "rarity": "Incomum",  "def": 8},
+        {"name": "Vestes de Couro Duplo",  "rarity": "Incomum",  "def": 9},
+        {"name": "Peitoral de Madeira Reforçada","rarity":"Incomum","def":8},
+        {"name": "Armadura de Escamas de Peixe","rarity":"Incomum","def":9},
+        {"name": "Capa Encantada",         "rarity": "Incomum",  "def": 10},
+        {"name": "Vestes do Monge",        "rarity": "Incomum",  "def": 9},
+        {"name": "Armadura de Placas Leve","rarity": "Incomum",  "def": 10},
+        {"name": "Manto de Viagem",        "rarity": "Incomum",  "def": 8},
+        {"name": "Colete Reforçado",       "rarity": "Incomum",  "def": 9},
+        {"name": "Armadura de Tiras",      "rarity": "Incomum",  "def": 10},
+        {"name": "Casaco de Ferro",        "rarity": "Incomum",  "def": 9},
+        {"name": "Vestes de Batalha Leve", "rarity": "Incomum",  "def": 8},
+        # Raro
+        {"name": "Armadura de Mithril Leve","rarity":"Raro",     "def": 19},
+        {"name": "Placas do Druida",       "rarity": "Raro",     "def": 20},
+        {"name": "Vestes do Necromante",   "rarity": "Raro",     "def": 18},
+        {"name": "Couraça das Florestas",  "rarity": "Raro",     "def": 21},
+        {"name": "Armadura do Mercenário", "rarity": "Raro",     "def": 19},
+        {"name": "Manto das Estrelas",     "rarity": "Raro",     "def": 20},
+        {"name": "Vestes do Paladino",     "rarity": "Raro",     "def": 18},
+        {"name": "Armadura Vulcânica",     "rarity": "Raro",     "def": 21},
+        {"name": "Peitoral do Cavaleiro Negro","rarity":"Raro",  "def": 20},
+        {"name": "Cota de Malha Rúnica",   "rarity": "Raro",     "def": 21},
+        {"name": "Vestes do Arauto",       "rarity": "Raro",     "def": 19},
+        {"name": "Armadura das Marés",     "rarity": "Raro",     "def": 20},
+        {"name": "Placas do Druida Solar", "rarity": "Raro",     "def": 21},
+        {"name": "Manto das Ruínas",       "rarity": "Raro",     "def": 19},
+        {"name": "Armadura do Caçador",    "rarity": "Raro",     "def": 20},
+        # Épico
+        {"name": "Armadura do Pântano",    "rarity": "Épico",    "def": 36},
+        {"name": "Vestes do Arcanista",    "rarity": "Épico",    "def": 38},
+        {"name": "Placas do Leviathan",    "rarity": "Épico",    "def": 37},
+        {"name": "Armadura do Trovão",     "rarity": "Épico",    "def": 39},
+        {"name": "Manto da Penumbra",      "rarity": "Épico",    "def": 35},
+        {"name": "Couraça de Obsidiana Polida","rarity":"Épico", "def": 38},
+        {"name": "Armadura das Profundezas","rarity":"Épico",    "def": 40},
+        {"name": "Vestes do Vazio Menor",  "rarity": "Épico",    "def": 36},
+        {"name": "Placas do Guerreiro Eterno","rarity":"Épico",  "def": 39},
+        {"name": "Armadura do Berserker",  "rarity": "Épico",    "def": 37},
+        {"name": "Manto da Ascensão Menor","rarity": "Épico",    "def": 38},
+        {"name": "Couraça de Dragão Menor","rarity": "Épico",    "def": 40},
+        {"name": "Armadura do Espectro",   "rarity": "Épico",    "def": 36},
+        {"name": "Placas do Caos",         "rarity": "Épico",    "def": 37},
+        {"name": "Vestes do Feiticeiro",   "rarity": "Épico",    "def": 35},
+        {"name": "Armadura do Inquisidor", "rarity": "Épico",    "def": 39},
+        # Lendário
+        {"name": "Armadura de Odim",       "rarity": "Lendário", "def": 83},
+        {"name": "Vestes de Hécate",       "rarity": "Lendário", "def": 84},
+        {"name": "Placas do Guardião Eterno","rarity":"Lendário","def": 85},
+        {"name": "Égide do Herói Lendário","rarity": "Lendário", "def": 82},
+        {"name": "Armadura do Semideus",   "rarity": "Lendário", "def": 84},
+        {"name": "Vestes do Dragão Sagrado","rarity":"Lendário", "def": 85},
+        {"name": "Couraça do Arcanjo",     "rarity": "Lendário", "def": 83},
+        {"name": "Armadura da Eternidade", "rarity": "Lendário", "def": 84},
+        {"name": "Placas do Caçador Divino","rarity":"Lendário", "def": 82},
+        {"name": "Manto do Profeta",       "rarity": "Lendário", "def": 85},
+        # Mítico
+        {"name": "Armadura do Ser Primevo","rarity": "Mítico",   "def": 185},
+        {"name": "Vestes do Cosmos",       "rarity": "Mítico",   "def": 192},
+        {"name": "Placas do Abismo Final", "rarity": "Mítico",   "def": 188},
+        {"name": "Couraça da Criação",     "rarity": "Mítico",   "def": 191},
+        # Ancestral
+        {"name": "Vestes do Tempo Esquecido","rarity":"Ancestral","def":270},
+        {"name": "Armadura dos Primeiros Heróis","rarity":"Ancestral","def":278},
+        {"name": "Placas da Era das Lendas","rarity":"Ancestral","def":265},
+        {"name": "Manto do Arauto Perdido","rarity": "Ancestral","def": 273},
+        {"name": "Couraça dos Antepassados","rarity":"Ancestral","def":268},
+        # Divino
+        {"name": "Armadura do Serafim Caído","rarity":"Divino",  "def": 355},
+        {"name": "Vestes do Julgamento Final","rarity":"Divino", "def": 368},
+        {"name": "Placas da Divindade Menor","rarity":"Divino",  "def": 362},
+        {"name": "Manto da Criação Divina","rarity": "Divino",   "def": 358},
+        {"name": "Couraça do Arcanjo Supremo","rarity":"Divino", "def": 372},
+        # Primordial
+        {"name": "Essência do Antes do Tempo","rarity":"Primordial","def":710},
+        {"name": "Armadura do Último Deus","rarity": "Primordial","def":755},
+        {"name": "Manto do Vazio Absoluto","rarity": "Primordial","def":730},
+        {"name": "Vestes da Não-Existência","rarity":"Primordial","def":740},
+    ]
+}
+
+# Mescla ITEMS_EXTRA no ITEMS para que todo o sistema use automaticamente
+ITEMS["weapons"].extend(ITEMS_EXTRA["weapons"])
+ITEMS["armor"].extend(ITEMS_EXTRA["armor"])
 STRUCTURES = [
     {
         "name": "🏛️ Cidade Mercante",
@@ -5720,6 +5989,7 @@ def init_db():
         "ALTER TABLE players ADD COLUMN specialization TEXT DEFAULT NULL",
         "ALTER TABLE players ADD COLUMN class_tier INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN supreme_skills TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN mount TEXT DEFAULT NULL",
         "ALTER TABLE players ADD COLUMN race_stage INTEGER DEFAULT 0",
     ]:
         try:
@@ -5847,6 +6117,7 @@ def get_player_db(user_id):
             "class_tier": r.get("class_tier", 0),
             "supreme_skills": json.loads(r["supreme_skills"]) if r.get("supreme_skills") else [],
             "race_stage": r.get("race_stage", 0),
+            "mount": r.get("mount"),
         }
     return None
 
@@ -5863,9 +6134,9 @@ def save_player_db(user_id, player):
                   level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list,
-                  race, specialization, class_tier, supreme_skills, race_stage)
+                  race, specialization, class_tier, supreme_skills, race_stage, mount)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -5904,7 +6175,8 @@ def save_player_db(user_id, player):
                player.get("specialization"),
                player.get("class_tier", 0),
                json.dumps(player.get("supreme_skills", [])),
-               player.get("race_stage", 0)))
+               player.get("race_stage", 0),
+               player.get("mount")))
 
     conn.commit()
     conn.close()
@@ -6990,22 +7262,73 @@ class TradeButton(discord.ui.View):
         from_player = get_player(self.from_user)
         to_player = get_player(self.to_user)
 
+        def _is_weapon(item_name):
+            return any(w["name"].lower() == item_name.lower() for w in ITEMS["weapons"])
+
+        def _is_armor(item_name):
+            return any(a["name"].lower() == item_name.lower() for a in ITEMS["armor"])
+
+        def _get_item_name_exact(item_name):
+            """Retorna o nome exato do item (case-insensitive) ou None"""
+            for w in ITEMS["weapons"]:
+                if w["name"].lower() == item_name.strip().lower():
+                    return w["name"]
+            for a in ITEMS["armor"]:
+                if a["name"].lower() == item_name.strip().lower():
+                    return a["name"]
+            return item_name.strip()
+
+        # Remove itens do from_player (inventário ou slot equipado)
         for item in self.from_items:
-            if item in from_player["inventory"]:
-                from_player["inventory"].remove(item)
+            exact = _get_item_name_exact(item)
+            if exact in from_player["inventory"]:
+                from_player["inventory"].remove(exact)
+            elif from_player.get("weapon") and from_player["weapon"].lower() == item.strip().lower():
+                from_player["weapon"] = None
+            elif from_player.get("armor") and from_player["armor"].lower() == item.strip().lower():
+                from_player["armor"] = None
+
+        # Remove itens do to_player (inventário ou slot equipado)
         for item in self.to_items:
-            if item in to_player["inventory"]:
-                to_player["inventory"].remove(item)
+            exact = _get_item_name_exact(item)
+            if exact in to_player["inventory"]:
+                to_player["inventory"].remove(exact)
+            elif to_player.get("weapon") and to_player["weapon"].lower() == item.strip().lower():
+                to_player["weapon"] = None
+            elif to_player.get("armor") and to_player["armor"].lower() == item.strip().lower():
+                to_player["armor"] = None
+
+        # Adiciona itens de to_player para from_player (garantindo nome exato)
         for item in self.to_items:
-            from_player["inventory"].append(item)
+            exact = _get_item_name_exact(item)
+            from_player["inventory"].append(exact)
+
+        # Adiciona itens de from_player para to_player (garantindo nome exato)
         for item in self.from_items:
-            to_player["inventory"].append(item)
+            exact = _get_item_name_exact(item)
+            to_player["inventory"].append(exact)
 
         save_player_db(self.from_user, from_player)
         save_player_db(self.to_user, to_player)
 
+        # Monta resumo da troca com tipo correto
+        def _item_type_label(item_name):
+            if _is_weapon(item_name): return "⚔️ Arma"
+            if _is_armor(item_name): return "🛡️ Armadura"
+            return "🎒 Item"
+
+        from_labels = ", ".join(f"{_item_type_label(i)} **{_get_item_name_exact(i)}**" for i in self.from_items)
+        to_labels = ", ".join(f"{_item_type_label(i)} **{_get_item_name_exact(i)}**" for i in self.to_items)
+
         await interaction.response.edit_message(
-            content=f"✅ **Troca Realizada!**\n\n*'Os itens mudam de mãos...'*\n\n🔄 Troca concluída!", view=None
+            content=(
+                f"✅ **Troca Realizada!**\n\n"
+                f"*'Os itens mudam de mãos...'*\n\n"
+                f"📤 Você recebeu: {to_labels}\n"
+                f"📥 Outro jogador recebeu: {from_labels}\n\n"
+                f"💡 Use `equipar [nome do item]` para equipar armas ou armaduras recebidas!"
+            ),
+            view=None
         )
 
     @discord.ui.button(label="Recusar", style=discord.ButtonStyle.red, emoji="❌")
@@ -7575,8 +7898,9 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if player.get("pet"):
         try:
             pet_name = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", "")
-            # Find pet in PETS data
-            for world_pets in PETS.values():
+            # Find pet in PETS and PETS_EXTRA data
+            all_pet_worlds = list(PETS.values()) + list(PETS_EXTRA.values())
+            for world_pets in all_pet_worlds:
                 for p in world_pets:
                     if p["name"] == pet_name:
                         p_atk += p.get("bonus_atk", 0)
@@ -7611,6 +7935,23 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             boss_data["atk"] = int(boss_data["atk"] * scale_factor)
     p_atk += ally_bonus_atk // 2
 
+    # ---- Exército do reino participa automaticamente do boss ----
+    army_bonus_atk = 0
+    army_bonus_desc = None
+    kingdom_data = player.get("kingdom_data")
+    if kingdom_data:
+        army_level = kingdom_data.get("army", "Neutra")
+        army_buffs = {
+            "Ruim":     {"bonus": 5,   "desc": "⚔️ Recrutas mal-treinados ajudam como podem (+5 ATK)"},
+            "Neutra":   {"bonus": 15,  "desc": "⚔️ Soldados do seu reino entram na batalha! (+15 ATK)"},
+            "Boa":      {"bonus": 35,  "desc": "⚔️ Tropas de elite marcham ao seu lado! (+35 ATK)"},
+            "Excelente":{"bonus": 70,  "desc": "⚔️ Exército lendário ataca com fúria devastadora! (+70 ATK)"},
+        }
+        buff = army_buffs.get(army_level)
+        if buff:
+            army_bonus_atk = buff["bonus"]
+            army_bonus_desc = buff["desc"]
+            p_atk += army_bonus_atk
     # ---- Pet combat bonus (pet entra automaticamente junto) ----
     pet_combat_name = None
     pet_combat_emoji = "🐾"
@@ -7619,7 +7960,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if player.get("pet"):
         try:
             pet_name = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", "")
-            for world_pets in PETS.values():
+            all_pet_worlds = list(PETS.values()) + list(PETS_EXTRA.values())
+            for world_pets in all_pet_worlds:
                 for p in world_pets:
                     if p["name"] == pet_name:
                         pet_combat_name = pet_name
@@ -7630,7 +7972,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         except:
             pass
 
-    # ---- Boss stats ----
+    # ---- Montaria bonus (se tiver montaria ativa, adiciona DEF) ----
+    mount_bonus_def = 0
+    mount_name = player.get("mount")
+    if mount_name:
+        mount_data = get_pet_mount_data(mount_name)
+        if mount_data:
+            mount_bonus_def = mount_data.get("mount_bonus_def", 0)
+            p_def += mount_bonus_def
     boss_hp = boss_data["hp"]
     boss_atk = boss_data["atk"]
 
@@ -7670,6 +8019,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         intro.add_field(name="🚨 BOSS DE NÍVEL", value="*Este boss é o guardião da passagem — mais forte e resistente!*", inline=False)
     if ally_names:
         intro.add_field(name="👥 Aliados", value=", ".join(ally_names), inline=False)
+    if army_bonus_desc:
+        intro.add_field(name="🏰 Exército do Reino", value=army_bonus_desc, inline=False)
     intro.add_field(
         name=f"{p_icon} {p_name} ({p_cls})",
         value=f"❤️ HP: `{p_hp}/{p_max_hp}` | ✨ Mana: `{p_cur_mana}`\n⚔️ ATK: `{p_atk}` | 🛡️ DEF: `{p_def}`",
@@ -7679,6 +8030,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         intro.add_field(
             name=f"{pet_combat_emoji} {pet_combat_name} (Pet)",
             value=f"❤️ HP: `{pet_combat_hp}` | ⚔️ ATK: `{pet_combat_atk}`\n*Seu fiel companheiro entra na batalha!*",
+            inline=True
+        )
+    if mount_name and mount_bonus_def > 0:
+        intro.add_field(
+            name=f"🐎 Montaria: {mount_name}",
+            value=f"🛡️ DEF Bônus: `+{mount_bonus_def}`\n*Sua montaria te protege na batalha!*",
             inline=True
         )
     intro.add_field(
@@ -15442,6 +15799,144 @@ async def handle_formas_especiais_pet(message):
             inline=False
         )
         await message.channel.send(embed=embed)
+
+
+# ================= COMANDO: MONTARIA =================
+@bot.listen("on_message")
+async def handle_montaria(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
+
+    content = message.content.lower().strip()
+    uid = str(message.author.id)
+
+    # ---- montar [pet] ----
+    if content.startswith("montar "):
+        pet_name_input = message.content.strip()[7:].strip()
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+            return
+
+        # Procura o pet no inventário de pets do jogador
+        pets_list = player.get("pets_list", [])
+        found_pet = None
+        for p in pets_list:
+            pn = p.get("name", "") if isinstance(p, dict) else str(p)
+            if pet_name_input.lower() in pn.lower():
+                found_pet = pn
+                break
+
+        # Também verifica o pet principal ativo
+        if not found_pet:
+            main_pet = player.get("pet")
+            if main_pet:
+                mpn = main_pet if isinstance(main_pet, str) else main_pet.get("name", "")
+                if pet_name_input.lower() in mpn.lower():
+                    found_pet = mpn
+
+        if not found_pet:
+            await message.channel.send(
+                f"❌ Pet **{pet_name_input}** não encontrado na sua fazenda/pet ativo!\n"
+                f"Use `ver fazenda` para listar seus pets."
+            )
+            return
+
+        mount_data = get_pet_mount_data(found_pet)
+        if not mount_data:
+            await message.channel.send(
+                f"❌ **{found_pet}** não pode ser usado como montaria!\n\n"
+                f"Pets elegíveis para montaria incluem: Lobos, Dragões, Grifos, Unicórnios, Cavalos, e criaturas grandes de raridade **Incomum+**.\n"
+                f"Verifique `lista montarias` para ver todos os pets elegíveis."
+            )
+            return
+
+        player["mount"] = found_pet
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title="🐎 MONTARIA EQUIPADA!",
+            description=f"*'Você sobe em **{found_pet}** e sente o poder da criatura sob você!'*",
+            color=discord.Color.green()
+        )
+        embed.add_field(name="🐎 Montaria", value=f"**{found_pet}**", inline=True)
+        embed.add_field(name="🛡️ DEF Bônus", value=f"`+{mount_data['mount_bonus_def']}`", inline=True)
+        embed.add_field(name="💨 Velocidade", value=f"`+{mount_data['mount_bonus_spd']}`", inline=True)
+        embed.add_field(
+            name="✅ Efeito Ativo",
+            value="*Sua montaria te acompanha automaticamente em batalhas de boss, adicionando bônus de DEF!*",
+            inline=False
+        )
+        await message.channel.send(embed=embed)
+        return
+
+    # ---- desmontar ----
+    if content in ["desmontar", "remover montaria", "tirar montaria"]:
+        player = get_player(uid)
+        if not player:
+            return
+        current_mount = player.get("mount")
+        if not current_mount:
+            await message.channel.send("❌ Você não tem nenhuma montaria ativa!")
+            return
+        player["mount"] = None
+        save_player_db(uid, player)
+        await message.channel.send(f"🐎 Montaria **{current_mount}** removida. *Você desce do seu companheiro.*")
+        return
+
+    # ---- ver montaria ----
+    if content in ["ver montaria", "minha montaria", "montaria"]:
+        player = get_player(uid)
+        if not player:
+            return
+        current_mount = player.get("mount")
+        if not current_mount:
+            await message.channel.send(
+                f"🐎 Você não tem montaria ativa.\n\n"
+                f"Para montar em um pet: `montar [nome do pet]`\n"
+                f"Veja pets elegíveis: `lista montarias`"
+            )
+            return
+        mount_data = get_pet_mount_data(current_mount)
+        if not mount_data:
+            await message.channel.send(f"🐎 Montaria ativa: **{current_mount}** *(dados não encontrados)*")
+            return
+        embed = discord.Embed(
+            title="🐎 Sua Montaria Atual",
+            color=discord.Color.blue()
+        )
+        embed.add_field(name="🐎 Montaria", value=f"**{current_mount}**", inline=True)
+        embed.add_field(name="🛡️ DEF Bônus", value=f"`+{mount_data['mount_bonus_def']}`", inline=True)
+        embed.add_field(name="💨 Velocidade", value=f"`+{mount_data['mount_bonus_spd']}`", inline=True)
+        await message.channel.send(embed=embed)
+        return
+
+    # ---- lista montarias ----
+    if content in ["lista montarias", "pets montaria", "montarias disponíveis", "montarias disponiveis"]:
+        embed = discord.Embed(
+            title="🐎 Pets que Podem Virar Montaria",
+            description="Esses pets podem ser equipados como montaria com `montar [nome]`!\nMontarias adicionam bônus de DEF em batalhas de boss.",
+            color=discord.Color.gold()
+        )
+        # Listar pets extras com montaria
+        lines = []
+        for world, pets in PETS_EXTRA.items():
+            for p in pets:
+                if p.get("can_mount"):
+                    lines.append(f"{p['emoji']} **{p['name']}** [{p['rarity']}] — DEF +{p.get('mount_bonus_def',0)} | Spd +{p.get('mount_bonus_spd',0)}")
+        # Listar pets originais com montaria
+        for pname, mdata in EXISTING_PETS_MOUNT.items():
+            lines.append(f"🐾 **{pname}** — DEF +{mdata.get('mount_bonus_def',0)} | Spd +{mdata.get('mount_bonus_spd',0)}")
+
+        # Dividir em campos para não ultrapassar limite
+        chunks = [lines[i:i+10] for i in range(0, len(lines), 10)]
+        for i, chunk in enumerate(chunks):
+            embed.add_field(name=f"Montarias {i+1}", value="\n".join(chunk), inline=False)
+        embed.set_footer(text="Use: montar [nome do pet] | desmontar | ver montaria")
+        await message.channel.send(embed=embed)
+        return
 
 
 # ================= COMANDO: MUNDOS PRÓPRIOS — BOT RESPONDE NELES TAMBÉM =================
