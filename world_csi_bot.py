@@ -2123,12 +2123,14 @@ ACHIEVEMENTS = [
 ]
 
 TRAINING_OPTIONS = {
-    "forca":      {"cost": 50,  "atk_boost": 5,  "emoji": "⚔️", "desc": "Aumenta ATK em +5 permanentemente"},
-    "defesa":     {"cost": 50,  "def_boost": 5,  "emoji": "🛡️", "desc": "Aumenta DEF em +5 permanentemente"},
-    "vitalidade": {"cost": 50,  "hp_boost": 20,  "emoji": "❤️", "desc": "Aumenta HP Máximo em +20 permanentemente"},
-    "intensivo":  {"cost": 200, "atk_boost": 10, "def_boost": 10, "hp_boost": 35, "emoji": "🔥", "desc": "Treino intensivo: +10 ATK, +10 DEF, +35 HP Max"},
-    "mana":       {"cost": 50,  "mana_boost": 15, "emoji": "💎", "desc": "Aumenta Mana Máxima em +15 (requer Livro de Feitiços)"},
+    "forca":      {"cost": 200,  "atk_boost": 5,  "emoji": "⚔️", "desc": "Aumenta ATK em +5 permanentemente"},
+    "defesa":     {"cost": 200,  "def_boost": 5,  "emoji": "🛡️", "desc": "Aumenta DEF em +5 permanentemente"},
+    "vitalidade": {"cost": 200,  "hp_boost": 20,  "emoji": "❤️", "desc": "Aumenta HP Máximo em +20 permanentemente"},
+    "intensivo":  {"cost": 600, "atk_boost": 10, "def_boost": 10, "hp_boost": 35, "emoji": "🔥", "desc": "Treino intensivo: +10 ATK, +10 DEF, +35 HP Max"},
+    "mana":       {"cost": 200,  "mana_boost": 15, "emoji": "💎", "desc": "Aumenta Mana Máxima em +15 (requer Livro de Feitiços)"},
 }
+# Multiplicadores disponíveis para treino em massa
+TRAINING_MULTIPLIERS = [1, 2, 3, 5, 10, 20]
 
 # ================= MONSTER EQUIPMENT DROPS =================
 # Cada monstro pode dropar itens comuns ou incomuns específicos
@@ -3163,7 +3165,12 @@ JOBS = {
             "🔥 O fogo da forja revela um inchaço no aço. Você o reforja melhor ainda.",
             "⚙️ Você repara a armadura de um cavaleiro. Ele parte em silêncio, mas com respeito.",
             "⛏️ Uma lâmina perfeita sai da forja. Você a guarda — ninguém ainda merece.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Ferreiro Aprendiz", "bonus": "+10 ATK permanente", "atk_bonus": 10, "salary_mult": 1.0},
+            2: {"name": "Ferreiro Mestre",   "bonus": "+25 ATK, +10 DEF, acesso a forja élfica", "atk_bonus": 25, "def_bonus": 10, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Grande Ferreiro",   "bonus": "+50 ATK, +25 DEF, pode forjar armas lendárias", "atk_bonus": 50, "def_bonus": 25, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Arcano": {
         "emoji": "🔮",
@@ -3184,7 +3191,12 @@ JOBS = {
             "🌀 Uma anomalia arcana surge no laboratório. Você a contém por um fio.",
             "🔮 Você cataloga uma criatura mágica nunca documentada. A academia vai amar isso.",
             "💫 Seus estudos sobre o Abismo revelam uma verdade que deveria permanecer escondida.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Aprendiz Arcano",  "bonus": "+15 Mana máxima", "mana_bonus": 15, "salary_mult": 1.0},
+            2: {"name": "Erudito Arcano",   "bonus": "+40 Mana, +XP de magia dobrado", "mana_bonus": 40, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Arquimago",         "bonus": "+80 Mana, acesso a feitiços proibidos", "mana_bonus": 80, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Curandeiro": {
         "emoji": "💚",
@@ -3205,7 +3217,12 @@ JOBS = {
             "⚕️ Um guerreiro chega quase morto. Você trabalha a noite toda. Ele sobrevive.",
             "🍃 Você descobre uma combinação de ervas que alivia veneno de drago. Anotado.",
             "💊 Você trata 12 aldeões com gripe mágica num só dia. Exausto, mas feliz.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Curandeiro Iniciante", "bonus": "+10 HP ao trabalhar", "hp_regen_bonus": 10, "salary_mult": 1.0},
+            2: {"name": "Curandeiro Experiente","bonus": "+25 HP ao trabalhar, cura de aliados aprimorada", "hp_regen_bonus": 25, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Curandeiro Sagrado",   "bonus": "+50 HP ao trabalhar, pode reviver aliados derrotados", "hp_regen_bonus": 50, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Mercador": {
         "emoji": "💰",
@@ -3226,12 +3243,17 @@ JOBS = {
             "📊 Sua rota comercial entre dois reinos rende 50% a mais este mês.",
             "🏪 Um rival tenta te sabotar. Você sorri e leva o cliente dele embora.",
             "💎 Você fareja um item raro num lote de bugigangas. Fortuna bem merecida.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Comerciante",      "bonus": "+25% ao vender itens", "sell_bonus": 0.25, "salary_mult": 1.0},
+            2: {"name": "Mercador Próspero","bonus": "+50% venda, acesso mercado negro VIP", "sell_bonus": 0.50, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Magnata",          "bonus": "+75% venda, loja exclusiva, tributo passivo", "sell_bonus": 0.75, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Escriba": {
         "emoji": "📜",
         "min_level": 5,
-        "description": "Guardião do conhecimento. Registra histórias, cria mapas e decifra textos antigos.",
+        "description": "Guardião do conhecimento. Registra histórias, armazena livros, coleta pergaminhos e decifra textos antigos.",
         "salary_coins": (20, 50),
         "salary_xp": (200, 440),
         "perks": [
@@ -3239,6 +3261,10 @@ JOBS = {
             "Pode escrever `crônica` para ganhar XP bônus registrando aventuras",
             "Acesso a livros de lore exclusivos com `ler arquivo`",
             "Pode `mapear` áreas para revelar locais secretos",
+            "Pode `coletar pergaminho` para encontrar pergaminhos especiais",
+            "Pode `registrar npc [nome] [fala]` para registrar falas de NPCs",
+            "Pode `armazenar livro [nome]` para guardar livros na biblioteca pessoal",
+            "Pode `ver biblioteca` para ver livros e pergaminhos coletados",
         ],
         "work_action": "Sua pena raspa o pergaminho enquanto você registra histórias que outros esquecem.",
         "work_msgs": [
@@ -3247,7 +3273,14 @@ JOBS = {
             "🗺️ Você completa o mapa de uma região inteira em uma semana. Perfeição.",
             "📖 Seu arquivo sobre criaturas mágicas se torna referência para todo o reino.",
             "🔍 Você encontra uma inconsistência em crônicas antigas. A história foi alterada.",
-        ]
+            "📚 Um sábio te confia sua coleção de livros raros para catalogar. Tesouros do conhecimento!",
+            "🖊️ Você registra a fala de um ancião élfico que guarda segredos milenares.",
+        ],
+        "levels": {
+            1: {"name": "Escriba Iniciante",  "bonus": "Armazena até 10 livros, coleta 1 pergaminho/dia", "max_books": 10, "scrolls_per_day": 1, "salary_mult": 1.0},
+            2: {"name": "Escriba Erudito",    "bonus": "Armazena até 30 livros, coleta 3 pergaminhos/dia, registra falas de NPCs", "max_books": 30, "scrolls_per_day": 3, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Arquivista Supremo", "bonus": "Armazena livros ilimitados, coleta 5 pergaminhos/dia, acesso a textos proibidos", "max_books": 999, "scrolls_per_day": 5, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Cavaleiro": {
         "emoji": "⚔️",
@@ -3269,6 +3302,11 @@ JOBS = {
             "🏰 Você escolta uma caravana real por 3 dias. Sem incidentes. Exatamente como deve ser.",
             "⚡ Um bandido saca a espada. Você a desarma em um movimento. Sem derramamento de sangue.",
         ],
+        "levels": {
+            1: {"name": "Cavaleiro",          "bonus": "+20 HP máximos", "hp_bonus": 20, "salary_mult": 1.0},
+            2: {"name": "Cavaleiro Veterano", "bonus": "+50 HP, +15 DEF, invocação de cavaleiros aprimorada", "hp_bonus": 50, "def_bonus": 15, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Cavaleiro Lendário", "bonus": "+100 HP, +30 DEF, imune a efeitos de medo", "hp_bonus": 100, "def_bonus": 30, "salary_mult": 2.5, "req_work": 50},
+        },
         "city_defense_cooldown": 3600  # 1 hora
     },
     "Guarda_Real": {
@@ -3290,7 +3328,12 @@ JOBS = {
             "⚔️ Você treina recrutas por uma semana. Um deles tem talento genuíno.",
             "🏰 Um ataque surpresa na madrugada é repelido sob seu comando.",
             "🗡️ Você desarma um assassino dentro do salão do trono. Silenciosamente.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Guarda Real",         "bonus": "+35 HP máximos", "hp_bonus": 35, "salary_mult": 1.0},
+            2: {"name": "Guarda de Elite",     "bonus": "+70 HP, +20 ATK, acesso a arsenal real", "hp_bonus": 70, "atk_bonus": 20, "salary_mult": 1.5, "req_work": 20},
+            3: {"name": "Comandante da Guarda","bonus": "+120 HP, +40 ATK, pode declarar alerta de guerra", "hp_bonus": 120, "atk_bonus": 40, "salary_mult": 2.5, "req_work": 50},
+        }
     },
     "Rei": {
         "emoji": "👑",
@@ -3313,8 +3356,57 @@ JOBS = {
             "🏰 Um embaixador de outro reino chega. Diplomacia delicada se inicia.",
             "📜 Você assina um tratado de paz com os elfos. Trégua de 50 anos.",
             "👥 O povo celebra nas ruas ao ouvir sua decisão de perdoar uma dívida coletiva.",
-        ]
+        ],
+        "levels": {
+            1: {"name": "Rei",          "bonus": "Tributo diário básico", "salary_mult": 1.0},
+            2: {"name": "Rei Poderoso", "bonus": "Tributo dobrado, +2 decretos/dia", "salary_mult": 2.0, "req_work": 30},
+            3: {"name": "Imperador",    "bonus": "Tributo x5, controle de múltiplos reinos", "salary_mult": 5.0, "req_work": 70},
+        }
     }
+}
+
+# ================= WEAPON DATABASE (para inspecionar arma) =================
+WEAPON_DATABASE = {
+    # Comuns
+    "Espada Enferrujada":   {"type": "Espada", "rarity": "Comum",   "atk": 5,  "crit": 5,  "speed": 8,  "element": None,     "skill": "Golpe Básico",      "skill_desc": "Ataque simples. +0% dano.", "lore": "Uma espada velha, cheia de ferrugem. Mas ainda corta."},
+    "Faca de Goblin":       {"type": "Adaga",  "rarity": "Comum",   "atk": 4,  "crit": 8,  "speed": 12, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido. +10% chance de sangramento.", "lore": "Roubada de um goblin. Tem uma mancha que não sai."},
+    "Osso Afiado":          {"type": "Adaga",  "rarity": "Comum",   "atk": 3,  "crit": 6,  "speed": 10, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido.", "lore": "Improviso ósseo. Funciona melhor do que deveria."},
+    "Espada Pequena":       {"type": "Espada", "rarity": "Incomum", "atk": 8,  "crit": 7,  "speed": 10, "element": None,     "skill": "Golpe Duplo",       "skill_desc": "Dois ataques rápidos. Cada um com 75% do dano base.", "lore": "Compacta e equilibrada. Favorita de viajantes espertos."},
+    "Adaga de Pedra":       {"type": "Adaga",  "rarity": "Comum",   "atk": 4,  "crit": 7,  "speed": 11, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido básico.", "lore": "Talhada em pedra vulcânica. Primitiva, mas eficaz."},
+    # Incomuns
+    "Espada de Ferro":      {"type": "Espada", "rarity": "Incomum", "atk": 12, "crit": 8,  "speed": 9,  "element": None,     "skill": "Golpe Cortante",    "skill_desc": "Ignora 10% da defesa inimiga.", "lore": "Forjada em ferro padrão. Confiável e resistente."},
+    "Cajado de Madeira Viva":{"type": "Cajado","rarity": "Incomum", "atk": 10, "crit": 6,  "speed": 7,  "element": "Natureza","skill": "Raiz Viva",        "skill_desc": "+20% dano contra inimigos imóveis.", "lore": "A madeira ainda cresce. Você pode sentir a seiva pulsando."},
+    "Garras de Escorpião":  {"type": "Garras", "rarity": "Incomum", "atk": 11, "crit": 12, "speed": 13, "element": "Veneno", "skill": "Veneno de Escorpião","skill_desc": "15% chance de envenenar o inimigo por 3 turnos.", "lore": "Arrancar estas garras foi um erro do escorpião."},
+    # Raros
+    "Adaga Venenosa":       {"type": "Adaga",  "rarity": "Raro",    "atk": 18, "crit": 15, "speed": 14, "element": "Veneno", "skill": "Inoculação Fatal",  "skill_desc": "25% chance de veneno devastador: -5% HP/turno.", "lore": "Destilada com o veneno de 100 aranhas da floresta negra."},
+    "Arco Élfico":          {"type": "Arco",   "rarity": "Raro",    "atk": 20, "crit": 18, "speed": 15, "element": "Arcano", "skill": "Flecha Certeira",   "skill_desc": "+40% dano crítico. Nunca erra se concentrado.", "lore": "Encantado por elfos há séculos. Vibra ao mirar em inimigos."},
+    "Cetro Antigo":         {"type": "Cetro",  "rarity": "Raro",    "atk": 22, "crit": 10, "speed": 6,  "element": "Arcano", "skill": "Pulso Arcano",      "skill_desc": "Dano mágico que ignora 25% da DEF.", "lore": "Recuperado de uma tumba. Palavras inscritas nele pulsam à noite."},
+    "Machado de Gelo":      {"type": "Machado","rarity": "Raro",    "atk": 25, "crit": 9,  "speed": 6,  "element": "Gelo",   "skill": "Tempestade Gélida", "skill_desc": "20% chance de congelar inimigo por 1 turno (perde ação).", "lore": "Forjado no coração de uma avalanche. Está sempre frio ao toque."},
+    "Lança do Caçador":     {"type": "Lança",  "rarity": "Raro",    "atk": 23, "crit": 11, "speed": 10, "element": None,     "skill": "Arremesso Preciso", "skill_desc": "Pode atacar à distância. +15% dano a distância.", "lore": "Usada por caçadores ancestrais. Ainda tem marcas de antigas presas."},
+    "Foice Maldita":        {"type": "Foice",  "rarity": "Raro",    "atk": 21, "crit": 14, "speed": 9,  "element": "Sombra", "skill": "Ceifar Almas",      "skill_desc": "Drena 5% HP do inimigo por acerto.", "lore": "Ela não foi forjada. Surgiu de um pacto que é melhor não repetir."},
+    "Garras da Lua":        {"type": "Garras", "rarity": "Raro",    "atk": 20, "crit": 16, "speed": 14, "element": "Luz",    "skill": "Fúria Lunar",       "skill_desc": "+30% ATK durante a noite no mundo.", "lore": "Criadas sob a lua cheia por lobisomens ancestrais."},
+    "Katana Relâmpago":     {"type": "Katana", "rarity": "Raro",    "atk": 24, "crit": 17, "speed": 16, "element": "Trovão", "skill": "Corte Relâmpago",   "skill_desc": "Ataque extremamente rápido, age antes do inimigo.", "lore": "Forjada com metal de um raio. Corta o ar com som de trovão."},
+    "Machado Rúnico":       {"type": "Machado","rarity": "Raro",    "atk": 26, "crit": 10, "speed": 7,  "element": "Arcano", "skill": "Runas de Poder",    "skill_desc": "+35% dano quando HP > 80%.", "lore": "Runas antigas gravadas por mãos anãs. Cada símbolo tem um significado perdido."},
+    # Épicos
+    "Lâmina Flamejante":    {"type": "Espada", "rarity": "Épico",   "atk": 38, "crit": 14, "speed": 11, "element": "Fogo",   "skill": "Explosão Flamejante","skill_desc": "Ataque de fogo: +50% dano, queima por 2 turnos.", "lore": "Forjada no núcleo de um vulcão ativo. Nunca esfria completamente."},
+    "Espada Demoníaca":     {"type": "Espada", "rarity": "Épico",   "atk": 42, "crit": 16, "speed": 10, "element": "Trevas", "skill": "Maldição Infernal",  "skill_desc": "Reduz regeneração do inimigo em 50% por 3 turnos.", "lore": "Temperada no sangue de um demônio maior. Sussurra promessas ao portador."},
+    "Katana Demoníaca":     {"type": "Katana", "rarity": "Épico",   "atk": 40, "crit": 20, "speed": 14, "element": "Trevas", "skill": "Dança das Sombras",  "skill_desc": "3 ataques rápidos, o último ignora toda a DEF.", "lore": "Uma katana que trocou de mão sete vezes — todos os donos morreram em batalha."},
+    "Cajado Arcano":        {"type": "Cajado", "rarity": "Épico",   "atk": 35, "crit": 12, "speed": 8,  "element": "Arcano", "skill": "Feitiço Supremo",    "skill_desc": "+70% dano mágico. Consome 30 de mana.", "lore": "Condensação de anos de estudo arcano. Emite luz própria."},
+}
+
+# Habilidades por tipo de arma
+WEAPON_TYPE_SKILLS = {
+    "Espada":  ["Golpe Cortante", "Redemoinho", "Parade e Riposte"],
+    "Adaga":   ["Perfurar", "Ataque Furtivo", "Envenenar Lâmina"],
+    "Cajado":  ["Pulso Arcano", "Barreira Mágica", "Canalização"],
+    "Arco":    ["Flecha Certeira", "Chuva de Flechas", "Flecha Perfurante"],
+    "Machado": ["Golpe Devastador", "Fúria Bárbara", "Corte em Arco"],
+    "Lança":   ["Arremesso Preciso", "Investida", "Barreira de Lanças"],
+    "Katana":  ["Corte Veloz", "Iaijutsu", "Corte do Vento"],
+    "Foice":   ["Ceifar", "Girar Foice", "Colheita das Almas"],
+    "Garras":  ["Rasgar", "Ataque Frenético", "Veneno das Garras"],
+    "Cetro":   ["Pulso de Poder", "Maldição", "Invocação Menor"],
+    "Martelo": ["Golpe Esmagador", "Terremoto", "Fortalecer"],
 }
 
 # ================= EVENTOS DE INVASÃO DE CIDADE =================
@@ -12645,9 +12737,9 @@ async def on_message(message):
         player = get_player(user_id)
         training_key = content[8:].strip().lower()
 
-        # Detectar multiplicador: "treinar força 10x" ou "treinar intensivo 20x"
+        # Detectar multiplicador: "treinar força 3x", "treinar força 10x", etc.
         multiplier = 1
-        for suffix in ["20x", "10x"]:
+        for suffix in ["20x", "10x", "5x", "3x", "2x"]:
             if training_key.endswith(f" {suffix}"):
                 multiplier = int(suffix[:-1])
                 training_key = training_key[: -(len(suffix) + 1)].strip()
@@ -12658,22 +12750,28 @@ async def on_message(message):
             opts_list = " | ".join([f"`treinar {k}`" for k in TRAINING_OPTIONS])
             await message.channel.send(
                 f"❌ Tipo de treino inválido!\n\nOpções disponíveis: {opts_list}\n\n"
-                f"💡 **Treino múltiplo:** `treinar força 10x` | `treinar intensivo 20x`"
+                f"💡 **Treino múltiplo:** `treinar força 3x` | `treinar força 10x` | `treinar intensivo 3x`\n"
+                f"⚠️ O custo **dobra** a cada treino acumulado (200 → 400 → 800 → ...)!"
             )
             return
 
-        # Custo escala com training_points: base + (training_points * 1 a 5 coins por treino)
+        # Custo escala exponencialmente com training_points (dobra a cada 10 treinos)
         training_done = player.get("training_points", 0)
         base_cost = opt["cost"]
-        scaling = min(training_done * 3, 500)  # +3 CSI por treino feito, máximo +500
-        cost_per = base_cost + scaling
+        # A cada 10 treinos, o custo base dobra (máximo 8x o base)
+        tier = min(training_done // 10, 5)  # 0–5 tiers
+        tier_mult = 2 ** tier  # 1, 2, 4, 8, 16, 32
+        cost_per = base_cost * tier_mult
+        # Adicional linear dentro do tier (+base*tier*0.1 por treino no tier)
+        within_tier = training_done % 10
+        cost_per = cost_per + int(base_cost * tier * 0.1 * within_tier)
         total_cost = cost_per * multiplier
 
         if player["coins"] < total_cost:
             await message.channel.send(
                 f"❌ Você não tem CSI suficiente!\n"
                 f"Custo: `{total_cost:,}` CSI ({multiplier}× `{cost_per:,}`) | Você tem: `{player['coins']:,}`\n"
-                f"*O preço sobe a cada treino realizado (+3 CSI por treino acumulado)*"
+                f"⚠️ *O custo dobra a cada 10 treinos! Tier atual: {tier+1}/6 (x{tier_mult})*"
             )
             return
 
@@ -12700,15 +12798,22 @@ async def on_message(message):
         player["training_points"] = training_count
         save_player_db(user_id, player)
 
+        # Calcular custo do próximo treino
+        next_tier = min(training_count // 10, 5)
+        next_tier_mult = 2 ** next_tier
+        next_cost = base_cost * next_tier_mult
+
         mult_txt = f" ×{multiplier}" if multiplier > 1 else ""
+        tier_bars = "🟥" * (tier+1) + "⬛" * (5 - tier)
         embed = discord.Embed(
             title=f"💪 Treino{mult_txt} Completo!",
             description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}**{mult_txt} realizado!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{total_cost:,} CSI",
             color=discord.Color.green()
         )
         embed.add_field(name="📊 Stats Bônus Totais", value=f"⚔️ ATK: +{player.get('temp_atk_boost',0)}\n🛡️ DEF: +{player.get('temp_def_boost',0)}\n❤️ HP Max: +{player.get('temp_hp_boost',0)}", inline=True)
-        embed.add_field(name="📈 Próximo custo", value=f"`{base_cost + min((training_count)*3, 500):,}` CSI por treino", inline=True)
-        embed.set_footer(text=f"Treinos realizados: {training_count} | Use 'treinar força 10x' para treinos em massa")
+        embed.add_field(name="💰 Próximo custo", value=f"`{next_cost:,}` CSI\nTier {next_tier+1}/6 {tier_bars}", inline=True)
+        embed.add_field(name="⚠️ Escalonamento", value=f"Tier atual: **{tier+1}** (×{tier_mult} do base)\nA cada 10 treinos o custo **dobra**!\nUso: `treinar {training_key} 3x` para 3 de uma vez", inline=False)
+        embed.set_footer(text=f"Treinos realizados: {training_count} | Multiplicadores: 2x 3x 5x 10x 20x")
         await message.channel.send(embed=embed)
         if training_count >= 10:
             await check_achievements(message.channel, user_id, "training_10")
@@ -14141,18 +14246,67 @@ async def handle_new_commands(message):
             mins = remaining // 60
             await message.channel.send(f"⏳ Você já trabalhou recentemente! Próximo turno em **{mins} minutos**.")
             return
-        coins = random.randint(*jd["salary_coins"])
-        xp = random.randint(*jd["salary_xp"])
+
+        # Determinar nível do emprego
+        job_works = player.get("job_works", {})
+        job_work_count = job_works.get(job, 0)
+        job_level = 1
+        job_levels = jd.get("levels", {})
+        for lvl_num in sorted(job_levels.keys(), reverse=True):
+            req = job_levels[lvl_num].get("req_work", 0)
+            if job_work_count >= req:
+                job_level = lvl_num
+                break
+        lvl_data = job_levels.get(job_level, {})
+        salary_mult = lvl_data.get("salary_mult", 1.0)
+
+        coins = int(random.randint(*jd["salary_coins"]) * salary_mult)
+        xp = int(random.randint(*jd["salary_xp"]) * salary_mult)
         work_msg = random.choice(jd["work_msgs"])
-        # Bônus de curandeiro
+
+        # Bônus de curandeiro por nível
         hp_bonus = 0
         if job == "Curandeiro":
-            hp_bonus = 10
+            hp_bonus = lvl_data.get("hp_regen_bonus", 10)
             player["hp"] = min(player["max_hp"], player["hp"] + hp_bonus)
+
+        # Escriba: chance de coletar pergaminho ao trabalhar (nível 2+)
+        scroll_found = None
+        if job == "Escriba" and job_level >= 1:
+            scrolls_per_day = lvl_data.get("scrolls_per_day", 1)
+            scroll_chance = min(0.15 * scrolls_per_day, 0.60)
+            if random.random() < scroll_chance:
+                scrolls = [
+                    "📜 Pergaminho de Sabedoria Antiga",
+                    "📜 Pergaminho de Rota Perdida",
+                    "📜 Pergaminho de Feitiços Arcanos",
+                    "📜 Pergaminho de Bestiário",
+                    "📜 Pergaminho de Lore Proibido",
+                    "📜 Pergaminho de Mapa Élfico",
+                    "📜 Pergaminho de Crônicas Reais",
+                ]
+                scroll_found = random.choice(scrolls)
+                inv = player.get("inventory", [])
+                inv.append({"name": scroll_found, "type": "scroll", "qty": 1})
+                player["inventory"] = inv
+
         player["last_work"] = now
+        # Incrementar contador de trabalhos do emprego
+        job_works[job] = job_work_count + 1
+        player["job_works"] = job_works
         save_player_db(uid, player)
         add_coins(uid, coins)
         leveled = add_xp(uid, xp)
+
+        # Verificar se subiu de nível no emprego
+        new_job_level = 1
+        for lvl_num in sorted(job_levels.keys(), reverse=True):
+            req = job_levels[lvl_num].get("req_work", 0)
+            if (job_work_count + 1) >= req:
+                new_job_level = lvl_num
+                break
+        job_leveled_up = new_job_level > job_level
+
         embed = discord.Embed(
             title=f"{jd['emoji']} Turno de Trabalho — {job}",
             description=work_msg,
@@ -14162,10 +14316,31 @@ async def handle_new_commands(message):
         embed.add_field(name="⭐ XP", value=f"`+{xp}`", inline=True)
         if hp_bonus:
             embed.add_field(name="💚 Cura", value=f"`+{hp_bonus} HP`", inline=True)
+        if scroll_found:
+            embed.add_field(name="📜 Pergaminho Encontrado!", value=f"**{scroll_found}** adicionado ao inventário!", inline=False)
+        # Mostrar nível do emprego
+        next_lvl_req = None
+        if job_level < 3:
+            next_lvl_data = job_levels.get(job_level + 1, {})
+            next_lvl_req = next_lvl_data.get("req_work", "?")
+        job_level_name = lvl_data.get("name", job)
+        embed.add_field(
+            name=f"💼 Nível do Emprego: {job_level}/3",
+            value=f"**{job_level_name}** | Trabalhos: {job_work_count + 1}"
+                  + (f"\n🔼 Próximo nível em: {next_lvl_req} trabalhos" if next_lvl_req else "\n🏆 Nível máximo atingido!"),
+            inline=False
+        )
+        if job_leveled_up:
+            new_lvl_data = job_levels.get(new_job_level, {})
+            embed.add_field(
+                name=f"🎉 PROMOÇÃO! Nível {new_job_level}/3!",
+                value=f"**{new_lvl_data.get('name', job)}**\n✨ Novo bônus: {new_lvl_data.get('bonus', '')}",
+                inline=False
+            )
         if leveled:
             p2 = get_player(uid)
             embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
-        embed.set_footer(text="Próximo turno em 30 minutos.")
+        embed.set_footer(text=f"Próximo turno em 30 minutos. | Use 'ver emprego' para detalhes do cargo")
         await message.channel.send(embed=embed)
 
     elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
@@ -14186,6 +14361,391 @@ async def handle_new_commands(message):
                 color=discord.Color.greyple()
             )
         )
+
+    elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        if not job:
+            await message.channel.send("💼 Você não tem emprego para largar!")
+            return
+        jd = JOBS[job]
+        player["job"] = None
+        save_player_db(uid, player)
+        await message.channel.send(
+            embed=discord.Embed(
+                title=f"{jd['emoji']} Você largou o emprego de **{job}**",
+                description=f"*Você entrega sua ferramenta e parte. Um novo capítulo começa.*",
+                color=discord.Color.greyple()
+            )
+        )
+
+    # ===== INSPECIONAR ARMA =====
+    elif content.startswith("inspecionar arma") or content.startswith("inspecionar "):
+        player = get_player(uid)
+        if not player:
+            return
+        # Detectar nome da arma: "inspecionar arma [nome]" ou "inspecionar [nome]"
+        if content.startswith("inspecionar arma "):
+            weapon_name_query = content[17:].strip()
+        elif content.startswith("inspecionar ") and content != "inspecionar item":
+            weapon_name_query = content[12:].strip()
+        else:
+            weapon_name_query = ""
+
+        # Se não especificou nome, inspeciona arma equipada
+        if not weapon_name_query:
+            weapon_name_query = player.get("weapon", "")
+
+        if not weapon_name_query:
+            await message.channel.send(
+                "🔍 **Inspecionar Arma**\n\n"
+                "Você não tem arma equipada!\n"
+                "Uso: `inspecionar arma [nome da arma]`\n"
+                "Exemplo: `inspecionar arma Espada de Ferro`"
+            )
+            return
+
+        # Procurar arma no database (busca parcial insensível a maiúsculas)
+        wname_lower = weapon_name_query.lower()
+        found_key = None
+        found_data = None
+        for wkey, wdata in WEAPON_DATABASE.items():
+            if wname_lower in wkey.lower() or wkey.lower() in wname_lower:
+                found_key = wkey
+                found_data = wdata
+                break
+
+        if not found_data:
+            # Tentar encontrar no inventário do jogador
+            inv = player.get("inventory", [])
+            for item in inv:
+                if isinstance(item, dict) and wname_lower in item.get("name", "").lower():
+                    # Item encontrado mas sem dados detalhados
+                    rarity_color = {
+                        "Comum": discord.Color.light_grey(),
+                        "Incomum": discord.Color.green(),
+                        "Raro": discord.Color.blue(),
+                        "Épico": discord.Color.purple(),
+                        "Lendário": discord.Color.gold(),
+                        "Mítico": discord.Color.from_rgb(255, 50, 50),
+                    }.get(item.get("rarity", "Comum"), discord.Color.light_grey())
+                    embed = discord.Embed(
+                        title=f"🔍 {item['name']}",
+                        description=f"*Arma encontrada no inventário, mas sem ficha detalhada.*",
+                        color=rarity_color
+                    )
+                    embed.add_field(name="⚔️ Raridade", value=item.get("rarity", "?"), inline=True)
+                    embed.add_field(name="📦 Tipo", value=item.get("type", "Arma"), inline=True)
+                    embed.set_footer(text="Dica: Peça ao Ferreiro para identificar itens desconhecidos!")
+                    await message.channel.send(embed=embed)
+                    return
+
+            await message.channel.send(
+                f"🔍 Arma **'{weapon_name_query}'** não encontrada no banco de dados.\n"
+                f"Verifique o nome ou use `inventário` para ver suas armas.\n"
+                f"*Dica: Armas mais raras podem precisar de um Ferreiro para ser inspecionadas!*"
+            )
+            return
+
+        rarity_colors = {
+            "Comum": discord.Color.light_grey(),
+            "Incomum": discord.Color.green(),
+            "Raro": discord.Color.blue(),
+            "Épico": discord.Color.purple(),
+            "Lendário": discord.Color.gold(),
+            "Mítico": discord.Color.from_rgb(255, 50, 50),
+        }
+        rarity_emojis = {
+            "Comum": "⬜", "Incomum": "🟩", "Raro": "🟦",
+            "Épico": "🟪", "Lendário": "🟨", "Mítico": "🔴"
+        }
+        color = rarity_colors.get(found_data["rarity"], discord.Color.light_grey())
+        rar_emoji = rarity_emojis.get(found_data["rarity"], "⬛")
+
+        # Barra de ATK visual
+        atk_bar_filled = min(int(found_data["atk"] / 5), 10)
+        atk_bar = "🟥" * atk_bar_filled + "⬛" * (10 - atk_bar_filled)
+        crit_bar_filled = min(int(found_data["crit"] / 2), 10)
+        crit_bar = "🟨" * crit_bar_filled + "⬛" * (10 - crit_bar_filled)
+        spd_bar_filled = min(int(found_data["speed"] / 2), 10)
+        spd_bar = "🟩" * spd_bar_filled + "⬛" * (10 - spd_bar_filled)
+
+        embed = discord.Embed(
+            title=f"🔍 {rar_emoji} {found_key}",
+            description=f"*\"{found_data.get('lore', 'Uma arma de origens desconhecidas.')}\"*",
+            color=color
+        )
+        embed.add_field(name="🏷️ Tipo", value=found_data["type"], inline=True)
+        embed.add_field(name=f"{rar_emoji} Raridade", value=found_data["rarity"], inline=True)
+        embed.add_field(name="🌟 Elemento", value=found_data.get("element") or "Nenhum", inline=True)
+        embed.add_field(name=f"⚔️ ATK: `{found_data['atk']}`", value=atk_bar, inline=False)
+        embed.add_field(name=f"💥 Crítico: `{found_data['crit']}%`", value=crit_bar, inline=True)
+        embed.add_field(name=f"⚡ Velocidade: `{found_data['speed']}`", value=spd_bar, inline=True)
+
+        # Habilidade especial
+        skill_name = found_data.get("skill", "Ataque Básico")
+        skill_desc = found_data.get("skill_desc", "Ataque padrão sem efeito especial.")
+        embed.add_field(
+            name=f"✨ Habilidade: **{skill_name}**",
+            value=f"_{skill_desc}_",
+            inline=False
+        )
+
+        # Habilidades do tipo de arma
+        weapon_type = found_data["type"]
+        type_skills = WEAPON_TYPE_SKILLS.get(weapon_type, [])
+        if type_skills:
+            embed.add_field(
+                name=f"📚 Habilidades de {weapon_type}",
+                value=" | ".join([f"`{s}`" for s in type_skills]),
+                inline=False
+            )
+
+        # Checar se o jogador tem a arma equipada
+        equipped = player.get("weapon", "") == found_key
+        if equipped:
+            embed.add_field(name="✅ Status", value="**Equipada atualmente**", inline=True)
+        embed.set_footer(text=f"Use 'equipar {found_key}' para equipá-la | Ferreiro pode aprimorá-la")
+        await message.channel.send(embed=embed)
+        return
+
+    # ===== ESCRIBA: COLETAR PERGAMINHO =====
+    elif content in ["coletar pergaminho", "procurar pergaminho", "buscar pergaminho"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📜 Apenas **Escribas** podem coletar pergaminhos especiais!\nUse `procurar emprego` e escolha Escriba.")
+            return
+        import time
+        last_scroll = player.get("last_scroll_collect", 0)
+        now2 = int(time.time())
+        if now2 - last_scroll < 3600:
+            mins_left = (3600 - (now2 - last_scroll)) // 60
+            await message.channel.send(f"⏳ Você já coletou um pergaminho recentemente! Próxima coleta em **{mins_left} minutos**.")
+            return
+        # Nível do escriba
+        job_works = player.get("job_works", {})
+        jwork = job_works.get("Escriba", 0)
+        jd_escriba = JOBS["Escriba"]
+        job_levels = jd_escriba.get("levels", {})
+        job_level = 1
+        for lvl_num in sorted(job_levels.keys(), reverse=True):
+            if jwork >= job_levels[lvl_num].get("req_work", 0):
+                job_level = lvl_num
+                break
+        lvl_data = job_levels.get(job_level, {})
+        scrolls_per_day = lvl_data.get("scrolls_per_day", 1)
+
+        scrolls_pool = [
+            {"name": "📜 Pergaminho de Sabedoria Antiga", "xp": 500, "rarity": "Incomum"},
+            {"name": "📜 Pergaminho de Rota Perdida",     "xp": 400, "rarity": "Incomum"},
+            {"name": "📜 Pergaminho de Feitiços Arcanos", "xp": 600, "rarity": "Raro"},
+            {"name": "📜 Pergaminho de Bestiário",        "xp": 350, "rarity": "Comum"},
+            {"name": "📜 Pergaminho de Lore Proibido",    "xp": 800, "rarity": "Épico"},
+            {"name": "📜 Pergaminho de Mapa Élfico",      "xp": 700, "rarity": "Raro"},
+            {"name": "📜 Pergaminho de Crônicas Reais",   "xp": 550, "rarity": "Incomum"},
+            {"name": "📜 Pergaminho de Rituais Antigos",  "xp": 900, "rarity": "Épico"},
+        ]
+
+        collected = []
+        inv = player.get("inventory", [])
+        for _ in range(scrolls_per_day):
+            scroll = random.choice(scrolls_pool)
+            if scroll["rarity"] == "Épico" and random.random() > 0.3:
+                scroll = random.choice(scrolls_pool[:4])
+            collected.append(scroll)
+            inv.append({"name": scroll["name"], "type": "scroll", "qty": 1})
+            add_xp(uid, scroll["xp"])
+
+        player["last_scroll_collect"] = now2
+        player["inventory"] = inv
+        save_player_db(uid, player)
+
+        embed = discord.Embed(
+            title="📜 Coleta de Pergaminhos!",
+            description=f"*Você vasculha arquivos, ruínas e bibliotecas em busca de conhecimento perdido...*",
+            color=discord.Color.gold()
+        )
+        for sc in collected:
+            embed.add_field(name=sc["name"], value=f"Raridade: **{sc['rarity']}** | +{sc['xp']} XP", inline=True)
+        embed.set_footer(text=f"Nível Escriba: {job_level}/3 | Coletas por dia: {scrolls_per_day} | Próxima em 1h")
+        await message.channel.send(embed=embed)
+        return
+
+    # ===== ESCRIBA: REGISTRAR FALA DE NPC =====
+    elif content.startswith("registrar npc "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📜 Apenas **Escribas** podem registrar falas de NPCs!\nUse `procurar emprego` e escolha Escriba.")
+            return
+        # Verificar nível mínimo 2
+        job_works = player.get("job_works", {})
+        jwork = job_works.get("Escriba", 0)
+        if jwork < 20:
+            await message.channel.send(f"📜 Você precisa ser **Escriba Erudito** (20 trabalhos) para registrar falas!\nProgresso: `{jwork}/20` trabalhos.")
+            return
+        rest = content[14:].strip()
+        parts = rest.split(" ", 1)
+        if len(parts) < 2:
+            await message.channel.send("📜 Uso: `registrar npc [nome_do_npc] [fala]`\nExemplo: `registrar npc Mago_Ancião A sabedoria vem com o tempo.`")
+            return
+        npc_name = parts[0].replace("_", " ")
+        fala = parts[1]
+        # Armazenar na biblioteca do jogador
+        biblioteca = player.get("biblioteca", {})
+        npc_logs = biblioteca.get("npc_logs", [])
+        npc_logs.append({"npc": npc_name, "fala": fala, "data": __import__("datetime").datetime.now().strftime("%d/%m/%Y")})
+        if len(npc_logs) > 50:
+            npc_logs = npc_logs[-50:]
+        biblioteca["npc_logs"] = npc_logs
+        player["biblioteca"] = biblioteca
+        save_player_db(uid, player)
+        xp_bonus = random.randint(100, 300)
+        add_xp(uid, xp_bonus)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="✍️ Fala Registrada!",
+                description=f"**{npc_name}** disse:\n*\"{fala}\"*\n\n+{xp_bonus} XP pela sua dedicação ao conhecimento!",
+                color=discord.Color.blue()
+            ).set_footer(text="Use 'ver biblioteca' para consultar seus registros")
+        )
+        return
+
+    # ===== ESCRIBA: ARMAZENAR LIVRO =====
+    elif content.startswith("armazenar livro "):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📚 Apenas **Escribas** podem armazenar livros!\nUse `procurar emprego` e escolha Escriba.")
+            return
+        book_name = content[16:].strip()
+        if not book_name:
+            await message.channel.send("📚 Uso: `armazenar livro [nome do livro]`")
+            return
+        # Verificar capacidade
+        job_works = player.get("job_works", {})
+        jwork = job_works.get("Escriba", 0)
+        jd_e = JOBS["Escriba"]
+        jl = 1
+        for ln in sorted(jd_e["levels"].keys(), reverse=True):
+            if jwork >= jd_e["levels"][ln].get("req_work", 0):
+                jl = ln
+                break
+        max_books = jd_e["levels"][jl].get("max_books", 10)
+        biblioteca = player.get("biblioteca", {})
+        livros = biblioteca.get("livros", [])
+        if len(livros) >= max_books:
+            await message.channel.send(f"📚 Sua biblioteca está cheia! ({len(livros)}/{max_books} livros)\nEvoluir para o próximo nível de Escriba para expandir a capacidade!")
+            return
+        livros.append({"nome": book_name, "data": __import__("datetime").datetime.now().strftime("%d/%m/%Y")})
+        biblioteca["livros"] = livros
+        player["biblioteca"] = biblioteca
+        save_player_db(uid, player)
+        xp_bonus = random.randint(50, 150)
+        add_xp(uid, xp_bonus)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="📚 Livro Armazenado!",
+                description=f"**{book_name}** foi adicionado à sua biblioteca!\n\n+{xp_bonus} XP\n📖 Livros: `{len(livros)}/{max_books}`",
+                color=discord.Color.orange()
+            ).set_footer(text="Use 'ver biblioteca' para consultar seus livros")
+        )
+        return
+
+    # ===== ESCRIBA: VER BIBLIOTECA =====
+    elif content in ["ver biblioteca", "minha biblioteca", "biblioteca"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Escriba":
+            await message.channel.send("📚 Apenas **Escribas** possuem biblioteca pessoal!")
+            return
+        biblioteca = player.get("biblioteca", {})
+        livros = biblioteca.get("livros", [])
+        npc_logs = biblioteca.get("npc_logs", [])
+        inv = player.get("inventory", [])
+        scrolls = [i for i in inv if isinstance(i, dict) and i.get("type") == "scroll"]
+
+        embed = discord.Embed(
+            title=f"📚 Biblioteca de {message.author.display_name}",
+            description="*Seus registros do conhecimento do mundo...*",
+            color=discord.Color.from_rgb(180, 120, 60)
+        )
+        # Livros
+        if livros:
+            livros_txt = "\n".join([f"📖 **{l['nome']}** _(adicionado: {l['data']})_" for l in livros[-10:]])
+            if len(livros) > 10:
+                livros_txt += f"\n*...e mais {len(livros)-10} livros*"
+            embed.add_field(name=f"📚 Livros ({len(livros)})", value=livros_txt, inline=False)
+        else:
+            embed.add_field(name="📚 Livros (0)", value="*Nenhum livro armazenado. Use `armazenar livro [nome]`*", inline=False)
+
+        # Pergaminhos
+        if scrolls:
+            sc_txt = "\n".join([f"📜 {s['name']}" for s in scrolls[-8:]])
+            embed.add_field(name=f"📜 Pergaminhos ({len(scrolls)})", value=sc_txt, inline=False)
+        else:
+            embed.add_field(name="📜 Pergaminhos (0)", value="*Nenhum. Use `coletar pergaminho`*", inline=False)
+
+        # Logs de NPC
+        if npc_logs:
+            logs_txt = "\n".join([f"💬 **{l['npc']}**: _{l['fala'][:50]}..._" if len(l['fala']) > 50 else f"💬 **{l['npc']}**: _{l['fala']}_" for l in npc_logs[-5:]])
+            embed.add_field(name=f"🗣️ Falas de NPCs ({len(npc_logs)})", value=logs_txt, inline=False)
+        else:
+            embed.add_field(name="🗣️ Falas de NPCs (0)", value="*Nenhuma. Use `registrar npc [nome] [fala]`*", inline=False)
+
+        embed.set_footer(text="Comandos: 'armazenar livro [nome]' | 'coletar pergaminho' | 'registrar npc [nome] [fala]'")
+        await message.channel.send(embed=embed)
+        return
+
+    # ===== VER NÍVEL DO EMPREGO =====
+    elif content in ["nivel emprego", "nível emprego", "ver nível emprego", "ver nivel emprego", "cargo", "meu cargo"]:
+        player = get_player(uid)
+        if not player:
+            return
+        job = player.get("job")
+        if not job or job not in JOBS:
+            await message.channel.send("💼 Você não tem emprego! Use `procurar emprego`.")
+            return
+        jd = JOBS[job]
+        job_works = player.get("job_works", {})
+        job_work_count = job_works.get(job, 0)
+        job_levels = jd.get("levels", {})
+        job_level = 1
+        for lvl_num in sorted(job_levels.keys(), reverse=True):
+            if job_work_count >= job_levels[lvl_num].get("req_work", 0):
+                job_level = lvl_num
+                break
+        lvl_data = job_levels.get(job_level, {})
+
+        embed = discord.Embed(
+            title=f"{jd['emoji']} {lvl_data.get('name', job)} — Nível {job_level}/3",
+            description=jd["description"],
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="📋 Cargo Atual", value=f"**{lvl_data.get('name', job)}** (Nível {job_level}/3)", inline=True)
+        embed.add_field(name="🔨 Trabalhos Realizados", value=f"`{job_work_count}`", inline=True)
+        embed.add_field(name="✨ Bônus Atual", value=lvl_data.get("bonus", "Sem bônus"), inline=False)
+
+        # Próximo nível
+        for i in range(1, 4):
+            lvl_info = job_levels.get(i, {})
+            req = lvl_info.get("req_work", 0)
+            status = "✅" if job_work_count >= req else ("🔄" if i == job_level else "🔒")
+            embed.add_field(
+                name=f"{status} Nível {i}: {lvl_info.get('name', '?')}",
+                value=f"Bônus: _{lvl_info.get('bonus', '?')}_\nRequer: `{req}` trabalhos",
+                inline=False
+            )
+        embed.set_footer(text=f"Use 'trabalhar' para avançar no cargo! Salário x{lvl_data.get('salary_mult', 1.0):.1f}")
+        await message.channel.send(embed=embed)
+        return
 
     # ===== DEFENDER CIDADE (Cavaleiro/Guarda/Rei) =====
     elif content in ["defender cidade", "patrulhar", "defender reino", "modo defesa"]:
@@ -14858,19 +15418,44 @@ async def handle_spell_book(message):
         if not player.get("spell_book_unlocked"):
             await message.channel.send("❌ Desbloqueie o Livro de Feitiços primeiro! (Nível 12 + `avançar categoria mana`)")
             return
-        cost = 50
-        if player["coins"] < cost:
-            await message.channel.send(f"❌ Treinar mana custa **{cost} CSI**. Você tem: {player['coins']} CSI.")
+
+        # Detectar multiplicador
+        rest = content[12:].strip()
+        multiplier = 1
+        for suffix in ["20x", "10x", "5x", "3x", "2x"]:
+            if rest == suffix:
+                multiplier = int(suffix[:-1])
+                break
+
+        # Custo escala com quantidade de treinos de mana
+        mana_trained = player.get("mana_training_points", 0)
+        tier = min(mana_trained // 10, 5)
+        tier_mult = 2 ** tier
+        base_cost = 200
+        cost_per = base_cost * tier_mult
+        total_cost = cost_per * multiplier
+
+        if player["coins"] < total_cost:
+            await message.channel.send(
+                f"❌ Treinar mana custa **{total_cost:,} CSI** ({multiplier}× {cost_per:,}). Você tem: {player['coins']:,} CSI.\n"
+                f"⚠️ *Custo aumenta a cada 10 treinos! Tier {tier+1}/6 (x{tier_mult})*"
+            )
             return
-        player["coins"] -= cost
-        mana_boost = 15
+
+        player["coins"] -= total_cost
+        mana_boost = 15 * multiplier
         player["max_mana"] = player.get("max_mana", 50) + mana_boost
         player["mana"] = min(player.get("mana", 50) + mana_boost, player["max_mana"])
+        player["mana_training_points"] = mana_trained + multiplier
         save_player_db(uid, player)
+
+        mult_txt = f" ×{multiplier}" if multiplier > 1 else ""
         await message.channel.send(
-            f"💎 **Treino de Mana Concluído!**\n\n"
-            f"−{cost} CSI | +{mana_boost} Mana Máxima\n"
-            f"Nova mana máxima: **{player['max_mana']}**"
+            f"💎 **Treino de Mana{mult_txt} Concluído!**\n\n"
+            f"−{total_cost:,} CSI | +{mana_boost} Mana Máxima\n"
+            f"Nova mana máxima: **{player['max_mana']}**\n"
+            f"Treinos de mana: **{player['mana_training_points']}** | Tier {tier+1}/6\n"
+            f"💡 `treinar mana 3x` para treinar 3 vezes de uma vez!"
         )
 
 
