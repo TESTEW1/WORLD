@@ -1750,42 +1750,267 @@ CLASS_SKILLS = {
 # ================= BOSS SKILLS =================
 BOSS_SKILLS = {
     "default": [
-        {"name": "⚔️ Golpe Brutal", "dmg_mult": 1.5, "desc": "Um golpe poderoso!"},
-        {"name": "🌀 Rajada de Energia", "dmg_mult": 1.8, "desc": "Energia sombria liberada!", "weaken": True},
-        {"name": "💥 Impacto Sísmico", "dmg_mult": 2.0, "desc": "Tremor que abala a terra!", "stun_chance": 0.25},
-        {"name": "🔥 Chama Infernal", "dmg_mult": 1.6, "desc": "Fogo que corrói a alma!", "poison": True},
-        {"name": "💀 Golpe Devastador", "dmg_mult": 2.5, "desc": "Ataque com toda a força bestial!"},
+        {"name": "⚔️ Golpe Brutal", "dmg_mult": 1.5, "desc": "Um golpe poderoso que ecoa pela arena!"},
+        {"name": "🌀 Rajada de Energia", "dmg_mult": 1.8, "desc": "Energia sombria é liberada em ondas!", "weaken": True},
+        {"name": "💥 Impacto Sísmico", "dmg_mult": 2.0, "desc": "O tremor abala cada osso do seu corpo!", "stun_chance": 0.25},
+        {"name": "🔥 Chama Infernal", "dmg_mult": 1.6, "desc": "Fogo que queima a própria alma!", "poison": True},
+        {"name": "💀 Golpe Devastador", "dmg_mult": 2.5, "desc": "Toda a força bestial concentrada num único golpe!"},
+        {"name": "🌑 Sombra Voraz", "dmg_mult": 1.9, "desc": "Tentáculos de escuridão envolhem o alvo!", "weaken": True},
     ],
     "Slime Rei": [
-        {"name": "🟢 Divisão Slime", "dmg_mult": 1.2, "desc": "Se divide em múltiplos ataques!", "poison": True},
-        {"name": "💧 Ácido Corrosivo", "dmg_mult": 1.8, "desc": "Ácido que corrói armaduras!", "weaken": True},
-        {"name": "🌊 Onda Viscosa", "dmg_mult": 2.0, "desc": "Uma onda de gosma envolve tudo!", "stun_chance": 0.3},
+        {"name": "🟢 Divisão Slime", "dmg_mult": 1.2, "desc": "O Rei se divide em dezenas de fragmentos corrosivos!", "poison": True},
+        {"name": "💧 Ácido Corrosivo", "dmg_mult": 1.8, "desc": "Um jato de ácido dissolve armadura e carne!", "weaken": True},
+        {"name": "🌊 Onda Viscosa", "dmg_mult": 2.0, "desc": "Uma onda gigante de gosma engole o campo inteiro!", "stun_chance": 0.3},
+        {"name": "👑 Proclamação Real", "dmg_mult": 2.3, "desc": "*GLUB GLUB!* O Rei slime proclama seu domínio com um ataque esmagador!"},
+        {"name": "🦠 Infecção Celular", "dmg_mult": 1.6, "desc": "Células slime invadem o corpo e se reproduzem dentro!", "poison": True, "weaken": True},
     ],
     "Ent Ancião": [
-        {"name": "🌿 Chicote de Raiz", "dmg_mult": 1.6, "desc": "Raízes presas nos tornozelos!"},
-        {"name": "🌪️ Tempestade de Espinhos", "dmg_mult": 1.9, "desc": "Espinhos cortam por todos os lados!", "poison": True},
-        {"name": "🌳 Esmagamento Arbóreo", "dmg_mult": 2.3, "desc": "Galhos gigantes esmagam!", "stun_chance": 0.35},
+        {"name": "🌿 Chicote de Raiz", "dmg_mult": 1.6, "desc": "Raízes milenares se enroscam nos tornozelos com força brutal!"},
+        {"name": "🌪️ Tempestade de Espinhos", "dmg_mult": 1.9, "desc": "Mil espinhos perfuram de todos os lados!", "poison": True},
+        {"name": "🌳 Esmagamento Arbóreo", "dmg_mult": 2.3, "desc": "Galhos do tamanho de troncos esmagam como marretas!", "stun_chance": 0.35},
+        {"name": "🍂 Respiração da Floresta", "dmg_mult": 1.4, "desc": "Polens venenosos paralisam os pulmões!", "poison": True, "stun_chance": 0.2},
+        {"name": "🌲 DESPERTAR ANCESTRAL", "dmg_mult": 2.8, "desc": "O Ent canaliza séculos de ira — a floresta inteira responde ao chamado!", "weaken": True},
     ],
     "Faraó Amaldiçoado": [
-        {"name": "🔮 Maldição Antiga", "dmg_mult": 1.7, "desc": "Maldição que drena a vida!", "weaken": True},
-        {"name": "💀 Exército dos Mortos", "dmg_mult": 2.0, "desc": "Múmias surgem para atacar!"},
-        {"name": "⚡ Raio do Deserto", "dmg_mult": 2.4, "desc": "A energia do deserto em forma de raio!", "stun_chance": 0.2},
+        {"name": "🔮 Maldição Antiga", "dmg_mult": 1.7, "desc": "A maldição dos faraós drena vitalidade e força!", "weaken": True},
+        {"name": "💀 Exército dos Mortos", "dmg_mult": 2.0, "desc": "Legiões de múmias surgem das areias para devorar!"},
+        {"name": "⚡ Raio do Deserto", "dmg_mult": 2.4, "desc": "A energia elétrica do sol do deserto concentrada num raio!", "stun_chance": 0.2},
+        {"name": "📿 Olho de Rá", "dmg_mult": 2.1, "desc": "O olho sagrado abre e emite um feixe de energia devastadora!", "poison": True},
+        {"name": "⚰️ AMALDIÇOAMENTO ETERNO", "dmg_mult": 3.0, "desc": "O Faraó invoca o poder de todos os deuses egípcios! Morte inevitável!", "weaken": True, "stun_chance": 0.3},
     ],
     "Yeti Colossal": [
-        {"name": "❄️ Sopro Ártico", "dmg_mult": 1.8, "desc": "Vento gelado que congela tudo!", "stun_chance": 0.4},
-        {"name": "🏔️ Avalanche", "dmg_mult": 2.1, "desc": "Uma avalanche de neve e pedra!"},
-        {"name": "💪 Soco Colossal", "dmg_mult": 2.6, "desc": "Punho do tamanho de uma rocha!"},
+        {"name": "❄️ Sopro Ártico", "dmg_mult": 1.8, "desc": "Um sopro que congela o sangue nas veias!", "stun_chance": 0.4},
+        {"name": "🏔️ Avalanche", "dmg_mult": 2.1, "desc": "Toneladas de neve e pedra rolam montanha abaixo!"},
+        {"name": "💪 Soco Colossal", "dmg_mult": 2.6, "desc": "Um punho do tamanho de uma pedra de granito!"},
+        {"name": "🌨️ Nevasca Mortal", "dmg_mult": 1.7, "desc": "Gelo cortante como navalhas cobre tudo ao redor!", "poison": True, "stun_chance": 0.2},
+        {"name": "🦣 FÚRIA DAS MONTANHAS", "dmg_mult": 3.2, "desc": "O Yeti bate o peito e avança com toda a sua massa colossal! A terra treme!", "stun_chance": 0.5},
     ],
     "Dragão de Magma": [
-        {"name": "🔥 Chama Draconiana", "dmg_mult": 2.0, "desc": "Fogo que derrete aço!", "poison": True},
-        {"name": "💨 Rugido de Magma", "dmg_mult": 1.7, "desc": "O rugido causa ondas de calor!", "stun_chance": 0.2},
-        {"name": "🌋 Erupção Dracônica", "dmg_mult": 2.8, "desc": "O corpo do dragão explode em lava!"},
+        {"name": "🔥 Chama Draconiana", "dmg_mult": 2.0, "desc": "Fogo a 3000°C que derrete aço e pedra!", "poison": True},
+        {"name": "💨 Rugido de Magma", "dmg_mult": 1.7, "desc": "O rugido cria ondas de calor que queimam por dentro!", "stun_chance": 0.2},
+        {"name": "🌋 Erupção Dracônica", "dmg_mult": 2.8, "desc": "O dragão explode — lava brota do corpo como uma vulcão!"},
+        {"name": "🐉 Asas de Cinzas", "dmg_mult": 1.9, "desc": "Asas de chama criam um vórtice de destruição ao bater!", "weaken": True},
+        {"name": "💎 ESCAMAS DE OBSIDIANA", "dmg_mult": 2.4, "desc": "O dragão mergulha na lava e ressurge com escamas incandescentes — invulnerável!"},
+        {"name": "☄️ CHUVA DE METEOROS", "dmg_mult": 3.5, "desc": "O Dragão libera toda a energia vulcânica acumulada! Pedras em chamas caem do céu!", "poison": True, "stun_chance": 0.35},
     ],
     "Senhor das Sombras": [
-        {"name": "🌑 Trevas Absolutas", "dmg_mult": 2.2, "desc": "A escuridão consome tudo!", "weaken": True},
-        {"name": "👁️ Olhar Paralisante", "dmg_mult": 1.5, "desc": "Um olhar que paralisa a alma!", "stun_chance": 0.5},
-        {"name": "💀 Ceifada da Morte", "dmg_mult": 3.0, "desc": "A foice da morte avança!", "poison": True},
+        {"name": "🌑 Trevas Absolutas", "dmg_mult": 2.2, "desc": "A escuridão total consome todos os sentidos!", "weaken": True},
+        {"name": "👁️ Olhar Paralisante", "dmg_mult": 1.5, "desc": "Um olhar que paralisa corpo e alma simultaneamente!", "stun_chance": 0.5},
+        {"name": "💀 Ceifada da Morte", "dmg_mult": 3.0, "desc": "A foice etérea avança — não há defesa contra ela!", "poison": True},
+        {"name": "🩸 Drenagem de Alma", "dmg_mult": 1.8, "desc": "Sua essência vital é sugada das entranhas!", "weaken": True},
+        {"name": "👻 Exército Espectral", "dmg_mult": 2.5, "desc": "Espectros de guerreiros caídos atacam simultaneamente!"},
+        {"name": "🌀 ABISMO ETERNO", "dmg_mult": 4.0, "desc": "O Senhor abre um portal para o vazio eterno — tudo é engolido pela escuridão primordial!", "weaken": True, "stun_chance": 0.4, "poison": True},
     ],
+}
+
+# ================= BOSS INTROS (diálogos de entrada) =================
+BOSS_INTROS = {
+    "Slime Rei": [
+        "👑 *Uma massa gelatinosa gigantesca emerge do pântano com uma coroa de cristal na cabeça...*\n> **'GLUB GLUB! GLUB GLUB GLUB!'** *— O Slime Rei anuncia seu domínio!*",
+        "🟢 *O chão estremece enquanto uma gosma colossal coroada avança em sua direção...*\n> **'Pequeno intruso... você ousa entrar no meu domínio viscoso?!'**",
+    ],
+    "Ent Ancião": [
+        "🌳 *As raízes da floresta tremem... um ser de madeira e ira milenária se ergue das sombras...*\n> **'Esta floresta existia antes de você nascer. E permanecerá depois que você morrer.'**",
+        "🌿 *O vento para. Os pássaros fogem. E então... ele abre os olhos de âmbar...*\n> **'Você perturbou minha paz por 500 anos. Agora pague com sangue.'**",
+    ],
+    "Faraó Amaldiçoado": [
+        "⚰️ *Vendagens se enrolam. Ouro brilha nas trevas. O faraó se levanta do sarcófago...*\n> **'EU FUI TRAÍDO... e agora toda alma que me encontra paga pela traição!'**",
+        "🔮 *Os hieróglifos na parede brilham em vermelho. Uma risada seca ecoa nas câmaras...*\n> **'Milhares de anos de maldição aumentaram meu poder além da compreensão mortal!'**",
+    ],
+    "Yeti Colossal": [
+        "❄️ *Uma silhueta branca e imensa surge através da nevasca. O chão racha com cada passo...*\n> **'GRAAAAAAAH!'** *— Não há palavras. Apenas fúria ancestral.*",
+        "🏔️ *Avalanches começam ao redor. E então você o vê: um colosso de pelo e raiva...*\n> **'VOCÊ INVADIU MEU TERRITÓRIO... agora sofra as consequências!'**",
+    ],
+    "Dragão de Magma": [
+        "🌋 *A montanha explode. Lava jorra. E das chamas emerge algo que parece um deus...*\n> **'Ousei de tudo que veio antes de mim. NADA SOBREVIVEU!'**",
+        "🔥 *Você sente o calor antes de vê-lo. Então o Dragão de Magma abre seus olhos de fogo...*\n> **'Eu sou o fim de todas as coisas combustíveis. E você... arde fácil.'**",
+    ],
+    "Senhor das Sombras": [
+        "🌑 *A luz some. Toda a luz. E uma voz que vem de todos os lugares ao mesmo tempo ressoa...*\n> **'Você buscou poder nas sombras. Agora as sombras te consomem.'**",
+        "👁️ *Um olho enorme se forma na escuridão. Depois outro. E mais. Até que tudo é olhos...*\n> **'Eu vi o início dos mundos. Serei a testemunha do SEU fim.'**",
+    ],
+    "default": [
+        "*Uma presença maligna preenche o ar. O chão treme. E então... ele aparece.*",
+        "*O vento para. Um silêncio mortal cai sobre o campo de batalha.*",
+        "*Você sentiu isso vindo. Mas a realidade sempre é pior do que o imaginado.*",
+    ]
+}
+
+# ================= BOSS PHASE TAUNTS =================
+BOSS_PHASE_TAUNTS = {
+    "Slime Rei": {
+        "phase2": "💢 **'GLUB! GLUB GLUB! VOCÊ ME MACHUCOU?! EU VOU TE DISSOLVER!!!'** *— O Slime Rei pulsa com raiva gelatinosa!*",
+        "phase3": "😤 **'N-NÃO! IMPOSSÍVEL! EU SOU O REI! O REI NÃO PERDE!!!'** *— Sua massa começa a borbulhar de forma caótica!*",
+        "enrage": "💀 **'MODO REI ABSOLUTO ATIVADO!!!'** *— O Slime explode e se reagrega em uma forma aterrorizante!*",
+    },
+    "Ent Ancião": {
+        "phase2": "🌿 **'Você ousou ferir a floresta... Agora ela responde com toda sua FÚRiA!'** *— Raízes cobrem o céu!*",
+        "phase3": "😡 **'MIL ANOS DE PACIÊNCIA SE ESGOTARAM!'** *— Toda a floresta ao redor começa a se mover!*",
+        "enrage": "💥 **'EU SOU A FLORESTA! EU SOU A IRA DA NATUREZA!'** *— O Ent cresce o dobro do seu tamanho!*",
+    },
+    "Faraó Amaldiçoado": {
+        "phase2": "😠 **'COMO OUSAIS?! FUI DERRUBADO?! CONVOCO AS MALDIÇÕES DOS DEZ FARAÓS!'**",
+        "phase3": "💀 **'Rá me abandona... mas SET me dará força! A MALDIÇÃO É ETERNA!'**",
+        "enrage": "☠️ **'NÃO HÁ MORTE PARA MIM! EU SOU A PRÓPRIA MALDIÇÃO ENCARNADA!'** *— Aura negra explode ao redor!*",
+    },
+    "Yeti Colossal": {
+        "phase2": "😤 **'GRRRAAAHHH!!!'** *— Mais alto. Mais furioso. A neve ao redor vira uma nevasca!*",
+        "phase3": "🩸 **'ARGH! VOCÊ... VOCÊ ME FERIU! NINGUÉM ME FERE!'** *— Sangue misturado com neve escorre de seu pelo!*",
+        "enrage": "💀 **'MODO FERAL ATIVADO!'** *— Os olhos do Yeti ficam completamente vermelhos. Toda contenção foi perdida!*",
+    },
+    "Dragão de Magma": {
+        "phase2": "🔥 **'Você... conseguiu me ferir?! IMPRESSIONANTE! E INACEITÁVEL!'** *— As escamas incendeiam com mais intensidade!*",
+        "phase3": "🌋 **'SINTO O MAGMA FERVER EM MINHAS VEIAS! VOCÊ ACORDOU O VULCÃO DENTRO DE MIM!'**",
+        "enrage": "☄️ **'FORMA FINAL DE DRAGÃO!'** *— O dragão se ergue, libera um rugido que racha o céu e a terra pega fogo!*",
+    },
+    "Senhor das Sombras": {
+        "phase2": "👁️ **'Dor? Há décadas não sinto dor... Que sensação... DELICIOSA.'**",
+        "phase3": "🌑 **'Você me surpreende, mortal. Talvez eu te dê a honra de te matar pessoalmente.'**",
+        "enrage": "💀 **'MODO DEUS DAS TREVAS!'** *— O Senhor das Sombras se dissolve e a escuridão toma conta de tudo!*",
+    },
+    "default": {
+        "phase2": "😡 **'Impressionante... mas INSUFICIENTE!'** *— O boss começa a brilhar com energia sombria!*",
+        "phase3": "🩸 **'Eu não... EU NÃO VOU MORRER AQUI!'** *— O boss entra em frenesi!*",
+        "enrage": "💀 **'FORMA FINAL!'** *— Uma aura devastadora explode ao redor do boss!*",
+    }
+}
+
+# ================= BOSS DEATH LINES =================
+BOSS_DEATH_LINES = {
+    "Slime Rei": "💚 *O Slime Rei emite um último 'glub' triste... e se desfaz lentamente em uma poça de gosma inerte. Sua coroa cai no chão com um tinido.*\n> **'...glub...'**",
+    "Ent Ancião": "🍂 *Com um gemido que soa como mil árvores caindo, o Ent Ancião tremula... suas folhas caem todas de uma vez. E então ele para.*\n> **'...proteji... o que pude...'**",
+    "Faraó Amaldiçoado": "⚰️ *As vendagens se desintegram. O ouro escurece. Com um grito de agonia, o Faraó se desfaz em pó de areia...*\n> **'A MALDIÇÃO... segue contigo... para sempre...'**",
+    "Yeti Colossal": "❄️ *O Yeti Colossal tamba para trás como uma montanha desabando. A neve se assentua. Silêncio nas montanhas.*\n> **'...queria apenas... paz...'**",
+    "Dragão de Magma": "🌋 *O Dragão de Magma emite um rugido final que range os ossos. Seu corpo se resfria... rachadurasaparecem em suas escamas. E então... silêncio vulcânico.*\n> **'Eu... eu era... invencível...'**",
+    "Senhor das Sombras": "🌑 *A escuridão recua. Pela primeira vez em milênios, luz penetra neste lugar. O Senhor das Sombras se fragmenta em mil sombras menores, que desaparecem no vento.*\n> **'...a escuridão... sempre... retorna...'**",
+    "default": "*O boss emite um grito final e cai, derrubando o chão ao redor. O eco da batalha se dissipa lentamente...*",
+}
+
+# ================= BOSS VICTORY LINES (quando o boss vence) =================
+BOSS_VICTORY_TAUNTS = {
+    "Slime Rei": "👑 **'GLUB GLUB GLORIOSO!'** *— O Slime Rei celebra engolindo seu equipamento.*",
+    "Ent Ancião": "🌿 **'A floresta prevalece. Como sempre prevaleceu.'**",
+    "Faraó Amaldiçoado": "⚰️ **'Mais uma alma para minha coleção. Descanse entre os mortos, herói.'**",
+    "Yeti Colossal": "❄️ **'GRAAAAH!'** *— O Yeti assopra neve sobre você e vai embora.*",
+    "Dragão de Magma": "🔥 **'Patético. Vejo melhores guerreiros na sola das minhas garras.'**",
+    "Senhor das Sombras": "🌑 **'As sombras te agradecem pela refeição, herói. Descanse nas trevas eternas.'**",
+    "default": "*O boss te olha com desprezo e vai embora, deixando você na poeira da derrota.*",
+}
+
+# ================= ALLY BATTLE SYSTEM =================
+ALLY_CLASS_ACTIONS = {
+    "Guerreiro": [
+        ("⚔️ **{name}** avança com um grito de guerra e golpeia com todo o peso de sua armadura!", 1.4),
+        ("🛡️ **{name}** para na frente para proteger o grupo e devolve o dano em dobro!", 1.6),
+        ("💪 **{name}** levanta sua espada para os céus e desfere um golpe devastador!", 1.8),
+    ],
+    "Mago": [
+        ("🔮 **{name}** conjura uma explosão arcana que faz o boss recuar em dor!", 1.7),
+        ("⚡ **{name}** lança raios mágicos em série que perfuram as defesas do boss!", 1.9),
+        ("✨ **{name}** abre um tomo proibido e libera energia que distorce a realidade ao redor do boss!", 2.1),
+    ],
+    "Arqueiro": [
+        ("🏹 **{name}** mira com precisão cirúrgica e dispara uma flecha no ponto fraco!", 1.5),
+        ("🎯 **{name}** solta uma chuva de flechas encantadas que cobre o boss por inteiro!", 1.7),
+        ("💨 **{name}** atira uma flecha de vento que atravessa todas as defesas!", 1.6),
+    ],
+    "Paladino": [
+        ("🌟 **{name}** invoca a luz sagrada e descarrega energia divina sobre o boss!", 1.6),
+        ("⚡ **{name}** bate o escudo no chão e cria uma onda sagrada expansiva!", 1.8),
+        ("🛡️ **{name}** ergue a espada sagrada e esmaga o boss com o peso da justiça!", 1.7),
+    ],
+    "Assassino": [
+        ("🗡️ **{name}** some nas sombras e reaparece pelas costas do boss — golpe crítico garantido!", 2.0),
+        ("🌑 **{name}** usa veneno de cobra real e finca duas lâminas nos pontos vitais!", 1.9),
+        ("⚡ **{name}** executa dez golpes em um segundo — uma dança mortal de lâminas!", 1.8),
+    ],
+    "Necromante": [
+        ("💀 **{name}** invoca o espírito de um guerreiro caído que ataca com fúria fantasmagórica!", 1.7),
+        ("🩸 **{name}** drena a força vital do boss e transfere energia para os aliados!", 1.6),
+        ("☠️ **{name}** lança uma maldição que apodrece a armadura do boss por dentro!", 1.8),
+    ],
+    "Berserker": [
+        ("🪓 **{name}** entra em frenesi total e desmonta o boss com golpes descomunais!", 2.0),
+        ("😤 **{name}** ignora qualquer dano e avança como uma máquina de destruição!", 1.9),
+        ("💥 **{name}** grita com os pulmões e ataca sem controle — puro poder bruto!", 2.2),
+    ],
+    "Druida": [
+        ("🌿 **{name}** convoca um enxame de besouros mágicos que corroem o boss!", 1.5),
+        ("🌱 **{name}** faz raízes emergirem do chão e imobilizarem o boss momentaneamente!", 1.7),
+        ("🌊 **{name}** chama uma tempestade natural que esmaga o boss com granizo mágico!", 1.8),
+    ],
+    "Monge": [
+        ("👊 **{name}** desacorrentado de toda inibição, golpeia 50 vezes em 3 segundos!", 1.9),
+        ("🌀 **{name}** canaliza ki puro e desfere um soco que cria uma onda de choque!", 2.0),
+        ("⚡ **{name}** combina defesa e ataque num movimento de arte marcial ancestral!", 1.7),
+    ],
+    "Bardo": [
+        ("🎵 **{name}** toca uma melodia de guerra que amplifica o poder de todos os aliados! O boss estremece!", 1.4),
+        ("🎶 **{name}** canta uma canção maldita que enfraquece as defesas do boss!", 1.5),
+        ("🎸 **{name}** executa um acorde tão poderoso que cria uma onda sonora destruidora!", 1.6),
+    ],
+    "default": [
+        ("⚔️ **{name}** avança e ataca com determinação feroz!", 1.5),
+        ("💥 **{name}** golpeia o boss com toda sua força!", 1.7),
+    ]
+}
+
+ALLY_BATTLE_CRIES = {
+    "Guerreiro": [
+        "⚔️ *'Por honra e glória!'*",
+        "🛡️ *'Nenhum de nós cai hoje!'*",
+        "💪 *'Juntos somos invencíveis!'*",
+    ],
+    "Mago": [
+        "🔮 *'Minha magia está do nosso lado!'*",
+        "✨ *'O arcanismo nunca falha!'*",
+        "⚡ *'Deixa eu acabar com isso!'*",
+    ],
+    "Arqueiro": [
+        "🏹 *'Achei o ponto fraco!'*",
+        "🎯 *'Essa flecha vai doer!'*",
+        "💨 *'Confiem na minha pontaria!'*",
+    ],
+    "Paladino": [
+        "🌟 *'A luz nos protege!'*",
+        "⚔️ *'Pela justiça divina!'*",
+        "🛡️ *'Eu nunca recuo!'*",
+    ],
+    "Assassino": [
+        "🗡️ *'Já vi o ponto fatal...'*",
+        "🌑 *'Silêncio antes da tempestade.'*",
+        "⚡ *'Rápido como o vento, mortal como a noite.'*",
+    ],
+    "Necromante": [
+        "💀 *'Os mortos trabalham para nós!'*",
+        "☠️ *'A morte é apenas o começo!'*",
+        "🩸 *'Meus aliados nunca morrem de verdade.'*",
+    ],
+    "Berserker": [
+        "🪓 *'MATAR! DESTRUIR! SMASH!'*",
+        "😤 *'EU NÃO SINTO DOR!!!*",
+        "💥 *'MODO BERSERK ATIVADO!!!'*",
+    ],
+    "Druida": [
+        "🌿 *'A natureza responde ao chamado!'*",
+        "🌱 *'Raízes e trevas nos obedecem!'*",
+        "🌊 *'Os elementos lutam conosco!'*",
+    ],
+    "Monge": [
+        "👊 *'Foco. Respiração. Destruição.'*",
+        "🌀 *'Meu ki está no limite máximo!'*",
+        "⚡ *'Um golpe. É tudo que preciso.'*",
+    ],
+    "Bardo": [
+        "🎵 *'Que minha música seja nossa arma!'*",
+        "🎶 *'Ouçam o som da vitória!'*",
+        "🎸 *'Esta batalha merece uma balada épica!'*",
+    ],
+    "default": [
+        "*'Não vou deixar você lutar sozinho!'*",
+        "*'Juntos até o fim!'*",
+        "*'Vamos acabar com esse monstro!'*",
+    ]
 }
 
 # ================= ACHIEVEMENTS =================
@@ -8189,40 +8414,63 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     except:
         p_name = "Herói"
 
-    # ---- Intro embed ----
-    intro = discord.Embed(
-        title=f"👹 BATALHA ÉPICA — {p_name} vs {boss_data['name']}",
-        description=f"*'O narrador anuncia com voz trovejante: A batalha começa agora!'*",
-        color=discord.Color.dark_red()
-    )
+    # ---- INTRO CINEMATOGRÁFICA ----
+    boss_intro_pool = BOSS_INTROS.get(boss_data["name"], BOSS_INTROS["default"])
+    boss_intro_text = random.choice(boss_intro_pool)
+
     if is_level_boss:
-        intro.add_field(name="🚨 BOSS DE NÍVEL", value="*Este boss é o guardião da passagem — mais forte e resistente!*", inline=False)
+        intro_title = f"🚨 BOSS DE NÍVEL {player['level']} — CONFRONTO ÉPICO!"
+        intro_color = discord.Color.from_rgb(200, 0, 50)
+    elif is_dungeon:
+        intro_title = f"💀 GUARDIÃO DA MASMORRA — {boss_data['name']}!"
+        intro_color = discord.Color.dark_purple()
+    else:
+        intro_title = f"👹 BATALHA COMEÇOU — {p_name} vs {boss_data['name']}!"
+        intro_color = discord.Color.dark_red()
+
+    intro = discord.Embed(
+        title=intro_title,
+        description=boss_intro_text,
+        color=intro_color
+    )
+
+    if is_level_boss:
+        intro.add_field(
+            name="🚨 BOSS GUARDIÃO DA PASSAGEM",
+            value="*Este boss bloqueia sua evolução. Derrote-o para avançar ao próximo reino!*",
+            inline=False
+        )
+
     if ally_names:
-        intro.add_field(name="👥 Aliados", value=", ".join(ally_names), inline=False)
+        ally_display = " | ".join([f"⚔️ {n}" for n in ally_names])
+        intro.add_field(name="👥 ALIADOS NA BATALHA", value=ally_display, inline=False)
+
     if army_bonus_desc:
         intro.add_field(name="🏰 Exército do Reino", value=army_bonus_desc, inline=False)
+
     intro.add_field(
         name=f"{p_icon} {p_name} ({p_cls})",
-        value=f"❤️ HP: `{p_hp}/{p_max_hp}` | ✨ Mana: `{p_cur_mana}`\n⚔️ ATK: `{p_atk}` | 🛡️ DEF: `{p_def}`",
+        value=f"❤️ `{p_hp}/{p_max_hp}` | 💙 `{p_cur_mana}` mana\n⚔️ ATK `{p_atk}` | 🛡️ DEF `{p_def}`",
         inline=True
     )
     if pet_combat_name:
         intro.add_field(
             name=f"{pet_combat_emoji} {pet_combat_name} (Pet)",
-            value=f"❤️ HP: `{pet_combat_hp}` | ⚔️ ATK: `{pet_combat_atk}`\n*Seu fiel companheiro entra na batalha!*",
+            value=f"❤️ `{pet_combat_hp}` | ⚔️ ATK `{pet_combat_atk}`\n*Seu companheiro leal entra na batalha!*",
             inline=True
         )
     if mount_name and mount_bonus_def > 0:
         intro.add_field(
-            name=f"🐎 Montaria: {mount_name}",
-            value=f"🛡️ DEF Bônus: `+{mount_bonus_def}`\n*Sua montaria te protege na batalha!*",
+            name=f"🐎 {mount_name}",
+            value=f"🛡️ DEF +`{mount_bonus_def}`\n*Sua montaria te protege!*",
             inline=True
         )
     intro.add_field(
         name=f"👹 {boss_data['name']}",
-        value=f"❤️ HP: `{boss_cur_hp:,}` | ⚔️ ATK: `{boss_atk}`\n_{boss_data.get('desc','')[:60]}_",
+        value=f"❤️ `{boss_cur_hp:,}/{boss_hp:,}` | ⚔️ ATK `{boss_atk}`\n_{boss_data.get('desc','...')[:70]}_",
         inline=True
     )
+    intro.set_footer(text="⚔️ A batalha épica começa! Que os mais fortes sobrevivam...")
     await channel.send(embed=intro)
     await asyncio.sleep(2)
 
@@ -8237,15 +8485,97 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     skills_used = set()
     was_poisoned = False
     was_stunned = False
-    pet_cur_hp = pet_combat_hp  # pet HP tracking
+    pet_cur_hp = pet_combat_hp
 
-    for turn in range(1, 9):
+    # Fases do boss
+    boss_phase = 1  # 1=normal, 2=50%HP, 3=25%HP, 4=enrage(<10%)
+    phase_triggered = {2: False, 3: False, 4: False}
+
+    # Pré-calcular dados dos aliados para ações ativas
+    ally_full_data = []
+    if allies:
+        for ally_id in allies:
+            if str(ally_id) != str(user_id):
+                ap = get_player(ally_id)
+                if ap:
+                    try:
+                        au = await bot.fetch_user(int(ally_id))
+                        ally_full_data.append({
+                            "id": ally_id,
+                            "name": au.display_name,
+                            "class": ap.get("class", "Guerreiro"),
+                            "level": ap.get("level", 1),
+                            "atk": CLASSES.get(ap.get("class","Guerreiro"),{}).get("atk_bonus",5) + ap.get("level",1)*2,
+                        })
+                    except:
+                        pass
+
+    # Narração dinâmica por turno
+    TURN_NARRATIONS = [
+        "⚔️ **TURNO {t}** — *Os combatentes se encaram com determinação!*",
+        "🌀 **TURNO {t}** — *A tensão no ar é cortante como uma lâmina!*",
+        "💥 **TURNO {t}** — *O solo treme com cada golpe desferido!*",
+        "🔥 **TURNO {t}** — *O calor da batalha se intensifica!*",
+        "⚡ **TURNO {t}** — *Os movimentos ficam mais rápidos e mais letais!*",
+        "💀 **TURNO {t}** — *Quem sai daqui com vida?*",
+        "🌑 **TURNO {t}** — *O momento decisivo se aproxima!*",
+        "🎯 **TURNO {t}** — *Cada golpe pode ser o último!*",
+    ]
+
+    for turn in range(1, 10):
         if p_cur_hp <= 0 or boss_cur_hp <= 0:
             break
 
-        turn_embed = discord.Embed(title=f"⚔️ TURNO {turn}", color=discord.Color.red())
+        # === VERIFICAR FASE DO BOSS ===
+        boss_hp_pct = boss_cur_hp / boss_hp
+        phase_taunts = BOSS_PHASE_TAUNTS.get(boss_data["name"], BOSS_PHASE_TAUNTS["default"])
 
-        # === Player action ===
+        if boss_hp_pct <= 0.50 and not phase_triggered[2]:
+            phase_triggered[2] = True
+            boss_phase = 2
+            phase_embed = discord.Embed(
+                title="⚠️ FASE 2 — O BOSS ESTÁ ENRAIVECIDO!",
+                description=phase_taunts["phase2"],
+                color=discord.Color.orange()
+            )
+            phase_embed.add_field(name="💢 Mudança de Fase!", value="*O boss libera uma nova camada de poder! Seus ataques ficam mais perigosos!*", inline=False)
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(1.5)
+            # Buff do boss na fase 2
+            boss_atk = int(boss_atk * 1.15)
+
+        if boss_hp_pct <= 0.25 and not phase_triggered[3]:
+            phase_triggered[3] = True
+            boss_phase = 3
+            phase_embed = discord.Embed(
+                title="🔥 FASE 3 — MODO FRENESI ATIVADO!",
+                description=phase_taunts["phase3"],
+                color=discord.Color.red()
+            )
+            phase_embed.add_field(name="💀 Situação Crítica!", value="*O boss está à beira da morte... mas isso o torna ainda mais PERIGOSO!*", inline=False)
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(1.5)
+            # Buff do boss na fase 3
+            boss_atk = int(boss_atk * 1.20)
+
+        if boss_hp_pct <= 0.10 and not phase_triggered[4]:
+            phase_triggered[4] = True
+            boss_phase = 4
+            phase_embed = discord.Embed(
+                title="☠️ MODO ENRAGE — TUDO OU NADA!",
+                description=phase_taunts["enrage"],
+                color=discord.Color.from_rgb(180, 0, 0)
+            )
+            phase_embed.add_field(name="🌑 PERIGO MÁXIMO!", value="*O boss está morrendo e não tem nada a perder. ATENÇÃO MÁXIMA!*", inline=False)
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(1.5)
+            boss_atk = int(boss_atk * 1.25)
+
+        # Título do turno com narração dinâmica
+        narr = random.choice(TURN_NARRATIONS).format(t=turn)
+        turn_embed = discord.Embed(title=narr, color=discord.Color.red())
+
+        # === AÇÃO DO JOGADOR PRINCIPAL ===
         available = [s for s in p_skills if s["mana_cost"] <= p_cur_mana]
         if not available:
             available = [p_skills[0]]
@@ -8268,7 +8598,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if p_skill.get("ignore_def"):
             p_dmg = max(1, dmg_raw)
         else:
-            boss_def = max(0, boss_atk // 4)  # boss tem alguma defesa
+            boss_def = max(0, boss_atk // 4)
             p_dmg = max(1, dmg_raw - boss_def)
 
         boss_cur_hp -= p_dmg
@@ -8283,51 +8613,118 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if p_skill.get("weaken"):
             boss_weakened = True
 
-        p_action = f"{p_icon} **{p_name}** usa **{skill_display}**!\n💥 `−{p_dmg:,} HP` para {boss_data['name']}\n_{p_skill['desc']}_"
+        # Narração do ataque do jogador com variação
+        atk_intros = [
+            f"{p_icon} **{p_name}** usa **{skill_display}**!",
+            f"⚡ **{p_name}** lança **{skill_display}** com precisão mortal!",
+            f"🔥 Com determinação feroz, **{p_name}** executa **{skill_display}**!",
+            f"💢 **{p_name}** grita e ativa **{skill_display}**!",
+        ]
+        p_action = f"{random.choice(atk_intros)}\n> 💥 `−{p_dmg:,} HP` causado a **{boss_data['name']}**\n> _{p_skill['desc']}_"
         if boss_stun:
-            p_action += "\n⚡ **O boss foi paralisado!**"
+            p_action += "\n> ⚡ **O boss foi PARALISADO pelo ataque!**"
             stuns_done += 1
         if p_skill.get("self_heal"):
-            p_action += f"\n💚 **{p_name} recuperou {p_skill['self_heal']} HP!**"
-        turn_embed.add_field(name=f"🔴 Você ataca!", value=p_action, inline=False)
+            p_action += f"\n> 💚 **{p_name} recuperou `{p_skill['self_heal']}` HP!**"
+        if is_crit:
+            p_action += f"\n> 🎯 *A batalha tremeu com a força desse golpe!*"
+        turn_embed.add_field(name=f"🔴 Ataque de {p_name}!", value=p_action, inline=False)
 
-        # === Pet attack ===
+        # === AÇÕES DOS ALIADOS (cada aliado age ativamente!) ===
+        total_ally_dmg = 0
+        for ally_data in ally_full_data:
+            ally_cls = ally_data["class"]
+            ally_actions = ALLY_CLASS_ACTIONS.get(ally_cls, ALLY_CLASS_ACTIONS["default"])
+            ally_action_text, ally_mult = random.choice(ally_actions)
+            ally_battle_cry = random.choice(ALLY_BATTLE_CRIES.get(ally_cls, ALLY_BATTLE_CRIES["default"]))
+
+            # Dano do aliado baseado no nível e classe
+            ally_base_atk = ally_data["atk"]
+            ally_is_crit = random.random() < 0.15
+            ally_dmg_raw = int(ally_base_atk * ally_mult)
+            if ally_is_crit:
+                ally_dmg_raw = int(ally_dmg_raw * 1.7)
+            ally_boss_def = max(0, boss_atk // 5)
+            ally_dmg = max(1, ally_dmg_raw - ally_boss_def)
+
+            boss_cur_hp -= ally_dmg
+            total_ally_dmg += ally_dmg
+
+            ally_txt = ally_action_text.format(name=ally_data["name"])
+            ally_display = f"{ally_txt}\n> {ally_battle_cry}\n> 💥 `−{ally_dmg:,} HP` para **{boss_data['name']}**"
+            if ally_is_crit:
+                ally_display += "\n> 💥 **CRÍTICO DO ALIADO!** *A arena vibra!*"
+
+            cls_emoji = CLASSES.get(ally_cls, {}).get("emoji", "⚔️")
+            turn_embed.add_field(name=f"{cls_emoji} {ally_data['name']} ataca!", value=ally_display, inline=False)
+
+        # === ATAQUE DO PET ===
         if pet_combat_name and pet_cur_hp > 0:
             pet_dmg = max(1, pet_combat_atk + random.randint(0, pet_combat_atk // 2))
             boss_cur_hp -= pet_dmg
-            # Pet de suporte (Fada) pode curar
             pet_heal = 0
             if "Fada" in pet_combat_name or "Coelho" in pet_combat_name:
-                pet_heal = random.randint(5, 15)
+                pet_heal = random.randint(5, 20)
                 p_cur_hp = min(p_max_hp, p_cur_hp + pet_heal)
-            pet_msg = f"{pet_combat_emoji} **{pet_combat_name}** ataca! `−{pet_dmg}` HP"
-            if pet_heal:
-                pet_msg += f" | 💚 Cura `+{pet_heal}` HP"
-            turn_embed.add_field(name="🐾 Pet ataca!", value=pet_msg, inline=False)
 
+            pet_actions = [
+                f"{pet_combat_emoji} **{pet_combat_name}** salta sobre o boss com suas garras afiadas!",
+                f"{pet_combat_emoji} **{pet_combat_name}** rosna e ataca ferozmente!",
+                f"{pet_combat_emoji} **{pet_combat_name}** protege seu dono e contra-ataca!",
+                f"{pet_combat_emoji} **{pet_combat_name}** usa seu instinto animal para golpear o ponto fraco!",
+            ]
+            pet_msg = f"{random.choice(pet_actions)}\n> 💥 `−{pet_dmg}` HP para o boss"
+            if pet_heal:
+                pet_msg += f"\n> 💚 Cura `+{pet_heal}` HP para você!"
+                pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
+            turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
+
+        # === VERIFICAR MORTE DO BOSS ===
         if boss_cur_hp <= 0:
-            turn_embed.add_field(name="💥 BOSS DESTRUÍDO!", value=f"**{boss_data['name']}** foi derrotado!", inline=False)
+            death_line = BOSS_DEATH_LINES.get(boss_data["name"], BOSS_DEATH_LINES["default"])
+            turn_embed.add_field(
+                name="💥 O BOSS FOI DERROTADO!",
+                value=f"*{death_line}*\n\n🏆 **{boss_data['name']} caiu!**",
+                inline=False
+            )
             await channel.send(embed=turn_embed)
             break
 
-        # Boss poison
+        # === VENENO NO BOSS ===
         if boss_poison:
             boss_poison_dmg = max(10, int(boss_hp * 0.04))
             boss_cur_hp -= boss_poison_dmg
-            turn_embed.add_field(name="☠️ Veneno!", value=f"**{boss_data['name']}** sofre `{boss_poison_dmg}` de veneno!", inline=False)
+            turn_embed.add_field(
+                name="☠️ Efeito de Veneno!",
+                value=f"*O veneno corrói as entranhas de **{boss_data['name']}**!*\n> 🩸 `−{boss_poison_dmg}` dano de veneno",
+                inline=False
+            )
             if boss_cur_hp <= 0:
+                death_line = BOSS_DEATH_LINES.get(boss_data["name"], BOSS_DEATH_LINES["default"])
+                turn_embed.add_field(
+                    name="☠️ O VENENO FINALIZOU O BOSS!",
+                    value=f"*{death_line}*\n🏆 **{boss_data['name']} caiu!**",
+                    inline=False
+                )
                 await channel.send(embed=turn_embed)
                 break
 
-        # === Boss action (if not stunned) ===
+        # === AÇÃO DO BOSS (se não estiver paralisado) ===
         if not boss_stun:
-            b_skill = random.choice(boss_skills)
+            # Na fase de enrage, boss pode usar habilidade especial
+            if boss_phase >= 3 and random.random() < 0.3:
+                # Habilidade especial de fase final
+                b_skill = max(boss_skills, key=lambda x: x.get("dmg_mult", 0))
+            else:
+                b_skill = random.choice(boss_skills)
+
             b_dmg_raw = int(boss_atk * b_skill["dmg_mult"])
             if boss_weakened:
                 b_dmg_raw = int(b_dmg_raw * 0.6)
 
-            if random.random() < 0.1:
-                b_dmg_raw = int(b_dmg_raw * 1.5)
+            boss_crit = random.random() < (0.15 if boss_phase >= 2 else 0.1)
+            if boss_crit:
+                b_dmg_raw = int(b_dmg_raw * 1.6)
                 b_skill_name = f"💥 CRÍTICO! {b_skill['name']}"
             else:
                 b_skill_name = b_skill["name"]
@@ -8345,33 +8742,86 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 p_stunned = True
                 was_stunned = True
 
-            b_action = f"👹 **{boss_data['name']}** usa **{b_skill_name}**!\n💥 `−{b_dmg}` de dano!\n_{b_skill['desc']}_"
-            if b_stun:
-                b_action += f"\n⚡ **{p_name} foi paralisado no próximo turno!**"
-            if b_skill.get("poison"):
-                b_action += f"\n☠️ **{p_name} foi envenenado!**"
-            turn_embed.add_field(name=f"🔵 Boss ataca!", value=b_action, inline=False)
-        else:
-            turn_embed.add_field(name=f"⚡ Boss paralisado!", value="O boss perdeu o turno!", inline=False)
+            # Reação dramática baseado no HP do boss
+            if boss_hp_pct <= 0.10:
+                boss_reaction = "***(Em frenesi total, o boss ataca sem pensar!)***"
+            elif boss_hp_pct <= 0.25:
+                boss_reaction = "***(Ferido e desesperado, o golpe carrega ódio puro!)***"
+            elif boss_hp_pct <= 0.50:
+                boss_reaction = "***(O boss está com raiva agora!)***"
+            else:
+                boss_reaction = f"*{b_skill['desc']}*"
 
-        # Player poison
+            b_action = f"👹 **{boss_data['name']}** usa **{b_skill_name}**!\n> 💥 `−{b_dmg}` de dano em **{p_name}**!\n> {boss_reaction}"
+            if b_stun:
+                b_action += f"\n> ⚡ **{p_name} foi PARALISADO! Perde o próximo turno!**"
+            if b_skill.get("poison"):
+                b_action += f"\n> ☠️ **{p_name} foi envenenado!**"
+            if b_skill.get("weaken"):
+                b_action += f"\n> 💔 **{p_name} foi enfraquecido! ATK reduzido!**"
+            if boss_crit:
+                b_action += f"\n> 💢 *O golpe crítico ricocheteou pela arena inteira!*"
+
+            turn_embed.add_field(name=f"🔵 {boss_data['name']} contra-ataca!", value=b_action, inline=False)
+        else:
+            stun_msgs = [
+                f"⚡ **{boss_data['name']}** está PARALISADO! O boss perdeu o turno!",
+                f"😵 **{boss_data['name']}** tonteia e não consegue agir! *(Turno perdido!)*",
+                f"🌀 A paralisia impede **{boss_data['name']}** de atacar! *Aproveite a abertura!*",
+            ]
+            turn_embed.add_field(name="⚡ Boss Paralisado!", value=random.choice(stun_msgs), inline=False)
+
+        # === VENENO NO JOGADOR ===
         if p_poison:
             p_poison_dmg = max(5, int(p_max_hp * 0.04))
             p_cur_hp -= p_poison_dmg
-            turn_embed.add_field(name="☠️ Veneno!", value=f"**{p_name}** sofre `{p_poison_dmg}` de veneno!", inline=False)
+            turn_embed.add_field(
+                name="☠️ Veneno em você!",
+                value=f"*O veneno do boss queima por dentro...*\n> 🩸 `−{p_poison_dmg}` dano contínuo",
+                inline=False
+            )
 
-        # HP bars
+        # === BARRAS DE HP ESTILO ÉPICO ===
         p_pct = max(0, int(p_cur_hp / p_max_hp * 100))
         b_pct = max(0, int(boss_cur_hp / boss_hp * 100))
-        p_bar = "🟥" * (p_pct // 20) + "⬛" * (5 - p_pct // 20)
-        b_bar = "🟦" * (b_pct // 20) + "⬛" * (5 - b_pct // 20)
 
-        turn_embed.add_field(
-            name="📊 Status",
-            value=f"{p_icon} **{p_name}**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
-                  f"👹 **{boss_data['name']}**: {b_bar} `{max(0,boss_cur_hp):,}/{boss_hp:,}` ❤️",
-            inline=False
+        # Barras com emojis variados por porcentagem
+        def make_hp_bar(pct, filled_emoji, empty_emoji="⬛"):
+            filled = max(0, min(10, pct // 10))
+            return filled_emoji * filled + empty_emoji * (10 - filled)
+
+        if p_pct > 60:
+            p_bar = make_hp_bar(p_pct, "🟩")
+        elif p_pct > 30:
+            p_bar = make_hp_bar(p_pct, "🟨")
+        else:
+            p_bar = make_hp_bar(p_pct, "🟥")
+
+        if b_pct > 60:
+            b_bar = make_hp_bar(b_pct, "🟦")
+        elif b_pct > 30:
+            b_bar = make_hp_bar(b_pct, "🟧")
+        else:
+            b_bar = make_hp_bar(b_pct, "🟥")
+
+        # Indicador de fase do boss
+        phase_indicators = {1: "😐", 2: "😡 FASE 2", 3: "🤬 FASE 3", 4: "☠️ ENRAGE"}
+        boss_status_line = f"👹 **{boss_data['name']}** {phase_indicators.get(boss_phase,'')}: {b_bar} `{max(0,boss_cur_hp):,}/{boss_hp:,}` ❤️"
+
+        status_text = (
+            f"{p_icon} **{p_name}**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
+            f"{boss_status_line}"
         )
+        if ally_full_data and total_ally_dmg > 0:
+            status_text += f"\n⚔️ *Aliados causaram `{total_ally_dmg:,}` de dano adicional neste turno!*"
+
+        # Mensagem de alerta de HP baixo
+        if p_pct <= 20:
+            status_text += f"\n\n⚠️ ***ATENÇÃO: {p_name} está em situação crítica!***"
+        elif p_pct <= 40:
+            status_text += f"\n\n💔 *{p_name} está se segurando por um fio...*"
+
+        turn_embed.add_field(name="📊 Situação da Batalha", value=status_text, inline=False)
         await channel.send(embed=turn_embed)
         await asyncio.sleep(2)
 
@@ -8381,14 +8831,26 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if p_cur_hp <= 0 or (boss_cur_hp > 0 and p_cur_hp <= 0):
         # === DERROTA ===
         result, xp_loss = remove_xp(user_id, random.randint(80, 150))
+        boss_taunt = BOSS_VICTORY_TAUNTS.get(boss_data["name"], BOSS_VICTORY_TAUNTS["default"])
+        defeat_descs = [
+            f"*As forças te abandonam. O chão parece frio e distante enquanto você cai...*\n\n{boss_taunt}",
+            f"*Seus joelhos cedem. A última coisa que você vê são os olhos do boss te encarando...*\n\n{boss_taunt}",
+            f"*A escuridão chega. Você foi derrotado com honra — mas derrotado ainda assim...*\n\n{boss_taunt}",
+        ]
         defeat_embed = discord.Embed(
-            title="💀 DERROTA...",
-            description=f"*'{boss_data['name']} permanece de pé enquanto você cai...'*\n\n❌ **−{xp_loss} XP**",
+            title="💀 DERROTA... A BATALHA SE PERDEU",
+            description=random.choice(defeat_descs) + f"\n\n❌ **−{xp_loss} XP perdido**",
             color=discord.Color.dark_red()
         )
+        if ally_full_data:
+            defeat_embed.add_field(
+                name="😔 Seus aliados ficam ao seu lado...",
+                value="\n".join([f"> *'{n['name']} te carrega para longe do campo de batalha...'*" for n in ally_full_data[:3]]),
+                inline=False
+            )
         defeat_embed.add_field(
             name="💡 O que fazer agora?",
-            value="• **Vingança** — Enfrente o mesmo boss imediatamente\n• **Treinamento** — Fortaleça seus stats antes da revanche\n• **Recuar** — Recolha suas forças",
+            value="⚔️ **Vingança** — Enfrente o boss novamente imediatamente\n📚 **Treinar** — Fortaleça seus stats antes da revanche\n🏃 **Recuar** — Recolha suas forças e volte mais forte",
             inline=False
         )
         await channel.send(embed=defeat_embed)
@@ -8478,8 +8940,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 ally_user = await bot.fetch_user(int(ally_id))
                 ally_after = get_player(ally_id)
                 ally_embed = discord.Embed(
-                    title="🤝 ALIADO — BOSS DERROTADO!",
-                    description=f"Você ajudou a derrotar **{boss_data['name']}**!\n*'Sua participação na batalha foi decisiva!'*",
+                    title="🤝 ALIADO — BOSS DERROTADO! BATALHA ÉPICA VENCIDA!",
+                    description=f"Você lutou ao lado de **{p_name}** e juntos derrubaram **{boss_data['name']}**!\n*'A força dos aliados provou ser invencível!'*",
                     color=discord.Color.gold()
                 )
                 ally_embed.add_field(name="⭐ XP Ganho", value=f"`+{ally_xp:,}`", inline=True)
@@ -8512,11 +8974,27 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
     add_coins(user_id, coins)
 
+    victory_descs = [
+        f"*A lenda de **{p_name}** ecoa pelos reinos! **{boss_data['name']}** cai para nunca mais se erguer!*",
+        f"*Guerreiros cantarão esta vitória por gerações! O nome de **{p_name}** ficará gravado na história!*",
+        f"*Com o último golpe, o silêncio cai sobre o campo de batalha. **{p_name}** permanece de pé. O boss, não.*",
+        f"*'Impossível...'* *— as últimas palavras do boss enquanto o poder de **{p_name}** provava ser superior.*",
+    ]
     victory_embed = discord.Embed(
-        title="🏆 VITÓRIA GLORIOSA!",
-        description=f"*'{boss_data['name']} cai derrotado! A lenda de {p_name} cresce!'*\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} CSI**",
+        title="🏆 VITÓRIA GLORIOSA! A BATALHA ÉPICA TERMINOU!",
+        description=random.choice(victory_descs) + f"\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} CSI**",
         color=discord.Color.gold()
     )
+    if ally_full_data:
+        ally_celebration = []
+        for ad in ally_full_data:
+            cries = ALLY_BATTLE_CRIES.get(ad["class"], ALLY_BATTLE_CRIES["default"])
+            ally_celebration.append(f"> 🎉 **{ad['name']}**: *'Conseguimos! Incrível!'*")
+        victory_embed.add_field(
+            name="🤝 Aliados Comemoram!",
+            value="\n".join(ally_celebration[:4]),
+            inline=False
+        )
     if pending_released > 0:
         victory_embed.add_field(
             name="🔓 XP Bloqueado Liberado!",
@@ -8974,19 +9452,25 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             return
         if is_secret:
             boss_power_msgs = [
-                "👁️ *Uma entidade primordial abre os olhos. Ela existia antes do tempo.*",
-                "🌑 *O guardião final da masmorra desperta. Você sentiu isso vindo.*",
-                "💀 *Morte personificada bloqueia a câmara central. Não há fuga.*",
+                "👁️ *Uma entidade primordial abre os olhos. Ela existia antes do tempo. E agora... te enxerga.*",
+                "🌑 *O guardião final desperta. Você sentiu isso vindo desde o início da masmorra.*",
+                "💀 *A morte personificada bloqueia a câmara central. Não há fuga. Só há batalha.*",
+                "🌀 *A realidade se distorce ao redor de um ser que não deveria existir. E ele está com raiva.*",
             ]
             embed.add_field(
                 name="👹 GUARDIÃO FINAL DA MASMORRA SECRETA!",
-                value=f"{random.choice(boss_power_msgs)}\n\n**{dungeon['boss']}** surge das sombras com poder incompreensível!",
+                value=f"{random.choice(boss_power_msgs)}\n\n**{dungeon['boss']}** se ergue das sombras com poder incompreensível!\n\n*Esta batalha ficará gravada na sua memória para sempre...*",
                 inline=False
             )
         else:
+            boss_appear_msgs = [
+                f"*'Você chega à câmara final... e o ar pesado te diz que não está sozinho.'*",
+                f"*'Um rugido ecoa pelas paredes. O boss acordou — e parece estar esperando por você.'*",
+                f"*'Passos pesados. Sombra crescente. **{dungeon['boss']}** bloqueia sua saída!'*",
+            ]
             embed.add_field(
-                name="👹 O BOSS APARECE!",
-                value=f"*'No fim da dungeon, uma presença maligna surge!\n\n**{dungeon['boss']}** bloqueia seu caminho!'*",
+                name="👹 O BOSS DA DUNGEON APARECE!",
+                value=f"{random.choice(boss_appear_msgs)}\n\n**{dungeon['boss']}** surge com fúria das sombras!",
                 inline=False
             )
         embed.color = discord.Color.dark_red()
@@ -16470,14 +16954,15 @@ async def handle_confrontar_boss_level(message):
     world_name = world_data.get("name", f"Reino {target_level}")
     world_emoji = world_data.get("emoji", "🌍")
     boss_nm = boss_data["name"]
+    boss_intro_lines = BOSS_INTROS.get(boss_nm, BOSS_INTROS["default"])
 
     if already_defeated:
         embed = discord.Embed(
-            title=f"⚔️ REVANCHE — BOSS DO LEVEL {target_level}!",
+            title=f"⚔️ REVANCHE ÉPICA — BOSS DO LEVEL {target_level}!",
             description=(
                 f"*'As névoas do tempo se desfazem... O guardião ressurge das sombras para um novo duelo!'*\n\n"
-                f"👹 **{boss_nm}** retorna para uma batalha épica!\n\n"
-                f"{world_emoji} **{world_name}** — Este foi o guardião que desbloqueou este reino para você.\n\n"
+                f"👹 **{boss_nm}** retorna para uma batalha ainda mais intensa!\n\n"
+                f"{world_emoji} **{world_name}** — O guardião que já foi derrotado... e quer vingança.\n\n"
                 f"*A lenda diz que reviver grandes batalhas fortalece a alma do guerreiro...*"
             ),
             color=discord.Color.from_rgb(150, 0, 200)
@@ -16486,9 +16971,8 @@ async def handle_confrontar_boss_level(message):
         embed = discord.Embed(
             title=f"🚨 BOSS DE NÍVEL {target_level} — PASSAGEM BLOQUEADA!",
             description=(
-                f"*'O ar fica pesado... Uma sombra colossal bloqueia seu caminho!'*\n\n"
-                f"👹 **{boss_nm}** surge diante de você!\n\n"
-                f"⚠️ **Derrote-o para desbloquear o próximo reino e desbloquear o XP!**"
+                f"{random.choice(boss_intro_lines)}\n\n"
+                f"⚠️ **Derrote-o para desbloquear o próximo reino e liberar o XP bloqueado!**"
             ),
             color=discord.Color.dark_red()
         )
