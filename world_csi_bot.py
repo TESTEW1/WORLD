@@ -8063,6 +8063,22 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             chest_bonus += f"\n🧪 **{potion_dropped}** dropada!"
         if key_dropped:
             chest_bonus += f"\n🗝️ **{key_dropped}** encontrada no baú! *(Use para entrar na dungeon secreta!)*"
+            # Mensagem dramática de chave
+            key_msgs = [
+                f"*'Um brilho estranho emana do corpo caído do boss... Uma chave cai ao chão com um tinido!'*",
+                f"*'Nas entranhas do monstro, algo metálico brilha. Uma chave... mas para onde ela abre?'*",
+                f"*'O boss se dissolve em sombras, deixando para trás uma chave enferrujada de origem desconhecida...'*",
+                f"*'Uau, achou uma chave! Sla pra que serve isso... mas parece importante. Muito importante.'*",
+                f"*'Uma chave surge do nada entre os escombros. Alguém claramente não queria que você a encontrasse.'*",
+            ]
+            await asyncio.sleep(1)
+            key_embed = discord.Embed(
+                title="🗝️ CHAVE ENCONTRADA!",
+                description=random.choice(key_msgs) + f"\n\n🔑 Você obteve: **{key_dropped}**\n\n*Esta chave abre uma dungeon secreta desta região! Use `ver chaves` para gerenciar suas chaves.*",
+                color=discord.Color.from_rgb(255, 200, 0)
+            )
+            key_embed.set_footer(text="Use 'dungeon' e encontre a dungeon secreta para usar esta chave!")
+            await channel.send(embed=key_embed)
 
         embed.add_field(
             name="💎 Câmara do Tesouro!",
@@ -9275,6 +9291,101 @@ async def on_message(message):
         embed.add_field(name="⭐ XP", value=f"`{boss_data['xp']:,}`", inline=True)
         if is_level_boss:
             embed.add_field(name="🚫 XP Bloqueado", value="Ganhe XP novamente derrotando este boss!", inline=False)
+        embed.add_field(name="💡 Dica", value="Use os botões abaixo para lutar ou chamar aliados!", inline=False)
+
+        view = BossButton(user_id, boss_data["name"])
+        await message.channel.send(embed=embed, view=view)
+        return
+
+    # ======================================================
+    # ======= DESAFIAR BOSS DO LEVEL X (revanche) ==========
+    # ======================================================
+    elif content.startswith("desafiar boss do level ") or content.startswith("desafiar boss level "):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+
+        # Extrair o número do level do comando
+        try:
+            parts = content.split()
+            target_level = int(parts[-1])
+        except (ValueError, IndexError):
+            await message.channel.send("❌ Use: `desafiar boss do level 9` (ou 19, 29, 39...)")
+            return
+
+        # Bosses disponíveis nos níveis: 9, 19, 29, 39...
+        boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199]
+        if target_level not in boss_gate_levels:
+            niveis_str = ", ".join(str(x) for x in boss_gate_levels[:10]) + "..."
+            await message.channel.send(
+                f"❌ **Level {target_level}** não tem boss de nível!\n\n"
+                f"Os bosses de nível existem apenas nos níveis: **{niveis_str}**\n\n"
+                f"Use: `desafiar boss do level 9`, `desafiar boss do level 19`, etc."
+            )
+            return
+
+        # Verificar se o jogador já passou desse level (desbloqueou o boss)
+        player_level = player.get("level", 1)
+        if player_level < target_level:
+            await message.channel.send(
+                f"🔒 **Boss do Level {target_level}** ainda está bloqueado!\n\n"
+                f"Você está no nível **{player_level}**. Alcance o nível **{target_level}** para desafiar este boss.\n\n"
+                f"*\'O guardião desta passagem não reconhece sua presença... ainda.\'*"
+            )
+            return
+
+        # Pegar dados do boss
+        boss_data = get_level_boss(target_level)
+        if not boss_data:
+            await message.channel.send(f"❌ Não foi possível encontrar o boss do level {target_level}.")
+            return
+
+        already_defeated = boss_data["name"] in player.get("bosses", [])
+
+        # Salvar como pending boss
+        effects = player.get("active_effects", {})
+        effects["pending_boss"] = boss_data
+        player["active_effects"] = effects
+        save_player_db(user_id, player)
+
+        if already_defeated:
+            # Revanche — mesma vibe de desbloqueio de reino
+            boss_level_to_world = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
+                                   109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+            world_key = boss_level_to_world.get(target_level, 1)
+            world_data = WORLDS.get(world_key, {})
+            world_name = world_data.get("name", "Reino " + str(target_level))
+            world_emoji = world_data.get("emoji", "🌍")
+            boss_name_val = boss_data["name"]
+            embed = discord.Embed(
+                title=f"⚔️ REVANCHE — BOSS DO LEVEL {target_level}!",
+                description=(
+                    f"*'As névoas do tempo se desfazem... O guardião ressurge das sombras para um novo duelo!'*\n\n"
+                    f"👹 **{boss_name_val}** retorna para uma batalha épica!\n\n"
+                    f"{world_emoji} **{world_name}** — Este foi o guardião que desbloqueou este reino para você.\n\n"
+                    f"*A lenda diz que reviver grandes batalhas fortalece a alma do guerreiro...*"
+                ),
+                color=discord.Color.from_rgb(150, 0, 200)
+            )
+        else:
+            boss_name_val = boss_data["name"]
+            embed = discord.Embed(
+                title=f"🚨 BOSS DE NÍVEL {target_level} — PASSAGEM BLOQUEADA!",
+                description=(
+                    f"*'O ar fica pesado... Uma sombra colossal bloqueia seu caminho!'*\n\n"
+                    f"👹 **{boss_name_val}** surge diante de você!\n\n"
+                    f"⚠️ **Derrote-o para desbloquear o próximo reino e desbloquear o XP!**"
+                ),
+                color=discord.Color.dark_red()
+            )
+
+        embed.add_field(name="❤️ HP", value=f"`{boss_data['hp']:,}`", inline=True)
+        embed.add_field(name="⚔️ ATK", value=f"`{boss_data['atk']}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`{boss_data['xp']:,}`", inline=True)
+        embed.add_field(name="🎯 Level do Boss", value=f"`{target_level}`", inline=True)
+        if already_defeated:
+            embed.add_field(name="🏆 Status", value="*Revanche — Boss já derrotado anteriormente*", inline=False)
         embed.add_field(name="💡 Dica", value="Use os botões abaixo para lutar ou chamar aliados!", inline=False)
 
         view = BossButton(user_id, boss_data["name"])
@@ -14294,8 +14405,7 @@ async def handle_mundo_proprio(message):
                 await message.channel.set_permissions(
                     target,
                     read_messages=True,
-                    send_messages=True,
-                    use_slash_commands=True
+                    send_messages=True
                 )
                 embed = discord.Embed(
                     title="🤝 Jogador Adicionado!",
