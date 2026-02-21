@@ -7,7 +7,7 @@ import sqlite3
 from datetime import datetime, timedelta
 import json
 import time
-#
+##
 # ================= INTENTS =================
 intents = discord.Intents.default()
 intents.message_content = True
