@@ -6789,6 +6789,8 @@ def create_player(user_id):
         "knights": [],
         "last_work": 0,
         "last_defend": 0,
+        "bio": "",
+        "last_force_entry": 0,
     }
     save_player_db(user_id, player)
     return player
@@ -12897,6 +12899,11 @@ async def on_message(message):
             if result:
                 embed.add_field(name="🏰 Guilda", value=result[0], inline=True)
 
+        # Biografia personalizada
+        bio_text = player.get("bio", "")
+        if bio_text:
+            embed.add_field(name="📖 Biografia", value=f"*{bio_text}*", inline=False)
+
         await message.channel.send(embed=embed)
         return
 
@@ -18318,6 +18325,319 @@ async def handle_confrontar_boss_level(message):
 
     view = BossButton(uid, boss_data["name"])
     await message.channel.send(embed=embed, view=view)
+
+
+
+# ================= HANDLER: DEFINIR BIOGRAFIA DO PERSONAGEM =================
+@bot.listen("on_message")
+async def handle_definir_bio(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
+
+    content = message.content.strip()
+    content_lower = content.lower()
+    uid = str(message.author.id)
+
+    # Apagar bio
+    if content_lower in ["apagar bio", "apagar biografia", "limpar bio"]:
+        player = get_player(uid)
+        if not player:
+            return
+        player["bio"] = ""
+        save_player_db(uid, player)
+        await message.channel.send(
+            "🗑️ **Biografia apagada.**\n"
+            "*'As páginas em branco aguardam uma nova história...'*"
+        )
+        return
+
+    # Ver bio
+    if content_lower in ["ver bio", "minha biografia"]:
+        player = get_player(uid)
+        if not player:
+            return
+        bio = player.get("bio", "")
+        if not bio:
+            await message.channel.send(
+                f"📖 **{message.author.display_name}** não tem nenhuma biografia ainda.\n\n"
+                f"*Use `definir bio [sua descrição]` para criar a sua!*"
+            )
+        else:
+            embed = discord.Embed(
+                title=f"📖 Biografia de {message.author.display_name}",
+                description=f"*{bio}*",
+                color=discord.Color.teal()
+            )
+            embed.set_thumbnail(url=message.author.display_avatar.url)
+            await message.channel.send(embed=embed)
+        return
+
+    # Definir bio
+    bio_prefixes = ["definir bio ", "definir biografia ", "minha bio "]
+    matched_prefix = None
+    for prefix in bio_prefixes:
+        if content_lower.startswith(prefix):
+            matched_prefix = prefix
+            break
+
+    if not matched_prefix:
+        return
+
+    player = get_player(uid)
+    if not player:
+        await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+        return
+
+    bio_text = content[len(matched_prefix):].strip()
+
+    if not bio_text:
+        await message.channel.send(
+            "❌ **Texto vazio!**\n\n"
+            "**Como usar:** `definir bio [sua descrição]`\n"
+            "**Exemplo:** `definir bio Um guerreiro que sobreviveu à queda do reino do norte.`\n\n"
+            "*Máximo: 300 caracteres.*"
+        )
+        return
+
+    if len(bio_text) > 300:
+        await message.channel.send(
+            f"❌ **Biografia muito longa!** ({len(bio_text)}/300 caracteres)\n"
+            f"*Reduza um pouco e tente novamente.*"
+        )
+        return
+
+    player["bio"] = bio_text
+    save_player_db(uid, player)
+
+    classe = player.get("class", "")
+    frases = {
+        "Guerreiro":  "*'A lâmina forja o homem tanto quanto o fogo forja o aço.'*",
+        "Mago":       "*'As palavras têm poder. E estas palavras são suas.'*",
+        "Arqueiro":   "*'A flecha voa mais longe quando o arqueiro conhece sua própria história.'*",
+        "Assassino":  "*'Nas sombras, cada cicatriz conta um segredo.'*",
+        "Necromante": "*'Até os mortos merecem um nome. Que dirá os vivos.'*",
+        "Paladino":   "*'Palavras gravadas no coração valem mais que as esculpidas em pedra.'*",
+        "Berserker":  "*'Não existe fúria sem origem. Agora a sua foi registrada.'*",
+        "Druida":     "*'As árvores guardam memórias nas suas raízes. E você, em suas palavras.'*",
+        "Monge":      "*'Conhecer a si mesmo é a primeira forma de iluminação.'*",
+        "Bardo":      "*'Toda boa canção começa com uma boa história.'*",
+    }
+    frase = frases.get(classe, "*'Cada aventureiro merece ter sua história contada.'*")
+
+    embed = discord.Embed(
+        title="📖 Biografia Salva!",
+        description=f"*{bio_text}*\n\n{frase}",
+        color=discord.Color.teal()
+    )
+    embed.set_thumbnail(url=message.author.display_avatar.url)
+    embed.set_footer(text="Sua bio aparece em 'ver perfil' | Use 'apagar bio' para remover")
+    await message.channel.send(embed=embed)
+
+
+# ================= HANDLER: FORÇAR ENTRADA EM DUNGEON SECRETA =================
+@bot.listen("on_message")
+async def handle_forcar_entrada(message):
+    if message.author.bot:
+        return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
+
+    content = message.content.strip()
+    content_lower = content.lower()
+    uid = str(message.author.id)
+
+    # Mostrar ajuda/lista
+    if content_lower in ["forçar entrada", "forcar entrada", "invadir dungeon"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+            return
+
+        world = get_world(player["level"], player)
+        secret_dungeons = world.get("secret_dungeons", [])
+
+        if not secret_dungeons:
+            await message.channel.send("❌ Não há dungeons secretas disponíveis no seu reino atual.")
+            return
+
+        lines = []
+        for sd in secret_dungeons:
+            key_req = sd.get("key_name", "Chave Desconhecida")
+            lines.append(f"• **{sd['name']}** — chave: `{key_req}`")
+        dungeons_list = "\n".join(lines)
+
+        player_level = player.get("level", 1)
+        atk = player.get("atk", 10)
+        def_stat = player.get("def", 5)
+        chance_base = min(55, 15 + (player_level // 5) + (atk // 20) + (def_stat // 25))
+        classe = player.get("class", "")
+        if classe == "Assassino":
+            chance_base = min(70, chance_base + 15)
+        elif classe == "Berserker":
+            chance_base = min(65, chance_base + 10)
+        elif classe == "Mago":
+            chance_base = min(60, chance_base + 5)
+
+        embed = discord.Embed(
+            title="💥 FORÇAR ENTRADA — Dungeons Secretas",
+            description=(
+                f"*'Sem chave? Então arrebente a porta!'*\n\n"
+                f"⚠️ **ATENÇÃO:** Forçar entrada é arriscado!\n"
+                f"• **Sucesso:** Você entra na dungeon normalmente\n"
+                f"• **Falha:** Perde **30–60%** do HP máximo\n"
+                f"• **Cooldown:** 1 hora por tentativa\n\n"
+                f"🎯 Sua chance atual de sucesso: **~{chance_base}%**\n"
+                f"*(Aumenta com nível, ATK e DEF)*\n\n"
+                f"**Dungeons disponíveis no seu reino:**\n{dungeons_list}"
+            ),
+            color=discord.Color.orange()
+        )
+        embed.set_footer(text="Use: forçar entrada [nome da dungeon]")
+        await message.channel.send(embed=embed)
+        return
+
+    # Tentar forçar entrada
+    force_prefixes = ["forçar entrada ", "forcar entrada ", "invadir dungeon "]
+    matched_prefix = None
+    for prefix in force_prefixes:
+        if content_lower.startswith(prefix):
+            matched_prefix = prefix
+            break
+
+    if not matched_prefix:
+        return
+
+    player = get_player(uid)
+    if not player:
+        await message.channel.send("❌ Crie seu personagem primeiro com `começar`!")
+        return
+
+    dungeon_query = content[len(matched_prefix):].strip()
+    if not dungeon_query:
+        await message.channel.send(
+            "❌ Informe o nome da dungeon!\n"
+            "**Uso:** `forçar entrada [nome da dungeon]`\n\n"
+            "Use `forçar entrada` para ver a lista de dungeons disponíveis."
+        )
+        return
+
+    # Cooldown de 1 hora
+    now = time.time()
+    last_force = player.get("last_force_entry", 0)
+    cooldown_secs = 3600
+    if now - last_force < cooldown_secs:
+        restante = int(cooldown_secs - (now - last_force))
+        minutos = restante // 60
+        segundos = restante % 60
+        await message.channel.send(
+            f"⏳ **Você ainda está se recuperando da última tentativa!**\n"
+            f"*'Seu corpo ainda dói da investida anterior...'*\n\n"
+            f"Aguarde mais **{minutos}m {segundos}s** antes de tentar novamente."
+        )
+        return
+
+    # Procura dungeon secreta pelo nome em todos os mundos
+    import re as _re
+    found_dungeon = None
+    found_world_data = None
+    query_lower = dungeon_query.lower()
+
+    for w_data in WORLDS.values():
+        for sd in w_data.get("secret_dungeons", []):
+            sd_name_clean = sd["name"].lower()
+            sd_name_text = _re.sub(r'[^\w\s]', '', sd_name_clean).strip()
+            q_text = _re.sub(r'[^\w\s]', '', query_lower).strip()
+            if q_text in sd_name_text or sd_name_text in q_text or q_text in sd_name_clean:
+                found_dungeon = sd
+                found_world_data = w_data
+                break
+        if found_dungeon:
+            break
+
+    if not found_dungeon:
+        await message.channel.send(
+            f"❌ Nenhuma dungeon secreta encontrada com o nome **'{dungeon_query}'**.\n\n"
+            f"Use `forçar entrada` para ver a lista de dungeons do seu reino."
+        )
+        return
+
+    # Calcula chance de sucesso
+    player_level = player.get("level", 1)
+    atk = player.get("atk", 10)
+    def_stat = player.get("def", 5)
+    chance = min(55, 15 + (player_level // 5) + (atk // 20) + (def_stat // 25))
+    classe = player.get("class", "")
+    if classe == "Assassino":
+        chance = min(70, chance + 15)
+    elif classe == "Berserker":
+        chance = min(65, chance + 10)
+    elif classe == "Mago":
+        chance = min(60, chance + 5)
+
+    roll = random.randint(1, 100)
+    sucesso = roll <= chance
+
+    # Registra cooldown antes de tudo
+    player["last_force_entry"] = now
+    save_player_db(uid, player)
+
+    dungeon_name = found_dungeon["name"]
+    boss_name = found_dungeon.get("boss", "Boss Desconhecido")
+
+    # ---- FALHA ----
+    if not sucesso:
+        max_hp = player.get("max_hp", 100)
+        dano_pct = random.uniform(0.30, 0.60)
+        dano = int(max_hp * dano_pct)
+        novo_hp = max(1, player.get("hp", max_hp) - dano)
+        player["hp"] = novo_hp
+        save_player_db(uid, player)
+
+        mensagens_falha = [
+            "*'As runas da porta pulsam e uma explosão de energia te arremessa de volta!'*",
+            "*'Os guardiões da dungeon detectam sua invasão e te castigam com brutalidade!'*",
+            "*'A barreira mágica reage — um escudo de força te atinge em cheio!'*",
+            "*'A porta permanece fechada. Mas a armadilha escondida no portal não.'*",
+            "*'Você força a entrada... e paga o preço com seu próprio sangue.'*",
+        ]
+
+        embed = discord.Embed(
+            title=f"💥 FALHA AO FORÇAR ENTRADA — {dungeon_name}",
+            description=random.choice(mensagens_falha),
+            color=discord.Color.red()
+        )
+        embed.add_field(name="🎲 Resultado", value=f"Tirou **{roll}** — precisava ≤ **{chance}**", inline=True)
+        embed.add_field(name="💔 Dano sofrido", value=f"`-{dano} HP` ({int(dano_pct*100)}% do HP máximo)", inline=True)
+        embed.add_field(name="❤️ HP atual", value=f"`{novo_hp}/{max_hp}`", inline=True)
+        embed.add_field(name="⏳ Próxima tentativa", value="*Disponível em 1 hora.*", inline=False)
+        embed.set_footer(text=f"Aumente seu level/ATK/DEF para maior chance! | Sua chance era {chance}%")
+        await message.channel.send(embed=embed)
+        return
+
+    # ---- SUCESSO ----
+    mensagens_sucesso = [
+        "*'Com um grito de guerra, você arrebenta a porta e entra na escuridão!'*",
+        "*'Sua determinação supera as runas de proteção — a porta cede!'*",
+        "*'Golpe após golpe, você abre um caminho à força. A dungeon é sua!'*",
+        "*'O próprio Boss lá dentro deve ter sentido o impacto. Você está dentro!'*",
+        "*'As correntes mágicas se partem sob sua força bruta. Caminho aberto!'*",
+    ]
+
+    embed = discord.Embed(
+        title=f"💥 ENTRADA FORÇADA — {dungeon_name}!",
+        description=random.choice(mensagens_sucesso),
+        color=discord.Color.green()
+    )
+    embed.add_field(name="🎲 Resultado", value=f"Tirou **{roll}** — precisava ≤ **{chance}** ✅", inline=True)
+    embed.add_field(name="👹 Boss aguardando", value=f"**{boss_name}**", inline=True)
+    embed.add_field(name="⚠️ Aviso", value="*Você entrou sem uma chave. Sem bônus de preparação!*", inline=False)
+    embed.set_footer(text="Nenhuma chave foi consumida. Boa sorte na dungeon!")
+    await message.channel.send(embed=embed)
+    await asyncio.sleep(2)
+
+    await explore_dungeon(message.channel, uid, found_dungeon, found_world_data)
 
 
 # ================= RUN BOT =================
