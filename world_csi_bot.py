@@ -5720,6 +5720,7 @@ def init_db():
         "ALTER TABLE players ADD COLUMN specialization TEXT DEFAULT NULL",
         "ALTER TABLE players ADD COLUMN class_tier INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN supreme_skills TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN race_stage INTEGER DEFAULT 0",
     ]:
         try:
             c.execute(col_def)
@@ -5845,6 +5846,7 @@ def get_player_db(user_id):
             "specialization": r.get("specialization"),
             "class_tier": r.get("class_tier", 0),
             "supreme_skills": json.loads(r["supreme_skills"]) if r.get("supreme_skills") else [],
+            "race_stage": r.get("race_stage", 0),
         }
     return None
 
@@ -5861,9 +5863,9 @@ def save_player_db(user_id, player):
                   level_boss_attempts, monsters_killed, bosses_defeated, total_coins_earned,
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list,
-                  race, specialization, class_tier, supreme_skills)
+                  race, specialization, class_tier, supreme_skills, race_stage)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -5901,7 +5903,8 @@ def save_player_db(user_id, player):
                player.get("race"),
                player.get("specialization"),
                player.get("class_tier", 0),
-               json.dumps(player.get("supreme_skills", []))))
+               json.dumps(player.get("supreme_skills", [])),
+               player.get("race_stage", 0)))
 
     conn.commit()
     conn.close()
