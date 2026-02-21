@@ -8047,7 +8047,7 @@ class PvPChallengeButton(discord.ui.View):
 
 
 async def fight_pvp(channel, challenger_id, target_id):
-    """Batalha PvP estilo Pokémon entre dois jogadores"""
+    """⚔️ Sistema de Duelo PvP Cinematográfico — Batalha épica turno a turno"""
     challenger = get_player(challenger_id)
     target = get_player(target_id)
 
@@ -8064,280 +8064,674 @@ async def fight_pvp(channel, challenger_id, target_id):
     tg_cls = target.get("class", "Guerreiro")
     ch_skills = get_player_skills(challenger)
     tg_skills = get_player_skills(target)
+    ch_race = challenger.get("race", "Humano")
+    tg_race = target.get("race", "Humano")
 
-    # Stats de batalha (baseados nos stats reais + nível)
-    ch_hp = challenger["max_hp"]
-    tg_hp = target["max_hp"]
+    # ── Stats de batalha ──────────────────────────────────────────────────
+    ch_hp = challenger["max_hp"] + challenger.get("temp_hp_boost", 0)
+    tg_hp = target["max_hp"] + target.get("temp_hp_boost", 0)
     ch_mana = calc_max_mana(challenger)
     tg_mana = calc_max_mana(target)
-    ch_atk_base = CLASSES[ch_cls]["atk_bonus"] + challenger["level"] * 2
-    tg_atk_base = CLASSES[tg_cls]["atk_bonus"] + target["level"] * 2
-    ch_def = CLASSES[ch_cls]["def_bonus"] + challenger["level"]
-    tg_def = CLASSES[tg_cls]["def_bonus"] + target["level"]
 
-    # Bônus de item
-    def get_item_atk_bonus(player):
+    ch_atk_base = CLASSES[ch_cls]["atk_bonus"] + challenger["level"] * 2 + challenger.get("temp_atk_boost", 0)
+    tg_atk_base = CLASSES[tg_cls]["atk_bonus"] + target["level"] * 2 + target.get("temp_atk_boost", 0)
+    ch_def = CLASSES[ch_cls]["def_bonus"] + challenger["level"] + challenger.get("temp_def_boost", 0)
+    tg_def = CLASSES[tg_cls]["def_bonus"] + target["level"] + target.get("temp_def_boost", 0)
+
+    # Bônus de equipamento
+    def get_weapon_atk(pl):
         bonus = 0
-        if player.get("weapon"):
-            for w in ITEMS["weapons"]:
-                if w["name"] == player["weapon"]:
-                    bonus += w.get("atk", 0) // 5
-                    break
+        wname = pl.get("weapon")
+        if wname:
+            for lst in [ITEMS["weapons"], ITEMS_EXTRA.get("weapons", [])]:
+                for w in lst:
+                    if w["name"] == wname:
+                        bonus += w.get("atk", 0) // 4
+                        break
         return bonus
 
-    def get_item_def_bonus(player):
+    def get_armor_def(pl):
         bonus = 0
-        if player.get("armor"):
-            for a in ITEMS["armor"]:
-                if a["name"] == player["armor"]:
-                    bonus += a.get("def", 0) // 5
-                    break
+        aname = pl.get("armor")
+        if aname:
+            for lst in [ITEMS["armor"], ITEMS_EXTRA.get("armor", [])]:
+                for a in lst:
+                    if a["name"] == aname:
+                        bonus += a.get("def", 0) // 4
+                        break
         return bonus
 
-    ch_atk_base += get_item_atk_bonus(challenger)
-    tg_atk_base += get_item_atk_bonus(target)
-    ch_def += get_item_def_bonus(challenger)
-    tg_def += get_item_def_bonus(target)
+    ch_atk_base += get_weapon_atk(challenger)
+    tg_atk_base += get_weapon_atk(target)
+    ch_def += get_armor_def(challenger)
+    tg_def += get_armor_def(target)
 
-    ch_cur_hp = ch_hp
-    tg_cur_hp = tg_hp
+    # Nível decide quem age primeiro
+    ch_goes_first = challenger["level"] >= target["level"]
+
+    ch_cur_hp   = ch_hp
+    tg_cur_hp   = tg_hp
     ch_cur_mana = ch_mana
     tg_cur_mana = tg_mana
 
-    ch_icon = CLASSES[ch_cls]["emoji"]
-    tg_icon = CLASSES[tg_cls]["emoji"]
+    ch_icon = CLASSES.get(ch_cls, {}).get("emoji", "⚔️")
+    tg_icon = CLASSES.get(tg_cls, {}).get("emoji", "⚔️")
+    ch_race_icon = RACES.get(ch_race, {}).get("emoji", "👤")
+    tg_race_icon = RACES.get(tg_race, {}).get("emoji", "👤")
 
-    # Intro épica
+    # ── Frases de duelo por classe ────────────────────────────────────────
+    DUEL_TAUNTS = {
+        "Guerreiro": [
+            "⚔️ *«Eu nasci para o combate. Você vai aprender isso da pior forma.»*",
+            "🗡️ *«Minha lâmina já cortou criaturas que te fariam fugir. Prepare-se.»*",
+            "💪 *«Resistência é tudo. Vamos ver quanto você aguentará.»*",
+        ],
+        "Mago": [
+            "🔮 *«Os arcanos obedecem à minha voz. Você é apenas mais um obstáculo.»*",
+            "✨ *«Cada feitiço que conjuro carrega séculos de estudo. Você não terá chance.»*",
+            "⚡ *«O poder arcano não conhece misericórdia. Nem eu.»*",
+        ],
+        "Arqueiro": [
+            "🏹 *«Já mirei em alvos maiores que você. E nenhum escapou.»*",
+            "🎯 *«Do topo daquele morro, você nem me veria. Pena que estamos aqui.»*",
+            "💨 *«Minhas flechas voam mais rápido que seus reflexos. Conta regressiva iniciada.»*",
+        ],
+        "Paladino": [
+            "🛡️ *«Combato em nome do sagrado. Que os deuses testemunhem sua derrota.»*",
+            "☀️ *«A luz que carrego não ilumina covardes. Mostre do que é feito!»*",
+            "✨ *«Eu não luto por glória. Luto por dever. E esse dever é te derrotar.»*",
+        ],
+        "Assassino": [
+            "🗡️ *«Você nem me verá chegar. Quando perceber, já terá caído.»*",
+            "🌑 *«As sombras são meu lar. Você está prestes a entrar nelas.»*",
+            "💀 *«Contratantes pagam muito por uma cabeça como a sua. Hoje faço de graça.»*",
+        ],
+        "Necromante": [
+            "💀 *«A morte não é fim para mim. É começo. Para você, é diferente.»*",
+            "🦴 *«Meus aliados mais leais já morreram uma vez. Logo você se juntará a eles.»*",
+            "🌑 *«Cada inimigo que derrotei agora me serve. Prepare seu espírito.»*",
+        ],
+        "Berserker": [
+            "🪓 *«AAAARGH! VENHA! EU QUERO VER SANGUE!»*",
+            "💢 *«Dor? Ela me alimenta. Quanto mais você me machucar, mais forte fico!»*",
+            "🔥 *«Minha fúria não tem limites. Prepare-se para o caos puro!»*",
+        ],
+        "Druida": [
+            "🌿 *«A natureza já escolheu o vencedor. Ouça o vento — ele fala meu nome.»*",
+            "🐺 *«Cada criatura viva ao meu redor é minha aliada. Você está sozinho.»*",
+            "⚡ *«A terra treme quando eu luto. Sinta isso nos seus pés.»*",
+        ],
+        "Monge": [
+            "👊 *«Cem anos de disciplina concentrados neste momento. Defenda-se.»*",
+            "🧘 *«Ki, mente, corpo — tudo em harmonia. Nada pode me deter.»*",
+            "🌀 *«Velocidade não é tudo. Mas ajuda quando você a tem toda.»*",
+        ],
+        "Bardo": [
+            "🎵 *«Escrevi a música da sua derrota antes mesmo de você chegar.»*",
+            "🎸 *«Esta batalha? Vai virar uma balada épica. Com você como o derrotado.»*",
+            "🎺 *«Minha melodia vai ecoar nos seus pesadelos por anos.»*",
+        ],
+    }
+
+    # Frases de vitória por classe
+    VICTORY_LINES = {
+        "Guerreiro": ["*«Foi uma boa luta. Da próxima vez, treine mais.»*", "*«A força sempre prevalece.»*", "*«Isso é o que anos de batalha fazem.»*"],
+        "Mago":      ["*«O poder arcano nunca falha.»*", "*«Você lutou contra a magia. A magia sempre vence.»*", "*«Cada feitiço tinha seu propósito.»*"],
+        "Arqueiro":  ["*«Nenhum alvo escapa de mim.»*", "*«Precisão supera força bruta.»*", "*«Já sabia o resultado quando mirei pela primeira vez.»*"],
+        "Paladino":  ["*«Que os deuses guiem sua recuperação.»*", "*«A luz sempre triunfa.»*", "*«Foi uma honra combater alguém com tal coragem.»*"],
+        "Assassino": ["*«Você nunca teve chance desde o início.»*", "*«As sombras me acompanharam bem hoje.»*", "*«Eficiência perfeita.»*"],
+        "Necromante":["*«Agora você entende a verdade da morte.»*", "*«Bem-vindo ao lado que sempre vence.»*", "*«A escuridão consome tudo.»*"],
+        "Berserker": ["*«ISSO É O QUE CHAMO DE BATALHA!»*", "*«HAHAHA! MAIS! QUERO MAIS!»*", "*«A fúria... sempre prevalece...»*"],
+        "Druida":    ["*«A natureza escolheu sabiamente.»*", "*«O equilíbrio foi restaurado.»*", "*«As raízes da terra me apoiaram até o fim.»*"],
+        "Monge":     ["*«O ki nunca mente.»*", "*«Disciplina e paciência sempre vencem.»*", "*«Uma batalha de mente, não apenas de corpo.»*"],
+        "Bardo":     ["*«E assim termina o primeiro ato!»*", "*«Que balada épica foi essa!»*", "*«Já estou compondo sua derrota em versos.»*"],
+    }
+
+    # Comentários estratégicos do narrador por situação
+    NARRATOR_PHASE = {
+        "opening":  ["⚡ *O primeiro encontro define o ritmo da batalha!*", "🔥 *Os guerreiros se avaliam mutuamente...*", "⚔️ *A tensão é palpável no ar!*"],
+        "midgame":  ["🌀 *A batalha esquenta! Ambos exploram seus limites!*", "💥 *Golpes cada vez mais poderosos se sucedem!*", "🎭 *Este é o momento que define campeões!*"],
+        "critical": ["❗ *Sangue no chão! Quem suportará mais um golpe?!*", "🔴 *SITUAÇÃO CRÍTICA! A derrota está a um passo!*", "💀 *As bordas da escuridão começam a fechar!*"],
+        "comeback": ["🌟 *INCRÍVEL! Uma reviravolta espetacular!*", "✨ *Das cinzas, um guerreiro ressurge!*", "🏆 *Isso é o que separa heróis de mortais!*"],
+        "stun":     ["⚡ *PARALISADO! O adversário aproveita a abertura!*", "🌀 *Corpo e mente congelados por um instante fatal!*"],
+        "crit":     ["💥 *GOLPE CRÍTICO! O impacto ecoa pela arena!*", "🔥 *DEVASTADOR! Um ataque que dobra a realidade!*", "⚡ *CRÍTICO PERFEITO! A defesa foi completamente ignorada!*"],
+        "poison":   ["☠️ *O veneno se espalha pelas veias, corroendo por dentro...*", "🟢 *Toxina mortal! Cada segundo conta agora!*"],
+        "low_hp":   ["❤️‍🔥 *{name} está na beira do colapso... mas ainda de pé!*", "🩸 *{name} cuspe sangue mas se recusa a cair!*", "⚠️ *Força pura de vontade mantém {name} em pé!*"],
+    }
+
+    # ── Progressão de fases de batalha ───────────────────────────────────
+    def get_phase_color(ch_pct, tg_pct):
+        min_pct = min(ch_pct, tg_pct)
+        if min_pct > 70:
+            return discord.Color.from_rgb(50, 150, 255)   # Azul — Abertura
+        elif min_pct > 40:
+            return discord.Color.from_rgb(255, 140, 0)     # Laranja — Meio
+        elif min_pct > 20:
+            return discord.Color.from_rgb(220, 50, 50)     # Vermelho — Crítico
+        else:
+            return discord.Color.from_rgb(80, 0, 0)        # Vermelho escuro — Final
+
+    def hp_bar(cur, mx, length=8):
+        cur = max(0, cur)
+        filled = int((cur / max(1, mx)) * length)
+        pct = int((cur / max(1, mx)) * 100)
+        if pct > 60:
+            bar = "🟩" * filled + "⬛" * (length - filled)
+        elif pct > 30:
+            bar = "🟨" * filled + "⬛" * (length - filled)
+        else:
+            bar = "🟥" * filled + "⬛" * (length - filled)
+        return f"{bar} `{cur}/{mx}` ({pct}%)"
+
+    def mana_bar(cur, mx, length=5):
+        filled = int((cur / max(1, mx)) * length)
+        return "💙" * filled + "🔲" * (length - filled)
+
+    # ── CENA DE ABERTURA ─────────────────────────────────────────────────
+    taunt_ch = random.choice(DUEL_TAUNTS.get(ch_cls, [f"*«Vamos terminar isso!»*"]))
+    taunt_tg = random.choice(DUEL_TAUNTS.get(tg_cls, [f"*«Você vai se arrepender!»*"]))
+
     intro = discord.Embed(
-        title="⚔️ DUELO INICIADO! ⚔️",
-        description=f"*O narrador anuncia com voz trovejante:*\n\n**'{ch_name} vs {tg_name}!'**\n\n*'Que o mais digno prevaleça!'*",
-        color=discord.Color.dark_red()
+        title="⚔️ ━━━━━ DUELO ÉPICO ━━━━━ ⚔️",
+        description=(
+            f"*O ambiente ao redor silencia. O chão treme ligeiramente.*\n"
+            f"*Dois guerreiros se encaram — o ar entre eles parece vibrar de tensão.*\n\n"
+            f"**{ch_icon} {ch_name}** {ch_race_icon} avança e declara:\n{taunt_ch}\n\n"
+            f"**{tg_icon} {tg_name}** {tg_race_icon} responde:\n{taunt_tg}\n\n"
+            f"*⚡ {'**'+ch_name+'** age primeiro por ter mais experiência!' if ch_goes_first else '**'+tg_name+'** age primeiro por ter mais experiência!'}*"
+        ),
+        color=discord.Color.from_rgb(180, 30, 30)
     )
     intro.add_field(
-        name=f"{ch_icon} {ch_name} ({ch_cls})",
-        value=f"❤️ HP: `{ch_cur_hp}` | ✨ Mana: `{ch_cur_mana}`\n⚔️ ATK: `{ch_atk_base}` | 🛡️ DEF: `{ch_def}`\nArma: {challenger.get('weapon') or 'Nenhuma'}",
+        name=f"━━━ {ch_icon} {ch_name} | {ch_cls} ━━━",
+        value=(
+            f"❤️ HP: {hp_bar(ch_cur_hp, ch_hp)}\n"
+            f"💙 Mana: {mana_bar(ch_cur_mana, ch_mana)} `{ch_cur_mana}`\n"
+            f"⚔️ ATK: `{ch_atk_base}` | 🛡️ DEF: `{ch_def}`\n"
+            f"🗡️ Arma: **{challenger.get('weapon') or 'Punhos'}**\n"
+            f"🛡️ Armadura: **{challenger.get('armor') or 'Nenhuma'}**"
+        ),
         inline=True
     )
     intro.add_field(
-        name=f"{tg_icon} {tg_name} ({tg_cls})",
-        value=f"❤️ HP: `{tg_cur_hp}` | ✨ Mana: `{tg_cur_mana}`\n⚔️ ATK: `{tg_atk_base}` | 🛡️ DEF: `{tg_def}`\nArma: {target.get('weapon') or 'Nenhuma'}",
+        name=f"━━━ {tg_icon} {tg_name} | {tg_cls} ━━━",
+        value=(
+            f"❤️ HP: {hp_bar(tg_cur_hp, tg_hp)}\n"
+            f"💙 Mana: {mana_bar(tg_cur_mana, tg_mana)} `{tg_cur_mana}`\n"
+            f"⚔️ ATK: `{tg_atk_base}` | 🛡️ DEF: `{tg_def}`\n"
+            f"🗡️ Arma: **{target.get('weapon') or 'Punhos'}**\n"
+            f"🛡️ Armadura: **{target.get('armor') or 'Nenhuma'}**"
+        ),
         inline=True
     )
+    intro.set_footer(text="⚔️ A batalha começa agora! Que o mais digno prevaleça!")
     await channel.send(embed=intro)
-    await asyncio.sleep(2)
+    await asyncio.sleep(3)
 
-    # Sistema de batalha em turnos (max 6 turnos)
-    battle_log = []
+    # ── SISTEMA DE BATALHA ────────────────────────────────────────────────
     turn = 1
-    ch_poison = False
-    tg_poison = False
-    ch_weakened = False
-    tg_weakened = False
+    MAX_TURNS = 10
 
-    while ch_cur_hp > 0 and tg_cur_hp > 0 and turn <= 6:
-        turn_embed = discord.Embed(
-            title=f"⚔️ TURNO {turn}",
-            color=discord.Color.red()
-        )
+    # Estados de batalha
+    ch_poison        = 0   # turnos restantes de veneno
+    tg_poison        = 0
+    ch_weakened      = 0   # turnos de fraqueza
+    tg_weakened      = 0
+    ch_stunned       = False
+    tg_stunned       = False
+    ch_shielded      = False  # escudo paladino
+    tg_shielded      = False
+    ch_rage_stacks   = 0   # berserker: stacks de fúria
+    tg_rage_stacks   = 0
+    ch_ki_charge     = 0   # monge: carga de ki
+    tg_ki_charge     = 0
 
-        # === Ação do Desafiante ===
-        # Escolhe habilidade (prioriza com mana disponível)
-        available_ch = [s for s in ch_skills if s["mana_cost"] <= ch_cur_mana]
-        if not available_ch:
-            available_ch = [ch_skills[0]]  # fallback: ataque básico
-        ch_skill = random.choice(available_ch)
-        ch_cur_mana = max(0, ch_cur_mana - ch_skill["mana_cost"])
+    prev_ch_pct = 100
+    prev_tg_pct = 100
+    battle_events = []  # histórico de eventos marcantes
 
-        # Calcula dano
-        ch_dmg_raw = int(ch_atk_base * ch_skill["dmg_mult"])
-        if ch_weakened:
-            ch_dmg_raw = int(ch_dmg_raw * 0.7)
-        # Chance de crítico
-        if random.random() < ch_skill.get("crit_chance", 0.1):
-            ch_dmg_raw = int(ch_dmg_raw * 1.8)
-            ch_skill_name = f"💥 CRÍTICO! {ch_skill['name']}"
-        else:
-            ch_skill_name = ch_skill["name"]
-        # Ignora defesa se skill especifica
-        if ch_skill.get("ignore_def"):
-            ch_dmg = max(1, ch_dmg_raw)
-        else:
-            ch_dmg = max(1, ch_dmg_raw - tg_def)
-
-        # Aplica dano alvo
-        tg_cur_hp -= ch_dmg
-
-        # Efeitos especiais do atacante
-        if ch_skill.get("self_heal"):
-            heal = ch_skill["self_heal"]
-            ch_cur_hp = min(ch_hp, ch_cur_hp + heal)
-
-        # Efeitos no alvo
-        stun_tg = False
-        if random.random() < ch_skill.get("stun_chance", 0):
-            stun_tg = True
-        if ch_skill.get("poison"):
-            tg_poison = True
-        if ch_skill.get("weaken"):
-            tg_weakened = True
-
-        # Log do ataque
-        ch_hp_bar = "❤️" * max(1, int(ch_cur_hp / ch_hp * 5)) + "🖤" * (5 - max(1, int(ch_cur_hp / ch_hp * 5)))
-        tg_hp_bar = "❤️" * max(1, int(max(0, tg_cur_hp) / tg_hp * 5)) + "🖤" * (5 - max(1, int(max(0, tg_cur_hp) / tg_hp * 5)))
-
-        ch_action = f"{ch_icon} **{ch_name}** usa {ch_skill_name}!\n💥 `−{ch_dmg} HP` para {tg_name}\n{ch_skill['desc']}"
-        if stun_tg:
-            ch_action += f"\n⚡ **{tg_name} foi paralisado!**"
-        if ch_skill.get("poison") and tg_poison:
-            ch_action += f"\n☠️ **{tg_name} foi envenenado!**"
-        if ch_skill.get("self_heal"):
-            ch_action += f"\n💚 **{ch_name} se curou em {ch_skill['self_heal']} HP!**"
-
-        turn_embed.add_field(name=f"🔴 Ação de {ch_name}", value=ch_action, inline=False)
-
-        if tg_cur_hp <= 0:
-            turn_embed.add_field(
-                name="💀 BATALHA ENCERRADA!",
-                value=f"**{tg_name}** não aguenta mais!",
-                inline=False
-            )
-            await channel.send(embed=turn_embed)
-            break
-
-        # Veneno do alvo
-        if tg_poison:
-            poison_dmg = max(5, int(tg_hp * 0.05))
-            tg_cur_hp -= poison_dmg
-            turn_embed.add_field(name="☠️ Veneno!", value=f"**{tg_name}** sofre `{poison_dmg}` de veneno!", inline=False)
-            if tg_cur_hp <= 0:
-                await channel.send(embed=turn_embed)
-                break
-
-        # === Ação do Alvo (se não stunado) ===
-        if not stun_tg:
-            available_tg = [s for s in tg_skills if s["mana_cost"] <= tg_cur_mana]
-            if not available_tg:
-                available_tg = [tg_skills[0]]
-            tg_skill = random.choice(available_tg)
-            tg_cur_mana = max(0, tg_cur_mana - tg_skill["mana_cost"])
-
-            tg_dmg_raw = int(tg_atk_base * tg_skill["dmg_mult"])
-            if tg_weakened:
-                tg_dmg_raw = int(tg_dmg_raw * 0.7)
-            if random.random() < tg_skill.get("crit_chance", 0.1):
-                tg_dmg_raw = int(tg_dmg_raw * 1.8)
-                tg_skill_name = f"💥 CRÍTICO! {tg_skill['name']}"
-            else:
-                tg_skill_name = tg_skill["name"]
-
-            if tg_skill.get("ignore_def"):
-                tg_dmg = max(1, tg_dmg_raw)
-            else:
-                tg_dmg = max(1, tg_dmg_raw - ch_def)
-
-            ch_cur_hp -= tg_dmg
-
-            if tg_skill.get("self_heal"):
-                tg_cur_hp = min(tg_hp, tg_cur_hp + tg_skill["self_heal"])
-            if tg_skill.get("poison"):
-                ch_poison = True
-            if tg_skill.get("weaken"):
-                ch_weakened = True
-            stun_ch = random.random() < tg_skill.get("stun_chance", 0)
-
-            tg_action = f"{tg_icon} **{tg_name}** usa {tg_skill_name}!\n💥 `−{tg_dmg} HP` para {ch_name}\n{tg_skill['desc']}"
-            if stun_ch:
-                tg_action += f"\n⚡ **{ch_name} foi paralisado!**"
-            if tg_skill.get("poison") and ch_poison:
-                tg_action += f"\n☠️ **{ch_name} foi envenenado!**"
-            if tg_skill.get("self_heal"):
-                tg_action += f"\n💚 **{tg_name} se curou em {tg_skill['self_heal']} HP!**"
-
-            turn_embed.add_field(name=f"🔵 Ação de {tg_name}", value=tg_action, inline=False)
-        else:
-            turn_embed.add_field(name=f"⚡ {tg_name} estava paralisado!", value="Perdeu o turno!", inline=False)
-
-        # Veneno do challenger
-        if ch_poison:
-            p_dmg = max(5, int(ch_hp * 0.05))
-            ch_cur_hp -= p_dmg
-            turn_embed.add_field(name="☠️ Veneno!", value=f"**{ch_name}** sofre `{p_dmg}` de veneno!", inline=False)
-
-        # HP bars no final do turno
+    while ch_cur_hp > 0 and tg_cur_hp > 0 and turn <= MAX_TURNS:
         ch_pct = max(0, int(ch_cur_hp / ch_hp * 100))
         tg_pct = max(0, int(tg_cur_hp / tg_hp * 100))
-        ch_bar = "🟥" * (ch_pct // 20) + "⬛" * (5 - ch_pct // 20)
-        tg_bar = "🟦" * (tg_pct // 20) + "⬛" * (5 - tg_pct // 20)
+        turn_color = get_phase_color(ch_pct, tg_pct)
 
-        turn_embed.add_field(
-            name="📊 Status",
-            value=f"{ch_icon} **{ch_name}**: {ch_bar} `{max(0, ch_cur_hp)}/{ch_hp} HP` | 💙 `{ch_cur_mana}` mana\n"
-                  f"{tg_icon} **{tg_name}**: {tg_bar} `{max(0, tg_cur_hp)}/{tg_hp} HP` | 💙 `{tg_cur_mana}` mana",
-            inline=False
+        # Fase narrativa
+        if turn == 1:
+            phase_comment = random.choice(NARRATOR_PHASE["opening"])
+        elif ch_pct < 25 or tg_pct < 25:
+            phase_comment = random.choice(NARRATOR_PHASE["critical"])
+        elif (ch_pct > prev_ch_pct + 15) or (tg_pct > prev_tg_pct + 15):
+            phase_comment = random.choice(NARRATOR_PHASE["comeback"])
+        else:
+            phase_comment = random.choice(NARRATOR_PHASE["midgame"])
+
+        prev_ch_pct = ch_pct
+        prev_tg_pct = tg_pct
+
+        # Título dramático do turno por fase
+        if ch_pct < 20 or tg_pct < 20:
+            turn_title = f"💀 ═══ TURNO FINAL {turn} ═══ 💀"
+        elif ch_pct < 50 or tg_pct < 50:
+            turn_title = f"🔥 ═══ TURNO {turn} — CLÍMAX ═══ 🔥"
+        else:
+            turn_title = f"⚔️ ═══ TURNO {turn} ═══ ⚔️"
+
+        turn_embed = discord.Embed(
+            title=turn_title,
+            description=phase_comment,
+            color=turn_color
         )
 
+        # ── Auxiliar: calcular ação de um combatente ──────────────────────
+        def resolve_action(attacker_name, defender_name, a_icon, d_icon,
+                           a_skills, a_mana, a_atk, d_def, d_hp, d_max_hp,
+                           a_hp, a_max_hp, a_weakened, d_weakened,
+                           a_stunned, a_cls, a_rage, a_ki,
+                           a_shielded, d_shielded, d_poison, a_poison):
+            """Resolve uma ação de combate e retorna (a_mana_new, d_hp_new, a_hp_new,
+               d_poison_new, a_weakened_new, d_weakened_new, d_stunned, a_rage_new,
+               a_ki_new, d_shielded_new, a_shielded_new, log_text, event_tag)"""
+            event_tag = None
+
+            # IA estratégica: escolher melhor skill
+            available = [s for s in a_skills if s["mana_cost"] <= a_mana]
+            if not available:
+                available = [a_skills[0]]
+
+            # Estratégia: HP baixo → usar heal, senão ataque mais forte disponível
+            hp_ratio = a_hp / max(1, a_max_hp)
+            heal_skills = [s for s in available if s.get("self_heal", 0) > 0]
+            high_dmg    = [s for s in available if s["dmg_mult"] >= 2.0]
+            stun_skills = [s for s in available if s.get("stun_chance", 0) > 0.15]
+            poison_sk   = [s for s in available if s.get("poison")]
+
+            # Prioridade estratégica
+            if hp_ratio < 0.30 and heal_skills:
+                skill = random.choice(heal_skills)  # se HP crítico, curar
+            elif d_hp / max(1, d_max_hp) < 0.35 and high_dmg:
+                skill = random.choice(high_dmg)     # inimigo fraco → finalizar
+            elif a_rage > 2 and high_dmg:
+                skill = random.choice(high_dmg)     # com fúria → atacar forte
+            elif d_weakened <= 0 and stun_skills and random.random() < 0.4:
+                skill = random.choice(stun_skills)  # tentar atordoar
+            elif len(poison_sk) > 0 and d_poison <= 0 and random.random() < 0.35:
+                skill = random.choice(poison_sk)    # envenenar se não envenenado
+            else:
+                skill = random.choice(available)    # ação aleatória balanceada
+
+            a_mana = max(0, a_mana - skill["mana_cost"])
+
+            # Calcula dano base
+            dmg_raw = int(a_atk * skill["dmg_mult"])
+
+            # Berserker: bônus de fúria e dano próprio
+            if a_cls == "Berserker":
+                hp_bonus_mult = 1.0 + (1.0 - hp_ratio) * 0.6  # até +60% quando HP baixo
+                dmg_raw = int(dmg_raw * hp_bonus_mult)
+                a_rage = min(a_rage + 1, 5)
+                if skill.get("self_dmg"):
+                    a_hp = max(1, a_hp - skill["self_dmg"])
+            elif a_cls == "Monge":
+                a_ki = min(a_ki + 1, 3)
+                if a_ki >= 3:
+                    dmg_raw = int(dmg_raw * 1.4)  # Ki cheio: bônus
+                    a_ki = 0
+
+            # Fraqueza
+            if a_weakened > 0:
+                dmg_raw = int(dmg_raw * 0.65)
+                a_weakened -= 1
+
+            # Crítico
+            is_crit = random.random() < skill.get("crit_chance", 0.12)
+            if is_crit:
+                dmg_raw = int(dmg_raw * 2.0)
+                event_tag = "crit"
+
+            # Escudo reduz dano em 35%
+            if d_shielded:
+                dmg_raw = int(dmg_raw * 0.65)
+                d_shielded = False
+
+            # Defesa
+            if skill.get("ignore_def"):
+                final_dmg = max(1, dmg_raw)
+            else:
+                final_dmg = max(1, dmg_raw - d_def)
+
+            d_hp -= final_dmg
+
+            # Cura própria
+            if skill.get("self_heal"):
+                heal_amt = skill["self_heal"]
+                a_hp = min(a_max_hp, a_hp + heal_amt)
+
+            # Escudo paladino
+            if a_cls == "Paladino" and skill.get("def_bonus", 0) >= 15:
+                a_shielded = True
+
+            # Efeitos no alvo
+            d_stunned_new = random.random() < skill.get("stun_chance", 0)
+            if skill.get("poison") and d_poison <= 0:
+                d_poison = 3   # 3 turnos de veneno
+                event_tag = event_tag or "poison"
+            if skill.get("weaken"):
+                d_weakened = max(d_weakened, 2)
+
+            # ── Montar texto da ação ──
+            if is_crit:
+                skill_display = f"💥 **CRÍTICO!** {skill['name']}"
+            else:
+                skill_display = skill['name']
+
+            dmg_pct = int((final_dmg / max(1, d_max_hp)) * 100)
+            if dmg_pct >= 30:
+                impact_txt = "💣 **IMPACTO DEMOLIDOR!**"
+            elif dmg_pct >= 15:
+                impact_txt = "⚡ Golpe pesado!"
+            else:
+                impact_txt = "🗡️ Acerto sólido."
+
+            log = (
+                f"{a_icon} **{attacker_name}** usa **{skill_display}**!\n"
+                f"_{skill['desc']}_\n"
+                f"━━━━━━━━━━━━━━\n"
+                f"{impact_txt}\n"
+                f"💢 **`−{final_dmg} HP`** em {d_icon} **{defender_name}**"
+            )
+            if is_crit:
+                log += f"\n🌟 *{random.choice(NARRATOR_PHASE['crit'])}*"
+            if skill.get("self_heal"):
+                log += f"\n💚 **{attacker_name}** se cura em `+{skill['self_heal']} HP`!"
+            if d_stunned_new:
+                log += f"\n⚡ **{defender_name} foi PARALISADO!** {random.choice(NARRATOR_PHASE['stun'])}"
+                event_tag = "stun"
+            if skill.get("poison") and d_poison > 0:
+                log += f"\n☠️ **{defender_name} foi ENVENENADO!** `{d_poison} turnos`"
+            if skill.get("weaken"):
+                log += f"\n🔻 **{defender_name}** está **ENFRAQUECIDO** por 2 turnos!"
+            if a_shielded:
+                log += f"\n🛡️ **{attacker_name}** ergue um **Escudo Divino**!"
+            if a_cls == "Berserker" and skill.get("self_dmg"):
+                log += f"\n🩸 **{attacker_name}** sacrifica `{skill['self_dmg']} HP` por mais poder!"
+            if a_cls == "Monge" and a_ki == 0 and dmg_raw > 0:
+                log += f"\n🌀 **Ki liberado!** Bônus de ki ativado neste golpe!"
+            if a_cls == "Berserker":
+                rage_bar = "🔴" * a_rage + "⚫" * (5 - a_rage)
+                log += f"\n🪓 Fúria: {rage_bar}"
+
+            return (a_mana, d_hp, a_hp, d_poison, a_weakened, d_weakened,
+                    d_stunned_new, a_rage, a_ki, d_shielded, a_shielded, log, event_tag)
+
+        # ── Resolver turno: quem age primeiro ────────────────────────────
+        actors = [(True, "ch"), (False, "tg")] if ch_goes_first else [(True, "tg"), (False, "ch")]
+        # Alternar quem age primeiro a cada turno para dinamismo
+        if turn % 2 == 0:
+            actors = list(reversed(actors))
+
+        turn_log_parts = []
+        for is_first, actor in actors:
+            if actor == "ch":
+                if ch_stunned:
+                    turn_log_parts.append(
+                        f"{ch_icon} **{ch_name}** está **PARALISADO** e perde o turno!\n"
+                        f"*«{tg_name} aproveita a abertura!»*"
+                    )
+                    ch_stunned = False
+                    continue
+                (ch_cur_mana, tg_cur_hp, ch_cur_hp,
+                 tg_poison, ch_weakened, tg_weakened,
+                 tg_stunned_new, ch_rage_stacks, ch_ki_charge,
+                 tg_shielded, ch_shielded, log_txt, evt) = resolve_action(
+                    ch_name, tg_name, ch_icon, tg_icon,
+                    ch_skills, ch_cur_mana, ch_atk_base, tg_def,
+                    tg_cur_hp, tg_hp, ch_cur_hp, ch_hp,
+                    ch_weakened, tg_weakened,
+                    ch_stunned, ch_cls, ch_rage_stacks, ch_ki_charge,
+                    ch_shielded, tg_shielded, tg_poison, ch_poison
+                )
+                tg_stunned = tg_stunned or tg_stunned_new
+                if evt:
+                    battle_events.append(evt)
+                turn_log_parts.append(log_txt)
+                if tg_cur_hp <= 0:
+                    break
+            else:
+                if tg_stunned:
+                    turn_log_parts.append(
+                        f"{tg_icon} **{tg_name}** está **PARALISADO** e perde o turno!\n"
+                        f"*«{ch_name} aproveita a abertura!»*"
+                    )
+                    tg_stunned = False
+                    continue
+                (tg_cur_mana, ch_cur_hp, tg_cur_hp,
+                 ch_poison, tg_weakened, ch_weakened,
+                 ch_stunned_new, tg_rage_stacks, tg_ki_charge,
+                 ch_shielded, tg_shielded, log_txt, evt) = resolve_action(
+                    tg_name, ch_name, tg_icon, ch_icon,
+                    tg_skills, tg_cur_mana, tg_atk_base, ch_def,
+                    ch_cur_hp, ch_hp, tg_cur_hp, tg_hp,
+                    tg_weakened, ch_weakened,
+                    tg_stunned, tg_cls, tg_rage_stacks, tg_ki_charge,
+                    tg_shielded, ch_shielded, ch_poison, tg_poison
+                )
+                ch_stunned = ch_stunned or ch_stunned_new
+                if evt:
+                    battle_events.append(evt)
+                turn_log_parts.append(log_txt)
+                if ch_cur_hp <= 0:
+                    break
+
+        # Efeitos de veneno no final do turno
+        poison_log = ""
+        if tg_poison > 0 and tg_cur_hp > 0:
+            p_dmg = max(8, int(tg_hp * 0.06))
+            tg_cur_hp -= p_dmg
+            tg_poison -= 1
+            poison_log += f"\n☠️ **Veneno** corrói **{tg_name}**: `−{p_dmg} HP` | {tg_poison} turnos restantes"
+        if ch_poison > 0 and ch_cur_hp > 0:
+            p_dmg = max(8, int(ch_hp * 0.06))
+            ch_cur_hp -= p_dmg
+            ch_poison -= 1
+            poison_log += f"\n☠️ **Veneno** corrói **{ch_name}**: `−{p_dmg} HP` | {ch_poison} turnos restantes"
+
+        # Montar embed do turno
+        for i, part in enumerate(turn_log_parts):
+            color_name = "🔴" if i == 0 else "🔵"
+            turn_embed.add_field(
+                name=f"{color_name} {'1ª Ação' if i == 0 else '2ª Ação'}",
+                value=part,
+                inline=False
+            )
+        if poison_log:
+            turn_embed.add_field(name="☠️ Efeitos Persistentes", value=poison_log, inline=False)
+
+        # Comentário de HP baixo
+        ch_pct_new = max(0, int(ch_cur_hp / ch_hp * 100))
+        tg_pct_new = max(0, int(tg_cur_hp / tg_hp * 100))
+        low_hp_comment = ""
+        if ch_pct_new < 25 and ch_cur_hp > 0:
+            low_hp_comment += "\n" + random.choice(NARRATOR_PHASE["low_hp"]).replace("{name}", ch_name)
+        if tg_pct_new < 25 and tg_cur_hp > 0:
+            low_hp_comment += "\n" + random.choice(NARRATOR_PHASE["low_hp"]).replace("{name}", tg_name)
+
+        # Painel de status completo
+        status_val = (
+            f"{ch_icon} **{ch_name}**\n"
+            f"❤️ {hp_bar(ch_cur_hp, ch_hp)}\n"
+            f"💙 {mana_bar(ch_cur_mana, ch_mana)} `{ch_cur_mana}`"
+            + (" 🛡️*escudo*" if ch_shielded else "")
+            + (" 🔻*fraco*" if ch_weakened > 0 else "")
+            + (" ⚡*paralisado*" if ch_stunned else "")
+            + (" ☠️*veneno*" if ch_poison > 0 else "")
+            + f"\n\n{tg_icon} **{tg_name}**\n"
+            f"❤️ {hp_bar(tg_cur_hp, tg_hp)}\n"
+            f"💙 {mana_bar(tg_cur_mana, tg_mana)} `{tg_cur_mana}`"
+            + (" 🛡️*escudo*" if tg_shielded else "")
+            + (" 🔻*fraco*" if tg_weakened > 0 else "")
+            + (" ⚡*paralisado*" if tg_stunned else "")
+            + (" ☠️*veneno*" if tg_poison > 0 else "")
+            + (low_hp_comment if low_hp_comment else "")
+        )
+        turn_embed.add_field(name="📊 ═══ STATUS ═══", value=status_val, inline=False)
+        turn_embed.set_footer(text=f"Turno {turn}/{MAX_TURNS} | Eventos: {', '.join(set(battle_events[-5:])) if battle_events else 'Normal'}")
+
         await channel.send(embed=turn_embed)
-        await asyncio.sleep(2)
+        await asyncio.sleep(2.5)
+
+        if ch_cur_hp <= 0 or tg_cur_hp <= 0:
+            break
         turn += 1
 
-    # Determina vencedor
-    await asyncio.sleep(1)
-    result_embed = discord.Embed(
-        title="🏆 RESULTADO DO DUELO!",
-        color=discord.Color.gold()
-    )
+    # ── CENA FINAL: RESULTADO ────────────────────────────────────────────
+    await asyncio.sleep(1.5)
+
+    # Determina vencedor, XP, coins e drama
+    ch_final_pct = max(0, int(ch_cur_hp / ch_hp * 100))
+    tg_final_pct = max(0, int(tg_cur_hp / tg_hp * 100))
+
+    # XP proporcional ao nível e performance
+    def calc_pvp_xp(winner, loser, victory_style):
+        base = 200 + winner["level"] * 8
+        level_diff_bonus = max(0, (loser["level"] - winner["level"]) * 15)
+        style_bonus = {"knockout": 80, "timeout": 30, "draw": 50}.get(victory_style, 0)
+        return base + level_diff_bonus + style_bonus
+
+    def calc_pvp_coins(winner, loser):
+        return 50 + (winner["level"] + loser["level"]) * 3
 
     if ch_cur_hp <= 0 and tg_cur_hp <= 0:
+        # Empate épico
+        victory_line = random.choice([
+            "⚡ *«Dois titãs caem ao mesmo tempo! O mundo testemunha um empate lendário!»*",
+            "🌀 *«Golpes simultâneos! Ambos dão tudo e recebem tudo! Empate ÉPICO!»*",
+            "💥 *«Impossível! Os dois guerreiros colapsam juntos! Isso nunca tinha acontecido!»*",
+        ])
+        result_embed = discord.Embed(
+            title="⚡ ══ EMPATE LENDÁRIO! ══ ⚡",
+            description=f"{victory_line}\n\n"
+                        f"*«{ch_name} e {tg_name} se encaram pelo chão, sem forças para continuar, mas com respeito mútuo gravado nas almas.»*",
+            color=discord.Color.from_rgb(255, 215, 0)
+        )
+        coins_draw = 30
+        add_coins(challenger_id, coins_draw)
+        add_coins(target_id, coins_draw)
+        xp_draw = 100
+        add_xp(challenger_id, xp_draw)
+        add_xp(target_id, xp_draw)
+        result_embed.add_field(name=f"{ch_icon} {ch_name}", value=f"+{xp_draw} XP | +{coins_draw} CSI", inline=True)
+        result_embed.add_field(name=f"{tg_icon} {tg_name}", value=f"+{xp_draw} XP | +{coins_draw} CSI", inline=True)
         winner_id = None
-        result_embed.description = f"*'Ambos caem simultaneamente!'*\n\n**EMPATE ÉPICO!**"
-        result_embed.color = discord.Color.orange()
-    elif ch_cur_hp <= 0:
-        winner_id = target_id
-        loser_id = challenger_id
-        result_embed.description = f"*O narrador anuncia:*\n\n'**{tg_name}** vence o duelo com maestria!'"
-        result_embed.color = discord.Color.blue()
-        xp_win = 150 + target["level"] * 5
-        add_xp(target_id, xp_win)
-        result_embed.add_field(name=f"🏆 {tg_name} (Vencedor)", value=f"+{xp_win} XP | +1 Vitória PvP", inline=True)
-        result_embed.add_field(name=f"💀 {ch_name} (Derrotado)", value="Melhor sorte na próxima!", inline=True)
-    elif tg_cur_hp <= 0:
-        winner_id = challenger_id
-        loser_id = target_id
-        result_embed.description = f"*O narrador anuncia:*\n\n'**{ch_name}** vence o duelo gloriosamente!'"
-        result_embed.color = discord.Color.red()
-        xp_win = 150 + challenger["level"] * 5
-        add_xp(challenger_id, xp_win)
-        result_embed.add_field(name=f"🏆 {ch_name} (Vencedor)", value=f"+{xp_win} XP | +1 Vitória PvP", inline=True)
-        result_embed.add_field(name=f"💀 {tg_name} (Derrotado)", value="Melhor sorte na próxima!", inline=True)
-    else:
-        # Decidido por HP restante
-        if ch_cur_hp >= tg_cur_hp:
-            winner_id = challenger_id
-            result_embed.description = f"*'Tempo esgotado! **{ch_name}** tinha mais HP!'*\n\n**{ch_name} vence por resistência!**"
-            xp_win = 80 + challenger["level"] * 3
-            add_xp(challenger_id, xp_win)
-            result_embed.add_field(name=f"🏆 {ch_name}", value=f"+{xp_win} XP", inline=True)
-            result_embed.add_field(name=f"⚔️ {tg_name}", value=f"HP restante: {max(0, tg_cur_hp)}", inline=True)
-        else:
-            winner_id = target_id
-            result_embed.description = f"*'Tempo esgotado! **{tg_name}** tinha mais HP!'*\n\n**{tg_name} vence por resistência!**"
-            xp_win = 80 + target["level"] * 3
-            add_xp(target_id, xp_win)
-            result_embed.add_field(name=f"🏆 {tg_name}", value=f"+{xp_win} XP", inline=True)
-            result_embed.add_field(name=f"⚔️ {ch_name}", value=f"HP restante: {max(0, ch_cur_hp)}", inline=True)
 
+    elif tg_cur_hp <= 0 or (ch_cur_hp > tg_cur_hp and turn > MAX_TURNS):
+        # Challenger vence
+        winner_id   = challenger_id
+        loser_id    = target_id
+        winner_name = ch_name
+        loser_name  = tg_name
+        winner_cls  = ch_cls
+        winner_icon = ch_icon
+        loser_icon  = tg_icon
+        hp_left     = max(0, ch_cur_hp)
+
+        victory_type = "knockout" if tg_cur_hp <= 0 else "timeout"
+        xp_win   = calc_pvp_xp(challenger, target, victory_type)
+        coins_win = calc_pvp_coins(challenger, target)
+        victory_line = random.choice(VICTORY_LINES.get(winner_cls, ["*«Vitória!»*"]))
+
+        ko_desc = (
+            f"*{tg_icon} {tg_name} cai de joelhos... a espada escorrega da mão... silêncio.*\n\n"
+            if tg_cur_hp <= 0 else
+            f"*O tempo esgota! {ch_icon} {ch_name} permanece de pé com mais HP restante!*\n\n"
+        )
+        result_embed = discord.Embed(
+            title=f"🏆 ══ {ch_name.upper()} VENCE! ══ 🏆",
+            description=(
+                ko_desc +
+                f"{winner_icon} **{winner_name}** levanta a arma e proclama:\n{victory_line}\n\n"
+                f"*O povo ao redor explode em aplausos!*"
+            ),
+            color=discord.Color.from_rgb(255, 215, 0)
+        )
+        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} CSI | HP restante: `{hp_left}`", inline=True)
+        result_embed.add_field(name=f"💀 {loser_name} — Derrotado", value=f"+50 XP por bravura | *'Derrota honrosa.'*", inline=True)
+        add_xp(challenger_id, xp_win)
+        add_xp(target_id, 50)
+        add_coins(challenger_id, coins_win)
+        # Atualizar contagem PvP
+        ch_data = get_player(challenger_id)
+        pvp = ch_data.get("pvp_battles", {})
+        pvp["wins"] = pvp.get("wins", 0) + 1
+        ch_data["pvp_battles"] = pvp
+        save_player_db(challenger_id, ch_data)
+
+    else:
+        # Target vence
+        winner_id   = target_id
+        loser_id    = challenger_id
+        winner_name = tg_name
+        loser_name  = ch_name
+        winner_cls  = tg_cls
+        winner_icon = tg_icon
+        loser_icon  = ch_icon
+        hp_left     = max(0, tg_cur_hp)
+
+        victory_type = "knockout" if ch_cur_hp <= 0 else "timeout"
+        xp_win    = calc_pvp_xp(target, challenger, victory_type)
+        coins_win  = calc_pvp_coins(target, challenger)
+        victory_line = random.choice(VICTORY_LINES.get(winner_cls, ["*«Vitória!»*"]))
+
+        ko_desc = (
+            f"*{ch_icon} {ch_name} cai de joelhos... a espada escorrega da mão... silêncio.*\n\n"
+            if ch_cur_hp <= 0 else
+            f"*O tempo esgota! {tg_icon} {tg_name} permanece de pé com mais HP restante!*\n\n"
+        )
+        result_embed = discord.Embed(
+            title=f"🏆 ══ {tg_name.upper()} VENCE! ══ 🏆",
+            description=(
+                ko_desc +
+                f"{winner_icon} **{winner_name}** levanta a arma e proclama:\n{victory_line}\n\n"
+                f"*O povo ao redor explode em aplausos!*"
+            ),
+            color=discord.Color.from_rgb(255, 215, 0)
+        )
+        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} CSI | HP restante: `{hp_left}`", inline=True)
+        result_embed.add_field(name=f"💀 {loser_name} — Derrotado", value=f"+50 XP por bravura | *'Derrota honrosa.'*", inline=True)
+        add_xp(target_id, xp_win)
+        add_xp(challenger_id, 50)
+        add_coins(target_id, coins_win)
+        tg_data = get_player(target_id)
+        pvp = tg_data.get("pvp_battles", {})
+        pvp["wins"] = pvp.get("wins", 0) + 1
+        tg_data["pvp_battles"] = pvp
+        save_player_db(target_id, tg_data)
+
+    # Resumo da batalha
+    event_summary = []
+    for e in set(battle_events):
+        if e == "crit":    event_summary.append("💥 Golpes Críticos")
+        if e == "stun":    event_summary.append("⚡ Paralisações")
+        if e == "poison":  event_summary.append("☠️ Envenenamentos")
+        if e == "comeback":event_summary.append("🌟 Reviravolta")
     result_embed.add_field(
-        name="📜 Narrador Final",
-        value=random.choice([
-            "*'Uma batalha que será lembrada por gerações!'*",
-            "*'O sangue de guerreiros corre nessas veias!'*",
-            "*'Que honra testemunhar tamanha bravura!'*",
-            "*'Os deuses assistiram esta batalha com interesse!'*",
-            "*'Lendas nacem de combates como este!'*",
-        ]),
+        name="📜 ═══ CRÔNICA DA BATALHA ═══",
+        value=(
+            f"⏱️ Duração: **{turn} turnos**\n"
+            f"🎭 Eventos: {', '.join(event_summary) if event_summary else 'Batalha limpa'}\n\n"
+            + random.choice([
+                "*'Uma batalha que será contada por gerações!'*",
+                "*'Os deuses pararam para assistir a este duelo!'*",
+                "*'Lendas nascem de combates como este!'*",
+                "*'Quem viu isso nunca esquecerá.'*",
+                "*'O bardo mais próximo já está escrevendo sobre isto.'*",
+            ])
+        ),
         inline=False
     )
+    result_embed.set_footer(text="⚔️ Use 'desafiar @jogador' para um novo duelo!")
     await channel.send(embed=result_embed)
+    await check_achievements(channel, challenger_id, "pvp_win_1")
+    await check_achievements(channel, target_id)
 
 
 # ================= FUNÇÕES DE BATALHA E EXPLORAÇÃO =================
