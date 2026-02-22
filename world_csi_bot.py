@@ -14628,6 +14628,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     p_skills = get_player_skills(player)
     p_icon = CLASSES.get(p_cls, {}).get("emoji", "⚔️")
 
+    # ── Separar habilidade suprema das demais ──
+    p_supreme_skill = None
+    p_regular_skills = []
+    for _sk in p_skills:
+        tier_data = CLASS_TIERED_SKILLS.get(p_cls, {})
+        _sup = tier_data.get("supreme", {})
+        if _sk.get("name") == _sup.get("name"):
+            p_supreme_skill = _sk
+        else:
+            p_regular_skills.append(_sk)
+    if p_regular_skills:
+        p_skills = p_regular_skills  # regular skills para escolha aleatória normal
+    supreme_used = False  # suprema só dispara uma vez por batalha
+
     p_max_hp = player["max_hp"] + player.get("temp_hp_boost", 0)
     p_hp = min(player["hp"], p_max_hp)
     p_mana = calc_max_mana(player)
@@ -14927,10 +14941,47 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         turn_embed = discord.Embed(title=narr, color=discord.Color.red())
 
         # === AÇÃO DO JOGADOR PRINCIPAL ===
-        available = [s for s in p_skills if s["mana_cost"] <= p_cur_mana]
-        if not available:
-            available = [p_skills[0]]
-        p_skill = random.choice(available)
+        # ── Verificar se dispara a SUPREMA automaticamente ──
+        boss_hp_pct_now = boss_cur_hp / boss_hp
+        hp_pct_now = p_cur_hp / p_max_hp
+        should_use_supreme = (
+            p_supreme_skill and
+            not supreme_used and
+            p_supreme_skill["mana_cost"] <= p_cur_mana and (
+                # Condição épica: boss em 30% HP OU jogador em 25% HP OU turno 7+
+                boss_hp_pct_now <= 0.30 or
+                hp_pct_now <= 0.25 or
+                turn >= 7
+            )
+        )
+
+        if should_use_supreme:
+            p_skill = p_supreme_skill
+            supreme_used = True
+            # Anúncio cinematográfico antes do ataque
+            _sup_desc_line = (
+                f"*O campo de batalha treme... Uma energia descomunal emana de **{p_name}**!*\n\n"
+                f"## {p_skill['name']}\n"
+                f"*{p_skill['desc']}*"
+            )
+            supreme_announce = discord.Embed(
+                title="⚡👑 HABILIDADE SUPREMA ATIVADA! 👑⚡",
+                description=_sup_desc_line,
+                color=discord.Color.from_rgb(255, 215, 0)
+            )
+            supreme_announce.add_field(
+                name="🔥 O momento decisivo chegou!",
+                value=f"*{p_name} concentra todo o seu poder supremo em um único golpe devastador!*",
+                inline=False
+            )
+            await channel.send(embed=supreme_announce)
+            await asyncio.sleep(2)
+        else:
+            available = [s for s in p_skills if s["mana_cost"] <= p_cur_mana]
+            if not available:
+                available = [p_skills[0]]
+            p_skill = random.choice(available)
+
         p_cur_mana = max(0, p_cur_mana - p_skill["mana_cost"])
         skills_used.add(p_skill["name"])
 
@@ -14939,10 +14990,13 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             dmg_raw = int(dmg_raw * 0.7)
 
         is_crit = random.random() < p_skill.get("crit_chance", 0.1)
+        # Suprema sempre acerta crítico com mais chance
+        if should_use_supreme and not is_crit:
+            is_crit = random.random() < 0.60  # 60% base de crítico na suprema
         if is_crit:
             dmg_raw = int(dmg_raw * 1.8)
             crits_done += 1
-            skill_display = f"💥 CRÍTICO! {p_skill['name']}"
+            skill_display = f"💥 CRÍTICO! {p_skill['name']}" if not should_use_supreme else f"👑⚡ CRÍTICO SUPREMO! {p_skill['name']}"
         else:
             skill_display = p_skill["name"]
 
@@ -14965,12 +15019,21 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             boss_weakened = True
 
         # Narração do ataque do jogador com variação
-        atk_intros = [
-            f"{p_icon} **{p_name}** usa **{skill_display}**!",
-            f"⚡ **{p_name}** lança **{skill_display}** com precisão mortal!",
-            f"🔥 Com determinação feroz, **{p_name}** executa **{skill_display}**!",
-            f"💢 **{p_name}** grita e ativa **{skill_display}**!",
-        ]
+        if should_use_supreme:
+            atk_intros = [
+                f"👑 **{p_name}** libera todo o seu poder supremo com **{skill_display}**!",
+                f"⚡ O céu se parte enquanto **{p_name}** desencadeia **{skill_display}**!",
+                f"🌌 **{p_name}** transcende os limites mortais com **{skill_display}**!",
+                f"☠️ A realidade treme com o poder devastador de **{p_name}** — **{skill_display}**!",
+            ]
+        else:
+            atk_intros = [
+                f"{p_icon} **{p_name}** usa **{skill_display}**!",
+                f"⚡ **{p_name}** lança **{skill_display}** com precisão mortal!",
+                f"🔥 Com determinação feroz, **{p_name}** executa **{skill_display}**!",
+                f"💢 **{p_name}** grita e ativa **{skill_display}**!",
+            ]
+        field_title = f"{'👑 GOLPE SUPREMO' if should_use_supreme else '🔴 Ataque'} de {p_name}!"
         p_action = f"{random.choice(atk_intros)}\n> 💥 `−{p_dmg:,} HP` causado a **{boss_data['name']}**\n> _{p_skill['desc']}_"
         if boss_stun:
             p_action += "\n> ⚡ **O boss foi PARALISADO pelo ataque!**"
@@ -14978,8 +15041,13 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if p_skill.get("self_heal"):
             p_action += f"\n> 💚 **{p_name} recuperou `{p_skill['self_heal']}` HP!**"
         if is_crit:
-            p_action += f"\n> 🎯 *A batalha tremeu com a força desse golpe!*"
-        turn_embed.add_field(name=f"🔴 Ataque de {p_name}!", value=p_action, inline=False)
+            if should_use_supreme:
+                p_action += f"\n> 🌌 *O cosmos inteiro sentiu a força desse golpe!*"
+            else:
+                p_action += f"\n> 🎯 *A batalha tremeu com a força desse golpe!*"
+        if should_use_supreme and p_skill.get("weaken"):
+            p_action += f"\n> 💀 **O boss foi enfraquecido pelo poder supremo!**"
+        turn_embed.add_field(name=field_title, value=p_action, inline=False)
 
         # === AÇÕES DOS ALIADOS (cada aliado age ativamente!) ===
         total_ally_dmg = 0
@@ -15569,23 +15637,57 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
         if supreme:
             unlock_boss = supreme.get("unlock_boss", "")
-            if boss_data["name"] == unlock_boss:
+            # Normaliza nomes para comparação: remove emojis, espaços extras, lowercase
+            def _norm(s):
+                import unicodedata
+                # Remove emojis/symbols: keep only letters, digits, spaces
+                out = ""
+                for ch in s:
+                    cat = unicodedata.category(ch)
+                    if cat.startswith("L") or cat.startswith("N") or ch == " ":
+                        out += ch
+                return " ".join(out.lower().split())
+            boss_norm = _norm(boss_data["name"])
+            unlock_norm = _norm(unlock_boss)
+            boss_match = (boss_norm == unlock_norm or
+                          boss_norm in unlock_norm or
+                          unlock_norm in boss_norm)
+            if boss_match:
                 supreme_skills = p_evo.get("supreme_skills", [])
                 if supreme["name"] not in supreme_skills:
                     supreme_skills.append(supreme["name"])
                     p_evo["supreme_skills"] = supreme_skills
                     save_player_db(user_id, p_evo)
+                    cls_emoji = CLASSES.get(cls, {}).get("emoji", "⚔️")
+                    cls_emoji = CLASSES.get(cls, {}).get("emoji", "⚔️")
+                    _unlock_desc = (
+                        f"## {cls_emoji} {supreme['name']}\n\n"
+                        f"*{supreme['desc']}*\n\n"
+                        f"🏆 Derrotou **{boss_data['name']}** e dominou o poder supremo de **{cls}**!\n"
+                        f"*Esta habilidade agora é usada automaticamente em batalhas épicas.*"
+                    )
                     unlock_embed = discord.Embed(
-                        title="👑 HABILIDADE SUPREMA DESBLOQUEADA!",
-                        description=(
-                            f"**{supreme['name']}**\n\n"
-                            f"*{supreme['desc']}*\n\n"
-                            f"Derrotou **{unlock_boss}** e dominou o poder supremo da sua classe!"
-                        ),
+                        title="👑 ⚡ HABILIDADE SUPREMA DESBLOQUEADA! ⚡ 👑",
+                        description=_unlock_desc,
                         color=discord.Color.from_rgb(255, 215, 0)
                     )
-                    unlock_embed.add_field(name="💥 Dano", value=f"{supreme['dmg_mult']}x", inline=True)
-                    unlock_embed.add_field(name="🔵 Mana", value=f"{supreme['mana_cost']}", inline=True)
+                    unlock_embed.add_field(name="💥 Multiplicador de Dano", value=f"**{supreme['dmg_mult']}×**", inline=True)
+                    unlock_embed.add_field(name="🔵 Custo de Mana", value=f"**{supreme['mana_cost']}**", inline=True)
+                    effects_str = []
+                    if supreme.get("ignore_def"): effects_str.append("🔓 Ignora Defesa")
+                    if supreme.get("stun_chance"): effects_str.append(f"⚡ {int(supreme['stun_chance']*100)}% Paralisar")
+                    if supreme.get("self_heal"): effects_str.append(f"💚 Cura {supreme['self_heal']} HP")
+                    if supreme.get("poison"): effects_str.append("☠️ Envenena")
+                    if supreme.get("weaken"): effects_str.append("💀 Enfraquece")
+                    if effects_str:
+                        unlock_embed.add_field(name="✨ Efeitos Especiais", value=" | ".join(effects_str), inline=False)
+                    unlock_embed.add_field(
+                        name="🎮 Como usar",
+                        value="*A habilidade suprema é disparada automaticamente em momentos críticos da batalha!*\n"
+                              "*Pode ser usada em batalhas contra bosses e PvP.*",
+                        inline=False
+                    )
+                    unlock_embed.set_footer(text=f"✨ Habilidade Suprema de {cls} — Poder máximo desbloqueado!")
                     await channel.send(embed=unlock_embed)
 
 
@@ -16778,7 +16880,7 @@ async def on_message(message):
         )
 
         lvl = player["level"]
-        tiers_shown = {"🟢 Básicas": [], "🔵 Intermediárias": [], "🟣 Avançadas": [], "⭐ Especial": [], "👑 Suprema": []}
+        tiers_shown = {"🟢 Básicas": [], "🔵 Intermediárias": [], "🟣 Avançadas": [], "⭐ Especial": []}
 
         if tier_data:
             for sk in tier_data["basic"]:
@@ -16796,9 +16898,30 @@ async def on_message(message):
             supreme = tier_data.get("supreme")
             if supreme:
                 if supreme["name"] in player.get("supreme_skills", []):
-                    tiers_shown["👑 Suprema"].append(supreme)
+                    effects_parts = []
+                    if supreme.get("ignore_def"): effects_parts.append("🔓 Ignora DEF")
+                    if supreme.get("stun_chance"): effects_parts.append(f"⚡ {int(supreme['stun_chance']*100)}% Paralisar")
+                    if supreme.get("self_heal"): effects_parts.append(f"💚 +{supreme['self_heal']} HP")
+                    if supreme.get("poison"): effects_parts.append("☠️ Veneno")
+                    if supreme.get("weaken"): effects_parts.append("💀 Enfraquece")
+                    effects_str = " | ".join(effects_parts) if effects_parts else ""
+                    supreme_val = (
+                        f"✅ **DESBLOQUEADA** — Dispara automaticamente em batalha!\n"
+                        f"**{supreme['name']}** — {supreme['mana_cost']} mana | **{supreme['dmg_mult']}× dano**\n"
+                        f"_{supreme['desc']}_"
+                        + (f"\n{effects_str}" if effects_str else "")
+                    )
+                    embed.add_field(name="👑 ⚡ Suprema", value=supreme_val, inline=False)
                 else:
-                    embed.add_field(name="👑 Suprema", value=f"*Desbloqueie derrotando: **{supreme['unlock_boss']}***", inline=False)
+                    embed.add_field(
+                        name="👑 Suprema — 🔒 Bloqueada",
+                        value=(
+                            f"*Derrote **{supreme['unlock_boss']}** para desbloquear!*\n"
+                            f"**{supreme['name']}** — {supreme['dmg_mult']}× dano | {supreme['mana_cost']} mana\n"
+                            f"_{supreme['desc']}_"
+                        ),
+                        inline=False
+                    )
         else:
             for sk in CLASS_SKILLS.get(cls, []):
                 tiers_shown["🟢 Básicas"].append(sk)
