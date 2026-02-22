@@ -2945,6 +2945,341 @@ EXISTING_PETS_MOUNT = {
     "Querubim Guerreiro":  {"can_mount": True,  "mount_bonus_def": 80, "mount_bonus_spd": 42},
 }
 
+
+
+# ================= PETS — NOVOS REINOS 11–40 + DIMENSÕES =================
+PETS_NOVOS_REINOS = {
+    # ── CAP. II: Nações Intermediárias (nível 101–200) ────────────────────
+    90: [  # Planícies do Trovão
+        {"name": "Raposa do Trovão",          "emoji": "⚡",  "rarity": "Raro",       "bonus_hp": 340,  "bonus_atk": 170,  "can_mount": True,  "mount_bonus_def": 140,  "mount_bonus_spd": 65},
+        {"name": "Águia Elétrica",            "emoji": "🦅",  "rarity": "Divino",     "bonus_hp": 420,  "bonus_atk": 210,  "can_mount": True,  "mount_bonus_def": 175,  "mount_bonus_spd": 80},
+        {"name": "Dragão do Relâmpago",       "emoji": "🌩️", "rarity": "Primordial", "bonus_hp": 820,  "bonus_atk": 415,  "can_mount": True,  "mount_bonus_def": 330,  "mount_bonus_spd": 145},
+    ],
+    100: [  # Terra dos Gigantes
+        {"name": "Filhote de Gigante",        "emoji": "🗿",  "rarity": "Épico",      "bonus_hp": 480,  "bonus_atk": 200,  "can_mount": True,  "mount_bonus_def": 200,  "mount_bonus_spd": 30},
+        {"name": "Golem de Pedra Vivo",       "emoji": "🪨",  "rarity": "Divino",     "bonus_hp": 580,  "bonus_atk": 220,  "can_mount": True,  "mount_bonus_def": 240,  "mount_bonus_spd": 25},
+        {"name": "Titã Bebê",                 "emoji": "🏔️", "rarity": "Primordial", "bonus_hp": 1100, "bonus_atk": 420,  "can_mount": True,  "mount_bonus_def": 440,  "mount_bonus_spd": 40},
+    ],
+    110: [  # Mar das Almas
+        {"name": "Sereia das Profundezas",    "emoji": "🧜",  "rarity": "Raro",       "bonus_hp": 360,  "bonus_atk": 185,  "can_mount": False},
+        {"name": "Tubarão Espectral",         "emoji": "🦈",  "rarity": "Divino",     "bonus_hp": 450,  "bonus_atk": 225,  "can_mount": True,  "mount_bonus_def": 185,  "mount_bonus_spd": 85},
+        {"name": "Kraken das Almas",          "emoji": "🐙",  "rarity": "Primordial", "bonus_hp": 1050, "bonus_atk": 480,  "can_mount": False},
+        {"name": "Baleia Fantasma",           "emoji": "🐋",  "rarity": "Divino",     "bonus_hp": 500,  "bonus_atk": 200,  "can_mount": True,  "mount_bonus_def": 210,  "mount_bonus_spd": 60},
+    ],
+    120: [  # Reino do Caos
+        {"name": "Elemental do Caos",         "emoji": "🌀",  "rarity": "Épico",      "bonus_hp": 400,  "bonus_atk": 210,  "can_mount": False},
+        {"name": "Imp do Caos",               "emoji": "😈",  "rarity": "Divino",     "bonus_hp": 480,  "bonus_atk": 245,  "can_mount": True,  "mount_bonus_def": 195,  "mount_bonus_spd": 95},
+        {"name": "Dragão do Caos Menor",      "emoji": "🐲",  "rarity": "Primordial", "bonus_hp": 1150, "bonus_atk": 500,  "can_mount": True,  "mount_bonus_def": 460,  "mount_bonus_spd": 150},
+    ],
+    130: [  # Jardim dos Deuses
+        {"name": "Leão Celestial",            "emoji": "🦁",  "rarity": "Épico",      "bonus_hp": 420,  "bonus_atk": 220,  "can_mount": True,  "mount_bonus_def": 180,  "mount_bonus_spd": 60},
+        {"name": "Unicórnio Sagrado",         "emoji": "🦄",  "rarity": "Divino",     "bonus_hp": 510,  "bonus_atk": 260,  "can_mount": True,  "mount_bonus_def": 215,  "mount_bonus_spd": 100},
+        {"name": "Fênix dos Deuses",          "emoji": "🌸",  "rarity": "Primordial", "bonus_hp": 1200, "bonus_atk": 540,  "can_mount": True,  "mount_bonus_def": 480,  "mount_bonus_spd": 160},
+    ],
+    140: [  # Reino do Gelo Eterno
+        {"name": "Lobo do Gelo Eterno",       "emoji": "🐺",  "rarity": "Épico",      "bonus_hp": 440,  "bonus_atk": 230,  "can_mount": True,  "mount_bonus_def": 185,  "mount_bonus_spd": 70},
+        {"name": "Urso Glacial Primordial",   "emoji": "🐻",  "rarity": "Divino",     "bonus_hp": 540,  "bonus_atk": 270,  "can_mount": True,  "mount_bonus_def": 225,  "mount_bonus_spd": 55},
+        {"name": "Wyvern do Permafrost",      "emoji": "❄️",  "rarity": "Primordial", "bonus_hp": 1250, "bonus_atk": 560,  "can_mount": True,  "mount_bonus_def": 500,  "mount_bonus_spd": 130},
+    ],
+    150: [  # Ruínas da Civilização Perdida
+        {"name": "Autômato Antigo",           "emoji": "🤖",  "rarity": "Raro",       "bonus_hp": 460,  "bonus_atk": 180,  "can_mount": False},
+        {"name": "Construto de Mithril",      "emoji": "⚙️",  "rarity": "Divino",     "bonus_hp": 560,  "bonus_atk": 240,  "can_mount": True,  "mount_bonus_def": 235,  "mount_bonus_spd": 45},
+        {"name": "Guardião Ancestral",        "emoji": "🏛️", "rarity": "Primordial", "bonus_hp": 1300, "bonus_atk": 520,  "can_mount": True,  "mount_bonus_def": 520,  "mount_bonus_spd": 80},
+    ],
+    160: [  # Plano Astral
+        {"name": "Espírito Astral",           "emoji": "✨",  "rarity": "Divino",     "bonus_hp": 580,  "bonus_atk": 290,  "can_mount": False},
+        {"name": "Dragão Astral",             "emoji": "🌟",  "rarity": "Primordial", "bonus_hp": 1350, "bonus_atk": 680,  "can_mount": True,  "mount_bonus_def": 540,  "mount_bonus_spd": 200},
+        {"name": "Entidade Estelar",          "emoji": "💫",  "rarity": "Primordial", "bonus_hp": 1400, "bonus_atk": 700,  "can_mount": True,  "mount_bonus_def": 560,  "mount_bonus_spd": 210},
+    ],
+    170: [  # Além da Existência
+        {"name": "Ser do Além",               "emoji": "👁️", "rarity": "Primordial", "bonus_hp": 1500, "bonus_atk": 750,  "can_mount": False},
+        {"name": "Dragão do Além",            "emoji": "♾️",  "rarity": "Primordial", "bonus_hp": 1600, "bonus_atk": 800,  "can_mount": True,  "mount_bonus_def": 640,  "mount_bonus_spd": 230},
+    ],
+    180: [  # O Trono Primordial
+        {"name": "Guardião do Trono",         "emoji": "👑",  "rarity": "Primordial", "bonus_hp": 1800, "bonus_atk": 900,  "can_mount": True,  "mount_bonus_def": 720,  "mount_bonus_spd": 250},
+        {"name": "Fênix Primordial Máxima",   "emoji": "🌈",  "rarity": "Primordial", "bonus_hp": 2000, "bonus_atk": 1000, "can_mount": True,  "mount_bonus_def": 800,  "mount_bonus_spd": 280},
+    ],
+    # ── CAP. III: Impérios Avançados (nível 201–300) ──────────────────────
+    190: [  # Reinos Mortais — Ápice
+        {"name": "Campeão das Trevas",        "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 2200, "bonus_atk": 1100, "can_mount": True,  "mount_bonus_def": 880,  "mount_bonus_spd": 300},
+        {"name": "Dragão do Ápice",           "emoji": "🔱",  "rarity": "Primordial", "bonus_hp": 2400, "bonus_atk": 1200, "can_mount": True,  "mount_bonus_def": 960,  "mount_bonus_spd": 320},
+    ],
+    200: [  # Reinos Avançados — Despertar
+        {"name": "Espírito do Despertar",     "emoji": "⚡",  "rarity": "Primordial", "bonus_hp": 2600, "bonus_atk": 1300, "can_mount": True,  "mount_bonus_def": 1040, "mount_bonus_spd": 340},
+        {"name": "Wyvern do Despertar",       "emoji": "🌠",  "rarity": "Primordial", "bonus_hp": 2800, "bonus_atk": 1400, "can_mount": True,  "mount_bonus_def": 1120, "mount_bonus_spd": 360},
+    ],
+    210: [  # Vórtice dos Reinos
+        {"name": "Elemental do Vórtice",      "emoji": "🌀",  "rarity": "Primordial", "bonus_hp": 3000, "bonus_atk": 1500, "can_mount": False},
+        {"name": "Dragão do Vórtice",         "emoji": "🐉",  "rarity": "Primordial", "bonus_hp": 3200, "bonus_atk": 1600, "can_mount": True,  "mount_bonus_def": 1280, "mount_bonus_spd": 380},
+    ],
+    220: [  # Montanhas do Além
+        {"name": "Garuda das Alturas",        "emoji": "🏔️", "rarity": "Primordial", "bonus_hp": 3400, "bonus_atk": 1700, "can_mount": True,  "mount_bonus_def": 1360, "mount_bonus_spd": 390},
+        {"name": "Roc Primordial",            "emoji": "🦅",  "rarity": "Primordial", "bonus_hp": 3600, "bonus_atk": 1800, "can_mount": True,  "mount_bonus_def": 1440, "mount_bonus_spd": 410},
+    ],
+    230: [  # Oceano Dimensional
+        {"name": "Leviatã Dimensional",       "emoji": "🌊",  "rarity": "Primordial", "bonus_hp": 3800, "bonus_atk": 1900, "can_mount": True,  "mount_bonus_def": 1520, "mount_bonus_spd": 400},
+        {"name": "Sereia do Plano Oculto",    "emoji": "🧜",  "rarity": "Primordial", "bonus_hp": 3600, "bonus_atk": 2000, "can_mount": False},
+    ],
+    240: [  # Forjas do Caos
+        {"name": "Salamandra Caótica",        "emoji": "🔥",  "rarity": "Primordial", "bonus_hp": 4000, "bonus_atk": 2000, "can_mount": True,  "mount_bonus_def": 1600, "mount_bonus_spd": 420},
+        {"name": "Golem das Forjas",          "emoji": "⚗️",  "rarity": "Primordial", "bonus_hp": 4200, "bonus_atk": 1800, "can_mount": True,  "mount_bonus_def": 1680, "mount_bonus_spd": 350},
+    ],
+    250: [  # Tundra Absoluta
+        {"name": "Lobo da Tundra Eterna",     "emoji": "❄️",  "rarity": "Primordial", "bonus_hp": 4400, "bonus_atk": 2200, "can_mount": True,  "mount_bonus_def": 1760, "mount_bonus_spd": 430},
+        {"name": "Dragão de Gelo Absoluto",   "emoji": "🐉",  "rarity": "Primordial", "bonus_hp": 4600, "bonus_atk": 2300, "can_mount": True,  "mount_bonus_def": 1840, "mount_bonus_spd": 450},
+    ],
+    260: [  # Alquimia das Eras
+        {"name": "Homúnculo Sábio",           "emoji": "⚗️",  "rarity": "Primordial", "bonus_hp": 4800, "bonus_atk": 2200, "can_mount": False},
+        {"name": "Quimera Alquímica",         "emoji": "🧪",  "rarity": "Primordial", "bonus_hp": 5000, "bonus_atk": 2400, "can_mount": True,  "mount_bonus_def": 2000, "mount_bonus_spd": 440},
+    ],
+    270: [  # Galáxia Interior
+        {"name": "Dragão da Galáxia",         "emoji": "🌌",  "rarity": "Primordial", "bonus_hp": 5200, "bonus_atk": 2600, "can_mount": True,  "mount_bonus_def": 2080, "mount_bonus_spd": 460},
+        {"name": "Nebulosa Consciente",       "emoji": "💫",  "rarity": "Primordial", "bonus_hp": 5000, "bonus_atk": 2800, "can_mount": False},
+    ],
+    280: [  # Tribunal do Cosmo
+        {"name": "Guardião do Equilíbrio",    "emoji": "⚖️",  "rarity": "Primordial", "bonus_hp": 5500, "bonus_atk": 2750, "can_mount": True,  "mount_bonus_def": 2200, "mount_bonus_spd": 470},
+        {"name": "Juiz Cósmico",              "emoji": "🏛️", "rarity": "Primordial", "bonus_hp": 5800, "bonus_atk": 2900, "can_mount": False},
+    ],
+    # ── CAP. IV: Terras Corrompidas (nível 301–350) ───────────────────────
+    290: [  # Arena dos Deuses Menores
+        {"name": "Gladiador Espectral",       "emoji": "🗡️", "rarity": "Primordial", "bonus_hp": 6200, "bonus_atk": 3100, "can_mount": False},
+        {"name": "Dragão da Arena",           "emoji": "🐲",  "rarity": "Primordial", "bonus_hp": 6500, "bonus_atk": 3250, "can_mount": True,  "mount_bonus_def": 2600, "mount_bonus_spd": 490},
+    ],
+    300: [  # O Olho do Multiverso
+        {"name": "Observador do Vazio",       "emoji": "👁️", "rarity": "Primordial", "bonus_hp": 6800, "bonus_atk": 3400, "can_mount": False},
+        {"name": "Serpente do Multiverso",    "emoji": "🐍",  "rarity": "Primordial", "bonus_hp": 7000, "bonus_atk": 3500, "can_mount": True,  "mount_bonus_def": 2800, "mount_bonus_spd": 500},
+    ],
+    310: [  # Plano Astral Inferior
+        {"name": "Fantasma Astral Corrompido","emoji": "👻",  "rarity": "Primordial", "bonus_hp": 7200, "bonus_atk": 3600, "can_mount": False},
+        {"name": "Dragão Astral Corrompido",  "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 7500, "bonus_atk": 3750, "can_mount": True,  "mount_bonus_def": 3000, "mount_bonus_spd": 510},
+    ],
+    320: [  # Fortaleza de Cristal
+        {"name": "Golem de Cristal Vivo",     "emoji": "💎",  "rarity": "Primordial", "bonus_hp": 7800, "bonus_atk": 3500, "can_mount": True,  "mount_bonus_def": 3120, "mount_bonus_spd": 460},
+        {"name": "Dragão de Cristal Negro",   "emoji": "💎",  "rarity": "Primordial", "bonus_hp": 8000, "bonus_atk": 4000, "can_mount": True,  "mount_bonus_def": 3200, "mount_bonus_spd": 520},
+    ],
+    330: [  # Lua Negra
+        {"name": "Lobo da Lua Negra",         "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 8200, "bonus_atk": 4100, "can_mount": True,  "mount_bonus_def": 3280, "mount_bonus_spd": 530},
+        {"name": "Dragão da Lua Negra",       "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 8500, "bonus_atk": 4250, "can_mount": True,  "mount_bonus_def": 3400, "mount_bonus_spd": 540},
+    ],
+    # ── CAP. V: Reinos Dimensionais (nível 351–400) ───────────────────────
+    340: [  # Cemitério de Estrelas
+        {"name": "Espírito de Estrela Morta", "emoji": "☄️",  "rarity": "Primordial", "bonus_hp": 9000, "bonus_atk": 4500, "can_mount": False},
+        {"name": "Fênix Estelar",             "emoji": "⭐",  "rarity": "Primordial", "bonus_hp": 9500, "bonus_atk": 4750, "can_mount": True,  "mount_bonus_def": 3800, "mount_bonus_spd": 560},
+    ],
+    350: [  # Coração Solar
+        {"name": "Elemental Solar",           "emoji": "🌞",  "rarity": "Primordial", "bonus_hp": 10000,"bonus_atk": 5000, "can_mount": False},
+        {"name": "Dragão Solar",              "emoji": "☀️",  "rarity": "Primordial", "bonus_hp": 10500,"bonus_atk": 5250, "can_mount": True,  "mount_bonus_def": 4200, "mount_bonus_spd": 580},
+    ],
+    360: [  # Buraco Negro Vivo
+        {"name": "Sombra do Buraco Negro",    "emoji": "🕳️", "rarity": "Primordial", "bonus_hp": 11000,"bonus_atk": 5500, "can_mount": False},
+        {"name": "Dragão do Vazio Cósmico",   "emoji": "🌌",  "rarity": "Primordial", "bonus_hp": 11500,"bonus_atk": 5750, "can_mount": True,  "mount_bonus_def": 4600, "mount_bonus_spd": 600},
+    ],
+    370: [  # Nexo das Dimensões
+        {"name": "Entidade do Nexo",          "emoji": "🌐",  "rarity": "Primordial", "bonus_hp": 12000,"bonus_atk": 6000, "can_mount": False},
+        {"name": "Dragão do Nexo",            "emoji": "🌀",  "rarity": "Primordial", "bonus_hp": 12500,"bonus_atk": 6250, "can_mount": True,  "mount_bonus_def": 5000, "mount_bonus_spd": 620},
+    ],
+    380: [  # Tempestade Interdimensional
+        {"name": "Dragão da Tempestade Interdimensional","emoji":"⚡","rarity":"Primordial","bonus_hp":13000,"bonus_atk":6500,"can_mount":True,"mount_bonus_def":5200,"mount_bonus_spd":640},
+        {"name": "Fênix da Tempestade Cosmica","emoji": "🌩️","rarity": "Primordial","bonus_hp": 13500,"bonus_atk": 6750,"can_mount": True,"mount_bonus_def": 5400,"mount_bonus_spd": 660},
+    ],
+    # ── CAP. VI: As Cinco Dimensões (nível 401–500) ───────────────────────
+    390: [  # Dimensão Celestial
+        {"name": "Serafim Guardião",          "emoji": "🕊️", "rarity": "Primordial", "bonus_hp": 14000,"bonus_atk": 7000, "can_mount": True,  "mount_bonus_def": 5600, "mount_bonus_spd": 680},
+        {"name": "Dragão Celestial Divino",   "emoji": "✨",  "rarity": "Primordial", "bonus_hp": 15000,"bonus_atk": 7500, "can_mount": True,  "mount_bonus_def": 6000, "mount_bonus_spd": 700},
+    ],
+    400: [  # Dimensão Infernal
+        {"name": "Demônio Primordial Livre",  "emoji": "🔥",  "rarity": "Primordial", "bonus_hp": 16000,"bonus_atk": 8000, "can_mount": True,  "mount_bonus_def": 6400, "mount_bonus_spd": 680},
+        {"name": "Dragão Infernal Eterno",    "emoji": "🐲",  "rarity": "Primordial", "bonus_hp": 17000,"bonus_atk": 8500, "can_mount": True,  "mount_bonus_def": 6800, "mount_bonus_spd": 700},
+    ],
+    410: [  # Dimensão das Badlands
+        {"name": "Criatura do Caos Puro",     "emoji": "🌪️", "rarity": "Primordial", "bonus_hp": 18000,"bonus_atk": 9000, "can_mount": False},
+        {"name": "Dragão das Badlands",       "emoji": "💀",  "rarity": "Primordial", "bonus_hp": 19000,"bonus_atk": 9500, "can_mount": True,  "mount_bonus_def": 7600, "mount_bonus_spd": 720},
+    ],
+    420: [  # Dimensão Abissal
+        {"name": "Horror Primordial",         "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 20000,"bonus_atk":10000, "can_mount": False},
+        {"name": "Dragão Abissal",            "emoji": "🌑",  "rarity": "Primordial", "bonus_hp": 21000,"bonus_atk":10500, "can_mount": True,  "mount_bonus_def": 8400, "mount_bonus_spd": 740},
+    ],
+    430: [  # Dimensão do Vazio
+        {"name": "O Nada com Forma",          "emoji": "🌀",  "rarity": "Primordial", "bonus_hp": 22000,"bonus_atk":11000, "can_mount": False},
+        {"name": "Dragão do Vazio Absoluto",  "emoji": "♾️",  "rarity": "Primordial", "bonus_hp": 25000,"bonus_atk":12500, "can_mount": True,  "mount_bonus_def":10000, "mount_bonus_spd": 800},
+    ],
+}
+
+
+# ================= ITENS — NOVOS REINOS 11–40 + DIMENSÕES =================
+ITEMS_NOVOS_REINOS = {
+    90: {"weapons": [  # Planícies do Trovão
+        {"name": "Lança do Trovão Perpétuo",     "rarity": "Lendário",  "atk": 108},
+        {"name": "Martelo de Plasma",            "rarity": "Mítico",    "atk": 220},
+        {"name": "Espada do Relâmpago Eterno",   "rarity": "Ancestral", "atk": 300},
+    ], "armor": [
+        {"name": "Armadura do Tempesteiro",      "rarity": "Lendário",  "def": 88},
+        {"name": "Vestes do Trovão Perpétuo",    "rarity": "Mítico",    "def": 195},
+        {"name": "Placas do Raio Eterno",        "rarity": "Ancestral", "def": 280},
+    ]},
+    100: {"weapons": [  # Terra dos Gigantes
+        {"name": "Clava dos Gigantes",           "rarity": "Lendário",  "atk": 112},
+        {"name": "Machado dos Colossus",         "rarity": "Mítico",    "atk": 225},
+        {"name": "Lança dos Titãs Primordiais",  "rarity": "Ancestral", "atk": 305},
+    ], "armor": [
+        {"name": "Couraça dos Colossus",         "rarity": "Lendário",  "def": 90},
+        {"name": "Pele do Titã",                 "rarity": "Mítico",    "def": 198},
+        {"name": "Armadura dos Gigantes Caídos", "rarity": "Ancestral", "def": 285},
+    ]},
+    110: {"weapons": [  # Mar das Almas
+        {"name": "Tridente das Almas",           "rarity": "Lendário",  "atk": 110},
+        {"name": "Harpe das Profundezas",        "rarity": "Mítico",    "atk": 222},
+        {"name": "Espada da Maré Eterna",        "rarity": "Ancestral", "atk": 302},
+    ], "armor": [
+        {"name": "Armadura das Escamas Abissais","rarity": "Lendário",  "def": 89},
+        {"name": "Manto das Almas Perdidas",     "rarity": "Mítico",    "def": 196},
+        {"name": "Couraça das Profundezas",      "rarity": "Ancestral", "def": 282},
+    ]},
+    120: {"weapons": [  # Reino do Caos
+        {"name": "Cajado do Caos Maior",         "rarity": "Lendário",  "atk": 114},
+        {"name": "Foice do Caos Primordial",     "rarity": "Mítico",    "atk": 228},
+        {"name": "Lâmina do Caos Eterno",        "rarity": "Ancestral", "atk": 308},
+    ], "armor": [
+        {"name": "Vestes do Caos Maior",         "rarity": "Lendário",  "def": 91},
+        {"name": "Armadura do Caos Primordial",  "rarity": "Mítico",    "def": 200},
+        {"name": "Manto do Caos Eterno",         "rarity": "Ancestral", "def": 288},
+    ]},
+    130: {"weapons": [  # Jardim dos Deuses
+        {"name": "Flecha Divina de Artemis",     "rarity": "Lendário",  "atk": 116},
+        {"name": "Cajado do Jardim Sagrado",     "rarity": "Mítico",    "atk": 232},
+        {"name": "Lança dos Deuses Maiores",     "rarity": "Ancestral", "atk": 312},
+        {"name": "Arco do Olimpo Verdadeiro",    "rarity": "Divino",    "atk": 405},
+    ], "armor": [
+        {"name": "Vestes dos Deuses Menores",    "rarity": "Lendário",  "def": 93},
+        {"name": "Manto do Jardim Eterno",       "rarity": "Mítico",    "def": 202},
+        {"name": "Armadura Olímpica",            "rarity": "Ancestral", "def": 290},
+        {"name": "Vestes dos Deuses Maiores",    "rarity": "Divino",    "def": 380},
+    ]},
+    140: {"weapons": [  # Reino do Gelo Eterno
+        {"name": "Espada do Gelo Eterno",        "rarity": "Lendário",  "atk": 118},
+        {"name": "Lança do Permafrost Absoluto", "rarity": "Mítico",    "atk": 235},
+        {"name": "Machado do Inverno Eterno",    "rarity": "Ancestral", "atk": 315},
+        {"name": "Arco do Gelo Primordial",      "rarity": "Divino",    "atk": 408},
+    ], "armor": [
+        {"name": "Armadura do Gelo Eterno",      "rarity": "Lendário",  "def": 94},
+        {"name": "Couraça do Permafrost",        "rarity": "Mítico",    "def": 205},
+        {"name": "Placas do Inverno Absoluto",   "rarity": "Ancestral", "def": 292},
+        {"name": "Pele do Gelo Primordial",      "rarity": "Divino",    "def": 382},
+    ]},
+    150: {"weapons": [  # Ruínas da Civilização Perdida
+        {"name": "Relíquia da Civilização",      "rarity": "Lendário",  "atk": 120},
+        {"name": "Arma da Era Perdida",          "rarity": "Mítico",    "atk": 238},
+        {"name": "Espada do Último Rei",         "rarity": "Ancestral", "atk": 318},
+        {"name": "Cajado dos Arquitetos Divinos","rarity": "Divino",    "atk": 412},
+    ], "armor": [
+        {"name": "Armadura da Civilização Perdida","rarity":"Lendário", "def": 95},
+        {"name": "Vestes da Era Perdida",        "rarity": "Mítico",    "def": 207},
+        {"name": "Placas do Último Guardião",    "rarity": "Ancestral", "def": 295},
+        {"name": "Manto dos Arquitetos Divinos", "rarity": "Divino",    "def": 385},
+    ]},
+    160: {"weapons": [  # Plano Astral
+        {"name": "Cajado Astral Supremo",        "rarity": "Lendário",  "atk": 122},
+        {"name": "Lâmina da Consciência Pura",   "rarity": "Mítico",    "atk": 242},
+        {"name": "Espada do Cosmos Astral",      "rarity": "Ancestral", "atk": 322},
+        {"name": "Arco das Estrelas Astrais",    "rarity": "Divino",    "atk": 418},
+        {"name": "Cetro do Plano Astral",        "rarity": "Primordial","atk": 810},
+    ], "armor": [
+        {"name": "Vestes do Plano Astral",       "rarity": "Lendário",  "def": 97},
+        {"name": "Armadura da Consciência",      "rarity": "Mítico",    "def": 210},
+        {"name": "Manto do Cosmos",              "rarity": "Ancestral", "def": 298},
+        {"name": "Placas do Plano Astral",       "rarity": "Divino",    "def": 388},
+        {"name": "Vestes da Consciência Pura",   "rarity": "Primordial","def": 760},
+    ]},
+    170: {"weapons": [  # Além da Existência
+        {"name": "Arma do Além da Existência",   "rarity": "Mítico",    "atk": 250},
+        {"name": "Espada do Não-Ser",            "rarity": "Ancestral", "atk": 330},
+        {"name": "Lança do Além de Tudo",        "rarity": "Divino",    "atk": 425},
+        {"name": "O Conceito de Arma",           "rarity": "Primordial","atk": 820},
+    ], "armor": [
+        {"name": "Proteção do Além da Existência","rarity":"Mítico",    "def": 215},
+        {"name": "Armadura do Não-Ser",          "rarity": "Ancestral", "def": 305},
+        {"name": "Vestes do Além de Tudo",       "rarity": "Divino",    "def": 395},
+        {"name": "O Conceito de Proteção",       "rarity": "Primordial","def": 770},
+    ]},
+    180: {"weapons": [  # O Trono Primordial
+        {"name": "Espada do Trono Primordial",   "rarity": "Divino",    "atk": 430},
+        {"name": "Cetro do Criador Primordial",  "rarity": "Primordial","atk": 830},
+        {"name": "Foice do Trono Final",         "rarity": "Primordial","atk": 850},
+    ], "armor": [
+        {"name": "Armadura do Trono Primordial", "rarity": "Divino",    "def": 400},
+        {"name": "Vestes do Criador",            "rarity": "Primordial","def": 780},
+        {"name": "Couraça do Trono Final",       "rarity": "Primordial","def": 800},
+    ]},
+    # CAP III — 201–300
+    190: {"weapons": [{"name": "Lâmina do Ápice Mortal","rarity":"Divino","atk":440},{"name": "Cajado do Ápice Supremo","rarity":"Primordial","atk":860}],
+          "armor":   [{"name": "Armadura do Ápice Mortal","rarity":"Divino","def":410},{"name": "Vestes do Ápice Supremo","rarity":"Primordial","def":810}]},
+    200: {"weapons": [{"name": "Espada do Despertar Dimensional","rarity":"Divino","atk":450},{"name": "Arco do Despertar Absoluto","rarity":"Primordial","atk":870}],
+          "armor":   [{"name": "Armadura do Despertar","rarity":"Divino","def":420},{"name": "Placas do Despertar Absoluto","rarity":"Primordial","def":820}]},
+    210: {"weapons": [{"name": "Lança do Vórtice Eterno","rarity":"Divino","atk":460},{"name": "Cajado do Vórtice Primordial","rarity":"Primordial","atk":880}],
+          "armor":   [{"name": "Vestes do Vórtice","rarity":"Divino","def":430},{"name": "Manto do Vórtice Primordial","rarity":"Primordial","def":830}]},
+    220: {"weapons": [{"name": "Machado das Montanhas do Além","rarity":"Divino","atk":468},{"name": "Lança do Pico Absoluto","rarity":"Primordial","atk":890}],
+          "armor":   [{"name": "Couraça das Montanhas do Além","rarity":"Divino","def":438},{"name": "Armadura do Pico Absoluto","rarity":"Primordial","def":840}]},
+    230: {"weapons": [{"name": "Tridente do Oceano Dimensional","rarity":"Divino","atk":476},{"name": "Espada das Marés Primordiais","rarity":"Primordial","atk":900}],
+          "armor":   [{"name": "Armadura do Oceano Dimensional","rarity":"Divino","def":446},{"name": "Vestes das Marés Primordiais","rarity":"Primordial","def":850}]},
+    240: {"weapons": [{"name": "Espada Forjada no Caos","rarity":"Divino","atk":484},{"name": "Martelo das Forjas Primordiais","rarity":"Primordial","atk":910}],
+          "armor":   [{"name": "Armadura das Forjas do Caos","rarity":"Divino","def":454},{"name": "Placas das Forjas Primordiais","rarity":"Primordial","def":860}]},
+    250: {"weapons": [{"name": "Espada da Tundra Absoluta","rarity":"Divino","atk":492},{"name": "Lança do Gelo Primordial","rarity":"Primordial","atk":920}],
+          "armor":   [{"name": "Armadura da Tundra Absoluta","rarity":"Divino","def":462},{"name": "Vestes do Gelo Primordial","rarity":"Primordial","def":870}]},
+    260: {"weapons": [{"name": "Cajado da Alquimia Suprema","rarity":"Divino","atk":500},{"name": "Pedra Filosofal Feita Arma","rarity":"Primordial","atk":930}],
+          "armor":   [{"name": "Vestes da Alquimia das Eras","rarity":"Divino","def":470},{"name": "Proteção da Pedra Filosofal","rarity":"Primordial","def":880}]},
+    270: {"weapons": [{"name": "Espada da Galáxia Interior","rarity":"Divino","atk":508},{"name": "Cajado da Nebulosa Primordial","rarity":"Primordial","atk":940}],
+          "armor":   [{"name": "Armadura da Galáxia Interior","rarity":"Divino","def":478},{"name": "Manto da Nebulosa Primordial","rarity":"Primordial","def":890}]},
+    280: {"weapons": [{"name": "Espada do Tribunal Cósmico","rarity":"Divino","atk":516},{"name": "Martelo do Juízo Primordial","rarity":"Primordial","atk":950}],
+          "armor":   [{"name": "Armadura do Tribunal","rarity":"Divino","def":486},{"name": "Vestes do Juízo Primordial","rarity":"Primordial","def":900}]},
+    # CAP IV — 301–350
+    290: {"weapons": [{"name": "Espada dos Deuses Menores","rarity":"Divino","atk":525},{"name": "Tridente da Arena Cósmica","rarity":"Primordial","atk":960}],
+          "armor":   [{"name": "Armadura da Arena dos Deuses","rarity":"Divino","def":495},{"name": "Couraça dos Gladiadores Cósmicos","rarity":"Primordial","def":910}]},
+    300: {"weapons": [{"name": "Lança do Olho do Multiverso","rarity":"Divino","atk":534},{"name": "Cajado do Observador Primordial","rarity":"Primordial","atk":970}],
+          "armor":   [{"name": "Vestes do Observador","rarity":"Divino","def":504},{"name": "Manto do Observador Primordial","rarity":"Primordial","def":920}]},
+    310: {"weapons": [{"name": "Foice do Astral Inferior","rarity":"Divino","atk":542},{"name": "Espada do Astral Corrompido","rarity":"Primordial","atk":980}],
+          "armor":   [{"name": "Armadura do Astral Inferior","rarity":"Divino","def":512},{"name": "Vestes do Astral Corrompido","rarity":"Primordial","def":930}]},
+    320: {"weapons": [{"name": "Espada de Cristal Negro","rarity":"Divino","atk":550},{"name": "Lança da Fortaleza Cristalina","rarity":"Primordial","atk":990}],
+          "armor":   [{"name": "Armadura da Fortaleza de Cristal","rarity":"Divino","def":520},{"name": "Couraça de Cristal Negro","rarity":"Primordial","def":940}]},
+    330: {"weapons": [{"name": "Foice da Lua Negra","rarity":"Divino","atk":558},{"name": "Espada do Plenilúnio Negro","rarity":"Primordial","atk":1000}],
+          "armor":   [{"name": "Armadura da Lua Negra","rarity":"Divino","def":528},{"name": "Vestes do Plenilúnio Negro","rarity":"Primordial","def":950}]},
+    # CAP V — 351–400
+    340: {"weapons": [{"name": "Lança da Estrela Morta","rarity":"Divino","atk":568},{"name": "Espada do Cemitério Estelar","rarity":"Primordial","atk":1020}],
+          "armor":   [{"name": "Armadura das Estrelas Mortas","rarity":"Divino","def":538},{"name": "Manto do Cemitério Estelar","rarity":"Primordial","def":960}]},
+    350: {"weapons": [{"name": "Espada do Coração Solar","rarity":"Divino","atk":578},{"name": "Lança do Sol Primordial","rarity":"Primordial","atk":1040}],
+          "armor":   [{"name": "Armadura do Coração Solar","rarity":"Divino","def":548},{"name": "Placas do Sol Primordial","rarity":"Primordial","def":970}]},
+    360: {"weapons": [{"name": "Foice do Buraco Negro","rarity":"Divino","atk":588},{"name": "Espada da Singularidade","rarity":"Primordial","atk":1060}],
+          "armor":   [{"name": "Armadura da Singularidade","rarity":"Divino","def":558},{"name": "Vestes do Horizonte de Eventos","rarity":"Primordial","def":980}]},
+    370: {"weapons": [{"name": "Cetro do Nexo Dimensional","rarity":"Divino","atk":598},{"name": "Espada do Nexo Primordial","rarity":"Primordial","atk":1080}],
+          "armor":   [{"name": "Armadura do Nexo Dimensional","rarity":"Divino","def":568},{"name": "Vestes do Nexo Primordial","rarity":"Primordial","def":990}]},
+    380: {"weapons": [{"name": "Espada da Tempestade Interdimensional","rarity":"Divino","atk":610},{"name": "Martelo da Tempestade Primordial","rarity":"Primordial","atk":1100}],
+          "armor":   [{"name": "Armadura da Tempestade Interdimensional","rarity":"Divino","def":580},{"name": "Couraça da Tempestade Primordial","rarity":"Primordial","def":1000}]},
+    # CAP VI — Dimensões 401–500
+    390: {"weapons": [{"name": "Espada da Luz Celestial","rarity":"Primordial","atk":1120},{"name": "Lança do Serafim Supremo","rarity":"Primordial","atk":1150}],
+          "armor":   [{"name": "Armadura Celestial Suprema","rarity":"Primordial","def":1020},{"name": "Vestes do Serafim Supremo","rarity":"Primordial","def":1050}]},
+    400: {"weapons": [{"name": "Lâmina do Inferno Eterno","rarity":"Primordial","atk":1180},{"name": "Cajado do Abismo Infernal","rarity":"Primordial","atk":1200}],
+          "armor":   [{"name": "Couraça do Inferno Eterno","rarity":"Primordial","def":1080},{"name": "Armadura do Senhor Infernal","rarity":"Primordial","def":1100}]},
+    410: {"weapons": [{"name": "Arma do Caos das Badlands","rarity":"Primordial","atk":1230},{"name": "Foice do Deserto Caótico","rarity":"Primordial","atk":1250}],
+          "armor":   [{"name": "Armadura das Badlands","rarity":"Primordial","def":1130},{"name": "Vestes do Caos Puro","rarity":"Primordial","def":1150}]},
+    420: {"weapons": [{"name": "Lança do Abismo Primordial","rarity":"Primordial","atk":1280},{"name": "Espada da Sanidade Perdida","rarity":"Primordial","atk":1300}],
+          "armor":   [{"name": "Armadura do Abismo Eterno","rarity":"Primordial","def":1180},{"name": "Proteção do Horror Primordial","rarity":"Primordial","def":1200}]},
+    430: {"weapons": [{"name": "O Vazio Feito Arma","rarity":"Primordial","atk":1350},{"name": "Lâmina da Não-Existência","rarity":"Primordial","atk":1400}],
+          "armor":   [{"name": "Armadura do Vazio Absoluto","rarity":"Primordial","def":1250},{"name": "Manto da Não-Existência","rarity":"Primordial","def":1300}]},
+}
+
+
+def register_new_world_content():
+    """Registra pets e itens dos novos reinos nos dicts globais. Chamado na init."""
+    for world_id, pets in PETS_NOVOS_REINOS.items():
+        if world_id not in PETS_EXTRA:
+            PETS_EXTRA[world_id] = []
+        PETS_EXTRA[world_id].extend(pets)
+    for world_id, data in ITEMS_NOVOS_REINOS.items():
+        ITEMS["weapons"].extend(data.get("weapons", []))
+        ITEMS["armor"].extend(data.get("armor", []))
+
+
+register_new_world_content()
+
 def get_all_pets():
     """Retorna todos os pets (originais + extras) como lista flat por mundo"""
     all_pets = {}
