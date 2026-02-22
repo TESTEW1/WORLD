@@ -11707,555 +11707,473 @@ async def send_prologue(guild):
         title="📖  W O R L D   C S I  📖",
         description=(
             "```\n"
-            "╔══════════════════════════════════════╗\n"
-            "║   O Narrador Desperta...             ║\n"
-            "║   Uma Nova Saga Começa Aqui.         ║\n"
-            "╚══════════════════════════════════════╝\n"
+            "╔══════════════════════════════════════════╗\n"
+            "║   O Narrador Desperta...                 ║\n"
+            "║   A Maior Saga de Todos os Ciclos Começa ║\n"
+            "╚══════════════════════════════════════════╝\n"
             "```\n"
             "*Uma voz grave ecoa por todo o servidor...*\n\n"
             "**\"No princípio, havia apenas o Vazio — um silêncio perfeito e eterno.**\n"
             "Então, a Primeira Chama surgiu do nada, e com ela nasceu o Mundo.\n\n"
-            "Vinte reinos se formaram das cinzas da criação.\n"
-            "Cada um guarda segredos que poucos ousam descobrir.\n"
-            "Cada um testa aqueles que o atravessam de formas diferentes.\n\n"
+            "Sessenta reinos se formaram das cinzas da criação.\n"
+            "Quatro ciclos de existência dividem o que os mortais chamam de realidade.\n"
+            "Cada ciclo transcende o anterior de formas que a mente mortal mal pode conceber.\n\n"
             "**Você... é o próximo herói desta história.**\n"
-            "Ou talvez o próximo vilão. O destino é seu para escrever.\"\n\n"
+            "Ou talvez o próximo Absoluto. O destino é seu para escrever.\"\n\n"
             "*— O Narrador, antes que a história comece*"
         ),
         color=0x2C2F33
     )
-    embed1.set_footer(text="🎭 O Narrador observa cada passo seu...")
+    embed1.set_footer(text="🎭 O Narrador observa cada passo seu... até o Plano Absoluto.")
     await channel.send(embed=embed1)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 2 — Os Sete Reinos (lore)
+    # EMBED 2 — Os 4 Ciclos de Mundo
     # ══════════════════════════════════════════
     embed2 = discord.Embed(
-        title="🗺️ Os Vinte Reinos do Mundo",
-        description="*O pergaminho se desenrola revelando terras que poucos mortais conhecem...*",
-        color=0x8B4513
+        title="🔄 Os Quatro Ciclos do Mundo",
+        description="*O Narrador desdobra um mapa que parece infinito...*",
+        color=0x1a0033
     )
     embed2.add_field(
-        name="🌱 Campos Iniciais — O Berço",
+        name="⚔️ Ciclo 1 — Reinos Mortais (Nível 1–199)",
         value=(
-            "*\"Todo herói começa aqui. Não existe vergonha no começo humilde.\n"
-            "O guerreiro mais poderoso que existiu começou matando um slime.\"*\n"
-            "— Historiador Pell\n\n"
-            "Terras abertas onde os primeiros seres vivos deram seus primeiros passos.\n"
-            "O Slime Rei reina sobre estas planícies... por enquanto."
+            "*\"Aqui nasceram os primeiros heróis. Vinte reinos forjados de lutas reais.\"*\n\n"
+            "**20 reinos** | **20 bosses obrigatórios** (níveis 9, 19... 199)\n"
+            "Da planície mais humilde até o Trono Primordial.\n"
+            "▸ Desbloqueie evoluções de classe nos níveis **40 / 80 / 120 / 160**"
         ),
         inline=False
     )
     embed2.add_field(
-        name="🌲 Floresta Sombria — A Que Respira",
+        name="🌌 Ciclo 2 — Reinos Avançados (Nível 200–399)",
         value=(
-            "*\"A floresta não é apenas árvores. Ela é um ser vivo, consciente,\n"
-            "e muito, muito antiga. Ela ouve você. E lembra de tudo.\"*\n"
-            "— Druida Sylvara\n\n"
-            "O Ent Ancião de 3.000 anos guarda segredos que nenhum livro registrou.\n"
-            "Os sussurros entre os galhos contam histórias do tempo dos dragões."
+            "*\"O mundo mortal era apenas o prólogo. A história real começa aqui.\"*\n\n"
+            "**20 reinos** | **20 bosses** (níveis 209, 219... 399)\n"
+            "Dimensões, vórtices, oceanos interdimensionais e tribunais cósmicos.\n"
+            "▸ Evolução de classe **Tier V** desbloqueada no **nível 200**"
         ),
         inline=False
     )
     embed2.add_field(
-        name="🏜️ Deserto das Almas — O Jardim Perdido",
+        name="💫 Ciclo 3 — Dimensões Superiores (Nível 400–499)",
         value=(
-            "*\"Esta areia foi mar profundo uma vez. Sob ela ainda dormem\n"
-            "as maravilhas do jardim original — esperando um digno.\"*\n"
-            "— Sábia Nefertiri\n\n"
-            "O Faraó Kha-Mentu foi traído por seus sacerdotes e amaldiçoado\n"
-            "para guardar seus próprios tesouros por toda a eternidade."
+            "*\"Transcendeste o mortal. Transcendeste o dimensional. O que vem agora?\"*\n\n"
+            "**10 reinos** | **10 bosses** (níveis 409, 419... 499)\n"
+            "Nebulosas, templos divinos, estrelas primordiais e o Olimpo Transcendente.\n"
+            "▸ Evolução de classe **Tier VI** desbloqueada no **nível 400**"
         ),
         inline=False
     )
+    embed2.add_field(
+        name="♾️ Ciclo 4 — Planos Absolutos (Nível 500–600)",
+        value=(
+            "*\"Além daqui não há mais nomes. Há apenas... o Absoluto.\"*\n\n"
+            "**10 reinos** | **10 bosses** (níveis 509, 519... 599)\n"
+            "Trevas absolutas, luz absoluta, chama eterna e o Vazio além do Vazio.\n"
+            "▸ Evolução de classe **Tier VII** desbloqueada no **nível 500**\n"
+            "▸ **Nível 600** — O Absoluto Final. O fim da jornada."
+        ),
+        inline=False
+    )
+    embed2.set_footer(text="60 bosses • 60 reinos • 4 ciclos • Level máximo 600")
     await channel.send(embed=embed2)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 3 — Os Reinos Clássicos (além dos 3 iniciais)
+    # EMBED 3 — Os Reinos Mortais (Ciclo 1)
     # ══════════════════════════════════════════
     embed3 = discord.Embed(
-        title="🗺️ Os Reinos Além",
-        description="*...o pergaminho continua se desenrolando...*",
-        color=0x4B0082
+        title="🗺️ Ciclo 1 — Os Reinos Mortais",
+        description="*O pergaminho se desenrola revelando as terras dos mortais...*",
+        color=0x8B4513
     )
     embed3.add_field(
-        name="❄️ Montanhas Geladas — O Grito dos Titãs",
+        name="🌱 Campos Iniciais — O Berço",
         value=(
-            "*\"Vivi 80 invernos nestas montanhas. O frio não é inimigo — é professor.\n"
-            "O Yeti não é um monstro. É um guardião mal compreendido.\"*\n"
-            "— Ancião Bjorn\n\n"
-            "Os Titãs do Gelo criaram o Cristal do Inverno Eterno — um arquivo\n"
-            "de tudo que já morreu no frio. O Yeti Colossal sente cada memória."
+            "*\"Todo herói começa aqui. O guerreiro mais poderoso começou matando um slime.\"*\n"
+            "— Historiador Pell\n\n"
+            "Planícies abertas onde o Slime Rei guarda os primeiros segredos do mundo."
         ),
         inline=False
     )
     embed3.add_field(
-        name="🌋 Reino Vulcânico — Onde o Fogo Pensa",
+        name="🌲 Floresta Sombria → 🏜️ Deserto das Almas → ❄️ Montanhas Geladas",
         value=(
-            "*\"O fogo não destrói. Transforma. Os Forjadores sabiam disso —\n"
-            "por isso criaram armas que tinham alma.\"*\n"
-            "— Profeta Ignar\n\n"
-            "Ignarius, o Dragão de Magma, é o segundo elemento.\n"
-            "Dentro dele vivem as memórias de uma civilização inteira."
+            "A floresta **respira e lembra** tudo. O deserto guarda um jardim perdido sob a areia.\n"
+            "As montanhas são professor — o frio não é inimigo, é teste."
         ),
         inline=False
     )
     embed3.add_field(
-        name="🌌 Abismo Arcano — O Antes e o Depois",
+        name="🌋 Vulcânico → 🌌 Abismo Arcano → 👑 Trono Celestial",
         value=(
-            "*\"Quanto mais você sabe, mais entende que não sabe nada.\n"
-            "As entidades do Vazio não são más. São antigas demais.\"*\n"
-            "— Arquimago Zephyr\n\n"
-            "Cada alma que nasce vem do Abismo. Cada alma que morre, retorna.\n"
-            "O Senhor das Sombras administra esse trânsito eterno."
+            "O fogo **transforma, não destrói**. O Abismo é onde toda alma nasce e morre.\n"
+            "O Trono Celestial — aquele que chegar não será mais mortal."
         ),
         inline=False
     )
     embed3.add_field(
-        name="👑 Trono Celestial — O Teste Final",
+        name="🌿 Pântano → 💎 Floresta Cristalina → 🌑 Sombras Eternas → ⚡ Planícies do Trovão",
         value=(
-            "*\"O Imperador Astral não é um inimigo — é o último teste.\n"
-            "O Trono não é um lugar. É um estado de ser.\"*\n"
-            "— Guardião Estelar Auron\n\n"
-            "Aquele que chegar aqui não será mais mortal.\n"
-            "A história foi escrita. Apenas você decide como ela termina."
+            "Almas presas na lama. Cristais que refletem versões suas que não sobreviveram.\n"
+            "Escuridão que **sabe seu nome**. Relâmpagos que são criaturas vivas."
         ),
         inline=False
     )
+    embed3.add_field(
+        name="🗿 Terra dos Gigantes → 🌊 Mar das Almas → 🌀 Reino do Caos → 🌸 Jardim dos Deuses",
+        value=(
+            "Montanhas que são costas de gigantes dormindo. Um oceano onde o tempo não flui.\n"
+            "A realidade como inimigo. Um paraíso com cada flor sendo uma armadilha."
+        ),
+        inline=False
+    )
+    embed3.add_field(
+        name="🧊 Gelo Eterno → 🏛️ Ruínas → ✨ Plano Astral → 🌌 Além da Existência → ⭐ Trono Primordial",
+        value=(
+            "Frio que antecede o universo. Autômatos de civilização esquecida.\n"
+            "O cosmos consciente. A linguagem não alcança. **O Criador Primordial espera.**"
+        ),
+        inline=False
+    )
+    embed3.set_footer(text="Ciclo 1 completo: nível 199 + Boss do Trono Primordial desbloqueiam o Ciclo 2")
     await channel.send(embed=embed3)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 3B — Os 13 Novos Reinos (Expansão)
+    # EMBED 4 — Os Novos Ciclos (2, 3, 4)
     # ══════════════════════════════════════════
-    embed3b = discord.Embed(
-        title="🌌 A Expansão — Treze Reinos Ocultos",
+    embed4 = discord.Embed(
+        title="🌌 Ciclos 2, 3 e 4 — Além da Compreensão Mortal",
         description=(
-            "*O pergaminho se rasga revelando um segundo mapa, costurado por trás do primeiro...*\n\n"
-            "*\"Acreditávamos que o Trono Celestial era o fim. Estávamos errados.\n"
-            "Havia mais. Havia sempre mais.\"*\n"
-            "— Última anotação do Explorador Maren, desaparecido após o Trono"
+            "*Um segundo mapa aparece por baixo do primeiro — e um terceiro por baixo do segundo...*\n\n"
+            "*\"Acreditávamos que o Trono Primordial era o fim. Estávamos completamente errados.\"*\n"
+            "— Última anotação do Explorador Maren, antes de desaparecer"
         ),
         color=0x0a0a2e
     )
-    embed3b.add_field(
-        name="🌿 Pântano das Almas Perdidas — O Limbo Vivo",
+    embed4.add_field(
+        name="🌌 Reinos Avançados — Os Primeiros Além",
         value=(
-            "*\"Neste pântano as almas não vão embora. Ficam presas na lama,\n"
-            "ainda tentando lembrar quem foram. A Hidra se alimenta dessas memórias.\"*\n"
-            "— Xamã Morrek\n\n"
-            "Um reino entre a vida e a morte, onde a lama guarda segredos de civilizações submersas."
+            "*\"O Despertar do Além. O Vórtice Dimensional. O Oceano Interdimensional.*\n"
+            "*O Tribunal do Cosmo. A Arena dos Deuses Menores. O Nexo das Dimensões.\"*\n\n"
+            "Vinte reinos onde a física é diferente e os habitantes nem sabem o que é mortal."
         ),
         inline=False
     )
-    embed3b.add_field(
-        name="💎 Floresta Cristalina — O Espelho do Mundo",
+    embed4.add_field(
+        name="💫 Dimensões Superiores — Onde os Deuses Habitam",
         value=(
-            "*\"Cada cristal aqui reflete uma versão diferente de você. A maioria\n"
-            "das versões não sobreviveu. Aprenda com elas.\"*\n"
-            "— Guardião Vitreo\n\n"
-            "Árvores de quartzo e diamante que guardam reflexos do passado e do futuro."
+            "*\"Nebulosas conscientes. Templos de deuses maiores. Estrelas primordiais vivas.*\n"
+            "*O Abismo Cósmico. O Plasma da Criação. O Olimpo Transcendente.\"*\n\n"
+            "Dez reinos onde cada passo altera o tecido da realidade ao redor."
         ),
         inline=False
     )
-    embed3b.add_field(
-        name="🌑 Reino das Sombras Eternas — A Noite que Pensa",
+    embed4.add_field(
+        name="♾️ Planos Absolutos — O Fim e o Começo",
         value=(
-            "*\"A escuridão aqui não é ausência de luz. É uma presença.\n"
-            "E ela sabe seu nome desde antes de você nascer.\"*\n"
-            "— Espectro do Explorador Anônimo\n\n"
-            "Onde os Lichs ancestrais governam e toda sombra tem consciência própria."
+            "*\"Trevas Absolutas que devoram tudo. Luz Absoluta que cega eternamente.*\n"
+            "*A Chama que criou o universo. O Oceano que precedeu tudo.*\n"
+            "*O Vazio além do Vazio. O Plano Absoluto Final.\"*\n\n"
+            "Dez reinos onde conceitos como vida e morte são apenas sugestões."
         ),
         inline=False
     )
-    embed3b.add_field(
-        name="⚡ Planícies do Trovão — A Ira do Céu",
+    embed4.add_field(
+        name="🏆 O Absoluto — Nível 600",
         value=(
-            "*\"Zeus Menor não é um deus caído. É um deus em treinamento.\n"
-            "E ele treina em cima de você.\"*\n"
-            "— Sobrevivente das Planícies (único registrado)\n\n"
-            "Planícies eternas onde relâmpagos são criaturas vivas e o céu nunca para de gritar."
+            "*\"Não existem palavras. Existência e não-existência são a mesma coisa aqui.*\n"
+            "*Você que chegou até aqui não é mais um jogador. É uma lenda real.\"*\n\n"
+            "O nível 600 é o **pináculo absoluto**. Apenas os verdadeiros imortais chegam até aqui."
         ),
         inline=False
     )
-    await channel.send(embed=embed3b)
-    await asyncio.sleep(2)
-
-    embed3c = discord.Embed(
-        title="🌌 A Expansão — Os Reinos do Abismo",
-        description="*...a escrita no segundo pergaminho fica cada vez mais perturbadora...*",
-        color=0x0d0d0d
-    )
-    embed3c.add_field(
-        name="🗿 Terra dos Gigantes — Onde o Chão Respira",
-        value=(
-            "*\"As montanhas que você escala são costas de gigantes dormindo.\n"
-            "Se eles acordarem ao mesmo tempo, não haverá terra suficiente.\"*\n"
-            "— Anão Geólogo Durgin\n\n"
-            "O Primeiro Gigante Primordial ainda carrega no corpo cicatrizes de batalhas\n"
-            "que antecederam o universo atual."
-        ),
-        inline=False
-    )
-    embed3c.add_field(
-        name="🌊 Mar das Almas — O Oceano que Devora o Tempo",
-        value=(
-            "*\"Cada onda neste mar carrega o último pensamento de alguém que se afogou.\n"
-            "O Leviatã não ataca. Ele coleciona.\"*\n"
-            "— Capitão Spectros, navegando há 400 anos sem envelhecer\n\n"
-            "Um oceano onde o tempo não flui normalmente e cidades afundadas ainda têm habitantes."
-        ),
-        inline=False
-    )
-    embed3c.add_field(
-        name="🌀 Reino do Caos — A Antítese da Existência",
-        value=(
-            "*\"Aqui as leis da física são sugestões. A gravidade é uma opinião.\n"
-            "Paradoxos caminham como pessoas. E O Caos em Pessoa te observa.\"*\n"
-            "— Registro ilegível de um explorador sem nome\n\n"
-            "O único reino onde a realidade em si é o inimigo."
-        ),
-        inline=False
-    )
-    embed3c.add_field(
-        name="🌸 Jardim dos Deuses — O Paraíso Armado",
-        value=(
-            "*\"Bonito demais para ser seguro. Cada flor é uma armadilha.\n"
-            "Cada fruto é um teste. E o Jardineiro Divino não perdoa os que colhem sem permissão.\"*\n"
-            "— Anjo Desertor\n\n"
-            "Um paraíso literal — mas os deuses não deixaram portão destrancado."
-        ),
-        inline=False
-    )
-    await channel.send(embed=embed3c)
-    await asyncio.sleep(2)
-
-    embed3d = discord.Embed(
-        title="🌌 A Expansão — Os Reinos Além da Compreensão",
-        description="*...as últimas páginas do segundo pergaminho parecem escritas com algo que não é tinta...*",
-        color=0x000011
-    )
-    embed3d.add_field(
-        name="🧊 Reino do Gelo Eterno — O Inverno que Sempre Foi",
-        value=(
-            "*\"Não é frio. É a temperatura da ausência. É como seria o universo\n"
-            "se nenhuma estrela tivesse nascido. A Imperadora lembra disso.\"*\n"
-            "— Dragão de Gelo Ancião, em sonho\n\n"
-            "O frio aqui antecede o próprio universo. A Imperadora do Gelo Eterno existia antes da luz."
-        ),
-        inline=False
-    )
-    embed3d.add_field(
-        name="🏛️ Ruínas da Civilização Perdida — O Que Viemos Depois",
-        value=(
-            "*\"Eles tinham tecnologia que nós chamamos de magia.\n"
-            "Tinham magia que nós chamamos de impossível.\n"
-            "E ainda assim morreram. Algo os matou.\"*\n"
-            "— Construto Arcano, em loop de memória\n\n"
-            "Uma civilização tão avançada que criou autômatos que sobreviveram ao fim deles mesmos."
-        ),
-        inline=False
-    )
-    embed3d.add_field(
-        name="✨ Plano Astral — O Espaço Entre os Pensamentos",
-        value=(
-            "*\"Você não viaja para o Plano Astral. Você percebe que já estava nele,\n"
-            "o tempo todo, e só agora abriu os olhos.\"*\n"
-            "— Ser Astral Sem Nome\n\n"
-            "Onde o cosmos tem consciência e cada estrela é uma memória de um deus morto."
-        ),
-        inline=False
-    )
-    embed3d.add_field(
-        name="🌌 Além da Existência — O Fim da Pergunta",
-        value=(
-            "*\"Não existe descrição. A linguagem não alcança.\n"
-            "Tudo que posso dizer é: você vai entender quando chegar.\n"
-            "E vai querer não ter chegado. E vai querer não ter voltado.\"*\n"
-            "— Único explorador que retornou, incapaz de falar desde então\n\n"
-            "O penúltimo reino. Aqui a existência questiona a si mesma."
-        ),
-        inline=False
-    )
-    embed3d.add_field(
-        name="⭐ O Trono Primordial — O Começo do Fim",
-        value=(
-            "*\"O Criador Primordial não é um boss. É uma resposta.\n"
-            "A pergunta é: você merece saber?\"*\n"
-            "— Inscrição gravada na entrada do Trono Primordial\n\n"
-            "O vigésimo e último reino. Chegar aqui significa ter atravessado tudo.\n"
-            "O Criador Primordial espera. Ele sempre esperou. Ele sabia que você viria."
-        ),
-        inline=False
-    )
-    embed3d.set_footer(text="⚠️ Os 13 novos reinos são desbloqueados ao derrotar o Boss do Trono Celestial.")
-    await channel.send(embed=embed3d)
+    embed4.set_footer(text="⚠️ Ciclos 2-4 desbloqueados derrotando o boss do nível 199, 399 e 499 respectivamente.")
+    await channel.send(embed=embed4)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 4 — Lore: A Guerra Primordial
+    # EMBED 5 — Lore: A Guerra Primordial
     # ══════════════════════════════════════════
-    embed4 = discord.Embed(
+    embed5 = discord.Embed(
         title="📜 Crônicas da Guerra Primordial",
         description=(
             "*Um livro antigo se abre sozinho nas páginas proibidas...*\n\n"
-            "**'O Que Existia Antes do Tempo'**\n\n"
-            "Antes que o universo existisse, houve uma guerra.\n\n"
+            "**'O Que Existia Antes dos Ciclos'**\n\n"
+            "Antes que qualquer ciclo existisse, houve uma guerra sem nome.\n\n"
             "De um lado: a **Luz Primordial**, que queria existência, forma, vida.\n"
             "Do outro: o **Vazio Eterno**, que queria silêncio, paz, nada.\n\n"
             "Eles lutaram por uma eternidade que não tinha nome ainda.\n"
             "A batalha terminou sem vencedor — ambos exaustos, fizeram um acordo:\n"
             "criariam algo novo. Algo que contivesse os dois.\n\n"
-            "Chamaram isso de ***Universo***.\n\n"
-            "E plantaram dentro de cada ser vivo uma centelha de cada lado.\n"
-            "*É por isso que todo ser carrega tanto amor quanto destruição.*\n\n"
-            "**A guerra não terminou. Apenas mudou de palco.**\n\n"
-            "*— Fragmento encontrado no 'Além do Trono', autor desconhecido*"
+            "Chamaram isso de ***Universo***. E o dividiram em quatro ciclos crescentes.\n"
+            "Cada ciclo mais próximo da verdade absoluta — e mais distante do mortal.\n\n"
+            "**A guerra não terminou. Apenas mudou de palco.**\n"
+            "E agora ela acontece dentro de você.\n\n"
+            "*— Fragmento encontrado no 'Plano Absoluto Final', autor: O Absoluto*"
         ),
         color=0x1a0033
     )
-    embed4.set_footer(text="📚 Lore desbloqueável: explore o mundo para encontrar mais fragmentos.")
-    await channel.send(embed=embed4)
-    await asyncio.sleep(2)
-
-    # ══════════════════════════════════════════
-    # EMBED 5 — Sistema de Alinhamento
-    # ══════════════════════════════════════════
-    embed5 = discord.Embed(
-        title="⚖️ O Peso das Escolhas",
-        description=(
-            "*O Narrador observa você com olhos que viram mil histórias...*\n\n"
-            "**Neste mundo, suas ações têm consequências morais.**\n\n"
-            "Salvar uma cidade ou saqueá-la.\n"
-            "Ajudar um viajante ou roubá-lo.\n"
-            "Proteger os inocentes ou usá-los como escudo.\n\n"
-            "Cada escolha molda quem você é:"
-        ),
-        color=0x9B59B6
-    )
-    embed5.add_field(
-        name="✨ Herói (+30 pontos ou mais)",
-        value="*'Sua luz guia aqueles que estão perdidos.'*\nAcesso a missões de proteção, recompensas divinas e respeito do povo.",
-        inline=False
-    )
-    embed5.add_field(
-        name="⚖️ Anti-Herói (-5 a -29 pontos)",
-        value="*'Você faz o bem pelos motivos errados... ou o errado pelos motivos certos.'*\nMissões de moral cinza com recompensas únicas.",
-        inline=False
-    )
-    embed5.add_field(
-        name="💀 Vilão (-30 pontos ou menos)",
-        value="*'O poder não se pede. Se toma.'*\nMissões de conquista e destruição com XP massivo — e consequências.",
-        inline=False
-    )
-    embed5.add_field(
-        name="🎭 Como funciona",
-        value="Use `cenário` para enfrentar dilemas morais!\nUse `alinhamento` para ver seu estado atual.",
-        inline=False
-    )
+    embed5.set_footer(text="📚 Explore os mundos para encontrar mais fragmentos de lore.")
     await channel.send(embed=embed5)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 6 — Empregos e Títulos
+    # EMBED 6 — Sistema de Alinhamento
     # ══════════════════════════════════════════
     embed6 = discord.Embed(
-        title="💼 Empregos & Títulos do Reino",
+        title="⚖️ O Peso das Escolhas",
         description=(
-            "*O taberneiro pregou uma lista de oportunidades na parede...*\n\n"
-            "**A partir do nível 5**, você pode trabalhar e ganhar salário!\n"
-            "Cada emprego tem benefícios únicos que afetam sua jornada."
+            "*O Narrador observa você com olhos que viram mil histórias e quatro ciclos...*\n\n"
+            "**Neste mundo, suas ações têm consequências morais que atravessam todos os ciclos.**\n\n"
+            "Salvar uma dimensão ou consumi-la.\n"
+            "Proteger os planos ou destruí-los.\n"
+            "Cada escolha ressoa até o Plano Absoluto:"
         ),
-        color=0xE67E22
+        color=0x9B59B6
     )
-    embed6.add_field(name="⚒️ Ferreiro (Nv.5)", value="Forja armas únicas, 20% desc. em lojas", inline=True)
-    embed6.add_field(name="🔮 Arcano (Nv.5)", value="+15 mana máx, acesso a grimórios", inline=True)
-    embed6.add_field(name="💚 Curandeiro (Nv.5)", value="Cura aliados, poções 30% mais baratas", inline=True)
-    embed6.add_field(name="💰 Mercador (Nv.5)", value="Vende 25% a mais, mercado negro", inline=True)
-    embed6.add_field(name="📜 Escriba (Nv.5)", value="Descobre locais 2× mais rápido", inline=True)
-    embed6.add_field(name="⚔️ Cavaleiro (Nv.10)", value="+20 HP, defende cidades de invasões", inline=True)
-    embed6.add_field(name="🛡️ Guarda Real (Nv.15)", value="+35 HP, comanda a guarda do reino", inline=True)
-    embed6.add_field(name="👑 Rei (Nv.30)", value="Governa, nomeia cavaleiros, recebe tributo", inline=True)
     embed6.add_field(
-        name="📣 Como começar",
-        value="`procurar emprego` → escolha sua profissão → `trabalhar` a cada 30 min!",
+        name="✨ Herói (+30 pontos ou mais)",
+        value="*'Sua luz guia até os que habitam além das dimensões.'*\nAcesso a missões de proteção, recompensas divinas e respeito universal.",
+        inline=False
+    )
+    embed6.add_field(
+        name="⚖️ Anti-Herói (-5 a -29 pontos)",
+        value="*'Você faz o bem pelos motivos errados... ou o errado pelos motivos certos.'*\nMissões de moral cinza com recompensas únicas em todos os ciclos.",
+        inline=False
+    )
+    embed6.add_field(
+        name="💀 Vilão (-30 pontos ou menos)",
+        value="*'O poder não se pede. Se toma. E com ele, os planos tremem.'*\nMissões de conquista e destruição com XP massivo — e consequências absolutas.",
+        inline=False
+    )
+    embed6.add_field(
+        name="🎭 Como funciona",
+        value="Use `cenário` para enfrentar dilemas morais!\nUse `alinhamento` para ver seu estado atual.\nUse `missão moral` para quests de alinhamento.",
         inline=False
     )
     await channel.send(embed=embed6)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 7 — Comandos completos
+    # EMBED 7 — Empregos e Títulos
     # ══════════════════════════════════════════
     embed7 = discord.Embed(
-        title="⚔️ Guia Completo de Comandos",
-        description="*Tudo que você precisa para conquistar o mundo:*",
+        title="💼 Empregos & Títulos do Reino",
+        description=(
+            "*O taberneiro pregou uma lista de oportunidades na parede...*\n\n"
+            "**A partir do nível 5**, você pode trabalhar e ganhar salário!\n"
+            "Empregos funcionam em todos os ciclos — quanto maior seu nível, maior o salário."
+        ),
+        color=0xE67E22
+    )
+    embed7.add_field(name="⚒️ Ferreiro (Nv.5)", value="Forja armas únicas, fusão de itens, 20% desc. em lojas", inline=True)
+    embed7.add_field(name="🔮 Arcano (Nv.5)", value="+15 mana máx, acesso a grimórios arcanos", inline=True)
+    embed7.add_field(name="💚 Curandeiro (Nv.5)", value="Cura aliados, poções 30% mais baratas", inline=True)
+    embed7.add_field(name="💰 Mercador (Nv.5)", value="Vende 25% a mais, acesso ao mercado negro", inline=True)
+    embed7.add_field(name="📜 Escriba (Nv.5)", value="Descobre locais 2× mais rápido, lore extra", inline=True)
+    embed7.add_field(name="⚔️ Cavaleiro (Nv.10)", value="+20 HP, defende cidades de invasões", inline=True)
+    embed7.add_field(name="🛡️ Guarda Real (Nv.15)", value="+35 HP, comanda a guarda do reino", inline=True)
+    embed7.add_field(name="👑 Rei (Nv.30)", value="Governa, nomeia cavaleiros, recebe tributo real", inline=True)
+    embed7.add_field(
+        name="📣 Como começar",
+        value="`procurar emprego` → escolha sua profissão → `trabalhar` a cada 30 min!",
+        inline=False
+    )
+    await channel.send(embed=embed7)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 8 — Guia Completo de Comandos
+    # ══════════════════════════════════════════
+    embed8 = discord.Embed(
+        title="⚔️ Guia Completo de Comandos — World CSI",
+        description="*Tudo que você precisa para conquistar os quatro ciclos:*",
         color=0x3498DB
     )
-    embed7.add_field(
+    embed8.add_field(
         name="🌍 Exploração & Caça",
-        value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon`",
+        value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon`",
         inline=False
     )
-    embed7.add_field(
+    embed8.add_field(
         name="👹 Boss & Combate",
-        value="`encontrar boss` — boss do reino atual\n`desafiar boss` — enfrente o boss (level boss se nível 9/19/29/39/49/59)\n`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`",
+        value=(
+            "`encontrar boss` — boss do reino atual\n"
+            "`desafiar boss` — enfrente o boss (**boss de nível** nos níveis 9/19/29/.../599)\n"
+            "`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`"
+        ),
         inline=False
     )
-    embed7.add_field(
+    embed8.add_field(
+        name="🚨 Boss de Nível — Sistema de Bloqueio",
+        value=(
+            "Nos **60 níveis terminados em 9** (9, 19, 29... 599) o XP é **bloqueado**!\n"
+            "O XP acumula e é liberado quando você **vencer o boss de nível**.\n"
+            "Somente o Boss de Nível desbloqueia o próximo reino e novas habilidades."
+        ),
+        inline=False
+    )
+    embed8.add_field(
         name="💪 Treinamento (após derrota em boss)",
         value="`treinar força` — +ATK\n`treinar defesa` — +DEF\n`treinar vitalidade` — +HP Máx\n`treinar intensivo` — +ATK+DEF+HP",
         inline=False
     )
-    embed7.add_field(
-        name="🏆 Conquistas",
-        value="`ver conquistas` — veja todas as 100 conquistas e seu progresso",
-        inline=False
-    )
-    embed7.add_field(
-        name="📋 Quests & Moral",
-        value="`ver quests` | `realizar quest` | `finalizar quest` | `cenário` | `missão moral` | `alinhamento`",
-        inline=False
-    )
-    embed7.add_field(
-        name="👤 Personagem",
+    embed8.add_field(
+        name="👤 Personagem & Evolução",
         value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`",
         inline=False
     )
-    embed7.add_field(
+    embed8.add_field(
+        name="🌟 Ciclos & Evoluções de Classe",
+        value=(
+            "**7 tiers** de evolução por classe:\n"
+            "Nív. **40** Tier I → **80** Tier II → **120** Tier III → **160** Tier IV\n"
+            "→ **200** Tier V (Transcendental) → **400** Tier VI (Dimensional) → **500** Tier VII (Absoluto)"
+        ),
+        inline=False
+    )
+    embed8.add_field(
         name="🐾 Pets & Fazenda",
-        value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar`",
+        value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar` | `evoluir pet` | `stats pet`",
         inline=False
     )
-    embed7.add_field(
-        name="💼 Empregos & Títulos",
-        value="`procurar emprego` | `trabalhar` | `largar emprego` | `me tornar rei` | `defender cidade`",
+    embed8.add_field(
+        name="💼 Empregos, Quests & Moral",
+        value="`procurar emprego` | `trabalhar` | `ver quests` | `realizar quest` | `cenário` | `missão moral` | `alinhamento`",
         inline=False
     )
-    embed7.add_field(
-        name="🗺️ Mapa & Viagem",
-        value="`abrir mapa` | `viajar <local>` | `procurar cidade`",
+    embed8.add_field(
+        name="🗺️ Mapa, Guilda & Social",
+        value="`abrir mapa` | `viajar <local>` | `criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`",
         inline=False
     )
-    embed7.add_field(
-        name="🏰 Social & Guilda",
-        value="`criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`",
+    embed8.add_field(
+        name="🛒 Itens, Economia & AFK",
+        value="`equipar [item]` | `vender [item]` | `usar [poção]` | `trocar coins` | `farm afk` | `clima` | `período` | `descansar`",
         inline=False
     )
-    embed7.add_field(
-        name="🛒 Itens & Economia",
-        value="`usar [poção]` | `vender [item]` | `equipar [item]` | `trocar coins <valor>` | `minerar baú`",
+    embed8.add_field(
+        name="📚 Info, Lore & Especiais",
+        value="`comandos` — lista completa | `atualização` — novidades | `falar npc especial` | `dialogar com npc [nome]` | `abrir livro` | `ver conquistas`",
         inline=False
     )
-    embed7.add_field(
-        name="📚 Info & Lore",
-        value="`comandos` — ver esta lista | `falar npc especial` | `abrir livro`",
-        inline=False
-    )
-    embed7.set_footer(text="🌟 \"E assim, uma nova história começa...\" — O Narrador | Use 'comandos' para ver esta lista a qualquer momento!")
-    await channel.send(embed=embed7)
+    embed8.set_footer(text="🌟 Use 'comandos' para esta lista a qualquer momento | 'atualização' para novidades | 'ver perfil' para seu estado")
+    await channel.send(embed=embed8)
     await asyncio.sleep(1)
 
     # ══════════════════════════════════════════
-    # EMBED NOTA DE ATUALIZAÇÃO — O que há de novo
+    # EMBED 9 — Nota de Atualização (Patch Notes)
     # ══════════════════════════════════════════
-    embed_update = discord.Embed(
-        title="📋 Nota de Atualização — Expansão dos Reinos",
+    embed9 = discord.Embed(
+        title="📋 ATUALIZAÇÃO — Expansão dos Planos Absolutos",
         description=(
-            "*O Narrador desdobra um pergaminho oficial com o selo do Conselho do Mundo...*\n\n"
-            "**\"Uma era de descobertas começou. O mundo é maior do que pensávamos.\"**"
+            "*O Narrador desdobra um pergaminho oficial com o selo dos Quatro Ciclos...*\n\n"
+            "**\"Uma nova era de poder começa. O mundo é maior do que qualquer mortal imaginou.\"**\n"
+            "**Versão:** Planos Absolutos — Fevereiro 2026"
         ),
         color=0x2ECC71
     )
-    embed_update.add_field(
-        name="🗺️ 13 Novos Reinos Desbloqueados",
+    embed9.add_field(
+        name="🔢 Level Máximo: 200 → 600",
         value=(
-            "O mundo expandiu de **7 para 20 reinos**!\n"
-            "Cada reino tem cidade, NPCs, lore, monstros, dungeons e boss únicos.\n"
-            "Desbloqueie novos reinos derrotando o Boss do reino atual."
+            "O level máximo foi **triplicado** para **600**!\n"
+            "**60 bosses obrigatórios** nos níveis 9, 19, 29... 599.\n"
+            "4 ciclos completos de progressão com dificuldade escalonada."
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="🗝️ Sistema de Chaves — Dungeons Secretas",
+    embed9.add_field(
+        name="🔄 4 Ciclos de Mundo",
         value=(
-            "Dungeons secretas agora exigem uma **Chave específica** para entrar.\n"
-            "• Explore **dungeons comuns** → encontre **baús** → chance de dropar chaves\n"
-            "• Use `dungeon` para ver a dungeon comum e a **Dungeon Misteriosa** do seu reino\n"
-            "• Use `chaves` para ver suas chaves atuais\n"
-            "• Dungeons secretas têm inimigos muito mais fortes e drops **Míticos ou superiores**"
+            "⚔️ **Ciclo 1** — Reinos Mortais (1–199) — 20 reinos\n"
+            "🌌 **Ciclo 2** — Reinos Avançados (200–399) — 20 reinos\n"
+            "💫 **Ciclo 3** — Dimensões Superiores (400–499) — 10 reinos\n"
+            "♾️ **Ciclo 4** — Planos Absolutos (500–600) — 10 reinos"
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="🟠 Nova Raridade: Ancestral",
+    embed9.add_field(
+        name="⚡ 41 Novos Reinos",
         value=(
-            "Uma nova raridade foi adicionada entre Mítico 🔴 e Divino 💎:\n"
-            "**🟠 Ancestral** — Armas e armaduras de eras esquecidas.\n"
-            "Obtenível via bosses especiais de dungeons secretas nos novos reinos."
+            "Do Despertar do Além ao Plano Absoluto Final.\n"
+            "Cada reino tem monstros, boss, dungeons secretas, lore e drops exclusivos.\n"
+            "Raridade de itens escala drasticamente a cada ciclo."
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="👹 Bosses Especiais de Dungeon Secreta",
+    embed9.add_field(
+        name="🌟 3 Novos Tiers de Evolução de Classe",
         value=(
-            "Cada dungeon secreta tem um **Boss Especial Exclusivo** muito mais poderoso.\n"
-            "Derrotar esse boss é a **única forma** de obter recompensas Míticas ou superiores.\n"
-            "A raridade garantida varia por dungeon — quanto mais fundo, melhor o loot."
+            "Todas as **30 classes** receberam 3 novos tiers:\n"
+            "• **Tier V** (nível 200) — Evoluções Transcendentais\n"
+            "• **Tier VI** (nível 400) — Evoluções Dimensionais\n"
+            "• **Tier VII** (nível 500) — Evoluções dos Planos Absolutos\n"
+            "Total: **7 tiers** por classe (40/80/120/160/200/400/500)"
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="⚔️ Drops Expandidos por Reino",
+    embed9.add_field(
+        name="🔓 Desbloqueios Exclusivos do Boss de Nível",
         value=(
-            "Monstros dos 13 novos reinos têm tabela de drop própria.\n"
-            "Monstros de elite nos reinos avançados podem dropar **Lendário** (0.8%) e **Mítico** (0.1%).\n"
-            "Cada reino tem **itens exclusivos** que só podem ser obtidos lá."
+            "Somente o Boss de Nível pode:\n"
+            "• Desbloquear o XP bloqueado\n"
+            "• Permitir avançar para o próximo reino\n"
+            "• Liberar acesso a novas dimensões\n"
+            "• Desbloquear habilidades superiores e evoluções de tier\n"
+            "• Liberar a evolução final de classes e pets do ciclo"
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="📊 Hierarquia de Raridades (atualizada)",
+    embed9.add_field(
+        name="🏆 Conquistas Novas",
+        value=(
+            "Dezenas de novas conquistas adicionadas:\n"
+            "• Marcos de progressão: nível 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, **600**\n"
+            "• **Conquistador dos Planos Absolutos** — derrote todos os 60 bosses (era 20)\n"
+            "• Conquistas separadas por ciclo com temáticas próprias"
+        ),
+        inline=False
+    )
+    embed9.add_field(
+        name="📊 Hierarquia de Raridades (inalterada)",
         value=(
             "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
-            "🔴 Mítico → 🟠 **Ancestral** *(NOVO)* → 💎 Divino → 🌈 Primordial"
+            "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
+            "*Raridades Divino/Primordial/Absoluto surgem com mais frequência nos ciclos 3 e 4.*"
         ),
         inline=False
     )
-    embed_update.add_field(
-        name="🏆 Conquista Atualizada",
-        value=(
-            "**Conquistador dos Reinos** agora exige derrotar os **20 bosses de level** (antes: 6).\n"
-            "Recompensa aumentada para **10.000 XP**."
-        ),
-        inline=False
-    )
-    embed_update.set_footer(text="📅 Expansão dos Reinos | Use 'dungeon' para começar a explorar as novas masmorras!")
-    await channel.send(embed=embed_update)
+    embed9.set_footer(text="📅 Expansão dos Planos Absolutos | Use 'atualização' para rever este changelog a qualquer hora!")
+    await channel.send(embed=embed9)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # MENSAGEM FINAL — Chamada para ação
+    # EMBED 10 — Mensagem Final
     # ══════════════════════════════════════════
-    embed8 = discord.Embed(
-        title="🌟 Sua Jornada Começa Agora",
+    embed10 = discord.Embed(
+        title="🌟 Sua Jornada Através dos Ciclos Começa Agora",
         description=(
             "*O Narrador fecha o livro e te olha diretamente...*\n\n"
             "**\"Você está pronto? Ou acha que está?\"**\n\n"
             "Os Campos Iniciais aguardam seus primeiros passos.\n"
-            "Um Slime está por aí, inocente demais para saber o que está prestes a acontecer.\n\n"
+            "Um Slime está por aí, inocente demais para saber o que vem depois.\n\n"
+            "**Primeiro passo:**\n"
             "Use `explorar` para começar.\n"
             "Use `ver perfil` para ver seu estado.\n"
             "Use `escolher classe` quando chegar ao nível 2.\n\n"
-            "*Lembre-se: toda lenda começa com um único passo.*\n\n"
+            "**Lembre-se:** Em cada nível terminado em **9**, o boss de nível aparece.\n"
+            "Derrote-o para avançar. Perca... e o XP fica bloqueado até a revanche.\n\n"
+            "*Toda lenda começa com um único passo. A sua vai atravessar quatro ciclos.*\n\n"
             "**Boa sorte, aventureiro. Você vai precisar.** 🎭"
         ),
         color=0xF1C40F
     )
-    embed8.set_footer(text="⚠️ O boss de cada reino aparece nos níveis 9, 19, 29... até 179 e 199 — derrote-o para desbloquear o próximo reino! | 20 reinos • 20 bosses • raridades até Primordial")
-    await channel.send(embed=embed8)
+    embed10.set_footer(text="⚠️ Boss de nível: níveis 9, 19, 29... 599 (60 bosses) • 60 reinos • 4 ciclos • Level máximo 600 • Use 'comandos' para ajuda")
+    await channel.send(embed=embed10)
 
 
 # ================= EVENTOS DO BOT =================
@@ -13335,248 +13253,162 @@ async def on_message(message):
     # ================= EXPLORAR ===========================
     # ======================================================
     if content in ["comandos", "ver comandos", "lista de comandos", "ajuda", "help", "/comandos"]:
-        # ── Página 1: Início & Personagem ──────────────────────────────
+        # ── Página 1: Personagem, Início, Ciclos ──
         e1 = discord.Embed(
             title="📋 COMANDOS — World CSI  [1/5]",
-            description="*Guia completo de todos os comandos disponíveis no bot!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
+            description="*Guia completo — 4 ciclos, level 600, 60 bosses!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
             color=0x3498DB
-        )
-        e1.add_field(
-            name="🆕 Início",
-            value=(
-                "O personagem é criado automaticamente na primeira ação!\n"
-                "Use `escolher raça` e `escolher classe` para configurar.\n"
-                "**Raças:** Humano, Elfo, Anão, Orc, Vampiro, Fada, Dragônio e mais!\n"
-                "**Classes:** Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante,\n"
-                "Berserker, Druida, Monge, Bardo, e mais 20 classes!"
-            ),
-            inline=False
         )
         e1.add_field(
             name="👤 Personagem",
             value=(
-                "`ver perfil` — Ver seus stats, nível, classe e raça\n"
-                "`inventário` — Ver todos seus itens e equipamentos\n"
-                "`escolher raça` — Escolher raça (só uma vez, permanente!)\n"
-                "`escolher classe` — Escolher classe base\n"
-                "`habilidades` — Ver habilidades e skills disponíveis\n"
-                "`evolução classe` — Ver seu caminho de evolução atual\n"
-                "`ver mana` — Ver mana atual e máxima"
+                "`ver perfil` | `inventário` | `escolher raça` | `evoluir raça`\n"
+                "`escolher classe` | `habilidades` | `evolução classe` | `ver mana`"
             ),
             inline=False
         )
         e1.add_field(
-            name="🌟 Evolução de Classe (Níveis 40 / 80 / 120 / 160)",
+            name="💪 Treinamento & Conquistas",
             value=(
-                "Ao atingir nível 40, 80, 120 e 160 sua classe evolui automaticamente!\n"
-                "Você escolhe uma **especialização** que dá bônus escalonados:\n"
-                "• **Tier I (nível 40):** ×1 — introdução à especialização\n"
-                "• **Tier II (nível 80):** ×2.5 + bônus extra — poder crescendo\n"
-                "• **Tier III (nível 120):** ×5 + bônus grande — força lendária\n"
-                "• **Tier IV (nível 160):** ×10 + poder divino — o topo absoluto\n"
-                "`evolução classe` para ver as opções disponíveis"
+                "`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`\n"
+                "`ver conquistas` | `alinhamento` | `ver títulos`"
             ),
             inline=False
         )
         e1.add_field(
-            name="💪 Treinamento",
+            name="🌟 7 Tiers de Evolução de Classe",
             value=(
-                "`treinar força` — +ATK permanente\n"
-                "`treinar defesa` — +DEF permanente\n"
-                "`treinar vitalidade` — +HP Máximo permanente\n"
-                "`treinar intensivo` — +ATK, +DEF e +HP de uma vez (mais caro)"
+                "Desbloqueados nos níveis: **40 / 80 / 120 / 160 / 200 / 400 / 500**\n"
+                "Tier I ×1 → II ×2.5 → III ×5 → IV ×10 → V ×20 → VI ×50 → VII ×100\n"
+                "Tier V (Transcendental) | Tier VI (Dimensional) | Tier VII (Absoluto)"
             ),
             inline=False
         )
         e1.add_field(
-            name="🏆 Conquistas & XP",
+            name="🔄 Os 4 Ciclos de Mundo",
             value=(
-                "`ver conquistas` — 100 conquistas com recompensas de XP\n"
-                "`alinhamento` — Ver seu alinhamento moral (Bem/Neutro/Mal)\n"
-                "`ver títulos` — Ver títulos desbloqueados pelo alinhamento"
+                "⚔️ **Ciclo 1** — Reinos Mortais (1–199)\n"
+                "🌌 **Ciclo 2** — Reinos Avançados (200–399)\n"
+                "💫 **Ciclo 3** — Dimensões Superiores (400–499)\n"
+                "♾️ **Ciclo 4** — Planos Absolutos (500–600)\n"
+                "`ver perfil` mostra seu ciclo atual"
             ),
             inline=False
         )
-        e1.set_footer(text="Página 1/5 — Use 'comandos 2' para continuar")
+        e1.set_footer(text="Página 1/5 — Use 'comandos 2' para Exploração & Combate")
 
-        # ── Página 2: Exploração, Caça & Combate ───────────────────────
+        # ── Página 2: Exploração, Boss, Combate ──
         e2 = discord.Embed(
             title="📋 COMANDOS — World CSI  [2/5]",
-            description="*Exploração, caça, dungeons e combate*",
+            description="*Exploração, boss, dungeons e combate*",
             color=0x2ECC71
         )
         e2.add_field(
-            name="🌍 Exploração",
+            name="🌍 Exploração & Coleta",
+            value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon`",
+            inline=False
+        )
+        e2.add_field(
+            name="👹 Boss & Combate",
             value=(
-                "`explorar` — Explora a região atual. Resultado baseado no dado (1-10):\n"
-                "• 1-2: Perde XP | 3-4: Nada | 5: Recurso | 6-7: Recurso+XP\n"
-                "• 8: 2 recursos+XP+chance dungeon secreta | 9-10: Item raro!"
+                "`encontrar boss` — boss do reino atual\n"
+                "`desafiar boss` — boss de nível nos níveis 9/19/29/.../599\n"
+                "`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`"
             ),
             inline=False
         )
         e2.add_field(
-            name="⚔️ Caça",
+            name="🚨 Sistema de Boss de Nível — 60 Bosses",
             value=(
-                "`caçar` — Ataca monstros da região. Drops escalam por raridade:\n"
-                "• Monstros normais: drops até **Épico**\n"
-                "• Bosses de nível: drops **Mítico** e acima\n"
-                "• Monstros também dropam armas e armaduras!"
+                "Nos **níveis terminados em 9** (9, 19... 599), o XP é **bloqueado**!\n"
+                "O XP acumula e é liberado apenas ao **vencer o boss de nível**.\n"
+                "Somente o boss de nível desbloqueia o próximo reino e novas habilidades.\n"
+                "Se perder, o XP continua bloqueado até a revanche."
             ),
             inline=False
         )
         e2.add_field(
-            name="🗺️ Coletar & Minerar",
-            value=(
-                "`coletar` — Coleta recursos naturais da região\n"
-                "`minerar` — Mineração profunda, mais recursos de uma vez\n"
-                "`minerar baú` — Tenta abrir um baú secreto (precisa de chave!)"
-            ),
+            name="💪 Treinamento (após derrota em boss)",
+            value="`treinar força` — +ATK | `treinar defesa` — +DEF | `treinar vitalidade` — +HP | `treinar intensivo`",
             inline=False
         )
         e2.add_field(
-            name="🏰 Dungeons",
-            value=(
-                "`dungeon` — Procura uma dungeon na região atual\n"
-                "`achar dungeon` / `procurar dungeon` — Mesma função\n"
-                "Dungeons têm recompensas melhores que exploração normal!\n"
-                "Dungeons secretas aparecem com 15% de chance ao explorar (dado 8)"
-            ),
+            name="🗺️ Mapa & Viagem — 60 Reinos",
+            value="`abrir mapa` | `viajar <local>` | `procurar cidade`",
             inline=False
         )
-        e2.add_field(
-            name="👹 Boss do Reino",
-            value=(
-                "`encontrar boss` — Procura o boss do reino atual *(NÃO é boss de nível)*\n"
-                "`desafiar boss` — Enfrenta o boss encontrado / boss de nível pendente\n"
-                "`juntar boss` — Entra na batalha de boss de outro jogador\n"
-                "`iniciar batalha boss` — Inicia a batalha após juntar jogadores\n"
-                "`defender cidade` — Modo defesa cooperativo contra invasão"
-            ),
-            inline=False
-        )
-        e2.add_field(
-            name="⚠️ Boss de Nível (9 / 19 / 29 / ... / 189 / 199)",
-            value=(
-                "Ao atingir esses níveis, um **boss bloqueia seu XP!**\n"
-                "🔒 XP continua acumulando em segundo plano durante o bloqueio\n"
-                "🏆 Ao vencer, o XP acumulado é liberado de uma vez!\n"
-                "`desafiar boss` para enfrentar | `treinar *` para se preparar"
-            ),
-            inline=False
-        )
-        e2.add_field(
-            name="⚔️ PvP",
-            value=(
-                "`desafiar @jogador` — Desafia outro jogador para duelo PvP\n"
-                "Vencedor ganha XP e coins do perdedor!"
-            ),
-            inline=False
-        )
-        e2.set_footer(text="Página 2/5 — Use 'comandos 3' para continuar")
+        e2.set_footer(text="Página 2/5 — Use 'comandos 3' para Pets, Empregos & Quests")
 
-        # ── Página 3: Pets, Empregos, Quests, Mapa ─────────────────────
+        # ── Página 3: Pets, Empregos, Quests ──
         e3 = discord.Embed(
             title="📋 COMANDOS — World CSI  [3/5]",
-            description="*Pets, fazenda, empregos, quests e mapa*",
+            description="*Pets, empregos, quests e moral*",
             color=0xF39C12
         )
         e3.add_field(
-            name="🐾 Pets & Fazenda",
+            name="🐾 Pets",
             value=(
-                "`procurar pet` — Procura pets disponíveis na região\n"
-                "`domesticar` — Tenta domesticar o pet encontrado\n"
-                "`evoluir pet` — Evolui seu pet ativo (requer nível do jogador)\n"
-                "`fazenda` / `ver fazenda` — Ver todos os seus pets armazenados\n"
-                "`trocar pet [nome]` — Define um pet da fazenda como ativo\n"
-                "`guardar pet` — Envia o pet ativo para a fazenda\n"
-                "`stats pet` — Ver stats detalhados do pet ativo\n"
-                "*Pets participam automaticamente das batalhas de boss!*"
+                "`procurar pet` | `domesticar` | `evoluir pet` | `fazenda` | `ver fazenda`\n"
+                "`trocar pet` | `guardar pet` | `stats pet`\n"
+                "*Pets participam automaticamente de batalhas de boss!*"
             ),
             inline=False
         )
         e3.add_field(
-            name="🐾 Formas Especiais de Pets",
+            name="🐾 Formas Especiais",
             value=(
-                "`quarta forma pet` — Exclusivo de pets **Comuns**! (Nível 3+)\n"
-                "  *Uma 4ª forma que nenhum pet raro jamais alcançará*\n"
-                "`forma bestial pet` — Exclusivo de pets **Lendário+**! (Nível 80+)\n"
-                "  *Transformação permanente — não tem volta!*\n"
-                "`ajuda formas pet` — Explicação completa das formas especiais"
+                "`quarta forma pet` — Pets Comuns, nível 3+\n"
+                "`forma bestial pet` — Pets Lendário+, nível 80+\n"
+                "Use `ajuda formas pet` para detalhes"
             ),
             inline=False
         )
         e3.add_field(
-            name="💼 Empregos",
+            name="💼 Empregos & Ferreiro",
             value=(
-                "`procurar emprego` — Lista empregos disponíveis\n"
-                "`ver emprego` — Ver emprego atual e progresso\n"
-                "`trabalhar` — Trabalha no emprego atual (ganha coins e XP)\n"
-                "`largar emprego` — Larga o emprego atual\n"
-                "`defender cidade` — Trabalho especial do emprego de guarda\n"
-                "🔨 **Ferreiro (nível 5+):** `forjar armas` e `fundir [raridade]`\n"
-                "  *Funde 5 itens da mesma raridade para tentar subir a raridade!*"
+                "`procurar emprego` | `ver emprego` | `trabalhar` | `largar emprego`\n"
+                "`forjar armas` | `fundir [raridade]` — Ferreiro nível 5+\n"
+                "60% sobe raridade | 25% mantém | 15% tudo destruído!"
             ),
             inline=False
         )
         e3.add_field(
-            name="📋 Quests",
+            name="📋 Quests & Moral",
             value=(
-                "`ver quests` — Lista de quests disponíveis na região atual\n"
-                "`realizar quest` — Inicia / ver status da quest ativa\n"
-                "`finalizar quest` — Entrega a quest concluída por recompensas\n"
-                "`abandonar quest` — Abandona a quest ativa\n"
-                "`cenário` — Evento moral aleatório (escolhas afetam alinhamento)\n"
-                "`missão moral` — Quest especial baseada no alinhamento atual"
+                "`ver quests` | `realizar quest` | `finalizar quest` | `abandonar quest`\n"
+                "`cenário` | `missão moral` | `alinhamento`"
             ),
             inline=False
         )
-        e3.add_field(
-            name="🗺️ Mapa & Viagem",
-            value=(
-                "`abrir mapa` — Ver o mapa com todos os reinos disponíveis\n"
-                "`procurar cidade` — Procura cidades próximas para viajar\n"
-                "`viajar [local]` — Viaja para outro reino (precisa ter desbloqueado)\n"
-                "*Ao vencer boss de nível, você viaja automaticamente ao próximo reino!*"
-            ),
-            inline=False
-        )
-        e3.set_footer(text="Página 3/5 — Use 'comandos 4' para continuar")
+        e3.set_footer(text="Página 3/5 — Use 'comandos 4' para Itens, Magia, Guilda & Reino")
 
-        # ── Página 4: Itens, Magia, Guilda, Reino ──────────────────────
+        # ── Página 4: Itens, Magia, Guilda, Reino ──
         e4 = discord.Embed(
             title="📋 COMANDOS — World CSI  [4/5]",
-            description="*Itens, magias, guildas, reinos e mundo próprio*",
+            description="*Itens, magia, guilda, reino e AFK*",
             color=0x9B59B6
         )
         e4.add_field(
-            name="🛒 Itens & Equipamentos",
+            name="🛒 Itens & Economia",
             value=(
-                "`equipar [nome do item]` — Equipa arma ou armadura do inventário\n"
-                "`[item], usar` — Usa uma poção (ex: `poção de vida, usar`)\n"
-                "`usar poção` / `beber [poção]` — Usa poção pelo nome\n"
-                "`vender [item]` — Vende um item por coins\n"
-                "`trocar [item] com @user` — Troca itens com outro jogador\n"
-                "`trocar coins` / `converter coins` — Converte coins para CSI"
+                "`equipar [item]` | `[item], usar` | `usar poção`\n"
+                "`vender [item]` | `trocar [item] com @user` | `trocar coins`"
             ),
             inline=False
         )
         e4.add_field(
             name="✨ Magias & Livro de Feitiços",
             value=(
-                "`livro de feitiços` — Abre o livro (desbloqueia no **Nível 12**)\n"
-                "`feitiços` / `ver feitiços` — Ver feitiços disponíveis\n"
-                "`avançar categoria mana` — Sobe de categoria no livro de feitiços\n"
-                "`treinar mana` — Treina a mana para desbloquear novas categorias\n"
-                "`curar @aliado` — Cura um aliado (Paladino / Druida / Mago / Bardo)"
+                "`livro de feitiços` — desbloqueado no **Nível 12**\n"
+                "`feitiços` | `avançar categoria mana` | `treinar mana`\n"
+                "`curar @aliado` — Paladino / Druida / Mago / Bardo"
             ),
             inline=False
         )
         e4.add_field(
             name="🏰 Guilda",
             value=(
-                "`criar guilda [nome]` — Cria uma guilda\n"
-                "`entrar guilda [nome]` — Entra em uma guilda existente\n"
-                "`ver guilda` — Ver membros e stats da guilda\n"
+                "`criar guilda [nome]` | `entrar guilda [nome]` | `ver guilda`\n"
                 "*Guildas compartilham XP e têm rankings próprios!*"
             ),
             inline=False
@@ -13584,42 +13416,24 @@ async def on_message(message):
         e4.add_field(
             name="👑 Sistema de Reino",
             value=(
-                "`me tornar rei` — Proclama-se rei (requer nível alto)\n"
-                "`meu reino` — Ver status do seu reino\n"
-                "`personalizar reino [nome]` — Renomeia o reino\n"
-                "`melhorar economia` — Investe na economia do reino\n"
-                "`reforçar exercito` — Reforça o exército\n"
-                "`atacar reino @rei` — Declara guerra ao reino de outro jogador\n"
-                "`trocar recursos @rei [valor]` — Troca recursos com outro reino\n"
-                "`nomear cavaleiro @user` — Nomeia um jogador cavaleiro do seu reino"
+                "`me tornar rei` | `meu reino` | `personalizar reino [nome]`\n"
+                "`melhorar economia` | `reforçar exercito` | `atacar reino @rei`\n"
+                "`nomear cavaleiro @user` | `governar` | `decretar lei`\n"
+                "`trocar recursos @rei [valor]`"
             ),
             inline=False
         )
         e4.add_field(
-            name="🌍 Mundo Próprio",
+            name="🌍 Mundo Próprio & AFK",
             value=(
-                "`criar mundo próprio` — Cria um canal privado só seu no servidor!\n"
-                "  *Pode ser usado em qualquer canal — cria na categoria Monstrinho*\n"
-                "`adicionar jogador @user` — No seu canal, dá permissão a outro jogador\n"
-                "  *Use dentro do seu canal mundo próprio*\n"
-                "*Todos os comandos do bot funcionam no mundo próprio!*"
+                "`criar mundo próprio` | `adicionar jogador @user` (dentro do canal)\n"
+                "`farm afk` | `período` | `descansar` | `clima`"
             ),
             inline=False
         )
-        e4.add_field(
-            name="🌙 Período, Clima & AFK",
-            value=(
-                "`período` — Ver período atual (dia/entardecer/noite/madrugada)\n"
-                "`descansar` — Avança o período e restaura HP e Mana\n"
-                "`clima` — Ver clima atual (afeta drops e XP)\n"
-                "`farm afk` — Ativa/desativa farm AFK (+XP por minuto)\n"
-                "  *Use novamente ao voltar para coletar o XP acumulado!*"
-            ),
-            inline=False
-        )
-        e4.set_footer(text="Página 4/5 — Use 'comandos 5' para continuar")
+        e4.set_footer(text="Página 4/5 — Use 'comandos 5' para NPCs, Fusão & Dicas")
 
-        # ── Página 5: NPCs, Fusão, Sistemas Especiais ──────────────────
+        # ── Página 5: NPCs, Fusão, Dicas ──
         e5 = discord.Embed(
             title="📋 COMANDOS — World CSI  [5/5]",
             description="*NPCs, fusão de itens, sistemas especiais e dicas*",
@@ -13628,46 +13442,37 @@ async def on_message(message):
         e5.add_field(
             name="🗣️ Dialogar com NPCs",
             value=(
-                "`dialogar com npc [nome]` — Conversa com um NPC do mundo\n"
-                "  *NPCs disponíveis:* Theron, Elara, Sylvara, Bjorn, Ramses,\n"
-                "  Spectra, Imperador Astral, Mercador Brynn, Capitão Aldric\n"
-                "**Tipos de resposta (aleatório):**\n"
-                "• 50% → **Lore** — história do mundo e backstory do NPC\n"
-                "• 25% → **Segredo** — dicas ocultas e mecânicas escondidas\n"
-                "• 25% → **Quest Oculta** — quests exclusivas com ótimas recompensas!"
+                "`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\n"
+                "NPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...\n"
+                "• 50% → Lore | 25% → Segredo | 25% → Quest Oculta exclusiva!"
             ),
             inline=False
         )
         e5.add_field(
             name="🔨 Fusão de Itens (Ferreiro nível 5+)",
             value=(
-                "`forjar armas` — Abre o menu de fusão de itens\n"
-                "`fundir [raridade]` — Funde 5 itens da raridade indicada\n"
-                "  *Ex:* `fundir comum` | `fundir raro` | `fundir épico`\n"
-                "**Resultados possíveis:**\n"
-                "• 60% → Sobe para próxima raridade *(Comum→Incomum→Raro→...)*\n"
-                "• 25% → Fica na mesma raridade (reduzido para 2 itens)\n"
-                "• 15% → Todos os 5 itens são destruídos!\n"
-                "*Cadeia:* Comum → Incomum → Raro → Épico → Lendário → Mítico → Ancestral → Divino → Primordial"
+                "`forjar armas` — Abre o menu | `fundir [raridade]` — Funde 5 itens\n"
+                "60% sobe raridade | 25% fica igual | 15% tudo destruído!\n"
+                "*Cadeia:* Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial"
             ),
             inline=False
         )
         e5.add_field(
-            name="💬 NPC Lore (Legado)",
+            name="📚 Info, Lore & Atualização",
             value=(
-                "`falar npc especial` — Conversa aleatória com NPC de lore\n"
-                "`npc lore` — Mesma função"
+                "`atualização` — novidades da expansão (Level 600, 4 ciclos, 60 bosses)\n"
+                "`comandos` — esta lista | `abrir livro` | `falar npc especial`\n"
+                "`ver conquistas` — veja as conquistas e progresso"
             ),
             inline=False
         )
         e5.add_field(
             name="💡 Dicas Importantes",
             value=(
-                "• **Drops:** Monstros dropam até **Épico** | Bosses dropam **Mítico+**\n"
-                "• **Pets:** Participam automaticamente de batalhas de boss!\n"
-                "• **Boss de Nível:** XP acumula durante o bloqueio e é liberado ao vencer\n"
-                "• **Raça:** Só pode ser escolhida uma vez — escolha com cuidado!\n"
-                "• **Classe:** Pode ser trocada, mas perde bônus da antiga\n"
+                "• **60 Bosses de Nível:** XP acumula durante bloqueio, liberado ao vencer\n"
+                "• **4 Ciclos:** Ciclo 2 (200), Ciclo 3 (400), Ciclo 4 (500) — cada um escala tudo\n"
+                "• **Drops:** Monstros → Épico | Bosses → Mítico+ | Ciclos avançados → Divino/Primordial\n"
+                "• **Raça:** Escolha permanente — escolha com cuidado!\n"
                 "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos\n"
                 "• Use `atualização` para ver o que foi adicionado recentemente!"
             ),
@@ -13675,7 +13480,6 @@ async def on_message(message):
         )
         e5.set_footer(text="World CSI Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
 
-        # Enviar todos os 5 embeds
         await message.channel.send(embed=e1)
         await message.channel.send(embed=e2)
         await message.channel.send(embed=e3)
@@ -13688,146 +13492,167 @@ async def on_message(message):
         e1 = discord.Embed(title="📋 COMANDOS [1/5] — Personagem & Início", color=0x3498DB)
         e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
         e1.add_field(name="💪 Treinamento", value="`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`", inline=False)
-        e1.add_field(name="🏆 Conquistas", value="`ver conquistas` | `alinhamento` | `ver títulos`", inline=False)
-        e1.add_field(name="🌟 Evoluções", value="Nível 40/80/120/160/200/400/500 — evolução automática com bônus escalonados!\nTier I ×1 → Tier II ×2.5 → Tier III ×5 → Tier IV ×10 → Tier V ×20 → Tier VI ×50 → Tier VII ×100", inline=False)
+        e1.add_field(name="🏆 Conquistas & Alinhamento", value="`ver conquistas` | `alinhamento` | `ver títulos` | `cenário` | `missão moral`", inline=False)
+        e1.add_field(name="🌟 7 Tiers de Evolução de Classe", value="Nível **40** → **80** → **120** → **160** → **200** (Transcendental) → **400** (Dimensional) → **500** (Absoluto)\nTier I ×1 → II ×2.5 → III ×5 → IV ×10 → V ×20 → VI ×50 → VII ×100", inline=False)
+        e1.add_field(name="🔄 Ciclos de Mundo", value="`ver perfil` mostra seu ciclo atual\n⚔️ Ciclo 1 (1–199) | 🌌 Ciclo 2 (200–399) | 💫 Ciclo 3 (400–499) | ♾️ Ciclo 4 (500–600)", inline=False)
+        e1.set_footer(text="Página 1/5 — Use 'comandos 2' para continuar")
         await message.channel.send(embed=e1)
         return
     if content in ["comandos 2"]:
         e2 = discord.Embed(title="📋 COMANDOS [2/5] — Exploração & Combate", color=0x2ECC71)
-        e2.add_field(name="🌍 Exploração", value="`explorar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon`", inline=False)
-        e2.add_field(name="👹 Boss", value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss`", inline=False)
-        e2.add_field(name="⚠️ Boss de Nível", value="Nos níveis 9/19/29/.../199 o XP é bloqueado até vencer o boss!", inline=False)
-        e2.add_field(name="⚔️ PvP", value="`desafiar @jogador`", inline=False)
+        e2.add_field(name="🌍 Exploração", value="`explorar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon` | `abrir mapa` | `viajar [local]`", inline=False)
+        e2.add_field(name="👹 Boss & Combate", value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss` | `desafiar @jogador`", inline=False)
+        e2.add_field(name="🚨 Boss de Nível (60 bosses)", value="**Níveis 9/19/29/.../599** — XP bloqueado até vencer!\nBoss de Nível desbloqueia o próximo reino e novas habilidades.", inline=False)
+        e2.add_field(name="💪 Treinamento pós-derrota", value="`treinar força` (+ATK) | `treinar defesa` (+DEF) | `treinar vitalidade` (+HP) | `treinar intensivo`", inline=False)
+        e2.add_field(name="🗺️ Mapa & Viagem", value="`abrir mapa` — navega pelos 60 reinos | `procurar cidade` | `viajar [local]`", inline=False)
+        e2.set_footer(text="Página 2/5 — Use 'comandos 3' para continuar")
         await message.channel.send(embed=e2)
         return
     if content in ["comandos 3"]:
         e3 = discord.Embed(title="📋 COMANDOS [3/5] — Pets, Empregos & Quests", color=0xF39C12)
         e3.add_field(name="🐾 Pets", value="`procurar pet` | `domesticar` | `evoluir pet` | `fazenda` | `ver fazenda` | `trocar pet` | `guardar pet` | `stats pet`", inline=False)
-        e3.add_field(name="🐾 Formas Especiais", value="`quarta forma pet` (Comuns, nível 3+) | `forma bestial pet` (Lendário+, nível 80+)", inline=False)
-        e3.add_field(name="💼 Empregos", value="`procurar emprego` | `ver emprego` | `trabalhar` | `largar emprego` | `forjar armas` | `fundir [raridade]`", inline=False)
-        e3.add_field(name="📋 Quests", value="`ver quests` | `realizar quest` | `finalizar quest` | `abandonar quest` | `cenário` | `missão moral`", inline=False)
-        e3.add_field(name="🗺️ Mapa", value="`abrir mapa` | `procurar cidade` | `viajar [local]`", inline=False)
+        e3.add_field(name="🐾 Formas Especiais de Pet", value="`quarta forma pet` (Comuns, nível 3+) | `forma bestial pet` (Lendário+, nível 80+)\nPets participam **automaticamente** de batalhas de boss!", inline=False)
+        e3.add_field(name="💼 Empregos", value="`procurar emprego` | `ver emprego` | `trabalhar` | `largar emprego`\n`forjar armas` | `fundir [raridade]` — Ferreiro nível 5+", inline=False)
+        e3.add_field(name="📋 Quests & Moral", value="`ver quests` | `realizar quest` | `finalizar quest` | `abandonar quest`\n`cenário` | `missão moral` | `alinhamento`", inline=False)
+        e3.set_footer(text="Página 3/5 — Use 'comandos 4' para continuar")
         await message.channel.send(embed=e3)
         return
     if content in ["comandos 4"]:
         e4 = discord.Embed(title="📋 COMANDOS [4/5] — Itens, Magia, Guilda & Reino", color=0x9B59B6)
-        e4.add_field(name="🛒 Itens", value="`equipar [item]` | `[item], usar` | `usar poção` | `vender [item]` | `trocar [item] com @user`", inline=False)
-        e4.add_field(name="✨ Magias", value="`livro de feitiços` | `avançar categoria mana` | `treinar mana` | `curar @aliado`", inline=False)
+        e4.add_field(name="🛒 Itens & Economia", value="`equipar [item]` | `[item], usar` | `usar poção` | `vender [item]`\n`trocar [item] com @user` | `trocar coins` / `converter coins`", inline=False)
+        e4.add_field(name="✨ Magias & Mana", value="`livro de feitiços` | `feitiços` | `avançar categoria mana`\n`treinar mana` | `curar @aliado`", inline=False)
         e4.add_field(name="🏰 Guilda", value="`criar guilda [nome]` | `entrar guilda [nome]` | `ver guilda`", inline=False)
-        e4.add_field(name="👑 Reino", value="`me tornar rei` | `meu reino` | `personalizar reino [nome]` | `melhorar economia` | `reforçar exercito` | `atacar reino @rei`", inline=False)
-        e4.add_field(name="🌍 Mundo Próprio", value="`criar mundo próprio` | `adicionar jogador @user` (dentro do canal)", inline=False)
-        e4.add_field(name="🌙 AFK & Clima", value="`farm afk` | `período` | `descansar` | `clima`", inline=False)
+        e4.add_field(name="👑 Reino", value="`me tornar rei` | `meu reino` | `personalizar reino [nome]`\n`melhorar economia` | `reforçar exercito` | `atacar reino @rei`\n`nomear cavaleiro @user` | `governar` | `decretar lei`", inline=False)
+        e4.add_field(name="🌍 Mundo Próprio & AFK", value="`criar mundo próprio` | `adicionar jogador @user`\n`farm afk` | `período` | `descansar` | `clima`", inline=False)
+        e4.set_footer(text="Página 4/5 — Use 'comandos 5' para continuar")
         await message.channel.send(embed=e4)
         return
     if content in ["comandos 5"]:
         e5 = discord.Embed(title="📋 COMANDOS [5/5] — NPCs, Fusão & Dicas", color=0xE74C3C)
-        e5.add_field(name="🗣️ NPCs", value="`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\nNPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...", inline=False)
-        e5.add_field(name="🔨 Fusão", value="`forjar armas` | `fundir [raridade]` — Ferreiro nível 5+\n60% sobe raridade | 25% fica igual | 15% tudo destruído!", inline=False)
-        e5.add_field(name="💡 Dicas", value="Drops Épico+ só em bosses | Pets participam de boss | `atualização` para novidades", inline=False)
+        e5.add_field(name="🗣️ NPCs & Lore", value="`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\nNPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...\n`falar npc especial` | `npc lore` | `abrir livro`", inline=False)
+        e5.add_field(name="🔨 Fusão de Itens (Ferreiro nível 5+)", value="`forjar armas` | `fundir [raridade]` — Funde 5 itens\n60% sobe raridade | 25% fica igual | 15% tudo destruído!\nCadeia: Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial", inline=False)
+        e5.add_field(name="📚 Info & Atualização", value="`atualização` — novidades da expansão | `comandos` — esta lista", inline=False)
+        e5.add_field(name="💡 Dicas Importantes", value=(
+            "• **Boss de Nível (60 bosses):** XP acumula durante bloqueio, liberado ao vencer\n"
+            "• **Ciclos:** Ciclo 2 (nível 200), Ciclo 3 (400), Ciclo 4 (500) — cada um escala tudo\n"
+            "• **Drops:** Monstros → até Épico | Bosses → Mítico+ | Ciclos avançados → Divino/Primordial\n"
+            "• **Raça:** Escolha permanente — pense bem! | **Classe:** 7 tiers de evolução até o Absoluto\n"
+            "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos"
+        ), inline=False)
+        e5.set_footer(text="World CSI Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
         await message.channel.send(embed=e5)
         return
 
     # ── ATUALIZAÇÃO / NOVIDADES / CHANGELOG ────────────────────────────
     if content in ["atualização", "atualizacao", "novidades", "update", "changelog", "o que é novo", "o que foi adicionado", "novidades do bot", "patch notes"]:
-        e_atu = discord.Embed(
-            title="📰 ATUALIZAÇÃO — World CSI",
+        e_atu1 = discord.Embed(
+            title="📰 ATUALIZAÇÃO — Expansão dos Planos Absolutos",
             description=(
-                "**Última atualização:** Fevereiro 2026\n"
-                "*Confira tudo que foi adicionado ao bot recentemente!*"
+                "**Versão:** Planos Absolutos — Fevereiro 2026\n"
+                "**Tipo:** Expansão Maior — Level Cap, Ciclos, Classes, Conquistas\n\n"
+                "*O mundo cresceu além de tudo que já existiu antes.*"
             ),
             color=0xFF6B00
         )
-        e_atu.add_field(
-            name="🌍 Mundo Próprio",
+        e_atu1.add_field(
+            name="🔢 Level Máximo: 200 → 600",
             value=(
-                "**Comando:** `criar mundo próprio`\n"
-                "Cria um canal de texto privado só seu no servidor!\n"
-                "• Pode ser usado em **qualquer canal** do servidor\n"
-                "• Canal criado na categoria **╭━━━━━✦Monstrinho**\n"
-                "• Todos podem **ver** mas só você pode **escrever**\n"
-                "• **Todos os comandos do bot funcionam** dentro do canal\n"
-                "• Use `adicionar jogador @user` (dentro do canal) para convidar alguém"
+                "O level cap foi **triplicado** de 200 para **600**!\n"
+                "**60 bosses obrigatórios** nos níveis 9, 19, 29... 599.\n"
+                "Cada nível terminado em 9 tem um boss que bloqueia o XP até ser derrotado."
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="🔨 Sistema de Fusão de Itens",
+        e_atu1.add_field(
+            name="🔄 4 Ciclos de Mundo",
             value=(
-                "**Requer:** Emprego de Ferreiro (nível 5+)\n"
-                "**Comando:** `forjar armas` para menu | `fundir [raridade]` para fundir\n"
-                "• Funde **5 itens** da mesma raridade em 1\n"
-                "• **60%** chance de subir para a próxima raridade\n"
-                "• **25%** fica na mesma raridade (mas você recebe só 2 itens)\n"
-                "• **15%** todos os itens são destruídos — cuidado!\n"
-                "• Cadeia completa: Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial"
+                "A progressão agora é dividida em 4 grandes ciclos:\n"
+                "⚔️ **Ciclo 1** — Reinos Mortais (1–199) | 20 reinos\n"
+                "🌌 **Ciclo 2** — Reinos Avançados (200–399) | 20 reinos\n"
+                "💫 **Ciclo 3** — Dimensões Superiores (400–499) | 10 reinos\n"
+                "♾️ **Ciclo 4** — Planos Absolutos (500–600) | 10 reinos\n"
+                "Cada ciclo aumenta drasticamente dificuldade, raridade e complexidade."
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="🐾 Quarta Forma — Pets Comuns (NOVO)",
+        e_atu1.add_field(
+            name="⚡ 41 Novos Reinos Desbloqueados",
             value=(
-                "**Comando:** `quarta forma pet`\n"
-                "Pets de raridade **Comum** têm uma quarta forma exclusiva!\n"
-                "• Requer **Nível 3+** do jogador\n"
-                "• **Pets comuns disponíveis** nos mundos 1, 10 e 20:\n"
-                "  Slime Bebê, Rato Selvagem Domesticado, Lagarta Arcana,\n"
-                "  Fungo Espiritual, Toupeira das Sombras, Cogumelo Sombrio,\n"
-                "  Besouro do Deserto, Cobra das Areias\n"
-                "• Pets sem forma registrada ganham a forma **[Nome] Desperto**\n"
-                "*Uma forma que NENHUM pet raro jamais alcançará!*"
+                "Do **Despertar do Além** (nível 200) ao **Plano Absoluto Final** (nível 590).\n"
+                "Cada reino tem monstros exclusivos, boss próprio, dungeons secretas e lore.\n"
+                "Use `abrir mapa` para explorar os novos territórios após desbloquear."
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="🐺 Forma Bestial — Pets Lendário+",
+        e_atu1.add_field(
+            name="🔓 Somente o Boss de Nível pode:",
             value=(
-                "**Comando:** `forma bestial pet`\n"
-                "Pets **Lendário ou superior** podem despertar a Forma Bestial!\n"
-                "• Requer **Nível 80** do jogador\n"
-                "• Transformação **permanente** — não tem volta!\n"
-                "• Bônus massivos de HP e ATK\n"
-                "• Pets suportados: Lobo Alpha, Esfinge, Fênix, Dragão de Gelo,\n"
-                "  Arcanjo Primordial, Deus Primordial e mais!\n"
-                "• Use `ajuda formas pet` para ver todos os detalhes"
+                "• Desbloquear o XP novamente\n"
+                "• Permitir avançar para o próximo reino\n"
+                "• Liberar acesso a novas dimensões\n"
+                "• Desbloquear habilidades superiores\n"
+                "• Liberar evolução final de classes e pets do ciclo"
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="🌟 Status Escalonados na Evolução de Classe",
+        e_atu1.set_footer(text="Use 'atualização' a qualquer hora para rever | Página 1/2")
+        await message.channel.send(embed=e_atu1)
+
+        e_atu2 = discord.Embed(
+            title="📰 ATUALIZAÇÃO — Classes, Conquistas & Sistemas",
+            description="*Continuação das novidades da expansão dos Planos Absolutos...*",
+            color=0xFF6B00
+        )
+        e_atu2.add_field(
+            name="🌟 3 Novos Tiers de Evolução de Classe",
             value=(
-                "As evoluções de classe agora dão **bônus crescentes por tier!**\n"
-                "• **Tier I (nível 40):** ×1 base — primeira especialização\n"
-                "• **Tier II (nível 80):** ×2.5 + bônus extra (+50 HP mín, +30 ATK mín)\n"
-                "• **Tier III (nível 120):** ×5 + bônus grande (+200 HP mín, +80 ATK mín)\n"
-                "• **Tier IV (nível 160):** ×10 + poder divino (+500 HP mín, +200 ATK mín)\n"
-                "*Cada tier tem visual diferente: 🔵 → 🌟 → 🔥 → 👑*"
+                "Todas as **30 classes** receberam 3 novos tiers:\n"
+                "• **Tier V** (nível 200) — Evoluções Transcendentais\n"
+                "• **Tier VI** (nível 400) — Evoluções Dimensionais\n"
+                "• **Tier VII** (nível 500) — Evoluções dos Planos Absolutos\n"
+                "Total de **7 tiers** por classe: 40 / 80 / 120 / 160 / 200 / 400 / 500\n"
+                "Use `evolução classe` para ver as evoluções disponíveis."
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="🗣️ Sistema de Diálogo com NPCs",
+        e_atu2.add_field(
+            name="🏆 Conquistas Novas",
             value=(
-                "**Comando:** `dialogar com npc [nome]`\n"
-                "• **50%** chance de ouvir **lore** do mundo e do NPC\n"
-                "• **25%** chance de revelar um **segredo** oculto do jogo\n"
-                "• **25%** chance de desbloquear uma **quest oculta** exclusiva!\n"
-                "NPCs disponíveis: Theron, Elara, Sylvara, Bjorn, Ramses,\n"
-                "Spectra, Imperador Astral, Mercador Brynn, Capitão Aldric"
+                "**Novos marcos:** nível 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, **600**\n"
+                "**Conquistador dos Planos Absolutos** — derrote todos os **60 bosses** (antes eram 20)\n"
+                "Recompensa: **50.000 XP** | Conquistas por ciclo com categorias temáticas."
             ),
             inline=False
         )
-        e_atu.add_field(
-            name="📋 Lista de Comandos Renovada",
+        e_atu2.add_field(
+            name="🔄 Ciclo de Mundo no Perfil",
             value=(
-                "O comando `comandos` foi completamente refeito!\n"
-                "Agora envia **5 embeds separados** com TODOS os comandos explicados:\n"
-                "`comandos` — todos de uma vez | `comandos 1` a `comandos 5` — página individual\n"
-                "Use `atualização` a qualquer hora para rever este changelog."
+                "O `ver perfil` agora mostra o **Ciclo de Mundo** atual do jogador.\n"
+                "Ao cruzar os limiares 200, 400 e 500, um embed especial anuncia o novo ciclo.\n"
+                "Mensagem especial de desbloqueio ao entrar em cada ciclo novo."
             ),
             inline=False
         )
-        e_atu.set_footer(text="World CSI Bot — Use 'comandos' para ver todos os comandos disponíveis")
-        await message.channel.send(embed=e_atu)
+        e_atu2.add_field(
+            name="📊 Hierarquia de Raridades (inalterada)",
+            value=(
+                "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
+                "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
+                "*Raridades superiores surgem com mais frequência nos ciclos avançados.*"
+            ),
+            inline=False
+        )
+        e_atu2.add_field(
+            name="🗺️ Sistemas Anteriores Mantidos",
+            value=(
+                "✅ Dungeons secretas com chaves | ✅ Fusão de itens (Ferreiro)\n"
+                "✅ Pets com quarta forma e forma bestial | ✅ Empregos, reino, guilda\n"
+                "✅ Diálogo com NPCs e quests ocultas | ✅ Mundo próprio | ✅ Farm AFK"
+            ),
+            inline=False
+        )
+        e_atu2.set_footer(text="World CSI Bot — Expansão dos Planos Absolutos | Use 'comandos' para todos os comandos | Página 2/2")
+        await message.channel.send(embed=e_atu2)
         return
 
     # ======================================================
