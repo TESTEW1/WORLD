@@ -736,60 +736,90 @@ CLASS_EVOLUTION_TREE = {
         80:  {"name": "Lorde da Guerra",     "spec_options": ["Berserker Sagrado", "Comandante Tático"]},
         120: {"name": "Titan da Batalha",    "spec_options": ["Avatar da Guerra", "Senhor dos Exércitos"]},
         160: {"name": "Imperador Guerreiro", "spec_options": ["Deus da Guerra Mortal", "Lenda Imortal"]},
+        200: {"name": "Avatar da Guerra Transcendental", "spec_options": ["Conquistador dos Planos", "Devastador de Dimensões"]},
+        400: {"name": "Força Dimensional Absoluta", "spec_options": ["Guerreiro do Vazio", "Titã do Multiverso"]},
+        500: {"name": "Guerreiro do Plano Absoluto", "spec_options": ["O Último Guerreiro", "Força Primordial Final"]},
     },
     "Mago": {
         40:  {"name": "Arcano Iniciado",   "spec_options": ["Piromante", "Criomante"]},
         80:  {"name": "Arquimago",         "spec_options": ["Mago do Caos", "Conjurador Estelar"]},
         120: {"name": "Sábio Eterno",      "spec_options": ["Deus Arcano", "Tecedor da Realidade"]},
         160: {"name": "Transcendente",     "spec_options": ["Onisciente do Cosmos", "Destruidor de Planos"]},
+        200: {"name": "Arquiteto da Realidade", "spec_options": ["Tejedor do Cosmos", "Mago Primordial"]},
+        400: {"name": "Consciência Dimensional", "spec_options": ["Mente do Multiverso", "Deus da Magia Absoluta"]},
+        500: {"name": "A Magia em Pessoa", "spec_options": ["Origem de Todo Feitiço", "Magia do Plano Absoluto"]},
     },
     "Arqueiro": {
         40:  {"name": "Atirador de Elite",   "spec_options": ["Caçador Sombrio", "Arqueiro da Tempestade"]},
         80:  {"name": "Mestre dos Arcos",    "spec_options": ["Atirador Fantasma", "Arqueiro Divino"]},
         120: {"name": "Lenda do Arco",       "spec_options": ["Caçador de Deuses", "Vendaval de Flechas"]},
         160: {"name": "Flecha Primordial",   "spec_options": ["Atirador do Fim dos Tempos", "Sombra Alada"]},
+        200: {"name": "Caçador Além dos Planos", "spec_options": ["Atirador Dimensional", "Caçador do Vazio"]},
+        400: {"name": "Flecha do Cosmos", "spec_options": ["Tiro Que Perfura Dimensões", "Arqueiro do Multiverso"]},
+        500: {"name": "Flecha do Plano Absoluto", "spec_options": ["O Último Disparo", "Extintor de Mundos à Distância"]},
     },
     "Paladino": {
         40:  {"name": "Cavaleiro Sagrado",   "spec_options": ["Cruzado", "Sentinela Divina"]},
         80:  {"name": "Arauto da Luz",       "spec_options": ["Campeão Celestial", "Protetor Eterno"]},
         120: {"name": "Lorde Sagrado",       "spec_options": ["Avatar Divino", "Juiz dos Deuses"]},
         160: {"name": "Divindade Encarnada", "spec_options": ["Santo Guerreiro", "Escudo do Universo"]},
+        200: {"name": "Campeão Transcendente", "spec_options": ["Paladino da Luz Absoluta", "Guardião dos Planos"]},
+        400: {"name": "Divindade Sagrada Dimensional", "spec_options": ["Escudo do Cosmos", "Paladino do Multiverso"]},
+        500: {"name": "Santo do Plano Absoluto", "spec_options": ["Protetor da Criação Final", "Escudo do Universo Absoluto"]},
     },
     "Assassino": {
         40:  {"name": "Phantom Blade",     "spec_options": ["Mestre das Sombras", "Envenenador Letal"]},
         80:  {"name": "Sombra Absoluta",   "spec_options": ["Caçador Dimensional", "Executor Supremo"]},
         120: {"name": "Espectro Mortal",   "spec_options": ["Sombra do Abismo", "Dançarino da Morte Noir"]},
         160: {"name": "Void Walker",       "spec_options": ["Ceifador do Vazio", "Aniquilador Silencioso"]},
+        200: {"name": "Sombra Transcendental", "spec_options": ["Ceifador dos Planos", "Assassino do Cosmos"]},
+        400: {"name": "Executor Dimensional", "spec_options": ["Morte que Atravessa Dimensões", "Sombra do Multiverso"]},
+        500: {"name": "Extinção Silenciosa Absoluta", "spec_options": ["O Golpe Final", "Aniquilador do Plano Absoluto"]},
     },
     "Necromante": {
         40:  {"name": "Mestre dos Mortos",   "spec_options": ["Invocador Sombrio", "Lich Aprendiz"]},
         80:  {"name": "Lorde dos Não-Mortos","spec_options": ["Lich Verdadeiro", "Senhor das Almas"]},
         120: {"name": "Soberano Eterno",     "spec_options": ["Deus Morto-Vivo", "Destruidor de Almas"]},
         160: {"name": "Lich Primordial",     "spec_options": ["Rei da Morte Eterna", "Corrompedor do Cosmos"]},
+        200: {"name": "Senhor da Morte Transcendente", "spec_options": ["Necrômante dos Planos", "Deus dos Mortos-Vivos Cósmicos"]},
+        400: {"name": "Morte Dimensional", "spec_options": ["Senhor dos Mortos do Multiverso", "Corruptor de Dimensões"]},
+        500: {"name": "A Morte Absoluta", "spec_options": ["Fim de Toda Vida", "Necromante do Plano Final"]},
     },
     "Berserker": {
         40:  {"name": "Bárbaro Sangrento",   "spec_options": ["Carnificina", "Orc-Sangue"]},
         80:  {"name": "Destruidor",          "spec_options": ["Avatar da Fúria", "Berserker Divino"]},
         120: {"name": "Flagelo Vivo",        "spec_options": ["Destruidor de Mundos", "Cataclismo Ambulante"]},
         160: {"name": "Fúria Primordial",    "spec_options": ["Ira dos Titãs", "Apocalipse em Forma"]},
+        200: {"name": "Fúria Transcendente", "spec_options": ["Devastador dos Planos", "Colosso da Fúria Cósmica"]},
+        400: {"name": "Apocalipse Dimensional", "spec_options": ["Raiva do Multiverso", "Destruidor de Dimensões"]},
+        500: {"name": "Ira do Plano Absoluto", "spec_options": ["Raiva que Destrói Tudo", "Calamidade Final"]},
     },
     "Druida": {
         40:  {"name": "Guardião da Floresta","spec_options": ["Metamorfo", "Druida Lunar"]},
         80:  {"name": "Ancião da Natureza",  "spec_options": ["Druida do Caos", "Guardião Primordial"]},
         120: {"name": "Espírito da Terra",   "spec_options": ["Avatar da Natureza", "Ent Vivente"]},
         160: {"name": "Gaia Encarnada",      "spec_options": ["A Própria Floresta", "Senhor das Bestas Eternas"]},
+        200: {"name": "Natureza Transcendente", "spec_options": ["Guardião dos Planos", "Espírito da Criação"]},
+        400: {"name": "Alma Dimensional da Terra", "spec_options": ["Natureza do Cosmos", "Gaia Dimensional"]},
+        500: {"name": "A Natureza Primordial Absoluta", "spec_options": ["Criação que Sustenta Tudo", "Druida do Plano Final"]},
     },
     "Monge": {
         40:  {"name": "Mestre do Ki",         "spec_options": ["Punho de Aço", "Monge do Vento"]},
         80:  {"name": "Mestre Supremo",       "spec_options": ["Monge Celestial", "Fúria Controlada"]},
         120: {"name": "Iluminado",            "spec_options": ["Monge Transcendente", "Dançarino do Ki"]},
         160: {"name": "Além do Mortal",       "spec_options": ["Ki Primordial", "Vazio em Movimento"]},
+        200: {"name": "Transcendência do Ki", "spec_options": ["Monge dos Planos", "Ki Cósmico"]},
+        400: {"name": "Ki Dimensional Absoluto", "spec_options": ["Punho do Multiverso", "Movimento do Cosmos"]},
+        500: {"name": "Ki do Plano Absoluto", "spec_options": ["Golpe que Para o Tempo", "Monge do Fim"]},
     },
     "Bardo": {
         40:  {"name": "Maestro",            "spec_options": ["Bardo da Batalha", "Encantador Supremo"]},
         80:  {"name": "Lenda Viva",         "spec_options": ["Bardo do Destino", "Cantor dos Deuses"]},
         120: {"name": "Voz do Cosmos",      "spec_options": ["Sinfonia da Destruição", "Música do Universo"]},
         160: {"name": "A Canção Eterna",    "spec_options": ["Compositor do Fim", "Eco Primordial"]},
+        200: {"name": "Melodia dos Planos", "spec_options": ["Cantor do Cosmos", "Bardo Transcendente"]},
+        400: {"name": "Sinfonia Dimensional", "spec_options": ["Música do Multiverso", "Eco Dimensional"]},
+        500: {"name": "A Última Canção", "spec_options": ["Música do Plano Absoluto", "Compositor do Fim de Tudo"]},
     },
     # ── NOVAS CLASSES ──────────────────────────────────────────────
     "Cavaleiro das Sombras": {
@@ -797,120 +827,180 @@ CLASS_EVOLUTION_TREE = {
         80:  {"name": "Guardião Sombrio",      "spec_options": ["Dragão das Trevas", "Fantasma de Aço"]},
         120: {"name": "Soberano das Trevas",   "spec_options": ["Lich Cavaleiro", "Sombra Imortal"]},
         160: {"name": "Abismo Encarnado",      "spec_options": ["Ceifeiro das Sombras", "Vazio Armado"]},
+        200: {"name": "Cavaleiro Transcendental das Trevas", "spec_options": ["Sombra dos Planos", "Cavaleiro do Vazio Cósmico"]},
+        400: {"name": "Trevas Dimensionais Armadas", "spec_options": ["Cavaleiro do Multiverso Sombrio", "Armadura do Vazio"]},
+        500: {"name": "Sombra do Plano Absoluto", "spec_options": ["Cavaleiro do Fim", "Trevas Absolutas Encarnadas"]},
     },
     "Invocador": {
         40:  {"name": "Senhor das Criaturas",  "spec_options": ["Invocador Elemental", "Portão do Abismo"]},
         80:  {"name": "Mestre dos Planos",     "spec_options": ["Invocador Divino", "Abridor de Portais"]},
         120: {"name": "Soberano das Dimensões","spec_options": ["Senhor das Legiões", "Tecedor de Planos"]},
         160: {"name": "Criador de Mundos",     "spec_options": ["Pai das Criaturas", "Nexo Dimensional"]},
+        200: {"name": "Invocador dos Planos", "spec_options": ["Senhor das Dimensões", "Portão do Cosmos"]},
+        400: {"name": "Criador Dimensional", "spec_options": ["Nexo do Multiverso", "Invocador Absoluto"]},
+        500: {"name": "Pai de Tudo do Plano Final", "spec_options": ["Criador Primordial das Criaturas", "Invocador do Absoluto"]},
     },
     "Runesmith": {
         40:  {"name": "Gravador de Runas",     "spec_options": ["Runesmith de Batalha", "Arquiteto de Runas"]},
         80:  {"name": "Mestre das Runas",      "spec_options": ["Runas Proibidas", "Construtor Arcano"]},
         120: {"name": "Runa Viva",             "spec_options": ["Avatar das Runas", "Runas Primordiais"]},
         160: {"name": "A Primeira Runa",       "spec_options": ["Origem do Poder", "Runa do Fim"]},
+        200: {"name": "Runa Transcendente", "spec_options": ["Gravador dos Planos", "Runas Cósmicas"]},
+        400: {"name": "Arquiteto Dimensional das Runas", "spec_options": ["Runas do Multiverso", "Construtor do Cosmos"]},
+        500: {"name": "Primeira Runa Absoluta", "spec_options": ["Runa do Plano Final", "Gravador do Fim"]},
     },
     "Cazador de Recompensas": {
         40:  {"name": "Caçador Lendário",      "spec_options": ["Sniper Arcano", "Caçador de Monstros"]},
         80:  {"name": "Caçador de Bosses",     "spec_options": ["Exterminador Elite", "Sombra Caçadora"]},
         120: {"name": "Lenda da Caça",         "spec_options": ["Caçador de Deuses", "Predador Supremo"]},
         160: {"name": "O Último Caçador",      "spec_options": ["Fim de Tudo", "Caçador Imortal"]},
+        200: {"name": "Caçador dos Planos", "spec_options": ["Predador Transcendente", "Caçador Cósmico"]},
+        400: {"name": "Caçador Dimensional", "spec_options": ["Exterminador do Multiverso", "Predador Absoluto"]},
+        500: {"name": "O Caçador Final", "spec_options": ["Caçador do Plano Absoluto", "Extintor de Tudo"]},
     },
     "Xamã": {
         40:  {"name": "Guardião Espiritual",   "spec_options": ["Xamã de Guerra", "Curandeiro dos Espíritos"]},
         80:  {"name": "Ancestral Vivo",        "spec_options": ["Xamã do Caos", "Portador dos Ancestrais"]},
         120: {"name": "Espírito Encarnado",    "spec_options": ["Espírito da Destruição", "Ancião dos Espíritos"]},
         160: {"name": "Pai dos Espíritos",     "spec_options": ["Espírito Primordial", "Voz dos Mortos"]},
+        200: {"name": "Xamã dos Planos", "spec_options": ["Espírito Transcendente", "Guardião Cósmico"]},
+        400: {"name": "Ancião Dimensional", "spec_options": ["Portador dos Espíritos do Cosmos", "Xamã do Multiverso"]},
+        500: {"name": "Espírito do Plano Absoluto", "spec_options": ["Xamã Final", "Voz dos Mortos do Fim"]},
     },
     "Tempesteiro": {
         40:  {"name": "Senhor do Trovão",      "spec_options": ["Tempesteiro de Plasma", "Deus do Raio"]},
         80:  {"name": "Tempestade Viva",       "spec_options": ["Furacão Arcano", "Relâmpago Encarnado"]},
         120: {"name": "Olho da Tempestade",    "spec_options": ["Tempesteiro Divino", "Zeus Menor"]},
         160: {"name": "A Tempestade Eterna",   "spec_options": ["Armageddon Elétrico", "Tempestade Primordial"]},
+        200: {"name": "Tempestade dos Planos", "spec_options": ["Relâmpago Transcendente", "Furacão Cósmico"]},
+        400: {"name": "Tempestade Dimensional", "spec_options": ["Raio do Multiverso", "Tornado do Cosmos"]},
+        500: {"name": "A Tempestade Final Absoluta", "spec_options": ["Relâmpago do Plano Absoluto", "Apocalipse Elétrico Final"]},
     },
     "Ilusionista": {
         40:  {"name": "Mestre das Ilusões",    "spec_options": ["Ilusionista de Batalha", "Sonhador Arcano"]},
         80:  {"name": "Arquiteto de Sonhos",   "spec_options": ["Senhor dos Pesadelos", "Criador de Realidades"]},
         120: {"name": "Realidade Alternativa", "spec_options": ["Deus das Ilusões", "Espelho do Cosmos"]},
         160: {"name": "A Ilusão Suprema",      "spec_options": ["Realidade que Mente", "Ilusionista Primordial"]},
+        200: {"name": "Arquiteto dos Planos Ilusórios", "spec_options": ["Ilusionista dos Planos", "Sonhador Transcendente"]},
+        400: {"name": "Realidade Dimensional Ilusória", "spec_options": ["Ilusionista do Multiverso", "A Mentira Absoluta"]},
+        500: {"name": "A Ilusão do Plano Absoluto", "spec_options": ["Realidade que Não Existe", "Ilusão Final de Tudo"]},
     },
     "Alquimista": {
         40:  {"name": "Alquimista de Elite",   "spec_options": ["Bombardeiro", "Alquimista Curador"]},
         80:  {"name": "Mestre Alquimista",     "spec_options": ["Transmutador", "Fabricante do Caos"]},
         120: {"name": "Grão-Alquimista",       "spec_options": ["Pedra Filosofal Viva", "Alquimista Divino"]},
         160: {"name": "Primeiro Alquimista",   "spec_options": ["Criador da Vida", "Destruidor da Matéria"]},
+        200: {"name": "Alquimista Transcendente", "spec_options": ["Transmutador dos Planos", "Alquimista Cósmico"]},
+        400: {"name": "Pedra Filosofal Dimensional", "spec_options": ["Transmutador do Multiverso", "Alquimia Absoluta"]},
+        500: {"name": "O Alquimista do Plano Final", "spec_options": ["Criador da Vida Absoluta", "Destruidor da Matéria Final"]},
     },
     "Guardião do Abismo": {
         40:  {"name": "Sentinela do Vazio",    "spec_options": ["Guardião das Almas", "Soldado do Abismo"]},
         80:  {"name": "Lorde do Abismo",       "spec_options": ["Entidade do Vazio", "Comandante das Sombras"]},
         120: {"name": "Soberano do Nada",      "spec_options": ["Avatar do Abismo", "Guardião Eterno"]},
         160: {"name": "O Abismo em Pessoa",    "spec_options": ["Vazio Primordial", "O Nada que Destrói"]},
+        200: {"name": "Abismo Transcendente", "spec_options": ["Guardião dos Planos Sombrios", "Entidade do Vazio Cósmico"]},
+        400: {"name": "Vazio Dimensional", "spec_options": ["Abismo do Multiverso", "Guardião Cósmico do Nada"]},
+        500: {"name": "O Abismo do Plano Absoluto", "spec_options": ["Vazio Final Absoluto", "Guardião do Fim"]},
     },
     "Dançarino da Morte": {
         40:  {"name": "Executora da Sombra",   "spec_options": ["Lâminas do Vento", "Dança Mortal"]},
         80:  {"name": "Ceifadora Elegante",    "spec_options": ["Fantasma Dançante", "Morte Personificada"]},
         120: {"name": "Dança do Apocalipse",   "spec_options": ["Última Dança", "Ceifadora do Cosmos"]},
         160: {"name": "A Morte Dança",         "spec_options": ["Fim do Mundo Bailado", "Extinção Graciosa"]},
+        200: {"name": "Dança Transcendente da Morte", "spec_options": ["Ceifadora dos Planos", "Dança Cósmica"]},
+        400: {"name": "Morte Dimensional Dançante", "spec_options": ["Dança do Multiverso", "Ceifadora Cósmica"]},
+        500: {"name": "A Morte Dança no Plano Absoluto", "spec_options": ["Última Dança do Cosmos", "Extinção Graciosa Final"]},
     },
     "Oráculo": {
         40:  {"name": "Vidente do Destino",    "spec_options": ["Oráculo de Batalha", "Manipulador do Tempo"]},
         80:  {"name": "Profeta dos Deuses",    "spec_options": ["Reescritor do Destino", "Senhor do Futuro"]},
         120: {"name": "Olho do Cosmos",        "spec_options": ["Onisciente", "Paradoxo Vivo"]},
         160: {"name": "O Destino em Pessoa",   "spec_options": ["Fim Predestinado", "Tecedor do Cosmos"]},
+        200: {"name": "Oráculo dos Planos", "spec_options": ["Profeta Transcendente", "Vidente Cósmico"]},
+        400: {"name": "Destino Dimensional", "spec_options": ["Oráculo do Multiverso", "Tecedor do Cosmos Final"]},
+        500: {"name": "O Destino do Plano Absoluto", "spec_options": ["Fim Predestinado Absoluto", "Vidente do Fim de Tudo"]},
     },
     "Colossus": {
         40:  {"name": "Fortaleza Viva",        "spec_options": ["Titan da Defesa", "Colosso de Batalha"]},
         80:  {"name": "Muralha Inquebrável",   "spec_options": ["Monolito Eterno", "Colosso Sagrado"]},
         120: {"name": "Fundação do Mundo",     "spec_options": ["Rocha Primordial", "Colossus Divino"]},
         160: {"name": "A Montanha Que Caminha","spec_options": ["Continente Animado", "Titã Imortal"]},
+        200: {"name": "Colossus Transcendente", "spec_options": ["Fundação dos Planos", "Muralha Cósmica"]},
+        400: {"name": "Montanha Dimensional", "spec_options": ["Rocha do Multiverso", "Colossus Cósmico"]},
+        500: {"name": "O Continente do Plano Absoluto", "spec_options": ["A Base de Tudo", "Colosso do Fim"]},
     },
     "Devorador de Almas": {
         40:  {"name": "Colecionador de Almas", "spec_options": ["Devorador de Guerreiros", "Absorvedor Eterno"]},
         80:  {"name": "Ladrão de Essências",   "spec_options": ["Devorador de Deuses", "Vazio Faminto"]},
         120: {"name": "O Vazio Faminto",       "spec_options": ["Consumidor de Realidades", "Fome Eterna"]},
         160: {"name": "Devor. do Universo",    "spec_options": ["Fim de Toda Existência", "O Vácuo Primordial"]},
+        200: {"name": "Devorador dos Planos", "spec_options": ["Consumidor de Dimensões", "Vazio Transcendente Faminto"]},
+        400: {"name": "Fome Dimensional Absoluta", "spec_options": ["Devorador do Multiverso", "Consumidor de Realidades"]},
+        500: {"name": "Fome do Plano Absoluto", "spec_options": ["Fim de Toda Existência Absoluta", "O Vácuo Final"]},
     },
     "Arauto Celestial": {
         40:  {"name": "Mensageiro dos Deuses", "spec_options": ["Arauto da Luz", "Protetor Divino"]},
         80:  {"name": "Voz do Trono",          "spec_options": ["Arauto da Destruição", "Escudo dos Céus"]},
         120: {"name": "Avatar Celestial",      "spec_options": ["Braço dos Deuses", "Sentença Divina"]},
         160: {"name": "Deus Mensageiro",       "spec_options": ["Vontade do Cosmos", "Portador do Fim"]},
+        200: {"name": "Arauto dos Planos Supremos", "spec_options": ["Mensageiro Transcendente", "Voz dos Planos"]},
+        400: {"name": "Arauto Dimensional", "spec_options": ["Mensageiro do Multiverso", "Portador da Destruição Cósmica"]},
+        500: {"name": "Arauto do Plano Absoluto", "spec_options": ["Vontade Final do Cosmos", "Mensageiro do Fim"]},
     },
     "Lançador de Venenos": {
         40:  {"name": "Mestre das Toxinas",    "spec_options": ["Envenenador Supremo", "Corrosivo Letal"]},
         80:  {"name": "Senhor das Pragas",     "spec_options": ["Praga Viva", "Destruidor Silencioso"]},
         120: {"name": "Catalisador da Morte",  "spec_options": ["Pandemia Personificada", "Toxina Primordial"]},
         160: {"name": "A Praga Final",         "spec_options": ["Extintor de Mundos", "Veneno do Cosmos"]},
+        200: {"name": "Praga Transcendente", "spec_options": ["Veneno dos Planos", "Toxina Cósmica"]},
+        400: {"name": "Pandemia Dimensional", "spec_options": ["Praga do Multiverso", "Veneno Absoluto"]},
+        500: {"name": "A Praga do Plano Final", "spec_options": ["Extintor de Mundos Final", "Veneno do Cosmos Absoluto"]},
     },
     "Gladiador": {
         40:  {"name": "Campeão da Arena",      "spec_options": ["Gladiador Impiedoso", "Gladiador Protetor"]},
         80:  {"name": "Lenda da Arena",        "spec_options": ["Gladiador Divino", "Mestre do Espetáculo"]},
         120: {"name": "Senhor dos Combates",   "spec_options": ["Invicto Eterno", "Arena Personificada"]},
         160: {"name": "Gladiador Imortal",     "spec_options": ["O Último em Pé", "Combate Primordial"]},
+        200: {"name": "Gladiador dos Planos", "spec_options": ["Campeão Transcendente", "Combatente Cósmico"]},
+        400: {"name": "Gladiador Dimensional", "spec_options": ["Arena do Multiverso", "Invicto do Cosmos"]},
+        500: {"name": "O Gladiador do Plano Absoluto", "spec_options": ["O Último em Pé no Cosmos", "Combate Final Primordial"]},
     },
     "Mestre das Correntes": {
         40:  {"name": "Aprisionador",          "spec_options": ["Correntes de Fogo", "Correntes do Abismo"]},
         80:  {"name": "Controlador Supremo",   "spec_options": ["Correntes da Realidade", "Aprisionador Eterno"]},
         120: {"name": "Deus das Correntes",    "spec_options": ["Correntes Primordiais", "Ligação do Cosmos"]},
         160: {"name": "Corrente do Universo",  "spec_options": ["Tudo Acorrentado", "Fim da Liberdade"]},
+        200: {"name": "Mestre das Correntes dos Planos", "spec_options": ["Aprisionador Transcendente", "Correntes Cósmicas"]},
+        400: {"name": "Correntes Dimensionais", "spec_options": ["Aprisionador do Multiverso", "Correntes do Cosmos"]},
+        500: {"name": "O Universo Acorrentado", "spec_options": ["Correntes do Plano Absoluto", "Aprisionamento Final"]},
     },
     "Profeta da Destruição": {
         40:  {"name": "Anunciador do Caos",    "spec_options": ["Profeta do Fogo", "Voz do Abismo"]},
         80:  {"name": "Catalisador do Fim",    "spec_options": ["Profeta Demoníaco", "Anunciador do Juízo"]},
         120: {"name": "A Profecia em Pessoa",  "spec_options": ["Destruição Inevitável", "Profeta do Cosmos"]},
         160: {"name": "O Fim Anunciado",       "spec_options": ["Apocalipse Ambulante", "Profecia Primordial"]},
+        200: {"name": "Profeta dos Planos", "spec_options": ["Destruição Transcendente", "Profeta Cósmico"]},
+        400: {"name": "Catalisador Dimensional do Fim", "spec_options": ["Profecia do Multiverso", "Anunciador do Fim Cósmico"]},
+        500: {"name": "O Fim Anunciado no Plano Absoluto", "spec_options": ["Apocalipse Final Absoluto", "Profecia do Fim de Tudo"]},
     },
     "Ferreiro de Guerra": {
         40:  {"name": "Armeiro de Batalha",    "spec_options": ["Ferreiro Divino", "Construtor de Lendas"]},
         80:  {"name": "Forjador de Heróis",    "spec_options": ["Mestre da Forja Sagrada", "Armeiro Eterno"]},
         120: {"name": "Forjador de Deuses",    "spec_options": ["Criador de Armas Divinas", "Ferreiro Primordial"]},
         160: {"name": "A Primeira Forja",      "spec_options": ["Forja do Cosmos", "Armeiro do Universo"]},
+        200: {"name": "Ferreiro dos Planos", "spec_options": ["Forjador Transcendente", "Armeiro Cósmico"]},
+        400: {"name": "Ferreiro Dimensional", "spec_options": ["Forjador do Multiverso", "Armeiro do Cosmos"]},
+        500: {"name": "A Forja do Plano Absoluto", "spec_options": ["Criador de Armas do Fim", "Armeiro Final Primordial"]},
     },
     "Dragonlancer": {
         40:  {"name": "Cavaleiro de Dragão",   "spec_options": ["Lançador de Chamas", "Cavaleiro do Gelo"]},
         80:  {"name": "Senhor dos Dragões",    "spec_options": ["Avatar Dracônico", "Dragonlord"]},
         120: {"name": "Dragão Encarnado",      "spec_options": ["Forma Final do Dragão", "Último Dragão"]},
         160: {"name": "Dragão Primordial",     "spec_options": ["Pai dos Dragões", "Chama da Criação"]},
+        200: {"name": "Dragão dos Planos", "spec_options": ["Cavaleiro Transcendente de Dragão", "Senhor dos Dragões Cósmicos"]},
+        400: {"name": "Dragão Dimensional", "spec_options": ["Dragonlord do Multiverso", "Pai dos Dragões Cósmicos"]},
+        500: {"name": "Dragão do Plano Absoluto", "spec_options": ["Dragão Final Primordial", "Chama da Criação Absoluta"]},
     },
 }
 
@@ -2029,7 +2119,7 @@ ACHIEVEMENTS = [
     {"id": "boss_10", "cat": "⚔️ Combate", "name": "Matador de Deuses", "desc": "Derrote 10 bosses", "xp": 900, "stat": "bosses_defeated", "threshold": 10},
     {"id": "boss_20", "cat": "⚔️ Combate", "name": "Lenda Imortal", "desc": "Derrote 20 bosses", "xp": 1500, "stat": "bosses_defeated", "threshold": 20},
     {"id": "first_boss_unique", "cat": "⚔️ Combate", "name": "Primeiro Colossus", "desc": "Derrote o primeiro boss de level", "xp": 300, "special": "level_boss_1"},
-    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Reinos", "desc": "Derrote todos os 20 bosses de level (um por reino)", "xp": 10000, "special": "all_level_bosses"},
+    {"id": "all_level_bosses", "cat": "⚔️ Combate", "name": "Conquistador dos Planos Absolutos", "desc": "Derrote todos os 60 bosses de level (do nível 9 ao 599)", "xp": 50000, "special": "all_level_bosses"},
     {"id": "slime_rei", "cat": "⚔️ Combate", "name": "Massacrador de Slimes", "desc": "Derrote o Slime Rei", "xp": 300, "special": "boss_slime_rei"},
     {"id": "dragon", "cat": "⚔️ Combate", "name": "Dragoneante", "desc": "Derrote o Dragão de Magma", "xp": 600, "special": "boss_dragao"},
     {"id": "shadow_lord", "cat": "⚔️ Combate", "name": "Derrotando as Sombras", "desc": "Derrote o Senhor das Sombras", "xp": 750, "special": "boss_sombras"},
@@ -2096,6 +2186,17 @@ ACHIEVEMENTS = [
     {"id": "level_40", "cat": "🌟 Progressão", "name": "Campeão dos Reinos", "desc": "Alcance o nível 40", "xp": 750, "stat": "level", "threshold": 40},
     {"id": "level_50", "cat": "🌟 Progressão", "name": "Lenda Viva", "desc": "Alcance o nível 50", "xp": 1200, "stat": "level", "threshold": 50},
     {"id": "level_60", "cat": "🌟 Progressão", "name": "Deus Mortal", "desc": "Alcance o nível 60", "xp": 2250, "stat": "level", "threshold": 60},
+    {"id": "level_100", "cat": "🌟 Progressão", "name": "Centurião dos Reinos", "desc": "Alcance o nível 100", "xp": 5000, "stat": "level", "threshold": 100},
+    {"id": "level_150", "cat": "🌟 Progressão", "name": "Semideus Mortal", "desc": "Alcance o nível 150", "xp": 10000, "stat": "level", "threshold": 150},
+    {"id": "level_200", "cat": "🌌 Reinos Avançados", "name": "Trancendência Mortal", "desc": "Alcance o nível 200 — entre nos Reinos Avançados!", "xp": 20000, "stat": "level", "threshold": 200},
+    {"id": "level_250", "cat": "🌌 Reinos Avançados", "name": "Pioneiro Dimensional", "desc": "Alcance o nível 250", "xp": 35000, "stat": "level", "threshold": 250},
+    {"id": "level_300", "cat": "🌌 Reinos Avançados", "name": "Conquistador dos Planos", "desc": "Alcance o nível 300", "xp": 60000, "stat": "level", "threshold": 300},
+    {"id": "level_350", "cat": "🌌 Reinos Avançados", "name": "Senhor dos Reinos Avançados", "desc": "Alcance o nível 350", "xp": 90000, "stat": "level", "threshold": 350},
+    {"id": "level_400", "cat": "💫 Dimensões Superiores", "name": "Ser Dimensional", "desc": "Alcance o nível 400 — entre nas Dimensões Superiores!", "xp": 150000, "stat": "level", "threshold": 400},
+    {"id": "level_450", "cat": "💫 Dimensões Superiores", "name": "Entidade Dimensional", "desc": "Alcance o nível 450", "xp": 200000, "stat": "level", "threshold": 450},
+    {"id": "level_500", "cat": "♾️ Planos Absolutos", "name": "Habitante do Absoluto", "desc": "Alcance o nível 500 — entre nos Planos Absolutos!", "xp": 350000, "stat": "level", "threshold": 500},
+    {"id": "level_550", "cat": "♾️ Planos Absolutos", "name": "Ser Absoluto", "desc": "Alcance o nível 550", "xp": 500000, "stat": "level", "threshold": 550},
+    {"id": "level_600", "cat": "♾️ Planos Absolutos", "name": "O Absoluto — Nível Máximo", "desc": "Alcance o lendário nível 600!", "xp": 1000000, "stat": "level", "threshold": 600},
     {"id": "class_chosen", "cat": "🌟 Progressão", "name": "O Chamado", "desc": "Escolha sua classe", "xp": 100, "special": "class_chosen"},
     {"id": "pet_first", "cat": "🌟 Progressão", "name": "Tamer", "desc": "Tenha seu primeiro pet", "xp": 100, "special": "pet_first"},
     {"id": "pet_rare", "cat": "🌟 Progressão", "name": "Dono de Raridades", "desc": "Capture um pet Raro ou melhor", "xp": 300, "special": "pet_rare"},
@@ -2291,7 +2392,11 @@ HUNT_DROP_CHANCE = {
 }
 
 # Reinos avançados (novas áreas) permitem drops mais raros de monstros
-HIGH_LEVEL_WORLDS = {62, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180}
+HIGH_LEVEL_WORLDS = {62, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
+                     190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300,
+                     310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420,
+                     430, 440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 540,
+                     550, 560, 570, 580, 590}
 HIGH_LEVEL_DROP_BONUS = {
     "legendary": 0.008,   # 0.8% lendário em reinos avançados
     "mythic": 0.001,      # 0.1% Mítico em reinos avançados
@@ -5980,7 +6085,1442 @@ WORLDS = {
             "weapons": ["Espada do Criador Primordial", "O Cetro que Criou Tudo"],
             "armor": ["Armadura da Criação Absoluta", "Vestes do Guardião do Trono"]
         }
-    }
+    },
+    190: {
+        "name": "🔱 🔱 Reinos Mortais — Ápice",
+        "emoji": "🔱",
+        "xp_loss_multiplier": 8.0,
+        "monsters": {
+            "Soberanos Mortais Alpha": {"xp": (660, 880), "hp": 2200, "atk": 490, "coins": (38, 63)},
+            "Soberanos Mortais Supremo": {"xp": (680, 905), "hp": 2250, "atk": 495, "coins": (40, 68)},
+            "Elite Soberanos Mortais": {"xp": (700, 930), "hp": 2300, "atk": 500, "coins": (42, 73)},
+            "Soberanos Mortais Ancião": {"xp": (720, 955), "hp": 2350, "atk": 505, "coins": (44, 78)},
+            "Soberanos Mortais Lendário": {"xp": (740, 980), "hp": 2400, "atk": 510, "coins": (46, 83)},
+        },
+        "boss": {"name": "Soberano Mortal Supremo", "hp": 95000, "atk": 3000, "xp": 150000, "level": 199, "coins": (21000, 37800)},
+        "resources": ['Essência do Nível 190', 'Fragmento Dimensional 1', 'Cristal do Ciclo 1', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔱 Reinos Mortais — Ápice I", "level": 20, "boss": "Guardião Interno 190"},
+            {"name": "Masmorra 🔱 Reinos Mortais — Ápice II", "level": 21, "boss": "Guardião Sombrio 190"},
+            {"name": "Santuário do Nível 190", "level": 22, "boss": "Senhor do Santuário 190"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔱 Reinos Mortais — Ápice", "level": 20, "boss": "Guardião Oculto 190", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔱 Reinos Mortais — Ápice"},
+            {"name": "🌌 Portal Dimensional 190", "level": 21, "boss": "Entidade Portal 190", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 190"}
+        ],
+        "events": [
+            "Você sente o peso do nível 190 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Mortal Supremo.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Mortal Supremo 190", "Lâmina Dimensional Nível 190"],
+            "armor": ["Armadura Mortal Supremo 190", "Vestes do Ciclo 1"]
+        }
+    },
+    200: {
+        "name": "⚡ ⚡ Reinos Avançados — Despertar",
+        "emoji": "⚡",
+        "xp_loss_multiplier": 8.5,
+        "monsters": {
+            "Sentinelas Avançadas Alpha": {"xp": (720, 960), "hp": 2400, "atk": 510, "coins": (40, 66)},
+            "Sentinelas Avançadas Supremo": {"xp": (740, 985), "hp": 2450, "atk": 515, "coins": (42, 71)},
+            "Elite Sentinelas Avançadas": {"xp": (760, 1010), "hp": 2500, "atk": 520, "coins": (44, 76)},
+            "Sentinelas Avançadas Ancião": {"xp": (780, 1035), "hp": 2550, "atk": 525, "coins": (46, 81)},
+            "Sentinelas Avançadas Lendário": {"xp": (800, 1060), "hp": 2600, "atk": 530, "coins": (48, 86)},
+        },
+        "boss": {"name": "Despertar do Além", "hp": 110000, "atk": 3200, "xp": 160000, "level": 209, "coins": (23000, 41400)},
+        "resources": ['Essência do Nível 200', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚡ Reinos Avançados — Despertar I", "level": 21, "boss": "Guardião Interno 200"},
+            {"name": "Masmorra ⚡ Reinos Avançados — Despertar II", "level": 22, "boss": "Guardião Sombrio 200"},
+            {"name": "Santuário do Nível 200", "level": 23, "boss": "Senhor do Santuário 200"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚡ Reinos Avançados — Despertar", "level": 21, "boss": "Guardião Oculto 200", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚡ Reinos Avançados — Despertar"},
+            {"name": "🌌 Portal Dimensional 200", "level": 22, "boss": "Entidade Portal 200", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 200"}
+        ],
+        "events": [
+            "Você sente o peso do nível 200 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 200", "Lâmina Dimensional Nível 200"],
+            "armor": ["Armadura Avançado 200", "Vestes do Ciclo 2"]
+        }
+    },
+    210: {
+        "name": "🌀 🌀 Vórtice dos Reinos",
+        "emoji": "🌀",
+        "xp_loss_multiplier": 9.0,
+        "monsters": {
+            "Fragmentos de Realidade Alpha": {"xp": (780, 1040), "hp": 2600, "atk": 540, "coins": (42, 70)},
+            "Fragmentos de Realidade Supremo": {"xp": (800, 1065), "hp": 2650, "atk": 545, "coins": (44, 75)},
+            "Elite Fragmentos de Realidade": {"xp": (820, 1090), "hp": 2700, "atk": 550, "coins": (46, 80)},
+            "Fragmentos de Realidade Ancião": {"xp": (840, 1115), "hp": 2750, "atk": 555, "coins": (48, 85)},
+            "Fragmentos de Realidade Lendário": {"xp": (860, 1140), "hp": 2800, "atk": 560, "coins": (50, 90)},
+        },
+        "boss": {"name": "Deus do Vórtice", "hp": 130000, "atk": 3500, "xp": 170000, "level": 219, "coins": (25000, 45000)},
+        "resources": ['Essência do Nível 210', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌀 Vórtice dos Reinos I", "level": 22, "boss": "Guardião Interno 210"},
+            {"name": "Masmorra 🌀 Vórtice dos Reinos II", "level": 23, "boss": "Guardião Sombrio 210"},
+            {"name": "Santuário do Nível 210", "level": 24, "boss": "Senhor do Santuário 210"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌀 Vórtice dos Reinos", "level": 22, "boss": "Guardião Oculto 210", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌀 Vórtice dos Reinos"},
+            {"name": "🌌 Portal Dimensional 210", "level": 23, "boss": "Entidade Portal 210", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 210"}
+        ],
+        "events": [
+            "Você sente o peso do nível 210 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 210", "Lâmina Dimensional Nível 210"],
+            "armor": ["Armadura Avançado 210", "Vestes do Ciclo 2"]
+        }
+    },
+    220: {
+        "name": "🏔️ 🏔️ Montanhas do Além",
+        "emoji": "🏔️",
+        "xp_loss_multiplier": 9.0,
+        "monsters": {
+            "Titãs das Alturas Alpha": {"xp": (840, 1120), "hp": 2800, "atk": 570, "coins": (44, 73)},
+            "Titãs das Alturas Supremo": {"xp": (860, 1145), "hp": 2850, "atk": 575, "coins": (46, 78)},
+            "Elite Titãs das Alturas": {"xp": (880, 1170), "hp": 2900, "atk": 580, "coins": (48, 83)},
+            "Titãs das Alturas Ancião": {"xp": (900, 1195), "hp": 2950, "atk": 585, "coins": (50, 88)},
+            "Titãs das Alturas Lendário": {"xp": (920, 1220), "hp": 3000, "atk": 590, "coins": (52, 93)},
+        },
+        "boss": {"name": "Titã das Alturas Eternas", "hp": 155000, "atk": 3800, "xp": 185000, "level": 229, "coins": (28000, 50400)},
+        "resources": ['Essência do Nível 220', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🏔️ Montanhas do Além I", "level": 23, "boss": "Guardião Interno 220"},
+            {"name": "Masmorra 🏔️ Montanhas do Além II", "level": 24, "boss": "Guardião Sombrio 220"},
+            {"name": "Santuário do Nível 220", "level": 25, "boss": "Senhor do Santuário 220"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🏔️ Montanhas do Além", "level": 23, "boss": "Guardião Oculto 220", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🏔️ Montanhas do Além"},
+            {"name": "🌌 Portal Dimensional 220", "level": 24, "boss": "Entidade Portal 220", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 220"}
+        ],
+        "events": [
+            "Você sente o peso do nível 220 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 220", "Lâmina Dimensional Nível 220"],
+            "armor": ["Armadura Avançado 220", "Vestes do Ciclo 2"]
+        }
+    },
+    230: {
+        "name": "🌊 🌊 Oceano Dimensional",
+        "emoji": "🌊",
+        "xp_loss_multiplier": 9.5,
+        "monsters": {
+            "Criaturas Interdimensionais Alpha": {"xp": (900, 1200), "hp": 3000, "atk": 600, "coins": (46, 76)},
+            "Criaturas Interdimensionais Supremo": {"xp": (920, 1225), "hp": 3050, "atk": 605, "coins": (48, 81)},
+            "Elite Criaturas Interdimensionais": {"xp": (940, 1250), "hp": 3100, "atk": 610, "coins": (50, 86)},
+            "Criaturas Interdimensionais Ancião": {"xp": (960, 1275), "hp": 3150, "atk": 615, "coins": (52, 91)},
+            "Criaturas Interdimensionais Lendário": {"xp": (980, 1300), "hp": 3200, "atk": 620, "coins": (54, 96)},
+        },
+        "boss": {"name": "Leviatã Dimensional", "hp": 180000, "atk": 4100, "xp": 200000, "level": 239, "coins": (31000, 55800)},
+        "resources": ['Essência do Nível 230', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌊 Oceano Dimensional I", "level": 24, "boss": "Guardião Interno 230"},
+            {"name": "Masmorra 🌊 Oceano Dimensional II", "level": 25, "boss": "Guardião Sombrio 230"},
+            {"name": "Santuário do Nível 230", "level": 26, "boss": "Senhor do Santuário 230"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌊 Oceano Dimensional", "level": 24, "boss": "Guardião Oculto 230", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌊 Oceano Dimensional"},
+            {"name": "🌌 Portal Dimensional 230", "level": 25, "boss": "Entidade Portal 230", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 230"}
+        ],
+        "events": [
+            "Você sente o peso do nível 230 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 230", "Lâmina Dimensional Nível 230"],
+            "armor": ["Armadura Avançado 230", "Vestes do Ciclo 2"]
+        }
+    },
+    240: {
+        "name": "🔥 🔥 Forjas do Caos",
+        "emoji": "🔥",
+        "xp_loss_multiplier": 9.5,
+        "monsters": {
+            "Forjadores do Caos Alpha": {"xp": (960, 1280), "hp": 3200, "atk": 630, "coins": (48, 80)},
+            "Forjadores do Caos Supremo": {"xp": (980, 1305), "hp": 3250, "atk": 635, "coins": (50, 85)},
+            "Elite Forjadores do Caos": {"xp": (1000, 1330), "hp": 3300, "atk": 640, "coins": (52, 90)},
+            "Forjadores do Caos Ancião": {"xp": (1020, 1355), "hp": 3350, "atk": 645, "coins": (54, 95)},
+            "Forjadores do Caos Lendário": {"xp": (1040, 1380), "hp": 3400, "atk": 650, "coins": (56, 100)},
+        },
+        "boss": {"name": "Senhor do Caos Ardente", "hp": 210000, "atk": 4500, "xp": 220000, "level": 249, "coins": (35000, 63000)},
+        "resources": ['Essência do Nível 240', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔥 Forjas do Caos I", "level": 25, "boss": "Guardião Interno 240"},
+            {"name": "Masmorra 🔥 Forjas do Caos II", "level": 26, "boss": "Guardião Sombrio 240"},
+            {"name": "Santuário do Nível 240", "level": 27, "boss": "Senhor do Santuário 240"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔥 Forjas do Caos", "level": 25, "boss": "Guardião Oculto 240", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔥 Forjas do Caos"},
+            {"name": "🌌 Portal Dimensional 240", "level": 26, "boss": "Entidade Portal 240", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 240"}
+        ],
+        "events": [
+            "Você sente o peso do nível 240 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 240", "Lâmina Dimensional Nível 240"],
+            "armor": ["Armadura Avançado 240", "Vestes do Ciclo 2"]
+        }
+    },
+    250: {
+        "name": "❄️ ❄️ Tundra Absoluta",
+        "emoji": "❄️",
+        "xp_loss_multiplier": 10.0,
+        "monsters": {
+            "Fantasmas do Gelo Eterno Alpha": {"xp": (1020, 1360), "hp": 3400, "atk": 660, "coins": (50, 83)},
+            "Fantasmas do Gelo Eterno Supremo": {"xp": (1040, 1385), "hp": 3450, "atk": 665, "coins": (52, 88)},
+            "Elite Fantasmas do Gelo Eterno": {"xp": (1060, 1410), "hp": 3500, "atk": 670, "coins": (54, 93)},
+            "Fantasmas do Gelo Eterno Ancião": {"xp": (1080, 1435), "hp": 3550, "atk": 675, "coins": (56, 98)},
+            "Fantasmas do Gelo Eterno Lendário": {"xp": (1100, 1460), "hp": 3600, "atk": 680, "coins": (58, 103)},
+        },
+        "boss": {"name": "Espírito do Gelo Primordial", "hp": 245000, "atk": 4900, "xp": 240000, "level": 259, "coins": (39000, 70200)},
+        "resources": ['Essência do Nível 250', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ❄️ Tundra Absoluta I", "level": 26, "boss": "Guardião Interno 250"},
+            {"name": "Masmorra ❄️ Tundra Absoluta II", "level": 27, "boss": "Guardião Sombrio 250"},
+            {"name": "Santuário do Nível 250", "level": 28, "boss": "Senhor do Santuário 250"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ❄️ Tundra Absoluta", "level": 26, "boss": "Guardião Oculto 250", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ❄️ Tundra Absoluta"},
+            {"name": "🌌 Portal Dimensional 250", "level": 27, "boss": "Entidade Portal 250", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 250"}
+        ],
+        "events": [
+            "Você sente o peso do nível 250 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 250", "Lâmina Dimensional Nível 250"],
+            "armor": ["Armadura Avançado 250", "Vestes do Ciclo 2"]
+        }
+    },
+    260: {
+        "name": "⚗️ ⚗️ Alquimia das Eras",
+        "emoji": "⚗️",
+        "xp_loss_multiplier": 10.0,
+        "monsters": {
+            "Transmutadores Arcanos Alpha": {"xp": (1080, 1440), "hp": 3600, "atk": 700, "coins": (52, 86)},
+            "Transmutadores Arcanos Supremo": {"xp": (1100, 1465), "hp": 3650, "atk": 705, "coins": (54, 91)},
+            "Elite Transmutadores Arcanos": {"xp": (1120, 1490), "hp": 3700, "atk": 710, "coins": (56, 96)},
+            "Transmutadores Arcanos Ancião": {"xp": (1140, 1515), "hp": 3750, "atk": 715, "coins": (58, 101)},
+            "Transmutadores Arcanos Lendário": {"xp": (1160, 1540), "hp": 3800, "atk": 720, "coins": (60, 106)},
+        },
+        "boss": {"name": "Grande Transmutador", "hp": 285000, "atk": 5300, "xp": 265000, "level": 269, "coins": (43000, 77400)},
+        "resources": ['Essência do Nível 260', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚗️ Alquimia das Eras I", "level": 27, "boss": "Guardião Interno 260"},
+            {"name": "Masmorra ⚗️ Alquimia das Eras II", "level": 28, "boss": "Guardião Sombrio 260"},
+            {"name": "Santuário do Nível 260", "level": 29, "boss": "Senhor do Santuário 260"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚗️ Alquimia das Eras", "level": 27, "boss": "Guardião Oculto 260", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚗️ Alquimia das Eras"},
+            {"name": "🌌 Portal Dimensional 260", "level": 28, "boss": "Entidade Portal 260", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 260"}
+        ],
+        "events": [
+            "Você sente o peso do nível 260 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 260", "Lâmina Dimensional Nível 260"],
+            "armor": ["Armadura Avançado 260", "Vestes do Ciclo 2"]
+        }
+    },
+    270: {
+        "name": "🌌 🌌 Galáxia Interior",
+        "emoji": "🌌",
+        "xp_loss_multiplier": 10.5,
+        "monsters": {
+            "Estrelas Sencientes Alpha": {"xp": (1140, 1520), "hp": 3800, "atk": 740, "coins": (54, 90)},
+            "Estrelas Sencientes Supremo": {"xp": (1160, 1545), "hp": 3850, "atk": 745, "coins": (56, 95)},
+            "Elite Estrelas Sencientes": {"xp": (1180, 1570), "hp": 3900, "atk": 750, "coins": (58, 100)},
+            "Estrelas Sencientes Ancião": {"xp": (1200, 1595), "hp": 3950, "atk": 755, "coins": (60, 105)},
+            "Estrelas Sencientes Lendário": {"xp": (1220, 1620), "hp": 4000, "atk": 760, "coins": (62, 110)},
+        },
+        "boss": {"name": "Astro Senciente", "hp": 330000, "atk": 5800, "xp": 290000, "level": 279, "coins": (48000, 86400)},
+        "resources": ['Essência do Nível 270', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌌 Galáxia Interior I", "level": 28, "boss": "Guardião Interno 270"},
+            {"name": "Masmorra 🌌 Galáxia Interior II", "level": 29, "boss": "Guardião Sombrio 270"},
+            {"name": "Santuário do Nível 270", "level": 30, "boss": "Senhor do Santuário 270"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌌 Galáxia Interior", "level": 28, "boss": "Guardião Oculto 270", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌌 Galáxia Interior"},
+            {"name": "🌌 Portal Dimensional 270", "level": 29, "boss": "Entidade Portal 270", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 270"}
+        ],
+        "events": [
+            "Você sente o peso do nível 270 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 270", "Lâmina Dimensional Nível 270"],
+            "armor": ["Armadura Avançado 270", "Vestes do Ciclo 2"]
+        }
+    },
+    280: {
+        "name": "⚖️ ⚖️ Tribunal do Cosmo",
+        "emoji": "⚖️",
+        "xp_loss_multiplier": 10.5,
+        "monsters": {
+            "Juízes Cósmicos Alpha": {"xp": (1200, 1600), "hp": 4000, "atk": 780, "coins": (56, 93)},
+            "Juízes Cósmicos Supremo": {"xp": (1220, 1625), "hp": 4050, "atk": 785, "coins": (58, 98)},
+            "Elite Juízes Cósmicos": {"xp": (1240, 1650), "hp": 4100, "atk": 790, "coins": (60, 103)},
+            "Juízes Cósmicos Ancião": {"xp": (1260, 1675), "hp": 4150, "atk": 795, "coins": (62, 108)},
+            "Juízes Cósmicos Lendário": {"xp": (1280, 1700), "hp": 4200, "atk": 800, "coins": (64, 113)},
+        },
+        "boss": {"name": "Juiz Cósmico Supremo", "hp": 380000, "atk": 6300, "xp": 320000, "level": 289, "coins": (53000, 95400)},
+        "resources": ['Essência do Nível 280', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚖️ Tribunal do Cosmo I", "level": 29, "boss": "Guardião Interno 280"},
+            {"name": "Masmorra ⚖️ Tribunal do Cosmo II", "level": 30, "boss": "Guardião Sombrio 280"},
+            {"name": "Santuário do Nível 280", "level": 31, "boss": "Senhor do Santuário 280"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚖️ Tribunal do Cosmo", "level": 29, "boss": "Guardião Oculto 280", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚖️ Tribunal do Cosmo"},
+            {"name": "🌌 Portal Dimensional 280", "level": 30, "boss": "Entidade Portal 280", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 280"}
+        ],
+        "events": [
+            "Você sente o peso do nível 280 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 280", "Lâmina Dimensional Nível 280"],
+            "armor": ["Armadura Avançado 280", "Vestes do Ciclo 2"]
+        }
+    },
+    290: {
+        "name": "🗡️ 🗡️ Arena dos Deuses Menores",
+        "emoji": "🗡️",
+        "xp_loss_multiplier": 11.0,
+        "monsters": {
+            "Deidades Menores Alpha": {"xp": (1260, 1680), "hp": 4200, "atk": 820, "coins": (58, 96)},
+            "Deidades Menores Supremo": {"xp": (1280, 1705), "hp": 4250, "atk": 825, "coins": (60, 101)},
+            "Elite Deidades Menores": {"xp": (1300, 1730), "hp": 4300, "atk": 830, "coins": (62, 106)},
+            "Deidades Menores Ancião": {"xp": (1320, 1755), "hp": 4350, "atk": 835, "coins": (64, 111)},
+            "Deidades Menores Lendário": {"xp": (1340, 1780), "hp": 4400, "atk": 840, "coins": (66, 116)},
+        },
+        "boss": {"name": "Arquiduque Dimensional", "hp": 440000, "atk": 6900, "xp": 355000, "level": 299, "coins": (59000, 106200)},
+        "resources": ['Essência do Nível 290', 'Fragmento Dimensional 2', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🗡️ Arena dos Deuses Menores I", "level": 30, "boss": "Guardião Interno 290"},
+            {"name": "Masmorra 🗡️ Arena dos Deuses Menores II", "level": 31, "boss": "Guardião Sombrio 290"},
+            {"name": "Santuário do Nível 290", "level": 32, "boss": "Senhor do Santuário 290"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🗡️ Arena dos Deuses Menores", "level": 30, "boss": "Guardião Oculto 290", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🗡️ Arena dos Deuses Menores"},
+            {"name": "🌌 Portal Dimensional 290", "level": 31, "boss": "Entidade Portal 290", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 290"}
+        ],
+        "events": [
+            "Você sente o peso do nível 290 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 290", "Lâmina Dimensional Nível 290"],
+            "armor": ["Armadura Avançado 290", "Vestes do Ciclo 2"]
+        }
+    },
+    300: {
+        "name": "👁️ 👁️ O Olho do Multiverso",
+        "emoji": "👁️",
+        "xp_loss_multiplier": 11.0,
+        "monsters": {
+            "Entidades do Multiverso Alpha": {"xp": (1320, 1760), "hp": 4400, "atk": 860, "coins": (60, 100)},
+            "Entidades do Multiverso Supremo": {"xp": (1340, 1785), "hp": 4450, "atk": 865, "coins": (62, 105)},
+            "Elite Entidades do Multiverso": {"xp": (1360, 1810), "hp": 4500, "atk": 870, "coins": (64, 110)},
+            "Entidades do Multiverso Ancião": {"xp": (1380, 1835), "hp": 4550, "atk": 875, "coins": (66, 115)},
+            "Entidades do Multiverso Lendário": {"xp": (1400, 1860), "hp": 4600, "atk": 880, "coins": (68, 120)},
+        },
+        "boss": {"name": "Divindade do Multiverso", "hp": 510000, "atk": 7500, "xp": 390000, "level": 309, "coins": (65000, 117000)},
+        "resources": ['Essência do Nível 300', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 👁️ O Olho do Multiverso I", "level": 31, "boss": "Guardião Interno 300"},
+            {"name": "Masmorra 👁️ O Olho do Multiverso II", "level": 32, "boss": "Guardião Sombrio 300"},
+            {"name": "Santuário do Nível 300", "level": 33, "boss": "Senhor do Santuário 300"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 👁️ O Olho do Multiverso", "level": 31, "boss": "Guardião Oculto 300", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 👁️ O Olho do Multiverso"},
+            {"name": "🌌 Portal Dimensional 300", "level": 32, "boss": "Entidade Portal 300", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 300"}
+        ],
+        "events": [
+            "Você sente o peso do nível 300 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 300", "Lâmina Dimensional Nível 300"],
+            "armor": ["Armadura Avançado 300", "Vestes do Ciclo 3"]
+        }
+    },
+    310: {
+        "name": "🔮 🔮 Plano Astral Inferior",
+        "emoji": "🔮",
+        "xp_loss_multiplier": 11.5,
+        "monsters": {
+            "Espíritos Astrais Alpha": {"xp": (1380, 1840), "hp": 4600, "atk": 900, "coins": (62, 103)},
+            "Espíritos Astrais Supremo": {"xp": (1400, 1865), "hp": 4650, "atk": 905, "coins": (64, 108)},
+            "Elite Espíritos Astrais": {"xp": (1420, 1890), "hp": 4700, "atk": 910, "coins": (66, 113)},
+            "Espíritos Astrais Ancião": {"xp": (1440, 1915), "hp": 4750, "atk": 915, "coins": (68, 118)},
+            "Espíritos Astrais Lendário": {"xp": (1460, 1940), "hp": 4800, "atk": 920, "coins": (70, 123)},
+        },
+        "boss": {"name": "Arcanista Astral", "hp": 590000, "atk": 8200, "xp": 430000, "level": 319, "coins": (72000, 129600)},
+        "resources": ['Essência do Nível 310', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔮 Plano Astral Inferior I", "level": 32, "boss": "Guardião Interno 310"},
+            {"name": "Masmorra 🔮 Plano Astral Inferior II", "level": 33, "boss": "Guardião Sombrio 310"},
+            {"name": "Santuário do Nível 310", "level": 34, "boss": "Senhor do Santuário 310"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔮 Plano Astral Inferior", "level": 32, "boss": "Guardião Oculto 310", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔮 Plano Astral Inferior"},
+            {"name": "🌌 Portal Dimensional 310", "level": 33, "boss": "Entidade Portal 310", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 310"}
+        ],
+        "events": [
+            "Você sente o peso do nível 310 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 310", "Lâmina Dimensional Nível 310"],
+            "armor": ["Armadura Avançado 310", "Vestes do Ciclo 3"]
+        }
+    },
+    320: {
+        "name": "💎 💎 Fortaleza de Cristal",
+        "emoji": "💎",
+        "xp_loss_multiplier": 11.5,
+        "monsters": {
+            "Guardiões Cristalinos Alpha": {"xp": (1440, 1920), "hp": 4800, "atk": 940, "coins": (64, 106)},
+            "Guardiões Cristalinos Supremo": {"xp": (1460, 1945), "hp": 4850, "atk": 945, "coins": (66, 111)},
+            "Elite Guardiões Cristalinos": {"xp": (1480, 1970), "hp": 4900, "atk": 950, "coins": (68, 116)},
+            "Guardiões Cristalinos Ancião": {"xp": (1500, 1995), "hp": 4950, "atk": 955, "coins": (70, 121)},
+            "Guardiões Cristalinos Lendário": {"xp": (1520, 2020), "hp": 5000, "atk": 960, "coins": (72, 126)},
+        },
+        "boss": {"name": "Cristal Vivente", "hp": 680000, "atk": 9000, "xp": 475000, "level": 329, "coins": (80000, 144000)},
+        "resources": ['Essência do Nível 320', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 💎 Fortaleza de Cristal I", "level": 33, "boss": "Guardião Interno 320"},
+            {"name": "Masmorra 💎 Fortaleza de Cristal II", "level": 34, "boss": "Guardião Sombrio 320"},
+            {"name": "Santuário do Nível 320", "level": 35, "boss": "Senhor do Santuário 320"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 💎 Fortaleza de Cristal", "level": 33, "boss": "Guardião Oculto 320", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 💎 Fortaleza de Cristal"},
+            {"name": "🌌 Portal Dimensional 320", "level": 34, "boss": "Entidade Portal 320", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 320"}
+        ],
+        "events": [
+            "Você sente o peso do nível 320 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 320", "Lâmina Dimensional Nível 320"],
+            "armor": ["Armadura Avançado 320", "Vestes do Ciclo 3"]
+        }
+    },
+    330: {
+        "name": "🌑 🌑 Lua Negra",
+        "emoji": "🌑",
+        "xp_loss_multiplier": 12.0,
+        "monsters": {
+            "Vampiros Lunares Supremos Alpha": {"xp": (1500, 2000), "hp": 5000, "atk": 980, "coins": (66, 110)},
+            "Vampiros Lunares Supremos Supremo": {"xp": (1520, 2025), "hp": 5050, "atk": 985, "coins": (68, 115)},
+            "Elite Vampiros Lunares Supremos": {"xp": (1540, 2050), "hp": 5100, "atk": 990, "coins": (70, 120)},
+            "Vampiros Lunares Supremos Ancião": {"xp": (1560, 2075), "hp": 5150, "atk": 995, "coins": (72, 125)},
+            "Vampiros Lunares Supremos Lendário": {"xp": (1580, 2100), "hp": 5200, "atk": 1000, "coins": (74, 130)},
+        },
+        "boss": {"name": "Lua Negra Encarnada", "hp": 780000, "atk": 9800, "xp": 525000, "level": 339, "coins": (88000, 158400)},
+        "resources": ['Essência do Nível 330', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌑 Lua Negra I", "level": 34, "boss": "Guardião Interno 330"},
+            {"name": "Masmorra 🌑 Lua Negra II", "level": 35, "boss": "Guardião Sombrio 330"},
+            {"name": "Santuário do Nível 330", "level": 36, "boss": "Senhor do Santuário 330"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌑 Lua Negra", "level": 34, "boss": "Guardião Oculto 330", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌑 Lua Negra"},
+            {"name": "🌌 Portal Dimensional 330", "level": 35, "boss": "Entidade Portal 330", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 330"}
+        ],
+        "events": [
+            "Você sente o peso do nível 330 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 330", "Lâmina Dimensional Nível 330"],
+            "armor": ["Armadura Avançado 330", "Vestes do Ciclo 3"]
+        }
+    },
+    340: {
+        "name": "☄️ ☄️ Cemitério de Estrelas",
+        "emoji": "☄️",
+        "xp_loss_multiplier": 12.0,
+        "monsters": {
+            "Cadáveres de Estrelas Alpha": {"xp": (1560, 2080), "hp": 5200, "atk": 1020, "coins": (68, 113)},
+            "Cadáveres de Estrelas Supremo": {"xp": (1580, 2105), "hp": 5250, "atk": 1025, "coins": (70, 118)},
+            "Elite Cadáveres de Estrelas": {"xp": (1600, 2130), "hp": 5300, "atk": 1030, "coins": (72, 123)},
+            "Cadáveres de Estrelas Ancião": {"xp": (1620, 2155), "hp": 5350, "atk": 1035, "coins": (74, 128)},
+            "Cadáveres de Estrelas Lendário": {"xp": (1640, 2180), "hp": 5400, "atk": 1040, "coins": (76, 133)},
+        },
+        "boss": {"name": "Estrela Morta Senciente", "hp": 900000, "atk": 10700, "xp": 580000, "level": 349, "coins": (97000, 174600)},
+        "resources": ['Essência do Nível 340', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ☄️ Cemitério de Estrelas I", "level": 35, "boss": "Guardião Interno 340"},
+            {"name": "Masmorra ☄️ Cemitério de Estrelas II", "level": 36, "boss": "Guardião Sombrio 340"},
+            {"name": "Santuário do Nível 340", "level": 37, "boss": "Senhor do Santuário 340"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ☄️ Cemitério de Estrelas", "level": 35, "boss": "Guardião Oculto 340", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ☄️ Cemitério de Estrelas"},
+            {"name": "🌌 Portal Dimensional 340", "level": 36, "boss": "Entidade Portal 340", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 340"}
+        ],
+        "events": [
+            "Você sente o peso do nível 340 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 340", "Lâmina Dimensional Nível 340"],
+            "armor": ["Armadura Avançado 340", "Vestes do Ciclo 3"]
+        }
+    },
+    350: {
+        "name": "🌞 🌞 Coração Solar",
+        "emoji": "🌞",
+        "xp_loss_multiplier": 12.5,
+        "monsters": {
+            "Elementais Solares Alpha": {"xp": (1620, 2160), "hp": 5400, "atk": 1060, "coins": (70, 116)},
+            "Elementais Solares Supremo": {"xp": (1640, 2185), "hp": 5450, "atk": 1065, "coins": (72, 121)},
+            "Elite Elementais Solares": {"xp": (1660, 2210), "hp": 5500, "atk": 1070, "coins": (74, 126)},
+            "Elementais Solares Ancião": {"xp": (1680, 2235), "hp": 5550, "atk": 1075, "coins": (76, 131)},
+            "Elementais Solares Lendário": {"xp": (1700, 2260), "hp": 5600, "atk": 1080, "coins": (78, 136)},
+        },
+        "boss": {"name": "Coração do Sol", "hp": 1040000, "atk": 11700, "xp": 640000, "level": 359, "coins": (107000, 192600)},
+        "resources": ['Essência do Nível 350', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌞 Coração Solar I", "level": 36, "boss": "Guardião Interno 350"},
+            {"name": "Masmorra 🌞 Coração Solar II", "level": 37, "boss": "Guardião Sombrio 350"},
+            {"name": "Santuário do Nível 350", "level": 38, "boss": "Senhor do Santuário 350"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌞 Coração Solar", "level": 36, "boss": "Guardião Oculto 350", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌞 Coração Solar"},
+            {"name": "🌌 Portal Dimensional 350", "level": 37, "boss": "Entidade Portal 350", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 350"}
+        ],
+        "events": [
+            "Você sente o peso do nível 350 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 350", "Lâmina Dimensional Nível 350"],
+            "armor": ["Armadura Avançado 350", "Vestes do Ciclo 3"]
+        }
+    },
+    360: {
+        "name": "🕳️ 🕳️ Buraco Negro Vivo",
+        "emoji": "🕳️",
+        "xp_loss_multiplier": 12.5,
+        "monsters": {
+            "Absorvedores de Luz Alpha": {"xp": (1680, 2240), "hp": 5600, "atk": 1100, "coins": (72, 120)},
+            "Absorvedores de Luz Supremo": {"xp": (1700, 2265), "hp": 5650, "atk": 1105, "coins": (74, 125)},
+            "Elite Absorvedores de Luz": {"xp": (1720, 2290), "hp": 5700, "atk": 1110, "coins": (76, 130)},
+            "Absorvedores de Luz Ancião": {"xp": (1740, 2315), "hp": 5750, "atk": 1115, "coins": (78, 135)},
+            "Absorvedores de Luz Lendário": {"xp": (1760, 2340), "hp": 5800, "atk": 1120, "coins": (80, 140)},
+        },
+        "boss": {"name": "Singularidade Consciente", "hp": 1200000, "atk": 12800, "xp": 705000, "level": 369, "coins": (118000, 212400)},
+        "resources": ['Essência do Nível 360', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🕳️ Buraco Negro Vivo I", "level": 37, "boss": "Guardião Interno 360"},
+            {"name": "Masmorra 🕳️ Buraco Negro Vivo II", "level": 38, "boss": "Guardião Sombrio 360"},
+            {"name": "Santuário do Nível 360", "level": 39, "boss": "Senhor do Santuário 360"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🕳️ Buraco Negro Vivo", "level": 37, "boss": "Guardião Oculto 360", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🕳️ Buraco Negro Vivo"},
+            {"name": "🌌 Portal Dimensional 360", "level": 38, "boss": "Entidade Portal 360", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 360"}
+        ],
+        "events": [
+            "Você sente o peso do nível 360 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 360", "Lâmina Dimensional Nível 360"],
+            "armor": ["Armadura Avançado 360", "Vestes do Ciclo 3"]
+        }
+    },
+    370: {
+        "name": "🌐 🌐 Nexo das Dimensões",
+        "emoji": "🌐",
+        "xp_loss_multiplier": 13.0,
+        "monsters": {
+            "Convergentes Eternos Alpha": {"xp": (1740, 2320), "hp": 5800, "atk": 1140, "coins": (74, 123)},
+            "Convergentes Eternos Supremo": {"xp": (1760, 2345), "hp": 5850, "atk": 1145, "coins": (76, 128)},
+            "Elite Convergentes Eternos": {"xp": (1780, 2370), "hp": 5900, "atk": 1150, "coins": (78, 133)},
+            "Convergentes Eternos Ancião": {"xp": (1800, 2395), "hp": 5950, "atk": 1155, "coins": (80, 138)},
+            "Convergentes Eternos Lendário": {"xp": (1820, 2420), "hp": 6000, "atk": 1160, "coins": (82, 143)},
+        },
+        "boss": {"name": "Convergente Eterno", "hp": 1380000, "atk": 14000, "xp": 780000, "level": 379, "coins": (130000, 234000)},
+        "resources": ['Essência do Nível 370', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌐 Nexo das Dimensões I", "level": 38, "boss": "Guardião Interno 370"},
+            {"name": "Masmorra 🌐 Nexo das Dimensões II", "level": 39, "boss": "Guardião Sombrio 370"},
+            {"name": "Santuário do Nível 370", "level": 40, "boss": "Senhor do Santuário 370"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌐 Nexo das Dimensões", "level": 38, "boss": "Guardião Oculto 370", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌐 Nexo das Dimensões"},
+            {"name": "🌌 Portal Dimensional 370", "level": 39, "boss": "Entidade Portal 370", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 370"}
+        ],
+        "events": [
+            "Você sente o peso do nível 370 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 370", "Lâmina Dimensional Nível 370"],
+            "armor": ["Armadura Avançado 370", "Vestes do Ciclo 3"]
+        }
+    },
+    380: {
+        "name": "⚡ ⚡ Tempestade Interdimensional",
+        "emoji": "⚡",
+        "xp_loss_multiplier": 13.0,
+        "monsters": {
+            "Relâmpagos Sencientes Alpha": {"xp": (1800, 2400), "hp": 6000, "atk": 1180, "coins": (76, 126)},
+            "Relâmpagos Sencientes Supremo": {"xp": (1820, 2425), "hp": 6050, "atk": 1185, "coins": (78, 131)},
+            "Elite Relâmpagos Sencientes": {"xp": (1840, 2450), "hp": 6100, "atk": 1190, "coins": (80, 136)},
+            "Relâmpagos Sencientes Ancião": {"xp": (1860, 2475), "hp": 6150, "atk": 1195, "coins": (82, 141)},
+            "Relâmpagos Sencientes Lendário": {"xp": (1880, 2500), "hp": 6200, "atk": 1200, "coins": (84, 146)},
+        },
+        "boss": {"name": "Tempestade Dimensional Viva", "hp": 1590000, "atk": 15300, "xp": 860000, "level": 389, "coins": (143000, 257400)},
+        "resources": ['Essência do Nível 380', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚡ Tempestade Interdimensional I", "level": 39, "boss": "Guardião Interno 380"},
+            {"name": "Masmorra ⚡ Tempestade Interdimensional II", "level": 40, "boss": "Guardião Sombrio 380"},
+            {"name": "Santuário do Nível 380", "level": 41, "boss": "Senhor do Santuário 380"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚡ Tempestade Interdimensional", "level": 39, "boss": "Guardião Oculto 380", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚡ Tempestade Interdimensional"},
+            {"name": "🌌 Portal Dimensional 380", "level": 40, "boss": "Entidade Portal 380", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 380"}
+        ],
+        "events": [
+            "Você sente o peso do nível 380 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 380", "Lâmina Dimensional Nível 380"],
+            "armor": ["Armadura Avançado 380", "Vestes do Ciclo 3"]
+        }
+    },
+    390: {
+        "name": "🔱 🔱 Trono dos Reinos Avançados",
+        "emoji": "🔱",
+        "xp_loss_multiplier": 13.5,
+        "monsters": {
+            "Soberanos Dimensionais Alpha": {"xp": (1860, 2480), "hp": 6200, "atk": 1220, "coins": (78, 130)},
+            "Soberanos Dimensionais Supremo": {"xp": (1880, 2505), "hp": 6250, "atk": 1225, "coins": (80, 135)},
+            "Elite Soberanos Dimensionais": {"xp": (1900, 2530), "hp": 6300, "atk": 1230, "coins": (82, 140)},
+            "Soberanos Dimensionais Ancião": {"xp": (1920, 2555), "hp": 6350, "atk": 1235, "coins": (84, 145)},
+            "Soberanos Dimensionais Lendário": {"xp": (1940, 2580), "hp": 6400, "atk": 1240, "coins": (86, 150)},
+        },
+        "boss": {"name": "Senhor dos Reinos Avançados", "hp": 1830000, "atk": 16700, "xp": 950000, "level": 399, "coins": (158000, 284400)},
+        "resources": ['Essência do Nível 390', 'Fragmento Dimensional 3', 'Cristal do Ciclo 2', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔱 Trono dos Reinos Avançados I", "level": 40, "boss": "Guardião Interno 390"},
+            {"name": "Masmorra 🔱 Trono dos Reinos Avançados II", "level": 41, "boss": "Guardião Sombrio 390"},
+            {"name": "Santuário do Nível 390", "level": 42, "boss": "Senhor do Santuário 390"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔱 Trono dos Reinos Avançados", "level": 40, "boss": "Guardião Oculto 390", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔱 Trono dos Reinos Avançados"},
+            {"name": "🌌 Portal Dimensional 390", "level": 41, "boss": "Entidade Portal 390", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 390"}
+        ],
+        "events": [
+            "Você sente o peso do nível 390 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Avançado.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Avançado 390", "Lâmina Dimensional Nível 390"],
+            "armor": ["Armadura Avançado 390", "Vestes do Ciclo 3"]
+        }
+    },
+    400: {
+        "name": "🌠 🌠 Dimensões Superiores — Entrada",
+        "emoji": "🌠",
+        "xp_loss_multiplier": 14.0,
+        "monsters": {
+            "Guardiões da Transição Alpha": {"xp": (1950, 2600), "hp": 6500, "atk": 1270, "coins": (80, 133)},
+            "Guardiões da Transição Supremo": {"xp": (1970, 2625), "hp": 6550, "atk": 1275, "coins": (82, 138)},
+            "Elite Guardiões da Transição": {"xp": (1990, 2650), "hp": 6600, "atk": 1280, "coins": (84, 143)},
+            "Guardiões da Transição Ancião": {"xp": (2010, 2675), "hp": 6650, "atk": 1285, "coins": (86, 148)},
+            "Guardiões da Transição Lendário": {"xp": (2030, 2700), "hp": 6700, "atk": 1290, "coins": (88, 153)},
+        },
+        "boss": {"name": "Guardião da Transição", "hp": 2100000, "atk": 18200, "xp": 1050000, "level": 409, "coins": (174000, 313200)},
+        "resources": ['Essência do Nível 400', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌠 Dimensões Superiores — Entrada I", "level": 41, "boss": "Guardião Interno 400"},
+            {"name": "Masmorra 🌠 Dimensões Superiores — Entrada II", "level": 42, "boss": "Guardião Sombrio 400"},
+            {"name": "Santuário do Nível 400", "level": 43, "boss": "Senhor do Santuário 400"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌠 Dimensões Superiores — Entrada", "level": 41, "boss": "Guardião Oculto 400", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌠 Dimensões Superiores — Entrada"},
+            {"name": "🌌 Portal Dimensional 400", "level": 42, "boss": "Entidade Portal 400", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 400"}
+        ],
+        "events": [
+            "Você sente o peso do nível 400 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 400", "Lâmina Dimensional Nível 400"],
+            "armor": ["Armadura Superior 400", "Vestes do Ciclo 4"]
+        }
+    },
+    410: {
+        "name": "💫 💫 Nebulosa da Consciência",
+        "emoji": "💫",
+        "xp_loss_multiplier": 14.0,
+        "monsters": {
+            "Pensamentos Vivos Alpha": {"xp": (2040, 2720), "hp": 6800, "atk": 1320, "coins": (82, 136)},
+            "Pensamentos Vivos Supremo": {"xp": (2060, 2745), "hp": 6850, "atk": 1325, "coins": (84, 141)},
+            "Elite Pensamentos Vivos": {"xp": (2080, 2770), "hp": 6900, "atk": 1330, "coins": (86, 146)},
+            "Pensamentos Vivos Ancião": {"xp": (2100, 2795), "hp": 6950, "atk": 1335, "coins": (88, 151)},
+            "Pensamentos Vivos Lendário": {"xp": (2120, 2820), "hp": 7000, "atk": 1340, "coins": (90, 156)},
+        },
+        "boss": {"name": "Mente Cósmica", "hp": 2400000, "atk": 19800, "xp": 1160000, "level": 419, "coins": (192000, 345600)},
+        "resources": ['Essência do Nível 410', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 💫 Nebulosa da Consciência I", "level": 42, "boss": "Guardião Interno 410"},
+            {"name": "Masmorra 💫 Nebulosa da Consciência II", "level": 43, "boss": "Guardião Sombrio 410"},
+            {"name": "Santuário do Nível 410", "level": 44, "boss": "Senhor do Santuário 410"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 💫 Nebulosa da Consciência", "level": 42, "boss": "Guardião Oculto 410", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 💫 Nebulosa da Consciência"},
+            {"name": "🌌 Portal Dimensional 410", "level": 43, "boss": "Entidade Portal 410", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 410"}
+        ],
+        "events": [
+            "Você sente o peso do nível 410 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 410", "Lâmina Dimensional Nível 410"],
+            "armor": ["Armadura Superior 410", "Vestes do Ciclo 4"]
+        }
+    },
+    420: {
+        "name": "🌀 🌀 Vórtice Dimensional Supremo",
+        "emoji": "🌀",
+        "xp_loss_multiplier": 14.5,
+        "monsters": {
+            "Vórtices Animados Alpha": {"xp": (2130, 2840), "hp": 7100, "atk": 1380, "coins": (84, 140)},
+            "Vórtices Animados Supremo": {"xp": (2150, 2865), "hp": 7150, "atk": 1385, "coins": (86, 145)},
+            "Elite Vórtices Animados": {"xp": (2170, 2890), "hp": 7200, "atk": 1390, "coins": (88, 150)},
+            "Vórtices Animados Ancião": {"xp": (2190, 2915), "hp": 7250, "atk": 1395, "coins": (90, 155)},
+            "Vórtices Animados Lendário": {"xp": (2210, 2940), "hp": 7300, "atk": 1400, "coins": (92, 160)},
+        },
+        "boss": {"name": "Vórtice Supremo Animado", "hp": 2750000, "atk": 21500, "xp": 1280000, "level": 429, "coins": (211000, 379800)},
+        "resources": ['Essência do Nível 420', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌀 Vórtice Dimensional Supremo I", "level": 43, "boss": "Guardião Interno 420"},
+            {"name": "Masmorra 🌀 Vórtice Dimensional Supremo II", "level": 44, "boss": "Guardião Sombrio 420"},
+            {"name": "Santuário do Nível 420", "level": 45, "boss": "Senhor do Santuário 420"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌀 Vórtice Dimensional Supremo", "level": 43, "boss": "Guardião Oculto 420", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌀 Vórtice Dimensional Supremo"},
+            {"name": "🌌 Portal Dimensional 420", "level": 44, "boss": "Entidade Portal 420", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 420"}
+        ],
+        "events": [
+            "Você sente o peso do nível 420 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 420", "Lâmina Dimensional Nível 420"],
+            "armor": ["Armadura Superior 420", "Vestes do Ciclo 4"]
+        }
+    },
+    430: {
+        "name": "🏛️ 🏛️ Templo dos Deuses Maiores",
+        "emoji": "🏛️",
+        "xp_loss_multiplier": 14.5,
+        "monsters": {
+            "Avatares Divinos Alpha": {"xp": (2220, 2960), "hp": 7400, "atk": 1440, "coins": (86, 143)},
+            "Avatares Divinos Supremo": {"xp": (2240, 2985), "hp": 7450, "atk": 1445, "coins": (88, 148)},
+            "Elite Avatares Divinos": {"xp": (2260, 3010), "hp": 7500, "atk": 1450, "coins": (90, 153)},
+            "Avatares Divinos Ancião": {"xp": (2280, 3035), "hp": 7550, "atk": 1455, "coins": (92, 158)},
+            "Avatares Divinos Lendário": {"xp": (2300, 3060), "hp": 7600, "atk": 1460, "coins": (94, 163)},
+        },
+        "boss": {"name": "Avatar Divino Supremo", "hp": 3150000, "atk": 23400, "xp": 1410000, "level": 439, "coins": (232000, 417600)},
+        "resources": ['Essência do Nível 430', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🏛️ Templo dos Deuses Maiores I", "level": 44, "boss": "Guardião Interno 430"},
+            {"name": "Masmorra 🏛️ Templo dos Deuses Maiores II", "level": 45, "boss": "Guardião Sombrio 430"},
+            {"name": "Santuário do Nível 430", "level": 46, "boss": "Senhor do Santuário 430"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🏛️ Templo dos Deuses Maiores", "level": 44, "boss": "Guardião Oculto 430", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🏛️ Templo dos Deuses Maiores"},
+            {"name": "🌌 Portal Dimensional 430", "level": 45, "boss": "Entidade Portal 430", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 430"}
+        ],
+        "events": [
+            "Você sente o peso do nível 430 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 430", "Lâmina Dimensional Nível 430"],
+            "armor": ["Armadura Superior 430", "Vestes do Ciclo 4"]
+        }
+    },
+    440: {
+        "name": "⭐ ⭐ Estrela Primordial Viva",
+        "emoji": "⭐",
+        "xp_loss_multiplier": 15.0,
+        "monsters": {
+            "Elementais Estelares Supremos Alpha": {"xp": (2310, 3080), "hp": 7700, "atk": 1500, "coins": (88, 146)},
+            "Elementais Estelares Supremos Supremo": {"xp": (2330, 3105), "hp": 7750, "atk": 1505, "coins": (90, 151)},
+            "Elite Elementais Estelares Supremos": {"xp": (2350, 3130), "hp": 7800, "atk": 1510, "coins": (92, 156)},
+            "Elementais Estelares Supremos Ancião": {"xp": (2370, 3155), "hp": 7850, "atk": 1515, "coins": (94, 161)},
+            "Elementais Estelares Supremos Lendário": {"xp": (2390, 3180), "hp": 7900, "atk": 1520, "coins": (96, 166)},
+        },
+        "boss": {"name": "Estrela Primordial", "hp": 3600000, "atk": 25400, "xp": 1560000, "level": 449, "coins": (256000, 460800)},
+        "resources": ['Essência do Nível 440', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⭐ Estrela Primordial Viva I", "level": 45, "boss": "Guardião Interno 440"},
+            {"name": "Masmorra ⭐ Estrela Primordial Viva II", "level": 46, "boss": "Guardião Sombrio 440"},
+            {"name": "Santuário do Nível 440", "level": 47, "boss": "Senhor do Santuário 440"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⭐ Estrela Primordial Viva", "level": 45, "boss": "Guardião Oculto 440", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⭐ Estrela Primordial Viva"},
+            {"name": "🌌 Portal Dimensional 440", "level": 46, "boss": "Entidade Portal 440", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 440"}
+        ],
+        "events": [
+            "Você sente o peso do nível 440 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 440", "Lâmina Dimensional Nível 440"],
+            "armor": ["Armadura Superior 440", "Vestes do Ciclo 4"]
+        }
+    },
+    450: {
+        "name": "🌌 🌌 Abismo Cósmico",
+        "emoji": "🌌",
+        "xp_loss_multiplier": 15.0,
+        "monsters": {
+            "Predadores do Vazio Alpha": {"xp": (2400, 3200), "hp": 8000, "atk": 1560, "coins": (90, 150)},
+            "Predadores do Vazio Supremo": {"xp": (2420, 3225), "hp": 8050, "atk": 1565, "coins": (92, 155)},
+            "Elite Predadores do Vazio": {"xp": (2440, 3250), "hp": 8100, "atk": 1570, "coins": (94, 160)},
+            "Predadores do Vazio Ancião": {"xp": (2460, 3275), "hp": 8150, "atk": 1575, "coins": (96, 165)},
+            "Predadores do Vazio Lendário": {"xp": (2480, 3300), "hp": 8200, "atk": 1580, "coins": (98, 170)},
+        },
+        "boss": {"name": "Predador do Abismo Cósmico", "hp": 4100000, "atk": 27600, "xp": 1720000, "level": 459, "coins": (282000, 507600)},
+        "resources": ['Essência do Nível 450', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌌 Abismo Cósmico I", "level": 46, "boss": "Guardião Interno 450"},
+            {"name": "Masmorra 🌌 Abismo Cósmico II", "level": 47, "boss": "Guardião Sombrio 450"},
+            {"name": "Santuário do Nível 450", "level": 48, "boss": "Senhor do Santuário 450"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌌 Abismo Cósmico", "level": 46, "boss": "Guardião Oculto 450", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌌 Abismo Cósmico"},
+            {"name": "🌌 Portal Dimensional 450", "level": 47, "boss": "Entidade Portal 450", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 450"}
+        ],
+        "events": [
+            "Você sente o peso do nível 450 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 450", "Lâmina Dimensional Nível 450"],
+            "armor": ["Armadura Superior 450", "Vestes do Ciclo 4"]
+        }
+    },
+    460: {
+        "name": "⚡ ⚡ Plasma da Criação",
+        "emoji": "⚡",
+        "xp_loss_multiplier": 15.5,
+        "monsters": {
+            "Manifestações Energéticas Alpha": {"xp": (2490, 3320), "hp": 8300, "atk": 1620, "coins": (92, 153)},
+            "Manifestações Energéticas Supremo": {"xp": (2510, 3345), "hp": 8350, "atk": 1625, "coins": (94, 158)},
+            "Elite Manifestações Energéticas": {"xp": (2530, 3370), "hp": 8400, "atk": 1630, "coins": (96, 163)},
+            "Manifestações Energéticas Ancião": {"xp": (2550, 3395), "hp": 8450, "atk": 1635, "coins": (98, 168)},
+            "Manifestações Energéticas Lendário": {"xp": (2570, 3420), "hp": 8500, "atk": 1640, "coins": (100, 173)},
+        },
+        "boss": {"name": "Manifestação da Criação", "hp": 4700000, "atk": 30000, "xp": 1900000, "level": 469, "coins": (310000, 558000)},
+        "resources": ['Essência do Nível 460', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚡ Plasma da Criação I", "level": 47, "boss": "Guardião Interno 460"},
+            {"name": "Masmorra ⚡ Plasma da Criação II", "level": 48, "boss": "Guardião Sombrio 460"},
+            {"name": "Santuário do Nível 460", "level": 49, "boss": "Senhor do Santuário 460"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚡ Plasma da Criação", "level": 47, "boss": "Guardião Oculto 460", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚡ Plasma da Criação"},
+            {"name": "🌌 Portal Dimensional 460", "level": 48, "boss": "Entidade Portal 460", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 460"}
+        ],
+        "events": [
+            "Você sente o peso do nível 460 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 460", "Lâmina Dimensional Nível 460"],
+            "armor": ["Armadura Superior 460", "Vestes do Ciclo 4"]
+        }
+    },
+    470: {
+        "name": "🔱 🔱 Olimpo Transcendente",
+        "emoji": "🔱",
+        "xp_loss_multiplier": 15.5,
+        "monsters": {
+            "Divindades Transcendentes Alpha": {"xp": (2580, 3440), "hp": 8600, "atk": 1680, "coins": (94, 156)},
+            "Divindades Transcendentes Supremo": {"xp": (2600, 3465), "hp": 8650, "atk": 1685, "coins": (96, 161)},
+            "Elite Divindades Transcendentes": {"xp": (2620, 3490), "hp": 8700, "atk": 1690, "coins": (98, 166)},
+            "Divindades Transcendentes Ancião": {"xp": (2640, 3515), "hp": 8750, "atk": 1695, "coins": (100, 171)},
+            "Divindades Transcendentes Lendário": {"xp": (2660, 3540), "hp": 8800, "atk": 1700, "coins": (102, 176)},
+        },
+        "boss": {"name": "Divindade Transcendente", "hp": 5400000, "atk": 32600, "xp": 2100000, "level": 479, "coins": (341000, 613800)},
+        "resources": ['Essência do Nível 470', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔱 Olimpo Transcendente I", "level": 48, "boss": "Guardião Interno 470"},
+            {"name": "Masmorra 🔱 Olimpo Transcendente II", "level": 49, "boss": "Guardião Sombrio 470"},
+            {"name": "Santuário do Nível 470", "level": 50, "boss": "Senhor do Santuário 470"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔱 Olimpo Transcendente", "level": 48, "boss": "Guardião Oculto 470", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔱 Olimpo Transcendente"},
+            {"name": "🌌 Portal Dimensional 470", "level": 49, "boss": "Entidade Portal 470", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 470"}
+        ],
+        "events": [
+            "Você sente o peso do nível 470 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 470", "Lâmina Dimensional Nível 470"],
+            "armor": ["Armadura Superior 470", "Vestes do Ciclo 4"]
+        }
+    },
+    480: {
+        "name": "💎 💎 Cristal do Universo",
+        "emoji": "💎",
+        "xp_loss_multiplier": 16.0,
+        "monsters": {
+            "Guardiões da Realidade Alpha": {"xp": (2670, 3560), "hp": 8900, "atk": 1740, "coins": (96, 160)},
+            "Guardiões da Realidade Supremo": {"xp": (2690, 3585), "hp": 8950, "atk": 1745, "coins": (98, 165)},
+            "Elite Guardiões da Realidade": {"xp": (2710, 3610), "hp": 9000, "atk": 1750, "coins": (100, 170)},
+            "Guardiões da Realidade Ancião": {"xp": (2730, 3635), "hp": 9050, "atk": 1755, "coins": (102, 175)},
+            "Guardiões da Realidade Lendário": {"xp": (2750, 3660), "hp": 9100, "atk": 1760, "coins": (104, 180)},
+        },
+        "boss": {"name": "Guardião da Realidade", "hp": 6200000, "atk": 35500, "xp": 2320000, "level": 489, "coins": (375000, 675000)},
+        "resources": ['Essência do Nível 480', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 💎 Cristal do Universo I", "level": 49, "boss": "Guardião Interno 480"},
+            {"name": "Masmorra 💎 Cristal do Universo II", "level": 50, "boss": "Guardião Sombrio 480"},
+            {"name": "Santuário do Nível 480", "level": 51, "boss": "Senhor do Santuário 480"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 💎 Cristal do Universo", "level": 49, "boss": "Guardião Oculto 480", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 💎 Cristal do Universo"},
+            {"name": "🌌 Portal Dimensional 480", "level": 50, "boss": "Entidade Portal 480", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 480"}
+        ],
+        "events": [
+            "Você sente o peso do nível 480 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 480", "Lâmina Dimensional Nível 480"],
+            "armor": ["Armadura Superior 480", "Vestes do Ciclo 4"]
+        }
+    },
+    490: {
+        "name": "🌠 🌠 Ápice das Dimensões Superiores",
+        "emoji": "🌠",
+        "xp_loss_multiplier": 16.0,
+        "monsters": {
+            "Senhores Dimensionais Alpha": {"xp": (2760, 3680), "hp": 9200, "atk": 1800, "coins": (98, 163)},
+            "Senhores Dimensionais Supremo": {"xp": (2780, 3705), "hp": 9250, "atk": 1805, "coins": (100, 168)},
+            "Elite Senhores Dimensionais": {"xp": (2800, 3730), "hp": 9300, "atk": 1810, "coins": (102, 173)},
+            "Senhores Dimensionais Ancião": {"xp": (2820, 3755), "hp": 9350, "atk": 1815, "coins": (104, 178)},
+            "Senhores Dimensionais Lendário": {"xp": (2840, 3780), "hp": 9400, "atk": 1820, "coins": (106, 183)},
+        },
+        "boss": {"name": "Divindade Dimensional", "hp": 7100000, "atk": 38600, "xp": 2560000, "level": 499, "coins": (412000, 741600)},
+        "resources": ['Essência do Nível 490', 'Fragmento Dimensional 4', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌠 Ápice das Dimensões Superiores I", "level": 50, "boss": "Guardião Interno 490"},
+            {"name": "Masmorra 🌠 Ápice das Dimensões Superiores II", "level": 51, "boss": "Guardião Sombrio 490"},
+            {"name": "Santuário do Nível 490", "level": 52, "boss": "Senhor do Santuário 490"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌠 Ápice das Dimensões Superiores", "level": 50, "boss": "Guardião Oculto 490", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌠 Ápice das Dimensões Superiores"},
+            {"name": "🌌 Portal Dimensional 490", "level": 51, "boss": "Entidade Portal 490", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 490"}
+        ],
+        "events": [
+            "Você sente o peso do nível 490 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Superior.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Superior 490", "Lâmina Dimensional Nível 490"],
+            "armor": ["Armadura Superior 490", "Vestes do Ciclo 4"]
+        }
+    },
+    500: {
+        "name": "♾️ ♾️ Planos Absolutos — Limiar",
+        "emoji": "♾️",
+        "xp_loss_multiplier": 17.0,
+        "monsters": {
+            "Sentinelas do Absoluto Alpha": {"xp": (2880, 3840), "hp": 9600, "atk": 1870, "coins": (100, 166)},
+            "Sentinelas do Absoluto Supremo": {"xp": (2900, 3865), "hp": 9650, "atk": 1875, "coins": (102, 171)},
+            "Elite Sentinelas do Absoluto": {"xp": (2920, 3890), "hp": 9700, "atk": 1880, "coins": (104, 176)},
+            "Sentinelas do Absoluto Ancião": {"xp": (2940, 3915), "hp": 9750, "atk": 1885, "coins": (106, 181)},
+            "Sentinelas do Absoluto Lendário": {"xp": (2960, 3940), "hp": 9800, "atk": 1890, "coins": (108, 186)},
+        },
+        "boss": {"name": "Sentinela do Absoluto", "hp": 8200000, "atk": 42000, "xp": 2830000, "level": 509, "coins": (453000, 815400)},
+        "resources": ['Essência do Nível 500', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ♾️ Planos Absolutos — Limiar I", "level": 51, "boss": "Guardião Interno 500"},
+            {"name": "Masmorra ♾️ Planos Absolutos — Limiar II", "level": 52, "boss": "Guardião Sombrio 500"},
+            {"name": "Santuário do Nível 500", "level": 53, "boss": "Senhor do Santuário 500"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ♾️ Planos Absolutos — Limiar", "level": 51, "boss": "Guardião Oculto 500", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ♾️ Planos Absolutos — Limiar"},
+            {"name": "🌌 Portal Dimensional 500", "level": 52, "boss": "Entidade Portal 500", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 500"}
+        ],
+        "events": [
+            "Você sente o peso do nível 500 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 500", "Lâmina Dimensional Nível 500"],
+            "armor": ["Armadura Absoluto 500", "Vestes do Ciclo 5"]
+        }
+    },
+    510: {
+        "name": "🌑 🌑 Trevas Absolutas",
+        "emoji": "🌑",
+        "xp_loss_multiplier": 17.0,
+        "monsters": {
+            "Sombras Absolutas Alpha": {"xp": (3000, 4000), "hp": 10000, "atk": 1950, "coins": (102, 170)},
+            "Sombras Absolutas Supremo": {"xp": (3020, 4025), "hp": 10050, "atk": 1955, "coins": (104, 175)},
+            "Elite Sombras Absolutas": {"xp": (3040, 4050), "hp": 10100, "atk": 1960, "coins": (106, 180)},
+            "Sombras Absolutas Ancião": {"xp": (3060, 4075), "hp": 10150, "atk": 1965, "coins": (108, 185)},
+            "Sombras Absolutas Lendário": {"xp": (3080, 4100), "hp": 10200, "atk": 1970, "coins": (110, 190)},
+        },
+        "boss": {"name": "Trevas Absolutas Encarnadas", "hp": 9500000, "atk": 45700, "xp": 3130000, "level": 519, "coins": (498000, 896400)},
+        "resources": ['Essência do Nível 510', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌑 Trevas Absolutas I", "level": 52, "boss": "Guardião Interno 510"},
+            {"name": "Masmorra 🌑 Trevas Absolutas II", "level": 53, "boss": "Guardião Sombrio 510"},
+            {"name": "Santuário do Nível 510", "level": 54, "boss": "Senhor do Santuário 510"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌑 Trevas Absolutas", "level": 52, "boss": "Guardião Oculto 510", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌑 Trevas Absolutas"},
+            {"name": "🌌 Portal Dimensional 510", "level": 53, "boss": "Entidade Portal 510", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 510"}
+        ],
+        "events": [
+            "Você sente o peso do nível 510 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 510", "Lâmina Dimensional Nível 510"],
+            "armor": ["Armadura Absoluto 510", "Vestes do Ciclo 5"]
+        }
+    },
+    520: {
+        "name": "🌟 🌟 Luz Absoluta",
+        "emoji": "🌟",
+        "xp_loss_multiplier": 17.5,
+        "monsters": {
+            "Seres de Luz Pura Alpha": {"xp": (3120, 4160), "hp": 10400, "atk": 2040, "coins": (104, 173)},
+            "Seres de Luz Pura Supremo": {"xp": (3140, 4185), "hp": 10450, "atk": 2045, "coins": (106, 178)},
+            "Elite Seres de Luz Pura": {"xp": (3160, 4210), "hp": 10500, "atk": 2050, "coins": (108, 183)},
+            "Seres de Luz Pura Ancião": {"xp": (3180, 4235), "hp": 10550, "atk": 2055, "coins": (110, 188)},
+            "Seres de Luz Pura Lendário": {"xp": (3200, 4260), "hp": 10600, "atk": 2060, "coins": (112, 193)},
+        },
+        "boss": {"name": "Luz Absoluta Encarnada", "hp": 11000000, "atk": 49700, "xp": 3460000, "level": 529, "coins": (547000, 984600)},
+        "resources": ['Essência do Nível 520', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌟 Luz Absoluta I", "level": 53, "boss": "Guardião Interno 520"},
+            {"name": "Masmorra 🌟 Luz Absoluta II", "level": 54, "boss": "Guardião Sombrio 520"},
+            {"name": "Santuário do Nível 520", "level": 55, "boss": "Senhor do Santuário 520"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌟 Luz Absoluta", "level": 53, "boss": "Guardião Oculto 520", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌟 Luz Absoluta"},
+            {"name": "🌌 Portal Dimensional 520", "level": 54, "boss": "Entidade Portal 520", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 520"}
+        ],
+        "events": [
+            "Você sente o peso do nível 520 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 520", "Lâmina Dimensional Nível 520"],
+            "armor": ["Armadura Absoluto 520", "Vestes do Ciclo 5"]
+        }
+    },
+    530: {
+        "name": "⚖️ ⚖️ Equilíbrio Primordial",
+        "emoji": "⚖️",
+        "xp_loss_multiplier": 17.5,
+        "monsters": {
+            "Árbitros do Equilíbrio Alpha": {"xp": (3240, 4320), "hp": 10800, "atk": 2140, "coins": (106, 176)},
+            "Árbitros do Equilíbrio Supremo": {"xp": (3260, 4345), "hp": 10850, "atk": 2145, "coins": (108, 181)},
+            "Elite Árbitros do Equilíbrio": {"xp": (3280, 4370), "hp": 10900, "atk": 2150, "coins": (110, 186)},
+            "Árbitros do Equilíbrio Ancião": {"xp": (3300, 4395), "hp": 10950, "atk": 2155, "coins": (112, 191)},
+            "Árbitros do Equilíbrio Lendário": {"xp": (3320, 4420), "hp": 11000, "atk": 2160, "coins": (114, 196)},
+        },
+        "boss": {"name": "Árbitro do Equilíbrio", "hp": 12700000, "atk": 54000, "xp": 3820000, "level": 539, "coins": (601000, 1081800)},
+        "resources": ['Essência do Nível 530', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚖️ Equilíbrio Primordial I", "level": 54, "boss": "Guardião Interno 530"},
+            {"name": "Masmorra ⚖️ Equilíbrio Primordial II", "level": 55, "boss": "Guardião Sombrio 530"},
+            {"name": "Santuário do Nível 530", "level": 56, "boss": "Senhor do Santuário 530"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚖️ Equilíbrio Primordial", "level": 54, "boss": "Guardião Oculto 530", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚖️ Equilíbrio Primordial"},
+            {"name": "🌌 Portal Dimensional 530", "level": 55, "boss": "Entidade Portal 530", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 530"}
+        ],
+        "events": [
+            "Você sente o peso do nível 530 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 530", "Lâmina Dimensional Nível 530"],
+            "armor": ["Armadura Absoluto 530", "Vestes do Ciclo 5"]
+        }
+    },
+    540: {
+        "name": "🔥 🔥 Chama Eterna",
+        "emoji": "🔥",
+        "xp_loss_multiplier": 18.0,
+        "monsters": {
+            "Guardiões da Chama Primordial Alpha": {"xp": (3360, 4480), "hp": 11200, "atk": 2250, "coins": (108, 180)},
+            "Guardiões da Chama Primordial Supremo": {"xp": (3380, 4505), "hp": 11250, "atk": 2255, "coins": (110, 185)},
+            "Elite Guardiões da Chama Primordial": {"xp": (3400, 4530), "hp": 11300, "atk": 2260, "coins": (112, 190)},
+            "Guardiões da Chama Primordial Ancião": {"xp": (3420, 4555), "hp": 11350, "atk": 2265, "coins": (114, 195)},
+            "Guardiões da Chama Primordial Lendário": {"xp": (3440, 4580), "hp": 11400, "atk": 2270, "coins": (116, 200)},
+        },
+        "boss": {"name": "Guardião da Chama Eterna", "hp": 14700000, "atk": 58700, "xp": 4230000, "level": 549, "coins": (660000, 1188000)},
+        "resources": ['Essência do Nível 540', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🔥 Chama Eterna I", "level": 55, "boss": "Guardião Interno 540"},
+            {"name": "Masmorra 🔥 Chama Eterna II", "level": 56, "boss": "Guardião Sombrio 540"},
+            {"name": "Santuário do Nível 540", "level": 57, "boss": "Senhor do Santuário 540"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🔥 Chama Eterna", "level": 55, "boss": "Guardião Oculto 540", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🔥 Chama Eterna"},
+            {"name": "🌌 Portal Dimensional 540", "level": 56, "boss": "Entidade Portal 540", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 540"}
+        ],
+        "events": [
+            "Você sente o peso do nível 540 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 540", "Lâmina Dimensional Nível 540"],
+            "armor": ["Armadura Absoluto 540", "Vestes do Ciclo 5"]
+        }
+    },
+    550: {
+        "name": "🌊 🌊 Oceano Primordial",
+        "emoji": "🌊",
+        "xp_loss_multiplier": 18.0,
+        "monsters": {
+            "Leviatãs Primordiais Alpha": {"xp": (3480, 4640), "hp": 11600, "atk": 2370, "coins": (110, 183)},
+            "Leviatãs Primordiais Supremo": {"xp": (3500, 4665), "hp": 11650, "atk": 2375, "coins": (112, 188)},
+            "Elite Leviatãs Primordiais": {"xp": (3520, 4690), "hp": 11700, "atk": 2380, "coins": (114, 193)},
+            "Leviatãs Primordiais Ancião": {"xp": (3540, 4715), "hp": 11750, "atk": 2385, "coins": (116, 198)},
+            "Leviatãs Primordiais Lendário": {"xp": (3560, 4740), "hp": 11800, "atk": 2390, "coins": (118, 203)},
+        },
+        "boss": {"name": "Leviatã do Oceano Primordial", "hp": 17000000, "atk": 63800, "xp": 4680000, "level": 559, "coins": (725000, 1305000)},
+        "resources": ['Essência do Nível 550', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌊 Oceano Primordial I", "level": 56, "boss": "Guardião Interno 550"},
+            {"name": "Masmorra 🌊 Oceano Primordial II", "level": 57, "boss": "Guardião Sombrio 550"},
+            {"name": "Santuário do Nível 550", "level": 58, "boss": "Senhor do Santuário 550"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌊 Oceano Primordial", "level": 56, "boss": "Guardião Oculto 550", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌊 Oceano Primordial"},
+            {"name": "🌌 Portal Dimensional 550", "level": 57, "boss": "Entidade Portal 550", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 550"}
+        ],
+        "events": [
+            "Você sente o peso do nível 550 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 550", "Lâmina Dimensional Nível 550"],
+            "armor": ["Armadura Absoluto 550", "Vestes do Ciclo 5"]
+        }
+    },
+    560: {
+        "name": "💨 💨 Vento do Fim dos Tempos",
+        "emoji": "💨",
+        "xp_loss_multiplier": 18.5,
+        "monsters": {
+            "Entidades do Apocalipse Alpha": {"xp": (3600, 4800), "hp": 12000, "atk": 2500, "coins": (112, 186)},
+            "Entidades do Apocalipse Supremo": {"xp": (3620, 4825), "hp": 12050, "atk": 2505, "coins": (114, 191)},
+            "Elite Entidades do Apocalipse": {"xp": (3640, 4850), "hp": 12100, "atk": 2510, "coins": (116, 196)},
+            "Entidades do Apocalipse Ancião": {"xp": (3660, 4875), "hp": 12150, "atk": 2515, "coins": (118, 201)},
+            "Entidades do Apocalipse Lendário": {"xp": (3680, 4900), "hp": 12200, "atk": 2520, "coins": (120, 206)},
+        },
+        "boss": {"name": "Entidade do Apocalipse", "hp": 19700000, "atk": 69300, "xp": 5180000, "level": 569, "coins": (797000, 1434600)},
+        "resources": ['Essência do Nível 560', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 💨 Vento do Fim dos Tempos I", "level": 57, "boss": "Guardião Interno 560"},
+            {"name": "Masmorra 💨 Vento do Fim dos Tempos II", "level": 58, "boss": "Guardião Sombrio 560"},
+            {"name": "Santuário do Nível 560", "level": 59, "boss": "Senhor do Santuário 560"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 💨 Vento do Fim dos Tempos", "level": 57, "boss": "Guardião Oculto 560", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 💨 Vento do Fim dos Tempos"},
+            {"name": "🌌 Portal Dimensional 560", "level": 58, "boss": "Entidade Portal 560", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 560"}
+        ],
+        "events": [
+            "Você sente o peso do nível 560 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 560", "Lâmina Dimensional Nível 560"],
+            "armor": ["Armadura Absoluto 560", "Vestes do Ciclo 5"]
+        }
+    },
+    570: {
+        "name": "⚡ ⚡ Trovão da Origem",
+        "emoji": "⚡",
+        "xp_loss_multiplier": 18.5,
+        "monsters": {
+            "Deuses do Trovão Primordial Alpha": {"xp": (3720, 4960), "hp": 12400, "atk": 2640, "coins": (114, 190)},
+            "Deuses do Trovão Primordial Supremo": {"xp": (3740, 4985), "hp": 12450, "atk": 2645, "coins": (116, 195)},
+            "Elite Deuses do Trovão Primordial": {"xp": (3760, 5010), "hp": 12500, "atk": 2650, "coins": (118, 200)},
+            "Deuses do Trovão Primordial Ancião": {"xp": (3780, 5035), "hp": 12550, "atk": 2655, "coins": (120, 205)},
+            "Deuses do Trovão Primordial Lendário": {"xp": (3800, 5060), "hp": 12600, "atk": 2660, "coins": (122, 210)},
+        },
+        "boss": {"name": "Deus do Trovão Primordial", "hp": 22800000, "atk": 75300, "xp": 5730000, "level": 579, "coins": (876000, 1576800)},
+        "resources": ['Essência do Nível 570', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ⚡ Trovão da Origem I", "level": 58, "boss": "Guardião Interno 570"},
+            {"name": "Masmorra ⚡ Trovão da Origem II", "level": 59, "boss": "Guardião Sombrio 570"},
+            {"name": "Santuário do Nível 570", "level": 60, "boss": "Senhor do Santuário 570"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ⚡ Trovão da Origem", "level": 58, "boss": "Guardião Oculto 570", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ⚡ Trovão da Origem"},
+            {"name": "🌌 Portal Dimensional 570", "level": 59, "boss": "Entidade Portal 570", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 570"}
+        ],
+        "events": [
+            "Você sente o peso do nível 570 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 570", "Lâmina Dimensional Nível 570"],
+            "armor": ["Armadura Absoluto 570", "Vestes do Ciclo 5"]
+        }
+    },
+    580: {
+        "name": "🌌 🌌 Vazio Além do Vazio",
+        "emoji": "🌌",
+        "xp_loss_multiplier": 19.0,
+        "monsters": {
+            "O Nada Consciente Alpha": {"xp": (3840, 5120), "hp": 12800, "atk": 2790, "coins": (116, 193)},
+            "O Nada Consciente Supremo": {"xp": (3860, 5145), "hp": 12850, "atk": 2795, "coins": (118, 198)},
+            "Elite O Nada Consciente": {"xp": (3880, 5170), "hp": 12900, "atk": 2800, "coins": (120, 203)},
+            "O Nada Consciente Ancião": {"xp": (3900, 5195), "hp": 12950, "atk": 2805, "coins": (122, 208)},
+            "O Nada Consciente Lendário": {"xp": (3920, 5220), "hp": 13000, "atk": 2810, "coins": (124, 213)},
+        },
+        "boss": {"name": "O Nada Consciente", "hp": 26400000, "atk": 81800, "xp": 6340000, "level": 589, "coins": (963000, 1733400)},
+        "resources": ['Essência do Nível 580', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra 🌌 Vazio Além do Vazio I", "level": 59, "boss": "Guardião Interno 580"},
+            {"name": "Masmorra 🌌 Vazio Além do Vazio II", "level": 60, "boss": "Guardião Sombrio 580"},
+            {"name": "Santuário do Nível 580", "level": 61, "boss": "Senhor do Santuário 580"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta 🌌 Vazio Além do Vazio", "level": 59, "boss": "Guardião Oculto 580", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de 🌌 Vazio Além do Vazio"},
+            {"name": "🌌 Portal Dimensional 580", "level": 60, "boss": "Entidade Portal 580", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 580"}
+        ],
+        "events": [
+            "Você sente o peso do nível 580 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 580", "Lâmina Dimensional Nível 580"],
+            "armor": ["Armadura Absoluto 580", "Vestes do Ciclo 5"]
+        }
+    },
+    590: {
+        "name": "♾️ ♾️ O Plano Absoluto Final",
+        "emoji": "♾️",
+        "xp_loss_multiplier": 19.0,
+        "monsters": {
+            "O Absoluto Alpha": {"xp": (3960, 5280), "hp": 13200, "atk": 2950, "coins": (118, 196)},
+            "O Absoluto Supremo": {"xp": (3980, 5305), "hp": 13250, "atk": 2955, "coins": (120, 201)},
+            "Elite O Absoluto": {"xp": (4000, 5330), "hp": 13300, "atk": 2960, "coins": (122, 206)},
+            "O Absoluto Ancião": {"xp": (4020, 5355), "hp": 13350, "atk": 2965, "coins": (124, 211)},
+            "O Absoluto Lendário": {"xp": (4040, 5380), "hp": 13400, "atk": 2970, "coins": (126, 216)},
+        },
+        "boss": {"name": "O Absoluto Final", "hp": 30600000, "atk": 88800, "xp": 7010000, "level": 599, "coins": (1059000, 1906200)},
+        "resources": ['Essência do Nível 590', 'Fragmento Dimensional 5', 'Cristal do Ciclo 3', 'Runa Absoluta', 'Pó Primordial Avançado'],
+        "dungeons": [
+            {"name": "Masmorra ♾️ O Plano Absoluto Final I", "level": 60, "boss": "Guardião Interno 590"},
+            {"name": "Masmorra ♾️ O Plano Absoluto Final II", "level": 61, "boss": "Guardião Sombrio 590"},
+            {"name": "Santuário do Nível 590", "level": 62, "boss": "Senhor do Santuário 590"}
+        ],
+        "secret_dungeons": [
+            {"name": "🔐 Câmara Secreta ♾️ O Plano Absoluto Final", "level": 60, "boss": "Guardião Oculto 590", "secret": True, "special_boss_drop": "Absoluto", "key_name": "🗝️ Chave de ♾️ O Plano Absoluto Final"},
+            {"name": "🌌 Portal Dimensional 590", "level": 61, "boss": "Entidade Portal 590", "secret": True, "special_boss_drop": "Transcendente", "key_name": "🗝️ Chave Portal 590"}
+        ],
+        "events": [
+            "Você sente o peso do nível 590 ao seu redor.", "A realidade aqui é diferente de tudo que você conhecia.",
+            "Criaturas de poder incompreensível observam sua passagem.", "Cada passo aqui é uma conquista sem precedentes.",
+            "O ar vibra com energia Absoluto.", "Você está entre os mais fortes já registrados neste plano.",
+            "O horizonte aqui não existe — só poder infinito.", "Sua presença aqui altera o tecido da realidade.",
+            "Nenhum mortal comum sobreviveria neste lugar.", "Você forjou seu próprio destino chegando até aqui.",
+            "Os Guardiões te testam constantemente.", "Cada batalha aqui redefine seus limites.",
+        ],
+        "exclusive_drops": {
+            "weapons": ["Arma do Plano Absoluto 590", "Lâmina Dimensional Nível 590"],
+            "armor": ["Armadura Absoluto 590", "Vestes do Ciclo 5"]
+        }
+    },
 }
 
 # ================= ITENS EXPANDIDOS (com Divino e Primordial) =================
@@ -6753,6 +8293,17 @@ def get_luck(roll):
 def calc_xp(level):
     return (level ** 2) * 20
 
+def get_world_cycle(level):
+    """Retorna o ciclo de mundo do jogador baseado no nível."""
+    if level <= 199:
+        return 1, "⚔️ Reinos Mortais", "Nív. 1–199"
+    elif level <= 399:
+        return 2, "🌌 Reinos Avançados", "Nív. 200–399"
+    elif level <= 499:
+        return 3, "💫 Dimensões Superiores", "Nív. 400–499"
+    else:
+        return 4, "♾️ Planos Absolutos", "Nív. 500–600"
+
 def get_world(level, player=None):
     """Retorna o mundo atual do jogador. Se player fornecido, respeita travas de boss."""
     if player:
@@ -6885,7 +8436,7 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
 
     # BLOQUEIO DE BOSS: Se o jogador está no nível de boss e não derrotou ele, XP vai para
     # um "balde" de XP pendente que é liberado ao vencer o boss
-    boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
+    boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
     if not bypass_boss_gate and player["level"] in boss_gate_levels:
         boss_data = get_level_boss(player["level"])
         if boss_data and boss_data["name"] not in player.get("bosses", []):
@@ -7046,7 +8597,18 @@ def get_level_boss(level):
         9: 1, 19: 10, 29: 20, 39: 30, 49: 40, 59: 50,
         69: 60, 79: 70, 89: 80, 99: 90, 109: 100,
         119: 110, 129: 120, 139: 130, 149: 140, 159: 150,
-        169: 160, 179: 170, 189: 180, 199: 190
+        169: 160, 179: 170, 189: 180, 199: 190,
+        # Ciclo 2 — Reinos Avançados (200–399)
+        209: 200, 219: 210, 229: 220, 239: 230, 249: 240,
+        259: 250, 269: 260, 279: 270, 289: 280, 299: 290,
+        309: 300, 319: 310, 329: 320, 339: 330, 349: 340,
+        359: 350, 369: 360, 379: 370, 389: 380, 399: 390,
+        # Ciclo 3 — Dimensões Superiores (400–499)
+        409: 400, 419: 410, 429: 420, 439: 430, 449: 440,
+        459: 450, 469: 460, 479: 470, 489: 480, 499: 490,
+        # Ciclo 4 — Planos Absolutos (500–600)
+        509: 500, 519: 510, 529: 520, 539: 530, 549: 540,
+        559: 550, 569: 560, 579: 570, 589: 580, 599: 590,
     }
     world_key = boss_levels.get(level)
     if world_key and world_key in WORLDS:
@@ -8761,7 +10323,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         player["active_effects"] = effects
         save_player_db(user_id, player)
 
-        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 199}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
 
         if pending_boss:
             boss_data = pending_boss
@@ -8893,7 +10455,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # Todos os bosses de level (níveis 9, 19, 29... 199)
     level_boss_names = set()
     boss_level_map = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                      109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                      109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+                      209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+                      309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+                      409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+                      509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
     for wk in boss_level_map.values():
         if wk in WORLDS:
             level_boss_names.add(WORLDS[wk]["boss"]["name"])
@@ -9387,7 +10953,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if is_level_boss and allies:
         boss_to_world_ally = {}
         boss_level_map_ally = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                               109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                               109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+                               209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+                               309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+                               409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+                               509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
         for gate_lvl, wk in boss_level_map_ally.items():
             nearest = wk if wk in WORLDS else max((k for k in WORLDS.keys() if k <= wk), default=1)
             boss_to_world_ally[WORLDS[nearest]["boss"]["name"]] = nearest
@@ -9510,7 +11080,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # Unlock next world for level bosses + AUTO-TRAVEL
     boss_to_world = {}
     _boss_level_map = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+                       209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+                       309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+                       409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+                       509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
     for _gate_lvl, _wk in _boss_level_map.items():
         _nearest = _wk if _wk in WORLDS else max((k for k in WORLDS.keys() if k <= _wk), default=1)
         _boss_name = WORLDS[_nearest]["boss"]["name"]
@@ -9536,6 +11110,26 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             p3["worlds"] = sorted(list(set(p3["worlds"])))
             save_player_db(user_id, p3)
             new_world_data = WORLDS[next_world]
+            # Check if entering a new cycle
+            cycle_transitions = {
+                200: (2, "🌌 Reinos Avançados", "200–399", "As barreiras mortais se dissolvem! Você adentra os Reinos Avançados!"),
+                400: (3, "💫 Dimensões Superiores", "400–499", "A realidade se fragmenta! Você transcendeu os limites dimensionais!"),
+                500: (4, "♾️ Planos Absolutos", "500–600", "O cosmos tremeu com sua chegada! Você entrou nos Planos Absolutos — o fim e o começo de tudo!"),
+            }
+            if next_world in cycle_transitions:
+                cycle_num, cycle_name, cycle_range, cycle_msg = cycle_transitions[next_world]
+                cycle_embed = discord.Embed(
+                    title=f"🔄 NOVO CICLO DESBLOQUEADO — CICLO {cycle_num}!",
+                    description=f"**{cycle_name}** *(Nív. {cycle_range})*\n\n*'{cycle_msg}'*\n\n"
+                                f"✦ **Novas dimensões acessíveis!**\n"
+                                f"✦ **Raridade de itens drasticamente aumentada!**\n"
+                                f"✦ **Mecânicas e habilidades superiores desbloqueadas!**\n"
+                                f"✦ **Evolução de classes e pets do ciclo anterior liberada!**",
+                    color=discord.Color.from_rgb(255, 215, 0)
+                )
+                cycle_embed.set_footer(text=f"Ciclo {cycle_num} | Use 'evolução classe' para ver novas evoluções disponíveis")
+                await channel.send(embed=cycle_embed)
+                await asyncio.sleep(1)
             victory_embed.add_field(
                 name=f"🌍 REINO DESBLOQUEADO & VIAGEM AUTOMÁTICA!",
                 value=f"{new_world_data['emoji']} **{new_world_data['name']}** agora está acessível!\n\n"
@@ -9673,7 +11267,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if len(WORLDS) <= worlds_count:
         await check_achievements(channel, user_id, "all_worlds")
 
-    # ── Check class evolution after boss fight (levels 40/80/120/160) ──
+    # ── Check class evolution after boss fight (levels 40/80/120/160/200/400/500) ──
     p_evo = get_player(user_id)
     effects_evo = p_evo.get("active_effects", {})
     if effects_evo.pop("check_evolution", False):
@@ -11178,7 +12772,7 @@ async def on_message(message):
         _m = _re.match(r"desafiar boss (?:do )?level (\d+)", content)
         if _m:
             target_level = int(_m.group(1))
-            boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199]
+            boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599]
             if target_level not in boss_gate_levels:
                 niveis_str = ", ".join(str(x) for x in boss_gate_levels[:10]) + "..."
                 await message.channel.send(
@@ -11206,7 +12800,11 @@ async def on_message(message):
             save_player_db(user_id, player)
             if already_defeated:
                 boss_level_to_world = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                                       109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+                                       209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+                                       309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+                                       409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+                                       509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
                 world_key = boss_level_to_world.get(target_level, 1)
                 world_data_lv = WORLDS.get(world_key, {})
                 world_name_lv = world_data_lv.get("name", "Reino " + str(target_level))
@@ -11250,7 +12848,7 @@ async def on_message(message):
             return
 
         # PRIORIDADE: Boss de level (se nível 9/19/29/39/49/59 e ainda não derrotou)
-        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
         boss_data = None
         is_level_boss = False
 
@@ -11317,7 +12915,7 @@ async def on_message(message):
             return
 
         # Bosses disponíveis nos níveis: 9, 19, 29, 39...
-        boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199]
+        boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599]
         if target_level not in boss_gate_levels:
             niveis_str = ", ".join(str(x) for x in boss_gate_levels[:10]) + "..."
             await message.channel.send(
@@ -11354,7 +12952,11 @@ async def on_message(message):
         if already_defeated:
             # Revanche — mesma vibe de desbloqueio de reino
             boss_level_to_world = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                                   109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190}
+                                   109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+                                   209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+                                   309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+                                   409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+                                   509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
             world_key = boss_level_to_world.get(target_level, 1)
             world_data = WORLDS.get(world_key, {})
             world_name = world_data.get("name", "Reino " + str(target_level))
@@ -12087,7 +13689,7 @@ async def on_message(message):
         e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
         e1.add_field(name="💪 Treinamento", value="`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`", inline=False)
         e1.add_field(name="🏆 Conquistas", value="`ver conquistas` | `alinhamento` | `ver títulos`", inline=False)
-        e1.add_field(name="🌟 Evoluções", value="Nível 40/80/120/160 — evolução automática com bônus escalonados!\nTier I ×1 → Tier II ×2.5 → Tier III ×5 → Tier IV ×10", inline=False)
+        e1.add_field(name="🌟 Evoluções", value="Nível 40/80/120/160/200/400/500 — evolução automática com bônus escalonados!\nTier I ×1 → Tier II ×2.5 → Tier III ×5 → Tier IV ×10 → Tier V ×20 → Tier VI ×50 → Tier VII ×100", inline=False)
         await message.channel.send(embed=e1)
         return
     if content in ["comandos 2"]:
@@ -12891,6 +14493,8 @@ async def on_message(message):
         if player.get("pet"):
             embed.add_field(name="🐉 Pet", value=player["pet"], inline=True)
         embed.add_field(name="🌍 Localização", value=f"{world['emoji']} **{world['name']}**", inline=False)
+        cycle_num, cycle_name, cycle_range = get_world_cycle(player['level'])
+        embed.add_field(name="🔄 Ciclo de Mundo", value=f"**Ciclo {cycle_num}** — {cycle_name}\n*{cycle_range}*", inline=False)
         embed.add_field(name="⚔️ Arma", value=player["weapon"] or "*Nenhuma*", inline=True)
         embed.add_field(name="🛡️ Armadura", value=player["armor"] or "*Nenhuma*", inline=True)
         embed.add_field(name="👹 Bosses Derrotados", value=f"`{len(player['bosses'])}`", inline=True)
@@ -15311,7 +16915,7 @@ async def handle_new_commands(message):
             return
         # encontrar boss NUNCA mostra bosses de level — apenas variantes do mundo
         # Bosses de level (9/19/29/39/49/59) só aparecem via check_level_boss/desafiar boss
-        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199}
+        boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
         if player["level"] in boss_gate_levels:
             boss_data_gate = get_level_boss(player["level"])
             if boss_data_gate and boss_data_gate["name"] not in player.get("bosses", []):
@@ -18255,8 +19859,7 @@ async def handle_confrontar_boss_level(message):
         return
 
     target_level = int(m.group(1))
-    boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99,
-                        109, 119, 129, 139, 149, 159, 169, 179, 189, 199]
+    boss_gate_levels = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599]
 
     if target_level not in boss_gate_levels:
         niveis_str = ", ".join(str(x) for x in boss_gate_levels[:10]) + "..."
@@ -18296,7 +19899,11 @@ async def handle_confrontar_boss_level(message):
 
     boss_level_to_world = {
         9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-        109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190
+        109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
+        209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
+        309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
+        409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
+        509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590
     }
     world_key = boss_level_to_world.get(target_level, 1)
     world_data = WORLDS.get(world_key, {})
