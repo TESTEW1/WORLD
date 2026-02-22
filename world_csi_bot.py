@@ -10598,9 +10598,7 @@ LEGENDARY_NPCS = {
 }
 
 def get_legendary_npc_for_player(player_level, current_world=None):
-    """Retorna o NPC lendário do reino atual do jogador.
-    Usa current_world (mundo atual) como chave direta.
-    Se não existir NPC exato para aquele reino, pega o mais próximo abaixo."""
+    """Retorna o NPC lendário do reino atual do jogador."""
     npc_keys = sorted(LEGENDARY_NPCS.keys())
     reino = current_world if current_world is not None else player_level
     best = npc_keys[0]
@@ -17005,12 +17003,17 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 if ap:
                     try:
                         au = await bot.fetch_user(int(ally_id))
+                        a_max_hp = ap.get("max_hp", 100)
+                        a_cur_hp = min(ap.get("hp", 100), a_max_hp)
                         ally_full_data.append({
                             "id": ally_id,
                             "name": au.display_name,
                             "class": ap.get("class", "Guerreiro"),
                             "level": ap.get("level", 1),
                             "atk": CLASSES.get(ap.get("class","Guerreiro"),{}).get("atk_bonus",5) + ap.get("level",1)*2,
+                            "max_hp": a_max_hp,
+                            "cur_hp": a_cur_hp,
+                            "alive": True,
                         })
                     except:
                         pass
@@ -17028,8 +17031,27 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     ]
 
     for turn in range(1, 10):
-        if p_cur_hp <= 0 or boss_cur_hp <= 0:
+        alive_ally_count = len([a for a in ally_full_data if a.get("alive", True)])
+        leader_alive = p_cur_hp > 0
+        # A batalha continua enquanto o boss não morreu E (líder vivo OU algum aliado ainda de pé)
+        if boss_cur_hp <= 0:
             break
+        if not leader_alive and alive_ally_count == 0:
+            break
+        # Se o líder caiu mas aliados continuam, narrar e continuar
+        if not leader_alive and alive_ally_count > 0:
+            survivor_names = ", ".join([a["name"] for a in ally_full_data if a.get("alive", True)])
+            fallen_embed = discord.Embed(
+                title=f"💀 {p_name} CAIU! OS ALIADOS CONTINUAM!",
+                description=(
+                    f"*{p_name} cai no chão, exausto e ferido...* \n\n"
+                    f"*Mas **{survivor_names}** não recua! A batalha ainda não acabou!*\n\n"
+                    f'**"Nós terminamos isso por você!"**'
+                ),
+                color=discord.Color.orange()
+            )
+            await channel.send(embed=fallen_embed)
+            await asyncio.sleep(2)
 
         # === VERIFICAR FASE DO BOSS ===
         boss_hp_pct = boss_cur_hp / boss_hp
@@ -17192,6 +17214,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         # === AÇÕES DOS ALIADOS (cada aliado age ativamente!) ===
         total_ally_dmg = 0
         for ally_data in ally_full_data:
+            if not ally_data.get("alive", True):
+                continue
             ally_cls = ally_data["class"]
             ally_actions = ALLY_CLASS_ACTIONS.get(ally_cls, ALLY_CLASS_ACTIONS["default"])
             ally_action_text, ally_mult = random.choice(ally_actions)
@@ -17354,6 +17378,17 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
             turn_embed.add_field(name=f"🔵 {boss_data['name']} contra-ataca!", value=b_action, inline=False)
 
+            # === BOSS ATACA ALIADOS TAMBÉM (dano reduzido) ===
+            for ally_data in ally_full_data:
+                if not ally_data["alive"]:
+                    continue
+                ally_splash = max(1, b_dmg_raw // 3 - CLASSES.get(ally_data["class"], {}).get("def_bonus", 3) - ally_data["level"] // 2)
+                ally_data["cur_hp"] = max(0, ally_data["cur_hp"] - ally_splash)
+                if ally_data["cur_hp"] <= 0:
+                    ally_data["alive"] = False
+                    fallen_ally_msg = f"💀 **{ally_data['name']}** foi derrubado pelo boss! *Caiu em batalha com honra...*"
+                    turn_embed.add_field(name="⚔️ Aliado Caído!", value=fallen_ally_msg, inline=False)
+
             # Companheiro lendário também absorve parte do dano do boss (10% do dano)
             if legendary_comp_data and legendary_comp_cur_hp > 0:
                 lc_splash = max(1, b_dmg // 10)
@@ -17415,8 +17450,23 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             lc_bar = make_hp_bar(lc_pct, "🟨") if lc_pct > 30 else make_hp_bar(lc_pct, "🟥")
             lc_status = "⚔️ Em batalha" if legendary_comp_cur_hp > 0 else "💔 Caído"
             status_text += f"\n{legendary_comp_data['emoji']} **{legendary_comp_data['name']}**: {lc_bar} `{max(0,legendary_comp_cur_hp):,}/{legendary_comp_hp:,}` ❤️ *({lc_status})*"
-        if ally_full_data and total_ally_dmg > 0:
-            status_text += f"\n⚔️ *Aliados causaram `{total_ally_dmg:,}` de dano adicional neste turno!*"
+        alive_allies = [a for a in ally_full_data if a.get("alive", True)]
+        fallen_allies = [a for a in ally_full_data if not a.get("alive", True)]
+        if ally_full_data:
+            for ally_data in ally_full_data:
+                a_pct = max(0, int(ally_data["cur_hp"] / ally_data["max_hp"] * 100)) if ally_data["max_hp"] > 0 else 0
+                if not ally_data.get("alive", True):
+                    ally_bar_str = "💀 CAÍDO"
+                elif a_pct > 60:
+                    ally_bar_str = make_hp_bar(a_pct, "🟩") + f" `{ally_data['cur_hp']}/{ally_data['max_hp']}` ❤️"
+                elif a_pct > 30:
+                    ally_bar_str = make_hp_bar(a_pct, "🟨") + f" `{ally_data['cur_hp']}/{ally_data['max_hp']}` ❤️"
+                else:
+                    ally_bar_str = make_hp_bar(a_pct, "🟥") + f" `{ally_data['cur_hp']}/{ally_data['max_hp']}` ❤️"
+                cls_em = CLASSES.get(ally_data["class"], {}).get("emoji", "⚔️")
+                status_text += f"\n{cls_em} **{ally_data['name']}**: {ally_bar_str}"
+            if total_ally_dmg > 0:
+                status_text += f"\n⚔️ *Aliados causaram `{total_ally_dmg:,}` de dano adicional neste turno!*"
 
         # Mensagem de alerta de HP baixo
         if p_pct <= 20:
@@ -17431,8 +17481,9 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # ---- Battle result ----
     await asyncio.sleep(1)
 
-    if p_cur_hp <= 0 or (boss_cur_hp > 0 and p_cur_hp <= 0):
-        # === DERROTA ===
+    alive_at_end = len([a for a in ally_full_data if a.get("alive", True)])
+    if boss_cur_hp > 0 and p_cur_hp <= 0 and alive_at_end == 0:
+        # === DERROTA — líder E todos os aliados caíram ===
         result, xp_loss = remove_xp(user_id, random.randint(80, 150))
         boss_taunt = BOSS_VICTORY_TAUNTS.get(boss_data["name"], BOSS_VICTORY_TAUNTS["default"])
         defeat_descs = [
@@ -17465,6 +17516,22 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         return
 
     # === VITÓRIA ===
+    # Verificar se o líder caiu mas os aliados venceram por ele
+    leader_fell_but_won = p_cur_hp <= 0 and boss_cur_hp <= 0
+    if leader_fell_but_won and ally_full_data:
+        survivor_names = ", ".join([a["name"] for a in ally_full_data if a.get("alive", True)])
+        hero_embed = discord.Embed(
+            title="🏆 VITÓRIA DOS ALIADOS!",
+            description=(
+                f"*{p_name} caiu durante a batalha, mas seus aliados se recusaram a recuar...*\n\n"
+                f"**{survivor_names}** lutou até o fim e derrubou **{boss_data['name']}** pelo seu líder!\n\n"
+                f'*"A vitória pertence a todos nós. Mesmo os que caíram."*'
+            ),
+            color=discord.Color.gold()
+        )
+        await channel.send(embed=hero_embed)
+        await asyncio.sleep(1)
+
     xp = boss_data["xp"] + (player["level"] * 10)
     coins = random.randint(boss_data["coins"][0], boss_data["coins"][1])
 
@@ -20215,8 +20282,64 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu2.set_footer(text="World CSI Bot — Expansão Raças & Classes | 40 raças • 40 classes • 6 ciclos | Página 2/2")
+        e_atu2.set_footer(text="World CSI Bot — Expansão Raças & Classes | 40 raças • 40 classes • 6 ciclos | Página 2/3")
         await message.channel.send(embed=e_atu2)
+
+        e_atu3 = discord.Embed(
+            title="🔧 ATUALIZAÇÃO — Correções & Melhorias (Página 3/3)",
+            description=(
+                "*O Ferreiro do Reino bate o martelo três vezes — sinal de que algo foi consertado...*\n\n"
+                "**\"O mundo não apenas cresceu. Ele foi corrigido. Aprimorado. Polido.\"**\n\n"
+                "**Patch:** Correções & QoL — Fevereiro 2026"
+            ),
+            color=0x2ECC71
+        )
+        e_atu3.add_field(
+            name="🐛 Correção Crítica — Sistema de Salvamento",
+            value=(
+                "Foi corrigido um bug grave que impedia **todos os comandos** de funcionar.\n\n"
+                "O banco de dados tinha um campo a mais (`legendary_companion`) sem o respectivo "
+                "placeholder no SQL, causando erro toda vez que dados de jogador eram salvos — "
+                "explorar, caçar, ganhar XP, tudo travava.\n\n"
+                "✅ **Corrigido:** `save_player_db` agora salva todos os 57 campos corretamente."
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="🌟 Melhoria — Botão para Aceitar Quest Lendária",
+            value=(
+                "Ao encontrar um NPC lendário explorando, agora aparecem **dois botões** na mensagem:\n\n"
+                "🟢 **Aceitar Quest Lendária!** — aceita e inicia na hora\n"
+                "⚫ **Ignorar** — dispensa o encontro\n\n"
+                "Os botões expiram em **2 minutos** e só o dono pode clicar."
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="🗺️ Melhoria — NPCs Lendários por Reino",
+            value=(
+                "Cada NPC lendário agora aparece **exclusivamente no seu reino correspondente**.\n\n"
+                "Antes o NPC era escolhido com margem imprecisa de nível. "
+                "Agora usa o **reino atual** do jogador como referência direta.\n\n"
+                "✅ Encontros mais imersivos e fiéis ao lore de cada região."
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="⚔️ Melhoria — Aliados com HP na Batalha de Boss",
+            value=(
+                "Aliados e membros de guilda agora têm **barras de HP individuais** na batalha!\n\n"
+                "• Cada aliado pode **cair em batalha** se receber dano demais do boss\n"
+                "• Se o **líder cair mas aliados ainda estiverem de pé**, a batalha continua\n"
+                "• Os aliados sobreviventes podem **vencer pelo líder** caído\n"
+                "• Mensagem especial de vitória quando os aliados salvam o líder!\n\n"
+                "✅ Batalhas em grupo muito mais dinâmicas e épicas."
+            ),
+            inline=False
+        )
+        e_atu3.set_footer(text="World CSI Bot — Patch Correções & QoL | Página 3/3")
+        await message.channel.send(embed=e_atu3)
+
         return
 
     # ======================================================
