@@ -22,6 +22,9 @@ DB_FILE = "world_csi.db"
 CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 
+# Cooldowns em memória (resetam ao reiniciar — intencional para anti-spam)
+EXPLORE_COOLDOWNS = {}   # {user_id: timestamp}
+
 # ================= CLASSES =================
 CLASSES = {
     "Guerreiro": {
@@ -8866,6 +8869,45 @@ def init_db():
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
 
+    # Tabela para persistir canais de mundo próprio entre reinicializações
+    c.execute('''CREATE TABLE IF NOT EXISTS mundo_proprio_channels (
+        user_id TEXT PRIMARY KEY,
+        channel_id INTEGER NOT NULL
+    )''')
+
+    conn.commit()
+    conn.close()
+
+
+def load_mundo_proprio_channels():
+    """Carrega os canais de mundo próprio do banco de dados."""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    try:
+        c.execute("SELECT user_id, channel_id FROM mundo_proprio_channels")
+        rows = c.fetchall()
+        conn.close()
+        return {row[0]: row[1] for row in rows}
+    except:
+        conn.close()
+        return {}
+
+
+def save_mundo_proprio_channel(user_id: str, channel_id: int):
+    """Salva ou atualiza um canal de mundo próprio no banco."""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("INSERT OR REPLACE INTO mundo_proprio_channels (user_id, channel_id) VALUES (?, ?)",
+              (str(user_id), channel_id))
+    conn.commit()
+    conn.close()
+
+
+def delete_mundo_proprio_channel(user_id: str):
+    """Remove um canal de mundo próprio do banco."""
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("DELETE FROM mundo_proprio_channels WHERE user_id = ?", (str(user_id),))
     conn.commit()
     conn.close()
 
@@ -13339,6 +13381,11 @@ async def on_ready():
     print(f"🎮 {bot.user} está online!")
     print(f"📊 Servidores: {len(bot.guilds)}")
 
+    # Restaurar canais de mundo próprio do banco de dados
+    global MUNDO_PROPRIO_CHANNELS
+    MUNDO_PROPRIO_CHANNELS.update(load_mundo_proprio_channels())
+    print(f"🌍 {len(MUNDO_PROPRIO_CHANNELS)} canais de mundo próprio restaurados.")
+
     if not random_world_events.is_running():
         random_world_events.start()
     if not weather_change_loop.is_running():
@@ -14881,11 +14928,21 @@ async def on_message(message):
     # ======================================================
     # ================= EXPLORAR ===========================
     # ======================================================
-    if any(word in content for word in ["explorar", "vou explorar", "andar", "caminhar", "vou para"]):
+    if any(content == word for word in ["explorar", "vou explorar", "andar", "caminhar"]) or content.startswith("vou para "):
         player = get_player(user_id)
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
+
+        # Cooldown de 20 segundos para evitar spam
+        last_explore = EXPLORE_COOLDOWNS.get(user_id, 0)
+        now_ts = time.time()
+        cooldown = 20
+        if now_ts - last_explore < cooldown:
+            rest = int(cooldown - (now_ts - last_explore))
+            await message.channel.send(f"⏳ **Aguarde {rest}s** antes de explorar novamente!")
+            return
+        EXPLORE_COOLDOWNS[user_id] = now_ts
 
         world = get_world(player["level"], player)
         roll = roll_with_bonus(player)
@@ -19020,8 +19077,9 @@ async def handle_admin_levelup(message):
     """
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
-        return
+    if message.guild and message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        if message.author.id != ADMIN_ID:
+            return
     if message.author.id != ADMIN_ID:
         return
 
@@ -19118,11 +19176,18 @@ async def handle_admin_commands(message):
     !resetar @user             → reseta o personagem
     !ver @user                 → ver perfil completo do jogador
     !xp @user 1000             → dá XP ao usuário
+    !admin explorar @user      → força exploração para o jogador
+    !admin dar classe @user [classe] → define classe do jogador
+    !admin dar raça @user [raça]     → define raça do jogador
+    !admin curar @user         → cura totalmente o jogador
     """
     if message.author.bot:
         return
-    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
-        return
+    # Admin pode usar comandos em qualquer canal do servidor ou DM
+    if message.guild and message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        # Permitir admin em qualquer canal do mesmo servidor
+        if message.author.id != ADMIN_ID:
+            return
     if message.author.id != ADMIN_ID:
         return
 
@@ -19390,8 +19455,182 @@ async def handle_admin_commands(message):
         embed.add_field(name="💰 Economia", value="`!coins @user [N]` — adiciona coins\n`!xp @user [N]` — adiciona XP", inline=False)
         embed.add_field(name="🎒 Itens", value="`!item @user [nome]` — add item ao inventário\n`!equipar @user [arma]` — equipa arma\n`!armadura @user [armadura]` — equipa armadura", inline=False)
         embed.add_field(name="👤 Perfil", value="`!ver @user` — ver perfil completo\n`!resetar @user` — resetar personagem", inline=False)
-        embed.set_footer(text="Comandos exclusivos do administrador")
+        embed.add_field(name="⚔️ Extras", value="`!admin explorar @user` — explorar pelo jogador\n`!admin curar @user` — cura total\n`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça\n`!admin coins todos [N]` — dá coins a todos os jogadores", inline=False)
+        embed.set_footer(text="Comandos exclusivos do administrador — funcionam em qualquer canal")
         await message.channel.send(embed=embed)
+
+    # ── !admin explorar @user ────────────────────────────────────────
+    elif content_lower.startswith("!admin explorar"):
+        if not message.mentions:
+            await message.channel.send("❌ Uso: `!admin explorar @user`")
+            return
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
+            return
+        world = get_world(player["level"], player)
+        roll = random.randint(6, 10)  # Admin sempre garante bom resultado
+        xp = random.randint(80, 160)
+        resources = random.sample(world["resources"], min(2, len(world["resources"])))
+        coins_gain = random.randint(30, 80)
+        for r in resources:
+            player["inventory"].append(r)
+        save_player_db(str(target.id), player)
+        leveled = add_xp(str(target.id), xp)
+        add_coins(str(target.id), coins_gain)
+        player_after = get_player(str(target.id))
+        items_text = " | ".join([f"**{r}**" for r in resources])
+        embed = discord.Embed(
+            title=f"⚡ ADMIN EXPLORAÇÃO — {target.display_name}",
+            description=f"*Exploração forçada pelo administrador em {world['name']}*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="📦 Recursos", value=items_text, inline=False)
+        embed.add_field(name="⭐ XP", value=f"+{xp}", inline=True)
+        embed.add_field(name="💰 Coins", value=f"+{coins_gain}", inline=True)
+        if leveled:
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{player_after['level']}**!", inline=False)
+        embed.set_footer(text="Comando exclusivo do administrador")
+        await message.channel.send(embed=embed)
+
+    # ── !admin curar @user ───────────────────────────────────────────
+    elif content_lower.startswith("!admin curar"):
+        if not message.mentions:
+            await message.channel.send("❌ Uso: `!admin curar @user`")
+            return
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
+            return
+        player["hp"] = player["max_hp"]
+        player["mana"] = player["max_mana"]
+        save_player_db(str(target.id), player)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="💚 ADMIN — Cura Total",
+                description=f"**{target.display_name}** foi curado completamente!\n❤️ HP: `{player['hp']}/{player['max_hp']}` | 💙 Mana: `{player['mana']}/{player['max_mana']}`",
+                color=discord.Color.green()
+            )
+        )
+
+    # ── !admin dar classe @user [classe] ────────────────────────────
+    elif content_lower.startswith("!admin dar classe"):
+        if not message.mentions:
+            await message.channel.send("❌ Uso: `!admin dar classe @user [nome da classe]`")
+            return
+        target = message.mentions[0]
+        # Pegar o nome da classe (depois do @mention)
+        raw = content.replace("!admin dar classe", "").strip()
+        for mention_str in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mention_str, "").strip()
+        class_name = raw.strip()
+        if not class_name:
+            classes_list = ", ".join(CLASSES.keys())
+            await message.channel.send(f"❌ Informe a classe. Classes disponíveis:\n`{classes_list}`")
+            return
+        # Busca case-insensitive
+        found_class = None
+        for cn in CLASSES.keys():
+            if class_name.lower() == cn.lower():
+                found_class = cn
+                break
+        if not found_class:
+            # Busca parcial
+            for cn in CLASSES.keys():
+                if class_name.lower() in cn.lower():
+                    found_class = cn
+                    break
+        if not found_class:
+            await message.channel.send(f"❌ Classe `{class_name}` não encontrada. Use `!admin` para ver os comandos.")
+            return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
+            return
+        player["class"] = found_class
+        cd = CLASSES[found_class]
+        player["max_hp"] = player["max_hp"] + cd["hp_bonus"]
+        player["hp"] = player["max_hp"]
+        save_player_db(str(target.id), player)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="🎭 ADMIN — Classe Definida",
+                description=f"**{target.display_name}** agora é **{cd['emoji']} {found_class}**!",
+                color=discord.Color.purple()
+            )
+        )
+
+    # ── !admin dar raça @user [raça] ────────────────────────────────
+    elif content_lower.startswith("!admin dar raça") or content_lower.startswith("!admin dar raca"):
+        if not message.mentions:
+            await message.channel.send("❌ Uso: `!admin dar raça @user [nome da raça]`")
+            return
+        target = message.mentions[0]
+        raw = content.lower().replace("!admin dar raça", "").replace("!admin dar raca", "").strip()
+        for mention_str in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mention_str, "").strip()
+        race_name = raw.strip()
+        if not race_name:
+            races_list = ", ".join(RACES.keys())
+            await message.channel.send(f"❌ Informe a raça. Raças disponíveis:\n`{races_list}`")
+            return
+        found_race = None
+        for rn in RACES.keys():
+            if race_name.lower() == rn.lower():
+                found_race = rn
+                break
+        if not found_race:
+            for rn in RACES.keys():
+                if race_name.lower() in rn.lower():
+                    found_race = rn
+                    break
+        if not found_race:
+            await message.channel.send(f"❌ Raça `{race_name}` não encontrada.")
+            return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
+            return
+        player["race"] = found_race
+        rd = RACES[found_race]
+        player["max_hp"] = player["max_hp"] + rd["hp_bonus"]
+        player["hp"] = player["max_hp"]
+        save_player_db(str(target.id), player)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="🧬 ADMIN — Raça Definida",
+                description=f"**{target.display_name}** agora é **{rd['emoji']} {found_race}**!\n{rd['description']}",
+                color=discord.Color.teal()
+            )
+        )
+
+    # ── !admin coins todos [N] ───────────────────────────────────────
+    elif content_lower.startswith("!admin coins todos"):
+        parts = content.split()
+        try:
+            amount = int(parts[-1])
+        except (ValueError, IndexError):
+            await message.channel.send("❌ Uso: `!admin coins todos 500`")
+            return
+        conn_a = sqlite3.connect(DB_FILE)
+        c_a = conn_a.cursor()
+        c_a.execute("SELECT user_id FROM players")
+        all_uids = [row[0] for row in c_a.fetchall()]
+        conn_a.close()
+        for puid in all_uids:
+            p = get_player(puid)
+            if p:
+                p["coins"] += amount
+                save_player_db(puid, p)
+        await message.channel.send(
+            embed=discord.Embed(
+                title="💰 ADMIN — Coins Para Todos",
+                description=f"**{len(all_uids)} jogadores** receberam `{amount:,}` CSI coins cada!",
+                color=discord.Color.gold()
+            )
+        )
 # Desafios pendentes: {challenger_id: {"target_id": ..., "pet_name": ..., "timestamp": ...}}
 PET_BATTLE_CHALLENGES = {}
 
@@ -19996,8 +20235,9 @@ async def handle_mundo_proprio(message):
                 await message.channel.send(f"🌍 {message.author.mention} Você já tem um mundo próprio: {ch.mention}!")
                 return
             else:
-                # Canal foi deletado, limpar do dicionário
+                # Canal foi deletado, limpar do dicionário e banco
                 del MUNDO_PROPRIO_CHANNELS[uid]
+                delete_mundo_proprio_channel(uid)
 
         # Categoria: ╭━━━━━✦Monstrinho (ID: 1471273874204397578)
         CATEGORIA_ID = 1471273874204397578
@@ -20042,6 +20282,7 @@ async def handle_mundo_proprio(message):
                 )
 
             MUNDO_PROPRIO_CHANNELS[uid] = novo_canal.id
+            save_mundo_proprio_channel(uid, novo_canal.id)  # Persistir no banco
 
             embed = discord.Embed(
                 title="🌍 SEU MUNDO FOI CRIADO!",
