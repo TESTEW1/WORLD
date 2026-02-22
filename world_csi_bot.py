@@ -12166,108 +12166,208 @@ async def send_prologue(guild):
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 2 — Os 4 Ciclos de Mundo
+    # EMBED 2 — Capítulos do Mundo (lista de reinos)
     # ══════════════════════════════════════════
     embed2 = discord.Embed(
-        title="🔄 Os Seis Ciclos do Mundo",
-        description="*O Narrador desdobra um mapa que parece infinito...*",
+        title="📜 Os Capítulos do Mundo",
+        description="*O Narrador abre o grande livro do destino... cada página um reino diferente.*",
         color=0x1a0033
     )
     embed2.add_field(
-        name="🌱 Ciclo 1 — Terras Iniciais (Nível 1–100)",
+        name="✦ ─────── 📖 CAPÍTULO I ─────── ✦\n🌿 Terras Iniciais  •  Reinos 1 – 10  •  Nível 1–100",
         value=(
-            "*\"Aqui nasceram os primeiros heróis. Dez reinos forjados de luta e esperança.\"*\n\n"
-            "**10 reinos** | **10 bosses obrigatórios** (níveis 9, 19... 99)\n"
-            "Das planícies mais humildes até os primeiros portais da aventura.\n"
-            "▸ **Chave Antiga** 🗝️ para dungeons secretas"
+            "🌱 **Reino 1** — Campos Iniciais\n"
+            "🌲 **Reino 2** — Floresta Sombria\n"
+            "🏜️ **Reino 3** — Deserto das Almas\n"
+            "❄️ **Reino 4** — Montanhas Geladas\n"
+            "🌋 **Reino 5** — Reino Vulcânico\n"
+            "🌌 **Reino 6** — Abismo Arcano\n"
+            "👑 **Reino 7** — Trono Celestial\n"
+            "🌿 **Reino 8** — Pântano das Almas Perdidas\n"
+            "💎 **Reino 9** — Floresta Cristalina\n"
+            "🌑 **Reino 10** — Reino das Sombras Eternas\n"
+            "🗝️ *Chave Antiga desbloqueia as dungeons secretas*"
         ),
         inline=False
     )
     embed2.add_field(
-        name="⚔️ Ciclo 2 — Nações Intermediárias (Nível 101–200)",
+        name="✦ ─────── 📖 CAPÍTULO II ─────── ✦\n⚔️ Nações Intermediárias  •  Reinos 11 – 20  •  Nível 101–200",
         value=(
-            "*\"As nações crescem, os inimigos ficam mais astutos. O mundo começa a revelar seus segredos.\"*\n\n"
-            "**10 reinos** | **10 bosses** (níveis 109, 119... 199)\n"
-            "Civilizações complexas, política, magia avançada e ameaças interdimensionais.\n"
-            "▸ **Chave Arcana** 🔑 para dungeons secretas"
+            "⚡ **Reino 11** — Planícies do Trovão\n"
+            "🗿 **Reino 12** — Terra dos Gigantes\n"
+            "🌊 **Reino 13** — Mar das Almas\n"
+            "🌀 **Reino 14** — Reino do Caos\n"
+            "🌸 **Reino 15** — Jardim dos Deuses\n"
+            "🧊 **Reino 16** — Reino do Gelo Eterno\n"
+            "🏛️ **Reino 17** — Ruínas da Civilização Perdida\n"
+            "✨ **Reino 18** — Plano Astral\n"
+            "🌌 **Reino 19** — Além da Existência\n"
+            "⭐ **Reino 20** — O Trono Primordial\n"
+            "🔑 *Chave Arcana desbloqueia as dungeons secretas*"
         ),
         inline=False
     )
-    embed2.add_field(
-        name="🏛️ Ciclo 3 — Impérios Avançados (Nível 201–300)",
-        value=(
-            "*\"O mortal deixa de ser mortal. Impérios que dobram a realidade ao seu redor.\"*\n\n"
-            "**10 reinos** | **10 bosses** (níveis 209, 219... 299)\n"
-            "Impérios ancestrais, poderes cósmicos, dungeons lendárias e lore profunda.\n"
-            "▸ **Chave Sombria** 🗡️ para dungeons secretas"
-        ),
-        inline=False
-    )
-    embed2.add_field(
-        name="🩸 Ciclo 4 — Terras Corrompidas & Reinos Dimensionais (Nível 301–400)",
-        value=(
-            "*\"A corrupção não é inimiga — é apenas outra forma de poder.\"*\n\n"
-            "**5 Terras Corrompidas** + **5 Reinos Dimensionais** | **10 bosses** (309–399)\n"
-            "Terras corrompidas com efeitos ambientais, criaturas únicas e Bosses Dimensionais.\n"
-            "▸ **Chave Sombria** 🗡️ (corrompidas) | **Chave Celestial** ✨ (dimensionais)\n"
-            "▸ Bosses Dimensionais liberam **sistemas novos** (passivas globais, slots extras)"
-        ),
-        inline=False
-    )
-    embed2.add_field(
-        name="🌌 Ciclo 5 — As Cinco Dimensões (Nível 401–500)",
-        value=(
-            "*\"Transcendeste o mortal, o corrompido, o dimensional. Agora as Dimensões Verdadeiras aguardam.\"*\n\n"
-            "🕊️ Dimensão Celestial (Céu) | 🔥 Dimensão Infernal (Inferno)\n"
-            "🌪️ Dimensão das Badlands | 🌑 Dimensão Abissal | 🌀 Dimensão do Vazio\n"
-            "Bosses Dimensionais • Criaturas únicas • Efeitos ambientais • Dungeons secretas dimensionais\n"
-            "▸ **Chave Celestial** ✨ / **Chave Abissal** 🌑 • NPCs Transcendentais"
-        ),
-        inline=False
-    )
-    embed2.add_field(
-        name="♾️ Ciclo 6 — Planos Absolutos (Nível 501–600)",
-        value=(
-            "*\"Além daqui não há mais nomes. Há apenas... o Absoluto.\"*\n\n"
-            "**Bosses** (níveis 509, 519... 599) | Raridades: Divino, Primordial, Absoluto\n"
-            "Trevas absolutas, luz absoluta, a Chama Eterna e o Vazio além do Vazio.\n"
-            "▸ **Nível 600** — O Absoluto Final. O fim da jornada."
-        ),
-        inline=False
-    )
-    embed2.set_footer(text="40 reinos • 5 dimensões • 6 ciclos • Level máximo 600")
     await channel.send(embed=embed2)
     await asyncio.sleep(2)
 
+    embed2b = discord.Embed(
+        title="📜 Os Capítulos do Mundo — Continuação",
+        description="*O livro continua... as páginas ficam mais densas e pesadas...*",
+        color=0x2d0a4e
+    )
+    embed2b.add_field(
+        name="✦ ─────── 📖 CAPÍTULO III ─────── ✦\n🏛️ Impérios Avançados  •  Reinos 21 – 30  •  Nível 201–300",
+        value=(
+            "🔱 **Reino 21** — Reinos Mortais — Ápice\n"
+            "⚡ **Reino 22** — Reinos Avançados — Despertar\n"
+            "🌀 **Reino 23** — Vórtice dos Reinos\n"
+            "🏔️ **Reino 24** — Montanhas do Além\n"
+            "🌊 **Reino 25** — Oceano Dimensional\n"
+            "🔥 **Reino 26** — Forjas do Caos\n"
+            "❄️ **Reino 27** — Tundra Absoluta\n"
+            "⚗️ **Reino 28** — Alquimia das Eras\n"
+            "🌌 **Reino 29** — Galáxia Interior\n"
+            "⚖️ **Reino 30** — Tribunal do Cosmo\n"
+            "🗡️ *Chave Sombria desbloqueia as dungeons secretas*"
+        ),
+        inline=False
+    )
+    embed2b.add_field(
+        name="✦ ─────── 📖 CAPÍTULO IV ─────── ✦\n🩸 Terras Corrompidas  •  Reinos 31 – 35  •  Nível 301–350",
+        value=(
+            "🗡️ **Reino 31** — Arena dos Deuses Menores\n"
+            "👁️ **Reino 32** — O Olho do Multiverso\n"
+            "🔮 **Reino 33** — Plano Astral Inferior\n"
+            "💎 **Reino 34** — Fortaleza de Cristal\n"
+            "🌑 **Reino 35** — Lua Negra\n"
+            "🗡️ *Chave Sombria desbloqueia as dungeons secretas*"
+        ),
+        inline=False
+    )
+    embed2b.add_field(
+        name="✦ ─────── 📖 CAPÍTULO V ─────── ✦\n🌀 Reinos Dimensionais  •  Reinos 36 – 40  •  Nível 351–400",
+        value=(
+            "☄️ **Reino 36** — Cemitério de Estrelas\n"
+            "🌞 **Reino 37** — Coração Solar\n"
+            "🕳️ **Reino 38** — Buraco Negro Vivo\n"
+            "🌐 **Reino 39** — Nexo das Dimensões\n"
+            "⚡ **Reino 40** — Tempestade Interdimensional\n"
+            "✨ *Chave Celestial desbloqueia as dungeons secretas*\n"
+            "💥 *Bosses Dimensionais liberam passivas globais e slots extras!*"
+        ),
+        inline=False
+    )
+    await channel.send(embed=embed2b)
+    await asyncio.sleep(2)
+
+    embed2c = discord.Embed(
+        title="📜 Os Capítulos do Mundo — As Dimensões & O Absoluto",
+        description="*A última parte do livro brilha com uma luz que não deveria existir...*",
+        color=0x0a0a2e
+    )
+    embed2c.add_field(
+        name="✦ ─────── 📖 CAPÍTULO VI ─────── ✦\n🌌 As Cinco Dimensões  •  Nível 401–500",
+        value=(
+            "🕊️ **Dimensão Celestial** — O Céu em pessoa\n"
+            "   ✦ *Buff sagrado passivo • NPCs Transcendentais • Dungeons divinas*\n"
+            "🔥 **Dimensão Infernal** — O Inferno ardente\n"
+            "   ✦ *Dano contínuo • Criaturas do abismo • Drops míticos*\n"
+            "🌪️ **Dimensão das Badlands** — Terra devastada caótica\n"
+            "   ✦ *Caos aleatório • Eventos imprevisíveis*\n"
+            "🌑 **Dimensão Abissal** — O Abismo primordial\n"
+            "   ✦ *Debuff de sanidade • Horrores primordiais*\n"
+            "🌀 **Dimensão do Vazio** — O Nada consciente\n"
+            "   ✦ *Distorção da realidade • Stats alterados aleatoriamente*\n"
+            "🌑 *Chave Abissal desbloqueia as dungeons secretas dimensionais*"
+        ),
+        inline=False
+    )
+    embed2c.add_field(
+        name="✦ ─────── 📖 CAPÍTULO VII ─────── ✦\n♾️ Planos Absolutos  •  Nível 501–600",
+        value=(
+            "🔱 **Limiar** — Planos Absolutos — Limiar\n"
+            "🌑 **Trevas Absolutas** — Escuridão que devora tudo\n"
+            "🌟 **Luz Absoluta** — Brilho que cega eternamente\n"
+            "⚖️ **Equilíbrio Primordial** — A balança do universo\n"
+            "🔥 **Chama Eterna** — A chama que criou o universo\n"
+            "🌊 **Oceano Primordial** — O oceano que precedeu tudo\n"
+            "💨 **Vento do Fim dos Tempos** — O sopro do fim\n"
+            "⚡ **Trovão da Origem** — O primeiro trovão\n"
+            "🌌 **Vazio Além do Vazio** — O nada além do nada\n"
+            "♾️ **O Plano Absoluto Final** — O fim e o começo de tudo\n"
+            "🌑 *Chave Abissal desbloqueia os segredos finais*"
+        ),
+        inline=False
+    )
+    embed2c.set_footer(text="🏰 40 reinos • 🌌 5 dimensões • 📖 7 capítulos • ⚔️ Level máximo 600")
+    await channel.send(embed=embed2c)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
     # ══════════════════════════════════════════
     # EMBED 3 — Os Reinos Mortais (Ciclo 1)
     # ══════════════════════════════════════════
     embed3 = discord.Embed(
-        title="🗺️ Ciclo 1 & 2 — Terras Iniciais e Nações Intermediárias",
-        description="*O pergaminho se desenrola revelando as primeiras terras dos aventureiros...*",
-        color=0x8B4513
-    )
-    embed3.add_field(
-        name="🌱 Terras Iniciais (Reinos 1–10 | Nível 1–100)",
-        value=(
+        title="📗 Capítulo I — Terras Iniciais",
+        description=(
+            "*O pergaminho se abre revelando as primeiras terras do mundo...*\n\n"
             "*\"Todo herói começa aqui. O guerreiro mais poderoso começou matando um slime.\"*\n"
             "— Historiador Pell\n\n"
-            "Dez reinos de aprendizado: planícies, florestas, desertos, montanhas e abismos.\n"
-            "Cada reino tem cidade principal, 4–6 áreas exploráveis, dungeons e 1 Boss de Level.\n"
-            "🗝️ **Chave Antiga** desbloqueia as dungeons secretas destas terras."
+            "> 🗝️ **Chave Antiga** destranca as masmorras secretas destas terras"
         ),
+        color=0x2ecc40
+    )
+    embed3.add_field(
+        name="🌱 Reino 1 — Campos Iniciais  ·  nível 1–9",
+        value="Planícies abertas onde a aventura começa. O Slime Rei guarda os primeiros segredos.",
         inline=False
     )
     embed3.add_field(
-        name="⚔️ Nações Intermediárias (Reinos 11–20 | Nível 101–200)",
-        value=(
-            "As nações crescem em poder e complexidade. Inimigos com táticas e magia avançada.\n"
-            "Políticas, alianças e guerras moldam o cenário além de simples combate.\n"
-            "🔑 **Chave Arcana** desbloqueia as dungeons secretas destas nações."
-        ),
+        name="🌲 Reino 2 — Floresta Sombria  ·  nível 10–19",
+        value="A floresta **respira e lembra** tudo. Goblins e lobos negros habitam suas sombras.",
         inline=False
     )
-    embed3.set_footer(text="Ciclos 1–2: 20 reinos • 20 bosses obrigatórios • Use `mapa` e `mapa 2` para explorar")
+    embed3.add_field(
+        name="🏜️ Reino 3 — Deserto das Almas  ·  nível 20–29",
+        value="O deserto guarda um jardim perdido sob a areia. A Grande Pirâmide aguarda os corajosos.",
+        inline=False
+    )
+    embed3.add_field(
+        name="❄️ Reino 4 — Montanhas Geladas  ·  nível 30–39",
+        value="O frio não é inimigo — é teste. O Yeti Colossal vigia os picos mais altos.",
+        inline=False
+    )
+    embed3.add_field(
+        name="🌋 Reino 5 — Terras Vulcânicas  ·  nível 40–49",
+        value="O fogo **transforma, não destrói**. O Dragão de Magma dorme nas profundezas.",
+        inline=False
+    )
+    embed3.add_field(
+        name="🌌 Reino 6 — Abismo Arcano  ·  nível 50–59",
+        value="Onde toda magia nasce e morre. O Olho do Abismo observa cada feitiço lançado.",
+        inline=False
+    )
+    embed3.add_field(
+        name="👑 Reino 7 — Trono Celestial  ·  nível 60–69",
+        value="Aquele que chegar não será mais mortal. O Querubim Corrompido protege o trono.",
+        inline=False
+    )
+    embed3.add_field(
+        name="🌿 Reino 8 — Pântanos de Morthak  ·  nível 70–79",
+        value="Almas presas na lama sussurram segredos. O Senhor das Sombras reina aqui.",
+        inline=False
+    )
+    embed3.add_field(
+        name="💎 Reino 9 — Floresta Cristalina  ·  nível 80–89",
+        value="Cristais refletem versões suas que não sobreviveram. Beleza e perigo em equilíbrio.",
+        inline=False
+    )
+    embed3.add_field(
+        name="🌑 Reino 10 — Sombras Eternas  ·  nível 90–99",
+        value="Escuridão que **sabe seu nome**. O Rei das Sombras Eternas aguarda no fim.",
+        inline=False
+    )
+    embed3.set_footer(text="📗 Capítulo I completo | Use 'mapa' para explorar • 'mapa 2' → Capítulo II")
     await channel.send(embed=embed3)
     await asyncio.sleep(2)
 
@@ -12275,58 +12375,263 @@ async def send_prologue(guild):
     # EMBED 4 — Os Novos Ciclos (2, 3, 4)
     # ══════════════════════════════════════════
     embed4 = discord.Embed(
-        title="🌌 Ciclos 3–6 — Além da Compreensão Mortal",
+        title="📘 Capítulo II — Nações Intermediárias",
         description=(
-            "*Um segundo mapa aparece por baixo do primeiro — e outros ainda por baixo...*\n\n"
-            "*\"Acreditávamos que as Nações Intermediárias eram o fim. Estávamos completamente errados.\"*\n"
-            "— Última anotação do Explorador Maren, antes de desaparecer"
+            "*Um segundo mapa aparece por baixo do primeiro...*\n\n"
+            "*\"Acreditávamos que as Terras Iniciais eram o fim. Estávamos completamente errados.\"*\n"
+            "— Última anotação do Explorador Maren, antes de desaparecer\n\n"
+            "> 🔑 **Chave Arcana** destranca as masmorras secretas destas nações"
         ),
-        color=0x0a0a2e
+        color=0x3498db
     )
     embed4.add_field(
-        name="🏛️ Impérios Avançados (Reinos 21–30 | Nível 201–300)",
-        value=(
-            "*\"Impérios que curvam a realidade. Poderes que transcendem o entendimento mortal.\"*\n\n"
-            "Dez reinos onde cada rei é um deus menor. Dungeons lendárias e lore profunda.\n"
-            "🗡️ **Chave Sombria** desbloqueia as dungeons secretas dos Impérios."
-        ),
+        name="⚡ Reino 11 — Planícies do Trovão  ·  nível 100–109",
+        value="Relâmpagos que são criaturas vivas. Zeus Menor, o Trovejante, comanda as tempestades.",
         inline=False
     )
     embed4.add_field(
-        name="🩸 Terras Corrompidas & Reinos Dimensionais (Reinos 31–40 | Nível 301–400)",
-        value=(
-            "*\"A corrupção revelou o que estava escondido. Os Reinos Dimensionais abrem portais para o inexplicável.\"*\n\n"
-            "5 Terras Corrompidas com **efeitos ambientais** (dano contínuo, debuff de sanidade) +\n"
-            "5 Reinos Dimensionais com portais, criaturas únicas e **Bosses Dimensionais**.\n"
-            "▸ Bosses Dimensionais liberam **habilidades passivas globais** e **slots extras** de pet/equipamento!\n"
-            "🗡️ Chave Sombria (corrompidas) | ✨ **Chave Celestial** (dimensionais)"
-        ),
+        name="🗿 Reino 12 — Terra dos Gigantes  ·  nível 110–119",
+        value="Montanhas que são costas de gigantes dormindo. O Primeiro Gigante Primordial acorda com raiva.",
         inline=False
     )
     embed4.add_field(
-        name="🌌 As Cinco Dimensões (Nível 401–500)",
-        value=(
-            "*\"O verdadeiro poder não estava nos reinos. Estava além deles.\"*\n\n"
-            "🕊️ **Dimensão Celestial** — buff sagrado, NPCs transcendentais, dungeons divinas\n"
-            "🔥 **Dimensão Infernal** — dano contínuo, criaturas do abismo, drops míticos\n"
-            "🌪️ **Dimensão das Badlands** — terra devastada caótica, caos puro\n"
-            "🌑 **Dimensão Abissal** — debuff de sanidade, horrores primordiais\n"
-            "🌀 **Dimensão do Vazio** — distorção da realidade, o nada consciente\n"
-            "🌑 **Chave Abissal** desbloqueia as dungeons secretas dimensionais"
-        ),
+        name="🌊 Reino 13 — Mar das Almas  ·  nível 120–129",
+        value="Um oceano onde o tempo não flui. Almas perdidas navegam sem destino desde o princípio.",
         inline=False
     )
     embed4.add_field(
-        name="♾️ Planos Absolutos (Nível 501–600)",
-        value=(
-            "*\"Não existem palavras. Existência e não-existência são a mesma coisa aqui.\"*\n\n"
-            "O ciclo final. Raridades: Divino, Primordial, Absoluto.\n"
-            "▸ **Nível 600** — O Absoluto Final. Apenas os verdadeiros imortais chegam até aqui."
-        ),
+        name="🌀 Reino 14 — Reino do Caos  ·  nível 130–139",
+        value="A realidade como inimigo. O Caos em Pessoa governa estas terras com lógica invertida.",
         inline=False
     )
-    embed4.set_footer(text="⚠️ Cada ciclo é desbloqueado ao derrotar o boss do último nível do ciclo anterior.")
+    embed4.add_field(
+        name="🌸 Reino 15 — Jardim dos Deuses  ·  nível 140–149",
+        value="Um paraíso com cada flor sendo uma armadilha. O Dançarino da Morte dança entre as pétalas.",
+        inline=False
+    )
+    embed4.add_field(
+        name="🧊 Reino 16 — Gelo Eterno  ·  nível 150–159",
+        value="Frio que antecede o universo. O Loop Temporal congela o tempo neste reino.",
+        inline=False
+    )
+    embed4.add_field(
+        name="🏛️ Reino 17 — Ruínas Esquecidas  ·  nível 160–169",
+        value="Autômatos de civilização esquecida guardam segredos que os deuses apagaram.",
+        inline=False
+    )
+    embed4.add_field(
+        name="✨ Reino 18 — Plano Astral  ·  nível 170–179",
+        value="O cosmos consciente. Cada estrela aqui tem nome e memória. O Imperador Astral observa tudo.",
+        inline=False
+    )
+    embed4.add_field(
+        name="🌌 Reino 19 — Além da Existência  ·  nível 180–189",
+        value="A linguagem não alcança este lugar. O Vácuo da Criação habita no centro deste vazio.",
+        inline=False
+    )
+    embed4.add_field(
+        name="⭐ Reino 20 — Trono Primordial  ·  nível 190–199",
+        value="**O Criador Primordial espera.** Aqui termina o que era mortal e começa o impossível.",
+        inline=False
+    )
+    embed4.set_footer(text="📘 Capítulo II completo | Use 'mapa 2' para explorar • 'mapa 3' → Capítulo III")
     await channel.send(embed=embed4)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 4B — Capítulo III: Impérios Avançados (Reinos 21–30)
+    # ══════════════════════════════════════════
+    embed4b = discord.Embed(
+        title="📙 Capítulo III — Impérios Avançados",
+        description=(
+            "*Um terceiro mapa emerge. As fronteiras do possível se dissolvem...*\n\n"
+            "*\"O mortal deixa de ser mortal. Impérios que dobram a realidade ao redor.\"*\n\n"
+            "> 🗡️ **Chave Sombria** destranca as masmorras secretas dos Impérios"
+        ),
+        color=0x8e44ad
+    )
+    embed4b.add_field(
+        name="⚔️ Reino 21 — Império da Lâmina  ·  nível 200–209",
+        value="A guerra é a única lei aqui. O Imperador Astral comanda exércitos sem fim.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🌊 Reino 22 — Oceano Interdimensional  ·  nível 210–219",
+        value="Mares que cruzam dimensões. Criaturas de profundezas que não têm nome.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="⚖️ Reino 23 — Tribunal do Cosmo  ·  nível 220–229",
+        value="Aqui os deuses são julgados. O Juiz Primordial decide o destino das almas.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🏟️ Reino 24 — Arena dos Deuses Menores  ·  nível 230–239",
+        value="Batalhas que reescrevem a história. Apenas os fortes escrevem o próximo capítulo.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🔗 Reino 25 — Nexo das Dimensões  ·  nível 240–249",
+        value="O ponto onde todas as realidades se tocam. Portais para lugares sem nome.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🌸 Reino 26 — Jardim dos Impérios Caídos  ·  nível 250–259",
+        value="Ruínas de impérios tão poderosos que sua queda ainda reverbera no tecido do tempo.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🌑 Reino 27 — Fortaleza das Sombras Vivas  ·  nível 260–269",
+        value="As sombras aqui têm vontade própria. Elas obedecem ao Senhor das Sombras.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🌌 Reino 28 — Vórtice Dimensional  ·  nível 270–279",
+        value="A física é sugestão. O espaço dobra ao seu redor a cada passo dado.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="🔥 Reino 29 — Caldeira da Criação  ·  nível 280–289",
+        value="Onde os universos são forjados. O Golem da Forja Corrompida vigia as chamas eternas.",
+        inline=False
+    )
+    embed4b.add_field(
+        name="✨ Reino 30 — Planalto dos Ascendentes  ·  nível 290–299",
+        value="O último degrau antes da corrupção. O Dragão de Magma Ascendente guarda a passagem.",
+        inline=False
+    )
+    embed4b.set_footer(text="📙 Capítulo III completo | Use 'mapa 3' para explorar • 'mapa 4' → Capítulo IV")
+    await channel.send(embed=embed4b)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 4C — Capítulo IV: Terras Corrompidas + Reinos Dimensionais (Reinos 31–40)
+    # ══════════════════════════════════════════
+    embed4c = discord.Embed(
+        title="📕 Capítulo IV — Terras Corrompidas & Reinos Dimensionais",
+        description=(
+            "*O pergaminho sangra ao ser aberto. As terras aqui não seguem as leis do mundo...*\n\n"
+            "*\"A corrupção não é inimiga. É apenas outra forma de poder.\"*\n\n"
+            "> 🗡️ **Chave Sombria** (reinos 31–35) · ✨ **Chave Celestial** (reinos 36–40)\n"
+            "> 💥 **Bosses Dimensionais** liberam **passivas globais** e **slots extras**!"
+        ),
+        color=0x8b0000
+    )
+    embed4c.add_field(
+        name="🩸 Reino 31 — Wasteland Corrompida  ·  nível 300–309",
+        value="*Efeito ambiental: dano contínuo.* A terra queima sob seus pés. Tudo aqui quer sua morte.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="🦠 Reino 32 — Floresta da Podridão  ·  nível 310–319",
+        value="*Efeito ambiental: debuff de veneno passivo.* As árvores respiram doença e sussurram maldições.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="💀 Reino 33 — Necrópole Sombria  ·  nível 320–329",
+        value="*Efeito ambiental: HP máximo reduzido.* Cidade de mortos que nunca descansaram.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="🌑 Reino 34 — Abismo da Sanidade  ·  nível 330–339",
+        value="*Efeito ambiental: debuff de sanidade.* A mente falha antes do corpo aqui dentro.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="⛓️ Reino 35 — Fortaleza do Caos Corrompido  ·  nível 340–349",
+        value="*Efeito ambiental: stats aleatórios.* As leis do combate mudam a cada batalha.",
+        inline=False
+    )
+    embed4c.add_field(name="╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌", value="✨ **Reinos Dimensionais** — portais para além da realidade", inline=False)
+    embed4c.add_field(
+        name="🌀 Reino 36 — Portal das Dimensões  ·  nível 350–359",
+        value="O primeiro portal. Um Boss Dimensional dorme aqui — derrote-o para liberar **passiva global**.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="🔮 Reino 37 — Câmara do Éter  ·  nível 360–369",
+        value="Energia pura materializada. Um Boss Dimensional protege um **slot extra de pet**.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="🌊 Reino 38 — Mar Dimensional  ·  nível 370–379",
+        value="Oceano entre as realidades. Um Boss Dimensional guarda um **slot extra de equipamento**.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="⭐ Reino 39 — Nexo das Estrelas  ·  nível 380–389",
+        value="Onde as estrelas têm consciência. Um Boss Dimensional libera outra **passiva global**.",
+        inline=False
+    )
+    embed4c.add_field(
+        name="🌌 Reino 40 — Fronteira das Dimensões  ·  nível 390–399",
+        value="O último reino antes do além. O Boss Dimensional final abre as portas das **5 Dimensões**!",
+        inline=False
+    )
+    embed4c.set_footer(text="📕 Capítulo IV completo | Use 'mapa 4' para explorar • 'mapa 5' → Capítulo V: As Dimensões")
+    await channel.send(embed=embed4c)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 4D — Capítulo V: As Cinco Dimensões
+    # ══════════════════════════════════════════
+    embed4d = discord.Embed(
+        title="🌌 Capítulo V — As Cinco Dimensões",
+        description=(
+            "*O mapa se rasga. O que há além não é um reino — é uma realidade inteira...*\n\n"
+            "*\"Transcendeste tudo. Agora as Dimensões Verdadeiras te aguardam.\"*\n\n"
+            "> ✨ **Chave Celestial** (Dimensão Celestial)\n"
+            "> 🌑 **Chave Abissal** (Dimensões Infernal, Badlands, Abissal e Vazio)"
+        ),
+        color=0xf39c12
+    )
+    embed4d.add_field(
+        name="🕊️ Dimensão Celestial  ·  nível 400–419",
+        value=(
+            "*Efeito ambiental: **buff sagrado** — +15% a todos os stats.*\n"
+            "O Céu feito de cristal eterno. NPCs Transcendentais concedem bênçãos divinas.\n"
+            "Dungeons sagradas e o Boss Celestial guardam segredos da Criação."
+        ),
+        inline=False
+    )
+    embed4d.add_field(
+        name="🔥 Dimensão Infernal  ·  nível 420–439",
+        value=(
+            "*Efeito ambiental: **dano de fogo contínuo** — -5 HP por turno.*\n"
+            "O Inferno como nunca foi descrito. Criaturas do abismo que existem antes da morte.\n"
+            "Drops míticos abundam — se você sobreviver."
+        ),
+        inline=False
+    )
+    embed4d.add_field(
+        name="🌪️ Dimensão das Badlands  ·  nível 440–459",
+        value=(
+            "*Efeito ambiental: **caos puro** — eventos aleatórios a cada exploração.*\n"
+            "Terra devastada onde as leis da física são sugestões. Nada é como parece.\n"
+            "Dungeons secretas que aparecem e desaparecem."
+        ),
+        inline=False
+    )
+    embed4d.add_field(
+        name="🌑 Dimensão Abissal  ·  nível 460–479",
+        value=(
+            "*Efeito ambiental: **debuff de sanidade** — habilidades têm chance de falhar.*\n"
+            "Horrores primordiais que existem antes da linguagem. O Abissal não tem forma.\n"
+            "NPCs Transcendentais que falam em riddles e concedem poderes proibidos."
+        ),
+        inline=False
+    )
+    embed4d.add_field(
+        name="🌀 Dimensão do Vazio  ·  nível 480–499",
+        value=(
+            "*Efeito ambiental: **distorção da realidade** — stats alterados aleatoriamente.*\n"
+            "O nada que tem consciência. O Senhor do Vazio é a última entidade antes do Absoluto.\n"
+            "A dungeon secreta mais lendária do jogo está aqui — trancada pela **Chave Abissal**."
+        ),
+        inline=False
+    )
+    embed4d.set_footer(text="🌌 Capítulo V completo | Use 'mapa 5' para explorar • 'mapa 6' → Capítulo VI: Planos Absolutos")
+    await channel.send(embed=embed4d)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
@@ -13974,53 +14279,68 @@ async def on_message(message):
         e_atu1 = discord.Embed(
             title="📰 ATUALIZAÇÃO — 40 Reinos & 5 Dimensões",
             description=(
-                "**Versão:** Reinos & Dimensões — Fevereiro 2026\n"
-                "**Tipo:** Expansão Maior — Estrutura de Reinos, Dimensões, Chaves, Bosses\n\n"
-                "*O mundo foi reorganizado e expandido. 40 reinos, 5 dimensões, 6 ciclos.*"
+                "**Versão:** Reinos & Dimensões — Fevereiro 2026\n\n"
+                "*O mundo foi reorganizado em 6 Capítulos. Cada reino tem identidade própria.*\n\n"
+                "```\n"
+                "  40 reinos  •  5 dimensões  •  6 capítulos  •  level máximo 600\n"
+                "```"
             ),
             color=0xFF6B00
         )
         e_atu1.add_field(
-            name="🏰 40 Reinos Reorganizados",
+            name="📗 Capítulo I — Terras Iniciais  ·  nível 1–100",
             value=(
-                "Os reinos agora seguem uma lógica geográfica e narrativa:\n"
-                "🌱 **Reinos 1–10:** Terras Iniciais | ⚔️ **Reinos 11–20:** Nações Intermediárias\n"
-                "🏛️ **Reinos 21–30:** Impérios Avançados | 🩸 **Reinos 31–35:** Terras Corrompidas\n"
-                "🌀 **Reinos 36–40:** Reinos Dimensionais"
+                "🌱 R1 Campos Iniciais  🌲 R2 Floresta Sombria  🏜️ R3 Deserto das Almas\n"
+                "❄️ R4 Montanhas Geladas  🌋 R5 Terras Vulcânicas  🌌 R6 Abismo Arcano\n"
+                "👑 R7 Trono Celestial  🌿 R8 Pântanos de Morthak  💎 R9 Floresta Cristalina\n"
+                "🌑 R10 Sombras Eternas\n"
+                "> 🗝️ Chave **Antiga** destranca as masmorras secretas"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="🌌 5 Dimensões (a partir do nível 400)",
+            name="📘 Capítulo II — Nações Intermediárias  ·  nível 101–200",
             value=(
-                "🕊️ **Dimensão Celestial** (Céu) | 🔥 **Dimensão Infernal** (Inferno)\n"
-                "🌪️ **Dimensão das Badlands** (terra devastada caótica)\n"
-                "🌑 **Dimensão Abissal** | 🌀 **Dimensão do Vazio**\n"
-                "Cada dimensão tem: Bosses Dimensionais, criaturas únicas, efeitos ambientais,\n"
-                "dungeons lendárias, dungeons secretas, NPCs transcendentais e lore profunda."
+                "⚡ R11 Planícies do Trovão  🗿 R12 Terra dos Gigantes  🌊 R13 Mar das Almas\n"
+                "🌀 R14 Reino do Caos  🌸 R15 Jardim dos Deuses  🧊 R16 Gelo Eterno\n"
+                "🏛️ R17 Ruínas Esquecidas  ✨ R18 Plano Astral  🌌 R19 Além da Existência\n"
+                "⭐ R20 Trono Primordial\n"
+                "> 🔑 Chave **Arcana** destranca as masmorras secretas"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="🔄 6 Ciclos de Mundo",
+            name="📙 Capítulo III — Impérios Avançados  ·  nível 201–300",
             value=(
-                "🌱 **Ciclo 1** — Terras Iniciais (1–100)\n"
-                "⚔️ **Ciclo 2** — Nações Intermediárias (101–200)\n"
-                "🏛️ **Ciclo 3** — Impérios Avançados (201–300)\n"
-                "🩸 **Ciclo 4** — Corrompidas + Dimensionais (301–400)\n"
-                "🌌 **Ciclo 5** — As 5 Dimensões (401–500)\n"
-                "♾️ **Ciclo 6** — Planos Absolutos (501–600)"
+                "⚔️ R21 · 🌊 R22 · ⚖️ R23 · 🏟️ R24 · 🔗 R25\n"
+                "🌸 R26 · 🌑 R27 · 🌌 R28 · 🔥 R29 · ✨ R30\n"
+                "> 🗡️ Chave **Sombria** destranca as masmorras secretas"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="💥 Bosses Dimensionais — Sistemas Novos",
+            name="📕 Capítulo IV — Corrompidas & Dimensionais  ·  nível 301–400",
             value=(
-                "Bosses Dimensionais (reinos 36–40 e Ciclo 5) liberam:\n"
-                "• 🔮 **Habilidades Passivas Globais** permanentes\n"
-                "• 🐾 **Slot Extra de Pet** — capacidade expandida\n"
-                "• ⚔️ **Slot Extra de Equipamento** — novo slot disponível"
+                "🩸 R31 · 🦠 R32 · 💀 R33 · 🌑 R34 · ⛓️ R35  *(Corrompidas)*\n"
+                "🌀 R36 · 🔮 R37 · 🌊 R38 · ⭐ R39 · 🌌 R40  *(Dimensionais)*\n"
+                "> 💥 Bosses Dimensionais liberam **passivas globais** e **slots extras**!"
             ),
+            inline=False
+        )
+        e_atu1.add_field(
+            name="🌌 Capítulo V — As Cinco Dimensões  ·  nível 401–500",
+            value=(
+                "🕊️ **Celestial** — buff sagrado\n"
+                "🔥 **Infernal** — dano de fogo contínuo\n"
+                "🌪️ **Badlands** — caos puro, eventos aleatórios\n"
+                "🌑 **Abissal** — debuff de sanidade\n"
+                "🌀 **Vazio** — distorção da realidade"
+            ),
+            inline=False
+        )
+        e_atu1.add_field(
+            name="♾️ Capítulo VI — Planos Absolutos  ·  nível 501–600",
+            value="Raridades: Divino, Primordial, Absoluto. **Nível 600** = o fim da jornada.",
             inline=False
         )
         e_atu1.set_footer(text="Use 'atualização' a qualquer hora para rever | Página 1/2")
@@ -14084,8 +14404,85 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu2.set_footer(text="World CSI Bot — Expansão 40 Reinos & 5 Dimensões | Use 'comandos' para todos os comandos | Página 2/2")
+        e_atu2.set_footer(text="World CSI Bot — Expansão 40 Reinos & 5 Dimensões | Página 2/3 | 'atualização' para rever")
         await message.channel.send(embed=e_atu2)
+
+        e_atu3 = discord.Embed(
+            title="📖 Os 7 Capítulos — Lista Completa de Reinos",
+            description="*O Narrador abre o atlas do mundo e aponta cada terra com o dedo...*",
+            color=0xFF6B00
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. I — Terras Iniciais  •  Nível 1–100",
+            value=(
+                "🌱 Reino 1 — Campos Iniciais  •  🌲 Reino 2 — Floresta Sombria\n"
+                "🏜️ Reino 3 — Deserto das Almas  •  ❄️ Reino 4 — Montanhas Geladas\n"
+                "🌋 Reino 5 — Reino Vulcânico  •  🌌 Reino 6 — Abismo Arcano\n"
+                "👑 Reino 7 — Trono Celestial  •  🌿 Reino 8 — Pântano das Almas Perdidas\n"
+                "💎 Reino 9 — Floresta Cristalina  •  🌑 Reino 10 — Sombras Eternas\n"
+                "🗝️ *Chave Antiga*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. II — Nações Intermediárias  •  Nível 101–200",
+            value=(
+                "⚡ Reino 11 — Planícies do Trovão  •  🗿 Reino 12 — Terra dos Gigantes\n"
+                "🌊 Reino 13 — Mar das Almas  •  🌀 Reino 14 — Reino do Caos\n"
+                "🌸 Reino 15 — Jardim dos Deuses  •  🧊 Reino 16 — Gelo Eterno\n"
+                "🏛️ Reino 17 — Ruínas da Civilização  •  ✨ Reino 18 — Plano Astral\n"
+                "🌌 Reino 19 — Além da Existência  •  ⭐ Reino 20 — Trono Primordial\n"
+                "🔑 *Chave Arcana*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. III — Impérios Avançados  •  Nível 201–300",
+            value=(
+                "🔱 Reino 21 — Reinos Mortais Ápice  •  ⚡ Reino 22 — Despertar\n"
+                "🌀 Reino 23 — Vórtice dos Reinos  •  🏔️ Reino 24 — Montanhas do Além\n"
+                "🌊 Reino 25 — Oceano Dimensional  •  🔥 Reino 26 — Forjas do Caos\n"
+                "❄️ Reino 27 — Tundra Absoluta  •  ⚗️ Reino 28 — Alquimia das Eras\n"
+                "🌌 Reino 29 — Galáxia Interior  •  ⚖️ Reino 30 — Tribunal do Cosmo\n"
+                "🗡️ *Chave Sombria*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. IV & V — Corrompidos & Dimensionais  •  Nível 301–400",
+            value=(
+                "🗡️ Reino 31 — Arena dos Deuses Menores  •  👁️ Reino 32 — Olho do Multiverso\n"
+                "🔮 Reino 33 — Plano Astral Inferior  •  💎 Reino 34 — Fortaleza de Cristal\n"
+                "🌑 Reino 35 — Lua Negra  *(Terras Corrompidas — Chave Sombria)*\n"
+                "──────────────────────\n"
+                "☄️ Reino 36 — Cemitério de Estrelas  •  🌞 Reino 37 — Coração Solar\n"
+                "🕳️ Reino 38 — Buraco Negro Vivo  •  🌐 Reino 39 — Nexo das Dimensões\n"
+                "⚡ Reino 40 — Tempestade Interdimensional  *(Reinos Dimensionais — Chave Celestial)*\n"
+                "💥 *Bosses Dimensionais liberam passivas globais e slots extras!*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. VI — As 5 Dimensões  •  Nível 401–500",
+            value=(
+                "🕊️ Dimensão Celestial  •  🔥 Dimensão Infernal\n"
+                "🌪️ Dimensão das Badlands  •  🌑 Dimensão Abissal  •  🌀 Dimensão do Vazio\n"
+                "🌑 *Chave Abissal*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="✦ 📖 CAP. VII — Planos Absolutos  •  Nível 501–600",
+            value=(
+                "🔱 Limiar  •  🌑 Trevas Absolutas  •  🌟 Luz Absoluta  •  ⚖️ Equilíbrio\n"
+                "🔥 Chama Eterna  •  🌊 Oceano Primordial  •  💨 Vento do Fim\n"
+                "⚡ Trovão da Origem  •  🌌 Vazio Além do Vazio  •  ♾️ Plano Absoluto Final\n"
+                "🌑 *Chave Abissal*"
+            ),
+            inline=False
+        )
+        e_atu3.set_footer(text="World CSI Bot — 40 Reinos • 5 Dimensões • 7 Capítulos • Level máximo 600 | Página 3/3")
+        await message.channel.send(embed=e_atu3)
         return
 
     # ======================================================
