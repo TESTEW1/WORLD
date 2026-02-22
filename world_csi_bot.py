@@ -22,8 +22,6 @@ DB_FILE = "world_csi.db"
 CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 
-# Cooldown anti-spam explorar (20s) — reseta ao reiniciar, intencional
-EXPLORE_COOLDOWNS = {}  # {user_id: timestamp}
 
 # ================= CLASSES =================
 CLASSES = {
@@ -9959,7 +9957,38 @@ class BossButton(discord.ui.View):
             content=f"⚔️ **Você avança em direção ao {self.boss_name}!**\n\n*A batalha épica começa...*", view=None
         )
         await asyncio.sleep(2)
-        await fight_boss(interaction.channel, self.user_id)
+        # AUTO-CONVOCAR membros da mesma guilda como aliados
+        player = get_player(self.user_id)
+        guild_allies = []
+        guild_ally_names = []
+        if player and player.get("guild_id"):
+            try:
+                _conn = sqlite3.connect(DB_FILE)
+                _c = _conn.cursor()
+                _c.execute("SELECT members FROM guilds WHERE id = ?", (player["guild_id"],))
+                _row = _c.fetchone()
+                _conn.close()
+                if _row:
+                    _members = json.loads(_row[0])
+                    for _mid in _members:
+                        if str(_mid) == str(self.user_id):
+                            continue
+                        _ap = get_player(str(_mid))
+                        if _ap and _ap.get("hp", 0) > 0:
+                            guild_allies.append(str(_mid))
+                            guild_ally_names.append(_ap.get("name", str(_mid)))
+            except Exception:
+                pass
+
+        _ally_text = ""
+        if guild_ally_names:
+            _ally_text = f"\n\n🛡️ **Aliados da guilda convocados:** {', '.join(guild_ally_names[:5])}"
+
+        await interaction.response.edit_message(
+            content=f"⚔️ **Você avança em direção ao {self.boss_name}!**{_ally_text}\n\n*A batalha épica começa...*", view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(interaction.channel, self.user_id, allies=guild_allies if guild_allies else None)
 
     @discord.ui.button(label="Chamar Aliados", style=discord.ButtonStyle.blurple, emoji="👥")
     async def call_allies(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -10021,7 +10050,25 @@ class RevengeTrainingView(discord.ui.View):
             view=None
         )
         await asyncio.sleep(2)
-        await fight_boss(interaction.channel, self.user_id)
+        # AUTO-CONVOCAR membros da guilda na revanche
+        _r_player = get_player(self.user_id)
+        _r_allies = []
+        if _r_player and _r_player.get("guild_id"):
+            try:
+                _rc = sqlite3.connect(DB_FILE)
+                _rcc = _rc.cursor()
+                _rcc.execute("SELECT members FROM guilds WHERE id = ?", (_r_player["guild_id"],))
+                _rrow = _rcc.fetchone()
+                _rc.close()
+                if _rrow:
+                    for _rm in json.loads(_rrow[0]):
+                        if str(_rm) != str(self.user_id):
+                            _rap = get_player(str(_rm))
+                            if _rap and _rap.get("hp", 0) > 0:
+                                _r_allies.append(str(_rm))
+            except Exception:
+                pass
+        await fight_boss(interaction.channel, self.user_id, allies=_r_allies if _r_allies else None)
 
     @discord.ui.button(label="🏋️ Treinamento", style=discord.ButtonStyle.green, emoji="💪")
     async def training(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -11616,15 +11663,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
         boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
 
-        if pending_boss:
-            boss_data = pending_boss
-        elif player["level"] in boss_gate_levels:
-            # Segurança: força o boss de level correto mesmo sem pending_boss
-            boss_data = get_level_boss(player["level"])
-            if not boss_data or boss_data["name"] in player.get("bosses", []):
+        # CORREÇÃO BUG: Se o jogador está num nivel de boss gate e o boss correto nao foi derrotado,
+        # SEMPRE usar o boss do level — ignorar pending_boss desatualizado.
+        if player["level"] in boss_gate_levels:
+            correct_boss = get_level_boss(player["level"])
+            if correct_boss and correct_boss["name"] not in player.get("bosses", []):
+                boss_data = correct_boss
+            elif pending_boss:
+                boss_data = pending_boss
+            else:
                 world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
+        elif pending_boss:
+            boss_data = pending_boss
         else:
             world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
             boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
@@ -14911,14 +14963,6 @@ async def on_message(message):
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
-        # Cooldown 20s anti-spam
-        _now = time.time()
-        if _now - EXPLORE_COOLDOWNS.get(user_id, 0) < 20:
-            _rest = int(20 - (_now - EXPLORE_COOLDOWNS.get(user_id, 0)))
-            await message.channel.send(f"⏳ Aguarde **{_rest}s** antes de explorar novamente!")
-            return
-        EXPLORE_COOLDOWNS[user_id] = _now
-
         world = get_world(player["level"], player)
         roll = roll_with_bonus(player)
         luck = get_luck(roll)
