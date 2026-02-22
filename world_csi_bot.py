@@ -1977,6 +1977,2431 @@ CLASS_SPECIALIZATIONS = {
         "bonus_atk": 18, "bonus_hp": 10, "bonus_def": 5,
         "special_skill": {"name": "🎸 Solo da Morte", "mana_cost": 40, "dmg_mult": 3.2, "stun_chance": 0.5, "desc": "Solo tão poderoso que desintegra!"}
     },
+    # ── AUTO-GENERATED SPECIALIZATIONS ─────────────────────────
+    "Comandante Tático": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Avatar da Guerra": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Senhor dos Exércitos": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Deus da Guerra Mortal": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Lenda Imortal": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 30, "bonus_def": 23,
+    },
+    "Conquistador dos Planos": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Devastador de Dimensões": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 25, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Guerreiro do Vazio": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Titã do Multiverso": {
+        "emoji": "⚔️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 30, "bonus_def": 23,
+    },
+    "O Último Guerreiro": {
+        "emoji": "⚔️",
+        "desc": "Especialização avançada de Guerreiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guerreiro.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Força Primordial Final": {
+        "emoji": "⚔️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 25, "bonus_def": 18,
+    },
+    "Mago do Caos": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Conjurador Estelar": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Deus Arcano": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Tecedor da Realidade": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Onisciente do Cosmos": {
+        "emoji": "🔮",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Destruidor de Planos": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 35, "bonus_hp": 2, "bonus_def": 5,
+    },
+    "Tejedor do Cosmos": {
+        "emoji": "🔮",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Mago Primordial": {
+        "emoji": "🔮",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Mente do Multiverso": {
+        "emoji": "🔮",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Deus da Magia Absoluta": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Origem de Todo Feitiço": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Mago. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mago.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Magia do Plano Absoluto": {
+        "emoji": "🔮",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Atirador Fantasma": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Arqueiro Divino": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Caçador de Deuses": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 30, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Vendaval de Flechas": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Atirador do Fim dos Tempos": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Sombra Alada": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Atirador Dimensional": {
+        "emoji": "🏹",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Caçador do Vazio": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 30, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Tiro Que Perfura Dimensões": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Arqueiro do Multiverso": {
+        "emoji": "🏹",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "O Último Disparo": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 25, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Extintor de Mundos à Distância": {
+        "emoji": "🏹",
+        "desc": "Especialização avançada de Arqueiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arqueiro.",
+        "bonus_atk": 30, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Cruzado": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Paladino.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Sentinela Divina": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Paladino.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Campeão Celestial": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Protetor Eterno": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Avatar Divino": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Juiz dos Deuses": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Paladino.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Santo Guerreiro": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Paladino.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Escudo do Universo": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Paladino da Luz Absoluta": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Paladino.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Guardião dos Planos": {
+        "emoji": "🛡️",
+        "desc": "Especialização avançada de Paladino. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Escudo do Cosmos": {
+        "emoji": "🛡️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Paladino do Multiverso": {
+        "emoji": "🛡️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 12, "bonus_hp": 25, "bonus_def": 28,
+    },
+    "Protetor da Criação Final": {
+        "emoji": "🛡️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Escudo do Universo Absoluto": {
+        "emoji": "🛡️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 12, "bonus_hp": 30, "bonus_def": 33,
+    },
+    "Envenenador Letal": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Assassino.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Caçador Dimensional": {
+        "emoji": "🗡️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Executor Supremo": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "Primeiro ataque sempre crítico. +25% crit.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Sombra do Abismo": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Dançarino da Morte Noir": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Ceifador do Vazio": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Aniquilador Silencioso": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Assassino.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Ceifador dos Planos": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "Primeiro ataque sempre crítico. +25% crit.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Assassino do Cosmos": {
+        "emoji": "🗡️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Morte que Atravessa Dimensões": {
+        "emoji": "🗡️",
+        "desc": "Especialização avançada de Assassino. Poder elevado ao extremo.",
+        "passive": "Revive com 30% HP. Drena HP ao atacar.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Sombra do Multiverso": {
+        "emoji": "🗡️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "O Golpe Final": {
+        "emoji": "🗡️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Aniquilador do Plano Absoluto": {
+        "emoji": "🗡️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Invocador Sombrio": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Lich Verdadeiro": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "Revive com 30% HP. Drena HP ao atacar.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Senhor das Almas": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Deus Morto-Vivo": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Necromante.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Destruidor de Almas": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 33, "bonus_hp": 2, "bonus_def": 5,
+    },
+    "Rei da Morte Eterna": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "Revive com 30% HP. Drena HP ao atacar.",
+        "bonus_atk": 33, "bonus_hp": 2, "bonus_def": 5,
+    },
+    "Corrompedor do Cosmos": {
+        "emoji": "💀",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Necrômante dos Planos": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Necromante.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Deus dos Mortos-Vivos Cósmicos": {
+        "emoji": "💀",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Necromante.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Senhor dos Mortos do Multiverso": {
+        "emoji": "💀",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Corruptor de Dimensões": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Necromante.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Fim de Toda Vida": {
+        "emoji": "💀",
+        "desc": "Especialização avançada de Necromante. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Necromante.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Necromante do Plano Final": {
+        "emoji": "💀",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 28, "bonus_hp": 10, "bonus_def": 8,
+    },
+    "Orc-Sangue": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Avatar da Fúria": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Berserker Divino": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Destruidor de Mundos": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Cataclismo Ambulante": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Ira dos Titãs": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 30, "bonus_hp": 28, "bonus_def": 11,
+    },
+    "Apocalipse em Forma": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Devastador dos Planos": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Colosso da Fúria Cósmica": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Raiva do Multiverso": {
+        "emoji": "🪓",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Destruidor de Dimensões": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 35, "bonus_hp": 15, "bonus_def": 3,
+    },
+    "Raiva que Destrói Tudo": {
+        "emoji": "🪓",
+        "desc": "Especialização avançada de Berserker. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Berserker.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Calamidade Final": {
+        "emoji": "🪓",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 23, "bonus_def": 6,
+    },
+    "Druida Lunar": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Druida do Caos": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Guardião Primordial": {
+        "emoji": "🌿",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 15, "bonus_hp": 28, "bonus_def": 23,
+    },
+    "Avatar da Natureza": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Ent Vivente": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "A Própria Floresta": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Senhor das Bestas Eternas": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Espírito da Criação": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Natureza do Cosmos": {
+        "emoji": "🌿",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Gaia Dimensional": {
+        "emoji": "🌿",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Criação que Sustenta Tudo": {
+        "emoji": "🌿",
+        "desc": "Especialização avançada de Druida. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Druida.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Druida do Plano Final": {
+        "emoji": "🌿",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 15, "bonus_hp": 23, "bonus_def": 18,
+    },
+    "Monge do Vento": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Monge Celestial": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Fúria Controlada": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 27, "bonus_hp": 12, "bonus_def": 12,
+    },
+    "Monge Transcendente": {
+        "emoji": "👊",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Dançarino do Ki": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Ki Primordial": {
+        "emoji": "👊",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Vazio em Movimento": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Monge dos Planos": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Ki Cósmico": {
+        "emoji": "👊",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Punho do Multiverso": {
+        "emoji": "👊",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Movimento do Cosmos": {
+        "emoji": "👊",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Golpe que Para o Tempo": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Monge do Fim": {
+        "emoji": "👊",
+        "desc": "Especialização avançada de Monge. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Monge.",
+        "bonus_atk": 22, "bonus_hp": 20, "bonus_def": 15,
+    },
+    "Encantador Supremo": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Bardo do Destino": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Cantor dos Deuses": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Sinfonia da Destruição": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Música do Universo": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Compositor do Fim": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Eco Primordial": {
+        "emoji": "🎵",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Cantor do Cosmos": {
+        "emoji": "🎵",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Bardo Transcendente": {
+        "emoji": "🎵",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Música do Multiverso": {
+        "emoji": "🎵",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Eco Dimensional": {
+        "emoji": "🎵",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Música do Plano Absoluto": {
+        "emoji": "🎵",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Compositor do Fim de Tudo": {
+        "emoji": "🎵",
+        "desc": "Especialização avançada de Bardo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Bardo.",
+        "bonus_atk": 12, "bonus_hp": 17, "bonus_def": 13,
+    },
+    "Cavaleiro do Vazio": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Sombra Armada": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Dragão das Trevas": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Fantasma de Aço": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cavaleiro das Sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Lich Cavaleiro": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "Revive com 30% HP. Drena HP ao atacar.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Sombra Imortal": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 20,
+    },
+    "Ceifeiro das Sombras": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Vazio Armado": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Sombra dos Planos": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Cavaleiro do Vazio Cósmico": {
+        "emoji": "🌑",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Cavaleiro do Multiverso Sombrio": {
+        "emoji": "🌑",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Armadura do Vazio": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Cavaleiro do Fim": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cavaleiro das Sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Trevas Absolutas Encarnadas": {
+        "emoji": "🌑",
+        "desc": "Especialização avançada de Cavaleiro das Sombras. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Invocador Elemental": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Portão do Abismo": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 25, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Invocador Divino": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Abridor de Portais": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Senhor das Legiões": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Tecedor de Planos": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Pai das Criaturas": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Nexo Dimensional": {
+        "emoji": "🌀",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Senhor das Dimensões": {
+        "emoji": "🌀",
+        "desc": "Especialização avançada de Invocador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Invocador.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Portão do Cosmos": {
+        "emoji": "🌀",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Nexo do Multiverso": {
+        "emoji": "🌀",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Invocador Absoluto": {
+        "emoji": "🌀",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Criador Primordial das Criaturas": {
+        "emoji": "🌀",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Invocador do Absoluto": {
+        "emoji": "🌀",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Runesmith de Batalha": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Runesmith.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Arquiteto de Runas": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runas Proibidas": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Construtor Arcano": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Runesmith.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Avatar das Runas": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runas Primordiais": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Origem do Poder": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Runesmith.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runa do Fim": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Gravador dos Planos": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Runesmith.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runas Cósmicas": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% ATK e DEF. Runas amplificam habilidades.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runas do Multiverso": {
+        "emoji": "🔣",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Construtor do Cosmos": {
+        "emoji": "🔣",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Runa do Plano Final": {
+        "emoji": "🔣",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Gravador do Fim": {
+        "emoji": "🔣",
+        "desc": "Especialização avançada de Runesmith. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Runesmith.",
+        "bonus_atk": 18, "bonus_hp": 19, "bonus_def": 19,
+    },
+    "Sniper Arcano": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 25, "bonus_hp": 17, "bonus_def": 11,
+    },
+    "Caçador de Monstros": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Exterminador Elite": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 25, "bonus_hp": 17, "bonus_def": 11,
+    },
+    "Sombra Caçadora": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Predador Supremo": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Fim de Tudo": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 25, "bonus_hp": 17, "bonus_def": 11,
+    },
+    "Caçador Imortal": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Predador Transcendente": {
+        "emoji": "🎯",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Caçador Cósmico": {
+        "emoji": "🎯",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Exterminador do Multiverso": {
+        "emoji": "🎯",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 17, "bonus_def": 11,
+    },
+    "Predador Absoluto": {
+        "emoji": "🎯",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Caçador do Plano Absoluto": {
+        "emoji": "🎯",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Extintor de Tudo": {
+        "emoji": "🎯",
+        "desc": "Especialização avançada de Cazador de Recompensas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Cazador de Recompensas.",
+        "bonus_atk": 30, "bonus_hp": 9, "bonus_def": 8,
+    },
+    "Xamã de Guerra": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Curandeiro dos Espíritos": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Xamã do Caos": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Portador dos Ancestrais": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Espírito da Destruição": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Ancião dos Espíritos": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Espírito Primordial": {
+        "emoji": "🪶",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Voz dos Mortos": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Espírito Transcendente": {
+        "emoji": "🪶",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Guardião Cósmico": {
+        "emoji": "🪶",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 22,
+    },
+    "Portador dos Espíritos do Cosmos": {
+        "emoji": "🪶",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Xamã do Multiverso": {
+        "emoji": "🪶",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Xamã Final": {
+        "emoji": "🪶",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Voz dos Mortos do Fim": {
+        "emoji": "🪶",
+        "desc": "Especialização avançada de Xamã. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Xamã.",
+        "bonus_atk": 18, "bonus_hp": 20, "bonus_def": 17,
+    },
+    "Tempesteiro de Plasma": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Tempesteiro.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Deus do Raio": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+30% paralisar. Dano elétrico extra.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Furacão Arcano": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Tempesteiro.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Relâmpago Encarnado": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+30% paralisar. Dano elétrico extra.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Tempesteiro Divino": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Zeus Menor": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+30% paralisar. Dano elétrico extra.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Armageddon Elétrico": {
+        "emoji": "⛈️",
+        "desc": "Especialização avançada de Tempesteiro. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Tempesteiro.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Tempestade Primordial": {
+        "emoji": "⛈️",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Relâmpago Transcendente": {
+        "emoji": "⛈️",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+30% paralisar. Dano elétrico extra.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Furacão Cósmico": {
+        "emoji": "⛈️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Tempesteiro.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Raio do Multiverso": {
+        "emoji": "⛈️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Tornado do Cosmos": {
+        "emoji": "⛈️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 30, "bonus_hp": 13, "bonus_def": 8,
+    },
+    "Relâmpago do Plano Absoluto": {
+        "emoji": "⛈️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Apocalipse Elétrico Final": {
+        "emoji": "⛈️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 35, "bonus_hp": 5, "bonus_def": 5,
+    },
+    "Ilusionista de Batalha": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "30% de desviar ataques. Cria cópias ilusórias.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Sonhador Arcano": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Senhor dos Pesadelos": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Criador de Realidades": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Deus das Ilusões": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Espelho do Cosmos": {
+        "emoji": "🪄",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Realidade que Mente": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Ilusionista Primordial": {
+        "emoji": "🪄",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Ilusionista dos Planos": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "30% de desviar ataques. Cria cópias ilusórias.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Sonhador Transcendente": {
+        "emoji": "🪄",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Ilusionista do Multiverso": {
+        "emoji": "🪄",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "A Mentira Absoluta": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Realidade que Não Existe": {
+        "emoji": "🪄",
+        "desc": "Especialização avançada de Ilusionista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ilusionista.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Ilusão Final de Tudo": {
+        "emoji": "🪄",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 22, "bonus_hp": 13, "bonus_def": 13,
+    },
+    "Bombardeiro": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Alquimista Curador": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Transmutador": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Fabricante do Caos": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Pedra Filosofal Viva": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Alquimista Divino": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Criador da Vida": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Destruidor da Matéria": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 23, "bonus_hp": 9, "bonus_def": 12,
+    },
+    "Transmutador dos Planos": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Alquimista Cósmico": {
+        "emoji": "⚗️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Transmutador do Multiverso": {
+        "emoji": "⚗️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Alquimia Absoluta": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Criador da Vida Absoluta": {
+        "emoji": "⚗️",
+        "desc": "Especialização avançada de Alquimista. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Alquimista.",
+        "bonus_atk": 18, "bonus_hp": 17, "bonus_def": 15,
+    },
+    "Destruidor da Matéria Final": {
+        "emoji": "⚗️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 23, "bonus_hp": 9, "bonus_def": 12,
+    },
+    "Guardião das Almas": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 18,
+    },
+    "Soldado do Abismo": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 27, "bonus_hp": 15, "bonus_def": 10,
+    },
+    "Entidade do Vazio": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Comandante das Sombras": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Avatar do Abismo": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 27, "bonus_hp": 15, "bonus_def": 10,
+    },
+    "Guardião Eterno": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 18,
+    },
+    "Vazio Primordial": {
+        "emoji": "♾️",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "O Nada que Destrói": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Guardião do Abismo.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Guardião dos Planos Sombrios": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "30% esquiva. +20% crit das sombras.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 18,
+    },
+    "Entidade do Vazio Cósmico": {
+        "emoji": "♾️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Abismo do Multiverso": {
+        "emoji": "♾️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 27, "bonus_hp": 15, "bonus_def": 10,
+    },
+    "Guardião Cósmico do Nada": {
+        "emoji": "♾️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 18,
+    },
+    "Vazio Final Absoluto": {
+        "emoji": "♾️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 22, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Guardião do Fim": {
+        "emoji": "♾️",
+        "desc": "Especialização avançada de Guardião do Abismo. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 22, "bonus_hp": 28, "bonus_def": 18,
+    },
+    "Lâminas do Vento": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Dança Mortal": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Fantasma Dançante": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Morte Personificada": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "Revive com 30% HP. Drena HP ao atacar.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 6,
+    },
+    "Última Dança": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Ceifadora do Cosmos": {
+        "emoji": "💃",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 6,
+    },
+    "Fim do Mundo Bailado": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Extinção Graciosa": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Ceifadora dos Planos": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "Primeiro ataque sempre crítico. +25% crit.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 6,
+    },
+    "Dança Cósmica": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dançarino da Morte.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Dança do Multiverso": {
+        "emoji": "💃",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Ceifadora Cósmica": {
+        "emoji": "💃",
+        "desc": "Especialização avançada de Dançarino da Morte. Poder elevado ao extremo.",
+        "passive": "Primeiro ataque sempre crítico. +25% crit.",
+        "bonus_atk": 33, "bonus_hp": 5, "bonus_def": 6,
+    },
+    "Última Dança do Cosmos": {
+        "emoji": "💃",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Extinção Graciosa Final": {
+        "emoji": "💃",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 28, "bonus_hp": 13, "bonus_def": 9,
+    },
+    "Oráculo de Batalha": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Manipulador do Tempo": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Reescritor do Destino": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Senhor do Futuro": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Onisciente": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Paradoxo Vivo": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Fim Predestinado": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Tecedor do Cosmos": {
+        "emoji": "🔮",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Profeta Transcendente": {
+        "emoji": "🔮",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Vidente Cósmico": {
+        "emoji": "🔮",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Oráculo do Multiverso": {
+        "emoji": "🔮",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Tecedor do Cosmos Final": {
+        "emoji": "🔮",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Fim Predestinado Absoluto": {
+        "emoji": "🔮",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Vidente do Fim de Tudo": {
+        "emoji": "🔮",
+        "desc": "Especialização avançada de Oráculo. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Oráculo.",
+        "bonus_atk": 20, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Titan da Defesa": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Colossus.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Colosso de Batalha": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 15, "bonus_hp": 40, "bonus_def": 25,
+    },
+    "Monolito Eterno": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Colosso Sagrado": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 15, "bonus_hp": 40, "bonus_def": 25,
+    },
+    "Rocha Primordial": {
+        "emoji": "🗿",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Colossus Divino": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Continente Animado": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Titã Imortal": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Fundação dos Planos": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Colossus.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Muralha Cósmica": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Rocha do Multiverso": {
+        "emoji": "🗿",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "Colossus Cósmico": {
+        "emoji": "🗿",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Colossus.",
+        "bonus_atk": 15, "bonus_hp": 45, "bonus_def": 30,
+    },
+    "A Base de Tudo": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Colossus.",
+        "bonus_atk": 15, "bonus_hp": 40, "bonus_def": 25,
+    },
+    "Colosso do Fim": {
+        "emoji": "🗿",
+        "desc": "Especialização avançada de Colossus. Poder elevado ao extremo.",
+        "passive": "+40% HP máx. Golpes causam tremor.",
+        "bonus_atk": 15, "bonus_hp": 40, "bonus_def": 25,
+    },
+    "Devorador de Guerreiros": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 35, "bonus_hp": 7, "bonus_def": 5,
+    },
+    "Absorvedor Eterno": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Devorador de Almas.",
+        "bonus_atk": 30, "bonus_hp": 20, "bonus_def": 13,
+    },
+    "Devorador de Deuses": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 35, "bonus_hp": 7, "bonus_def": 5,
+    },
+    "Vazio Faminto": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Consumidor de Realidades": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Fome Eterna": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Devorador de Almas.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Fim de Toda Existência": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Devorador de Almas.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "O Vácuo Primordial": {
+        "emoji": "💫",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Consumidor de Dimensões": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "15% de drenar 20% do dano como HP.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Vazio Transcendente Faminto": {
+        "emoji": "💫",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Devorador do Multiverso": {
+        "emoji": "💫",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 35, "bonus_hp": 7, "bonus_def": 5,
+    },
+    "Fim de Toda Existência Absoluta": {
+        "emoji": "💫",
+        "desc": "Especialização avançada de Devorador de Almas. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Devorador de Almas.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "O Vácuo Final": {
+        "emoji": "💫",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 15, "bonus_def": 8,
+    },
+    "Arauto da Luz": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Protetor Divino": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 18, "bonus_hp": 28, "bonus_def": 26,
+    },
+    "Arauto da Destruição": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Escudo dos Céus": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 18, "bonus_hp": 28, "bonus_def": 26,
+    },
+    "Braço dos Deuses": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Sentença Divina": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Vontade do Cosmos": {
+        "emoji": "✨",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Portador do Fim": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Mensageiro Transcendente": {
+        "emoji": "✨",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Voz dos Planos": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Mensageiro do Multiverso": {
+        "emoji": "✨",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Portador da Destruição Cósmica": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Vontade Final do Cosmos": {
+        "emoji": "✨",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Mensageiro do Fim": {
+        "emoji": "✨",
+        "desc": "Especialização avançada de Arauto Celestial. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Arauto Celestial.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 21,
+    },
+    "Envenenador Supremo": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Lançador de Venenos.",
+        "bonus_atk": 22, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Corrosivo Letal": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+35% dano de veneno. Envenena ao atacar.",
+        "bonus_atk": 22, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Praga Viva": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+35% dano de veneno. Envenena ao atacar.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Destruidor Silencioso": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Lançador de Venenos.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Pandemia Personificada": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Lançador de Venenos.",
+        "bonus_atk": 22, "bonus_hp": 15, "bonus_def": 11,
+    },
+    "Toxina Primordial": {
+        "emoji": "☠️",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Extintor de Mundos": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Lançador de Venenos.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Veneno do Cosmos": {
+        "emoji": "☠️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Veneno dos Planos": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+35% dano de veneno. Envenena ao atacar.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Toxina Cósmica": {
+        "emoji": "☠️",
+        "desc": "Especialização avançada de Lançador de Venenos. Poder elevado ao extremo.",
+        "passive": "+35% dano de veneno. Envenena ao atacar.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Praga do Multiverso": {
+        "emoji": "☠️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Veneno Absoluto": {
+        "emoji": "☠️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Extintor de Mundos Final": {
+        "emoji": "☠️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Veneno do Cosmos Absoluto": {
+        "emoji": "☠️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 27, "bonus_hp": 7, "bonus_def": 8,
+    },
+    "Gladiador Impiedoso": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Gladiador Protetor": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+25 DEF permanente. Reflete 15% dano.",
+        "bonus_atk": 22, "bonus_hp": 32, "bonus_def": 16,
+    },
+    "Gladiador Divino": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Mestre do Espetáculo": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Invicto Eterno": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 32, "bonus_def": 16,
+    },
+    "Arena Personificada": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "O Último em Pé": {
+        "emoji": "🏟️",
+        "desc": "Especialização avançada de Gladiador. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Combate Primordial": {
+        "emoji": "🏟️",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Campeão Transcendente": {
+        "emoji": "🏟️",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Combatente Cósmico": {
+        "emoji": "🏟️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Gladiador.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Arena do Multiverso": {
+        "emoji": "🏟️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Invicto do Cosmos": {
+        "emoji": "🏟️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "O Último em Pé no Cosmos": {
+        "emoji": "🏟️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Combate Final Primordial": {
+        "emoji": "🏟️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 22, "bonus_hp": 27, "bonus_def": 11,
+    },
+    "Correntes de Fogo": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "+30% dano de fogo. Queima por 2 turnos.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Correntes do Abismo": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 23, "bonus_hp": 15, "bonus_def": 12,
+    },
+    "Correntes da Realidade": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "50% de paralisar inimigo por 1 turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Aprisionador Eterno": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "50% de paralisar inimigo por 1 turno.",
+        "bonus_atk": 18, "bonus_hp": 28, "bonus_def": 20,
+    },
+    "Correntes Primordiais": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "50% de paralisar inimigo por 1 turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Ligação do Cosmos": {
+        "emoji": "⛓️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Tudo Acorrentado": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mestre das Correntes.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Fim da Liberdade": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Mestre das Correntes.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Aprisionador Transcendente": {
+        "emoji": "⛓️",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "50% de paralisar inimigo por 1 turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Correntes Cósmicas": {
+        "emoji": "⛓️",
+        "desc": "Especialização avançada de Mestre das Correntes. Poder elevado ao extremo.",
+        "passive": "50% de paralisar inimigo por 1 turno.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Aprisionador do Multiverso": {
+        "emoji": "⛓️",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Correntes do Cosmos": {
+        "emoji": "⛓️",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Correntes do Plano Absoluto": {
+        "emoji": "⛓️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Aprisionamento Final": {
+        "emoji": "⛓️",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 23, "bonus_def": 15,
+    },
+    "Profeta do Fogo": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+30% dano de fogo. Queima por 2 turnos.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Voz do Abismo": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+20% dano. Chance de ignorar defesa inimiga.",
+        "bonus_atk": 30, "bonus_hp": 5, "bonus_def": 8,
+    },
+    "Profeta Demoníaco": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Anunciador do Juízo": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Destruição Inevitável": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Profeta do Cosmos": {
+        "emoji": "📯",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Apocalipse Ambulante": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 30, "bonus_hp": 5, "bonus_def": 8,
+    },
+    "Profecia Primordial": {
+        "emoji": "📯",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Destruição Transcendente": {
+        "emoji": "📯",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Profeta Cósmico": {
+        "emoji": "📯",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Profecia do Multiverso": {
+        "emoji": "📯",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Anunciador do Fim Cósmico": {
+        "emoji": "📯",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Apocalipse Final Absoluto": {
+        "emoji": "📯",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 30, "bonus_hp": 5, "bonus_def": 8,
+    },
+    "Profecia do Fim de Tudo": {
+        "emoji": "📯",
+        "desc": "Especialização avançada de Profeta da Destruição. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Profeta da Destruição.",
+        "bonus_atk": 25, "bonus_hp": 13, "bonus_def": 11,
+    },
+    "Ferreiro Divino": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+20% DEF. Recupera 8% HP por turno.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Construtor de Lendas": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Mestre da Forja Sagrada": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Armeiro Eterno": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 30, "bonus_def": 26,
+    },
+    "Criador de Armas Divinas": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Ferreiro Primordial": {
+        "emoji": "🔨",
+        "desc": "Poder existia antes da criação. Essência pura.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Forja do Cosmos": {
+        "emoji": "🔨",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Armeiro do Universo": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Forjador Transcendente": {
+        "emoji": "🔨",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Armeiro Cósmico": {
+        "emoji": "🔨",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Forjador do Multiverso": {
+        "emoji": "🔨",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Armeiro do Cosmos": {
+        "emoji": "🔨",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Criador de Armas do Fim": {
+        "emoji": "🔨",
+        "desc": "Especialização avançada de Ferreiro de Guerra. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Ferreiro de Guerra.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Armeiro Final Primordial": {
+        "emoji": "🔨",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 18, "bonus_hp": 25, "bonus_def": 21,
+    },
+    "Lançador de Chamas": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+30% dano de fogo. Queima por 2 turnos.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Cavaleiro do Gelo": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dragonlancer.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Avatar Dracônico": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+25% dano de fogo. Imune a veneno.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Dragonlord": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dragonlancer.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Forma Final do Dragão": {
+        "emoji": "🐲",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Último Dragão": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+25% dano de fogo. Imune a veneno.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Pai dos Dragões": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+15% atributos principais. Poder elevado de Dragonlancer.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Chama da Criação": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+30% dano de fogo. Queima por 2 turnos.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Cavaleiro Transcendente de Dragão": {
+        "emoji": "🐲",
+        "desc": "Ultrapassou os limites mortais. Patamar divino.",
+        "passive": "+25% dano de fogo. Imune a veneno.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Senhor dos Dragões Cósmicos": {
+        "emoji": "🐲",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Dragonlancer.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Dragonlord do Multiverso": {
+        "emoji": "🐲",
+        "desc": "Poder que atravessa dimensões. Além da realidade.",
+        "passive": "+15% a todos atributos. Bônus dimensional.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Pai dos Dragões Cósmicos": {
+        "emoji": "🐲",
+        "desc": "Transcendeu o mundo. Opera em escala galáctica.",
+        "passive": "+15% atributos principais. Poder elevado de Dragonlancer.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Dragão Final Primordial": {
+        "emoji": "🐲",
+        "desc": "A forma definitiva. Poder sem igual em toda a criação.",
+        "passive": "+25% a todos atributos. Imune a debuffs.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
+    "Chama da Criação Absoluta": {
+        "emoji": "🐲",
+        "desc": "Especialização avançada de Dragonlancer. Poder elevado ao extremo.",
+        "passive": "+30% dano de fogo. Queima por 2 turnos.",
+        "bonus_atk": 25, "bonus_hp": 23, "bonus_def": 13,
+    },
 }
 
 # ================= MANA POR CLASSE (novas classes incluídas) =================
@@ -9827,11 +12252,12 @@ async def check_class_evolution(channel, user_id):
 # VIEW: Race selection (page 1 of 4)
 # ─────────────────────────────────────────────────────────────
 class RaceSelectView(discord.ui.View):
-    def __init__(self, user_id, page=0, timeout=180):
+    def __init__(self, user_id, page=0, timeout=180, allow_change=False):
         super().__init__(timeout=timeout)
         self.user_id = user_id
         self.page = page
         self.answered = False
+        self.allow_change = allow_change
         all_races = list(RACES.keys())
         # 5 per page
         chunk = all_races[page*5:(page+1)*5]
@@ -9869,21 +12295,52 @@ class RaceSelectView(discord.ui.View):
                 return
             self.answered = True
             player = get_player(self.user_id)
-            if player.get("race"):
-                return await interaction.response.send_message(f"❌ Você já é um(a) **{player['race']}**!", ephemeral=True)
-            apply_race_bonuses(player, race_name)
-            save_player_db(self.user_id, player)
+            old_race = player.get("race")
+
+            if old_race and not self.allow_change:
+                return await interaction.response.send_message(f"❌ Você já é um(a) **{old_race}**!", ephemeral=True)
+            if old_race and self.allow_change and old_race == race_name:
+                return await interaction.response.send_message(f"❌ Você já é **{old_race}**! Escolha uma raça diferente.", ephemeral=True)
+
             race_data = RACES[race_name]
+
+            if self.allow_change and old_race:
+                # TROCA DE RAÇA: remove bônus antigos, aplica novos, reseta stage
+                old_race_data = RACES.get(old_race, {})
+                player["max_hp"] = max(10, player["max_hp"] - old_race_data.get("hp_bonus", 0))
+                player["hp"] = min(player["hp"], player["max_hp"])
+                # Reseta evoluções de raça (do stage anterior)
+                old_stage = player.get("race_stage", 0)
+                if old_stage > 0:
+                    old_evos = RACE_EVOLUTION_TREE.get(old_race, [])
+                    for i in range(old_stage):
+                        if i < len(old_evos):
+                            evo = old_evos[i]
+                            player["max_hp"] = max(10, player["max_hp"] - evo["hp_bonus"])
+                player["race_stage"] = 0
+                player["race"] = race_name
+                player["max_hp"] += race_data["hp_bonus"]
+                player["hp"] = min(player["hp"] + race_data["hp_bonus"], player["max_hp"])
+                action_title = f"🔄 Raça Trocada: {old_race} → {race_name}!"
+                footer_text = "⚠️ Evoluções de raça foram resetadas. Use 'evoluir raça' para evoluir novamente!"
+                color = discord.Color.orange()
+            else:
+                apply_race_bonuses(player, race_name)
+                action_title = f"{race_data['emoji']} Raça Escolhida: {race_name}!"
+                footer_text = "Agora use 'escolher classe' para completar seu personagem!"
+                color = discord.Color.purple()
+
+            save_player_db(self.user_id, player)
             embed = discord.Embed(
-                title=f"{race_data['emoji']} Raça Escolhida: {race_name}!",
+                title=action_title,
                 description=f"*{race_data['lore']}*\n\n{race_data['description']}",
-                color=discord.Color.purple()
+                color=color
             )
             embed.add_field(name="❤️ Bônus HP",  value=f"+{race_data['hp_bonus']}",  inline=True)
             embed.add_field(name="⚔️ Bônus ATK", value=f"+{race_data['atk_bonus']}", inline=True)
             embed.add_field(name="🛡️ Bônus DEF", value=f"+{race_data['def_bonus']}", inline=True)
             embed.add_field(name="✨ Passiva",    value=race_data["passive"],          inline=False)
-            embed.set_footer(text="Agora use 'escolher classe' para completar seu personagem!")
+            embed.set_footer(text=footer_text)
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
@@ -9905,7 +12362,7 @@ class RaceSelectView(discord.ui.View):
                     value=f"{rd['description']}\n**Passiva:** {rd['passive']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}",
                     inline=False
                 )
-            new_view = RaceSelectView(self.user_id, page=new_page)
+            new_view = RaceSelectView(self.user_id, page=new_page, allow_change=self.allow_change)
             await interaction.response.edit_message(embed=embed, view=new_view)
         return callback
 
@@ -9914,11 +12371,12 @@ class RaceSelectView(discord.ui.View):
 # VIEW: Class selection (paginated, 5 per page across 6 pages)
 # ─────────────────────────────────────────────────────────────
 class ClassSelectView(discord.ui.View):
-    def __init__(self, user_id, page=0, timeout=180):
+    def __init__(self, user_id, page=0, timeout=180, allow_change=False):
         super().__init__(timeout=timeout)
         self.user_id = user_id
         self.page = page
         self.answered = False
+        self.allow_change = allow_change
         all_classes = list(CLASSES.keys())
         chunk = all_classes[page*5:(page+1)*5]
         colors = [
@@ -9954,12 +12412,40 @@ class ClassSelectView(discord.ui.View):
                 return
             self.answered = True
             player = get_player(self.user_id)
-            if player.get("class"):
-                return await interaction.response.send_message(f"❌ Você já é um(a) **{player['class']}**!", ephemeral=True)
-            player["class"] = class_name
+            old_class = player.get("class")
+            if old_class and not self.allow_change:
+                return await interaction.response.send_message(f"❌ Você já é um(a) **{old_class}**!", ephemeral=True)
+            if old_class and self.allow_change and old_class == class_name:
+                return await interaction.response.send_message(f"❌ Você já é **{old_class}**! Escolha uma classe diferente.", ephemeral=True)
+
             class_data = CLASSES[class_name]
-            player["max_hp"] += class_data["hp_bonus"]
-            player["hp"] = player["max_hp"]
+
+            if self.allow_change and old_class:
+                # TROCA DE CLASSE: remove bônus antigos, aplica novos, reseta tiers/spec
+                old_class_data = CLASSES.get(old_class, {})
+                # Remove bônus da classe antiga (somente o bônus base da classe)
+                player["max_hp"] = max(10, player["max_hp"] - old_class_data.get("hp_bonus", 0))
+                player["hp"] = min(player["hp"], player["max_hp"])
+                # Reseta evolução de classe (tiers/spec resetam pois a classe mudou)
+                player["class_tier"] = 0
+                player["specialization"] = None
+                player["supreme_skills"] = []
+                # Aplica nova classe
+                player["class"] = class_name
+                player["max_hp"] += class_data["hp_bonus"]
+                player["hp"] = min(player["hp"] + class_data["hp_bonus"], player["max_hp"])
+                action_title = f"🔄 Classe Trocada: {old_class} → {class_name}!"
+                footer_text = "⚠️ Evoluções e especializações foram resetadas. Reevolua sua classe!"
+                color = discord.Color.orange()
+            else:
+                # ESCOLHA INICIAL
+                player["class"] = class_name
+                player["max_hp"] += class_data["hp_bonus"]
+                player["hp"] = player["max_hp"]
+                action_title = f"{class_data['emoji']} Classe Escolhida: {class_name}!"
+                footer_text = "Use 'habilidades' para ver suas skills. Evolua nos níveis 40, 80, 120, 160, 200, 400 e 500!"
+                color = discord.Color.gold()
+
             # Apply race affinity bonus if player has a race
             race = player.get("race")
             affinity_bonus = ""
@@ -9969,9 +12455,9 @@ class ClassSelectView(discord.ui.View):
                 affinity_bonus = f"\n\n🌟 **Bônus de Afinidade!** Sua raça **{race}** tem afinidade com esta classe!\n+15 HP bônus adicional."
             save_player_db(self.user_id, player)
             embed = discord.Embed(
-                title=f"{class_data['emoji']} Classe Escolhida: {class_name}!",
+                title=action_title,
                 description=f"{class_data['description']}{affinity_bonus}",
-                color=discord.Color.gold()
+                color=color
             )
             embed.add_field(name="💪 Bônus ATK", value=f"+{class_data['atk_bonus']}", inline=True)
             embed.add_field(name="🛡️ Bônus DEF", value=f"+{class_data['def_bonus']}", inline=True)
@@ -9981,7 +12467,7 @@ class ClassSelectView(discord.ui.View):
                 evo_levels = sorted(tree.keys())
                 evo_text = " → ".join([f"Nv.{lvl} ({tree[lvl]['name']})" for lvl in evo_levels])
                 embed.add_field(name="🌟 Árvore de Evolução", value=evo_text, inline=False)
-            embed.set_footer(text="Use 'habilidades' para ver suas skills. Evolua nos níveis 40, 80, 120 e 160!")
+            embed.set_footer(text=footer_text)
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
@@ -10008,7 +12494,7 @@ class ClassSelectView(discord.ui.View):
                     value=f"{cd['description']}\n**ATK:** +{cd['atk_bonus']} | **DEF:** +{cd['def_bonus']} | **HP:** +{cd['hp_bonus']}{evo_hint}",
                     inline=False
                 )
-            new_view = ClassSelectView(self.user_id, page=new_page)
+            new_view = ClassSelectView(self.user_id, page=new_page, allow_change=self.allow_change)
             await interaction.response.edit_message(embed=embed, view=new_view)
         return callback
 
@@ -10136,6 +12622,112 @@ class ClassEvolutionView(discord.ui.View):
             embed.set_footer(text=f"Tier {new_tier}/7 — Use 'habilidades' para ver suas skills!")
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
+
+
+# ─────────────────────────────────────────────────────────────
+# VIEW: Class Change Confirmation (pays coins, then shows class select)
+# ─────────────────────────────────────────────────────────────
+class ClassChangeConfirmView(discord.ui.View):
+    def __init__(self, user_id, cost, timeout=60):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.cost = cost
+
+    @discord.ui.button(label="✅ Confirmar Troca", style=discord.ButtonStyle.danger, emoji="🔄")
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esta confirmação não é sua!", ephemeral=True)
+        player = get_player(self.user_id)
+        if player.get("coins", 0) < self.cost:
+            return await interaction.response.send_message(f"❌ Você não tem coins suficientes! Necessário: {self.cost} 💰", ephemeral=True)
+        # Deduct coins
+        player["coins"] -= self.cost
+        save_player_db(self.user_id, player)
+        # Show class select with allow_change=True
+        all_classes = list(CLASSES.keys())
+        total_pages = (len(all_classes) + 4) // 5
+        embed = discord.Embed(
+            title="🔄 Escolha sua Nova Classe",
+            description=(
+                f"✅ **{self.cost} coins debitados.** Escolha sua nova classe:\n"
+                f"*Sua classe anterior e todas as evoluções serão substituídas.*"
+            ),
+            color=discord.Color.blue()
+        )
+        chunk = all_classes[:5]
+        for cn in chunk:
+            cd = CLASSES[cn]
+            tree = CLASS_EVOLUTION_TREE.get(cn)
+            evo_hint = (f"\n🌟 Evolui: {', '.join(str(k) for k in sorted(tree.keys()))}") if tree else ""
+            embed.add_field(
+                name=f"{cd['emoji']} {cn}",
+                value=f"{cd['description']}\n**ATK:** +{cd['atk_bonus']} | **DEF:** +{cd['def_bonus']} | **HP:** +{cd['hp_bonus']}{evo_hint}",
+                inline=False
+            )
+        view = ClassSelectView(self.user_id, page=0, allow_change=True)
+        await interaction.response.edit_message(embed=embed, view=view)
+
+    @discord.ui.button(label="❌ Cancelar", style=discord.ButtonStyle.secondary)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esta confirmação não é sua!", ephemeral=True)
+        await interaction.response.edit_message(
+            content="❌ Troca de classe cancelada.",
+            embed=None, view=None
+        )
+
+
+# ─────────────────────────────────────────────────────────────
+# VIEW: Race Change Confirmation (pays coins, then shows race select)
+# ─────────────────────────────────────────────────────────────
+class RaceChangeConfirmView(discord.ui.View):
+    def __init__(self, user_id, cost, timeout=60):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.cost = cost
+
+    @discord.ui.button(label="✅ Confirmar Troca", style=discord.ButtonStyle.danger, emoji="🔄")
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esta confirmação não é sua!", ephemeral=True)
+        player = get_player(self.user_id)
+        if player.get("coins", 0) < self.cost:
+            return await interaction.response.send_message(f"❌ Você não tem coins suficientes! Necessário: {self.cost} 💰", ephemeral=True)
+        # Deduct coins
+        player["coins"] -= self.cost
+        save_player_db(self.user_id, player)
+        # Show race select with allow_change=True
+        all_races = list(RACES.keys())
+        total_pages = (len(all_races) + 4) // 5
+        embed = discord.Embed(
+            title="🔄 Escolha sua Nova Raça",
+            description=(
+                f"✅ **{self.cost} coins debitados.** Escolha sua nova raça:\n"
+                f"*Sua raça anterior e todas as evoluções raciais serão substituídas.*"
+            ),
+            color=discord.Color.purple()
+        )
+        chunk = all_races[:5]
+        for rn in chunk:
+            rd = RACES[rn]
+            evos = RACE_EVOLUTION_TREE.get(rn, [])
+            evo_hint = (f"\n🧬 Evolui: {', '.join(str(e['level']) for e in evos)}") if evos else ""
+            embed.add_field(
+                name=f"{rd['emoji']} {rn}",
+                value=f"{rd['description']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}\n**Passiva:** {rd['passive']}{evo_hint}",
+                inline=False
+            )
+        view = RaceSelectView(self.user_id, page=0, allow_change=True)
+        await interaction.response.edit_message(embed=embed, view=view)
+
+    @discord.ui.button(label="❌ Cancelar", style=discord.ButtonStyle.secondary)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esta confirmação não é sua!", ephemeral=True)
+        await interaction.response.edit_message(
+            content="❌ Troca de raça cancelada.",
+            embed=None, view=None
+        )
 
 
 class PetTameButton(discord.ui.View):
@@ -13615,7 +16207,7 @@ async def send_prologue(guild):
     )
     embed8.add_field(
         name="👤 Personagem & Evolução",
-        value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`",
+        value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `trocar raça` | `escolher classe` | `habilidades` | `evolução classe` | `trocar classe` | `ver mana`",
         inline=False
     )
     embed8.add_field(
@@ -13927,6 +16519,104 @@ async def on_message(message):
                 inline=False
             )
         view = ClassSelectView(user_id, page=0)
+        await message.channel.send(embed=embed, view=view)
+        return
+
+    # ======================================================
+    # ================= TROCAR CLASSE ======================
+    # ======================================================
+    elif any(word in content for word in ["trocar classe", "mudar classe", "resetar classe", "change class"]):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro com `iniciar`!")
+            return
+        if not player.get("class"):
+            await message.channel.send("❌ Você ainda não tem uma classe! Use `escolher classe` primeiro.")
+            return
+
+        CUSTO_TROCAR = 500
+        if player.get("coins", 0) < CUSTO_TROCAR:
+            await message.channel.send(
+                f"⚠️ **Trocar de Classe custa {CUSTO_TROCAR} 💰 coins.**\n"
+                f"Você tem apenas **{player.get('coins',0)}** coins.\n\n"
+                f"*Use `trabalhar`, `batalhar` ou complete quests para ganhar coins!*"
+            )
+            return
+
+        all_classes = list(CLASSES.keys())
+        total_pages = (len(all_classes) + 4) // 5
+        embed = discord.Embed(
+            title="🔄 Trocar de Classe",
+            description=(
+                f"⚠️ **Atenção:** Trocar de classe custa **{CUSTO_TROCAR} 💰 coins**.\n"
+                f"Sua classe atual: **{player['class']}** | Tier: **{player.get('class_tier', 0)}/7**\n\n"
+                f"*Ao trocar, suas evoluções e especializações serão RESETADAS.*\n"
+                f"*Você precisará evoluir a nova classe do zero.*\n\n"
+                f"Escolha sua nova classe abaixo:"
+            ),
+            color=discord.Color.orange()
+        )
+        chunk = all_classes[:5]
+        for cn in chunk:
+            cd = CLASSES[cn]
+            tree = CLASS_EVOLUTION_TREE.get(cn)
+            evo_hint = (f"\n🌟 Evolui: {', '.join(str(k) for k in sorted(tree.keys()))}") if tree else ""
+            embed.add_field(
+                name=f"{cd['emoji']} {cn}",
+                value=f"{cd['description']}\n**ATK:** +{cd['atk_bonus']} | **DEF:** +{cd['def_bonus']} | **HP:** +{cd['hp_bonus']}{evo_hint}",
+                inline=False
+            )
+        # Deduct coins when view is created (deduct on confirm in view)
+        # We pass allow_change=True and handle cost in a wrapper
+        view = ClassChangeConfirmView(user_id, CUSTO_TROCAR)
+        await message.channel.send(embed=embed, view=view)
+        return
+
+    # ======================================================
+    # ================= TROCAR RAÇA ========================
+    # ======================================================
+    elif any(word in content for word in ["trocar raça", "trocar raca", "mudar raça", "mudar raca", "resetar raça", "change race"]):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro com `iniciar`!")
+            return
+        if not player.get("race"):
+            await message.channel.send("❌ Você ainda não tem uma raça! Use `escolher raça` primeiro.")
+            return
+
+        CUSTO_TROCAR_RACA = 750
+        if player.get("coins", 0) < CUSTO_TROCAR_RACA:
+            await message.channel.send(
+                f"⚠️ **Trocar de Raça custa {CUSTO_TROCAR_RACA} 💰 coins.**\n"
+                f"Você tem apenas **{player.get('coins',0)}** coins.\n\n"
+                f"*Use `trabalhar`, `batalhar` ou complete quests para ganhar coins!*"
+            )
+            return
+
+        all_races = list(RACES.keys())
+        total_pages = (len(all_races) + 4) // 5
+        embed = discord.Embed(
+            title="🔄 Trocar de Raça",
+            description=(
+                f"⚠️ **Atenção:** Trocar de raça custa **{CUSTO_TROCAR_RACA} 💰 coins**.\n"
+                f"Sua raça atual: **{player['race']}** | Estágio: **{player.get('race_stage', 0)}/7**\n\n"
+                f"*Ao trocar, suas evoluções de raça serão RESETADAS.*\n"
+                f"*Os bônus de HP das evoluções anteriores serão removidos.*\n\n"
+                f"Escolha sua nova raça abaixo:"
+            ),
+            color=discord.Color.orange()
+        )
+        chunk = all_races[:5]
+        for rn in chunk:
+            rd = RACES[rn]
+            evos = RACE_EVOLUTION_TREE.get(rn, [])
+            evo_hint = (f"\n🧬 Evolui: {', '.join(str(e['level']) for e in evos)}") if evos else ""
+            embed.add_field(
+                name=f"{rd['emoji']} {rn}",
+                value=f"{rd['description']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}\n**Passiva:** {rd['passive']}{evo_hint}",
+                inline=False
+            )
+        view = RaceChangeConfirmView(user_id, CUSTO_TROCAR_RACA)
         await message.channel.send(embed=embed, view=view)
         return
 
@@ -15077,7 +17767,7 @@ async def on_message(message):
     # ── PÁGINAS INDIVIDUAIS DE COMANDOS ────────────────────────────────
     if content in ["comandos 1"]:
         e1 = discord.Embed(title="📋 COMANDOS [1/5] — Personagem & Início", color=0x3498DB)
-        e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `habilidades` | `evolução classe` | `ver mana`", inline=False)
+        e1.add_field(name="👤 Personagem", value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `trocar raça` | `escolher classe` | `habilidades` | `evolução classe` | `trocar classe` | `ver mana`", inline=False)
         e1.add_field(name="💪 Treinamento", value="`treinar força` | `treinar defesa` | `treinar vitalidade` | `treinar intensivo`", inline=False)
         e1.add_field(name="🏆 Conquistas & Alinhamento", value="`ver conquistas` | `alinhamento` | `ver títulos` | `cenário` | `missão moral`", inline=False)
         e1.add_field(name="🌟 7 Tiers de Evolução de Classe", value="Nível **40** → **80** → **120** → **160** → **200** (Transcendental) → **400** (Dimensional) → **500** (Absoluto)\nTier I ×1 → II ×2.5 → III ×5 → IV ×10 → V ×20 → VI ×50 → VII ×100", inline=False)
