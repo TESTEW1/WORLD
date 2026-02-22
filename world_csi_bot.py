@@ -15632,26 +15632,31 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         await check_class_evolution(channel, user_id)
 
     # ── Check supreme skill unlock (boss-specific) ──
+    # Recarrega player mais recente para ter bosses atualizados
+    p_evo = get_player(user_id)
     cls = p_evo.get("class")
     if cls and cls in CLASS_TIERED_SKILLS:
         supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
         if supreme:
             unlock_boss = supreme.get("unlock_boss", "")
-            # Normaliza nomes para comparação: remove emojis, espaços extras, lowercase
+            # Normaliza string: remove emojis, acenta, minúscula
             def _norm(s):
                 import unicodedata
-                # Remove emojis/symbols: keep only letters, digits, spaces
                 out = ""
                 for ch in s:
                     cat = unicodedata.category(ch)
                     if cat.startswith("L") or cat.startswith("N") or ch == " ":
                         out += ch
                 return " ".join(out.lower().split())
-            boss_norm = _norm(boss_data["name"])
             unlock_norm = _norm(unlock_boss)
-            boss_match = (boss_norm == unlock_norm or
-                          boss_norm in unlock_norm or
-                          unlock_norm in boss_norm)
+            # Verificar contra TODOS os bosses já derrotados (não só o atual)
+            all_beaten = p_evo.get("bosses", []) + [boss_data["name"]]
+            boss_match = any(
+                _norm(b) == unlock_norm or
+                _norm(b) in unlock_norm or
+                unlock_norm in _norm(b)
+                for b in all_beaten
+            )
             if boss_match:
                 supreme_skills = p_evo.get("supreme_skills", [])
                 if supreme["name"] not in supreme_skills:
@@ -22627,6 +22632,109 @@ async def handle_admin_commands(message):
             description=f"**{len(rows)} jogadores** receberam `{amount:,}` CSI cada!",
             color=discord.Color.gold()))
 
+    # ── !admin suprema @user ─────────────────────────────────────────
+    elif content_lower.startswith("!admin suprema") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        cls = player.get("class")
+        supreme_skills = player.get("supreme_skills", [])
+        if cls and cls in CLASS_TIERED_SKILLS:
+            supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
+            if supreme:
+                bosses_beaten = player.get("bosses", [])
+                embed = discord.Embed(title=f"🔍 DEBUG — Suprema de {target.display_name}", color=discord.Color.gold())
+                embed.add_field(name="🎭 Classe", value=cls, inline=True)
+                embed.add_field(name="👑 Suprema", value=supreme["name"], inline=True)
+                embed.add_field(name="🎯 Boss necessário", value=supreme["unlock_boss"], inline=True)
+                embed.add_field(name="✅ Desbloqueada?", value="SIM" if supreme["name"] in supreme_skills else "NÃO", inline=True)
+                embed.add_field(name="🏆 Bosses derrotados", value=", ".join(bosses_beaten[:10]) or "Nenhum", inline=False)
+                await message.channel.send(embed=embed)
+            else:
+                await message.channel.send(f"❌ {cls} não tem habilidade suprema definida!")
+        else:
+            await message.channel.send(f"❌ {target.display_name} não tem classe ou classe sem dados tiered!")
+
+    # ── !admin dar suprema @user ──────────────────────────────────────
+    elif content_lower.startswith("!admin dar suprema") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        cls = player.get("class")
+        if not cls or cls not in CLASS_TIERED_SKILLS:
+            await message.channel.send(f"❌ Classe inválida!"); return
+        supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
+        if not supreme:
+            await message.channel.send(f"❌ {cls} não tem habilidade suprema!"); return
+        supreme_skills = player.get("supreme_skills", [])
+        if supreme["name"] in supreme_skills:
+            await message.channel.send(f"⚠️ **{target.display_name}** já tem a suprema **{supreme['name']}**!")
+            return
+        supreme_skills.append(supreme["name"])
+        player["supreme_skills"] = supreme_skills
+        save_player_db(str(target.id), player)
+        cls_emoji = CLASSES.get(cls, {}).get("emoji", "⚔️")
+        _admin_sup_desc = (
+            f"**{target.display_name}** desbloqueou a suprema de **{cls_emoji} {cls}**!\n\n"
+            f"**{supreme['name']}** — {supreme['dmg_mult']}× dano\n"
+            f"_{supreme['desc']}_"
+        )
+        embed = discord.Embed(
+            title="👑 ADMIN — Habilidade Suprema Desbloqueada!",
+            description=_admin_sup_desc,
+            color=discord.Color.from_rgb(255, 215, 0)
+        )
+        await message.channel.send(embed=embed)
+
+
+    # ── !admin boss @user [nome do boss] ──────────────────────────────
+    elif content_lower.startswith("!admin boss") and message.mentions:
+        target = message.mentions[0]
+        raw = content.replace("!admin boss", "").replace("!admin Boss", "")
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        boss_name_input = raw.strip()
+        if not boss_name_input:
+            await message.channel.send("❌ Uso: `!admin boss @user Yeti Colossal`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        bosses = player.get("bosses", [])
+        if boss_name_input not in bosses:
+            bosses.append(boss_name_input)
+        player["bosses"] = bosses
+        save_player_db(str(target.id), player)
+        # Também verificar e desbloquear suprema se esse boss era necessário
+        cls = player.get("class")
+        unlocked_supreme = None
+        if cls and cls in CLASS_TIERED_SKILLS:
+            supreme = CLASS_TIERED_SKILLS[cls].get("supreme")
+            if supreme:
+                def _norm2(s):
+                    import unicodedata
+                    out = ""
+                    for ch in s:
+                        cat = unicodedata.category(ch)
+                        if cat.startswith("L") or cat.startswith("N") or ch == " ":
+                            out += ch
+                    return " ".join(out.lower().split())
+                unlock_norm = _norm2(supreme.get("unlock_boss", ""))
+                if any(_norm2(b) == unlock_norm or _norm2(b) in unlock_norm or unlock_norm in _norm2(b) for b in bosses):
+                    sup_skills = player.get("supreme_skills", [])
+                    if supreme["name"] not in sup_skills:
+                        sup_skills.append(supreme["name"])
+                        player["supreme_skills"] = sup_skills
+                        save_player_db(str(target.id), player)
+                        unlocked_supreme = supreme["name"]
+        extra = (f"\n\n⚡ **Suprema desbloqueada:** {unlocked_supreme}") if unlocked_supreme else ""
+        await message.channel.send(embed=discord.Embed(
+            title="🏆 ADMIN — Boss Registrado",
+            description=f"**{target.display_name}** agora tem **{boss_name_input}** como boss derrotado!{extra}",
+            color=discord.Color.green()))
+
+
     # ── !admin help ──────────────────────────────────────────────────
     elif content_lower in ["!admin", "!admin help", "!adminhelp"]:
         embed = discord.Embed(title="⚙️ ADMIN — Painel de Comandos", color=discord.Color.dark_gold())
@@ -22648,6 +22756,11 @@ async def handle_admin_commands(message):
         embed.add_field(
             name="🎭 Personagem",
             value="`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça",
+            inline=False
+        )
+        embed.add_field(
+            name="👑 Habilidade Suprema",
+            value="`!admin suprema @user` — ver estado da suprema (debug)\n`!admin dar suprema @user` — desbloquear suprema manualmente\n`!admin boss @user [nome]` — registrar boss como derrotado (e desbloqueia suprema se aplicável)",
             inline=False
         )
         embed.add_field(
