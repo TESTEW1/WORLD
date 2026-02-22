@@ -3278,8 +3278,6 @@ def register_new_world_content():
         ITEMS["armor"].extend(data.get("armor", []))
 
 
-register_new_world_content()
-
 def get_all_pets():
     """Retorna todos os pets (originais + extras) como lista flat por mundo"""
     all_pets = {}
@@ -8666,6 +8664,10 @@ ITEMS_EXTRA = {
 # Mescla ITEMS_EXTRA no ITEMS para que todo o sistema use automaticamente
 ITEMS["weapons"].extend(ITEMS_EXTRA["weapons"])
 ITEMS["armor"].extend(ITEMS_EXTRA["armor"])
+
+# Registra conteúdo dos novos reinos (chamado aqui pois ITEMS já está definido)
+register_new_world_content()
+
 STRUCTURES = [
     {
         "name": "🏛️ Cidade Mercante",
