@@ -2359,7 +2359,22 @@ MONSTER_DROPS = {
 
 # ================= SISTEMA DE CHAVES DE DUNGEON SECRETA =================
 # Chaves são dropadas de baús nas dungeons comuns e desbloqueiam dungeons secretas
+# Tipos de chave disponíveis:
+# 🗝️ Chave Antiga       — Reinos 1–10 (Terras Iniciais)
+# 🔑 Chave Arcana       — Reinos 11–20 (Nações Intermediárias)
+# 🗡️ Chave Sombria      — Reinos 21–30 (Impérios Avançados) + Reinos 31–35 (Terras Corrompidas)
+# ✨ Chave Celestial    — Reinos 36–40 (Reinos Dimensionais) + Dimensão Celestial
+# 🌑 Chave Abissal      — Dimensão Infernal, Abissal e do Vazio
 DUNGEON_KEY_DROP_CHANCE = 0.08  # 8% de sorte — chave também cai a cada 5 dungeons completadas
+
+# Tipos de chave por faixa de nível (para referência dos drops)
+KEY_TYPE_BY_LEVEL = {
+    (1,   100): ("🗝️ Chave Antiga",    "Antiga"),
+    (101, 200): ("🔑 Chave Arcana",    "Arcana"),
+    (201, 350): ("🗡️ Chave Sombria",   "Sombria"),
+    (351, 400): ("✨ Chave Celestial", "Celestial"),
+    (401, 999): ("🌑 Chave Abissal",   "Abissal"),
+}
 
 def get_world_secret_dungeon_keys(world_data):
     """Retorna lista de chaves de dungeons secretas do mundo atual."""
@@ -2392,11 +2407,21 @@ HUNT_DROP_CHANCE = {
 }
 
 # Reinos avançados (novas áreas) permitem drops mais raros de monstros
-HIGH_LEVEL_WORLDS = {62, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
-                     190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300,
-                     310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420,
-                     430, 440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 540,
-                     550, 560, 570, 580, 590}
+# Reinos 11-40 + Dimensões (400+) = drops mais raros permitidos
+HIGH_LEVEL_WORLDS = {
+    # Nações Intermediárias (reinos 11–20)
+    110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
+    # Impérios Avançados (reinos 21–30)
+    210, 220, 230, 240, 250, 260, 270, 280, 290, 300,
+    # Terras Corrompidas (reinos 31–35)
+    310, 320, 330, 340, 350,
+    # Reinos Dimensionais (reinos 36–40)
+    360, 370, 380, 390, 400,
+    # Dimensões (Celestial, Infernal, Badlands, Abissal, Vazio) — nível 401–500
+    410, 420, 430, 440, 450, 460, 470, 480, 490, 500,
+    # Ciclo Absoluto (501–600)
+    510, 520, 530, 540, 550, 560, 570, 580, 590
+}
 HIGH_LEVEL_DROP_BONUS = {
     "legendary": 0.008,   # 0.8% lendário em reinos avançados
     "mythic": 0.001,      # 0.1% Mítico em reinos avançados
@@ -12126,8 +12151,9 @@ async def send_prologue(guild):
             "*Uma voz grave ecoa por todo o servidor...*\n\n"
             "**\"No princípio, havia apenas o Vazio — um silêncio perfeito e eterno.**\n"
             "Então, a Primeira Chama surgiu do nada, e com ela nasceu o Mundo.\n\n"
-            "Sessenta reinos se formaram das cinzas da criação.\n"
-            "Quatro ciclos de existência dividem o que os mortais chamam de realidade.\n"
+            "Quarenta reinos se formaram das cinzas da criação.\n"
+            "Cinco Dimensões aguardam além deles, cada uma um mundo em si mesma.\n"
+            "Seis ciclos de existência dividem o que os mortais chamam de realidade.\n"
             "Cada ciclo transcende o anterior de formas que a mente mortal mal pode conceber.\n\n"
             "**Você... é o próximo herói desta história.**\n"
             "Ou talvez o próximo Absoluto. O destino é seu para escrever.\"\n\n"
@@ -12143,52 +12169,73 @@ async def send_prologue(guild):
     # EMBED 2 — Os 4 Ciclos de Mundo
     # ══════════════════════════════════════════
     embed2 = discord.Embed(
-        title="🔄 Os Quatro Ciclos do Mundo",
+        title="🔄 Os Seis Ciclos do Mundo",
         description="*O Narrador desdobra um mapa que parece infinito...*",
         color=0x1a0033
     )
     embed2.add_field(
-        name="⚔️ Ciclo 1 — Reinos Mortais (Nível 1–199)",
+        name="🌱 Ciclo 1 — Terras Iniciais (Nível 1–100)",
         value=(
-            "*\"Aqui nasceram os primeiros heróis. Vinte reinos forjados de lutas reais.\"*\n\n"
-            "**20 reinos** | **20 bosses obrigatórios** (níveis 9, 19... 199)\n"
-            "Da planície mais humilde até o Trono Primordial.\n"
-            "▸ Desbloqueie evoluções de classe nos níveis **40 / 80 / 120 / 160**"
+            "*\"Aqui nasceram os primeiros heróis. Dez reinos forjados de luta e esperança.\"*\n\n"
+            "**10 reinos** | **10 bosses obrigatórios** (níveis 9, 19... 99)\n"
+            "Das planícies mais humildes até os primeiros portais da aventura.\n"
+            "▸ **Chave Antiga** 🗝️ para dungeons secretas"
         ),
         inline=False
     )
     embed2.add_field(
-        name="🌌 Ciclo 2 — Reinos Avançados (Nível 200–399)",
+        name="⚔️ Ciclo 2 — Nações Intermediárias (Nível 101–200)",
         value=(
-            "*\"O mundo mortal era apenas o prólogo. A história real começa aqui.\"*\n\n"
-            "**20 reinos** | **20 bosses** (níveis 209, 219... 399)\n"
-            "Dimensões, vórtices, oceanos interdimensionais e tribunais cósmicos.\n"
-            "▸ Evolução de classe **Tier V** desbloqueada no **nível 200**"
+            "*\"As nações crescem, os inimigos ficam mais astutos. O mundo começa a revelar seus segredos.\"*\n\n"
+            "**10 reinos** | **10 bosses** (níveis 109, 119... 199)\n"
+            "Civilizações complexas, política, magia avançada e ameaças interdimensionais.\n"
+            "▸ **Chave Arcana** 🔑 para dungeons secretas"
         ),
         inline=False
     )
     embed2.add_field(
-        name="💫 Ciclo 3 — Dimensões Superiores (Nível 400–499)",
+        name="🏛️ Ciclo 3 — Impérios Avançados (Nível 201–300)",
         value=(
-            "*\"Transcendeste o mortal. Transcendeste o dimensional. O que vem agora?\"*\n\n"
-            "**10 reinos** | **10 bosses** (níveis 409, 419... 499)\n"
-            "Nebulosas, templos divinos, estrelas primordiais e o Olimpo Transcendente.\n"
-            "▸ Evolução de classe **Tier VI** desbloqueada no **nível 400**"
+            "*\"O mortal deixa de ser mortal. Impérios que dobram a realidade ao seu redor.\"*\n\n"
+            "**10 reinos** | **10 bosses** (níveis 209, 219... 299)\n"
+            "Impérios ancestrais, poderes cósmicos, dungeons lendárias e lore profunda.\n"
+            "▸ **Chave Sombria** 🗡️ para dungeons secretas"
         ),
         inline=False
     )
     embed2.add_field(
-        name="♾️ Ciclo 4 — Planos Absolutos (Nível 500–600)",
+        name="🩸 Ciclo 4 — Terras Corrompidas & Reinos Dimensionais (Nível 301–400)",
+        value=(
+            "*\"A corrupção não é inimiga — é apenas outra forma de poder.\"*\n\n"
+            "**5 Terras Corrompidas** + **5 Reinos Dimensionais** | **10 bosses** (309–399)\n"
+            "Terras corrompidas com efeitos ambientais, criaturas únicas e Bosses Dimensionais.\n"
+            "▸ **Chave Sombria** 🗡️ (corrompidas) | **Chave Celestial** ✨ (dimensionais)\n"
+            "▸ Bosses Dimensionais liberam **sistemas novos** (passivas globais, slots extras)"
+        ),
+        inline=False
+    )
+    embed2.add_field(
+        name="🌌 Ciclo 5 — As Cinco Dimensões (Nível 401–500)",
+        value=(
+            "*\"Transcendeste o mortal, o corrompido, o dimensional. Agora as Dimensões Verdadeiras aguardam.\"*\n\n"
+            "🕊️ Dimensão Celestial (Céu) | 🔥 Dimensão Infernal (Inferno)\n"
+            "🌪️ Dimensão das Badlands | 🌑 Dimensão Abissal | 🌀 Dimensão do Vazio\n"
+            "Bosses Dimensionais • Criaturas únicas • Efeitos ambientais • Dungeons secretas dimensionais\n"
+            "▸ **Chave Celestial** ✨ / **Chave Abissal** 🌑 • NPCs Transcendentais"
+        ),
+        inline=False
+    )
+    embed2.add_field(
+        name="♾️ Ciclo 6 — Planos Absolutos (Nível 501–600)",
         value=(
             "*\"Além daqui não há mais nomes. Há apenas... o Absoluto.\"*\n\n"
-            "**10 reinos** | **10 bosses** (níveis 509, 519... 599)\n"
-            "Trevas absolutas, luz absoluta, chama eterna e o Vazio além do Vazio.\n"
-            "▸ Evolução de classe **Tier VII** desbloqueada no **nível 500**\n"
+            "**Bosses** (níveis 509, 519... 599) | Raridades: Divino, Primordial, Absoluto\n"
+            "Trevas absolutas, luz absoluta, a Chama Eterna e o Vazio além do Vazio.\n"
             "▸ **Nível 600** — O Absoluto Final. O fim da jornada."
         ),
         inline=False
     )
-    embed2.set_footer(text="60 bosses • 60 reinos • 4 ciclos • Level máximo 600")
+    embed2.set_footer(text="40 reinos • 5 dimensões • 6 ciclos • Level máximo 600")
     await channel.send(embed=embed2)
     await asyncio.sleep(2)
 
@@ -12196,60 +12243,31 @@ async def send_prologue(guild):
     # EMBED 3 — Os Reinos Mortais (Ciclo 1)
     # ══════════════════════════════════════════
     embed3 = discord.Embed(
-        title="🗺️ Ciclo 1 — Os Reinos Mortais",
-        description="*O pergaminho se desenrola revelando as terras dos mortais...*",
+        title="🗺️ Ciclo 1 & 2 — Terras Iniciais e Nações Intermediárias",
+        description="*O pergaminho se desenrola revelando as primeiras terras dos aventureiros...*",
         color=0x8B4513
     )
     embed3.add_field(
-        name="🌱 Campos Iniciais — O Berço",
+        name="🌱 Terras Iniciais (Reinos 1–10 | Nível 1–100)",
         value=(
             "*\"Todo herói começa aqui. O guerreiro mais poderoso começou matando um slime.\"*\n"
             "— Historiador Pell\n\n"
-            "Planícies abertas onde o Slime Rei guarda os primeiros segredos do mundo."
+            "Dez reinos de aprendizado: planícies, florestas, desertos, montanhas e abismos.\n"
+            "Cada reino tem cidade principal, 4–6 áreas exploráveis, dungeons e 1 Boss de Level.\n"
+            "🗝️ **Chave Antiga** desbloqueia as dungeons secretas destas terras."
         ),
         inline=False
     )
     embed3.add_field(
-        name="🌲 Floresta Sombria → 🏜️ Deserto das Almas → ❄️ Montanhas Geladas",
+        name="⚔️ Nações Intermediárias (Reinos 11–20 | Nível 101–200)",
         value=(
-            "A floresta **respira e lembra** tudo. O deserto guarda um jardim perdido sob a areia.\n"
-            "As montanhas são professor — o frio não é inimigo, é teste."
+            "As nações crescem em poder e complexidade. Inimigos com táticas e magia avançada.\n"
+            "Políticas, alianças e guerras moldam o cenário além de simples combate.\n"
+            "🔑 **Chave Arcana** desbloqueia as dungeons secretas destas nações."
         ),
         inline=False
     )
-    embed3.add_field(
-        name="🌋 Vulcânico → 🌌 Abismo Arcano → 👑 Trono Celestial",
-        value=(
-            "O fogo **transforma, não destrói**. O Abismo é onde toda alma nasce e morre.\n"
-            "O Trono Celestial — aquele que chegar não será mais mortal."
-        ),
-        inline=False
-    )
-    embed3.add_field(
-        name="🌿 Pântano → 💎 Floresta Cristalina → 🌑 Sombras Eternas → ⚡ Planícies do Trovão",
-        value=(
-            "Almas presas na lama. Cristais que refletem versões suas que não sobreviveram.\n"
-            "Escuridão que **sabe seu nome**. Relâmpagos que são criaturas vivas."
-        ),
-        inline=False
-    )
-    embed3.add_field(
-        name="🗿 Terra dos Gigantes → 🌊 Mar das Almas → 🌀 Reino do Caos → 🌸 Jardim dos Deuses",
-        value=(
-            "Montanhas que são costas de gigantes dormindo. Um oceano onde o tempo não flui.\n"
-            "A realidade como inimigo. Um paraíso com cada flor sendo uma armadilha."
-        ),
-        inline=False
-    )
-    embed3.add_field(
-        name="🧊 Gelo Eterno → 🏛️ Ruínas → ✨ Plano Astral → 🌌 Além da Existência → ⭐ Trono Primordial",
-        value=(
-            "Frio que antecede o universo. Autômatos de civilização esquecida.\n"
-            "O cosmos consciente. A linguagem não alcança. **O Criador Primordial espera.**"
-        ),
-        inline=False
-    )
-    embed3.set_footer(text="Ciclo 1 completo: nível 199 + Boss do Trono Primordial desbloqueiam o Ciclo 2")
+    embed3.set_footer(text="Ciclos 1–2: 20 reinos • 20 bosses obrigatórios • Use `mapa` e `mapa 2` para explorar")
     await channel.send(embed=embed3)
     await asyncio.sleep(2)
 
@@ -12257,52 +12275,57 @@ async def send_prologue(guild):
     # EMBED 4 — Os Novos Ciclos (2, 3, 4)
     # ══════════════════════════════════════════
     embed4 = discord.Embed(
-        title="🌌 Ciclos 2, 3 e 4 — Além da Compreensão Mortal",
+        title="🌌 Ciclos 3–6 — Além da Compreensão Mortal",
         description=(
-            "*Um segundo mapa aparece por baixo do primeiro — e um terceiro por baixo do segundo...*\n\n"
-            "*\"Acreditávamos que o Trono Primordial era o fim. Estávamos completamente errados.\"*\n"
+            "*Um segundo mapa aparece por baixo do primeiro — e outros ainda por baixo...*\n\n"
+            "*\"Acreditávamos que as Nações Intermediárias eram o fim. Estávamos completamente errados.\"*\n"
             "— Última anotação do Explorador Maren, antes de desaparecer"
         ),
         color=0x0a0a2e
     )
     embed4.add_field(
-        name="🌌 Reinos Avançados — Os Primeiros Além",
+        name="🏛️ Impérios Avançados (Reinos 21–30 | Nível 201–300)",
         value=(
-            "*\"O Despertar do Além. O Vórtice Dimensional. O Oceano Interdimensional.*\n"
-            "*O Tribunal do Cosmo. A Arena dos Deuses Menores. O Nexo das Dimensões.\"*\n\n"
-            "Vinte reinos onde a física é diferente e os habitantes nem sabem o que é mortal."
+            "*\"Impérios que curvam a realidade. Poderes que transcendem o entendimento mortal.\"*\n\n"
+            "Dez reinos onde cada rei é um deus menor. Dungeons lendárias e lore profunda.\n"
+            "🗡️ **Chave Sombria** desbloqueia as dungeons secretas dos Impérios."
         ),
         inline=False
     )
     embed4.add_field(
-        name="💫 Dimensões Superiores — Onde os Deuses Habitam",
+        name="🩸 Terras Corrompidas & Reinos Dimensionais (Reinos 31–40 | Nível 301–400)",
         value=(
-            "*\"Nebulosas conscientes. Templos de deuses maiores. Estrelas primordiais vivas.*\n"
-            "*O Abismo Cósmico. O Plasma da Criação. O Olimpo Transcendente.\"*\n\n"
-            "Dez reinos onde cada passo altera o tecido da realidade ao redor."
+            "*\"A corrupção revelou o que estava escondido. Os Reinos Dimensionais abrem portais para o inexplicável.\"*\n\n"
+            "5 Terras Corrompidas com **efeitos ambientais** (dano contínuo, debuff de sanidade) +\n"
+            "5 Reinos Dimensionais com portais, criaturas únicas e **Bosses Dimensionais**.\n"
+            "▸ Bosses Dimensionais liberam **habilidades passivas globais** e **slots extras** de pet/equipamento!\n"
+            "🗡️ Chave Sombria (corrompidas) | ✨ **Chave Celestial** (dimensionais)"
         ),
         inline=False
     )
     embed4.add_field(
-        name="♾️ Planos Absolutos — O Fim e o Começo",
+        name="🌌 As Cinco Dimensões (Nível 401–500)",
         value=(
-            "*\"Trevas Absolutas que devoram tudo. Luz Absoluta que cega eternamente.*\n"
-            "*A Chama que criou o universo. O Oceano que precedeu tudo.*\n"
-            "*O Vazio além do Vazio. O Plano Absoluto Final.\"*\n\n"
-            "Dez reinos onde conceitos como vida e morte são apenas sugestões."
+            "*\"O verdadeiro poder não estava nos reinos. Estava além deles.\"*\n\n"
+            "🕊️ **Dimensão Celestial** — buff sagrado, NPCs transcendentais, dungeons divinas\n"
+            "🔥 **Dimensão Infernal** — dano contínuo, criaturas do abismo, drops míticos\n"
+            "🌪️ **Dimensão das Badlands** — terra devastada caótica, caos puro\n"
+            "🌑 **Dimensão Abissal** — debuff de sanidade, horrores primordiais\n"
+            "🌀 **Dimensão do Vazio** — distorção da realidade, o nada consciente\n"
+            "🌑 **Chave Abissal** desbloqueia as dungeons secretas dimensionais"
         ),
         inline=False
     )
     embed4.add_field(
-        name="🏆 O Absoluto — Nível 600",
+        name="♾️ Planos Absolutos (Nível 501–600)",
         value=(
-            "*\"Não existem palavras. Existência e não-existência são a mesma coisa aqui.*\n"
-            "*Você que chegou até aqui não é mais um jogador. É uma lenda real.\"*\n\n"
-            "O nível 600 é o **pináculo absoluto**. Apenas os verdadeiros imortais chegam até aqui."
+            "*\"Não existem palavras. Existência e não-existência são a mesma coisa aqui.\"*\n\n"
+            "O ciclo final. Raridades: Divino, Primordial, Absoluto.\n"
+            "▸ **Nível 600** — O Absoluto Final. Apenas os verdadeiros imortais chegam até aqui."
         ),
         inline=False
     )
-    embed4.set_footer(text="⚠️ Ciclos 2-4 desbloqueados derrotando o boss do nível 199, 399 e 499 respectivamente.")
+    embed4.set_footer(text="⚠️ Cada ciclo é desbloqueado ao derrotar o boss do último nível do ciclo anterior.")
     await channel.send(embed=embed4)
     await asyncio.sleep(2)
 
@@ -12480,72 +12503,64 @@ async def send_prologue(guild):
     # EMBED 9 — Nota de Atualização (Patch Notes)
     # ══════════════════════════════════════════
     embed9 = discord.Embed(
-        title="📋 ATUALIZAÇÃO — Expansão dos Planos Absolutos",
+        title="📋 ATUALIZAÇÃO — Expansão: 40 Reinos & 5 Dimensões",
         description=(
-            "*O Narrador desdobra um pergaminho oficial com o selo dos Quatro Ciclos...*\n\n"
-            "**\"Uma nova era de poder começa. O mundo é maior do que qualquer mortal imaginou.\"**\n"
-            "**Versão:** Planos Absolutos — Fevereiro 2026"
+            "*O Narrador desdobra um pergaminho oficial com o selo dos Seis Ciclos...*\n\n"
+            "**\"Uma nova era de poder começa. O mundo cresceu além de tudo que qualquer mortal imaginou.\"**\n"
+            "**Versão:** Reinos & Dimensões — Fevereiro 2026"
         ),
         color=0x2ECC71
     )
     embed9.add_field(
-        name="🔢 Level Máximo: 200 → 600",
+        name="🏰 40 Reinos + 5 Dimensões",
         value=(
-            "O level máximo foi **triplicado** para **600**!\n"
-            "**60 bosses obrigatórios** nos níveis 9, 19, 29... 599.\n"
-            "4 ciclos completos de progressão com dificuldade escalonada."
+            "O mundo agora tem **40 reinos** organizados em 4 grupos geográficos/narrativos:\n"
+            "🌱 Reinos 1–10: **Terras Iniciais** | ⚔️ Reinos 11–20: **Nações Intermediárias**\n"
+            "🏛️ Reinos 21–30: **Impérios Avançados** | 🩸 Reinos 31–35: **Terras Corrompidas**\n"
+            "🌀 Reinos 36–40: **Reinos Dimensionais**\n\n"
+            "A partir do nível 400: **5 Dimensões** (Celestial, Infernal, Badlands, Abissal, Vazio)"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🔄 4 Ciclos de Mundo",
+        name="🔄 6 Ciclos de Mundo",
         value=(
-            "⚔️ **Ciclo 1** — Reinos Mortais (1–199) — 20 reinos\n"
-            "🌌 **Ciclo 2** — Reinos Avançados (200–399) — 20 reinos\n"
-            "💫 **Ciclo 3** — Dimensões Superiores (400–499) — 10 reinos\n"
-            "♾️ **Ciclo 4** — Planos Absolutos (500–600) — 10 reinos"
+            "🌱 **Ciclo 1** — Terras Iniciais (1–100) | ⚔️ **Ciclo 2** — Nações Intermediárias (101–200)\n"
+            "🏛️ **Ciclo 3** — Impérios Avançados (201–300) | 🩸 **Ciclo 4** — Corrompidas+Dimensionais (301–400)\n"
+            "🌌 **Ciclo 5** — As 5 Dimensões (401–500) | ♾️ **Ciclo 6** — Planos Absolutos (501–600)"
         ),
         inline=False
     )
     embed9.add_field(
-        name="⚡ 41 Novos Reinos",
+        name="🗝️ 5 Tipos de Chave para Dungeons Secretas",
         value=(
-            "Do Despertar do Além ao Plano Absoluto Final.\n"
-            "Cada reino tem monstros, boss, dungeons secretas, lore e drops exclusivos.\n"
-            "Raridade de itens escala drasticamente a cada ciclo."
+            "Cada ciclo tem seu tipo de chave específico:\n"
+            "🗝️ **Chave Antiga** — Terras Iniciais (reinos 1–10)\n"
+            "🔑 **Chave Arcana** — Nações Intermediárias (reinos 11–20)\n"
+            "🗡️ **Chave Sombria** — Impérios Avançados + Terras Corrompidas (reinos 21–35)\n"
+            "✨ **Chave Celestial** — Reinos Dimensionais + Dimensão Celestial (reinos 36–40)\n"
+            "🌑 **Chave Abissal** — Dimensões Infernal, Badlands, Abissal e Vazio"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🌟 3 Novos Tiers de Evolução de Classe",
+        name="💥 Bosses Dimensionais — Sistemas Novos",
         value=(
-            "Todas as **30 classes** receberam 3 novos tiers:\n"
-            "• **Tier V** (nível 200) — Evoluções Transcendentais\n"
-            "• **Tier VI** (nível 400) — Evoluções Dimensionais\n"
-            "• **Tier VII** (nível 500) — Evoluções dos Planos Absolutos\n"
-            "Total: **7 tiers** por classe (40/80/120/160/200/400/500)"
+            "Os Bosses Dimensionais (reinos 36–40 e Ciclo 5) liberam sistemas exclusivos:\n"
+            "• 🔮 **Habilidades Passivas Globais** — ativas para sempre após o boss\n"
+            "• 🐾 **Slot Extra de Pet** — capacidade de pet expandida\n"
+            "• ⚔️ **Slot Extra de Equipamento** — novo slot de item disponível\n"
+            "• Efeitos Ambientais: dano contínuo, debuff de sanidade, buff sagrado e mais!"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🔓 Desbloqueios Exclusivos do Boss de Nível",
+        name="🏰 Cada Reino Agora Tem",
         value=(
-            "Somente o Boss de Nível pode:\n"
-            "• Desbloquear o XP bloqueado\n"
-            "• Permitir avançar para o próximo reino\n"
-            "• Liberar acesso a novas dimensões\n"
-            "• Desbloquear habilidades superiores e evoluções de tier\n"
-            "• Liberar a evolução final de classes e pets do ciclo"
-        ),
-        inline=False
-    )
-    embed9.add_field(
-        name="🏆 Conquistas Novas",
-        value=(
-            "Dezenas de novas conquistas adicionadas:\n"
-            "• Marcos de progressão: nível 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, **600**\n"
-            "• **Conquistador dos Planos Absolutos** — derrote todos os 60 bosses (era 20)\n"
-            "• Conquistas separadas por ciclo com temáticas próprias"
+            "• 🏙️ Cidade principal | • 4–6 áreas exploráveis\n"
+            "• 1 Dungeon comum | • 1 Dungeon avançada\n"
+            "• 1 Dungeon secreta (ativada por chave)\n"
+            "• 1 Boss de Level | • 1–2 Bosses opcionais | • 1 World Event raro"
         ),
         inline=False
     )
@@ -12554,11 +12569,11 @@ async def send_prologue(guild):
         value=(
             "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
             "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
-            "*Raridades Divino/Primordial/Absoluto surgem com mais frequência nos ciclos 3 e 4.*"
+            "*Raridades superiores surgem com mais frequência nos ciclos 5 e 6.*"
         ),
         inline=False
     )
-    embed9.set_footer(text="📅 Expansão dos Planos Absolutos | Use 'atualização' para rever este changelog a qualquer hora!")
+    embed9.set_footer(text="📅 Expansão Reinos & Dimensões | Use 'atualização' para rever este changelog a qualquer hora!")
     await channel.send(embed=embed9)
     await asyncio.sleep(2)
 
@@ -12578,12 +12593,12 @@ async def send_prologue(guild):
             "Use `escolher classe` quando chegar ao nível 2.\n\n"
             "**Lembre-se:** Em cada nível terminado em **9**, o boss de nível aparece.\n"
             "Derrote-o para avançar. Perca... e o XP fica bloqueado até a revanche.\n\n"
-            "*Toda lenda começa com um único passo. A sua vai atravessar quatro ciclos.*\n\n"
+            "*Toda lenda começa com um único passo. A sua vai atravessar seis ciclos e cinco dimensões.*\n\n"
             "**Boa sorte, aventureiro. Você vai precisar.** 🎭"
         ),
         color=0xF1C40F
     )
-    embed10.set_footer(text="⚠️ Boss de nível: níveis 9, 19, 29... 599 (60 bosses) • 60 reinos • 4 ciclos • Level máximo 600 • Use 'comandos' para ajuda")
+    embed10.set_footer(text="⚠️ Boss de nível: níveis 9, 19, 29... 599 • 40 reinos • 5 dimensões • 6 ciclos • Level máximo 600 • Use 'comandos' para ajuda")
     await channel.send(embed=embed10)
 
 
@@ -13667,7 +13682,7 @@ async def on_message(message):
         # ── Página 1: Personagem, Início, Ciclos ──
         e1 = discord.Embed(
             title="📋 COMANDOS — World CSI  [1/5]",
-            description="*Guia completo — 4 ciclos, level 600, 60 bosses!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
+            description="*Guia completo — 40 reinos, 5 dimensões, 6 ciclos!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
             color=0x3498DB
         )
         e1.add_field(
@@ -13871,7 +13886,7 @@ async def on_message(message):
         e5.add_field(
             name="📚 Info, Lore & Atualização",
             value=(
-                "`atualização` — novidades da expansão (Level 600, 4 ciclos, 60 bosses)\n"
+                "`atualização` — novidades da expansão (40 reinos, 5 dimensões, 6 ciclos)\n"
                 "`comandos` — esta lista | `abrir livro` | `falar npc especial`\n"
                 "`ver conquistas` — veja as conquistas e progresso"
             ),
@@ -13913,9 +13928,9 @@ async def on_message(message):
         e2 = discord.Embed(title="📋 COMANDOS [2/5] — Exploração & Combate", color=0x2ECC71)
         e2.add_field(name="🌍 Exploração", value="`explorar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon` | `abrir mapa` | `viajar [local]`", inline=False)
         e2.add_field(name="👹 Boss & Combate", value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss` | `desafiar @jogador`", inline=False)
-        e2.add_field(name="🚨 Boss de Nível (60 bosses)", value="**Níveis 9/19/29/.../599** — XP bloqueado até vencer!\nBoss de Nível desbloqueia o próximo reino e novas habilidades.", inline=False)
+        e2.add_field(name="🚨 Boss de Nível (40+ bosses)", value="**Níveis 9/19/29/.../599** — XP bloqueado até vencer!\nBoss de Nível desbloqueia o próximo reino e novas habilidades.", inline=False)
         e2.add_field(name="💪 Treinamento pós-derrota", value="`treinar força` (+ATK) | `treinar defesa` (+DEF) | `treinar vitalidade` (+HP) | `treinar intensivo`", inline=False)
-        e2.add_field(name="🗺️ Mapa & Viagem", value="`abrir mapa` — navega pelos 60 reinos | `procurar cidade` | `viajar [local]`", inline=False)
+        e2.add_field(name="🗺️ Mapa & Viagem", value="`abrir mapa` — navega pelos 40 reinos + 5 dimensões | `procurar cidade` | `viajar [local]`", inline=False)
         e2.set_footer(text="Página 2/5 — Use 'comandos 3' para continuar")
         await message.channel.send(embed=e2)
         return
@@ -13944,7 +13959,7 @@ async def on_message(message):
         e5.add_field(name="🔨 Fusão de Itens (Ferreiro nível 5+)", value="`forjar armas` | `fundir [raridade]` — Funde 5 itens\n60% sobe raridade | 25% fica igual | 15% tudo destruído!\nCadeia: Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial", inline=False)
         e5.add_field(name="📚 Info & Atualização", value="`atualização` — novidades da expansão | `comandos` — esta lista", inline=False)
         e5.add_field(name="💡 Dicas Importantes", value=(
-            "• **Boss de Nível (60 bosses):** XP acumula durante bloqueio, liberado ao vencer\n"
+            "• **Boss de Nível (40+ bosses):** XP acumula durante bloqueio, liberado ao vencer\n"
             "• **Ciclos:** Ciclo 2 (nível 200), Ciclo 3 (400), Ciclo 4 (500) — cada um escala tudo\n"
             "• **Drops:** Monstros → até Épico | Bosses → Mítico+ | Ciclos avançados → Divino/Primordial\n"
             "• **Raça:** Escolha permanente — pense bem! | **Classe:** 7 tiers de evolução até o Absoluto\n"
@@ -13957,52 +13972,54 @@ async def on_message(message):
     # ── ATUALIZAÇÃO / NOVIDADES / CHANGELOG ────────────────────────────
     if content in ["atualização", "atualizacao", "novidades", "update", "changelog", "o que é novo", "o que foi adicionado", "novidades do bot", "patch notes"]:
         e_atu1 = discord.Embed(
-            title="📰 ATUALIZAÇÃO — Expansão dos Planos Absolutos",
+            title="📰 ATUALIZAÇÃO — 40 Reinos & 5 Dimensões",
             description=(
-                "**Versão:** Planos Absolutos — Fevereiro 2026\n"
-                "**Tipo:** Expansão Maior — Level Cap, Ciclos, Classes, Conquistas\n\n"
-                "*O mundo cresceu além de tudo que já existiu antes.*"
+                "**Versão:** Reinos & Dimensões — Fevereiro 2026\n"
+                "**Tipo:** Expansão Maior — Estrutura de Reinos, Dimensões, Chaves, Bosses\n\n"
+                "*O mundo foi reorganizado e expandido. 40 reinos, 5 dimensões, 6 ciclos.*"
             ),
             color=0xFF6B00
         )
         e_atu1.add_field(
-            name="🔢 Level Máximo: 200 → 600",
+            name="🏰 40 Reinos Reorganizados",
             value=(
-                "O level cap foi **triplicado** de 200 para **600**!\n"
-                "**60 bosses obrigatórios** nos níveis 9, 19, 29... 599.\n"
-                "Cada nível terminado em 9 tem um boss que bloqueia o XP até ser derrotado."
+                "Os reinos agora seguem uma lógica geográfica e narrativa:\n"
+                "🌱 **Reinos 1–10:** Terras Iniciais | ⚔️ **Reinos 11–20:** Nações Intermediárias\n"
+                "🏛️ **Reinos 21–30:** Impérios Avançados | 🩸 **Reinos 31–35:** Terras Corrompidas\n"
+                "🌀 **Reinos 36–40:** Reinos Dimensionais"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="🔄 4 Ciclos de Mundo",
+            name="🌌 5 Dimensões (a partir do nível 400)",
             value=(
-                "A progressão agora é dividida em 4 grandes ciclos:\n"
-                "⚔️ **Ciclo 1** — Reinos Mortais (1–199) | 20 reinos\n"
-                "🌌 **Ciclo 2** — Reinos Avançados (200–399) | 20 reinos\n"
-                "💫 **Ciclo 3** — Dimensões Superiores (400–499) | 10 reinos\n"
-                "♾️ **Ciclo 4** — Planos Absolutos (500–600) | 10 reinos\n"
-                "Cada ciclo aumenta drasticamente dificuldade, raridade e complexidade."
+                "🕊️ **Dimensão Celestial** (Céu) | 🔥 **Dimensão Infernal** (Inferno)\n"
+                "🌪️ **Dimensão das Badlands** (terra devastada caótica)\n"
+                "🌑 **Dimensão Abissal** | 🌀 **Dimensão do Vazio**\n"
+                "Cada dimensão tem: Bosses Dimensionais, criaturas únicas, efeitos ambientais,\n"
+                "dungeons lendárias, dungeons secretas, NPCs transcendentais e lore profunda."
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="⚡ 41 Novos Reinos Desbloqueados",
+            name="🔄 6 Ciclos de Mundo",
             value=(
-                "Do **Despertar do Além** (nível 200) ao **Plano Absoluto Final** (nível 590).\n"
-                "Cada reino tem monstros exclusivos, boss próprio, dungeons secretas e lore.\n"
-                "Use `abrir mapa` para explorar os novos territórios após desbloquear."
+                "🌱 **Ciclo 1** — Terras Iniciais (1–100)\n"
+                "⚔️ **Ciclo 2** — Nações Intermediárias (101–200)\n"
+                "🏛️ **Ciclo 3** — Impérios Avançados (201–300)\n"
+                "🩸 **Ciclo 4** — Corrompidas + Dimensionais (301–400)\n"
+                "🌌 **Ciclo 5** — As 5 Dimensões (401–500)\n"
+                "♾️ **Ciclo 6** — Planos Absolutos (501–600)"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="🔓 Somente o Boss de Nível pode:",
+            name="💥 Bosses Dimensionais — Sistemas Novos",
             value=(
-                "• Desbloquear o XP novamente\n"
-                "• Permitir avançar para o próximo reino\n"
-                "• Liberar acesso a novas dimensões\n"
-                "• Desbloquear habilidades superiores\n"
-                "• Liberar evolução final de classes e pets do ciclo"
+                "Bosses Dimensionais (reinos 36–40 e Ciclo 5) liberam:\n"
+                "• 🔮 **Habilidades Passivas Globais** permanentes\n"
+                "• 🐾 **Slot Extra de Pet** — capacidade expandida\n"
+                "• ⚔️ **Slot Extra de Equipamento** — novo slot disponível"
             ),
             inline=False
         )
@@ -14010,37 +14027,42 @@ async def on_message(message):
         await message.channel.send(embed=e_atu1)
 
         e_atu2 = discord.Embed(
-            title="📰 ATUALIZAÇÃO — Classes, Conquistas & Sistemas",
-            description="*Continuação das novidades da expansão dos Planos Absolutos...*",
+            title="📰 ATUALIZAÇÃO — Dungeons, Chaves & Sistemas",
+            description="*Continuação das novidades da expansão 40 Reinos & 5 Dimensões...*",
             color=0xFF6B00
         )
         e_atu2.add_field(
-            name="🌟 3 Novos Tiers de Evolução de Classe",
+            name="🗝️ 5 Tipos de Chave para Dungeons Secretas",
             value=(
-                "Todas as **30 classes** receberam 3 novos tiers:\n"
-                "• **Tier V** (nível 200) — Evoluções Transcendentais\n"
-                "• **Tier VI** (nível 400) — Evoluções Dimensionais\n"
-                "• **Tier VII** (nível 500) — Evoluções dos Planos Absolutos\n"
-                "Total de **7 tiers** por classe: 40 / 80 / 120 / 160 / 200 / 400 / 500\n"
-                "Use `evolução classe` para ver as evoluções disponíveis."
+                "Cada grupo de reinos tem chaves específicas:\n"
+                "🗝️ **Chave Antiga** — Terras Iniciais (reinos 1–10)\n"
+                "🔑 **Chave Arcana** — Nações Intermediárias (reinos 11–20)\n"
+                "🗡️ **Chave Sombria** — Impérios Avançados + Terras Corrompidas (reinos 21–35)\n"
+                "✨ **Chave Celestial** — Reinos Dimensionais + Dim. Celestial (reinos 36–40)\n"
+                "🌑 **Chave Abissal** — Dimensões Infernal, Badlands, Abissal e Vazio"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="🏆 Conquistas Novas",
+            name="🏰 Estrutura de Cada Reino",
             value=(
-                "**Novos marcos:** nível 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, **600**\n"
-                "**Conquistador dos Planos Absolutos** — derrote todos os **60 bosses** (antes eram 20)\n"
-                "Recompensa: **50.000 XP** | Conquistas por ciclo com categorias temáticas."
+                "Cada um dos 40 reinos agora tem estrutura completa:\n"
+                "• 🏙️ Cidade principal\n"
+                "• 4–6 áreas exploráveis\n"
+                "• 1 Dungeon comum | 1 Dungeon avançada\n"
+                "• 1 Dungeon secreta (ativada por chave)\n"
+                "• 1 Boss de Level | 1–2 Bosses opcionais\n"
+                "• 1 World Event raro"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="🔄 Ciclo de Mundo no Perfil",
+            name="🌌 Dimensões: Efeitos Ambientais",
             value=(
-                "O `ver perfil` agora mostra o **Ciclo de Mundo** atual do jogador.\n"
-                "Ao cruzar os limiares 200, 400 e 500, um embed especial anuncia o novo ciclo.\n"
-                "Mensagem especial de desbloqueio ao entrar em cada ciclo novo."
+                "Cada dimensão tem efeito ambiental único:\n"
+                "🕊️ Celestial: **buff sagrado** passivo | 🔥 Infernal: **dano contínuo**\n"
+                "🌪️ Badlands: **caos** (eventos aleatórios) | 🌑 Abissal: **debuff de sanidade**\n"
+                "🌀 Vazio: **distorção da realidade** (stats alterados aleatoriamente)"
             ),
             inline=False
         )
@@ -14049,7 +14071,7 @@ async def on_message(message):
             value=(
                 "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
                 "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
-                "*Raridades superiores surgem com mais frequência nos ciclos avançados.*"
+                "*Raridades superiores surgem com mais frequência nos ciclos 5 e 6.*"
             ),
             inline=False
         )
@@ -14062,7 +14084,7 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu2.set_footer(text="World CSI Bot — Expansão dos Planos Absolutos | Use 'comandos' para todos os comandos | Página 2/2")
+        e_atu2.set_footer(text="World CSI Bot — Expansão 40 Reinos & 5 Dimensões | Use 'comandos' para todos os comandos | Página 2/2")
         await message.channel.send(embed=e_atu2)
         return
 
@@ -15475,18 +15497,18 @@ def discover_location(user_id, world_id, loc_id):
 
 # ── Configuração das páginas do mapa ──────────────────────────────────────────
 MAP_PAGES = {
-    1: {"title": "🗺️ Mapa — Ciclo 1: Reinos Mortais [Parte 1]",   "range": (1,   60),  "color": 0x3498DB,
-        "desc": "Reinos 1–60 dos Reinos Mortais. Use `mapa 2` para continuar."},
-    2: {"title": "🗺️ Mapa — Ciclo 1: Reinos Mortais [Parte 2]",   "range": (61,  199), "color": 0x2980B9,
-        "desc": "Reinos 62–190 dos Reinos Mortais. Use `mapa 3` para os Reinos Avançados."},
-    3: {"title": "🗺️ Mapa — Ciclo 2: Reinos Avançados [Parte 1]", "range": (200, 290), "color": 0x8E44AD,
-        "desc": "Reinos 200–290 dos Reinos Avançados. Use `mapa 4` para continuar."},
-    4: {"title": "🗺️ Mapa — Ciclo 2: Reinos Avançados [Parte 2]", "range": (291, 399), "color": 0x6C3483,
-        "desc": "Reinos 300–390 dos Reinos Avançados. Use `mapa 5` para as Dimensões Superiores."},
-    5: {"title": "🗺️ Mapa — Ciclo 3: Dimensões Superiores",        "range": (400, 499), "color": 0xF39C12,
-        "desc": "Reinos 400–490 das Dimensões Superiores. Use `mapa 6` para os Planos Absolutos."},
-    6: {"title": "🗺️ Mapa — Ciclo 4: Planos Absolutos",            "range": (500, 600), "color": 0xE74C3C,
-        "desc": "Reinos 500–590 dos Planos Absolutos. Level máximo: 600."},
+    1: {"title": "🗺️ Mapa — Ciclo 1: Terras Iniciais",         "range": (1,   100), "color": 0x3498DB,
+        "desc": "Reinos 1–10 • Terras Iniciais (nível 1–100). Use `mapa 2` para as Nações Intermediárias."},
+    2: {"title": "🗺️ Mapa — Ciclo 2: Nações Intermediárias",   "range": (101, 200), "color": 0x2980B9,
+        "desc": "Reinos 11–20 • Nações Intermediárias (nível 101–200). Use `mapa 3` para os Impérios."},
+    3: {"title": "🗺️ Mapa — Ciclo 3: Impérios Avançados",      "range": (201, 300), "color": 0x8E44AD,
+        "desc": "Reinos 21–30 • Impérios Avançados (nível 201–300). Use `mapa 4` para as Terras Corrompidas."},
+    4: {"title": "🗺️ Mapa — Ciclo 4: Terras Corrompidas",      "range": (301, 400), "color": 0x6C3483,
+        "desc": "Reinos 31–35 (Terras Corrompidas) + Reinos 36–40 (Reinos Dimensionais). Use `mapa 5` para as Dimensões."},
+    5: {"title": "🌌 Mapa — Ciclo 5: Dimensões (Nível 400+)",  "range": (401, 500), "color": 0xF39C12,
+        "desc": "Dimensões: Celestial • Infernal • Badlands • Abissal • Vazio (nível 401–500). Use `mapa 6` para o Absoluto."},
+    6: {"title": "♾️ Mapa — Ciclo 6: Planos Absolutos",        "range": (501, 600), "color": 0xE74C3C,
+        "desc": "Ciclo Absoluto (nível 501–600). O fim e o começo de tudo. Level máximo: 600."},
 }
 
 MAP_TYPE_ICONS = {
@@ -15496,20 +15518,20 @@ MAP_TYPE_ICONS = {
 }
 
 MAP_PAGE_NAVS = {
-    1: "`mapa 2` → Ciclo 1 Parte 2",
-    2: "`mapa` ← | `mapa 3` → Ciclo 2",
-    3: "`mapa 2` ← | `mapa 4` → Ciclo 2 Parte 2",
-    4: "`mapa 3` ← | `mapa 5` → Ciclo 3",
-    5: "`mapa 4` ← | `mapa 6` → Ciclo 4",
-    6: "`mapa 5` ← Ciclo 3",
+    1: "`mapa 2` → Ciclo 2: Nações Intermediárias",
+    2: "`mapa` ← | `mapa 3` → Ciclo 3: Impérios",
+    3: "`mapa 2` ← | `mapa 4` → Ciclo 4: Terras Corrompidas",
+    4: "`mapa 3` ← | `mapa 5` → Ciclo 5: Dimensões",
+    5: "`mapa 4` ← | `mapa 6` → Ciclo 6: Absoluto",
+    6: "`mapa 5` ← Ciclo 5: Dimensões",
 }
 
 MAP_CYCLE_LOCK_MSG = {
-    2: "🔒 Desbloqueie derrotando boss de nível 9 (Ciclo 1 em andamento).",
-    3: "🔒 Ciclo 2 bloqueado — alcance o nível 200 derrotando o boss do nível 199.",
-    4: "🔒 Ciclo 2 Parte 2 bloqueada — avance nos Reinos Avançados.",
-    5: "🔒 Ciclo 3 bloqueado — alcance o nível 400 derrotando o boss do nível 399.",
-    6: "🔒 Ciclo 4 bloqueado — alcance o nível 500 derrotando o boss do nível 499.",
+    2: "🔒 Ciclo 2 bloqueado — derrote o boss de nível 99 para acessar as Nações Intermediárias.",
+    3: "🔒 Ciclo 3 bloqueado — derrote o boss de nível 199 para acessar os Impérios Avançados.",
+    4: "🔒 Ciclo 4 bloqueado — derrote o boss de nível 299 para acessar as Terras Corrompidas.",
+    5: "🔒 Ciclo 5 bloqueado — derrote o Boss Dimensional do nível 399 para acessar as Dimensões (nível 400+).",
+    6: "🔒 Ciclo 6 bloqueado — derrote o Boss da Dimensão do Vazio (nível 499) para acessar os Planos Absolutos.",
 }
 
 async def show_map_page(message, player, page: int):
