@@ -8802,6 +8802,8 @@ def init_db():
         "ALTER TABLE players ADD COLUMN bio TEXT DEFAULT ''",
         "ALTER TABLE players ADD COLUMN last_force_entry INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN job_works TEXT DEFAULT '{}'",
+        "ALTER TABLE players ADD COLUMN cronicas TEXT DEFAULT '[]'",
+        "ALTER TABLE players ADD COLUMN last_cronica INTEGER DEFAULT 0",
     ]:
         try:
             c.execute(col_def)
@@ -8932,6 +8934,8 @@ def get_player_db(user_id):
             "bio": r.get("bio", ""),
             "last_force_entry": r.get("last_force_entry", 0),
             "job_works": json.loads(r["job_works"]) if r.get("job_works") else {},
+            "cronicas": json.loads(r["cronicas"]) if r.get("cronicas") else [],
+            "last_cronica": r.get("last_cronica", 0),
         }
     return None
 
@@ -8949,9 +8953,9 @@ def save_player_db(user_id, player):
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list,
                   race, specialization, class_tier, supreme_skills, race_stage, mount,
-                  bio, last_force_entry, job_works)
+                  bio, last_force_entry, job_works, cronicas, last_cronica)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -8994,7 +8998,9 @@ def save_player_db(user_id, player):
                player.get("mount"),
                player.get("bio", ""),
                player.get("last_force_entry", 0),
-               json.dumps(player.get("job_works", {}))))
+               json.dumps(player.get("job_works", {})),
+               json.dumps(player.get("cronicas", [])),
+               player.get("last_cronica", 0)))
 
     conn.commit()
     conn.close()
@@ -10171,9 +10177,10 @@ class TradeButton(discord.ui.View):
             content=(
                 f"✅ **Troca Realizada!**\n\n"
                 f"*'Os itens mudam de mãos...'*\n\n"
-                f"📤 Você recebeu: {to_labels}\n"
-                f"📥 Outro jogador recebeu: {from_labels}\n\n"
-                f"💡 Use `equipar [nome do item]` para equipar armas ou armaduras recebidas!"
+                f"📥 Você recebeu: {to_labels}\n"
+                f"📤 O outro jogador recebeu: {from_labels}\n\n"
+                f"💡 Os itens recebidos foram para seu **inventário**.\n"
+                f"⚔️ Use `equipar [nome do item]` para equipar armas e armaduras!"
             ),
             view=None
         )
@@ -10466,7 +10473,7 @@ class MapNavView(discord.ui.View):
         if not player:
             return await interaction.response.send_message("❌ Personagem não encontrado.", ephemeral=True)
         new_page = self.page - 1
-        embed, view = build_map_embed(player, new_page)
+        embed, view = build_map_embed(player, new_page, user_id=self.user_id)
         await interaction.response.edit_message(embed=embed, view=view)
 
     async def _next(self, interaction: discord.Interaction):
@@ -10476,7 +10483,7 @@ class MapNavView(discord.ui.View):
         if not player:
             return await interaction.response.send_message("❌ Personagem não encontrado.", ephemeral=True)
         new_page = self.page + 1
-        embed, view = build_map_embed(player, new_page)
+        embed, view = build_map_embed(player, new_page, user_id=self.user_id)
         await interaction.response.edit_message(embed=embed, view=view)
 
 
@@ -10601,7 +10608,7 @@ MAP_CHAPTER_KINGDOMS = {
 }
 
 
-def build_map_embed(player, page: int):
+def build_map_embed(player, page: int, user_id: str = None):
     """Constrói o embed do mapa para uma página/capítulo específico."""
     chap = MAP_CHAPTER_KINGDOMS.get(page)
     page_data = MAP_PAGES.get(page)
@@ -10659,7 +10666,8 @@ def build_map_embed(player, page: int):
             embed.add_field(name="⚡ Destaque", value=chap["extra"], inline=False)
 
     embed.set_footer(text=f"Use ◀ ▶ para navegar • `viajar <nome>` para se deslocar • Capítulo {page}/6")
-    view = MapNavView(str(player.get("user_id", "0")), page)
+    uid_for_view = user_id or str(player.get("user_id", "0"))
+    view = MapNavView(uid_for_view, page)
     return embed, view
 
 
@@ -11594,6 +11602,10 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
     p_max_hp = player["max_hp"] + player.get("temp_hp_boost", 0)
     p_hp = min(player["hp"], p_max_hp)
+    # Garante que HP salvo não exceda o máximo (corrige bug de vida extra)
+    if player["hp"] > p_max_hp:
+        player["hp"] = p_max_hp
+        save_player_db(user_id, player)
     p_mana = calc_max_mana(player)
     p_cur_mana = p_mana
 
@@ -12169,9 +12181,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             inline=False
         )
         await channel.send(embed=defeat_embed)
-        # Show revenge/training buttons for level bosses
-        boss_levels_set = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
-        if boss_data["name"] in boss_levels_set or player.get("level") in [9,19,29,39,49,59]:
+        # Show revenge/training buttons for ALL level bosses
+        boss_gate_levels_set = {9,19,29,39,49,59,69,79,89,99,109,119,129,139,149,159,169,179,189,199,
+                                209,219,229,239,249,259,269,279,289,299,309,319,329,339,349,359,369,379,389,399,
+                                409,419,429,439,449,459,469,479,489,499,509,519,529,539,549,559,569,579,589,599}
+        if is_level_boss or player.get("level") in boss_gate_levels_set:
             view = RevengeTrainingView(user_id, boss_data)
             await channel.send("**O que você deseja fazer?**", view=view)
         return
@@ -13615,6 +13629,74 @@ async def on_message(message):
         return
 
     # ======================================================
+    # ================= TROCAR CLASSE ======================
+    # ======================================================
+    elif any(word in content for word in ["trocar classe", "mudar classe", "resetar classe", "reset classe"]):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        CUSTO_TROCA_CLASSE = 500
+        if player["coins"] < CUSTO_TROCA_CLASSE:
+            await message.channel.send(f"❌ Você precisa de **{CUSTO_TROCA_CLASSE} CSI** para trocar de classe! Você tem: `{player['coins']} CSI`")
+            return
+        # Reset classe e atributos de classe
+        old_class = player.get("class", "nenhuma")
+        player["class"] = None
+        player["class_tier"] = 0
+        player["specialization"] = None
+        player["supreme_skills"] = []
+        # Remove bônus da classe antiga
+        old_cls_data = CLASSES.get(old_class, {})
+        player["max_hp"] = max(100, player["max_hp"] - old_cls_data.get("hp_bonus", 0))
+        player["hp"] = min(player["hp"], player["max_hp"])
+        player["coins"] -= CUSTO_TROCA_CLASSE
+        save_player_db(user_id, player)
+        embed = discord.Embed(
+            title="🔄 Classe Resetada!",
+            description=f"*'O caminho muda. Uma nova jornada começa...'*\n\nSua classe **{old_class}** foi removida. Escolha sua nova classe com `escolher classe`!",
+            color=discord.Color.orange()
+        )
+        embed.add_field(name="💰 Custo", value=f"-{CUSTO_TROCA_CLASSE} CSI", inline=True)
+        embed.add_field(name="👤 Classe Atual", value="Nenhuma", inline=True)
+        embed.set_footer(text="Use 'escolher classe' para escolher uma nova classe!")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= TROCAR RAÇA ========================
+    # ======================================================
+    elif any(word in content for word in ["trocar raça", "trocar raca", "mudar raça", "mudar raca", "resetar raça", "resetar raca"]):
+        player = get_player(user_id)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        CUSTO_TROCA_RACA = 500
+        if player["coins"] < CUSTO_TROCA_RACA:
+            await message.channel.send(f"❌ Você precisa de **{CUSTO_TROCA_RACA} CSI** para trocar de raça! Você tem: `{player['coins']} CSI`")
+            return
+        old_race = player.get("race", "nenhuma")
+        # Remove bônus da raça antiga
+        if old_race and old_race in RACES:
+            old_rd = RACES[old_race]
+            player["max_hp"] = max(100, player["max_hp"] - old_rd.get("hp_bonus", 0))
+        player["race"] = None
+        player["race_stage"] = 0
+        player["hp"] = min(player["hp"], player["max_hp"])
+        player["coins"] -= CUSTO_TROCA_RACA
+        save_player_db(user_id, player)
+        embed = discord.Embed(
+            title="🔄 Raça Resetada!",
+            description=f"*'Sua essência se transforma. Uma nova linhagem desperta...'*\n\nSua raça **{old_race}** foi removida. Escolha sua nova raça com `escolher raça`!",
+            color=discord.Color.purple()
+        )
+        embed.add_field(name="💰 Custo", value=f"-{CUSTO_TROCA_RACA} CSI", inline=True)
+        embed.add_field(name="🧬 Raça Atual", value="Nenhuma", inline=True)
+        embed.set_footer(text="Use 'escolher raça' para escolher uma nova raça!")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
     # ================= HABILIDADES ========================
     # ======================================================
     elif any(word in content for word in ["habilidades", "ver habilidades", "skills", "magias"]):
@@ -14293,30 +14375,67 @@ async def on_message(message):
         player = get_player(user_id)
         item_name = content.replace("vender", "").strip()
         if not item_name:
-            await message.channel.send("❌ Use: `vender [nome do item]`")
+            await message.channel.send("❌ Use: `vender [nome do item]` ou `vender [nome] 3x` para vender vários de uma vez")
             return
 
-        found_item = None
-        for item in player["inventory"]:
-            if item_name in item.lower():
-                found_item = item
-                break
+        # Detectar quantidade: "vender espada 3x" ou "vender espada 3"
+        qty = 1
+        import re
+        qty_match = re.search(r'\s+(\d+)x?$', item_name)
+        if qty_match:
+            qty = int(qty_match.group(1))
+            item_name = item_name[:qty_match.start()].strip()
 
-        if not found_item:
+        # Modo "vender tudo [tipo]" — vende todos os itens que combinem
+        sell_all = item_name.lower() == "tudo"
+
+        if sell_all:
+            total_price = 0
+            sold = []
+            to_remove = list(player["inventory"])
+            for item in to_remove:
+                price = get_item_sell_price(item)
+                player["inventory"].remove(item)
+                player["coins"] += price
+                total_price += price
+                sold.append(item)
+            if not sold:
+                await message.channel.send("❌ Seu inventário está vazio!")
+                return
+            save_player_db(user_id, player)
+            embed = discord.Embed(
+                title="💰 Inventário Vendido!",
+                description=f"*Você vendeu **{len(sold)} itens** por um total de **{total_price:,} CSI**!*",
+                color=discord.Color.gold()
+            )
+            embed.add_field(name="💰 Moedas Atuais", value=f"{player['coins']:,} CSI", inline=False)
+            await message.channel.send(embed=embed)
+            return
+
+        # Encontrar itens pelo nome
+        matches = [item for item in player["inventory"] if item_name.lower() in item.lower()]
+        if not matches:
             await message.channel.send(f"❌ Você não tem **{item_name}** no inventário!")
             return
 
-        price = get_item_sell_price(found_item)
-        player["inventory"].remove(found_item)
-        player["coins"] += price
-        save_player_db(user_id, player)
+        qty = min(qty, len(matches))
+        total_price = 0
+        sold_items = []
+        for i in range(qty):
+            found_item = matches[i]
+            price = get_item_sell_price(found_item)
+            player["inventory"].remove(found_item)
+            player["coins"] += price
+            total_price += price
+            sold_items.append(found_item)
 
-        embed = discord.Embed(
-            title="💰 Item Vendido!",
-            description=f"*'Você vendeu **{found_item}** por **{price} CSI**!'*",
-            color=discord.Color.gold()
-        )
-        embed.add_field(name="💰 Moedas Atuais", value=f"{player['coins']} CSI", inline=False)
+        save_player_db(user_id, player)
+        if qty == 1:
+            desc = f"*'Você vendeu **{sold_items[0]}** por **{total_price:,} CSI**!'*"
+        else:
+            desc = f"*'Você vendeu **{qty}x {item_name}** por um total de **{total_price:,} CSI**!'*"
+        embed = discord.Embed(title="💰 Item(ns) Vendido(s)!", description=desc, color=discord.Color.gold())
+        embed.add_field(name="💰 Moedas Atuais", value=f"{player['coins']:,} CSI", inline=False)
         await message.channel.send(embed=embed)
         return
 
@@ -16304,8 +16423,9 @@ MAP_CYCLE_LOCK_MSG = {
 
 async def show_map_page(message, player, page: int):
     """Exibe o mapa com botões de navegação < > por capítulo."""
-    player["user_id"] = str(message.author.id)
-    embed, view = build_map_embed(player, page)
+    uid = str(message.author.id)
+    player["user_id"] = uid
+    embed, view = build_map_embed(player, page, user_id=uid)
     if embed is None:
         await message.channel.send("❌ Capítulo de mapa inválido!")
         return
