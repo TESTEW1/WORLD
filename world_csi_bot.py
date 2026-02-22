@@ -9107,6 +9107,39 @@ def get_luck(roll):
 def calc_xp(level):
     return (level ** 2) * 20
 
+
+def auto_drop_equip(user_id, world, base_chance=0.08):
+    """Tenta dropar equipamento/armadura automaticamente. Retorna texto descritivo ou ''."""
+    drop_text = ""
+    player = get_player(user_id)
+    # Arma
+    if random.random() < base_chance:
+        r = random.random()
+        if r < 0.55:   rarity = "Comum"
+        elif r < 0.85: rarity = "Incomum"
+        elif r < 0.97: rarity = "Raro"
+        else:          rarity = "Épico"
+        pool = [w for w in ITEMS["weapons"] if w["rarity"] == rarity]
+        if pool:
+            item = random.choice(pool)
+            player["inventory"].append(item["name"])
+            drop_text += f"\n🗡️ **{item['name']}** ({rarity}) caiu!"
+    # Armadura
+    if random.random() < base_chance:
+        r = random.random()
+        if r < 0.55:   rarity = "Comum"
+        elif r < 0.85: rarity = "Incomum"
+        elif r < 0.97: rarity = "Raro"
+        else:          rarity = "Épico"
+        pool = [a for a in ITEMS["armor"] if a["rarity"] == rarity]
+        if pool:
+            item = random.choice(pool)
+            player["inventory"].append(item["name"])
+            drop_text += f"\n🛡️ **{item['name']}** ({rarity}) encontrado!"
+    if drop_text:
+        save_player_db(user_id, player)
+    return drop_text
+
 def get_world_cycle(level):
     """Retorna o ciclo de mundo do jogador baseado no nível."""
     if level <= 199:
@@ -12765,9 +12798,10 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         items_text = "\n".join([f"• **{r}**" for r in resources])
         xp_bonus = int(random.randint(100, 200) * (level_mult if is_secret else 1))
         add_xp(user_id, xp_bonus)
+        _edrop_dg_low = auto_drop_equip(user_id, world, base_chance=0.10)
         embed.add_field(
             name="📦 Câmara de Recursos",
-            value=f"*'Uma câmara intocada há séculos...'*\n\n{items_text}\n⭐ **+{xp_bonus} XP**", inline=False
+            value=f"*'Uma câmara intocada há séculos...'*\n\n{items_text}\n⭐ **+{xp_bonus} XP**{_edrop_dg_low}", inline=False
         )
         embed.color = discord.Color.blue()
 
@@ -12845,9 +12879,10 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             key_embed.set_footer(text="Use 'dungeon' e encontre a dungeon secreta para usar esta chave!")
             await channel.send(embed=key_embed)
 
+        _edrop_dg_mid = auto_drop_equip(user_id, world, base_chance=0.15)
         embed.add_field(
             name="💎 Câmara do Tesouro!",
-            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{chest_bonus}",
+            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{chest_bonus}{_edrop_dg_mid}",
             inline=False
         )
         if leveled:
@@ -15041,7 +15076,8 @@ async def on_message(message):
             if player.get("class") == "Druida":
                 player["hp"] = min(player["hp"] + random.randint(5, 15), player["max_hp"])
             save_player_db(user_id, player)
-            embed.add_field(name="😶 Descoberta Modesta", value=f"*'Você encontra algo que pode ser útil...'*\n\n📦 **{res}**", inline=False)
+            _edrop5 = auto_drop_equip(user_id, world, base_chance=0.05)
+            embed.add_field(name="😶 Descoberta Modesta", value=f"*'Você encontra algo que pode ser útil...'*\n\n📦 **{res}**{_edrop5}", inline=False)
 
             # Progresso de quest
             if player.get("active_quest") and player["active_quest"].get("objective") == "collect":
@@ -15061,7 +15097,8 @@ async def on_message(message):
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
 
-            embed.add_field(name="🙂 Boa Descoberta!", value=f"*'A sorte está ao seu lado hoje!'*\n\n📦 **{res}**\n⭐ **+{xp} XP**", inline=False)
+            _edrop67 = auto_drop_equip(user_id, world, base_chance=0.08)
+            embed.add_field(name="🙂 Boa Descoberta!", value=f"*'A sorte está ao seu lado hoje!'*\n\n📦 **{res}**\n⭐ **+{xp} XP**{_edrop67}", inline=False)
             if leveled:
                 player = get_player(user_id)
                 embed.add_field(name="🆙 Evolução!", value=f"*'Um novo capítulo se abre!'*\n\n**Nível {player['level']}**", inline=False)
@@ -15100,8 +15137,9 @@ async def on_message(message):
 
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
+            _edrop8 = auto_drop_equip(user_id, world, base_chance=0.12)
             items_text = "\n".join([f"• **{r}**" for r in resources])
-            embed.add_field(name="🍀 Tesouro Escondido!", value=f"*'Seus olhos captam o que outros perderiam!'*\n\n{items_text}\n⭐ **+{xp} XP**", inline=False)
+            embed.add_field(name="🍀 Tesouro Escondido!", value=f"*'Seus olhos captam o que outros perderiam!'*\n\n{items_text}\n⭐ **+{xp} XP**{_edrop8}", inline=False)
             if leveled:
                 player = get_player(user_id)
                 embed.add_field(name="🆙 Level Up!", value=f"**Nível {player['level']}**", inline=False)
@@ -15253,9 +15291,10 @@ async def on_message(message):
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
             add_coins(user_id, coins)
+            _edrop_hunt_low = auto_drop_equip(user_id, world, base_chance=0.06)
             embed.add_field(
                 name="😓 Vitória Suada",
-                value=f"*'A batalha foi feroz, mas você prevalece!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**\n💔 **−{dmg} HP**",
+                value=f"*'A batalha foi feroz, mas você prevalece!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**\n💔 **−{dmg} HP**{_edrop_hunt_low}",
                 inline=False
             )
             if leveled:
@@ -15278,9 +15317,10 @@ async def on_message(message):
                 save_player_db(user_id, p2)
 
             potion_text = f"\n🧪 Drop: **{drop_potion}**" if drop_potion else ""
+            _edrop_hunt_mid = auto_drop_equip(user_id, world, base_chance=0.10)
             embed.add_field(
                 name="⚔️ Vitória!",
-                value=f"*'Cada golpe seu é preciso!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{potion_text}",
+                value=f"*'Cada golpe seu é preciso!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{potion_text}{_edrop_hunt_mid}",
                 inline=False
             )
             if leveled:
