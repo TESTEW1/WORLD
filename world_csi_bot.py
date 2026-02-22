@@ -9119,10 +9119,14 @@ def get_world_cycle(level):
         return 4, "♾️ Planos Absolutos", "Nív. 500–600"
 
 def get_world(level, player=None):
-    """Retorna o mundo atual do jogador. Se player fornecido, respeita travas de boss."""
+    """Retorna o mundo atual do jogador. Respeita current_world se o jogador viajou."""
     if player:
-        # Mundos desbloqueados = apenas os que estão na lista player["worlds"]
-        available = sorted([k for k in WORLDS.keys() if k in player["worlds"]], reverse=True)
+        # Se o jogador viajou para um mundo específico, usar esse
+        cw = player.get("current_world")
+        if cw and cw in WORLDS and cw in player.get("worlds", [1]):
+            return WORLDS[cw]
+        # Caso contrário, maior mundo desbloqueado
+        available = sorted([k for k in WORLDS.keys() if k in player.get("worlds", [1])], reverse=True)
     else:
         levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
         available = levels
@@ -12481,6 +12485,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             # AUTO-TRAVEL: move player to new world (muda mundo atual)
             # Garante que o novo mundo está na lista e marca como mundo atual
             p3["worlds"] = sorted(list(set(p3["worlds"])))
+            p3["current_world"] = next_world  # avança o mundo atual automaticamente
             save_player_db(user_id, p3)
             new_world_data = WORLDS[next_world]
             # Check if entering a new cycle
@@ -17330,8 +17335,9 @@ async def handle_new_commands(message):
         if found_world not in worlds:
             await message.channel.send(f"🔒 Você ainda não desbloqueou este reino!")
             return
-        # Registrar viagem (mover o "mundo ativo" para o escolhido)
+        # Registrar viagem — salva current_world para explorar no reino certo
         player["worlds"] = worlds  # mantém tudo que já tem
+        player["current_world"] = found_world
         save_player_db(uid, player)
         world_name = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
         embed = discord.Embed(
@@ -19378,12 +19384,38 @@ async def handle_admin_commands(message):
 
     # ── !admin help ──────────────────────────────────────────────────
     elif content_lower in ["!admin", "!admin help", "!adminhelp"]:
-        embed = discord.Embed(title="⚙️ ADMIN — Comandos", color=discord.Color.dark_gold())
-        embed.add_field(name="📈 Level", value="`!admin upar @user [N]`\n`!setlevel @user N`", inline=True)
-        embed.add_field(name="💰 Economia", value="`!coins @user N`\n`!xp @user N`\n`!admin coins todos N`", inline=True)
-        embed.add_field(name="👤 Perfil", value="`!ver @user`\n`!resetar @user`\n`!admin curar @user`", inline=True)
-        embed.add_field(name="🎭 Personagem", value="`!admin dar classe @user [classe]`\n`!admin dar raça @user [raça]`", inline=False)
-        embed.set_footer(text="Funcionam em QUALQUER canal do servidor")
+        embed = discord.Embed(title="⚙️ ADMIN — Painel de Comandos", color=discord.Color.dark_gold())
+        embed.add_field(
+            name="📈 Level & XP",
+            value="`!admin upar @user [N]` — sobe N níveis\n`!setlevel @user N` — define nível exato\n`!xp @user N` — dá XP diretamente",
+            inline=False
+        )
+        embed.add_field(
+            name="💰 Economia",
+            value="`!coins @user N` — dá coins ao jogador\n`!admin coins todos N` — dá coins para TODOS os jogadores",
+            inline=False
+        )
+        embed.add_field(
+            name="👤 Gerenciar Jogador",
+            value="`!ver @user` — ver ficha completa\n`!resetar @user` — resetar personagem para nível 1\n`!admin curar @user` — cura HP e Mana totais",
+            inline=False
+        )
+        embed.add_field(
+            name="🎭 Personagem",
+            value="`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça",
+            inline=False
+        )
+        embed.add_field(
+            name="📋 Classes disponíveis",
+            value="Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante, Berserker, Druida, Monge, Bardo",
+            inline=False
+        )
+        embed.add_field(
+            name="🧬 Raças disponíveis",
+            value="Humano, Élfico, Anão, Orc, Anjo, Demônio, Dragônico, Vampiro, Lobisomem + mais",
+            inline=False
+        )
+        embed.set_footer(text="⚠️ Todos os comandos funcionam em QUALQUER canal do servidor")
         await message.channel.send(embed=embed)
 
 
