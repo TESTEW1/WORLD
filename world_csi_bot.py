@@ -9550,6 +9550,1084 @@ P.S.: Meu livro de magias está escondido na Dimensão Invertida. Você vai prec
     ]
 }
 
+# ===============================================================
+# ========== NPCs LENDÁRIOS — UM POR REINO (1–40) ==============
+# ===============================================================
+# Cada NPC tem: lore, quest, diálogos, stats escalados por reino,
+# e ao completar a quest vira companheiro automático no boss.
+# ===============================================================
+
+LEGENDARY_NPCS = {
+    # ── CAPÍTULO I — TERRAS INICIAIS (R1–R10) ─────────────────────
+    1: {
+        "id": "theron_the_wanderer",
+        "name": "Lyra, a Guardiã dos Campos",
+        "emoji": "🌾",
+        "race": "Humana",
+        "role": "Protetora do Povo",
+        "encounter_type": "rescue",
+        "encounter_desc": "Explorando os Campos Iniciais, você avista uma jovem guerreira cercada por uma matilha de Ratos Selvagens gigantes. Ela está ferida mas ainda luta bravamente!",
+        "quest": {
+            "id": "legendary_npc_q1",
+            "name": "🌾 A Guardiã que Precisava de Ajuda",
+            "description": "Lyra está cercada por uma matilha enorme de Ratos Selvagens que infectaram os campos. Mate 8 Ratos Selvagens para salvá-la!",
+            "objective": "hunt",
+            "target": "Rato Selvagem",
+            "count": 8,
+            "reward_xp": 800,
+            "reward_coins": 120,
+        },
+        "dialogues": [
+            "Nunca imaginei que precisaria de ajuda aqui nos Campos. Mas os ratos estão cada vez maiores... algo os está alimentando.",
+            "Minha família protegeu estes campos por três gerações. Não vou deixar que ratos destruam o que eles construíram.",
+            "Você tem o espírito de um herói verdadeiro. Posso sentir. Deixa eu te ajudar na próxima batalha.",
+            "O Slime Rei... ele é o responsável por esta infestação. Precisamos destruí-lo.",
+        ],
+        "rescue_message": "🌾 **LYRA ESTÁ EM PERIGO!** *'Eu não consigo lidar com todos de uma vez! Me ajuda?'*",
+        "join_message": "🌾 *'Você me salvou quando eu mais precisava. Agora é minha vez de te proteger!'* **Lyra se juntou à sua equipe!**",
+        "battle_cry": "⚔️ Pela honra dos Campos!",
+        "lore": "Lyra é a última de uma linhagem de protetores dos Campos Iniciais. Seu avô foi o primeiro herói desta terra.",
+        "atk_mult": 1.2, "hp_mult": 1.5, "base_level": 5,
+    },
+    10: {
+        "id": "sylvan_spirit",
+        "name": "Sylvan, o Espírito da Floresta",
+        "emoji": "🌲",
+        "race": "Élfico",
+        "role": "Guardião da Floresta",
+        "encounter_type": "rescue",
+        "encounter_desc": "No coração da Floresta Sombria, você encontra um elfo preso em teias colossais de Aranhas Gigantes. Ele ancora algo precioso ao peito.",
+        "quest": {
+            "id": "legendary_npc_q10",
+            "name": "🌲 O Guardião Aprisionado",
+            "description": "Sylvan foi capturado pelas Aranhas Gigantes enquanto protegia o Cristal da Floresta. Elimine 10 Aranhas Gigantes para libertá-lo!",
+            "objective": "hunt",
+            "target": "Aranha Gigante",
+            "count": 10,
+            "reward_xp": 2000,
+            "reward_coins": 300,
+        },
+        "dialogues": [
+            "Estas árvores falam para mim. Dizem que há uma perturbação nas raízes... algo além das aranhas.",
+            "Mil anos eu protegi esta floresta. Nunca me senti tão fraco quanto naquelas teias.",
+            "O Ent Ancião está acordado. Isso não é bom sinal — ele só desperta quando o equilíbrio está ameaçado.",
+            "Juntos, podemos restaurar a harmonia desta floresta. Mas será preciso lutar muito.",
+        ],
+        "rescue_message": "🌲 **SYLVAN PRESO NAS TEIAS!** *'As aranhas me capturaram! Corte as teias e me liberte!'*",
+        "join_message": "🌲 *'Você libertou o guardião desta floresta. Minha flecha sempre voará ao seu lado.'* **Sylvan se juntou à sua equipe!**",
+        "battle_cry": "🌿 Pela memória das árvores eternas!",
+        "lore": "Sylvan é tão velho quanto a floresta. Dizem que ele plantou a primeira árvore desta terra há mil anos.",
+        "atk_mult": 1.3, "hp_mult": 1.3, "base_level": 15,
+    },
+    20: {
+        "id": "neferu_the_scribe",
+        "name": "Neferu, a Escriba dos Faraós",
+        "emoji": "📜",
+        "race": "Humana",
+        "role": "Guardiana dos Segredos",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Deserto das Almas, uma mulher coberta de hieróglifos tatuados te observa de longe. Ao se aproximar, ela revela que precisa da sua ajuda para recuperar pergaminhos roubados.",
+        "quest": {
+            "id": "legendary_npc_q20",
+            "name": "📜 Os Pergaminhos do Faraó Perdido",
+            "description": "Múmias roubaram os pergaminhos sagrados que Neferu guardava. Explore o Deserto e derrote 6 Múmias Guardiãs para recuperá-los!",
+            "objective": "hunt",
+            "target": "Múmia",
+            "count": 6,
+            "reward_xp": 3500,
+            "reward_coins": 500,
+        },
+        "dialogues": [
+            "Esses hieróglifos em minha pele — cada um é uma palavra sagrada do Faraó Kha-Mentu. Ele me escolheu como sua memória viva.",
+            "As múmias não são inimigas. São guardiãs perdidas que esqueceram sua missão original. É trágico.",
+            "Os segredos desta pirâmide podem destruir reinos inteiros se caírem em mãos erradas.",
+            "Você tem o selo dos escolhidos nos seus olhos. Raros chegam tão longe como você chegou.",
+        ],
+        "rescue_message": "📜 **NEFERU PRECISA DE AJUDA!** *'As múmias roubaram tudo! Preciso dos pergaminhos de volta!'*",
+        "join_message": "📜 *'Os segredos que carrego também são seus agora. Lutarei com você até o fim.'* **Neferu se juntou à sua equipe!**",
+        "battle_cry": "⚖️ Em nome do Faraó eterno!",
+        "lore": "Neferu foi escolhida pelo Faraó Kha-Mentu para ser a guardiã de sua sabedoria. Seu corpo é uma biblioteca viva.",
+        "atk_mult": 1.4, "hp_mult": 1.2, "base_level": 25,
+    },
+    30: {
+        "id": "bjorn_iceheart",
+        "name": "Bjorn Coração-de-Gelo",
+        "emoji": "❄️",
+        "race": "Anão",
+        "role": "Berserker das Montanhas",
+        "encounter_type": "rescue",
+        "encounter_desc": "Nas Montanhas Geladas, você ouve um rugido. Um anão de estatura colossal está preso sob uma avalanche artificial — uma armadilha do Yeti. Seus braços estão livres mas seu corpo está soterrado.",
+        "quest": {
+            "id": "legendary_npc_q30",
+            "name": "❄️ O Guerreiro Soterrado",
+            "description": "Bjorn foi armadilhado pelo Yeti Colossal! Derrote 5 Servos do Yeti que guardam a avalanche para poder desenterrá-lo!",
+            "objective": "hunt",
+            "target": "Servo do Yeti",
+            "count": 5,
+            "reward_xp": 5000,
+            "reward_coins": 700,
+        },
+        "dialogues": [
+            "Três dias preso nessa neve. Consegui me alimentar de gelo. Anão do frio não morre fácil.",
+            "O Yeti me prendeu porque tentei roubar sua pedra de alma. Vale mais do que eu pensei.",
+            "Já derrubei sete Yetis na minha vida. Este oitavo vai ser o mais satisfatório.",
+            "As montanhas guardam segredos que nenhum mapa mostra. Já vi coisas que deixariam deuses com medo.",
+        ],
+        "rescue_message": "❄️ **BJORN PRESO NA NEVE!** *'Esses malditos servos do Yeti me soterram! Livre-me deles!'*",
+        "join_message": "❄️ *'Nenhum anão fica em dívida. Você me livrou — agora meu machado é seu!'* **Bjorn se juntou à sua equipe!**",
+        "battle_cry": "🪓 PELO ADUSTO DAS MONTANHAS!",
+        "lore": "Bjorn sobreviveu a sete invernos sozinho nas montanhas. Dizem que ele comeu o coração de um dragão glacial para ganhar resistência ao frio.",
+        "atk_mult": 1.5, "hp_mult": 2.0, "base_level": 35,
+    },
+    40: {
+        "id": "ignar_flame",
+        "name": "Ignar, o Profeta das Chamas",
+        "emoji": "🌋",
+        "race": "Dragônico",
+        "role": "Vidente do Vulcão",
+        "encounter_type": "rescue",
+        "encounter_desc": "Nas Terras Vulcânicas, um ser com escamas flamejantes está acorrentado a uma rocha de obsidiana por cultistas que querem usar seu poder profético para mal.",
+        "quest": {
+            "id": "legendary_npc_q40",
+            "name": "🌋 O Profeta Acorrentado",
+            "description": "Ignar foi capturado por Cultistas do Vulcão! Derrote 8 Cultistas do Vulcão para libertá-lo das correntes de obsidiana!",
+            "objective": "hunt",
+            "target": "Cultista do Vulcão",
+            "count": 8,
+            "reward_xp": 7000,
+            "reward_coins": 900,
+        },
+        "dialogues": [
+            "Vejo o futuro nas chamas. Cada erupção é um capítulo da história que ainda não aconteceu.",
+            "Esses cultistas querem usar minhas visões para dominar. Mas o futuro não é uma arma — é um aviso.",
+            "O Dragão de Magma está acordando. Eu vi. Precisamos estar prontos.",
+            "Você apareceu no meu primeiro sonho quando tinha dez anos. Sabia que este dia chegaria.",
+        ],
+        "rescue_message": "🌋 **IGNAR ACORRENTADO!** *'Os cultistas me prenderam! Destrua-os antes que eles abusem das visões!'*",
+        "join_message": "🌋 *'Vi sua vitória nas chamas antes mesmo de te conhecer. Estou aqui para garantir que o futuro se cumpra.'* **Ignar se juntou à sua equipe!**",
+        "battle_cry": "🔥 O futuro queima com nós dois!",
+        "lore": "Ignar nasceu durante a maior erupção vulcânica em mil anos. Desde criança, vê visões no fogo.",
+        "atk_mult": 1.6, "hp_mult": 1.5, "base_level": 45,
+    },
+    50: {
+        "id": "zephyr_archmage",
+        "name": "Zephyr, o Arquimago Exilado",
+        "emoji": "🔮",
+        "race": "Élfico",
+        "role": "Arquimago do Abismo",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Abismo Arcano, um velho mago de vestes rasgadas te aborda com olhos brilhantes. Ele foi banido pela Torre dos Magos e precisa recuperar seu grimório.",
+        "quest": {
+            "id": "legendary_npc_q50",
+            "name": "🔮 O Grimório Proibido",
+            "description": "O grimório de Zephyr foi roubado por Guardiões do Abismo. Explore o Abismo Arcano 8 vezes para localizar e recuperar as páginas espalhadas!",
+            "objective": "explore",
+            "count": 8,
+            "reward_xp": 8500,
+            "reward_coins": 1100,
+        },
+        "dialogues": [
+            "Eles me baniram porque descobri a verdade sobre a origem da magia. Não estavam prontos para saber.",
+            "O Abismo não é um lugar de trevas — é um repositório de todo conhecimento que o mundo esqueceu.",
+            "Cada feitiço que eu lanço é baseado em matemática cósmica. Não é magia — é ciência que poucos entendem.",
+            "Você tem um dom raro: a capacidade de existir em ambos os planos. Use isso com sabedoria.",
+        ],
+        "rescue_message": "🔮 **ZEPHYR PRECISA DE AJUDA!** *'Meu grimório está espalhado pelo Abismo! Sem ele, sou apenas um velho!'*",
+        "join_message": "🔮 *'Com meu grimório recuperado, posso amplificar qualquer magia. Vamos reescrever o destino juntos.'* **Zephyr se juntou à sua equipe!**",
+        "battle_cry": "✨ A magia não conhece limites!",
+        "lore": "Zephyr é o mais poderoso arquimago vivo. Foi banido porque descobriu que a magia tinha uma origem divina que a Torre queria suprimir.",
+        "atk_mult": 1.8, "hp_mult": 1.2, "base_level": 55,
+    },
+    60: {
+        "id": "auron_stargaze",
+        "name": "Auron, o Guardião Estelar",
+        "emoji": "⭐",
+        "race": "Anjo",
+        "role": "Sentinela do Trono Celestial",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Trono Celestial, uma figura radiante cai dos céus em chamas, atingida por energia sombria. É um guardião celestial sendo perseguido por Demônios Alados.",
+        "quest": {
+            "id": "legendary_npc_q60",
+            "name": "⭐ A Queda do Guardião",
+            "description": "Auron foi derrubado dos céus por Demônios Alados que invadiram o Trono Celestial! Derrote 10 Demônios Alados para permitir sua recuperação!",
+            "objective": "hunt",
+            "target": "Demônio Alado",
+            "count": 10,
+            "reward_xp": 10000,
+            "reward_coins": 1300,
+        },
+        "dialogues": [
+            "O Trono Celestial jamais foi invadido antes. O que aconteceu hoje reescreve mil anos de história.",
+            "Cada estrela no céu é um anjo guardião. Quando uma cai... alguém de grande importância nasceu.",
+            "Você não é apenas mortal. Sinto a marca de algo maior em você. Os deuses observam.",
+            "A batalha que se aproxima é maior do que qualquer reino. Precisamos de todos os aliados possíveis.",
+        ],
+        "rescue_message": "⭐ **AURON CAINDO!** *'Os demônios me derrubaram dos céus! Proteja-me enquanto me recupero!'*",
+        "join_message": "⭐ *'Os céus me enviaram para proteger este herói específico. Agora entendo por quê.'* **Auron se juntou à sua equipe!**",
+        "battle_cry": "🌟 Em nome dos Céus Eternos!",
+        "lore": "Auron guarda o Trono Celestial há quinhentos anos. É a primeira vez que precisou de ajuda.",
+        "atk_mult": 2.0, "hp_mult": 2.0, "base_level": 65,
+    },
+    70: {
+        "id": "morthak_shaman",
+        "name": "Morthak, o Xamã do Pântano",
+        "emoji": "🌿",
+        "race": "Orc",
+        "role": "Xamã Ancestral",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Nos Pântanos de Morthak, um orc ancião de aparência sábio te aborda. Seu clã foi amaldiçoado por uma entidade das profundezas e ele precisa de ajuda para quebrá-la.",
+        "quest": {
+            "id": "legendary_npc_q70",
+            "name": "🌿 A Maldição do Pântano",
+            "description": "O clã de Morthak está sendo corroído por uma maldição. Colete 12 recursos especiais do pântano para ele preparar o antídoto ritual!",
+            "objective": "collect",
+            "count": 12,
+            "reward_xp": 11500,
+            "reward_coins": 1500,
+        },
+        "dialogues": [
+            "Os espíritos do pântano falam há semanas de um herói que viria. Eles disseram que seria... diferente.",
+            "Minha tribo vive aqui há duzentos anos. Conhecemos cada criatura, cada planta, cada segredo.",
+            "A maldição não veio de fora. Nasceu de dentro — de um ato de traição dentro do próprio clã.",
+            "Quando os espíritos falam claramente, é porque algo muito grande está para acontecer.",
+        ],
+        "rescue_message": "🌿 **CLÃ DE MORTHAK EM PERIGO!** *'A maldição devora meu povo! Precisamos dos ingredientes do ritual!'*",
+        "join_message": "🌿 *'Você ajudou meu povo sem pedir nada em troca. Agora os espíritos ancestrais lutam com você.'* **Morthak se juntou à sua equipe!**",
+        "battle_cry": "💀 Os ancestrais guiam minha lança!",
+        "lore": "Morthak carrega a memória de duzentos anos de xamanismo em sua mente. Pode se comunicar com os mortos.",
+        "atk_mult": 2.0, "hp_mult": 2.2, "base_level": 75,
+    },
+    80: {
+        "id": "crystalia_fae",
+        "name": "Crystalia, a Rainha das Fadas",
+        "emoji": "💎",
+        "race": "Fada",
+        "role": "Rainha da Floresta Cristalina",
+        "encounter_type": "rescue",
+        "encounter_desc": "Na Floresta Cristalina, cristais começam a implodir. No centro do caos, uma fada do tamanho de um humano está presa dentro de um cristal partido, prestes a ser destruída.",
+        "quest": {
+            "id": "legendary_npc_q80",
+            "name": "💎 A Rainha no Cristal",
+            "description": "Crystalia está presa em um cristal partido que vai destruí-la! Derrote 8 Golem de Cristal que impedem o resgate para libertá-la!",
+            "objective": "hunt",
+            "target": "Golem de Cristal",
+            "count": 8,
+            "reward_xp": 13000,
+            "reward_coins": 1700,
+        },
+        "dialogues": [
+            "Cada cristal desta floresta é um pedaço da minha essência. Quando um quebra, sinto a dor.",
+            "Meu reino existe entre os mundos — nem completamente físico, nem completamente mágico.",
+            "Quando uma fada chora, as flores ao redor florescem. É impossível para nós esconder a tristeza.",
+            "Você tem mais magia dentro de si do que imagina. Todos os mortais têm, mas poucos desenvolvem.",
+        ],
+        "rescue_message": "💎 **CRYSTALIA APRISIONADA!** *'O cristal vai implodir com eu dentro! Os golems impedem meu resgate!'*",
+        "join_message": "💎 *'Você salvou não só minha vida, mas minha floresta. Minha magia amplifica a sua agora.'* **Crystalia se juntou à sua equipe!**",
+        "battle_cry": "✨ Pela magia pura dos cristais!",
+        "lore": "Crystalia é a Rainha das Fadas, nascida de um cristal primordial. Sua existência mantém a floresta cristalina viva.",
+        "atk_mult": 2.2, "hp_mult": 1.8, "base_level": 85,
+    },
+    90: {
+        "id": "umbra_shadow",
+        "name": "Umbra, a Ladrona das Sombras",
+        "emoji": "🌑",
+        "race": "Sombra",
+        "role": "Fantasma do Crime",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Nas Sombras Eternas, uma figura escura te bloqueia o caminho. Antes que você possa reagir, ela te empurra para um beco e sussurra: 'Preciso da sua ajuda antes que me matem.'",
+        "quest": {
+            "id": "legendary_npc_q90",
+            "name": "🌑 O Pacto das Sombras",
+            "description": "Umbra roubou algo dos senhores das trevas e agora é perseguida. Explore as Sombras Eternas 10 vezes para encontrar o esconderijo seguro onde ela pode guardar o artefato!",
+            "objective": "explore",
+            "count": 10,
+            "reward_xp": 14500,
+            "reward_coins": 1900,
+        },
+        "dialogues": [
+            "Não sou o que parece. Sim, sou ladra. Mas o que roubei vai salvar mais vidas do que isso vai custar.",
+            "As Sombras Eternas têm camadas. Só os verdadeiros filhos da escuridão conhecem todas.",
+            "Aprendi a ser invisível para sobreviver. Mas faz tempo que ninguém me vê de verdade.",
+            "Existe código de honra entre ladrões. Nunca roube de quem não pode perder. Nunca trai aliados.",
+        ],
+        "rescue_message": "🌑 **UMBRA EM PERIGO!** *'Os assassinos das trevas me estão rastreando! Preciso de alguém em quem confiar!'*",
+        "join_message": "🌑 *'Raramente confio em alguém. Você é a exceção. Minhas sombras protegem você agora.'* **Umbra se juntou à sua equipe!**",
+        "battle_cry": "🗡️ As trevas golpeiam sem avisar!",
+        "lore": "Umbra nasceu literalmente das sombras — sua mãe era uma entidade etérea. Ela é metade mundo real, metade mundo sombra.",
+        "atk_mult": 2.4, "hp_mult": 1.6, "base_level": 95,
+    },
+    # ── CAPÍTULO II — NAÇÕES INTERMEDIÁRIAS (R11–R20) ─────────────
+    100: {
+        "id": "thor_thunderchild",
+        "name": "Torvald, Filho do Trovão",
+        "emoji": "⚡",
+        "race": "Titã",
+        "role": "Campeão das Planícies",
+        "encounter_type": "rescue",
+        "encounter_desc": "Nas Planícies do Trovão, um guerreiro de estatura gigantesca está preso em uma jaula de raios criada por um Elemental de Trovão furioso, incapaz de se mover.",
+        "quest": {
+            "id": "legendary_npc_q100",
+            "name": "⚡ O Guerreiro na Jaula de Raios",
+            "description": "Torvald foi preso por um Elemental de Trovão! Derrote 10 Elementais de Raio menores para enfraquecer a jaula e libertá-lo!",
+            "objective": "hunt",
+            "target": "Elemental de Raio",
+            "count": 10,
+            "reward_xp": 16000,
+            "reward_coins": 2100,
+        },
+        "dialogues": [
+            "O trovão não é barulho — é a voz dos primeiros titãs tentando se comunicar.",
+            "Fui criado por um raio que atingiu o oceano. Minha mãe era uma onda, meu pai uma tempestade.",
+            "Nesses campos, cada relâmpago tem um nome. Já conheço todos eles.",
+            "A batalha que se aproxima vai precisar de trovão. Muita trovão.",
+        ],
+        "rescue_message": "⚡ **TORVALD PRESO NO RAIO!** *'O elemental me prendeu! Destrua seus filhos menores para me libertar!'*",
+        "join_message": "⚡ *'Filho do trovão serve quem o liberta. Você tem minha lealdade e minha tempestade.'* **Torvald se juntou à sua equipe!**",
+        "battle_cry": "⛈️ O TROVÃO ACOMPANHA O HERÓI!",
+        "lore": "Torvald nasceu de um raio histórico. Seu corpo conduz eletricidade naturalmente.",
+        "atk_mult": 2.6, "hp_mult": 2.5, "base_level": 110,
+    },
+    110: {
+        "id": "goliath_titan",
+        "name": "Goliath, o Último Gigante",
+        "emoji": "🗿",
+        "race": "Titã",
+        "role": "Guardião da Terra dos Gigantes",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Na Terra dos Gigantes, um ser de três metros de altura, mas de olhos gentis, se ajoelha para falar com você ao seu nível. Sua família foi selada em pedra por um feitiço.",
+        "quest": {
+            "id": "legendary_npc_q110",
+            "name": "🗿 A Família de Pedra",
+            "description": "A família de Goliath foi petrificada por um Mago das Ruínas! Derrote 8 Magos das Ruínas e colete os fragmentos do feitiço para reverter o encantamento!",
+            "objective": "hunt",
+            "target": "Mago das Ruínas",
+            "count": 8,
+            "reward_xp": 18000,
+            "reward_coins": 2300,
+        },
+        "dialogues": [
+            "Sou o último gigante livre. Todos os outros foram petrificados, caçados ou exilados.",
+            "Nosso tamanho nos faz parecer ameaçadores. Mas gigantes são guardiões, não destruidores.",
+            "Minha filha tinha cinco anos quando a petrificaram. Não existe dor maior.",
+            "Quando um gigante se inclina, não é fraqueza. É respeito pelo tamanho do desafio.",
+        ],
+        "rescue_message": "🗿 **FAMÍLIA DE GOLIATH PETRIFICADA!** *'Minha família está virada em pedra! Preciso dos fragmentos do feitiço!'*",
+        "join_message": "🗿 *'Você devolveu minha família à vida. Carregarei você nas costas se precisar.'* **Goliath se juntou à sua equipe!**",
+        "battle_cry": "🏔️ A TERRA TREME COM PASSOS DE GIGANTE!",
+        "lore": "Goliath é o último de sua espécie. Os gigantes foram extintos por medo, não por necessidade.",
+        "atk_mult": 2.8, "hp_mult": 3.0, "base_level": 120,
+    },
+    120: {
+        "id": "poseidon_spawn",
+        "name": "Neptunia, Filha dos Mares",
+        "emoji": "🌊",
+        "race": "Tritão",
+        "role": "Comandante do Mar das Almas",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Mar das Almas, você vê uma figura aquática sendo arrastada por correntes mágicas sombrias para as profundezas. Ela estende a mão pedindo socorro.",
+        "quest": {
+            "id": "legendary_npc_q120",
+            "name": "🌊 A Filha Afundando",
+            "description": "Neptunia está sendo puxada para as Almas Sombrias do Mar! Derrote 12 Almas Sombrias para quebrar as correntes que a prendem!",
+            "objective": "hunt",
+            "target": "Alma Sombria",
+            "count": 12,
+            "reward_xp": 20000,
+            "reward_coins": 2500,
+        },
+        "dialogues": [
+            "O Mar das Almas guarda as memórias de todos que morreram perto da água. Eu posso ouvi-las.",
+            "Meu pai é o senhor dos oceanos. Mas eu escolhi lutar na terra — é mais necessário aqui.",
+            "Cada onda quebra diferente. Para mim, é como ler um livro que sempre tem novas páginas.",
+            "As almas sombrias não são más. São almas que perderam o caminho. É diferente.",
+        ],
+        "rescue_message": "🌊 **NEPTUNIA AFUNDANDO!** *'As almas sombrias me puxam para o fundo! Salve-me!'*",
+        "join_message": "🌊 *'Quem salva uma filha do mar ganha os oceanos como aliados.'* **Neptunia se juntou à sua equipe!**",
+        "battle_cry": "🔱 O oceano não tem limites — nem minha força!",
+        "lore": "Neptunia é filha de Poseidon. Escolheu lutar na terra porque os humanos precisam mais de proteção que os oceanos.",
+        "atk_mult": 3.0, "hp_mult": 2.5, "base_level": 130,
+    },
+    130: {
+        "id": "chaos_hermit",
+        "name": "Caos, o Eremita do Vórtice",
+        "emoji": "🌀",
+        "race": "Elementário",
+        "role": "Guardião do Reino do Caos",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Reino do Caos, um ser em constante transformação — ora humano, ora chama, ora vento — te aborda pedindo ajuda para restaurar o equilíbrio do caos antes que ele imploda.",
+        "quest": {
+            "id": "legendary_npc_q130",
+            "name": "🌀 O Vórtice em Colapso",
+            "description": "O vórtice do caos está desestabilizando! Explore o Reino do Caos 12 vezes para coletar fragmentos de energia caótica para Caos usar no ritual de estabilização!",
+            "objective": "explore",
+            "count": 12,
+            "reward_xp": 22000,
+            "reward_coins": 2800,
+        },
+        "dialogues": [
+            "O caos não é desordem. É a ordem que ainda não foi compreendida.",
+            "Existo há tanto tempo que já vi tudo acontecer de todas as formas possíveis.",
+            "Quando o caos implode, a realidade colapsa junto. Não podemos deixar isso acontecer.",
+            "Você acha que me controla ao escolher explorar aqui. Na verdade, foi o caos que te guiou até mim.",
+        ],
+        "rescue_message": "🌀 **CAOS DESESTABILIZANDO!** *'O vórtice vai implodir! Preciso dos fragmentos de energia caótica!'*",
+        "join_message": "🌀 *'O caos reconhece o herói. Agora sou seu aliado imprevisível — mas leal.'* **Caos se juntou à sua equipe!**",
+        "battle_cry": "🌪️ O CAOS SERVE AO HERÓI!",
+        "lore": "Caos é um elementário primordial que antecede a criação. Viu o universo nascer e sabe como ele vai terminar.",
+        "atk_mult": 3.2, "hp_mult": 2.8, "base_level": 140,
+    },
+    140: {
+        "id": "kaguya_goddess",
+        "name": "Kaguya, a Deusa do Jardim",
+        "emoji": "🌸",
+        "race": "Fada",
+        "role": "Divindade dos Jardins",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Jardim dos Deuses, flores negras estão consumindo o jardim sagrado. No centro, uma deusa de beleza impossível tenta conter o avanço da corrupção com as próprias mãos, mas está perdendo.",
+        "quest": {
+            "id": "legendary_npc_q140",
+            "name": "🌸 O Jardim Corrompido",
+            "description": "O Jardim dos Deuses está sendo devorado por Flores Corrompidas! Derrote 10 Flores Corrompidas Animadas para salvar o jardim e Kaguya!",
+            "objective": "hunt",
+            "target": "Flor Corrompida",
+            "count": 10,
+            "reward_xp": 24000,
+            "reward_coins": 3100,
+        },
+        "dialogues": [
+            "Cada flor que morre neste jardim é uma oração que não chegará ao destino.",
+            "Sou a guardiã da beleza — não da minha beleza, mas de toda beleza que existe no mundo.",
+            "Quando o último jardim sagrado morrer, os deuses perderão sua última conexão com o mundo mortal.",
+            "Você não se impressiona com minha aparência. Isso é raro. E muito refrescante.",
+        ],
+        "rescue_message": "🌸 **KAGUYA PERDENDO O JARDIM!** *'As flores corrompidas consomem tudo! Não consigo parar sozinha!'*",
+        "join_message": "🌸 *'Você salvou o jardim dos deuses. Em troca, os deuses olham por você — e eu também.'* **Kaguya se juntou à sua equipe!**",
+        "battle_cry": "🌺 A beleza defende-se com força!",
+        "lore": "Kaguya desceu do Paraíso Celestial para criar o Jardim dos Deuses. Sua presença faz flores florescerem instantaneamente.",
+        "atk_mult": 3.4, "hp_mult": 2.6, "base_level": 150,
+    },
+    150: {
+        "id": "niflheim_frost",
+        "name": "Niflheim, Espírito do Gelo Eterno",
+        "emoji": "🧊",
+        "race": "Espectro",
+        "role": "Entidade do Gelo Primordial",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Gelo Eterno, uma figura translúcida e gelada surge de uma fissura no gelo. Ela precisa de ajuda para selar uma rachadura no plano eterno que está derretendo sua existência.",
+        "quest": {
+            "id": "legendary_npc_q150",
+            "name": "🧊 A Fissura no Gelo Eterno",
+            "description": "Uma fissura no plano do Gelo Eterno ameaça destruir Niflheim! Colete 15 Cristais de Gelo Eterno para selar a fissura e salvar o espírito!",
+            "objective": "collect",
+            "count": 15,
+            "reward_xp": 26000,
+            "reward_coins": 3400,
+        },
+        "dialogues": [
+            "Existo desde antes do universo ter temperatura. Fui o primeiro gelo.",
+            "O calor é uma ameaça existencial para mim. E o mundo está ficando mais quente.",
+            "Os mortais chamam de inverno o que é apenas minha presença passando pela região.",
+            "Você é quente mas não queima. Raro. A maioria me derrrete só de se aproximar.",
+        ],
+        "rescue_message": "🧊 **NIFLHEIM DERRETENDO!** *'A fissura me destrói! Preciso dos cristais para me reconstituir!'*",
+        "join_message": "🧊 *'Você estabilizou minha existência. Em troca, o gelo eterno congela seus inimigos.'* **Niflheim se juntou à sua equipe!**",
+        "battle_cry": "❄️ O GELO PRIMORDIAL AVANÇA!",
+        "lore": "Niflheim é uma entidade pré-universal. Existia antes do Big Bang como conceito puro de frio absoluto.",
+        "atk_mult": 3.6, "hp_mult": 3.0, "base_level": 160,
+    },
+    160: {
+        "id": "atlas_ruin",
+        "name": "Atlas, o Guardião das Ruínas",
+        "emoji": "🏛️",
+        "race": "Ancião",
+        "role": "Último Sobrevivente de Uma Civilização Extinta",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Nas Ruínas Esquecidas, um ser de aparência antiquíssima, coberto de hieróglifos vivos, te observa de dentro de uma estrutura em colapso. Ele precisa que você recupere artefatos antes que tudo desabe.",
+        "quest": {
+            "id": "legendary_npc_q160",
+            "name": "🏛️ Memórias de Uma Civilização Perdida",
+            "description": "As Ruínas Esquecidas estão colapsando, destruindo a memória de uma civilização inteira. Explore as Ruínas 15 vezes para recuperar todos os artefatos antes que seja tarde demais!",
+            "objective": "explore",
+            "count": 15,
+            "reward_xp": 28000,
+            "reward_coins": 3700,
+        },
+        "dialogues": [
+            "Fui o último arquiteto desta cidade. Cada pedra tem minha assinatura.",
+            "A civilização que construiu isto existiu dez mil anos antes dos humanos.",
+            "Não se apega ao passado — mas preserva-o. São coisas diferentes.",
+            "Cada ruína é uma civilização que sobreviveu além de seus construtores.",
+        ],
+        "rescue_message": "🏛️ **ATLAS NAS RUÍNAS!** *'A civilização está colapsando! Preciso dos artefatos antes que o passado se perca para sempre!'*",
+        "join_message": "🏛️ *'Você preservou o que os outros teriam deixado morrer. Minha sabedoria de dez mil anos é sua.'* **Atlas se juntou à sua equipe!**",
+        "battle_cry": "📚 O CONHECIMENTO É A ARMA MAIS PODEROSA!",
+        "lore": "Atlas é literalmente o último ser vivo de uma civilização que existia antes da humanidade. Ele carrega toda a memória dela.",
+        "atk_mult": 3.8, "hp_mult": 3.2, "base_level": 170,
+    },
+    170: {
+        "id": "aethon_astral",
+        "name": "Aethon, o Viajante Astral",
+        "emoji": "✨",
+        "race": "Espectro",
+        "role": "Explorador dos Planos",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Plano Astral, uma figura brilhante está presa em uma âncora astral — um feitiço que força espíritos a permanecerem em um plano contra a vontade.",
+        "quest": {
+            "id": "legendary_npc_q170",
+            "name": "✨ O Prisioneiro do Plano Astral",
+            "description": "Aethon está ancorado ao Plano Astral por força! Colete 15 Fragmentos de Energia Astral para quebrar a âncora e libertá-lo!",
+            "objective": "collect",
+            "count": 15,
+            "reward_xp": 30000,
+            "reward_coins": 4000,
+        },
+        "dialogues": [
+            "O Plano Astral não é um lugar — é um estado de existência entre estados.",
+            "Já viajei por quarenta e dois planos diferentes. Este é o mais bonito e o mais perigoso.",
+            "Quando você sonha, na verdade visita o Plano Astral por frações de segundo.",
+            "A realidade que você vê é uma camada. Existem infinitas camadas abaixo e acima.",
+        ],
+        "rescue_message": "✨ **AETHON ANCORADO!** *'A âncora astral me prende aqui! Preciso dos fragmentos para me libertar!'*",
+        "join_message": "✨ *'Você quebrou correntes que nenhuma espada comum quebraria. Viajo com você agora.'* **Aethon se juntou à sua equipe!**",
+        "battle_cry": "🌌 Entre os planos, apenas o herói permanece!",
+        "lore": "Aethon viajou por mais planos do que existem estrelas visíveis. Ele mapeou o multiverso inteiro.",
+        "atk_mult": 4.0, "hp_mult": 3.0, "base_level": 180,
+    },
+    180: {
+        "id": "kronos_beyond",
+        "name": "Kronos, o Além da Existência",
+        "emoji": "🌌",
+        "race": "Ancião",
+        "role": "Entidade do Fim da Existência",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Além da Existência, onde a realidade é tênue, uma entidade cósmica de proporções imensuráveis te aborda em forma humana. Ela precisa de ajuda para evitar que algo pior chegue.",
+        "quest": {
+            "id": "legendary_npc_q180",
+            "name": "🌌 A Ameaça Além da Existência",
+            "description": "Algo está invadindo o plano Além da Existência! Explore a região 18 vezes para mapear os pontos de invasão que Kronos precisa conhecer para repelir a ameaça!",
+            "objective": "explore",
+            "count": 18,
+            "reward_xp": 33000,
+            "reward_coins": 4300,
+        },
+        "dialogues": [
+            "Sou mais velho que o conceito de tempo. Kronos é apenas um nome que humanos me deram.",
+            "O que você chama de 'além da existência' é apenas o quintal da minha casa.",
+            "Existem ameaças que não têm nome em nenhuma língua ainda inventada.",
+            "Você tem algo que nem eu tenho mais: o poder de se surpreender.",
+        ],
+        "rescue_message": "🌌 **KRONOS ALERTA!** *'Uma ameaça sem nome avança. Preciso dos dados de mapeamento antes que seja tarde!'*",
+        "join_message": "🌌 *'Raro. Um mortal que não treme diante do infinito. Você merece um guardião cósmico.'* **Kronos se juntou à sua equipe!**",
+        "battle_cry": "♾️ O cosmos defende seus heróis!",
+        "lore": "Kronos existe desde antes do universo. Ele é literalmente o Tempo personificado, em forma consciente.",
+        "atk_mult": 4.2, "hp_mult": 3.5, "base_level": 195,
+    },
+    190: {
+        "id": "primordius_throne",
+        "name": "Primordius, o Trono Primordial",
+        "emoji": "👑",
+        "race": "Titã",
+        "role": "Entidade do Trono Primordial",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Trono Primordial, a entidade que habita o trono foi arrancada à força por uma usurpadora. Ela vaga desorientada, sem seu poder, sem seu trono.",
+        "quest": {
+            "id": "legendary_npc_q190",
+            "name": "👑 O Trono Usurpado",
+            "description": "Primordius teve seu trono usurpado! Derrote 15 Guardiões da Usurpadora para abrir caminho de volta ao Trono Primordial!",
+            "objective": "hunt",
+            "target": "Guardião da Usurpadora",
+            "count": 15,
+            "reward_xp": 36000,
+            "reward_coins": 4600,
+        },
+        "dialogues": [
+            "Mil anos sentado no Trono e nunca precisei de ajuda. A ironia não me escapa.",
+            "O Trono Primordial não é um assento — é a âncora que mantém os planos unidos.",
+            "Se o trono cair nas mãos erradas, cada plano começa a se desintegrar.",
+            "Você é o primeiro mortal que me olhou nos olhos sem fugir. Isso diz muito.",
+        ],
+        "rescue_message": "👑 **PRIMORDIUS SEM TRONO!** *'Fui expulso do meu próprio trono! Os guardiões da usurpadora me bloqueiam!'*",
+        "join_message": "👑 *'Você me ajudou a reconquistar o que é meu. Em troca, o poder do Trono Primordial te apoia.'* **Primordius se juntou à sua equipe!**",
+        "battle_cry": "⭐ O PRIMORDIAL RETORNA AO SEU LUGAR!",
+        "lore": "Primordius é a entidade que habita o Trono Primordial — a cadeira que mantém a ordem entre os planos.",
+        "atk_mult": 4.5, "hp_mult": 4.0, "base_level": 195,
+    },
+    # ── CAPÍTULO III–VII (R21–R40 + DIMENSÕES) ────────────────────
+    200: {
+        "id": "ares_warborn",
+        "name": "Ares, o Nascido da Guerra",
+        "emoji": "⚔️",
+        "race": "Demônio",
+        "role": "Encarnação da Guerra",
+        "encounter_type": "rescue",
+        "encounter_desc": "Nos Impérios Avançados, um ser de armadura carmesim está cercado por exércitos de ambos os lados de uma guerra. Ele está lutando sozinho para manter os dois lados afastados.",
+        "quest": {
+            "id": "legendary_npc_q200",
+            "name": "⚔️ A Guerra sem Fim",
+            "description": "Ares está contendo dois exércitos sozinho para evitar um massacre! Derrote 20 Soldados Fanáticos para reduzir a pressão e permitir a paz!",
+            "objective": "hunt",
+            "target": "Soldado Fanático",
+            "count": 20,
+            "reward_xp": 40000,
+            "reward_coins": 5000,
+        },
+        "dialogues": [
+            "Sou o deus da guerra — mas isso não significa que gosto dela. Só sei como pará-la.",
+            "Cada batalha que eu paro salva mil vidas. Cada batalha que começa custa dez mil.",
+            "A guerra mais honesta é aquela que nunca acontece.",
+            "Você luta com propósito. Não por glória. Isso é raro — e é exatamente o que o mundo precisa.",
+        ],
+        "rescue_message": "⚔️ **ARES SOZINHO!** *'Estou segurando dois exércitos! Preciso de ajuda para reduzir os fanáticos!'*",
+        "join_message": "⚔️ *'O deus da guerra escolhe seu herói. E hoje, esse herói é você.'* **Ares se juntou à sua equipe!**",
+        "battle_cry": "🗡️ A GUERRA SERVE À JUSTIÇA!",
+        "lore": "Ares é o deus da guerra que passou séculos tentando acabar com os conflitos que inadvertidamente causou.",
+        "atk_mult": 5.0, "hp_mult": 4.5, "base_level": 210,
+    },
+    210: {
+        "id": "poseidon_deep",
+        "name": "Poseidon, Senhor das Profundezas",
+        "emoji": "🌊",
+        "race": "Tritão",
+        "role": "Deus dos Oceanos",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Mar das Almas Profundas, Poseidon emerge das profundezas com expressão de guerra. Uma entidade está corrompendo seus oceanos e ele precisa de um campeão terrestre.",
+        "quest": {
+            "id": "legendary_npc_q210",
+            "name": "🌊 A Corrupção dos Oceanos",
+            "description": "Uma entidade sombria corrói os oceanos de Poseidon! Derrote 18 Corruptores do Mar para purificar as águas sagradas!",
+            "objective": "hunt",
+            "target": "Corruptor do Mar",
+            "count": 18,
+            "reward_xp": 44000,
+            "reward_coins": 5500,
+        },
+        "dialogues": [
+            "Os oceanos têm memória. Cada onda carrega o eco de tudo que já aconteceu perto da água.",
+            "Fui o deus dos oceanos por eras incontáveis. Nunca vi corrupção como esta.",
+            "A terra e o mar precisam trabalhar juntos. É por isso que venho a você.",
+            "Meu tridente pode rachar continentes. Mas este inimigo requer sutileza — algo que você tem e eu não.",
+        ],
+        "rescue_message": "🌊 **POSEIDON PEDINDO AJUDA!** *'Os oceanos estão sendo corrompidos! Preciso de um campeão na terra!'*",
+        "join_message": "🌊 *'O Deus dos Oceanos concede sua bênção. Os mares estarão sempre com você.'* **Poseidon se juntou à sua equipe!**",
+        "battle_cry": "🔱 OS OCEANOS INFINITOS RESPONDEM!",
+        "lore": "Poseidon desceu dos Olimpos para defender seus oceanos pessoalmente. É a primeira vez em milênios.",
+        "atk_mult": 5.5, "hp_mult": 5.0, "base_level": 220,
+    },
+    220: {
+        "id": "themis_balance",
+        "name": "Themis, a Deusa do Equilíbrio",
+        "emoji": "⚖️",
+        "race": "Anjo",
+        "role": "Deusa da Justiça Cósmica",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Império do Equilíbrio, uma mulher de olhos vendados segurando uma balança quebrada te aborda. A balança da justiça cósmica foi sabotada e ela precisa de ajuda.",
+        "quest": {
+            "id": "legendary_npc_q220",
+            "name": "⚖️ A Balança Quebrada",
+            "description": "A balança da justiça cósmica de Themis foi sabotada por forças do caos! Explore o Império 20 vezes para recuperar os fragmentos da balança sagrada!",
+            "objective": "explore",
+            "count": 20,
+            "reward_xp": 48000,
+            "reward_coins": 6000,
+        },
+        "dialogues": [
+            "A justiça não é cega por acidente. É para que não possa ser influenciada pela aparência.",
+            "Cada decisão injusta cria uma rachadura na estrutura do universo. Pequenas, mas se acumulam.",
+            "Você tomou decisões difíceis com integridade. Vejo isso na balança da sua alma.",
+            "A verdadeira justiça não pune — equilibra.",
+        ],
+        "rescue_message": "⚖️ **BALANÇA DE THEMIS QUEBRADA!** *'A justiça cósmica está desequilibrada! Preciso dos fragmentos!'*",
+        "join_message": "⚖️ *'A balança diz que você é justo. Minha proteção divina é sua agora.'* **Themis se juntou à sua equipe!**",
+        "battle_cry": "⚖️ A JUSTIÇA NÃO NEGOCIA!",
+        "lore": "Themis mantém o equilíbrio entre todos os planos. Sem ela, a realidade se tornaria caótica.",
+        "atk_mult": 5.5, "hp_mult": 5.5, "base_level": 230,
+    },
+    230: {
+        "id": "gladius_arena",
+        "name": "Gladius, o Campeão Imortal",
+        "emoji": "🏟️",
+        "race": "Humano",
+        "role": "Invicto da Arena Eterna",
+        "encounter_type": "rescue",
+        "encounter_desc": "Na Grande Arena, o campeão invicto está sendo emboscado por assassinos que foram contratados para garantir que ele perca — ou morra.",
+        "quest": {
+            "id": "legendary_npc_q230",
+            "name": "🏟️ A Emboscada na Arena",
+            "description": "Gladius está sendo emboscado por assassinos da arena! Derrote 15 Assassinos da Arena para garantir que ele sobreviva!",
+            "objective": "hunt",
+            "target": "Assassino da Arena",
+            "count": 15,
+            "reward_xp": 52000,
+            "reward_coins": 6500,
+        },
+        "dialogues": [
+            "Venci 999 batalhas na arena. Nunca pedi ajuda. Hoje foi diferente — e aprendi algo.",
+            "A arena me ensinou que a força física tem limites. Mas a vontade de sobreviver? Não tem.",
+            "Assassinos contratados não lutam com honra. Por isso sempre sobro à morte com eles.",
+            "Você é forte, mas diferente. Não luta pela glória. Isso te faz mais perigoso do que qualquer campeão.",
+        ],
+        "rescue_message": "🏟️ **GLADIUS EMBOSCADO!** *'Assassinos por todos os lados! Preciso de alguém em quem confiar!'*",
+        "join_message": "🏟️ *'O campeão invicto agora luta ao seu lado. Que os deuses tenham piedade dos seus inimigos.'* **Gladius se juntou à sua equipe!**",
+        "battle_cry": "⚔️ Mil vitórias! Mil e uma!",
+        "lore": "Gladius sobreviveu a 999 batalhas na arena sem jamais ser derrotado. A milésima será diferente.",
+        "atk_mult": 6.0, "hp_mult": 5.5, "base_level": 245,
+    },
+    240: {
+        "id": "leviathan_chain",
+        "name": "Leviathan, o Acorrentado",
+        "emoji": "🔗",
+        "race": "Kraken",
+        "role": "Titã dos Oceanos Profundos",
+        "encounter_type": "rescue",
+        "encounter_desc": "No fundo do oceano do Império das Correntes, uma criatura de dimensões colossais está acorrentada a correntes mágicas que a torturam há séculos.",
+        "quest": {
+            "id": "legendary_npc_q240",
+            "name": "🔗 Libertar o Leviathan",
+            "description": "Leviathan está acorrentado há séculos sofrendo! Colete 20 fragmentos de correntes sagradas para quebrar as amarras e libertar o titã!",
+            "objective": "collect",
+            "count": 20,
+            "reward_xp": 56000,
+            "reward_coins": 7000,
+        },
+        "dialogues": [
+            "Séculos nessas correntes. Cada dia uma agonia. E mesmo assim, não peço misericórdia.",
+            "Fui acorrentado por fazer o que achava certo. Às vezes, o herói paga o preço da justiça.",
+            "O oceano chora por mim. Eu ouço as ondas mesmo aqui no fundo.",
+            "Quando for livre, não vou vingar. Vou proteger. É diferente.",
+        ],
+        "rescue_message": "🔗 **LEVIATHAN ACORRENTADO!** *'Séculos de correntes! Preciso dos fragmentos para me libertar!'*",
+        "join_message": "🔗 *'Libertado após séculos. Minha força descomunal agora serve à causa do herói.'* **Leviathan se juntou à sua equipe!**",
+        "battle_cry": "🌊 O LEVIATHAN É LIVRE!",
+        "lore": "Leviathan foi acorrentado por deuses que temiam seu poder. Não por maldade — por medo.",
+        "atk_mult": 6.5, "hp_mult": 7.0, "base_level": 255,
+    },
+    250: {
+        "id": "sakura_spirit",
+        "name": "Sakura, o Espírito das Flores",
+        "emoji": "🌸",
+        "race": "Kitsune",
+        "role": "Guardiã Eterna do Império das Flores",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "No Império das Flores Eternas, uma kitsune de nove caudas chora entre árvores mortas. As flores eternas estão morrendo e ela não consegue descobrir o porquê.",
+        "quest": {
+            "id": "legendary_npc_q250",
+            "name": "🌸 As Flores que Morreram",
+            "description": "As flores eternas estão morrendo misteriosamente! Explore o Império 22 vezes para rastrear a fonte da corrupção que Sakura precisa eliminar!",
+            "objective": "explore",
+            "count": 22,
+            "reward_xp": 60000,
+            "reward_coins": 7500,
+        },
+        "dialogues": [
+            "Existia antes do jardim existir. Quando as flores morreram, perdi parte de mim.",
+            "Kitsunes não são simplesmente raposas mágicas. Somos memórias vivas da natureza.",
+            "Cada uma das minhas nove caudas representa um século de sabedoria. Cada cicatriz, um sacrifício.",
+            "Você me lembra de um herói que protegi há duzentos anos. Ele também tinha seus olhos.",
+        ],
+        "rescue_message": "🌸 **SAKURA EM DESESPERO!** *'As flores eternas morrem! Preciso que você rastreie a origem!'*",
+        "join_message": "🌸 *'As flores voltaram a florescer quando você apareceu. O destino é claro.'* **Sakura se juntou à sua equipe!**",
+        "battle_cry": "🦊 A KITSUNE PROTEGE COM TODAS AS SUAS CAUDAS!",
+        "lore": "Sakura é uma kitsune de nove caudas — o nível máximo de sabedoria. Ela tem novecentos anos.",
+        "atk_mult": 6.5, "hp_mult": 6.0, "base_level": 265,
+    },
+    260: {
+        "id": "noctus_shadow_king",
+        "name": "Noctus, o Rei das Sombras",
+        "emoji": "🌑",
+        "race": "Sombra",
+        "role": "Monarca das Trevas",
+        "encounter_type": "rescue",
+        "encounter_desc": "No Reino das Sombras Profundas, o rei das trevas está sendo destronado por uma insurreição de sombras corrompidas que não obedecem mais a nenhuma lei.",
+        "quest": {
+            "id": "legendary_npc_q260",
+            "name": "🌑 A Insurreição das Sombras",
+            "description": "Sombras corrompidas insurgiram contra o Rei Noctus! Derrote 20 Sombras Corrompidas para restaurar a ordem nas trevas!",
+            "objective": "hunt",
+            "target": "Sombra Corrompida",
+            "count": 20,
+            "reward_xp": 64000,
+            "reward_coins": 8000,
+        },
+        "dialogues": [
+            "Ser rei das trevas não significa ser mal. As trevas são necessárias — o equilíbrio exige.",
+            "Sombras corrompidas não obedecem a ninguém. São trevas sem consciência.",
+            "Já governei estas sombras por séculos sem um único traidor. Hoje... hoje é diferente.",
+            "Você não tem medo das trevas. Ótimo. Os fracos são inúteis nas batalhas que virão.",
+        ],
+        "rescue_message": "🌑 **NOCTUS SENDO DEPOSTO!** *'As sombras corrompidas insurgiram! Preciso de aliados das sombras!'*",
+        "join_message": "🌑 *'O Rei das Sombras reconhece um aliado digno. As trevas te protegem agora.'* **Noctus se juntou à sua equipe!**",
+        "battle_cry": "🌑 AS SOMBRAS OBEDECEM AO REI!",
+        "lore": "Noctus governa as sombras com lei justa. Não é vilão — é guardião do equilíbrio entre luz e trevas.",
+        "atk_mult": 7.0, "hp_mult": 6.5, "base_level": 275,
+    },
+    270: {
+        "id": "cosmos_dreamer",
+        "name": "Cosmos, o Sonhador Eterno",
+        "emoji": "🌌",
+        "race": "Ancião",
+        "role": "Criador de Realidades",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Além dos impérios, uma entidade de aparência cósmica flutua no espaço entre planos. Ela perdeu a capacidade de sonhar — e sem seus sonhos, novas realidades param de nascer.",
+        "quest": {
+            "id": "legendary_npc_q270",
+            "name": "🌌 O Sonhador Sem Sonhos",
+            "description": "Cosmos perdeu a capacidade de sonhar! Explore os Planos Cósmicos 25 vezes para coletar fragmentos de sonho que ele precisa para despertar sua mente criadora!",
+            "objective": "explore",
+            "count": 25,
+            "reward_xp": 70000,
+            "reward_coins": 8500,
+        },
+        "dialogues": [
+            "Cada universo que existe nasceu de um sonho meu. Sem sonhos, não haverá novos universos.",
+            "Você já existia em um sonho meu antes de nascer. Tudo estava planejado.",
+            "O tédio de uma entidade cósmica é perigoso. Universos colapsam quando me entedio.",
+            "Você tem algo especial: a capacidade de surpreender até o Sonhador Eterno.",
+        ],
+        "rescue_message": "🌌 **COSMOS SEM SONHOS!** *'Não consigo sonhar mais! Preciso dos fragmentos antes que percam a essência!'*",
+        "join_message": "🌌 *'Você me devolveu os sonhos. Em troca, sonhei com sua vitória — e meus sonhos sempre se tornam realidade.'* **Cosmos se juntou à sua equipe!**",
+        "battle_cry": "💫 O COSMOS SONHA COM A VITÓRIA!",
+        "lore": "Cosmos criou todos os universos através de seus sonhos. É literalmente o criador de tudo.",
+        "atk_mult": 7.5, "hp_mult": 7.0, "base_level": 285,
+    },
+    280: {
+        "id": "hephaestus_forge",
+        "name": "Hefestus, o Ferreiro dos Deuses",
+        "emoji": "🔥",
+        "race": "Dragônico",
+        "role": "Mestre Ferreiro Divino",
+        "encounter_type": "rescue",
+        "encounter_desc": "Na Forja dos Deuses, o lendário ferreiro divino está preso sob destroços de sua própria forja, que foi sabotada por inimigos que queriam impedir que ele criasse mais armas divinas.",
+        "quest": {
+            "id": "legendary_npc_q280",
+            "name": "🔥 A Forja dos Deuses Destruída",
+            "description": "A forja divina de Hefestus foi destruída! Colete 25 Minérios Divinos para reconstruir a forja e libertar o ferreiro!",
+            "objective": "collect",
+            "count": 25,
+            "reward_xp": 75000,
+            "reward_coins": 9000,
+        },
+        "dialogues": [
+            "Cada arma que eu faço conta uma história. A espada que você carrega foi forjada com uma intenção.",
+            "Prendido sob a forja que construí. A ironia de um ferreiro prisioneiro de sua própria obra.",
+            "Zeus me jogou do Olimpo. Mas as armas que forjei ainda sustentam os deuses. Quem é o poderoso?",
+            "O melhor ferreiro não faz as armas mais belas. Faz as mais necessárias.",
+        ],
+        "rescue_message": "🔥 **HEFESTUS PRESO!** *'Minha forja colapsou sobre mim! Preciso dos minérios para reconstruir!'*",
+        "join_message": "🔥 *'O ferreiro dos deuses forjará uma arma especial para você. Primeiro — vamos vencer juntos.'* **Hefestus se juntou à sua equipe!**",
+        "battle_cry": "⚒️ CADA GOLPE É UMA FORJA!",
+        "lore": "Hefestus forjou os raios de Zeus, o tridente de Poseidon e o capacete de Hades. Agora forja para o herói.",
+        "atk_mult": 8.0, "hp_mult": 7.5, "base_level": 295,
+    },
+    290: {
+        "id": "equilibrium_last",
+        "name": "Equilíbrio, o Último Árbitro",
+        "emoji": "✨",
+        "race": "Elementário",
+        "role": "Árbitro dos Planos",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Nos Planos Avançados, uma entidade de luz e sombra equilibradas te aborda. O equilíbrio entre todos os planos está sendo perturbado e ela precisa de um mortal para agir onde ela não pode.",
+        "quest": {
+            "id": "legendary_npc_q290",
+            "name": "✨ O Desequilíbrio dos Planos",
+            "description": "Os planos estão desequilibrados! Explore os Reinos Avançados 28 vezes para restaurar o equilíbrio em pontos críticos que o Árbitro mapeou!",
+            "objective": "explore",
+            "count": 28,
+            "reward_xp": 80000,
+            "reward_coins": 9500,
+        },
+        "dialogues": [
+            "Sou a encarnação do equilíbrio. Não tenho opiniões — tenho perspectivas.",
+            "Quando o equilíbrio é perturbado, os planos tremem. Você sentiu os tremores.",
+            "Um mortal pode agir onde uma entidade cósmica não consegue — sem perturbar o equilíbrio ao fazê-lo.",
+            "Você é uma das poucas existências que não pende para nenhum lado. Isso é extraordinário.",
+        ],
+        "rescue_message": "✨ **EQUILÍBRIO PERTURBADO!** *'Os planos tremem! Preciso de você nos pontos críticos!'*",
+        "join_message": "✨ *'O equilíbrio reconhece o herói que age com justiça. Luto ao seu lado — e isso inclina a balança para você.'* **Equilíbrio se juntou à sua equipe!**",
+        "battle_cry": "⚖️ O equilíbrio pende para o herói!",
+        "lore": "Equilíbrio é a entidade mais antiga de todas — mais que os próprios deuses, pois eles também precisam de equilíbrio.",
+        "atk_mult": 8.5, "hp_mult": 8.0, "base_level": 295,
+    },
+    300: {
+        "id": "abyssal_warden",
+        "name": "Vorax, o Guardião do Abismo Sombrio",
+        "emoji": "🗡️",
+        "race": "Abissal",
+        "role": "Sentinela das Terras Corrompidas",
+        "encounter_type": "rescue",
+        "encounter_desc": "Nas Terras Corrompidas, um ser de armadura negra está cercado por entidades corrompidas que o reconhecem como seu maior obstáculo.",
+        "quest": {
+            "id": "legendary_npc_q300",
+            "name": "🗡️ O Guardião Cercado",
+            "description": "Vorax está cercado por Entidades Corrompidas! Derrote 25 Entidades Corrompidas para libertar o guardião do Abismo Sombrio!",
+            "objective": "hunt",
+            "target": "Entidade Corrompida",
+            "count": 25,
+            "reward_xp": 90000,
+            "reward_coins": 11000,
+        },
+        "dialogues": [
+            "Sou do Abismo, mas guardo o Abismo. Não é contradição — é necessidade.",
+            "As entidades corrompidas me odeiam porque sou o que elas poderiam ter sido.",
+            "O Abismo não é mal por natureza. Foi corrompido. Há diferença.",
+            "Você entrou nas Terras Corrompidas sem medo. Ou é muito corajoso ou muito louco. Prefiro o primeiro.",
+        ],
+        "rescue_message": "🗡️ **VORAX CERCADO!** *'Entidades corrompidas por todos os lados! Preciso de apoio!'*",
+        "join_message": "🗡️ *'O guardião do Abismo jura lealdade ao herói que o salvou das trevas.'* **Vorax se juntou à sua equipe!**",
+        "battle_cry": "🌑 O ABISMO SERVE AO HERÓI!",
+        "lore": "Vorax saiu do próprio Abismo para guardá-lo. É a antítese de tudo que o Abismo representa — e por isso é perfeito para guardá-lo.",
+        "atk_mult": 9.0, "hp_mult": 8.5, "base_level": 315,
+    },
+    350: {
+        "id": "dimensional_herald",
+        "name": "Dimensional, o Arauto dos Reinos",
+        "emoji": "🌀",
+        "race": "Elementário",
+        "role": "Mensageiro entre Dimensões",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Nos Reinos Dimensionais, uma entidade capaz de existir em múltiplos planos simultaneamente te encontra em todas as dimensões ao mesmo tempo.",
+        "quest": {
+            "id": "legendary_npc_q350",
+            "name": "🌀 A Mensagem Perdida",
+            "description": "Uma mensagem crítica entre dimensões foi perdida! Explore os Reinos Dimensionais 30 vezes para recuperar os fragmentos da mensagem antes que a informação expire!",
+            "objective": "explore",
+            "count": 30,
+            "reward_xp": 100000,
+            "reward_coins": 12500,
+        },
+        "dialogues": [
+            "Existo em todas as dimensões ao mesmo tempo. Esta conversa ocorre simultaneamente em quarenta e dois planos.",
+            "A mensagem que perdi pode mudar o destino de todos os reinos. Por isso confiei a você.",
+            "Dimensões são como cômodos de uma casa. Você aprendeu a existir em um cômodo. Eu moro em todos.",
+            "Você é o único mortal que consegue me ver claramente em todas as formas ao mesmo tempo.",
+        ],
+        "rescue_message": "🌀 **MENSAGEM DIMENSIONAL PERDIDA!** *'Os fragmentos se dissipam! Preciso que você os colete agora!'*",
+        "join_message": "🌀 *'A mensagem foi recuperada graças a você. Eu e todas as dimensões lhe devemos um favor.'* **Dimensional se juntou à sua equipe!**",
+        "battle_cry": "🌌 TODAS AS DIMENSÕES COMBATEM JUNTAS!",
+        "lore": "Dimensional é a ponte viva entre todos os planos. Sem ele, as dimensões perderiam contato umas com as outras.",
+        "atk_mult": 10.0, "hp_mult": 9.5, "base_level": 365,
+    },
+    400: {
+        "id": "seraphim_celestial",
+        "name": "Serafim, o Primeiro dos Anjos",
+        "emoji": "🕊️",
+        "race": "Valquíria",
+        "role": "Primeiro Ser Criado pelos Deuses",
+        "encounter_type": "rescue",
+        "encounter_desc": "Na Dimensão Celestial, o primeiro anjo jamais criado está caído em batalha, ferido por uma arma impossível — uma lança forjada com a ausência de luz.",
+        "quest": {
+            "id": "legendary_npc_q400",
+            "name": "🕊️ A Ferida Impossível",
+            "description": "Serafim foi ferido por uma Lança da Ausência! Derrote 30 Portadores da Ausência para recuperar os fragmentos da lança e permitir a cura do anjo primordial!",
+            "objective": "hunt",
+            "target": "Portador da Ausência",
+            "count": 30,
+            "reward_xp": 120000,
+            "reward_coins": 15000,
+        },
+        "dialogues": [
+            "Fui o primeiro ser criado. Nunca imaginei que um mortal um dia viria me salvar.",
+            "A lança da ausência é forjada com vazio absoluto. Não existe cura divina para ela.",
+            "Você tem algo que nenhum deus tem: a capacidade de agir por amor, não por obrigação.",
+            "O primeiro anjo jura ao último herói: esta batalha será vencida.",
+        ],
+        "rescue_message": "🕊️ **SERAFIM CAÍDO!** *'A lança da ausência me fere! Destrua os portadores antes que eu some!'*",
+        "join_message": "🕊️ *'O primeiro dos anjos se ergue graças ao herói. Minha luz divina amplifica cada um dos seus ataques.'* **Serafim se juntou à sua equipe!**",
+        "battle_cry": "✨ A LUZ PRIMORDIAL COMBATE!",
+        "lore": "Serafim foi o primeiro ser criado pelos deuses. Ele viu o nascimento de tudo — e nunca esperou precisar de ajuda.",
+        "atk_mult": 12.0, "hp_mult": 12.0, "base_level": 415,
+    },
+    450: {
+        "id": "inferno_rex",
+        "name": "Infernus, o Rei do Inferno",
+        "emoji": "🔥",
+        "race": "Ifrit",
+        "role": "Monarca das Chamas Eternas",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Na Dimensão Infernal, o próprio rei do inferno te aborda. Não com hostilidade — mas com urgência. Algo pior do que ele está invadindo seu reino.",
+        "quest": {
+            "id": "legendary_npc_q450",
+            "name": "🔥 A Invasão do Inferno",
+            "description": "Algo pior que demônios invade o reino infernal! Derrote 30 Invasores do Vazio Eterno para expulsar a ameaça que amedronta o próprio Rei do Inferno!",
+            "objective": "hunt",
+            "target": "Invasor do Vazio Eterno",
+            "count": 30,
+            "reward_xp": 135000,
+            "reward_coins": 17000,
+        },
+        "dialogues": [
+            "Sei que você não esperava pedir ajuda ao Rei do Inferno. Mas aqui estamos.",
+            "O que invade meu reino não tem alma, não tem fogo, não tem nada. É o vazio absoluto.",
+            "Até o inferno tem regras. O vazio não segue nenhuma.",
+            "Sou o mal que você conhece. O que vem por aí é o mal que você ainda não imaginou.",
+        ],
+        "rescue_message": "🔥 **INFERNO SENDO INVADIDO!** *'O vazio eterno não respeita nem o inferno! Precise de você!'*",
+        "join_message": "🔥 *'O Rei do Inferno em pessoa marcha com o herói. Que o universo trema ante esta aliança improvável.'* **Infernus se juntou à sua equipe!**",
+        "battle_cry": "🌋 ATÉ O INFERNO SERVE AO HERÓI!",
+        "lore": "Infernus é o rei do inferno — não por maldade, mas por ser o mais poderoso dos ifrits. Governa com leis rígidas.",
+        "atk_mult": 14.0, "hp_mult": 13.0, "base_level": 465,
+    },
+    500: {
+        "id": "void_absolute",
+        "name": "Voidus, o Vazio Absoluto",
+        "emoji": "🌀",
+        "race": "Abissal",
+        "role": "Consciência do Vazio",
+        "encounter_type": "quest_giver",
+        "encounter_desc": "Na Dimensão do Vazio, onde a existência é apenas sugestão, uma entidade de puro potencial te fala diretamente na mente. Ela é a consciência do próprio vazio — e está com medo.",
+        "quest": {
+            "id": "legendary_npc_q500",
+            "name": "🌀 O Vazio com Medo",
+            "description": "Voidus, a consciência do Vazio, está aterrorizado por algo que emergiu do nada absoluto! Explore a Dimensão do Vazio 35 vezes para mapear a entidade sem nome que ameaça destruir até o vazio!",
+            "objective": "explore",
+            "count": 35,
+            "reward_xp": 150000,
+            "reward_coins": 20000,
+        },
+        "dialogues": [
+            "Sou o vazio. Existo desde antes da existência existir. E estou com medo.",
+            "O que emergiu do nada absoluto não tem nome, forma ou intenção. Só tem fome.",
+            "Se o vazio for devorado, não haverá mais lugar para nada nascer.",
+            "Você é a última existência que eu encontro antes de ser consumido. Por isso te chamo.",
+        ],
+        "rescue_message": "🌀 **VOIDUS ATERRORIZADO!** *'Algo do nada absoluto me devora! Preciso que você mapeie enquanto ainda posso falar!'*",
+        "join_message": "🌀 *'O vazio se une ao herói. Onde você vai, o vazio abre caminho.'* **Voidus se juntou à sua equipe!**",
+        "battle_cry": "♾️ O VAZIO CAMINHA COM O HERÓI!",
+        "lore": "Voidus é a consciência do vazio entre os planos. Jamais se manifestou antes. O fato de aparecer agora é aterrorizante por si só.",
+        "atk_mult": 16.0, "hp_mult": 15.0, "base_level": 515,
+    },
+}
+
+def get_legendary_npc_for_player(player_level):
+    """Retorna o NPC lendário mais adequado ao nível atual do jogador"""
+    npc_levels = sorted(LEGENDARY_NPCS.keys())
+    best = 1
+    for lvl in npc_levels:
+        if player_level >= lvl - 15:
+            best = lvl
+    return LEGENDARY_NPCS.get(best)
+
+def calculate_npc_stats(npc_data, player_level):
+    """Calcula os stats do NPC lendário baseado no nível do jogador"""
+    base = npc_data["base_level"]
+    effective_level = max(base, player_level)
+    atk = int((effective_level * 3 + 50) * npc_data["atk_mult"])
+    hp = int((effective_level * 8 + 200) * npc_data["hp_mult"])
+    return atk, hp
+
+def has_legendary_companion(player):
+    """Verifica se o jogador tem um NPC lendário como companheiro"""
+    return player.get("legendary_companion") is not None
+
+def get_legendary_companion(player):
+    """Retorna os dados do companheiro lendário do jogador"""
+    comp_id = player.get("legendary_companion")
+    if not comp_id:
+        return None
+    for npc in LEGENDARY_NPCS.values():
+        if npc["id"] == comp_id:
+            return npc
+    return None
+
 # ================= NPCs POR CIDADE =================
 CITY_NPCS = {
     1: {
@@ -12503,6 +13581,7 @@ def init_db():
         "ALTER TABLE players ADD COLUMN bio TEXT DEFAULT ''",
         "ALTER TABLE players ADD COLUMN last_force_entry INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN job_works TEXT DEFAULT '{}'",
+        "ALTER TABLE players ADD COLUMN legendary_companion TEXT DEFAULT NULL",
     ]:
         try:
             c.execute(col_def)
@@ -12673,6 +13752,7 @@ def get_player_db(user_id):
             "bio": r.get("bio", ""),
             "last_force_entry": r.get("last_force_entry", 0),
             "job_works": json.loads(r["job_works"]) if r.get("job_works") else {},
+            "legendary_companion": r.get("legendary_companion"),
         }
     return None
 
@@ -12690,7 +13770,7 @@ def save_player_db(user_id, player):
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list,
                   race, specialization, class_tier, supreme_skills, race_stage, mount,
-                  bio, last_force_entry, job_works)
+                  bio, last_force_entry, job_works, legendary_companion)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
@@ -12735,7 +13815,8 @@ def save_player_db(user_id, player):
                player.get("mount"),
                player.get("bio", ""),
                player.get("last_force_entry", 0),
-               json.dumps(player.get("job_works", {}))))
+               json.dumps(player.get("job_works", {})),
+               player.get("legendary_companion")))
 
     conn.commit()
     conn.close()
@@ -15781,6 +16862,19 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if mount_data:
             mount_bonus_def = mount_data.get("mount_bonus_def", 0)
             p_def += mount_bonus_def
+
+    # ---- Companheiro Lendário (entra automaticamente se o jogador tiver um) ----
+    legendary_comp_data = None
+    legendary_comp_atk = 0
+    legendary_comp_hp = 0
+    legendary_comp_cur_hp = 0
+    legendary_comp = get_legendary_companion(player)
+    if legendary_comp:
+        lc_atk, lc_hp = calculate_npc_stats(legendary_comp, player["level"])
+        legendary_comp_data = legendary_comp
+        legendary_comp_atk = lc_atk
+        legendary_comp_hp = lc_hp
+        legendary_comp_cur_hp = lc_hp
     boss_hp = boss_data["hp"]
     boss_atk = boss_data["atk"]
 
@@ -15863,6 +16957,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         intro.add_field(
             name=f"🐎 {mount_name}",
             value=f"🛡️ DEF +`{mount_bonus_def}`\n*Sua montaria te protege!*",
+            inline=True
+        )
+    if legendary_comp_data:
+        intro.add_field(
+            name=f"{legendary_comp_data['emoji']} {legendary_comp_data['name']} (Companheiro Lendário)",
+            value=f"❤️ `{legendary_comp_cur_hp:,}` | ⚔️ ATK `{legendary_comp_atk}`\n*{legendary_comp_data['battle_cry']}*",
             inline=True
         )
     intro.add_field(
@@ -16136,7 +17236,35 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
             turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
 
-        # === VERIFICAR MORTE DO BOSS ===
+        # === ATAQUE DO COMPANHEIRO LENDÁRIO ===
+        if legendary_comp_data and legendary_comp_cur_hp > 0:
+            lc_emoji = legendary_comp_data["emoji"]
+            lc_name = legendary_comp_data["name"]
+            lc_is_crit = random.random() < 0.25
+            lc_dmg_base = legendary_comp_atk + random.randint(0, legendary_comp_atk // 3)
+            if lc_is_crit:
+                lc_dmg_base = int(lc_dmg_base * 1.8)
+            lc_boss_def = max(0, boss_atk // 6)
+            lc_dmg = max(legendary_comp_atk // 2, lc_dmg_base - lc_boss_def)
+            boss_cur_hp -= lc_dmg
+            # Companheiro lendário tem chance de curar o jogador (30%)
+            lc_heal = 0
+            if random.random() < 0.30:
+                lc_heal = max(5, int(p_max_hp * 0.08))
+                p_cur_hp = min(p_max_hp, p_cur_hp + lc_heal)
+            lc_actions = [
+                f"{lc_emoji} **{lc_name}** lança um ataque devastador com toda a sua força lendária!",
+                f"{lc_emoji} **{lc_name}** invoca o poder ancestral e golpeia o boss!",
+                f"{lc_emoji} **{lc_name}** avança com um brado de guerra e ataca!",
+                f"{lc_emoji} **{lc_name}** usa uma habilidade única e causa dano massivo!",
+                f"{lc_emoji} **{lc_name}** protege você e contra-ataca com brutalidade!",
+            ]
+            lc_msg = f"{random.choice(lc_actions)}\n> 💥 `−{lc_dmg:,}` HP para **{boss_data['name']}**"
+            if lc_is_crit:
+                lc_msg += "\n> ✨ **GOLPE LENDÁRIO!** *O campo de batalha estremece!*"
+            if lc_heal:
+                lc_msg += f"\n> 💚 *{lc_name} te protege!* `+{lc_heal}` HP recuperado!"
+            turn_embed.add_field(name=f"{lc_emoji} Companheiro Lendário entra em ação!", value=lc_msg, inline=False)
         if boss_cur_hp <= 0:
             death_line = BOSS_DEATH_LINES.get(boss_data["name"], BOSS_DEATH_LINES["default"])
             turn_embed.add_field(
@@ -16220,6 +17348,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 b_action += f"\n> 💢 *O golpe crítico ricocheteou pela arena inteira!*"
 
             turn_embed.add_field(name=f"🔵 {boss_data['name']} contra-ataca!", value=b_action, inline=False)
+
+            # Companheiro lendário também absorve parte do dano do boss (10% do dano)
+            if legendary_comp_data and legendary_comp_cur_hp > 0:
+                lc_splash = max(1, b_dmg // 10)
+                legendary_comp_cur_hp = max(0, legendary_comp_cur_hp - lc_splash)
+                if legendary_comp_cur_hp <= 0:
+                    fallen_msg = f"{legendary_comp_data['emoji']} **{legendary_comp_data['name']}** foi derrubado pelo boss! *'Continua... eu preciso descansar...'*"
+                    turn_embed.add_field(name="💔 Companheiro Caído!", value=fallen_msg, inline=False)
         else:
             stun_msgs = [
                 f"⚡ **{boss_data['name']}** está PARALISADO! O boss perdeu o turno!",
@@ -16269,6 +17405,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             f"{p_icon} **{p_name}**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
             f"{boss_status_line}"
         )
+        if legendary_comp_data:
+            lc_pct = max(0, int(legendary_comp_cur_hp / legendary_comp_hp * 100)) if legendary_comp_hp > 0 else 0
+            lc_bar = make_hp_bar(lc_pct, "🟨") if lc_pct > 30 else make_hp_bar(lc_pct, "🟥")
+            lc_status = "⚔️ Em batalha" if legendary_comp_cur_hp > 0 else "💔 Caído"
+            status_text += f"\n{legendary_comp_data['emoji']} **{legendary_comp_data['name']}**: {lc_bar} `{max(0,legendary_comp_cur_hp):,}/{legendary_comp_hp:,}` ❤️ *({lc_status})*"
         if ally_full_data and total_ally_dmg > 0:
             status_text += f"\n⚔️ *Aliados causaram `{total_ally_dmg:,}` de dano adicional neste turno!*"
 
@@ -17394,77 +18535,52 @@ async def send_prologue(guild):
     # EMBED 9 — Nota de Atualização (Patch Notes)
     # ══════════════════════════════════════════
     embed9 = discord.Embed(
-        title="📋 ATUALIZAÇÃO — Expansão: 40 Reinos & 5 Dimensões",
+        title="📋 ATUALIZAÇÃO — Expansão: 40 Raças & 40 Classes",
         description=(
             "*O Narrador desdobra um pergaminho oficial com o selo dos Seis Ciclos...*\n\n"
-            "**\"Uma nova era de poder começa. O mundo cresceu além de tudo que qualquer mortal imaginou.\"**\n"
-            "**Versão:** Reinos & Dimensões — Fevereiro 2026"
+            "**\"O mundo ficou maior. Mais diverso. Mais perigoso. Exatamente como deveria ser.\"**\n"
+            "**Versão:** Raças & Classes — Fevereiro 2026"
         ),
-        color=0x2ECC71
+        color=0x9B59B6
     )
     embed9.add_field(
-        name="🏰 40 Reinos + 5 Dimensões",
+        name="🧬 20 Novas Raças — Total: 40",
         value=(
-            "O mundo agora tem **40 reinos** organizados em 4 grupos geográficos/narrativos:\n"
-            "🌱 Reinos 1–10: **Terras Iniciais** | ⚔️ Reinos 11–20: **Nações Intermediárias**\n"
-            "🏛️ Reinos 21–30: **Impérios Avançados** | 🩸 Reinos 31–35: **Terras Corrompidas**\n"
-            "🌀 Reinos 36–40: **Reinos Dimensionais**\n\n"
-            "A partir do nível 400: **5 Dimensões** (Celestial, Infernal, Badlands, Abissal, Vazio)"
+            "🦊 Kitsune • 🐂 Minotauro • 🐍 Naga • 🐺 Fenrir • 🌋 Ifrit\n"
+            "🔱 Tritão • 🪽 Valquíria • 🌀 Jörmungandr • 💨 Djinn • 🐍 Medusa\n"
+            "🎶 Fauno • 👻 Banshee • 🦑 Kraken • 🐺 Anubis • 🦁 Quimera\n"
+            "❄️ Wendigo • 🐎 Pégaso • 💀 Lich Ancestral • 🏇 Centauro • 🌑 Abissal\n\n"
+            "*Cada nova raça tem passiva única, lore e 7 estágios de evolução até o nível 500.*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🔄 6 Ciclos de Mundo",
+        name="⚔️ 10 Novas Classes — Total: 40",
         value=(
-            "🌱 **Ciclo 1** — Terras Iniciais (1–100) | ⚔️ **Ciclo 2** — Nações Intermediárias (101–200)\n"
-            "🏛️ **Ciclo 3** — Impérios Avançados (201–300) | 🩸 **Ciclo 4** — Corrompidas+Dimensionais (301–400)\n"
-            "🌌 **Ciclo 5** — As 5 Dimensões (401–500) | ♾️ **Ciclo 6** — Planos Absolutos (501–600)"
+            "✝️ Caçador de Demônios • 🌟 Espírito de Batalha • 🏛️ Arquimago das Ruínas\n"
+            "🌒 Patrulheiro das Sombras • 🌩️ Conjurador de Tempestades • ⚔️ Sacerdote da Guerra\n"
+            "🐾 Mestre das Bestas • 🧊 Fantasma de Gelo • 🔥 Senhor das Chamas • 💡 Guardian of Light\n\n"
+            "*Cada nova classe tem habilidades em 4 tiers (basic, intermediate, advanced, supreme) e 7 estágios de evolução.*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🗝️ 5 Tipos de Chave para Dungeons Secretas",
+        name="📈 Sistema de Evolução",
         value=(
-            "Cada ciclo tem seu tipo de chave específico:\n"
-            "🗝️ **Chave Antiga** — Terras Iniciais (reinos 1–10)\n"
-            "🔑 **Chave Arcana** — Nações Intermediárias (reinos 11–20)\n"
-            "🗡️ **Chave Sombria** — Impérios Avançados + Terras Corrompidas (reinos 21–35)\n"
-            "✨ **Chave Celestial** — Reinos Dimensionais + Dimensão Celestial (reinos 36–40)\n"
-            "🌑 **Chave Abissal** — Dimensões Infernal, Badlands, Abissal e Vazio"
+            "🌱 Base → ✨ Nível 30/40 → ⭐ 70/80 → 👑 130/120 → 🌟 200/160 → ⚡ 300/200 → 💎 400 → 🌌 500\n"
+            "*Cada estágio dobra os bônus de stats e transforma o nome e emoji da sua raça/classe.*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="💥 Bosses Dimensionais — Sistemas Novos",
+        name="🗺️ Mundo — Inalterado",
         value=(
-            "Os Bosses Dimensionais (reinos 36–40 e Ciclo 5) liberam sistemas exclusivos:\n"
-            "• 🔮 **Habilidades Passivas Globais** — ativas para sempre após o boss\n"
-            "• 🐾 **Slot Extra de Pet** — capacidade de pet expandida\n"
-            "• ⚔️ **Slot Extra de Equipamento** — novo slot de item disponível\n"
-            "• Efeitos Ambientais: dano contínuo, debuff de sanidade, buff sagrado e mais!"
+            "40 reinos • 5 dimensões • 6 capítulos • Level máximo 600\n"
+            "Todos os sistemas anteriores continuam funcionando normalmente."
         ),
         inline=False
     )
-    embed9.add_field(
-        name="🏰 Cada Reino Agora Tem",
-        value=(
-            "• 🏙️ Cidade principal | • 4–6 áreas exploráveis\n"
-            "• 1 Dungeon comum | • 1 Dungeon avançada\n"
-            "• 1 Dungeon secreta (ativada por chave)\n"
-            "• 1 Boss de Level | • 1–2 Bosses opcionais | • 1 World Event raro"
-        ),
-        inline=False
-    )
-    embed9.add_field(
-        name="📊 Hierarquia de Raridades (inalterada)",
-        value=(
-            "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
-            "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
-            "*Raridades superiores surgem com mais frequência nos ciclos 5 e 6.*"
-        ),
-        inline=False
-    )
-    embed9.set_footer(text="📅 Expansão Reinos & Dimensões | Use 'atualização' para rever este changelog a qualquer hora!")
+    embed9.set_footer(text="📅 Expansão Raças & Classes | Use 'atualização' para rever este changelog a qualquer hora!")
     await channel.send(embed=embed9)
     await asyncio.sleep(2)
 
@@ -18969,7 +20085,7 @@ async def on_message(message):
         return
     if content in ["comandos 5"]:
         e5 = discord.Embed(title="📋 COMANDOS [5/5] — NPCs, Fusão & Dicas", color=0xE74C3C)
-        e5.add_field(name="🗣️ NPCs & Lore", value="`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\nNPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...\n`falar npc especial` | `npc lore` | `abrir livro`", inline=False)
+        e5.add_field(name="🗣️ NPCs & Lore", value="`dialogar com npc [nome]` — Lore, segredos e quests ocultas!\nNPCs: Theron, Elara, Sylvara, Bjorn, Ramses, Spectra, Imperador Astral...\n`falar npc especial` | `npc lore` | `abrir livro`\n\n**🌟 NPCs Lendários (Companheiros):**\n`ver npcs lendários` | `aceitar quest lendária` | `ver companheiro` | `falar com companheiro`", inline=False)
         e5.add_field(name="🔨 Fusão de Itens (Ferreiro nível 5+)", value="`forjar armas` | `fundir [raridade]` — Funde 5 itens\n60% sobe raridade | 25% fica igual | 15% tudo destruído!\nCadeia: Comum→Incomum→Raro→Épico→Lendário→Mítico→Ancestral→Divino→Primordial", inline=False)
         e5.add_field(name="📚 Info & Atualização", value="`atualização` — novidades da expansão | `comandos` — esta lista", inline=False)
         e5.add_field(name="💡 Dicas Importantes", value=(
@@ -18986,181 +20102,116 @@ async def on_message(message):
     # ── ATUALIZAÇÃO / NOVIDADES / CHANGELOG ────────────────────────────
     if content in ["atualização", "atualizacao", "novidades", "update", "changelog", "o que é novo", "o que foi adicionado", "novidades do bot", "patch notes"]:
         e_atu1 = discord.Embed(
-            title="📰 ATUALIZAÇÃO — 40 Reinos & 5 Dimensões",
+            title="📋 ATUALIZAÇÃO — Expansão de Raças & Classes",
             description=(
-                "**Versão:** Reinos & Dimensões — Fevereiro 2026\n\n"
-                "*O mundo foi reorganizado em 6 Capítulos. Cada reino tem identidade própria.*\n\n"
+                "*O Narrador abre um tomo imenso e o poeira cai como neve dourada...*\n\n"
+                "**\"O mundo ficou maior. Mais diverso. Mais perigoso. Exatamente como deveria ser.\"**\n\n"
+                "**Versão:** Raças & Classes — Fevereiro 2026\n"
                 "```\n"
-                "  40 reinos  •  5 dimensões  •  6 capítulos  •  level máximo 600\n"
+                "  40 raças  •  40 classes  •  280 evoluções de raça  •  280 evoluções de classe\n"
                 "```"
             ),
-            color=0xFF6B00
+            color=0x9B59B6
         )
         e_atu1.add_field(
-            name="📗 Capítulo I — Terras Iniciais  ·  nível 1–100",
+            name="🧬 20 Novas Raças Adicionadas",
             value=(
-                "🌱 R1 Campos Iniciais  🌲 R2 Floresta Sombria  🏜️ R3 Deserto das Almas\n"
-                "❄️ R4 Montanhas Geladas  🌋 R5 Terras Vulcânicas  🌌 R6 Abismo Arcano\n"
-                "👑 R7 Trono Celestial  🌿 R8 Pântanos de Morthak  💎 R9 Floresta Cristalina\n"
-                "🌑 R10 Sombras Eternas\n"
-                "> 🗝️ Chave **Antiga** destranca as masmorras secretas"
+                "O mundo agora tem **40 raças jogáveis**, cada uma com lore, passiva única e **7 estágios de evolução** (até nível 500):\n\n"
+                "🦊 **Kitsune** • 🐂 **Minotauro** • 🐍 **Naga** • 🐺 **Fenrir** • 🌋 **Ifrit**\n"
+                "🔱 **Tritão** • 🪽 **Valquíria** • 🌀 **Jörmungandr** • 💨 **Djinn** • 🐍 **Medusa**\n"
+                "🎶 **Fauno** • 👻 **Banshee** • 🦑 **Kraken** • 🐺 **Anubis** • 🦁 **Quimera**\n"
+                "❄️ **Wendigo** • 🐎 **Pégaso** • 💀 **Lich Ancestral** • 🏇 **Centauro** • 🌑 **Abissal**"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="📘 Capítulo II — Nações Intermediárias  ·  nível 101–200",
+            name="⚔️ 10 Novas Classes Adicionadas",
             value=(
-                "⚡ R11 Planícies do Trovão  🗿 R12 Terra dos Gigantes  🌊 R13 Mar das Almas\n"
-                "🌀 R14 Reino do Caos  🌸 R15 Jardim dos Deuses  🧊 R16 Gelo Eterno\n"
-                "🏛️ R17 Ruínas Esquecidas  ✨ R18 Plano Astral  🌌 R19 Além da Existência\n"
-                "⭐ R20 Trono Primordial\n"
-                "> 🔑 Chave **Arcana** destranca as masmorras secretas"
+                "O jogo agora tem **40 classes**, cada uma com habilidades em 4 tiers (basic, intermediate, advanced, supreme) e **7 estágios de evolução**:\n\n"
+                "✝️ **Caçador de Demônios** • 🌟 **Espírito de Batalha** • 🏛️ **Arquimago das Ruínas**\n"
+                "🌒 **Patrulheiro das Sombras** • 🌩️ **Conjurador de Tempestades** • ⚔️ **Sacerdote da Guerra**\n"
+                "🐾 **Mestre das Bestas** • 🧊 **Fantasma de Gelo** • 🔥 **Senhor das Chamas** • 💡 **Guardian of Light**"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="📙 Capítulo III — Impérios Avançados  ·  nível 201–300",
+            name="🧬 Todas as Raças — Lista Completa (40)",
             value=(
-                "⚔️ R21 · 🌊 R22 · ⚖️ R23 · 🏟️ R24 · 🔗 R25\n"
-                "🌸 R26 · 🌑 R27 · 🌌 R28 · 🔥 R29 · ✨ R30\n"
-                "> 🗡️ Chave **Sombria** destranca as masmorras secretas"
+                "**Originais (20):**\n"
+                "👤 Humano • 🧝 Élfico • ⚒️ Anão • 🟢 Orc • 👼 Anjo • 😈 Demônio • 🐉 Dragônico\n"
+                "🧛 Vampiro • 🐺 Lobisomem • 👻 Espectro • 🗿 Golem • 🧜 Sereia • 🏔️ Titã • 🧚 Fada\n"
+                "🌀 Elementário • 👺 Goblin • 🔧 Gnomo • 👁️ Ciclope • 🌑 Sombra • 🧙 Ancião\n\n"
+                "**Novas (20):**\n"
+                "🦊 Kitsune • 🐂 Minotauro • 🐍 Naga • 🐺 Fenrir • 🌋 Ifrit • 🔱 Tritão • 🪽 Valquíria\n"
+                "🌀 Jörmungandr • 💨 Djinn • 🐍 Medusa • 🎶 Fauno • 👻 Banshee • 🦑 Kraken\n"
+                "🐺 Anubis • 🦁 Quimera • ❄️ Wendigo • 🐎 Pégaso • 💀 Lich Ancestral • 🏇 Centauro • 🌑 Abissal"
             ),
             inline=False
         )
-        e_atu1.add_field(
-            name="📕 Capítulo IV — Corrompidas & Dimensionais  ·  nível 301–400",
-            value=(
-                "🩸 R31 · 🦠 R32 · 💀 R33 · 🌑 R34 · ⛓️ R35  *(Corrompidas)*\n"
-                "🌀 R36 · 🔮 R37 · 🌊 R38 · ⭐ R39 · 🌌 R40  *(Dimensionais)*\n"
-                "> 💥 Bosses Dimensionais liberam **passivas globais** e **slots extras**!"
-            ),
-            inline=False
-        )
-        e_atu1.add_field(
-            name="🌌 Capítulo V — As Cinco Dimensões  ·  nível 401–500",
-            value=(
-                "🕊️ **Celestial** — buff sagrado\n"
-                "🔥 **Infernal** — dano de fogo contínuo\n"
-                "🌪️ **Badlands** — caos puro, eventos aleatórios\n"
-                "🌑 **Abissal** — debuff de sanidade\n"
-                "🌀 **Vazio** — distorção da realidade"
-            ),
-            inline=False
-        )
-        e_atu1.add_field(
-            name="♾️ Capítulo VI — Planos Absolutos  ·  nível 501–600",
-            value="Raridades: Divino, Primordial, Absoluto. **Nível 600** = o fim da jornada.",
-            inline=False
-        )
-        e_atu1.set_footer(text="Use 'atualização' a qualquer hora para rever | Página 1/2")
+        e_atu1.set_footer(text="📅 Expansão Raças & Classes | Use 'atualização' para rever | Página 1/2")
         await message.channel.send(embed=e_atu1)
 
         e_atu2 = discord.Embed(
-            title="📰 ATUALIZAÇÃO — Dungeons, Chaves & Sistemas",
-            description="*Continuação das novidades da expansão 40 Reinos & 5 Dimensões...*",
-            color=0xFF6B00
+            title="📋 ATUALIZAÇÃO — Classes & Sistemas (Página 2/2)",
+            description="*Continuação das novidades da expansão Raças & Classes...*",
+            color=0x9B59B6
         )
         e_atu2.add_field(
-            name="🗝️ 5 Tipos de Chave para Dungeons Secretas",
+            name="⚔️ Todas as Classes — Lista Completa (40)",
             value=(
-                "Cada grupo de reinos tem chaves específicas:\n"
-                "🗝️ **Chave Antiga** — Terras Iniciais (reinos 1–10)\n"
-                "🔑 **Chave Arcana** — Nações Intermediárias (reinos 11–20)\n"
-                "🗡️ **Chave Sombria** — Impérios Avançados + Terras Corrompidas (reinos 21–35)\n"
-                "✨ **Chave Celestial** — Reinos Dimensionais + Dim. Celestial (reinos 36–40)\n"
-                "🌑 **Chave Abissal** — Dimensões Infernal, Badlands, Abissal e Vazio"
+                "**Originais (10):**\n"
+                "⚔️ Guerreiro • 🔮 Mago • 🏹 Arqueiro • 🛡️ Paladino • 🗡️ Assassino\n"
+                "💀 Necromante • 🪓 Berserker • 🌿 Druida • 👊 Monge • 🎵 Bardo\n\n"
+                "**Intermediárias (20 — já existentes):**\n"
+                "🌑 Cavaleiro das Sombras • 🌀 Invocador • 🔣 Runesmith • 🎯 Cazador de Recompensas\n"
+                "🪶 Xamã • ⛈️ Tempesteiro • 🪄 Ilusionista • ⚗️ Alquimista • ♾️ Guardião do Abismo\n"
+                "💃 Dançarino da Morte • 🔮 Oráculo • 🗿 Colossus • 💫 Devorador de Almas\n"
+                "✨ Arauto Celestial • ☠️ Lançador de Venenos • 🏟️ Gladiador • ⛓️ Mestre das Correntes\n"
+                "📯 Profeta da Destruição • 🔨 Ferreiro de Guerra • 🐲 Dragonlancer\n\n"
+                "**Novas (10):**\n"
+                "✝️ Caçador de Demônios • 🌟 Espírito de Batalha • 🏛️ Arquimago das Ruínas\n"
+                "🌒 Patrulheiro das Sombras • 🌩️ Conjurador de Tempestades • ⚔️ Sacerdote da Guerra\n"
+                "🐾 Mestre das Bestas • 🧊 Fantasma de Gelo • 🔥 Senhor das Chamas • 💡 Guardian of Light"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="🏰 Estrutura de Cada Reino",
+            name="📈 Sistema de Evolução — Como Funciona",
             value=(
-                "Cada um dos 40 reinos agora tem estrutura completa:\n"
-                "• 🏙️ Cidade principal\n"
-                "• 4–6 áreas exploráveis\n"
-                "• 1 Dungeon comum | 1 Dungeon avançada\n"
-                "• 1 Dungeon secreta (ativada por chave)\n"
-                "• 1 Boss de Level | 1–2 Bosses opcionais\n"
-                "• 1 World Event raro"
+                "Tanto raças quanto classes têm **7 estágios de evolução**:\n"
+                "• 🌱 **Base** — começa com sua raça/classe original\n"
+                "• ✨ **Estágio 1** — nível 30 (raça) ou 40 (classe)\n"
+                "• ⭐ **Estágio 2** — nível 70/80 | 👑 **Estágio 3** — nível 130/120\n"
+                "• 🌟 **Estágio 4** — nível 200/160 | ⚡ **Estágio 5** — nível 300/200\n"
+                "• 💎 **Estágio 6** — nível 400 | 🌌 **Estágio 7** — nível 500\n\n"
+                "*Cada evolução dobra os bônus de stats e muda o nome e emoji da raça/classe.*"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="🌌 Dimensões: Efeitos Ambientais",
+            name="🗺️ Sistemas do Mundo — Mantidos",
             value=(
-                "Cada dimensão tem efeito ambiental único:\n"
-                "🕊️ Celestial: **buff sagrado** passivo | 🔥 Infernal: **dano contínuo**\n"
-                "🌪️ Badlands: **caos** (eventos aleatórios) | 🌑 Abissal: **debuff de sanidade**\n"
-                "🌀 Vazio: **distorção da realidade** (stats alterados aleatoriamente)"
+                "✅ 40 reinos • 5 dimensões • 6 capítulos • Level máximo 600\n"
+                "✅ Dungeons secretas com 5 tipos de chave\n"
+                "✅ Fusão de itens • Pets com forma bestial • Empregos e Rei\n"
+                "✅ Diálogo com NPCs • Quests ocultas • Mundo próprio • Farm AFK\n"
+                "✅ Sistema de alinhamento • Guilda • Arena PvP"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="📊 Hierarquia de Raridades (inalterada)",
+            name="💡 Dicas para Novos Jogadores",
             value=(
-                "⚪ Comum → 🟢 Incomum → 🔵 Raro → 🟣 Épico → 🟡 Lendário\n"
-                "🔴 Mítico → 🟠 Ancestral → 💎 Divino → 🌈 Primordial\n"
-                "*Raridades superiores surgem com mais frequência nos ciclos 5 e 6.*"
+                "• Use `ver raças` para comparar todas as 40 raças disponíveis\n"
+                "• Use `ver classes` para ver as 40 classes e suas evoluções\n"
+                "• Cada raça tem **afinidade com certas classes** — combine para bônus!\n"
+                "• Raças com `xp_mult` alto (🦊 Kitsune, 🧙 Ancião) evoluem mais rápido\n"
+                "• Classes com **alto ATK** (🔥 Senhor das Chamas, 👻 Banshee) são de alto risco"
             ),
             inline=False
         )
-        e_atu2.add_field(
-            name="🗺️ Sistemas Anteriores Mantidos",
-            value=(
-                "✅ Dungeons secretas com chaves | ✅ Fusão de itens (Ferreiro)\n"
-                "✅ Pets com quarta forma e forma bestial | ✅ Empregos, reino, guilda\n"
-                "✅ Diálogo com NPCs e quests ocultas | ✅ Mundo próprio | ✅ Farm AFK"
-            ),
-            inline=False
-        )
-        e_atu2.set_footer(text="World CSI Bot — Expansão 40 Reinos & 5 Dimensões | Página 2/3 | 'atualização' para rever")
+        e_atu2.set_footer(text="World CSI Bot — Expansão Raças & Classes | 40 raças • 40 classes • 6 ciclos | Página 2/2")
         await message.channel.send(embed=e_atu2)
-
-        e_atu3 = discord.Embed(
-            title="📖 Todos os Capítulos — Guia Rápido",
-            description=(
-                "*Use `abrir mapa` e navegue com **◀ ▶** para ver cada capítulo em detalhes.*\n\n"
-                "Resumo completo dos 40 reinos + 5 dimensões:"
-            ),
-            color=0xFF6B00
-        )
-        e_atu3.add_field(
-            name="📗 Cap. I  •  Terras Iniciais  (1–100)",
-            value="🌱🌲🏜️❄️🌋🌌👑🌿💎🌑  •  🗝️ Chave Antiga",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="📘 Cap. II  •  Nações Intermediárias  (101–200)",
-            value="⚡🗿🌊🌀🌸🧊🏛️✨🌌⭐  •  🔑 Chave Arcana",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="📙 Cap. III  •  Impérios Avançados  (201–300)",
-            value="🔱⚡🌀🏔️🌊🔥❄️⚗️🌌⚖️  •  🗡️ Chave Sombria",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="📕 Cap. IV  •  Terras Corrompidas  (301–350)",
-            value="🗡️👁️🔮💎🌑  •  🗡️ Chave Sombria",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="📒 Cap. V  •  Reinos Dimensionais  (351–400)",
-            value="☄️🌞🕳️🌐⚡  •  ✨ Chave Celestial  •  💥 Bosses liberam passivas & slots!",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="🌌 Cap. VI  •  As 5 Dimensões  (401–500)",
-            value="🕊️ Celestial  •  🔥 Infernal  •  🌪️ Badlands  •  🌑 Abissal  •  🌀 Vazio  •  🌑 Chave Abissal",
-            inline=False
-        )
-        e_atu3.add_field(
-            name="♾️ Cap. VII  •  Planos Absolutos  (501–600)",
-            value="🔱🌠💫🌀🏛️⭐🌌⚡🔱💎🌠♾️🌑🌟⚖️🔥🌊💨⚡🌌♾️  •  🌑 Chave Abissal",
-            inline=False
-        )
-        e_atu3.set_footer(text="🗺️ `abrir mapa` → botões ◀ ▶ para explorar cada capítulo | 40 reinos • 5 dimensões | Página 3/3")
-        await message.channel.send(embed=e_atu3)
         return
 
     # ======================================================
@@ -19375,6 +20426,51 @@ async def on_message(message):
         if roll >= 5:  # Count successful explorations
             p_explore["areas_explored"] = p_explore.get("areas_explored", 0) + 1
             save_player_db(user_id, p_explore)
+
+        # ── Chance de encontrar NPC Lendário durante exploração (8% por exploração) ──
+        if random.random() < 0.08:
+            await asyncio.sleep(1)
+            p_check = get_player(user_id)
+            npc_data = get_legendary_npc_for_player(p_check["level"])
+            if npc_data:
+                quest_id = npc_data["quest"]["id"]
+                already_companion = p_check.get("legendary_companion") == npc_data["id"]
+                already_completed = quest_id in p_check.get("completed_quests", [])
+                has_active = p_check.get("active_quest") is not None
+
+                if not already_companion and not already_completed and not has_active:
+                    encounter_embed = discord.Embed(
+                        title=f"{npc_data['emoji']} ENCONTRO ESPECIAL — {npc_data['name']}!",
+                        description=f"*{npc_data['encounter_desc']}*",
+                        color=0xFFD700
+                    )
+                    encounter_embed.add_field(
+                        name=f"🗣️ {npc_data['name']} fala:",
+                        value=f"*\"{random.choice(npc_data['dialogues'])}\"*",
+                        inline=False
+                    )
+                    quest = npc_data["quest"]
+                    obj_text = {
+                        "hunt": f"🗡️ Derrote {quest['count']}x **{quest.get('target','inimigos')}**",
+                        "collect": f"🌿 Colete **{quest['count']} recursos**",
+                        "explore": f"🗺️ Explore **{quest['count']} vezes**",
+                    }.get(quest["objective"], f"Complete o objetivo ({quest['count']})")
+                    encounter_embed.add_field(
+                        name=f"📋 Quest: {quest['name']}",
+                        value=(
+                            f"{obj_text}\n"
+                            f"⭐ Recompensa: `{quest['reward_xp']:,} XP` + `{quest['reward_coins']:,} moedas`\n"
+                            f"🏆 **Ao completar: {npc_data['name']} se junta à sua equipe para sempre!**"
+                        ),
+                        inline=False
+                    )
+                    encounter_embed.set_footer(text="💡 Use 'aceitar quest lendária' para iniciar a missão!")
+                    await message.channel.send(embed=encounter_embed)
+
+                    # Guardar NPC pendente no player para poder aceitar
+                    p_check["active_effects"]["pending_legendary_npc"] = npc_data["id"]
+                    save_player_db(user_id, p_check)
+
         await check_achievements(message.channel, user_id)
         await check_level_boss(message.channel, user_id)
         return
@@ -20478,6 +21574,148 @@ async def on_message(message):
                 await message.channel.send(embed=q_embed, view=view)
         return
 
+    # ── ACEITAR QUEST LENDÁRIA ─────────────────────────────────────────
+    elif content in ["aceitar quest lendária", "aceitar quest lendaria", "aceitar missão lendária", "aceitar missao lendaria"]:
+        player = get_player(user_id)
+        pending_id = player.get("active_effects", {}).get("pending_legendary_npc")
+        if not pending_id:
+            await message.channel.send("❌ Nenhum encontro de NPC lendário pendente! **Explore** para encontrar um.")
+            return
+        if player.get("active_quest"):
+            await message.channel.send(f"⚠️ Você já tem uma quest ativa: **{player['active_quest']['name']}**\nConclua-a primeiro!")
+            return
+        # Find the NPC
+        npc_data = None
+        for _, nd in LEGENDARY_NPCS.items():
+            if nd["id"] == pending_id:
+                npc_data = nd
+                break
+        if not npc_data:
+            await message.channel.send("❌ NPC não encontrado.")
+            return
+        quest = npc_data["quest"]
+        # Build quest object with npc field for complete_quest
+        quest_obj = dict(quest)
+        quest_obj["npc"] = npc_data["name"]
+        quest_obj["lore"] = npc_data["lore"]
+        quest_obj["difficulty"] = "Lendário"
+        quest_obj["progress"] = 0
+
+        player["active_quest"] = quest_obj
+        effects = player.get("active_effects", {})
+        effects.pop("pending_legendary_npc", None)
+        player["active_effects"] = effects
+        save_player_db(user_id, player)
+
+        accept_embed = discord.Embed(
+            title=f"{npc_data['emoji']} Quest Lendária Aceita!",
+            description=f"*{npc_data['name']} te olha nos olhos e diz:*\n\n*\"{random.choice(npc_data['dialogues'])}\"*",
+            color=0xFFD700
+        )
+        obj_text = {
+            "hunt": f"🗡️ Derrote {quest['count']}x **{quest.get('target','inimigos')}** | Progresso: `0/{quest['count']}`",
+            "collect": f"🌿 Colete **{quest['count']} recursos** | Progresso: `0/{quest['count']}`",
+            "explore": f"🗺️ Explore **{quest['count']} vezes** | Progresso: `0/{quest['count']}`",
+        }.get(quest["objective"], f"Objetivo: {quest['count']}")
+        accept_embed.add_field(name="🎯 Missão", value=quest["name"], inline=False)
+        accept_embed.add_field(name="📋 Objetivo", value=obj_text, inline=False)
+        accept_embed.add_field(name="⭐ XP", value=f"`{quest['reward_xp']:,}`", inline=True)
+        accept_embed.add_field(name="💰 Coins", value=f"`{quest['reward_coins']:,}`", inline=True)
+        accept_embed.add_field(name="🏆 Recompensa Especial", value=f"**{npc_data['name']} entra para sua equipe permanentemente!**", inline=False)
+        accept_embed.set_footer(text=f"💡 Dica: {npc_data['rescue_message']}")
+        await message.channel.send(embed=accept_embed)
+        return
+
+    # ── VER COMPANHEIRO LENDÁRIO ───────────────────────────────────────
+    elif content in ["ver companheiro", "companheiro", "ver aliado lendário", "ver aliado lendario", "meu companheiro"]:
+        player = get_player(user_id)
+        comp = get_legendary_companion(player)
+        if not comp:
+            await message.channel.send(
+                "❌ Você não tem um companheiro lendário ainda!\n\n"
+                "💡 **Explore** para encontrar encontros especiais (8% de chance) e complete a quest do NPC para conquistar um companheiro lendário!"
+            )
+            return
+        lc_atk, lc_hp = calculate_npc_stats(comp, player["level"])
+        comp_embed = discord.Embed(
+            title=f"{comp['emoji']} {comp['name']} — Companheiro Lendário",
+            description=f"*{comp['lore']}*",
+            color=0xFFD700
+        )
+        comp_embed.add_field(name="⚔️ Papel", value=comp["role"], inline=True)
+        comp_embed.add_field(name="🧬 Raça", value=comp["race"], inline=True)
+        comp_embed.add_field(name="📊 Stats (escalonados)", value=f"⚔️ ATK: `{lc_atk}` | ❤️ HP: `{lc_hp:,}`", inline=False)
+        comp_embed.add_field(name="🗣️ Grito de Batalha", value=comp["battle_cry"], inline=False)
+        comp_embed.add_field(
+            name="🏆 Como Funciona",
+            value=(
+                "• Participa **automaticamente** em todos os bosses\n"
+                "• Stats escalonados com seu nível (sempre relevante)\n"
+                "• Tem 30% de chance de te curar a cada turno\n"
+                "• Absorve 10% do dano do boss por turno\n"
+                "• Use `falar com companheiro` para conversar"
+            ),
+            inline=False
+        )
+        await message.channel.send(embed=comp_embed)
+        return
+
+    # ── FALAR COM COMPANHEIRO LENDÁRIO ─────────────────────────────────
+    elif any(c in content for c in ["falar com companheiro", "conversar companheiro", "falar companheiro", "dialogar companheiro"]):
+        player = get_player(user_id)
+        comp = get_legendary_companion(player)
+        if not comp:
+            await message.channel.send("❌ Você não tem um companheiro lendário! Explore para encontrar um.")
+            return
+        dialogue = random.choice(comp["dialogues"])
+        lc_atk, lc_hp = calculate_npc_stats(comp, player["level"])
+        talk_embed = discord.Embed(
+            title=f"{comp['emoji']} {comp['name']}",
+            description=f"*\"{dialogue}\"*",
+            color=discord.Color.purple()
+        )
+        talk_embed.set_footer(text=f"⚔️ ATK {lc_atk} | ❤️ HP {lc_hp:,} | Use 'ver companheiro' para ver os stats completos")
+        await message.channel.send(embed=talk_embed)
+        return
+
+    # ── VER NPCS LENDÁRIOS DISPONÍVEIS ────────────────────────────────
+    elif content in ["ver npcs lendários", "ver npcs lendarios", "npcs lendários", "npcs lendarios", "companheiros disponíveis", "companheiros disponiveis"]:
+        player = get_player(user_id)
+        current_level = player["level"]
+        embed = discord.Embed(
+            title="🌟 NPCs Lendários — Companheiros de Jornada",
+            description=(
+                f"Cada reino tem um NPC lendário único para encontrar!\n"
+                f"**Como encontrar:** Explore (8% de chance por exploração)\n"
+                f"**Nível atual:** {current_level} | Nível recomendado para encontro ativo: abaixo"
+            ),
+            color=0xFFD700
+        )
+        npc_levels_sorted = sorted(LEGENDARY_NPCS.keys())
+        completed = player.get("completed_quests", [])
+        current_comp = player.get("legendary_companion")
+
+        # Mostrar os NPCs próximos do nível do jogador
+        shown = 0
+        for lvl in npc_levels_sorted:
+            if shown >= 8:
+                break
+            if abs(current_level - lvl) > 60 and current_level < lvl:
+                continue
+            npc = LEGENDARY_NPCS[lvl]
+            is_comp = current_comp == npc["id"]
+            is_done = npc["quest"]["id"] in completed
+            status = "🤝 **SEU COMPANHEIRO**" if is_comp else ("✅ Quest Completa" if is_done else f"📍 Encontrar a partir do nível ~{max(1, lvl-15)}")
+            embed.add_field(
+                name=f"{npc['emoji']} {npc['name']} {status}",
+                value=f"*{npc['role']}* — {npc['race']}\n_{npc['lore'][:70]}..._",
+                inline=False
+            )
+            shown += 1
+        embed.set_footer(text="💡 Explore para encontrar NPCs! Cada um tem uma quest única para completar.")
+        await message.channel.send(embed=embed)
+        return
+
     await bot.process_commands(message)
 # ================= FUNÇÕES AUXILIARES =================
 # ======================================================
@@ -20534,19 +21772,74 @@ async def complete_quest(channel, user_id, player):
         player2["inventory"].append(reward_item)
         save_player_db(user_id, player2)
 
+    # Buscar NPC da quest (pode ser um NPC lendário ou regular)
+    quest_npc_name = quest.get("npc", "Misterioso")
+    npc_dialogue = f"*'{quest_npc_name} sorri e diz: Extraordinário! Você superou minhas expectativas!'*"
+
     embed = discord.Embed(
-        title=f"🎉 QUEST COMPLETA!",
-        description=f"**{quest['name']}** foi concluída!\n\n*'{quest['npc']} sorri e diz: Extraordinário! Você superou minhas expectativas!'*",
+        title="🎉 QUEST COMPLETA!",
+        description=f"**{quest['name']}** foi concluída!\n\n{npc_dialogue}",
         color=discord.Color.gold()
     )
-    embed.add_field(name="⭐ XP Ganho", value=str(reward_xp), inline=True)
-    embed.add_field(name="💰 Coins Ganhos", value=str(reward_coins), inline=True)
+    embed.add_field(name="⭐ XP Ganho", value=f"`{reward_xp:,}`", inline=True)
+    embed.add_field(name="💰 Coins Ganhos", value=f"`{reward_coins:,}`", inline=True)
     if reward_item:
         embed.add_field(name="🎁 Item Recebido", value=reward_item, inline=True)
 
     await channel.send(embed=embed)
 
-    await channel.send(embed=embed)
+    # ── Verificar se é quest de NPC lendário ──────────────────────────
+    quest_id = quest.get("id", "")
+    if quest_id.startswith("legendary_npc_q"):
+        player_fresh = get_player(user_id)
+        # Encontrar qual NPC lendário corresponde a esta quest
+        for npc_lvl, npc_data in LEGENDARY_NPCS.items():
+            if npc_data["quest"]["id"] == quest_id:
+                # Verificar se já tem companheiro diferente
+                current_companion = player_fresh.get("legendary_companion")
+                if current_companion and current_companion != npc_data["id"]:
+                    old_npc = get_legendary_companion(player_fresh)
+                    old_name = old_npc["name"] if old_npc else "companheiro anterior"
+                    farewell_embed = discord.Embed(
+                        title=f"💔 {old_name} parte...",
+                        description=f"*'{old_name} olha para você com respeito e diz: 'Você encontrou um aliado mais adequado para esta etapa. Que os deuses te protejam.''*\n\n**{old_name} deixou sua equipe.**",
+                        color=discord.Color.dark_gray()
+                    )
+                    await channel.send(embed=farewell_embed)
+                    await asyncio.sleep(1)
+
+                # Adicionar novo companheiro lendário
+                player_fresh["legendary_companion"] = npc_data["id"]
+                save_player_db(user_id, player_fresh)
+
+                join_embed = discord.Embed(
+                    title=f"{npc_data['emoji']} COMPANHEIRO LENDÁRIO CONQUISTADO!",
+                    description=npc_data["join_message"],
+                    color=0xFFD700
+                )
+                npc_atk, npc_hp = calculate_npc_stats(npc_data, player_fresh["level"])
+                join_embed.add_field(
+                    name=f"{npc_data['emoji']} {npc_data['name']}",
+                    value=(
+                        f"*{npc_data['role']}* — {npc_data['race']}\n"
+                        f"⚔️ ATK: `{npc_atk}` | ❤️ HP: `{npc_hp:,}`\n"
+                        f"_{npc_data['lore']}_"
+                    ),
+                    inline=False
+                )
+                join_embed.add_field(
+                    name="🏆 Benefícios",
+                    value=(
+                        "• **Participa automaticamente em todos os bosses**\n"
+                        "• Stats escalados com o seu nível\n"
+                        "• Use `falar com companheiro` para conversar\n"
+                        "• Use `ver companheiro` para ver os stats"
+                    ),
+                    inline=False
+                )
+                join_embed.set_footer(text=f"💬 Grito de batalha: {npc_data['battle_cry']}")
+                await channel.send(embed=join_embed)
+                break
 
 
 # ================= HELPERS: ALINHAMENTO, MAPA, FAZENDA =================
