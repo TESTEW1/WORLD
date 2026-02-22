@@ -316,6 +316,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Além-Humano",         "emoji": "👤💎", "suffix": " Além-Humano",
          "lore": "Você não é mais humano no sentido comum. Você é o passo seguinte da evolução.",
          "hp_bonus": 160, "atk_bonus": 64, "def_bonus": 64},
+        {"level": 200, "name": "Humano Lendário",     "emoji": "👤🌟", "suffix": " Lendário",
+         "lore": "Heróis cantam seu nome. Sua existência reescreve os limites do possível.",
+         "hp_bonus": 320, "atk_bonus": 128, "def_bonus": 128},
+        {"level": 300, "name": "Humano Mítico",       "emoji": "👤⚡", "suffix": " Mítico",
+         "lore": "Você se tornou um mito vivo. Sua determinação vergonha os próprios deuses.",
+         "hp_bonus": 640, "atk_bonus": 256, "def_bonus": 256},
+        {"level": 400, "name": "Humano Divino",       "emoji": "👤👑", "suffix": " Divino",
+         "lore": "A essência da humanidade evoluída: imortal em espírito, invencível em corpo.",
+         "hp_bonus": 1280, "atk_bonus": 512, "def_bonus": 512},
+        {"level": 500, "name": "Apoteose Humana",     "emoji": "👤🌌", "suffix": " Apoteose",
+         "lore": "Você é o ápice absoluto da raça humana. Uma força que moldará o destino de toda a criação.",
+         "hp_bonus": 2560, "atk_bonus": 1024, "def_bonus": 1024},
     ],
     "Élfico": [
         {"level": 30,  "name": "Alto Élfico",         "emoji": "🧝✨", "suffix": " Alto",
@@ -327,6 +339,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Élfico Primordial",   "emoji": "🧝👑", "suffix": " Primordial",
          "lore": "Você carrega a memória do primeiro elfos — e o poder que veio com ela.",
          "hp_bonus": 96, "atk_bonus": 144, "def_bonus": 48},
+        {"level": 200, "name": "Élfico Estelar Eterno","emoji": "🧝💫", "suffix": " Estelar Eterno",
+         "lore": "As galáxias obedecem sua voz. Você se tornou uma constelação viva.",
+         "hp_bonus": 192, "atk_bonus": 288, "def_bonus": 96},
+        {"level": 300, "name": "Élfico do Cosmos",    "emoji": "🧝🌌", "suffix": " do Cosmos",
+         "lore": "Você existe além do tempo. Os próprios deuses elficos se curvam.",
+         "hp_bonus": 384, "atk_bonus": 576, "def_bonus": 192},
+        {"level": 400, "name": "Élfico Ancestral",    "emoji": "🧝⚡", "suffix": " Ancestral",
+         "lore": "Você é o primeiro élfico, o elo entre magia e criação.",
+         "hp_bonus": 768, "atk_bonus": 1152, "def_bonus": 384},
+        {"level": 500, "name": "Élfico Absoluto",     "emoji": "🧝🌠", "suffix": " Absoluto",
+         "lore": "A essência pura da magia élfica encarnada. Imortal além da compreensão.",
+         "hp_bonus": 1536, "atk_bonus": 2304, "def_bonus": 768},
     ],
     "Anão": [
         {"level": 30,  "name": "Anão de Ferro",       "emoji": "⚒️🔩", "suffix": " de Ferro",
@@ -338,6 +362,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Anão Primordial",     "emoji": "⚒️👑", "suffix": " Primordial",
          "lore": "Você é a rocha viva em forma de anão. Os próprios titãs curvam-se ante sua resistência.",
          "hp_bonus": 280, "atk_bonus": 96, "def_bonus": 160},
+        {"level": 200, "name": "Anão Lendário",       "emoji": "⚒️🌟", "suffix": " Lendário",
+         "lore": "Suas fortalezas resistem a explosões divinas. Nenhuma força te derruba.",
+         "hp_bonus": 560, "atk_bonus": 192, "def_bonus": 320},
+        {"level": 300, "name": "Anão Mítico",         "emoji": "⚒️⚡", "suffix": " Mítico",
+         "lore": "Você forjou armas que cortam a própria realidade.",
+         "hp_bonus": 1120, "atk_bonus": 384, "def_bonus": 640},
+        {"level": 400, "name": "Anão Divino",         "emoji": "⚒️💎", "suffix": " Divino",
+         "lore": "A pedra mais dura do cosmos vive em você. Imune ao próprio tempo.",
+         "hp_bonus": 2240, "atk_bonus": 768, "def_bonus": 1280},
+        {"level": 500, "name": "Anão Absoluto",       "emoji": "⚒️🌌", "suffix": " Absoluto",
+         "lore": "Você é a rocha primordial. O universo foi esculpido sobre sua base.",
+         "hp_bonus": 4480, "atk_bonus": 1536, "def_bonus": 2560},
     ],
     "Orc": [
         {"level": 30,  "name": "Orc Warchief",        "emoji": "🟢⚔️", "suffix": " Warchief",
@@ -349,6 +385,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Orc Primordial",      "emoji": "🟢👑", "suffix": " Primordial",
          "lore": "Você é a encarnação da fúria tribal. Uma força da natureza com forma de guerreiro.",
          "hp_bonus": 320, "atk_bonus": 176, "def_bonus": 40},
+        {"level": 200, "name": "Orc Devastador",      "emoji": "🟢🔥", "suffix": " Devastador",
+         "lore": "Exércitos inteiros se dissolvem diante de sua fúria.",
+         "hp_bonus": 640, "atk_bonus": 352, "def_bonus": 80},
+        {"level": 300, "name": "Orc Titã",            "emoji": "🟢⚡", "suffix": " Titã",
+         "lore": "Você rivaliza com os próprios titãs em força bruta.",
+         "hp_bonus": 1280, "atk_bonus": 704, "def_bonus": 160},
+        {"level": 400, "name": "Orc Divino",          "emoji": "🟢💎", "suffix": " Divino",
+         "lore": "Os deuses da guerra te olham com inveja. Você é a guerra em si.",
+         "hp_bonus": 2560, "atk_bonus": 1408, "def_bonus": 320},
+        {"level": 500, "name": "Orc Absoluto",        "emoji": "🟢🌌", "suffix": " Absoluto",
+         "lore": "A fúria primordial do universo encarnada. Nem o cosmos te contém.",
+         "hp_bonus": 5120, "atk_bonus": 2816, "def_bonus": 640},
     ],
     "Anjo": [
         {"level": 30,  "name": "Anjo Guardião",       "emoji": "👼✨", "suffix": " Guardião",
@@ -360,6 +408,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Arcanjo",             "emoji": "👼👑", "suffix": " Arcanjo",
          "lore": "Você ascendeu ao posto de Arcanjo. Poucos mortais chegaram tão alto — ou voltaram para contar.",
          "hp_bonus": 144, "atk_bonus": 112, "def_bonus": 128},
+        {"level": 200, "name": "Serafim",             "emoji": "👼🌟", "suffix": " Serafim",
+         "lore": "Você alcançou o nono céu. Sua luz cega demônios e ilumina cosmos.",
+         "hp_bonus": 288, "atk_bonus": 224, "def_bonus": 256},
+        {"level": 300, "name": "Querubim Eterno",     "emoji": "👼⚡", "suffix": " Querubim",
+         "lore": "Guardião do trono divino. Sua presença santifica tudo ao redor.",
+         "hp_bonus": 576, "atk_bonus": 448, "def_bonus": 512},
+        {"level": 400, "name": "Anjo da Criação",     "emoji": "👼💎", "suffix": " da Criação",
+         "lore": "Você participou da criação do universo. Sua vontade é lei divina.",
+         "hp_bonus": 1152, "atk_bonus": 896, "def_bonus": 1024},
+        {"level": 500, "name": "Anjo Absoluto",       "emoji": "👼🌌", "suffix": " Absoluto",
+         "lore": "A luz divina primordial em forma de ser. Não há trevas que te resistam.",
+         "hp_bonus": 2304, "atk_bonus": 1792, "def_bonus": 2048},
     ],
     "Demônio": [
         {"level": 30,  "name": "Demônio Maior",       "emoji": "😈🔥", "suffix": " Maior",
@@ -371,6 +431,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Demônio Primordial",  "emoji": "😈👑", "suffix": " Primordial",
          "lore": "Você é uma das primeiras forças do caos. Anterior ao próprio tempo.",
          "hp_bonus": 120, "atk_bonus": 200, "def_bonus": 64},
+        {"level": 200, "name": "Lorde do Abismo",     "emoji": "😈🌟", "suffix": " Lorde do Abismo",
+         "lore": "Você governa o Abismo Eterno. Nem os deuses te confrontam diretamente.",
+         "hp_bonus": 240, "atk_bonus": 400, "def_bonus": 128},
+        {"level": 300, "name": "Demônio Cósmico",     "emoji": "😈⚡", "suffix": " Cósmico",
+         "lore": "Sua corrupção se espalhou pelo cosmos. Estrelas apagam na sua presença.",
+         "hp_bonus": 480, "atk_bonus": 800, "def_bonus": 256},
+        {"level": 400, "name": "Demônio Supremo",     "emoji": "😈💎", "suffix": " Supremo",
+         "lore": "O terror absoluto do multiverso. Realidades desmoronam ao seu toque.",
+         "hp_bonus": 960, "atk_bonus": 1600, "def_bonus": 512},
+        {"level": 500, "name": "Demônio Absoluto",    "emoji": "😈🌌", "suffix": " Absoluto",
+         "lore": "O caos original antes da criação. Você é o fim e o começo de tudo.",
+         "hp_bonus": 1920, "atk_bonus": 3200, "def_bonus": 1024},
     ],
     "Dragônico": [
         {"level": 30,  "name": "Meio-Dragão",         "emoji": "🐉✨", "suffix": " Meio-Dragão",
@@ -382,6 +454,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Dragão Encarnado",    "emoji": "🐉👑", "suffix": " Encarnado",
          "lore": "Você é a reencarnação de um dragão ancião em forma humanoide. Lendas te tratam como divindade.",
          "hp_bonus": 240, "atk_bonus": 160, "def_bonus": 96},
+        {"level": 200, "name": "Dragão Ancião",       "emoji": "🐉🌟", "suffix": " Ancião",
+         "lore": "Você viu impérios nascerem e morrerem. Sua chama nunca se apaga.",
+         "hp_bonus": 480, "atk_bonus": 320, "def_bonus": 192},
+        {"level": 300, "name": "Dragão Imortal",      "emoji": "🐉⚡", "suffix": " Imortal",
+         "lore": "Nem o tempo nem a morte te domam. Você é a chama eterna.",
+         "hp_bonus": 960, "atk_bonus": 640, "def_bonus": 384},
+        {"level": 400, "name": "Dragão Cósmico",      "emoji": "🐉💎", "suffix": " Cósmico",
+         "lore": "Seu sopro destrói estrelas. Planetas se formam em suas pegadas.",
+         "hp_bonus": 1920, "atk_bonus": 1280, "def_bonus": 768},
+        {"level": 500, "name": "Dragão Absoluto",     "emoji": "🐉🌌", "suffix": " Absoluto",
+         "lore": "O primeiro e único Dragão Primordial. O universo é sua caverna.",
+         "hp_bonus": 3840, "atk_bonus": 2560, "def_bonus": 1536},
     ],
     "Vampiro": [
         {"level": 30,  "name": "Vampiro Antigo",      "emoji": "🧛🌙", "suffix": " Antigo",
@@ -393,6 +477,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Vampiro Primordial",  "emoji": "🧛💎", "suffix": " Primordial",
          "lore": "Você existia antes da Lua Negra. Os outros vampiros são crianças perto de você.",
          "hp_bonus": 80, "atk_bonus": 176, "def_bonus": 80},
+        {"level": 200, "name": "Vampiro Ancestral",   "emoji": "🧛🌟", "suffix": " Ancestral",
+         "lore": "Você criou os primeiros vampiros. Sua sede é insaciável — e irresistível.",
+         "hp_bonus": 160, "atk_bonus": 352, "def_bonus": 160},
+        {"level": 300, "name": "Vampiro Eterno",      "emoji": "🧛⚡", "suffix": " Eterno",
+         "lore": "Imortal além dos imortais. Até a luz divina teme seu toque.",
+         "hp_bonus": 320, "atk_bonus": 704, "def_bonus": 320},
+        {"level": 400, "name": "Vampiro Cósmico",     "emoji": "🧛👑", "suffix": " Cósmico",
+         "lore": "Você drenou a essência de deuses. Sua fome não tem fim.",
+         "hp_bonus": 640, "atk_bonus": 1408, "def_bonus": 640},
+        {"level": 500, "name": "Vampiro Absoluto",    "emoji": "🧛🌌", "suffix": " Absoluto",
+         "lore": "O primeiro ser imortal criado antes do tempo. A noite é sua eternidade.",
+         "hp_bonus": 1280, "atk_bonus": 2816, "def_bonus": 1280},
     ],
     "Lobisomem": [
         {"level": 30,  "name": "Lobisomem Alfa",      "emoji": "🐺⚡", "suffix": " Alfa",
@@ -404,6 +500,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Lobisomem Primordial","emoji": "🐺👑", "suffix": " Primordial",
          "lore": "Você é o primeiro — o lobo antes de todos os lobos. A própria lua te teme.",
          "hp_bonus": 224, "atk_bonus": 160, "def_bonus": 64},
+        {"level": 200, "name": "Lobisomem Ancestral", "emoji": "🐺🌟", "suffix": " Ancestral",
+         "lore": "As florestas eternas respondem ao seu uivo. Todos os lobos são sua matilha.",
+         "hp_bonus": 448, "atk_bonus": 320, "def_bonus": 128},
+        {"level": 300, "name": "Lobo Imortal",        "emoji": "🐺⚡", "suffix": " Imortal",
+         "lore": "Você caçou criaturas divinas. A lua cheia é seu trono.",
+         "hp_bonus": 896, "atk_bonus": 640, "def_bonus": 256},
+        {"level": 400, "name": "Lobo Cósmico",        "emoji": "🐺💎", "suffix": " Cósmico",
+         "lore": "Você caça estrelas como presas. O cosmos treme ao seu rugido.",
+         "hp_bonus": 1792, "atk_bonus": 1280, "def_bonus": 512},
+        {"level": 500, "name": "Lobisomem Absoluto",  "emoji": "🐺🌌", "suffix": " Absoluto",
+         "lore": "O lobo que devorou um deus. Nenhuma corrente, nenhum poder, te prende.",
+         "hp_bonus": 3584, "atk_bonus": 2560, "def_bonus": 1024},
     ],
     "Espectro": [
         {"level": 30,  "name": "Espectro Sombrio",    "emoji": "👻🌑", "suffix": " Sombrio",
@@ -415,6 +523,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Espectro Primordial", "emoji": "👻👑", "suffix": " Primordial",
          "lore": "Você é o eco de uma era anterior ao mundo. Sua existência dobra a realidade.",
          "hp_bonus": 40, "atk_bonus": 224, "def_bonus": 32},
+        {"level": 200, "name": "Espectro Lendário",   "emoji": "👻🌟", "suffix": " Lendário",
+         "lore": "Sua forma assombra dimensões inteiras. Nem barreiras mágicas te detêm.",
+         "hp_bonus": 80, "atk_bonus": 448, "def_bonus": 64},
+        {"level": 300, "name": "Espectro Cósmico",    "emoji": "👻⚡", "suffix": " Cósmico",
+         "lore": "Você atravessa planetas como névoa. O universo é seu lar fantasmal.",
+         "hp_bonus": 160, "atk_bonus": 896, "def_bonus": 128},
+        {"level": 400, "name": "Espectro Divino",     "emoji": "👻💎", "suffix": " Divino",
+         "lore": "Você é o medo dos deuses. Sua existência corrói a própria realidade.",
+         "hp_bonus": 320, "atk_bonus": 1792, "def_bonus": 256},
+        {"level": 500, "name": "Espectro Absoluto",   "emoji": "👻🌌", "suffix": " Absoluto",
+         "lore": "O espectro antes da criação. Você existia no vazio antes de tudo.",
+         "hp_bonus": 640, "atk_bonus": 3584, "def_bonus": 512},
     ],
     "Golem": [
         {"level": 30,  "name": "Golem de Aço",        "emoji": "🗿⚙️", "suffix": " de Aço",
@@ -426,6 +546,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Golem Primordial",    "emoji": "🗿👑", "suffix": " Primordial",
          "lore": "Você é a pedra mais antiga do mundo. Nem deuses conseguem arranhar sua superfície.",
          "hp_bonus": 480, "atk_bonus": 80, "def_bonus": 240},
+        {"level": 200, "name": "Golem Lendário",      "emoji": "🗿🌟", "suffix": " Lendário",
+         "lore": "Fortalezas inteiras foram construídas usando apenas seus braços.",
+         "hp_bonus": 960, "atk_bonus": 160, "def_bonus": 480},
+        {"level": 300, "name": "Golem Cósmico",       "emoji": "🗿⚡", "suffix": " Cósmico",
+         "lore": "Sua pedra é mais dura que aço estelar. Meteoritos se quebram em você.",
+         "hp_bonus": 1920, "atk_bonus": 320, "def_bonus": 960},
+        {"level": 400, "name": "Golem Divino",        "emoji": "🗿💎", "suffix": " Divino",
+         "lore": "Você foi moldado por mãos divinas. Nenhuma arma criada pode te danificar.",
+         "hp_bonus": 3840, "atk_bonus": 640, "def_bonus": 1920},
+        {"level": 500, "name": "Golem Absoluto",      "emoji": "🗿🌌", "suffix": " Absoluto",
+         "lore": "A pedra primordial antes da criação. O universo foi esculpido a partir do seu material.",
+         "hp_bonus": 7680, "atk_bonus": 1280, "def_bonus": 3840},
     ],
     "Sereia": [
         {"level": 30,  "name": "Sereia das Profundezas","emoji": "🧜🌊", "suffix": " das Profundezas",
@@ -437,6 +569,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Sereia Primordial",   "emoji": "🧜💎", "suffix": " Primordial",
          "lore": "Você é mais velha que os oceanos. O mar não te criou — você criou o mar.",
          "hp_bonus": 112, "atk_bonus": 128, "def_bonus": 80},
+        {"level": 200, "name": "Sereia Estelar",      "emoji": "🧜🌟", "suffix": " Estelar",
+         "lore": "Sua voz ressoa em todas as galáxias. Estrelas dançam ao seu canto.",
+         "hp_bonus": 224, "atk_bonus": 256, "def_bonus": 160},
+        {"level": 300, "name": "Sereia Cósmica",      "emoji": "🧜⚡", "suffix": " Cósmica",
+         "lore": "Você controla marés cósmicas. Sua beleza paralisa exércitos divinos.",
+         "hp_bonus": 448, "atk_bonus": 512, "def_bonus": 320},
+        {"level": 400, "name": "Sereia Divina",       "emoji": "🧜👑", "suffix": " Divina",
+         "lore": "Deuses do oceano te servem. Sua canção cria e destrói mundos.",
+         "hp_bonus": 896, "atk_bonus": 1024, "def_bonus": 640},
+        {"level": 500, "name": "Sereia Absoluta",     "emoji": "🧜🌌", "suffix": " Absoluta",
+         "lore": "A voz que existia antes do universo. Quando canta, tudo obedece.",
+         "hp_bonus": 1792, "atk_bonus": 2048, "def_bonus": 1280},
     ],
     "Titã": [
         {"level": 30,  "name": "Titã Guerreiro",      "emoji": "🏔️⚔️", "suffix": " Guerreiro",
@@ -448,6 +592,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Titã Primordial",     "emoji": "🏔️👑", "suffix": " Primordial",
          "lore": "Você é um dos primeiros seres criados pelo universo. Sua existência move montanhas.",
          "hp_bonus": 400, "atk_bonus": 200, "def_bonus": 120},
+        {"level": 200, "name": "Titã Lendário",       "emoji": "🏔️🌟", "suffix": " Lendário",
+         "lore": "Impérios foram construídos em sua sombra. Sua força é inigualável.",
+         "hp_bonus": 800, "atk_bonus": 400, "def_bonus": 240},
+        {"level": 300, "name": "Titã Cósmico",        "emoji": "🏔️⚡", "suffix": " Cósmico",
+         "lore": "Você carrega estrelas nas mãos. Planetas são pedras para você.",
+         "hp_bonus": 1600, "atk_bonus": 800, "def_bonus": 480},
+        {"level": 400, "name": "Titã Divino",         "emoji": "🏔️💎", "suffix": " Divino",
+         "lore": "Deuses foram criados a partir de fragmentos do seu poder.",
+         "hp_bonus": 3200, "atk_bonus": 1600, "def_bonus": 960},
+        {"level": 500, "name": "Titã Absoluto",       "emoji": "🏔️🌌", "suffix": " Absoluto",
+         "lore": "O Titã original que sustenta o cosmos. O universo repousa em seus ombros.",
+         "hp_bonus": 6400, "atk_bonus": 3200, "def_bonus": 1920},
     ],
     "Fada": [
         {"level": 30,  "name": "Fada Encantada",      "emoji": "🧚✨", "suffix": " Encantada",
@@ -459,6 +615,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Rainha das Fadas",    "emoji": "🧚👑", "suffix": " Rainha",
          "lore": "Você governa o primeiro jardim do mundo. Toda a magia de sorte emana de você.",
          "hp_bonus": 64, "atk_bonus": 96, "def_bonus": 48},
+        {"level": 200, "name": "Fada Estelar",        "emoji": "🧚🌟", "suffix": " Estelar",
+         "lore": "As estrelas da sorte te seguem onde quer que vá. Impossível se tornou trivial.",
+         "hp_bonus": 128, "atk_bonus": 192, "def_bonus": 96},
+        {"level": 300, "name": "Fada Cósmica",        "emoji": "🧚⚡", "suffix": " Cósmica",
+         "lore": "Você manipula o destino de galáxias. A sorte em si te obedece.",
+         "hp_bonus": 256, "atk_bonus": 384, "def_bonus": 192},
+        {"level": 400, "name": "Fada Divina",         "emoji": "🧚💎", "suffix": " Divina",
+         "lore": "Deuses jogam dados, e você é o dado. Toda coincidência é sua obra.",
+         "hp_bonus": 512, "atk_bonus": 768, "def_bonus": 384},
+        {"level": 500, "name": "Fada Absoluta",       "emoji": "🧚🌌", "suffix": " Absoluta",
+         "lore": "A magia da sorte primordial. Você é a razão pela qual o universo existiu.",
+         "hp_bonus": 1024, "atk_bonus": 1536, "def_bonus": 768},
     ],
     "Elementário": [
         {"level": 30,  "name": "Elementário Puro",    "emoji": "🌀🔥", "suffix": " Puro",
@@ -470,6 +638,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Elementário Primordial","emoji": "🌀👑", "suffix": " Primordial",
          "lore": "Você É os elementos. Você não usa magia — você é a magia em sua forma mais pura.",
          "hp_bonus": 160, "atk_bonus": 160, "def_bonus": 80},
+        {"level": 200, "name": "Elementário Lendário", "emoji": "🌀🌟", "suffix": " Lendário",
+         "lore": "Você controla tempestades estelares e vulcões galácticos.",
+         "hp_bonus": 320, "atk_bonus": 320, "def_bonus": 160},
+        {"level": 300, "name": "Elementário Cósmico",  "emoji": "🌀⚡", "suffix": " Cósmico",
+         "lore": "Os elementos cósmicos respondem ao seu pensamento. Estrelas explodem ao seu comando.",
+         "hp_bonus": 640, "atk_bonus": 640, "def_bonus": 320},
+        {"level": 400, "name": "Elementário Divino",   "emoji": "🌀💎", "suffix": " Divino",
+         "lore": "Você criou novos elementos. A tabela periódica do cosmos é sua obra.",
+         "hp_bonus": 1280, "atk_bonus": 1280, "def_bonus": 640},
+        {"level": 500, "name": "Elementário Absoluto", "emoji": "🌀🌌", "suffix": " Absoluto",
+         "lore": "O elemento primordial antes da criação. Você é a energia que criou tudo.",
+         "hp_bonus": 2560, "atk_bonus": 2560, "def_bonus": 1280},
     ],
     "Goblin": [
         {"level": 30,  "name": "Goblin Mestre",       "emoji": "👺💰", "suffix": " Mestre",
@@ -481,6 +661,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Rei Goblin",          "emoji": "👺💎", "suffix": " Rei",
          "lore": "Você é o rei absoluto dos goblins. Sua ganância moldou impérios.",
          "hp_bonus": 80, "atk_bonus": 120, "def_bonus": 40},
+        {"level": 200, "name": "Imperador Goblin",    "emoji": "👺🌟", "suffix": " Imperador",
+         "lore": "Seu império de riquezas se estende por continentes inteiros.",
+         "hp_bonus": 160, "atk_bonus": 240, "def_bonus": 80},
+        {"level": 300, "name": "Goblin Cósmico",      "emoji": "👺⚡", "suffix": " Cósmico",
+         "lore": "Você comercializou com deuses e saiu no lucro.",
+         "hp_bonus": 320, "atk_bonus": 480, "def_bonus": 160},
+        {"level": 400, "name": "Goblin Divino",       "emoji": "👺👑", "suffix": " Divino",
+         "lore": "Você roubou a riqueza dos cosmos. Estrelas são suas moedas.",
+         "hp_bonus": 640, "atk_bonus": 960, "def_bonus": 320},
+        {"level": 500, "name": "Goblin Absoluto",     "emoji": "👺🌌", "suffix": " Absoluto",
+         "lore": "O primeiro ser a acumular riqueza no universo. O cosmos te deve dívidas.",
+         "hp_bonus": 1280, "atk_bonus": 1920, "def_bonus": 640},
     ],
     "Gnomo": [
         {"level": 30,  "name": "Gnomo Inventor",      "emoji": "🔧⚙️", "suffix": " Inventor",
@@ -492,6 +684,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Grande Gnomo",        "emoji": "🔧👑", "suffix": " Grande",
          "lore": "Você é a mente mais brilhante já criada. Suas invenções moldaram o curso da história.",
          "hp_bonus": 96, "atk_bonus": 112, "def_bonus": 112},
+        {"level": 200, "name": "Gnomo Lendário",      "emoji": "🔧🌟", "suffix": " Lendário",
+         "lore": "Suas máquinas operam em dimensões paralelas. A física é apenas uma sugestão.",
+         "hp_bonus": 192, "atk_bonus": 224, "def_bonus": 224},
+        {"level": 300, "name": "Gnomo Cósmico",       "emoji": "🔧⚡", "suffix": " Cósmico",
+         "lore": "Você engendrou tecnologias que movem estrelas. Deuses pedem patentes.",
+         "hp_bonus": 384, "atk_bonus": 448, "def_bonus": 448},
+        {"level": 400, "name": "Gnomo Divino",        "emoji": "🔧💎", "suffix": " Divino",
+         "lore": "Você construiu o motor que faz o universo funcionar.",
+         "hp_bonus": 768, "atk_bonus": 896, "def_bonus": 896},
+        {"level": 500, "name": "Gnomo Absoluto",      "emoji": "🔧🌌", "suffix": " Absoluto",
+         "lore": "O inventor que criou a criação. O universo é sua obra-prima.",
+         "hp_bonus": 1536, "atk_bonus": 1792, "def_bonus": 1792},
     ],
     "Ciclope": [
         {"level": 30,  "name": "Ciclope Guerreiro",   "emoji": "👁️⚔️", "suffix": " Guerreiro",
@@ -503,6 +707,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Ciclope Primordial",  "emoji": "👁️👑", "suffix": " Primordial",
          "lore": "Você guarda o segredo da criação. Seu olho viu o nascimento do universo.",
          "hp_bonus": 360, "atk_bonus": 240, "def_bonus": 40},
+        {"level": 200, "name": "Ciclope Lendário",    "emoji": "👁️🌟", "suffix": " Lendário",
+         "lore": "Seu olho único atravessa dimensões. Nada no multiverso escapa do seu olhar.",
+         "hp_bonus": 720, "atk_bonus": 480, "def_bonus": 80},
+        {"level": 300, "name": "Ciclope Cósmico",     "emoji": "👁️⚡", "suffix": " Cósmico",
+         "lore": "Você vê o passado e o futuro simultaneamente. O destino não tem segredos.",
+         "hp_bonus": 1440, "atk_bonus": 960, "def_bonus": 160},
+        {"level": 400, "name": "Ciclope Divino",      "emoji": "👁️💎", "suffix": " Divino",
+         "lore": "Deuses te consultam sobre o futuro. Sua visão é onisciente.",
+         "hp_bonus": 2880, "atk_bonus": 1920, "def_bonus": 320},
+        {"level": 500, "name": "Ciclope Absoluto",    "emoji": "👁️🌌", "suffix": " Absoluto",
+         "lore": "O olho que viu antes da criação existir. Você testemunhou o nada e o transformou.",
+         "hp_bonus": 5760, "atk_bonus": 3840, "def_bonus": 640},
     ],
     "Sombra": [
         {"level": 30,  "name": "Sombra Viva",         "emoji": "🌑⚡", "suffix": " Viva",
@@ -514,6 +730,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Sombra Primordial",   "emoji": "🌑👑", "suffix": " Primordial",
          "lore": "Você era a escuridão antes do primeiro raio de luz. Você viu o universo nascer — do seu interior.",
          "hp_bonus": 64, "atk_bonus": 208, "def_bonus": 48},
+        {"level": 200, "name": "Sombra Lendária",     "emoji": "🌑🌟", "suffix": " Lendária",
+         "lore": "Você apaga a luz de estrelas ao passar. Nem a luz divina te revela.",
+         "hp_bonus": 128, "atk_bonus": 416, "def_bonus": 96},
+        {"level": 300, "name": "Sombra Cósmica",      "emoji": "🌑⚡", "suffix": " Cósmica",
+         "lore": "Você é a escuridão entre galáxias. O universo esconde em você.",
+         "hp_bonus": 256, "atk_bonus": 832, "def_bonus": 192},
+        {"level": 400, "name": "Sombra Divina",       "emoji": "🌑💎", "suffix": " Divina",
+         "lore": "Deuses da luz te temem. Sua existência é a antítese da criação.",
+         "hp_bonus": 512, "atk_bonus": 1664, "def_bonus": 384},
+        {"level": 500, "name": "Sombra Absoluta",     "emoji": "🌑🌌", "suffix": " Absoluta",
+         "lore": "O vazio antes de tudo. Você é a escuridão que existia antes da luz ser criada.",
+         "hp_bonus": 1024, "atk_bonus": 3328, "def_bonus": 768},
     ],
     "Ancião": [
         {"level": 30,  "name": "Ancião Sábio",        "emoji": "🧙📚", "suffix": " Sábio",
@@ -525,6 +753,18 @@ RACE_EVOLUTION_TREE = {
         {"level": 130, "name": "Ancião Primordial",   "emoji": "🧙👑", "suffix": " Primordial",
          "lore": "Você é mais velho que o próprio universo. Sua existência é a resposta que todos buscam.",
          "hp_bonus": 120, "atk_bonus": 120, "def_bonus": 120},
+        {"level": 200, "name": "Ancião Lendário",     "emoji": "🧙🌟", "suffix": " Lendário",
+         "lore": "Você viveu mais ciclos que o universo tem estrelas. Toda verdade é trivial para você.",
+         "hp_bonus": 240, "atk_bonus": 240, "def_bonus": 240},
+        {"level": 300, "name": "Ancião Cósmico",      "emoji": "🧙⚡", "suffix": " Cósmico",
+         "lore": "Você conhece o nome verdadeiro de cada ser no cosmos. Poder é apenas sua sombra.",
+         "hp_bonus": 480, "atk_bonus": 480, "def_bonus": 480},
+        {"level": 400, "name": "Ancião Divino",       "emoji": "🧙💎", "suffix": " Divino",
+         "lore": "Deuses te pedem conselhos sobre eternidade. Você já respondeu essa pergunta.",
+         "hp_bonus": 960, "atk_bonus": 960, "def_bonus": 960},
+        {"level": 500, "name": "O Primeiro Ancião",   "emoji": "🧙🌌", "suffix": " Primeiro",
+         "lore": "Você existia antes da existência. O universo ainda está aprendendo com você.",
+         "hp_bonus": 1920, "atk_bonus": 1920, "def_bonus": 1920},
     ],
 }
 
@@ -9545,12 +9785,37 @@ async def check_class_evolution(channel, user_id):
                 ),
                 color=discord.Color.gold()
             )
+            # Calcular tier que será aplicado nesta evolução
+            preview_tier = tier_index
+            PREVIEW_MULTIPLIERS = {
+                1: {"hp": 1.0,  "atk": 1.0,  "def": 1.0,  "extra_hp":    0, "extra_atk":   0, "extra_def":   0},
+                2: {"hp": 2.5,  "atk": 2.5,  "def": 2.5,  "extra_hp":   50, "extra_atk":  20, "extra_def":  15},
+                3: {"hp": 5.0,  "atk": 5.0,  "def": 5.0,  "extra_hp":  150, "extra_atk":  60, "extra_def":  45},
+                4: {"hp": 10.0, "atk": 10.0, "def": 10.0, "extra_hp":  400, "extra_atk": 150, "extra_def": 120},
+                5: {"hp": 20.0, "atk": 20.0, "def": 20.0, "extra_hp": 1000, "extra_atk": 400, "extra_def": 300},
+                6: {"hp": 40.0, "atk": 40.0, "def": 40.0, "extra_hp": 2500, "extra_atk":1000, "extra_def": 750},
+                7: {"hp": 80.0, "atk": 80.0, "def": 80.0, "extra_hp": 6000, "extra_atk":2500, "extra_def":1800},
+            }
+            PREVIEW_MIN_HP  = {1: 10, 2: 80,  3: 200, 4: 500,  5: 1200,  6: 3000,  7: 7000}
+            PREVIEW_MIN_ATK = {1:  5, 2: 30,  3:  80, 4: 200,  5:  500,  6: 1200,  7: 3000}
+            PREVIEW_MIN_DEF = {1:  0, 2: 20,  3:  55, 4: 130,  5:  350,  6:  850,  7: 2000}
+            pmult = PREVIEW_MULTIPLIERS.get(preview_tier, PREVIEW_MULTIPLIERS[7])
             for s in specs:
                 spec_data = CLASS_SPECIALIZATIONS.get(s)
                 if spec_data:
+                    b_hp  = int(spec_data.get("bonus_hp", 0)  * pmult["hp"])  + pmult["extra_hp"]
+                    b_atk = int(spec_data.get("bonus_atk", 0) * pmult["atk"]) + pmult["extra_atk"]
+                    b_def = int(spec_data.get("bonus_def", 0) * pmult["def"]) + pmult["extra_def"]
+                    b_hp  = max(b_hp,  PREVIEW_MIN_HP.get(preview_tier, 7000))
+                    b_atk = max(b_atk, PREVIEW_MIN_ATK.get(preview_tier, 3000))
+                    b_def = max(b_def, PREVIEW_MIN_DEF.get(preview_tier, 2000))
                     embed.add_field(
                         name=f"{spec_data['emoji']} {s}",
-                        value=f"{spec_data['desc']}\n**Passiva:** {spec_data['passive']}",
+                        value=(
+                            f"{spec_data['desc']}\n"
+                            f"**Passiva:** {spec_data['passive']}\n"
+                            f"📊 **Bônus:** ❤️ +{b_hp} HP | ⚔️ +{b_atk} ATK | 🛡️ +{b_def} DEF"
+                        ),
                         inline=False
                     )
             view = ClassEvolutionView(user_id, cls, evo_data["name"], specs, tier_index)
@@ -9798,24 +10063,27 @@ class ClassEvolutionView(discord.ui.View):
             BASE_DEF = spec_data.get("bonus_def", 0)
 
             TIER_MULTIPLIERS = {
-                1: {"hp": 1.0,  "atk": 1.0,  "def": 1.0,  "extra_hp":   0, "extra_atk":  0, "extra_def":  0},
-                2: {"hp": 2.5,  "atk": 2.5,  "def": 2.5,  "extra_hp":  50, "extra_atk": 20, "extra_def": 15},
-                3: {"hp": 5.0,  "atk": 5.0,  "def": 5.0,  "extra_hp": 150, "extra_atk": 60, "extra_def": 45},
-                4: {"hp": 10.0, "atk": 10.0, "def": 10.0, "extra_hp": 400, "extra_atk":150, "extra_def":120},
+                1: {"hp": 1.0,   "atk": 1.0,   "def": 1.0,   "extra_hp":    0, "extra_atk":   0, "extra_def":   0},
+                2: {"hp": 2.5,   "atk": 2.5,   "def": 2.5,   "extra_hp":   50, "extra_atk":  20, "extra_def":  15},
+                3: {"hp": 5.0,   "atk": 5.0,   "def": 5.0,   "extra_hp":  150, "extra_atk":  60, "extra_def":  45},
+                4: {"hp": 10.0,  "atk": 10.0,  "def": 10.0,  "extra_hp":  400, "extra_atk": 150, "extra_def": 120},
+                5: {"hp": 20.0,  "atk": 20.0,  "def": 20.0,  "extra_hp": 1000, "extra_atk": 400, "extra_def": 300},
+                6: {"hp": 40.0,  "atk": 40.0,  "def": 40.0,  "extra_hp": 2500, "extra_atk":1000, "extra_def": 750},
+                7: {"hp": 80.0,  "atk": 80.0,  "def": 80.0,  "extra_hp": 6000, "extra_atk":2500, "extra_def":1800},
             }
-            mult = TIER_MULTIPLIERS.get(new_tier, TIER_MULTIPLIERS[1])
+            mult = TIER_MULTIPLIERS.get(new_tier, TIER_MULTIPLIERS[7])
 
             bonus_hp  = int(BASE_HP  * mult["hp"])  + mult["extra_hp"]
             bonus_atk = int(BASE_ATK * mult["atk"]) + mult["extra_atk"]
             bonus_def = int(BASE_DEF * mult["def"]) + mult["extra_def"]
 
             # Garantir mínimos por tier (mesmo specs sem bônus base ganham algo)
-            MIN_HP  = {1: 10, 2: 80,  3: 200, 4: 500}
-            MIN_ATK = {1:  5, 2: 30,  3:  80, 4: 200}
-            MIN_DEF = {1:  0, 2: 20,  3:  55, 4: 130}
-            bonus_hp  = max(bonus_hp,  MIN_HP[new_tier])
-            bonus_atk = max(bonus_atk, MIN_ATK[new_tier])
-            bonus_def = max(bonus_def, MIN_DEF[new_tier])
+            MIN_HP  = {1: 10, 2: 80,  3: 200, 4: 500,  5: 1200,  6: 3000,  7: 7000}
+            MIN_ATK = {1:  5, 2: 30,  3:  80, 4: 200,  5:  500,  6: 1200,  7: 3000}
+            MIN_DEF = {1:  0, 2: 20,  3:  55, 4: 130,  5:  350,  6:  850,  7: 2000}
+            bonus_hp  = max(bonus_hp,  MIN_HP.get(new_tier, 7000))
+            bonus_atk = max(bonus_atk, MIN_ATK.get(new_tier, 3000))
+            bonus_def = max(bonus_def, MIN_DEF.get(new_tier, 2000))
 
             # Aplicar bônus ao jogador
             player["max_hp"] += bonus_hp
@@ -9823,19 +10091,32 @@ class ClassEvolutionView(discord.ui.View):
             save_player_db(self.user_id, player)
 
             # Nomes dos tiers para exibição
-            TIER_NAMES = {1: "Tier I — Elite", 2: "Tier II — Mestre", 3: "Tier III — Lendário", 4: "Tier IV — Divino"}
-            TIER_COLORS = {1: discord.Color.blue(), 2: discord.Color.gold(), 3: discord.Color.from_rgb(255, 60, 0), 4: discord.Color.from_rgb(200, 0, 255)}
-            TIER_EMOJIS = {1: "🔵", 2: "🌟", 3: "🔥", 4: "👑"}
+            TIER_NAMES = {
+                1: "Tier I — Elite",        2: "Tier II — Mestre",
+                3: "Tier III — Lendário",   4: "Tier IV — Divino",
+                5: "Tier V — Transcendente",6: "Tier VI — Dimensional",
+                7: "Tier VII — ABSOLUTO",
+            }
+            TIER_COLORS = {
+                1: discord.Color.blue(),                2: discord.Color.gold(),
+                3: discord.Color.from_rgb(255, 60, 0),  4: discord.Color.from_rgb(200, 0, 255),
+                5: discord.Color.from_rgb(0, 220, 255), 6: discord.Color.from_rgb(255, 0, 128),
+                7: discord.Color.from_rgb(255, 215, 0),
+            }
+            TIER_EMOJIS = {
+                1: "🔵", 2: "🌟", 3: "🔥", 4: "👑",
+                5: "💎", 6: "🌀", 7: "⚡",
+            }
 
             embed = discord.Embed(
-                title=f"{TIER_EMOJIS[new_tier]} EVOLUÇÃO {TIER_NAMES[new_tier].upper()}!",
+                title=f"{TIER_EMOJIS.get(new_tier,'⚡')} EVOLUÇÃO {TIER_NAMES.get(new_tier,'ABSOLUTO').upper()}!",
                 description=(
                     f"Você evoluiu para **{self.evolved_name}**!\n"
                     f"Especialização: **{spec_name}** {spec_data.get('emoji','')}\n\n"
                     f"*{spec_data.get('desc', '')}*\n\n"
                     f"**Passiva:** {spec_data.get('passive', '')}"
                 ),
-                color=TIER_COLORS[new_tier]
+                color=TIER_COLORS.get(new_tier, discord.Color.from_rgb(255, 215, 0))
             )
             if spec_data.get("special_skill"):
                 sk = spec_data["special_skill"]
@@ -9845,14 +10126,14 @@ class ClassEvolutionView(discord.ui.View):
             embed.add_field(name="🛡️ DEF Ganho", value=f"**+{bonus_def}**", inline=True)
             if new_tier >= 2:
                 embed.add_field(
-                    name=f"📈 Por que tão forte?",
+                    name=f"📈 Escalamento de Poder",
                     value=(
-                        f"*Cada tier de evolução multiplica os bônus da especialização.*\n"
-                        f"Tier I: ×1 | Tier II: ×2.5 | Tier III: ×5 | Tier IV: ×10"
+                        f"*Cada tier multiplica os bônus da especialização.*\n"
+                        f"I:×1 | II:×2.5 | III:×5 | IV:×10 | V:×20 | VI:×40 | VII:×80"
                     ),
                     inline=False
                 )
-            embed.set_footer(text=f"Tier {new_tier}/4 — Use 'habilidades' para ver suas skills!")
+            embed.set_footer(text=f"Tier {new_tier}/7 — Use 'habilidades' para ver suas skills!")
             await interaction.response.edit_message(embed=embed, view=None)
         return callback
 
@@ -13678,14 +13959,14 @@ async def on_message(message):
             title=f"🧬 Evolução de Raça — {base_race.get('emoji','')} {race_name}",
             description=(
                 f"*'Cada ciclo de vida forja um ser mais poderoso. Sua linhagem está evoluindo...'*\n\n"
-                f"**Estágio atual:** `{current_stage}/3`\n"
+                f"**Estágio atual:** `{current_stage}/{len(evos)}`\n"
                 f"**Nível:** `{player_level}`"
             ),
             color=discord.Color.from_rgb(100, 0, 200)
         )
 
-        # Mostrar todos os 3 estágios
-        stage_emojis = ["1️⃣", "2️⃣", "3️⃣"]
+        # Mostrar todos os estágios
+        stage_emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣"]
         for i, evo in enumerate(evos):
             stage_num = i + 1
             unlocked = current_stage >= stage_num
@@ -13697,7 +13978,7 @@ async def on_message(message):
             else:
                 status = f"🔒 Requer Nível **{evo['level']}**"
             embed.add_field(
-                name=f"{stage_emojis[i]} {evo['emoji']} {evo['name']}",
+                name=f"{stage_emojis[i] if i < len(stage_emojis) else '⭐'} {evo['emoji']} {evo['name']}",
                 value=(
                     f"{status}\n"
                     f"*{evo['lore']}*\n"
@@ -13708,7 +13989,7 @@ async def on_message(message):
 
         # Verificar se pode evoluir agora
         next_stage = current_stage + 1
-        if next_stage > 3:
+        if next_stage > len(evos):
             embed.set_footer(text="🏆 Você atingiu a evolução máxima da sua raça!")
             await message.channel.send(embed=embed)
             return
@@ -13743,13 +14024,13 @@ async def on_message(message):
         evo_embed.add_field(name="❤️ HP Ganho",  value=f"+{next_evo['hp_bonus']}  → `{player['max_hp']}`", inline=True)
         evo_embed.add_field(name="⚔️ ATK Ganho", value=f"+{next_evo['atk_bonus']} → `{player['atk']}`",    inline=True)
         evo_embed.add_field(name="🛡️ DEF Ganho", value=f"+{next_evo['def_bonus']} → `{player['def']}`",    inline=True)
-        if next_stage == 3:
+        if next_stage == len(evos):
             evo_embed.add_field(
                 name="👑 EVOLUÇÃO MÁXIMA ATINGIDA!",
                 value="*Você chegou ao ápice da sua linhagem racial. Nenhum ser da sua raça é mais poderoso.*",
                 inline=False
             )
-        evo_embed.set_footer(text=f"Estágio {next_stage}/3 | Use 'ver perfil' para ver seus atributos atualizados")
+        evo_embed.set_footer(text=f"Estágio {next_stage}/{len(evos)} | Use 'ver perfil' para ver seus atributos atualizados")
         await message.channel.send(embed=evo_embed)
         return
 
