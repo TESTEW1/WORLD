@@ -4260,6 +4260,417 @@ MAP_LOCATIONS = {
             {"id": "origem_boss", "name": "✨ Trono do Criador Primordial", "type": "boss_local", "discovered": False},
         ]
     },
+    190: {
+        "world_name": "🔱 Reinos Mortais — Ápice",
+        "locations": [
+            {"id": "apice_cidade", "name": "🏯 Cidadela do Ápice Mortal", "type": "cidade", "discovered": True},
+            {"id": "apice_templo", "name": "🕳️ Criptas do Último Mortal", "type": "dungeon_secreta", "discovered": False},
+            {"id": "apice_vault", "name": "🕳️ Câmara do Destino Final Mortal", "type": "dungeon_secreta", "discovered": False},
+            {"id": "apice_recurso", "name": "⛏️ Minas do Ápice", "type": "recurso", "discovered": False},
+            {"id": "apice_boss", "name": "💀 Trono do Guardião do Ápice", "type": "boss_local", "discovered": False},
+        ]
+    },
+    200: {
+        "world_name": "⚡ Reinos Avançados — Despertar",
+        "locations": [
+            {"id": "desp_cidade", "name": "⚡ Portal do Despertar", "type": "cidade", "discovered": True},
+            {"id": "desp_dungeon1", "name": "🌀 Abismo do Primeiro Despertar", "type": "dungeon_secreta", "discovered": False},
+            {"id": "desp_dungeon2", "name": "🌀 Câmara da Transcendência", "type": "dungeon_secreta", "discovered": False},
+            {"id": "desp_recurso", "name": "✨ Cristais do Despertar", "type": "recurso", "discovered": False},
+            {"id": "desp_boss", "name": "👁️ Altar do Ser do Além", "type": "boss_local", "discovered": False},
+        ]
+    },
+    210: {
+        "world_name": "🌀 Vórtice dos Reinos",
+        "locations": [
+            {"id": "vort_cidade", "name": "🌀 Centro do Vórtice", "type": "cidade", "discovered": True},
+            {"id": "vort_dungeon1", "name": "🌀 Espiral Interna do Vórtice", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vort_dungeon2", "name": "🌀 Câmara da Distorção Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vort_recurso", "name": "⛏️ Fragmentos do Vórtice", "type": "recurso", "discovered": False},
+            {"id": "vort_boss", "name": "👁️ Olho do Vórtice Eterno", "type": "boss_local", "discovered": False},
+        ]
+    },
+    220: {
+        "world_name": "🏔️ Montanhas do Além",
+        "locations": [
+            {"id": "malem_cidade", "name": "🏔️ Fortaleza nas Nuvens do Além", "type": "cidade", "discovered": True},
+            {"id": "malem_dungeon1", "name": "🌀 Câmara do Pico Interdimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "malem_dungeon2", "name": "🌀 Abismo nas Raízes da Montanha", "type": "dungeon_secreta", "discovered": False},
+            {"id": "malem_recurso", "name": "⛏️ Cristais das Alturas do Além", "type": "recurso", "discovered": False},
+            {"id": "malem_boss", "name": "👁️ Cume do Titã do Além", "type": "boss_local", "discovered": False},
+        ]
+    },
+    230: {
+        "world_name": "🌊 Oceano Dimensional",
+        "locations": [
+            {"id": "oceandim_cidade", "name": "🏝️ Ilha Flutuante Dimensional", "type": "cidade", "discovered": True},
+            {"id": "oceandim_dungeon1", "name": "🌀 Abismo das Profundezas Dimensionais", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceandim_dungeon2", "name": "🌊 Câmara do Leviatã Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceandim_recurso", "name": "⛏️ Pérolas do Oceano Dimensional", "type": "recurso", "discovered": False},
+            {"id": "oceandim_boss", "name": "👁️ Trono do Senhor das Marés Dimensionais", "type": "boss_local", "discovered": False},
+        ]
+    },
+    240: {
+        "world_name": "🔥 Forjas do Caos",
+        "locations": [
+            {"id": "forjas_cidade", "name": "🔥 Grande Forja do Caos", "type": "cidade", "discovered": True},
+            {"id": "forjas_dungeon1", "name": "🌀 Câmara do Caos Forjado", "type": "dungeon_secreta", "discovered": False},
+            {"id": "forjas_dungeon2", "name": "🌀 Abismo da Chama Caótica", "type": "dungeon_secreta", "discovered": False},
+            {"id": "forjas_recurso", "name": "⛏️ Minério do Caos Puro", "type": "recurso", "discovered": False},
+            {"id": "forjas_boss", "name": "👁️ Coração da Forja do Caos", "type": "boss_local", "discovered": False},
+        ]
+    },
+    250: {
+        "world_name": "❄️ Tundra Absoluta",
+        "locations": [
+            {"id": "tundra_cidade", "name": "❄️ Acampamento da Tundra Absoluta", "type": "cidade", "discovered": True},
+            {"id": "tundra_dungeon1", "name": "🌀 Câmara do Gelo Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tundra_dungeon2", "name": "🌀 Abismo da Tundra Eterna", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tundra_recurso", "name": "⛏️ Cristais de Gelo Absoluto", "type": "recurso", "discovered": False},
+            {"id": "tundra_boss", "name": "👁️ Trono da Imperatriz da Tundra", "type": "boss_local", "discovered": False},
+        ]
+    },
+    260: {
+        "world_name": "⚗️ Alquimia das Eras",
+        "locations": [
+            {"id": "alq_cidade", "name": "⚗️ Laboratório das Eras", "type": "cidade", "discovered": True},
+            {"id": "alq_dungeon1", "name": "🌀 Câmara da Grande Alquimia", "type": "dungeon_secreta", "discovered": False},
+            {"id": "alq_dungeon2", "name": "🌀 Abismo da Pedra Filosofal Perdida", "type": "dungeon_secreta", "discovered": False},
+            {"id": "alq_recurso", "name": "⛏️ Reagentes das Eras", "type": "recurso", "discovered": False},
+            {"id": "alq_boss", "name": "👁️ Altar do Alquimista Primordial", "type": "boss_local", "discovered": False},
+        ]
+    },
+    270: {
+        "world_name": "🌌 Galáxia Interior",
+        "locations": [
+            {"id": "galax_cidade", "name": "🌌 Estação Orbital da Galáxia Interior", "type": "cidade", "discovered": True},
+            {"id": "galax_dungeon1", "name": "🌀 Câmara do Núcleo Galáctico", "type": "dungeon_secreta", "discovered": False},
+            {"id": "galax_dungeon2", "name": "🌀 Abismo das Estrelas Mortas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "galax_recurso", "name": "⛏️ Poeira das Estrelas Vivas", "type": "recurso", "discovered": False},
+            {"id": "galax_boss", "name": "👁️ Trono do Senhor da Galáxia", "type": "boss_local", "discovered": False},
+        ]
+    },
+    280: {
+        "world_name": "⚖️ Tribunal do Cosmo",
+        "locations": [
+            {"id": "trib_cidade", "name": "⚖️ Câmara do Tribunal Cósmico", "type": "cidade", "discovered": True},
+            {"id": "trib_dungeon1", "name": "🌀 Câmara das Sentenças Eternas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trib_dungeon2", "name": "🌀 Abismo do Réu Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trib_recurso", "name": "⛏️ Relíquias do Tribunal", "type": "recurso", "discovered": False},
+            {"id": "trib_boss", "name": "👁️ Trono do Juiz do Cosmo", "type": "boss_local", "discovered": False},
+        ]
+    },
+    290: {
+        "world_name": "🗡️ Arena dos Deuses Menores",
+        "locations": [
+            {"id": "arena_cidade", "name": "🗡️ Coliseu dos Deuses Menores", "type": "cidade", "discovered": True},
+            {"id": "arena_dungeon1", "name": "🌀 Câmara dos Campeões Esquecidos", "type": "dungeon_secreta", "discovered": False},
+            {"id": "arena_dungeon2", "name": "🌀 Abismo dos Deuses Derrotados", "type": "dungeon_secreta", "discovered": False},
+            {"id": "arena_recurso", "name": "⛏️ Trofeus Dimensionais", "type": "recurso", "discovered": False},
+            {"id": "arena_boss", "name": "👁️ Trono do Campeão Eterno", "type": "boss_local", "discovered": False},
+        ]
+    },
+    300: {
+        "world_name": "👁️ O Olho do Multiverso",
+        "locations": [
+            {"id": "olho_cidade", "name": "👁️ Pupila Central do Multiverso", "type": "cidade", "discovered": True},
+            {"id": "olho_dungeon1", "name": "🌀 Câmara da Visão Absoluta", "type": "dungeon_secreta", "discovered": False},
+            {"id": "olho_dungeon2", "name": "🌀 Abismo do Que Não Pode Ser Visto", "type": "dungeon_secreta", "discovered": False},
+            {"id": "olho_recurso", "name": "⛏️ Fragmentos da Íris do Multiverso", "type": "recurso", "discovered": False},
+            {"id": "olho_boss", "name": "👁️ Nervo Óptico do Multiverso", "type": "boss_local", "discovered": False},
+        ]
+    },
+    310: {
+        "world_name": "🔮 Plano Astral Inferior",
+        "locations": [
+            {"id": "astrinf_cidade", "name": "🔮 Nexo do Plano Astral Inferior", "type": "cidade", "discovered": True},
+            {"id": "astrinf_dungeon1", "name": "🌀 Câmara das Almas Astrais", "type": "dungeon_secreta", "discovered": False},
+            {"id": "astrinf_dungeon2", "name": "🌀 Abismo do Plano Astral Sombrio", "type": "dungeon_secreta", "discovered": False},
+            {"id": "astrinf_recurso", "name": "⛏️ Cristais Astrais Inferiores", "type": "recurso", "discovered": False},
+            {"id": "astrinf_boss", "name": "👁️ Senhor do Plano Astral Inferior", "type": "boss_local", "discovered": False},
+        ]
+    },
+    320: {
+        "world_name": "💎 Fortaleza de Cristal",
+        "locations": [
+            {"id": "fortcri_cidade", "name": "💎 Grande Fortaleza de Cristal", "type": "cidade", "discovered": True},
+            {"id": "fortcri_dungeon1", "name": "🌀 Câmara do Cristal Negro", "type": "dungeon_secreta", "discovered": False},
+            {"id": "fortcri_dungeon2", "name": "🌀 Abismo dos Cristais Sombrios", "type": "dungeon_secreta", "discovered": False},
+            {"id": "fortcri_recurso", "name": "⛏️ Minas de Cristal Dimensional", "type": "recurso", "discovered": False},
+            {"id": "fortcri_boss", "name": "👁️ Coração da Fortaleza de Cristal", "type": "boss_local", "discovered": False},
+        ]
+    },
+    330: {
+        "world_name": "🌑 Lua Negra",
+        "locations": [
+            {"id": "lua_cidade", "name": "🌑 Superfície da Lua Negra", "type": "cidade", "discovered": True},
+            {"id": "lua_dungeon1", "name": "🌀 Câmara do Núcleo Lunar Negro", "type": "dungeon_secreta", "discovered": False},
+            {"id": "lua_dungeon2", "name": "🌀 Abismo da Face Oculta", "type": "dungeon_secreta", "discovered": False},
+            {"id": "lua_recurso", "name": "⛏️ Fragmentos da Lua Negra", "type": "recurso", "discovered": False},
+            {"id": "lua_boss", "name": "👁️ Senhor da Lua Negra", "type": "boss_local", "discovered": False},
+        ]
+    },
+    340: {
+        "world_name": "☄️ Cemitério de Estrelas",
+        "locations": [
+            {"id": "cemit_cidade", "name": "☄️ Estação entre as Estrelas Mortas", "type": "cidade", "discovered": True},
+            {"id": "cemit_dungeon1", "name": "🌀 Câmara das Memórias Estelares", "type": "dungeon_secreta", "discovered": False},
+            {"id": "cemit_dungeon2", "name": "🌀 Abismo da Supernova Eterna", "type": "dungeon_secreta", "discovered": False},
+            {"id": "cemit_recurso", "name": "⛏️ Cinzas de Estrelas Extintas", "type": "recurso", "discovered": False},
+            {"id": "cemit_boss", "name": "👁️ Guardião do Cemitério Estelar", "type": "boss_local", "discovered": False},
+        ]
+    },
+    350: {
+        "world_name": "🌞 Coração Solar",
+        "locations": [
+            {"id": "solar_cidade", "name": "🌞 Câmara Central do Coração Solar", "type": "cidade", "discovered": True},
+            {"id": "solar_dungeon1", "name": "🌀 Câmara do Plasma Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "solar_dungeon2", "name": "🌀 Abismo das Chamas Solares", "type": "dungeon_secreta", "discovered": False},
+            {"id": "solar_recurso", "name": "⛏️ Cristais Solares Primordiais", "type": "recurso", "discovered": False},
+            {"id": "solar_boss", "name": "👁️ Entidade do Coração Solar", "type": "boss_local", "discovered": False},
+        ]
+    },
+    360: {
+        "world_name": "🕳️ Buraco Negro Vivo",
+        "locations": [
+            {"id": "buraco_cidade", "name": "🕳️ Beira do Evento Horizonte", "type": "cidade", "discovered": True},
+            {"id": "buraco_dungeon1", "name": "🌀 Câmara da Singularidade", "type": "dungeon_secreta", "discovered": False},
+            {"id": "buraco_dungeon2", "name": "🌀 Abismo além do Horizonte", "type": "dungeon_secreta", "discovered": False},
+            {"id": "buraco_recurso", "name": "⛏️ Matéria Comprimida", "type": "recurso", "discovered": False},
+            {"id": "buraco_boss", "name": "👁️ Consciência do Buraco Negro", "type": "boss_local", "discovered": False},
+        ]
+    },
+    370: {
+        "world_name": "🌐 Nexo das Dimensões",
+        "locations": [
+            {"id": "nexo_cidade", "name": "🌐 Centro do Nexo Dimensional", "type": "cidade", "discovered": True},
+            {"id": "nexo_dungeon1", "name": "🌀 Câmara das Dimensões Cruzadas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "nexo_dungeon2", "name": "🌀 Abismo do Eixo Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "nexo_recurso", "name": "⛏️ Fragmentos do Nexo", "type": "recurso", "discovered": False},
+            {"id": "nexo_boss", "name": "👁️ Arquiteto do Nexo das Dimensões", "type": "boss_local", "discovered": False},
+        ]
+    },
+    380: {
+        "world_name": "⚡ Tempestade Interdimensional",
+        "locations": [
+            {"id": "tempinter_cidade", "name": "⚡ Olho da Tempestade Interdimensional", "type": "cidade", "discovered": True},
+            {"id": "tempinter_dungeon1", "name": "🌀 Câmara do Relâmpago Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tempinter_dungeon2", "name": "🌀 Abismo da Tempestade Eterna", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tempinter_recurso", "name": "⛏️ Cristais da Tempestade", "type": "recurso", "discovered": False},
+            {"id": "tempinter_boss", "name": "👁️ Senhor da Tempestade Interdimensional", "type": "boss_local", "discovered": False},
+        ]
+    },
+    390: {
+        "world_name": "🔱 Trono dos Reinos Avançados",
+        "locations": [
+            {"id": "tronoav_cidade", "name": "🔱 Antecâmara do Trono Avançado", "type": "cidade", "discovered": True},
+            {"id": "tronoav_dungeon1", "name": "🌀 Câmara dos Guardiões do Trono", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tronoav_dungeon2", "name": "🌀 Abismo sob o Trono Avançado", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tronoav_recurso", "name": "⛏️ Relíquias do Trono Avançado", "type": "recurso", "discovered": False},
+            {"id": "tronoav_boss", "name": "👁️ O Trono dos Reinos Avançados", "type": "boss_local", "discovered": False},
+        ]
+    },
+    400: {
+        "world_name": "🌠 Dimensões Superiores — Entrada",
+        "locations": [
+            {"id": "dimsup_cidade", "name": "🌠 Portal de Entrada das Dimensões Superiores", "type": "cidade", "discovered": True},
+            {"id": "dimsup_dungeon1", "name": "💫 Câmara da Primeira Dimensão Superior", "type": "dungeon_secreta", "discovered": False},
+            {"id": "dimsup_dungeon2", "name": "💫 Abismo da Transcendência Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "dimsup_recurso", "name": "⛏️ Cristais Dimensionais Superiores", "type": "recurso", "discovered": False},
+            {"id": "dimsup_boss", "name": "🌠 Guardião da Entrada Dimensional", "type": "boss_local", "discovered": False},
+        ]
+    },
+    410: {
+        "world_name": "💫 Nebulosa da Consciência",
+        "locations": [
+            {"id": "nebulosa_cidade", "name": "💫 Núcleo da Nebulosa Consciente", "type": "cidade", "discovered": True},
+            {"id": "nebulosa_dungeon1", "name": "💫 Câmara dos Pensamentos Cósmicos", "type": "dungeon_secreta", "discovered": False},
+            {"id": "nebulosa_dungeon2", "name": "💫 Abismo da Consciência Nebular", "type": "dungeon_secreta", "discovered": False},
+            {"id": "nebulosa_recurso", "name": "⛏️ Gás Consciente Cristalizado", "type": "recurso", "discovered": False},
+            {"id": "nebulosa_boss", "name": "🌠 Mente da Nebulosa", "type": "boss_local", "discovered": False},
+        ]
+    },
+    420: {
+        "world_name": "🌀 Vórtice Dimensional Supremo",
+        "locations": [
+            {"id": "vortdim_cidade", "name": "🌀 Plataforma no Vórtice Supremo", "type": "cidade", "discovered": True},
+            {"id": "vortdim_dungeon1", "name": "💫 Câmara do Vórtice Dimensional Supremo", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vortdim_dungeon2", "name": "💫 Abismo do Infinito Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vortdim_recurso", "name": "⛏️ Fragmentos do Vórtice Supremo", "type": "recurso", "discovered": False},
+            {"id": "vortdim_boss", "name": "🌠 Senhor do Vórtice Supremo", "type": "boss_local", "discovered": False},
+        ]
+    },
+    430: {
+        "world_name": "🏛️ Templo dos Deuses Maiores",
+        "locations": [
+            {"id": "tmpdeus_cidade", "name": "🏛️ Átrio do Templo dos Deuses Maiores", "type": "cidade", "discovered": True},
+            {"id": "tmpdeus_dungeon1", "name": "💫 Câmara dos Rituais dos Deuses", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tmpdeus_dungeon2", "name": "💫 Abismo Sagrado dos Deuses Maiores", "type": "dungeon_secreta", "discovered": False},
+            {"id": "tmpdeus_recurso", "name": "⛏️ Oferendas Sagradas dos Deuses", "type": "recurso", "discovered": False},
+            {"id": "tmpdeus_boss", "name": "🌠 Conclave dos Deuses Maiores", "type": "boss_local", "discovered": False},
+        ]
+    },
+    440: {
+        "world_name": "⭐ Estrela Primordial Viva",
+        "locations": [
+            {"id": "estrela_cidade", "name": "⭐ Superfície da Estrela Primordial", "type": "cidade", "discovered": True},
+            {"id": "estrela_dungeon1", "name": "💫 Câmara do Núcleo Estelar Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "estrela_dungeon2", "name": "💫 Abismo Flamejante da Estrela Viva", "type": "dungeon_secreta", "discovered": False},
+            {"id": "estrela_recurso", "name": "⛏️ Plasma Estelar Primordial", "type": "recurso", "discovered": False},
+            {"id": "estrela_boss", "name": "🌠 Consciência da Estrela Primordial", "type": "boss_local", "discovered": False},
+        ]
+    },
+    450: {
+        "world_name": "🌌 Abismo Cósmico",
+        "locations": [
+            {"id": "abcos_cidade", "name": "🌌 Borda do Abismo Cósmico", "type": "cidade", "discovered": True},
+            {"id": "abcos_dungeon1", "name": "💫 Câmara do Coração Cósmico", "type": "dungeon_secreta", "discovered": False},
+            {"id": "abcos_dungeon2", "name": "💫 Profundezas do Abismo Cósmico", "type": "dungeon_secreta", "discovered": False},
+            {"id": "abcos_recurso", "name": "⛏️ Matéria do Abismo Cósmico", "type": "recurso", "discovered": False},
+            {"id": "abcos_boss", "name": "🌠 Entidade do Abismo Cósmico", "type": "boss_local", "discovered": False},
+        ]
+    },
+    460: {
+        "world_name": "⚡ Plasma da Criação",
+        "locations": [
+            {"id": "plasma_cidade", "name": "⚡ Câmara Central do Plasma da Criação", "type": "cidade", "discovered": True},
+            {"id": "plasma_dungeon1", "name": "💫 Câmara do Plasma Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "plasma_dungeon2", "name": "💫 Abismo do Plasma Sombrio", "type": "dungeon_secreta", "discovered": False},
+            {"id": "plasma_recurso", "name": "⛏️ Cristais de Plasma Puro", "type": "recurso", "discovered": False},
+            {"id": "plasma_boss", "name": "🌠 Entidade do Plasma da Criação", "type": "boss_local", "discovered": False},
+        ]
+    },
+    470: {
+        "world_name": "🔱 Olimpo Transcendente",
+        "locations": [
+            {"id": "olimpo_cidade", "name": "🔱 Ágora do Olimpo Transcendente", "type": "cidade", "discovered": True},
+            {"id": "olimpo_dungeon1", "name": "💫 Câmara dos Deuses Transcendentes", "type": "dungeon_secreta", "discovered": False},
+            {"id": "olimpo_dungeon2", "name": "💫 Abismo sob o Olimpo", "type": "dungeon_secreta", "discovered": False},
+            {"id": "olimpo_recurso", "name": "⛏️ Ambrosia Transcendente", "type": "recurso", "discovered": False},
+            {"id": "olimpo_boss", "name": "🌠 Panteão do Olimpo Transcendente", "type": "boss_local", "discovered": False},
+        ]
+    },
+    480: {
+        "world_name": "💎 Cristal do Universo",
+        "locations": [
+            {"id": "crisuniv_cidade", "name": "💎 Câmara Central do Cristal do Universo", "type": "cidade", "discovered": True},
+            {"id": "crisuniv_dungeon1", "name": "💫 Câmara do Cristal Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "crisuniv_dungeon2", "name": "💫 Abismo do Cristal Sombrio", "type": "dungeon_secreta", "discovered": False},
+            {"id": "crisuniv_recurso", "name": "⛏️ Fragmentos do Cristal Universal", "type": "recurso", "discovered": False},
+            {"id": "crisuniv_boss", "name": "🌠 Guardião do Cristal do Universo", "type": "boss_local", "discovered": False},
+        ]
+    },
+    490: {
+        "world_name": "🌠 Ápice das Dimensões Superiores",
+        "locations": [
+            {"id": "apicdim_cidade", "name": "🌠 Patamar do Ápice Dimensional", "type": "cidade", "discovered": True},
+            {"id": "apicdim_dungeon1", "name": "💫 Câmara do Último Teste Dimensional", "type": "dungeon_secreta", "discovered": False},
+            {"id": "apicdim_dungeon2", "name": "💫 Abismo do Ápice das Dimensões", "type": "dungeon_secreta", "discovered": False},
+            {"id": "apicdim_recurso", "name": "⛏️ Relíquias do Ápice Dimensional", "type": "recurso", "discovered": False},
+            {"id": "apicdim_boss", "name": "🌠 Sentinela do Ápice Dimensional", "type": "boss_local", "discovered": False},
+        ]
+    },
+    500: {
+        "world_name": "♾️ Planos Absolutos — Limiar",
+        "locations": [
+            {"id": "limiar_cidade", "name": "♾️ Portal do Limiar Absoluto", "type": "cidade", "discovered": True},
+            {"id": "limiar_dungeon1", "name": "♾️ Câmara do Primeiro Absoluto", "type": "dungeon_secreta", "discovered": False},
+            {"id": "limiar_dungeon2", "name": "♾️ Abismo além do Limiar", "type": "dungeon_secreta", "discovered": False},
+            {"id": "limiar_recurso", "name": "⛏️ Matéria do Limiar Absoluto", "type": "recurso", "discovered": False},
+            {"id": "limiar_boss", "name": "⚡ Guardião do Limiar dos Planos Absolutos", "type": "boss_local", "discovered": False},
+        ]
+    },
+    510: {
+        "world_name": "🌑 Trevas Absolutas",
+        "locations": [
+            {"id": "trevasabs_cidade", "name": "🌑 Refúgio nas Trevas Absolutas", "type": "cidade", "discovered": True},
+            {"id": "trevasabs_dungeon1", "name": "♾️ Câmara do Coração das Trevas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trevasabs_dungeon2", "name": "♾️ Abismo das Trevas Infinitas", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trevasabs_recurso", "name": "⛏️ Cristais das Trevas Absolutas", "type": "recurso", "discovered": False},
+            {"id": "trevasabs_boss", "name": "⚡ Senhor das Trevas Absolutas", "type": "boss_local", "discovered": False},
+        ]
+    },
+    520: {
+        "world_name": "🌟 Luz Absoluta",
+        "locations": [
+            {"id": "luzabs_cidade", "name": "🌟 Câmara Central da Luz Absoluta", "type": "cidade", "discovered": True},
+            {"id": "luzabs_dungeon1", "name": "♾️ Câmara do Brilho que Cega", "type": "dungeon_secreta", "discovered": False},
+            {"id": "luzabs_dungeon2", "name": "♾️ Abismo da Luz Sombria", "type": "dungeon_secreta", "discovered": False},
+            {"id": "luzabs_recurso", "name": "⛏️ Fotóns Absolutos Cristalizados", "type": "recurso", "discovered": False},
+            {"id": "luzabs_boss", "name": "⚡ Entidade da Luz Absoluta", "type": "boss_local", "discovered": False},
+        ]
+    },
+    530: {
+        "world_name": "⚖️ Equilíbrio Primordial",
+        "locations": [
+            {"id": "equil_cidade", "name": "⚖️ Santuário do Equilíbrio Primordial", "type": "cidade", "discovered": True},
+            {"id": "equil_dungeon1", "name": "♾️ Câmara do Equilíbrio Rompido", "type": "dungeon_secreta", "discovered": False},
+            {"id": "equil_dungeon2", "name": "♾️ Abismo do Desequilíbrio Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "equil_recurso", "name": "⛏️ Cristais do Equilíbrio Absoluto", "type": "recurso", "discovered": False},
+            {"id": "equil_boss", "name": "⚡ Guardião do Equilíbrio Primordial", "type": "boss_local", "discovered": False},
+        ]
+    },
+    540: {
+        "world_name": "🔥 Chama Eterna",
+        "locations": [
+            {"id": "chama_cidade", "name": "🔥 Câmara da Chama Eterna", "type": "cidade", "discovered": True},
+            {"id": "chama_dungeon1", "name": "♾️ Câmara do Fogo Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "chama_dungeon2", "name": "♾️ Abismo da Chama Negra", "type": "dungeon_secreta", "discovered": False},
+            {"id": "chama_recurso", "name": "⛏️ Brasas da Chama Eterna", "type": "recurso", "discovered": False},
+            {"id": "chama_boss", "name": "⚡ Espírito da Chama Eterna", "type": "boss_local", "discovered": False},
+        ]
+    },
+    550: {
+        "world_name": "🌊 Oceano Primordial",
+        "locations": [
+            {"id": "oceanprim_cidade", "name": "🌊 Superfície do Oceano Primordial", "type": "cidade", "discovered": True},
+            {"id": "oceanprim_dungeon1", "name": "♾️ Câmara das Profundezas Primordiais", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceanprim_dungeon2", "name": "♾️ Abismo do Oceano Além do Tempo", "type": "dungeon_secreta", "discovered": False},
+            {"id": "oceanprim_recurso", "name": "⛏️ Água Primordial Cristalizada", "type": "recurso", "discovered": False},
+            {"id": "oceanprim_boss", "name": "⚡ Leviatã do Oceano Primordial", "type": "boss_local", "discovered": False},
+        ]
+    },
+    560: {
+        "world_name": "💨 Vento do Fim dos Tempos",
+        "locations": [
+            {"id": "vento_cidade", "name": "💨 Olho do Vento do Fim dos Tempos", "type": "cidade", "discovered": True},
+            {"id": "vento_dungeon1", "name": "♾️ Câmara das Correntes do Fim", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vento_dungeon2", "name": "♾️ Abismo do Vento Eterno", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vento_recurso", "name": "⛏️ Ar Cristalizado do Fim dos Tempos", "type": "recurso", "discovered": False},
+            {"id": "vento_boss", "name": "⚡ Espírito do Vento do Fim", "type": "boss_local", "discovered": False},
+        ]
+    },
+    570: {
+        "world_name": "⚡ Trovão da Origem",
+        "locations": [
+            {"id": "trovaorig_cidade", "name": "⚡ Epicentro do Trovão da Origem", "type": "cidade", "discovered": True},
+            {"id": "trovaorig_dungeon1", "name": "♾️ Câmara do Primeiro Relâmpago", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trovaorig_dungeon2", "name": "♾️ Abismo do Trovão Primordial", "type": "dungeon_secreta", "discovered": False},
+            {"id": "trovaorig_recurso", "name": "⛏️ Cristais do Trovão da Origem", "type": "recurso", "discovered": False},
+            {"id": "trovaorig_boss", "name": "⚡ Entidade do Trovão da Origem", "type": "boss_local", "discovered": False},
+        ]
+    },
+    580: {
+        "world_name": "🌌 Vazio Além do Vazio",
+        "locations": [
+            {"id": "vaziabs_cidade", "name": "🌌 Borda do Vazio Além do Vazio", "type": "cidade", "discovered": True},
+            {"id": "vaziabs_dungeon1", "name": "♾️ Câmara do Silêncio Absoluto", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vaziabs_dungeon2", "name": "♾️ Abismo além do Nada", "type": "dungeon_secreta", "discovered": False},
+            {"id": "vaziabs_recurso", "name": "⛏️ Matéria do Pré-Vazio", "type": "recurso", "discovered": False},
+            {"id": "vaziabs_boss", "name": "⚡ O Vazio em Pessoa", "type": "boss_local", "discovered": False},
+        ]
+    },
+    590: {
+        "world_name": "♾️ O Plano Absoluto Final",
+        "locations": [
+            {"id": "planofinal_cidade", "name": "♾️ Câmara do Plano Absoluto Final", "type": "cidade", "discovered": True},
+            {"id": "planofinal_dungeon1", "name": "♾️ Câmara do Último Teste da Existência", "type": "dungeon_secreta", "discovered": False},
+            {"id": "planofinal_dungeon2", "name": "♾️ Abismo Final — Além de Todo Conceito", "type": "dungeon_secreta", "discovered": False},
+            {"id": "planofinal_recurso", "name": "⛏️ Fragmentos do Absoluto Final", "type": "recurso", "discovered": False},
+            {"id": "planofinal_boss", "name": "⚡ O Absoluto — Boss Final do Plano Absoluto", "type": "boss_local", "discovered": False},
+        ]
+    },
+
 }
 
 # ================= NOVOS NPCs COM LORE =================
@@ -15062,6 +15473,117 @@ def discover_location(user_id, world_id, loc_id):
     player["discovered_map"] = disc
     save_player_db(user_id, player)
 
+# ── Configuração das páginas do mapa ──────────────────────────────────────────
+MAP_PAGES = {
+    1: {"title": "🗺️ Mapa — Ciclo 1: Reinos Mortais [Parte 1]",   "range": (1,   60),  "color": 0x3498DB,
+        "desc": "Reinos 1–60 dos Reinos Mortais. Use `mapa 2` para continuar."},
+    2: {"title": "🗺️ Mapa — Ciclo 1: Reinos Mortais [Parte 2]",   "range": (61,  199), "color": 0x2980B9,
+        "desc": "Reinos 62–190 dos Reinos Mortais. Use `mapa 3` para os Reinos Avançados."},
+    3: {"title": "🗺️ Mapa — Ciclo 2: Reinos Avançados [Parte 1]", "range": (200, 290), "color": 0x8E44AD,
+        "desc": "Reinos 200–290 dos Reinos Avançados. Use `mapa 4` para continuar."},
+    4: {"title": "🗺️ Mapa — Ciclo 2: Reinos Avançados [Parte 2]", "range": (291, 399), "color": 0x6C3483,
+        "desc": "Reinos 300–390 dos Reinos Avançados. Use `mapa 5` para as Dimensões Superiores."},
+    5: {"title": "🗺️ Mapa — Ciclo 3: Dimensões Superiores",        "range": (400, 499), "color": 0xF39C12,
+        "desc": "Reinos 400–490 das Dimensões Superiores. Use `mapa 6` para os Planos Absolutos."},
+    6: {"title": "🗺️ Mapa — Ciclo 4: Planos Absolutos",            "range": (500, 600), "color": 0xE74C3C,
+        "desc": "Reinos 500–590 dos Planos Absolutos. Level máximo: 600."},
+}
+
+MAP_TYPE_ICONS = {
+    "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
+    "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
+    "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
+}
+
+MAP_PAGE_NAVS = {
+    1: "`mapa 2` → Ciclo 1 Parte 2",
+    2: "`mapa` ← | `mapa 3` → Ciclo 2",
+    3: "`mapa 2` ← | `mapa 4` → Ciclo 2 Parte 2",
+    4: "`mapa 3` ← | `mapa 5` → Ciclo 3",
+    5: "`mapa 4` ← | `mapa 6` → Ciclo 4",
+    6: "`mapa 5` ← Ciclo 3",
+}
+
+MAP_CYCLE_LOCK_MSG = {
+    2: "🔒 Desbloqueie derrotando boss de nível 9 (Ciclo 1 em andamento).",
+    3: "🔒 Ciclo 2 bloqueado — alcance o nível 200 derrotando o boss do nível 199.",
+    4: "🔒 Ciclo 2 Parte 2 bloqueada — avance nos Reinos Avançados.",
+    5: "🔒 Ciclo 3 bloqueado — alcance o nível 400 derrotando o boss do nível 399.",
+    6: "🔒 Ciclo 4 bloqueado — alcance o nível 500 derrotando o boss do nível 499.",
+}
+
+async def show_map_page(message, player, page: int):
+    """Exibe uma página do mapa de acordo com os mundos desbloqueados pelo jogador."""
+    page_data = MAP_PAGES.get(page)
+    if not page_data:
+        await message.channel.send("❌ Página de mapa inválida!")
+        return
+
+    player_map = get_player_map(player)
+    current_world = max(player.get("worlds", [1]))
+    rng_min, rng_max = page_data["range"]
+
+    embed = discord.Embed(
+        title=page_data["title"],
+        description=page_data["desc"],
+        color=page_data["color"]
+    )
+
+    worlds_shown = 0
+    any_unlocked = False
+
+    for world_id in sorted(MAP_LOCATIONS.keys()):
+        if not (rng_min <= world_id <= rng_max):
+            continue
+
+        # Mundo desbloqueado?
+        if world_id not in player.get("worlds", [1]):
+            # Mostra como bloqueado mas só se for próximo do atual
+            if world_id <= current_world + 20:
+                embed.add_field(
+                    name=f"🔒 {MAP_LOCATIONS[world_id]['world_name']} (bloqueado)",
+                    value="*Derrote o boss do reino anterior para desbloquear.*",
+                    inline=False
+                )
+            continue
+
+        any_unlocked = True
+        wdata = player_map.get(world_id)
+        if not wdata:
+            continue
+
+        locs_text = ""
+        for loc in wdata["locations"]:
+            if loc.get("visible"):
+                icon = MAP_TYPE_ICONS.get(loc["type"], "📍")
+                marker = " 📌" if world_id == current_world else ""
+                locs_text += f"{icon} {loc['name']}{marker}\n"
+            else:
+                locs_text += "❓ *Local Desconhecido*\n"
+
+        if locs_text:
+            current_marker = " ← **AQUI**" if world_id == current_world else ""
+            embed.add_field(
+                name=f"{wdata['world_name']}{current_marker}",
+                value=locs_text.strip() or "_Nenhum local descoberto_",
+                inline=False
+            )
+            worlds_shown += 1
+
+        # Discord embed limit: max 25 fields
+        if worlds_shown >= 20:
+            embed.add_field(name="...", value="*Use a próxima página para ver mais reinos.*", inline=False)
+            break
+
+    if not any_unlocked:
+        lock_msg = MAP_CYCLE_LOCK_MSG.get(page, "🔒 Esta seção ainda está bloqueada.")
+        embed.add_field(name="🔒 Seção Bloqueada", value=lock_msg, inline=False)
+
+    nav = MAP_PAGE_NAVS.get(page, "")
+    embed.set_footer(text=f"Página {page}/6 | {nav} | Use `viajar <local>` para se locomover | Seus mundos: {len(player.get('worlds', [1]))}/61")
+    await message.channel.send(embed=embed)
+
+
 def get_dungeon_difficulty_multiplier(player):
     """Dungeons secretas ficam mais difíceis conforme o nível"""
     level = player.get("level", 1)
@@ -15804,88 +16326,42 @@ async def handle_new_commands(message):
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        player_map = get_player_map(player)
-        embed = discord.Embed(
-            title="🗺️ Mapa do Mundo — Parte 1 (Reinos 1–60)",
-            description="Locais descobertos durante sua jornada. Use `viajar <local>` para se locomover.\n*Use `mapa 2` para ver os reinos além do nível 60!*",
-            color=discord.Color.blue()
-        )
-        current_world = max(player.get("worlds", [1]))
-        worlds_shown = 0
-        for world_id, wdata in player_map.items():
-            if world_id > 60:
-                continue
-            locs_text = ""
-            for loc in wdata["locations"]:
-                if loc.get("visible"):
-                    type_icons = {
-                        "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
-                        "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
-                        "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
-                    }
-                    icon = type_icons.get(loc["type"], "📍")
-                    marker = "📌" if world_id == current_world else ""
-                    locs_text += f"{icon} {loc['name']} {marker}\n"
-                else:
-                    locs_text += f"❓ *Local Desconhecido*\n"
-            if locs_text:
-                current_marker = " ← **AQUI**" if world_id == current_world else ""
-                embed.add_field(
-                    name=f"{wdata['world_name']}{current_marker}",
-                    value=locs_text or "_Nenhum local descoberto_",
-                    inline=False
-                )
-                worlds_shown += 1
-        if worlds_shown == 0:
-            embed.add_field(name="🗺️ Mapa Vazio", value="Explore para descobrir novos locais!", inline=False)
-        embed.set_footer(text="💡 Use `mapa 2` para reinos avançados (nível 60+) | Explore com `explorar`!")
-        await message.channel.send(embed=embed)
+        await show_map_page(message, player, 1)
 
-    elif content in ["mapa 2", "abrir mapa 2", "ver mapa 2", "mapa avançado"]:
+    elif content in ["mapa 2", "abrir mapa 2"]:
         player = get_player(uid)
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        player_map = get_player_map(player)
-        embed = discord.Embed(
-            title="🗺️ Mapa do Mundo — Parte 2 (Reinos 60+)",
-            description="Reinos avançados além do nível 60. *Use `mapa` para ver os reinos iniciais.*",
-            color=discord.Color.dark_purple()
-        )
-        current_world = max(player.get("worlds", [1]))
-        worlds_shown = 0
-        for world_id, wdata in player_map.items():
-            if world_id <= 60:
-                continue
-            locs_text = ""
-            for loc in wdata["locations"]:
-                if loc.get("visible"):
-                    type_icons = {
-                        "cidade": "🏙️", "recurso": "⛏️", "dungeon": "🕳️", "dungeon_secreta": "🔮",
-                        "boss_local": "💀", "lore": "📜", "loja": "🏪", "crafting": "⚒️",
-                        "portal": "🌀", "evento_especial": "⭐", "npc_especial": "🧙"
-                    }
-                    icon = type_icons.get(loc["type"], "📍")
-                    marker = "📌" if world_id == current_world else ""
-                    locs_text += f"{icon} {loc['name']} {marker}\n"
-                else:
-                    locs_text += f"❓ *Local Desconhecido*\n"
-            if locs_text:
-                current_marker = " ← **AQUI**" if world_id == current_world else ""
-                embed.add_field(
-                    name=f"{wdata['world_name']}{current_marker}",
-                    value=locs_text or "_Nenhum local descoberto_",
-                    inline=False
-                )
-                worlds_shown += 1
-        if worlds_shown == 0:
-            embed.add_field(
-                name="🔒 Reinos Bloqueados",
-                value="*Você ainda não alcançou os reinos avançados (nível 60+).*\n\nContinue sua jornada para desbloquear estes territórios!",
-                inline=False
-            )
-        embed.set_footer(text="Use `mapa` para reinos iniciais | `viajar <local>` para se locomover")
-        await message.channel.send(embed=embed)
+        await show_map_page(message, player, 2)
+
+    elif content in ["mapa 3", "abrir mapa 3"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        await show_map_page(message, player, 3)
+
+    elif content in ["mapa 4", "abrir mapa 4"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        await show_map_page(message, player, 4)
+
+    elif content in ["mapa 5", "abrir mapa 5"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        await show_map_page(message, player, 5)
+
+    elif content in ["mapa 6", "abrir mapa 6"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        await show_map_page(message, player, 6)
 
     # ===== VIAJAR =====
     elif content.startswith("viajar ") or content.startswith("ir para ") or content.startswith("ir pra "):
