@@ -22,9 +22,6 @@ DB_FILE = "world_csi.db"
 CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 
-# Cooldowns em memória (resetam ao reiniciar — intencional para anti-spam)
-EXPLORE_COOLDOWNS = {}   # {user_id: timestamp}
-
 # ================= CLASSES =================
 CLASSES = {
     "Guerreiro": {
@@ -8805,9 +8802,6 @@ def init_db():
         "ALTER TABLE players ADD COLUMN bio TEXT DEFAULT ''",
         "ALTER TABLE players ADD COLUMN last_force_entry INTEGER DEFAULT 0",
         "ALTER TABLE players ADD COLUMN job_works TEXT DEFAULT '{}'",
-        "ALTER TABLE players ADD COLUMN cronicas TEXT DEFAULT '[]'",
-        "ALTER TABLE players ADD COLUMN last_cronica INTEGER DEFAULT 0",
-        "ALTER TABLE players ADD COLUMN current_world INTEGER DEFAULT 1",
     ]:
         try:
             c.execute(col_def)
@@ -8869,45 +8863,6 @@ def init_db():
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
 
-    # Tabela para persistir canais de mundo próprio entre reinicializações
-    c.execute('''CREATE TABLE IF NOT EXISTS mundo_proprio_channels (
-        user_id TEXT PRIMARY KEY,
-        channel_id INTEGER NOT NULL
-    )''')
-
-    conn.commit()
-    conn.close()
-
-
-def load_mundo_proprio_channels():
-    """Carrega os canais de mundo próprio do banco de dados."""
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
-    try:
-        c.execute("SELECT user_id, channel_id FROM mundo_proprio_channels")
-        rows = c.fetchall()
-        conn.close()
-        return {row[0]: row[1] for row in rows}
-    except:
-        conn.close()
-        return {}
-
-
-def save_mundo_proprio_channel(user_id: str, channel_id: int):
-    """Salva ou atualiza um canal de mundo próprio no banco."""
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
-    c.execute("INSERT OR REPLACE INTO mundo_proprio_channels (user_id, channel_id) VALUES (?, ?)",
-              (str(user_id), channel_id))
-    conn.commit()
-    conn.close()
-
-
-def delete_mundo_proprio_channel(user_id: str):
-    """Remove um canal de mundo próprio do banco."""
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
-    c.execute("DELETE FROM mundo_proprio_channels WHERE user_id = ?", (str(user_id),))
     conn.commit()
     conn.close()
 
@@ -8977,9 +8932,6 @@ def get_player_db(user_id):
             "bio": r.get("bio", ""),
             "last_force_entry": r.get("last_force_entry", 0),
             "job_works": json.loads(r["job_works"]) if r.get("job_works") else {},
-            "cronicas": json.loads(r["cronicas"]) if r.get("cronicas") else [],
-            "last_cronica": r.get("last_cronica", 0),
-            "current_world": r.get("current_world", max(json.loads(r["worlds"]) if r.get("worlds") else [1])),
         }
     return None
 
@@ -8997,9 +8949,9 @@ def save_player_db(user_id, player):
                   total_xp_earned, areas_explored, dungeons_completed, mana_category, spell_book_unlocked,
                   afk_farming, afk_start, kingdom_data, pets_list,
                   race, specialization, class_tier, supreme_skills, race_stage, mount,
-                  bio, last_force_entry, job_works, cronicas, last_cronica, current_world)
+                  bio, last_force_entry, job_works)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
               (str(user_id), player["level"], player["xp"], player["hp"], player["max_hp"],
                player["coins"], json.dumps(player["inventory"]), player["weapon"], player["armor"],
                json.dumps(player["worlds"]), json.dumps(player["bosses"]), player.get("class"),
@@ -9042,10 +8994,7 @@ def save_player_db(user_id, player):
                player.get("mount"),
                player.get("bio", ""),
                player.get("last_force_entry", 0),
-               json.dumps(player.get("job_works", {})),
-               json.dumps(player.get("cronicas", [])),
-               player.get("last_cronica", 0),
-               player.get("current_world", max(player.get("worlds", [1])))))
+               json.dumps(player.get("job_works", {}))))
 
     conn.commit()
     conn.close()
@@ -9129,13 +9078,9 @@ def get_world_cycle(level):
         return 4, "♾️ Planos Absolutos", "Nív. 500–600"
 
 def get_world(level, player=None):
-    """Retorna o mundo atual do jogador. Se player fornecido, respeita o mundo ativo e travas de boss."""
+    """Retorna o mundo atual do jogador. Se player fornecido, respeita travas de boss."""
     if player:
-        # Se o jogador viajou para um mundo específico, usar esse
-        cw = player.get("current_world")
-        if cw and cw in WORLDS and cw in player.get("worlds", [1]):
-            return WORLDS[cw]
-        # Fallback: maior mundo desbloqueado
+        # Mundos desbloqueados = apenas os que estão na lista player["worlds"]
         available = sorted([k for k in WORLDS.keys() if k in player["worlds"]], reverse=True)
     else:
         levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
@@ -9181,9 +9126,6 @@ def create_player(user_id):
         "bio": "",
         "last_force_entry": 0,
         "job_works": {},
-        "cronicas": [],
-        "last_cronica": 0,
-        "current_world": 1,
     }
     save_player_db(user_id, player)
     return player
@@ -11637,17 +11579,11 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             # Segurança: força o boss de level correto mesmo sem pending_boss
             boss_data = get_level_boss(player["level"])
             if not boss_data or boss_data["name"] in player.get("bosses", []):
-                # Usar mundo atual do jogador (pode ter viajado)
-                world_level = player.get("current_world") or max([k for k in WORLDS.keys() if k <= player["level"]])
-                if world_level not in WORLDS:
-                    world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+                world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
         else:
-            # Usar mundo atual do jogador (pode ter viajado)
-            world_level = player.get("current_world") or max([k for k in WORLDS.keys() if k <= player["level"]])
-            if world_level not in WORLDS:
-                world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+            world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
             boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
             boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
 
@@ -12418,8 +12354,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         if next_world not in p3["worlds"]:
             p3["worlds"].append(next_world)
             # AUTO-TRAVEL: move player to new world (muda mundo atual)
+            # Garante que o novo mundo está na lista e marca como mundo atual
             p3["worlds"] = sorted(list(set(p3["worlds"])))
-            p3["current_world"] = next_world  # DEFINE NOVO MUNDO ATIVO
             save_player_db(user_id, p3)
             new_world_data = WORLDS[next_world]
             # Check if entering a new cycle
@@ -13380,11 +13316,6 @@ async def on_ready():
     init_db()
     print(f"🎮 {bot.user} está online!")
     print(f"📊 Servidores: {len(bot.guilds)}")
-
-    # Restaurar canais de mundo próprio do banco de dados
-    global MUNDO_PROPRIO_CHANNELS
-    MUNDO_PROPRIO_CHANNELS.update(load_mundo_proprio_channels())
-    print(f"🌍 {len(MUNDO_PROPRIO_CHANNELS)} canais de mundo próprio restaurados.")
 
     if not random_world_events.is_running():
         random_world_events.start()
@@ -14928,21 +14859,11 @@ async def on_message(message):
     # ======================================================
     # ================= EXPLORAR ===========================
     # ======================================================
-    if any(content == word for word in ["explorar", "vou explorar", "andar", "caminhar"]) or content.startswith("vou para "):
+    if any(word in content for word in ["explorar", "vou explorar", "andar", "caminhar", "vou para"]):
         player = get_player(user_id)
         if player["level"] >= 2 and not player.get("class"):
             await message.channel.send("⚠️ Escolha uma classe primeiro! Use: `escolher classe`")
             return
-
-        # Cooldown de 20 segundos para evitar spam
-        last_explore = EXPLORE_COOLDOWNS.get(user_id, 0)
-        now_ts = time.time()
-        cooldown = 20
-        if now_ts - last_explore < cooldown:
-            rest = int(cooldown - (now_ts - last_explore))
-            await message.channel.send(f"⏳ **Aguarde {rest}s** antes de explorar novamente!")
-            return
-        EXPLORE_COOLDOWNS[user_id] = now_ts
 
         world = get_world(player["level"], player)
         roll = roll_with_bonus(player)
@@ -16225,9 +16146,7 @@ async def on_message(message):
 async def check_level_boss(channel, user_id):
     """Verifica e anuncia boss de level se necessário"""
     player = get_player(user_id)
-    boss_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199,
-                   209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399,
-                   409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
+    boss_levels = [9, 19, 29, 39, 49, 59]
 
     if player["level"] in boss_levels:
         boss_data = get_level_boss(player["level"])
@@ -16240,15 +16159,14 @@ async def check_level_boss(channel, user_id):
 
             await asyncio.sleep(2)
             embed = discord.Embed(
-                title=f"🚨 BOSS DE NÍVEL {player['level']} — PASSAGEM BLOQUEADA!",
-                description=f"*'O vento para. Um silêncio mortal cai sobre o campo de batalha.'*\n\n⚠️ **Derrote-o para desbloquear o próximo reino e liberar o XP bloqueado!**",
+                title="🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!",
+                description=f"*'Um poder colossal bloqueia seu caminho...'*\n\n👹 **{boss_data['name']}** surge para impedir seu avanço!\n\n⚠️ **Seu XP está BLOQUEADO até você derrotá-lo!**\n*'Não há glória sem superar os grandes obstáculos!'*",
                 color=discord.Color.dark_red()
             )
             embed.add_field(name="❤️ HP", value=f"`{boss_data['hp']:,}`", inline=True)
             embed.add_field(name="⚔️ ATK", value=f"`{boss_data['atk']}`", inline=True)
-            embed.add_field(name="⭐ XP", value=f"`{boss_data['xp']:,}`", inline=True)
-            embed.add_field(name="🎯 Level do Boss", value=f"`{player['level']}`", inline=True)
-            embed.add_field(name="💡 Dica", value="Use os botões abaixo para lutar, chamar aliados ou fugir!", inline=False)
+            embed.add_field(name="🚫 XP Bloqueado", value="Você não ganhará mais XP até derrotá-lo!", inline=False)
+            embed.add_field(name="💡 Opções", value="• `desafiar boss` — Enfrente o boss agora\n• `treinar força/defesa/vitalidade` — Fortaleça-se antes\n• `chamar aliados` — Peça ajuda!", inline=False)
             view = BossButton(user_id, boss_data["name"])
             await channel.send(embed=embed, view=view)
 
@@ -17185,7 +17103,7 @@ async def handle_new_commands(message):
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         scenario_pool = ALIGNMENT_SCENARIOS.get(world_key, ALIGNMENT_SCENARIOS.get(1, []))
         if not scenario_pool:
             await message.channel.send("🌍 Não há cenários para este reino ainda.")
@@ -17279,23 +17197,23 @@ async def handle_new_commands(message):
         if found_world not in player.get("worlds", [1]):
             await message.channel.send(f"🔒 O reino **{MAP_LOCATIONS.get(found_world, {}).get('world_name', '?')}** ainda está bloqueado! Derrote o boss do reino anterior.")
             return
-        # Registrar viagem — define o mundo ATIVO do jogador
+        # Atualizar mundo atual do jogador
         worlds = player.get("worlds", [1])
-        player["worlds"] = worlds
-        player["current_world"] = found_world  # DEFINE O MUNDO ATUAL
+        if found_world not in worlds:
+            await message.channel.send(f"🔒 Você ainda não desbloqueou este reino!")
+            return
+        # Registrar viagem (mover o "mundo ativo" para o escolhido)
+        player["worlds"] = worlds  # mantém tudo que já tem
         save_player_db(uid, player)
         world_name = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
-        # Busca o boss do mundo destino
-        world_boss_name = WORLDS.get(found_world, {}).get("boss", {}).get("name", "desconhecido")
         embed = discord.Embed(
-            title=f"✈️ Viajando para {world_name}",
+            title=f"✈️ Viajando para {found_loc['name']}",
             description=f"*Você parte em direção a **{world_name}**...*\n\nChegou em **{found_loc['name']}**! O ar aqui é diferente.",
             color=discord.Color.teal()
         )
         embed.add_field(name="📍 Local", value=found_loc["name"], inline=True)
-        embed.add_field(name="🌍 Reino Ativo", value=f"**{world_name}** (Nível {found_world})", inline=True)
-        embed.add_field(name="👹 Boss do Reino", value=world_boss_name, inline=True)
-        embed.set_footer(text=f"Use `explorar` para começar a aventura aqui! Use `abrir mapa` para navegar.")
+        embed.add_field(name="🌍 Reino", value=world_name, inline=True)
+        embed.set_footer(text="Use `explorar` para começar a aventura neste local!")
         # Descobrir local se ainda não estava marcado
         disc = player.get("discovered_map", {})
         key = str(found_world)
@@ -17971,7 +17889,7 @@ async def handle_new_commands(message):
             remaining = (3600 - (now - last_defend)) // 60
             await message.channel.send(f"⏳ Você já patrulhou! Próxima defesa em **{remaining} minutos**.")
             return
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         world_invasions = CITY_INVASION_EVENTS.get(world_key, CITY_INVASION_EVENTS.get(1, []))
         invasion = random.choice(world_invasions)
         player["last_defend"] = now
@@ -18106,7 +18024,7 @@ async def handle_new_commands(message):
                     f"🚨 **Você tem um Boss de Nível pendente!**\n\n👹 **{boss_data_gate['name']}** bloqueia sua passagem.\n⚠️ Seu XP está bloqueado até derrotá-lo!\n\nUse `desafiar boss` para enfrentá-lo."
                 )
                 return
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, WORLD_BOSSES_VARIANTS.get(1, []))
         boss = random.choice(boss_pool)
         world_info = MAP_LOCATIONS.get(world_key, {})
@@ -18158,7 +18076,7 @@ async def handle_mining_mimic(message):
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         # Nível do baú baseado no nível do mundo
         tier_idx = min(len(MIMIC_TIERS) - 1, list(MAP_LOCATIONS.keys()).index(world_key) if world_key in MAP_LOCATIONS else 0)
         tier = MIMIC_TIERS[tier_idx]
@@ -18195,7 +18113,7 @@ async def handle_map_discovery(message):
         if not player:
             return
         if random.random() < 0.20:  # 20% de chance de descobrir algo
-            world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+            world_key = max(k for k in player.get("worlds", [1]))
             world_locs = MAP_LOCATIONS.get(world_key, {}).get("locations", [])
             disc = player.get("discovered_map", {})
             key = str(world_key)
@@ -18235,7 +18153,7 @@ async def handle_npc_lore(message):
         player = get_player(uid)
         if not player:
             return
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         npc_pool = WORLD_NPCS_EXTRA.get(world_key, WORLD_NPCS_EXTRA.get(1, []))
         if not npc_pool:
             await message.channel.send("🤷 Nenhum NPC especial aqui.")
@@ -19077,9 +18995,8 @@ async def handle_admin_levelup(message):
     """
     if message.author.bot:
         return
-    if message.guild and message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
-        if message.author.id != ADMIN_ID:
-            return
+    if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
+        return
     if message.author.id != ADMIN_ID:
         return
 
@@ -19123,514 +19040,24 @@ async def handle_admin_levelup(message):
         if player["level"] == 12 and not player.get("spell_book_unlocked"):
             player["spell_book_unlocked"] = 1
 
-    # Desbloquear todos os mundos até o nível atual
-    new_level = player["level"]
-    all_world_keys = sorted(WORLDS.keys())
-    boss_level_map = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                      109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
-                      209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
-                      309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
-                      409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
-                      509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
-    worlds_to_unlock = []
-    for boss_gate, world_key in boss_level_map.items():
-        if boss_gate <= new_level and world_key in WORLDS:
-            worlds_to_unlock.append(world_key)
-    # Sempre incluir mundo 1 e o mundo correspondente ao nivel atual
-    nearest_world = max((k for k in WORLDS.keys() if k <= new_level), default=1)
-    worlds_to_unlock.append(1)
-    worlds_to_unlock.append(nearest_world)
-    current_worlds = set(player.get("worlds", [1]))
-    current_worlds.update(worlds_to_unlock)
-    player["worlds"] = sorted(list(current_worlds))
-    player["current_world"] = nearest_world
-
     save_player_db(uid, player)
 
     embed = discord.Embed(
-        title="⚡ ADMIN — NÍVEL AUMENTADO",
-        description=f"{target_user.display_name} foi upado por comando admin!",
+        title="ADMIN - NIVEL AUMENTADO",
+        description=f"{target_user.display_name} subiu de nivel por comando admin!",
         color=discord.Color.gold()
     )
-    embed.add_field(name="Nível Anterior", value=f"`{old_level}`", inline=True)
-    embed.add_field(name="Novo Nível", value=f"`{player['level']}`", inline=True)
-    embed.add_field(name="Níveis Adicionados", value=f"`+{levels_to_add}`", inline=True)
+    embed.add_field(name="Nivel Anterior", value=f"`{old_level}`", inline=True)
+    embed.add_field(name="Novo Nivel", value=f"`{player['level']}`", inline=True)
+    embed.add_field(name="Niveis Adicionados", value=f"`+{levels_to_add}`", inline=True)
     embed.add_field(name="HP Max", value=f"`{player['max_hp']}`", inline=True)
     embed.add_field(name="Mana Max", value=f"`{player['max_mana']}`", inline=True)
-    embed.add_field(name="🌍 Mundos Desbloqueados", value=f"`{len(player['worlds'])}` reinos", inline=True)
-    embed.add_field(name="📍 Mundo Atual", value=f"`{WORLDS.get(player['current_world'],{}).get('name', player['current_world'])}`", inline=True)
     embed.set_footer(text="Comando exclusivo do administrador")
     await message.channel.send(embed=embed)
 
 
 
-# ================= ADMIN COMMANDS AVANÇADOS =================
-@bot.listen("on_message")
-async def handle_admin_commands(message):
-    """Comandos admin avançados.
-    !coins @user 5000          → dá coins ao usuário
-    !item @user [nome do item] → adiciona item ao inventário
-    !equipar @user [arma]      → equipa uma arma no usuário
-    !armadura @user [armadura] → equipa uma armadura no usuário
-    !setlevel @user 50         → define o nível exato
-    !resetar @user             → reseta o personagem
-    !ver @user                 → ver perfil completo do jogador
-    !xp @user 1000             → dá XP ao usuário
-    !admin explorar @user      → força exploração para o jogador
-    !admin dar classe @user [classe] → define classe do jogador
-    !admin dar raça @user [raça]     → define raça do jogador
-    !admin curar @user         → cura totalmente o jogador
-    """
-    if message.author.bot:
-        return
-    # Admin pode usar comandos em qualquer canal do servidor ou DM
-    if message.guild and message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
-        # Permitir admin em qualquer canal do mesmo servidor
-        if message.author.id != ADMIN_ID:
-            return
-    if message.author.id != ADMIN_ID:
-        return
-
-    content = message.content.strip()
-    content_lower = content.lower()
-
-    # ── !coins @user quantidade ──────────────────────────────────────
-    if content_lower.startswith("!coins"):
-        parts = content.split()
-        if not message.mentions or len(parts) < 3:
-            await message.channel.send("❌ Uso: `!coins @user 5000`")
-            return
-        target = message.mentions[0]
-        try:
-            amount = int(parts[-1])
-        except ValueError:
-            await message.channel.send("❌ Quantidade inválida. Use: `!coins @user 5000`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        player["coins"] += amount
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="💰 ADMIN — Coins Adicionadas",
-                description=f"**{target.display_name}** recebeu `{amount:,}` CSI!\nTotal: `{player['coins']:,}` CSI",
-                color=discord.Color.gold()
-            )
-        )
-
-    # ── !item @user [nome do item] ───────────────────────────────────
-    elif content_lower.startswith("!item"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!item @user Nome do Item`")
-            return
-        target = message.mentions[0]
-        mention_str = f"<@{target.id}>"
-        item_name = content.replace("!item", "").replace(mention_str, "").replace(f"<@!{target.id}>", "").strip()
-        if not item_name:
-            await message.channel.send("❌ Uso: `!item @user Nome do Item`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        player["inventory"].append(item_name)
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🎒 ADMIN — Item Adicionado",
-                description=f"**{item_name}** adicionado ao inventário de **{target.display_name}**!",
-                color=discord.Color.green()
-            )
-        )
-
-    # ── !equipar @user [arma] ────────────────────────────────────────
-    elif content_lower.startswith("!equipar"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!equipar @user Nome da Arma`")
-            return
-        target = message.mentions[0]
-        mention_str = f"<@{target.id}>"
-        weapon_name = content.replace("!equipar", "").replace(mention_str, "").replace(f"<@!{target.id}>", "").strip()
-        if not weapon_name:
-            await message.channel.send("❌ Uso: `!equipar @user Nome da Arma`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        old_weapon = player.get("weapon")
-        player["weapon"] = weapon_name
-        # Se o item está no inventário, remove de lá
-        if weapon_name in player["inventory"]:
-            player["inventory"].remove(weapon_name)
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="⚔️ ADMIN — Arma Equipada",
-                description=f"**{target.display_name}** agora usa **{weapon_name}**!\n" +
-                            (f"*(substituiu {old_weapon})*" if old_weapon else ""),
-                color=discord.Color.red()
-            )
-        )
-
-    # ── !armadura @user [armadura] ───────────────────────────────────
-    elif content_lower.startswith("!armadura"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!armadura @user Nome da Armadura`")
-            return
-        target = message.mentions[0]
-        mention_str = f"<@{target.id}>"
-        armor_name = content.replace("!armadura", "").replace(mention_str, "").replace(f"<@!{target.id}>", "").strip()
-        if not armor_name:
-            await message.channel.send("❌ Uso: `!armadura @user Nome da Armadura`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        old_armor = player.get("armor")
-        player["armor"] = armor_name
-        if armor_name in player["inventory"]:
-            player["inventory"].remove(armor_name)
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🛡️ ADMIN — Armadura Equipada",
-                description=f"**{target.display_name}** agora veste **{armor_name}**!\n" +
-                            (f"*(substituiu {old_armor})*" if old_armor else ""),
-                color=discord.Color.blue()
-            )
-        )
-
-    # ── !setlevel @user [nível] ──────────────────────────────────────
-    elif content_lower.startswith("!setlevel"):
-        parts = content.split()
-        if not message.mentions or len(parts) < 3:
-            await message.channel.send("❌ Uso: `!setlevel @user 50`")
-            return
-        target = message.mentions[0]
-        try:
-            new_level = int(parts[-1])
-            if new_level < 1 or new_level > 600:
-                raise ValueError
-        except ValueError:
-            await message.channel.send("❌ Nível inválido (1–600). Use: `!setlevel @user 50`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        old_level = player["level"]
-        player["level"] = new_level
-        player["xp"] = 0
-        player["max_hp"] = 100 + new_level * 10
-        player["hp"] = player["max_hp"]
-        player["max_mana"] = calc_max_mana(player)
-        player["mana"] = player["max_mana"]
-        # Desbloquear todos os mundos até esse nível
-        boss_level_map_sl = {9:1, 19:10, 29:20, 39:30, 49:40, 59:50, 69:60, 79:70, 89:80, 99:90,
-                             109:100, 119:110, 129:120, 139:130, 149:140, 159:150, 169:160, 179:170, 189:180, 199:190,
-                             209:200, 219:210, 229:220, 239:230, 249:240, 259:250, 269:260, 279:270, 289:280, 299:290,
-                             309:300, 319:310, 329:320, 339:330, 349:340, 359:350, 369:360, 379:370, 389:380, 399:390,
-                             409:400, 419:410, 429:420, 439:430, 449:440, 459:450, 469:460, 479:470, 489:480, 499:490,
-                             509:500, 519:510, 529:520, 539:530, 549:540, 559:550, 569:560, 579:570, 589:580, 599:590}
-        worlds_sl = set([1])
-        for gate, wkey in boss_level_map_sl.items():
-            if gate <= new_level and wkey in WORLDS:
-                worlds_sl.add(wkey)
-        nearest_sl = max((k for k in WORLDS.keys() if k <= new_level), default=1)
-        worlds_sl.add(nearest_sl)
-        player["worlds"] = sorted(list(worlds_sl))
-        player["current_world"] = nearest_sl
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🎯 ADMIN — Nível Definido",
-                description=f"**{target.display_name}** agora está no **Nível {new_level}**!\n"
-                            f"Mundos desbloqueados: `{len(player['worlds'])}`\n"
-                            f"Mundo atual: `{WORLDS.get(nearest_sl,{}).get('name', nearest_sl)}`",
-                color=discord.Color.gold()
-            )
-        )
-
-    # ── !xp @user [quantidade] ───────────────────────────────────────
-    elif content_lower.startswith("!xp"):
-        parts = content.split()
-        if not message.mentions or len(parts) < 3:
-            await message.channel.send("❌ Uso: `!xp @user 1000`")
-            return
-        target = message.mentions[0]
-        try:
-            xp_amount = int(parts[-1])
-        except ValueError:
-            await message.channel.send("❌ Quantidade inválida. Use: `!xp @user 1000`")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        leveled = add_xp(str(target.id), xp_amount, bypass_boss_gate=True)
-        player = get_player(str(target.id))
-        embed = discord.Embed(
-            title="⭐ ADMIN — XP Adicionado",
-            description=f"**{target.display_name}** recebeu `{xp_amount:,}` XP!",
-            color=discord.Color.purple()
-        )
-        if leveled:
-            embed.add_field(name="🆙 Level Up!", value=f"Nível **{player['level']}**!", inline=True)
-        await message.channel.send(embed=embed)
-
-    # ── !resetar @user ───────────────────────────────────────────────
-    elif content_lower.startswith("!resetar"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!resetar @user`")
-            return
-        target = message.mentions[0]
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        # Cria um personagem novo do zero
-        new_player = {
-            "level": 1, "xp": 0, "hp": 100, "max_hp": 100, "coins": 0,
-            "inventory": [], "weapon": None, "armor": None, "worlds": [1],
-            "bosses": [], "class": None, "pet": None, "guild_id": None,
-            "active_effects": {}, "active_quest": None, "completed_quests": [],
-            "mana": 50, "max_mana": 50, "pvp_battles": {}, "alignment_points": 0,
-            "pet_farm": [], "discovered_map": {}, "job": None, "job_since": 0,
-            "city_title": None, "knights": [], "last_work": 0, "last_defend": 0,
-            "achievements": [], "training_points": 0, "temp_atk_boost": 0,
-            "temp_def_boost": 0, "temp_hp_boost": 0, "level_boss_attempts": {},
-            "monsters_killed": 0, "bosses_defeated": 0, "total_coins_earned": 0,
-            "total_xp_earned": 0, "areas_explored": 0, "dungeons_completed": 0,
-            "mana_category": "none", "spell_book_unlocked": 0, "afk_farming": 0,
-            "afk_start": 0, "kingdom_data": None, "pets_list": [], "race": None,
-            "specialization": None, "class_tier": 0, "supreme_skills": [],
-            "race_stage": 0, "mount": None, "bio": "", "last_force_entry": 0,
-            "job_works": {}, "cronicas": [], "last_cronica": 0, "current_world": 1,
-        }
-        save_player_db(str(target.id), new_player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🔄 ADMIN — Personagem Resetado",
-                description=f"O personagem de **{target.display_name}** foi completamente resetado!\n*Começa do nível 1.*",
-                color=discord.Color.dark_red()
-            )
-        )
-
-    # ── !ver @user ───────────────────────────────────────────────────
-    elif content_lower.startswith("!ver") and message.mentions:
-        target = message.mentions[0]
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        embed = discord.Embed(
-            title=f"👤 ADMIN — Perfil de {target.display_name}",
-            color=discord.Color.blurple()
-        )
-        embed.add_field(name="⚡ Nível", value=f"`{player['level']}`", inline=True)
-        embed.add_field(name="⭐ XP", value=f"`{player['xp']:,}`", inline=True)
-        embed.add_field(name="💰 Coins", value=f"`{player['coins']:,}`", inline=True)
-        embed.add_field(name="❤️ HP", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
-        embed.add_field(name="🎭 Classe", value=f"`{player.get('class','Nenhuma')}`", inline=True)
-        embed.add_field(name="🧬 Raça", value=f"`{player.get('race','Nenhuma')}`", inline=True)
-        embed.add_field(name="⚔️ Arma", value=f"`{player.get('weapon','Nenhuma')}`", inline=True)
-        embed.add_field(name="🛡️ Armadura", value=f"`{player.get('armor','Nenhuma')}`", inline=True)
-        embed.add_field(name="🌍 Mundo Atual", value=f"`{WORLDS.get(player.get('current_world',1),{}).get('name','?')}`", inline=True)
-        embed.add_field(name="🗺️ Mundos", value=f"`{len(player.get('worlds',[1]))}` desbloqueados", inline=True)
-        embed.add_field(name="🎒 Inventário", value=f"`{len(player.get('inventory',[]))}` itens", inline=True)
-        embed.add_field(name="💀 Bosses", value=f"`{player.get('bosses_defeated',0)}` derrotados", inline=True)
-        await message.channel.send(embed=embed)
-
-    # ── !admin help ──────────────────────────────────────────────────
-    elif content_lower in ["!admin", "!admin help", "!adminhelp"]:
-        embed = discord.Embed(
-            title="⚙️ ADMIN — Comandos Disponíveis",
-            color=discord.Color.dark_gold()
-        )
-        embed.add_field(name="📈 Level", value="`!admin upar @user [N]` — +N níveis\n`!setlevel @user [N]` — define nível exato", inline=False)
-        embed.add_field(name="💰 Economia", value="`!coins @user [N]` — adiciona coins\n`!xp @user [N]` — adiciona XP", inline=False)
-        embed.add_field(name="🎒 Itens", value="`!item @user [nome]` — add item ao inventário\n`!equipar @user [arma]` — equipa arma\n`!armadura @user [armadura]` — equipa armadura", inline=False)
-        embed.add_field(name="👤 Perfil", value="`!ver @user` — ver perfil completo\n`!resetar @user` — resetar personagem", inline=False)
-        embed.add_field(name="⚔️ Extras", value="`!admin explorar @user` — explorar pelo jogador\n`!admin curar @user` — cura total\n`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça\n`!admin coins todos [N]` — dá coins a todos os jogadores", inline=False)
-        embed.set_footer(text="Comandos exclusivos do administrador — funcionam em qualquer canal")
-        await message.channel.send(embed=embed)
-
-    # ── !admin explorar @user ────────────────────────────────────────
-    elif content_lower.startswith("!admin explorar"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!admin explorar @user`")
-            return
-        target = message.mentions[0]
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        world = get_world(player["level"], player)
-        roll = random.randint(6, 10)  # Admin sempre garante bom resultado
-        xp = random.randint(80, 160)
-        resources = random.sample(world["resources"], min(2, len(world["resources"])))
-        coins_gain = random.randint(30, 80)
-        for r in resources:
-            player["inventory"].append(r)
-        save_player_db(str(target.id), player)
-        leveled = add_xp(str(target.id), xp)
-        add_coins(str(target.id), coins_gain)
-        player_after = get_player(str(target.id))
-        items_text = " | ".join([f"**{r}**" for r in resources])
-        embed = discord.Embed(
-            title=f"⚡ ADMIN EXPLORAÇÃO — {target.display_name}",
-            description=f"*Exploração forçada pelo administrador em {world['name']}*",
-            color=discord.Color.gold()
-        )
-        embed.add_field(name="📦 Recursos", value=items_text, inline=False)
-        embed.add_field(name="⭐ XP", value=f"+{xp}", inline=True)
-        embed.add_field(name="💰 Coins", value=f"+{coins_gain}", inline=True)
-        if leveled:
-            embed.add_field(name="🆙 Level Up!", value=f"Nível **{player_after['level']}**!", inline=False)
-        embed.set_footer(text="Comando exclusivo do administrador")
-        await message.channel.send(embed=embed)
-
-    # ── !admin curar @user ───────────────────────────────────────────
-    elif content_lower.startswith("!admin curar"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!admin curar @user`")
-            return
-        target = message.mentions[0]
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        player["hp"] = player["max_hp"]
-        player["mana"] = player["max_mana"]
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="💚 ADMIN — Cura Total",
-                description=f"**{target.display_name}** foi curado completamente!\n❤️ HP: `{player['hp']}/{player['max_hp']}` | 💙 Mana: `{player['mana']}/{player['max_mana']}`",
-                color=discord.Color.green()
-            )
-        )
-
-    # ── !admin dar classe @user [classe] ────────────────────────────
-    elif content_lower.startswith("!admin dar classe"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!admin dar classe @user [nome da classe]`")
-            return
-        target = message.mentions[0]
-        # Pegar o nome da classe (depois do @mention)
-        raw = content.replace("!admin dar classe", "").strip()
-        for mention_str in [f"<@{target.id}>", f"<@!{target.id}>"]:
-            raw = raw.replace(mention_str, "").strip()
-        class_name = raw.strip()
-        if not class_name:
-            classes_list = ", ".join(CLASSES.keys())
-            await message.channel.send(f"❌ Informe a classe. Classes disponíveis:\n`{classes_list}`")
-            return
-        # Busca case-insensitive
-        found_class = None
-        for cn in CLASSES.keys():
-            if class_name.lower() == cn.lower():
-                found_class = cn
-                break
-        if not found_class:
-            # Busca parcial
-            for cn in CLASSES.keys():
-                if class_name.lower() in cn.lower():
-                    found_class = cn
-                    break
-        if not found_class:
-            await message.channel.send(f"❌ Classe `{class_name}` não encontrada. Use `!admin` para ver os comandos.")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        player["class"] = found_class
-        cd = CLASSES[found_class]
-        player["max_hp"] = player["max_hp"] + cd["hp_bonus"]
-        player["hp"] = player["max_hp"]
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🎭 ADMIN — Classe Definida",
-                description=f"**{target.display_name}** agora é **{cd['emoji']} {found_class}**!",
-                color=discord.Color.purple()
-            )
-        )
-
-    # ── !admin dar raça @user [raça] ────────────────────────────────
-    elif content_lower.startswith("!admin dar raça") or content_lower.startswith("!admin dar raca"):
-        if not message.mentions:
-            await message.channel.send("❌ Uso: `!admin dar raça @user [nome da raça]`")
-            return
-        target = message.mentions[0]
-        raw = content.lower().replace("!admin dar raça", "").replace("!admin dar raca", "").strip()
-        for mention_str in [f"<@{target.id}>", f"<@!{target.id}>"]:
-            raw = raw.replace(mention_str, "").strip()
-        race_name = raw.strip()
-        if not race_name:
-            races_list = ", ".join(RACES.keys())
-            await message.channel.send(f"❌ Informe a raça. Raças disponíveis:\n`{races_list}`")
-            return
-        found_race = None
-        for rn in RACES.keys():
-            if race_name.lower() == rn.lower():
-                found_race = rn
-                break
-        if not found_race:
-            for rn in RACES.keys():
-                if race_name.lower() in rn.lower():
-                    found_race = rn
-                    break
-        if not found_race:
-            await message.channel.send(f"❌ Raça `{race_name}` não encontrada.")
-            return
-        player = get_player(str(target.id))
-        if not player:
-            await message.channel.send(f"❌ {target.display_name} não tem personagem!")
-            return
-        player["race"] = found_race
-        rd = RACES[found_race]
-        player["max_hp"] = player["max_hp"] + rd["hp_bonus"]
-        player["hp"] = player["max_hp"]
-        save_player_db(str(target.id), player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="🧬 ADMIN — Raça Definida",
-                description=f"**{target.display_name}** agora é **{rd['emoji']} {found_race}**!\n{rd['description']}",
-                color=discord.Color.teal()
-            )
-        )
-
-    # ── !admin coins todos [N] ───────────────────────────────────────
-    elif content_lower.startswith("!admin coins todos"):
-        parts = content.split()
-        try:
-            amount = int(parts[-1])
-        except (ValueError, IndexError):
-            await message.channel.send("❌ Uso: `!admin coins todos 500`")
-            return
-        conn_a = sqlite3.connect(DB_FILE)
-        c_a = conn_a.cursor()
-        c_a.execute("SELECT user_id FROM players")
-        all_uids = [row[0] for row in c_a.fetchall()]
-        conn_a.close()
-        for puid in all_uids:
-            p = get_player(puid)
-            if p:
-                p["coins"] += amount
-                save_player_db(puid, p)
-        await message.channel.send(
-            embed=discord.Embed(
-                title="💰 ADMIN — Coins Para Todos",
-                description=f"**{len(all_uids)} jogadores** receberam `{amount:,}` CSI coins cada!",
-                color=discord.Color.gold()
-            )
-        )
+# ================= BATALHA DE PETS =================
 # Desafios pendentes: {challenger_id: {"target_id": ..., "pet_name": ..., "timestamp": ...}}
 PET_BATTLE_CHALLENGES = {}
 
@@ -20235,9 +19662,8 @@ async def handle_mundo_proprio(message):
                 await message.channel.send(f"🌍 {message.author.mention} Você já tem um mundo próprio: {ch.mention}!")
                 return
             else:
-                # Canal foi deletado, limpar do dicionário e banco
+                # Canal foi deletado, limpar do dicionário
                 del MUNDO_PROPRIO_CHANNELS[uid]
-                delete_mundo_proprio_channel(uid)
 
         # Categoria: ╭━━━━━✦Monstrinho (ID: 1471273874204397578)
         CATEGORIA_ID = 1471273874204397578
@@ -20282,7 +19708,6 @@ async def handle_mundo_proprio(message):
                 )
 
             MUNDO_PROPRIO_CHANNELS[uid] = novo_canal.id
-            save_mundo_proprio_channel(uid, novo_canal.id)  # Persistir no banco
 
             embed = discord.Embed(
                 title="🌍 SEU MUNDO FOI CRIADO!",
@@ -20968,7 +20393,7 @@ async def handle_dialogar_npc(message):
 
     if not npc_key or npc_key not in NPC_DIALOGUES_EXTENDED:
         # Tentar encontrar em CITY_NPCS
-        world_key = player.get("current_world") or max(k for k in player.get("worlds", [1]))
+        world_key = max(k for k in player.get("worlds", [1]))
         city_data = CITY_NPCS.get(world_key, {})
         npcs_list = city_data.get("npcs", [])
         found_npc = None
