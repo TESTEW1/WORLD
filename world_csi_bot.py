@@ -20464,12 +20464,92 @@ async def on_message(message):
                         ),
                         inline=False
                     )
-                    encounter_embed.set_footer(text="💡 Use 'aceitar quest lendária' para iniciar a missão!")
-                    await message.channel.send(embed=encounter_embed)
+                    encounter_embed.set_footer(text="💡 Clique no botão abaixo para aceitar a missão!")
 
                     # Guardar NPC pendente no player para poder aceitar
                     p_check["active_effects"]["pending_legendary_npc"] = npc_data["id"]
                     save_player_db(user_id, p_check)
+
+                    class LegendaryQuestView(discord.ui.View):
+                        def __init__(self, uid, npc):
+                            super().__init__(timeout=120)
+                            self.uid = uid
+                            self.npc = npc
+                            self.accepted = False
+
+                        @discord.ui.button(label="⚔️ Aceitar Quest Lendária!", style=discord.ButtonStyle.success, emoji="🌟")
+                        async def accept_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+                            if str(interaction.user.id) != str(self.uid):
+                                await interaction.response.send_message("❌ Esta quest não é sua!", ephemeral=True)
+                                return
+                            if self.accepted:
+                                await interaction.response.send_message("⚠️ Você já aceitou esta quest!", ephemeral=True)
+                                return
+                            self.accepted = True
+                            player_btn = get_player(self.uid)
+                            pending_id = player_btn.get("active_effects", {}).get("pending_legendary_npc")
+                            if not pending_id:
+                                await interaction.response.send_message("❌ Quest expirou ou já foi aceita.", ephemeral=True)
+                                return
+                            if player_btn.get("active_quest"):
+                                await interaction.response.send_message(
+                                    f"⚠️ Você já tem uma quest ativa: **{player_btn['active_quest']['name']}**\nConclua-a primeiro!",
+                                    ephemeral=True
+                                )
+                                return
+                            quest = self.npc["quest"]
+                            quest_obj = dict(quest)
+                            quest_obj["npc"] = self.npc["name"]
+                            quest_obj["lore"] = self.npc["lore"]
+                            quest_obj["difficulty"] = "Lendário"
+                            quest_obj["progress"] = 0
+                            player_btn["active_quest"] = quest_obj
+                            effects = player_btn.get("active_effects", {})
+                            effects.pop("pending_legendary_npc", None)
+                            player_btn["active_effects"] = effects
+                            save_player_db(self.uid, player_btn)
+                            obj_text = {
+                                "hunt": f"🗡️ Derrote {quest['count']}x **{quest.get('target','inimigos')}** | Progresso: `0/{quest['count']}`",
+                                "collect": f"🌿 Colete **{quest['count']} recursos** | Progresso: `0/{quest['count']}`",
+                                "explore": f"🗺️ Explore **{quest['count']} vezes** | Progresso: `0/{quest['count']}`",
+                            }.get(quest["objective"], f"Objetivo: {quest['count']}")
+                            accept_embed = discord.Embed(
+                                title=f"{self.npc['emoji']} Quest Lendária Aceita!",
+                                description=f"*{self.npc['name']} te olha nos olhos e diz:*\n\n*\"{random.choice(self.npc['dialogues'])}\"*",
+                                color=0xFFD700
+                            )
+                            accept_embed.add_field(name="🎯 Missão", value=quest["name"], inline=False)
+                            accept_embed.add_field(name="📋 Objetivo", value=obj_text, inline=False)
+                            accept_embed.add_field(name="⭐ XP", value=f"`{quest['reward_xp']:,}`", inline=True)
+                            accept_embed.add_field(name="💰 Coins", value=f"`{quest['reward_coins']:,}`", inline=True)
+                            accept_embed.add_field(name="🏆 Recompensa Especial", value=f"**{self.npc['name']} entra para sua equipe permanentemente!**", inline=False)
+                            accept_embed.set_footer(text=f"💡 Dica: {self.npc['rescue_message']}")
+                            for child in self.children:
+                                child.disabled = True
+                            await interaction.response.edit_message(view=self)
+                            await interaction.followup.send(embed=accept_embed)
+
+                        @discord.ui.button(label="Ignorar", style=discord.ButtonStyle.secondary, emoji="🚶")
+                        async def ignore_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+                            if str(interaction.user.id) != str(self.uid):
+                                await interaction.response.send_message("❌ Esta não é sua decisão!", ephemeral=True)
+                                return
+                            player_btn = get_player(self.uid)
+                            effects = player_btn.get("active_effects", {})
+                            effects.pop("pending_legendary_npc", None)
+                            player_btn["active_effects"] = effects
+                            save_player_db(self.uid, player_btn)
+                            for child in self.children:
+                                child.disabled = True
+                            await interaction.response.edit_message(view=self)
+                            await interaction.followup.send(f"*{self.npc['name']} te olha partir com tristeza nos olhos...*\n\n💨 Você ignorou o encontro.", ephemeral=True)
+
+                        async def on_timeout(self):
+                            for child in self.children:
+                                child.disabled = True
+
+                    view = LegendaryQuestView(str(user_id), npc_data)
+                    await message.channel.send(embed=encounter_embed, view=view)
 
         await check_achievements(message.channel, user_id)
         await check_level_boss(message.channel, user_id)
