@@ -10597,13 +10597,18 @@ LEGENDARY_NPCS = {
     },
 }
 
-def get_legendary_npc_for_player(player_level):
-    """Retorna o NPC lendário mais adequado ao nível atual do jogador"""
-    npc_levels = sorted(LEGENDARY_NPCS.keys())
-    best = 1
-    for lvl in npc_levels:
-        if player_level >= lvl - 15:
-            best = lvl
+def get_legendary_npc_for_player(player_level, current_world=None):
+    """Retorna o NPC lendário do reino atual do jogador.
+    Usa current_world (mundo atual) como chave direta.
+    Se não existir NPC exato para aquele reino, pega o mais próximo abaixo."""
+    npc_keys = sorted(LEGENDARY_NPCS.keys())
+    reino = current_world if current_world is not None else player_level
+    best = npc_keys[0]
+    for k in npc_keys:
+        if k <= reino:
+            best = k
+        else:
+            break
     return LEGENDARY_NPCS.get(best)
 
 def calculate_npc_stats(npc_data, player_level):
@@ -20431,7 +20436,8 @@ async def on_message(message):
         if random.random() < 0.08:
             await asyncio.sleep(1)
             p_check = get_player(user_id)
-            npc_data = get_legendary_npc_for_player(p_check["level"])
+            current_world = p_check.get("current_world") or max(p_check.get("worlds", [1]))
+            npc_data = get_legendary_npc_for_player(p_check["level"], current_world=int(current_world))
             if npc_data:
                 quest_id = npc_data["quest"]["id"]
                 already_companion = p_check.get("legendary_companion") == npc_data["id"]
@@ -20477,7 +20483,7 @@ async def on_message(message):
                             self.npc = npc
                             self.accepted = False
 
-                        @discord.ui.button(label="⚔️ Aceitar Quest Lendária!", style=discord.ButtonStyle.success, emoji="🌟")
+                        @discord.ui.button(label="Aceitar Quest Lendária!", style=discord.ButtonStyle.success, emoji="🌟")
                         async def accept_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
                             if str(interaction.user.id) != str(self.uid):
                                 await interaction.response.send_message("❌ Esta quest não é sua!", ephemeral=True)
