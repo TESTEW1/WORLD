@@ -11856,7 +11856,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     boss_intro_text = random.choice(boss_intro_pool)
 
     if is_level_boss:
-        intro_title = f"🚨 BOSS DE NÍVEL {player['level']} — CONFRONTO ÉPICO!"
+        intro_title = f"🚨 BOSS DE NÍVEL {boss_data.get('level', player['level'])} — CONFRONTO ÉPICO!"
         intro_color = discord.Color.from_rgb(200, 0, 50)
     elif is_dungeon:
         intro_title = f"💀 GUARDIÃO DA MASMORRA — {boss_data['name']}!"
@@ -14058,7 +14058,7 @@ async def on_message(message):
         save_player_db(user_id, player)
 
         color = discord.Color.dark_red() if is_level_boss else discord.Color.red()
-        title = "🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!" if is_level_boss else "⚔️ BOSS ENCONTRADO!"
+        title = f"🚨 BOSS DE NÍVEL {boss_data.get('level', '?')} — PASSAGEM BLOQUEADA!" if is_level_boss else "⚔️ BOSS ENCONTRADO!"
         desc_extra = "\n\n⚠️ **Derrote-o para desbloquear o próximo reino e desbloquear o XP!**" if is_level_boss else ""
 
         embed = discord.Embed(
@@ -16287,7 +16287,7 @@ async def check_level_boss(channel, user_id):
 
             await asyncio.sleep(2)
             embed = discord.Embed(
-                title="🚨 BOSS DE NÍVEL — PASSAGEM BLOQUEADA!",
+                title=f"🚨 BOSS DE NÍVEL {boss_data.get('level', '?')} — PASSAGEM BLOQUEADA!",
                 description=f"*'Um poder colossal bloqueia seu caminho...'*\n\n👹 **{boss_data['name']}** surge para impedir seu avanço!\n\n⚠️ **Seu XP está BLOQUEADO até você derrotá-lo!**\n*'Não há glória sem superar os grandes obstáculos!'*",
                 color=discord.Color.dark_red()
             )
