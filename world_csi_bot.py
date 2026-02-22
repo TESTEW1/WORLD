@@ -9977,6 +9977,15 @@ class BossButton(discord.ui.View):
             except Exception:
                 pass
 
+        # Buscar nomes reais dos aliados via Discord
+        guild_ally_names = []
+        for _aid in guild_allies:
+            try:
+                _au = await bot.fetch_user(int(_aid))
+                guild_ally_names.append(_au.display_name)
+            except:
+                guild_ally_names.append(str(_aid))
+
         _ally_text = ""
         if guild_ally_names:
             _ally_text = f"\n\n🛡️ **Aliados da guilda convocados automaticamente:** {', '.join(guild_ally_names[:5])}"
@@ -10066,6 +10075,15 @@ class RevengeTrainingView(discord.ui.View):
                                 _r_names.append(_rap.get("name", str(_rm)))
             except Exception:
                 pass
+
+        # Buscar nomes reais dos aliados via Discord
+        _r_names = []
+        for _rid in _r_allies:
+            try:
+                _rau = await bot.fetch_user(int(_rid))
+                _r_names.append(_rau.display_name)
+            except:
+                _r_names.append(str(_rid))
 
         _r_ally_text = ""
         if _r_names:
@@ -11672,20 +11690,20 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
         boss_gate_levels = {9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149, 159, 169, 179, 189, 199, 209, 219, 229, 239, 249, 259, 269, 279, 289, 299, 309, 319, 329, 339, 349, 359, 369, 379, 389, 399, 409, 419, 429, 439, 449, 459, 469, 479, 489, 499, 509, 519, 529, 539, 549, 559, 569, 579, 589, 599}
 
-        # CORREÇÃO BUG: Se o jogador está num nivel de boss gate e o boss correto nao foi derrotado,
-        # SEMPRE usar o boss do level — ignorar pending_boss desatualizado.
-        if player["level"] in boss_gate_levels:
+        # LÓGICA DE BOSS:
+        # 1. Se tem pending_boss explícito (jogador escolheu via "confrontar/desafiar boss do level X"), usar ele
+        # 2. Se está em boss gate e NÃO derrotou o boss do level atual, forçar o boss correto
+        # 3. Caso contrário, boss do mundo atual
+        if pending_boss:
+            boss_data = pending_boss
+        elif player["level"] in boss_gate_levels:
             correct_boss = get_level_boss(player["level"])
             if correct_boss and correct_boss["name"] not in player.get("bosses", []):
                 boss_data = correct_boss
-            elif pending_boss:
-                boss_data = pending_boss
             else:
                 world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
-        elif pending_boss:
-            boss_data = pending_boss
         else:
             world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
             boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
@@ -12058,13 +12076,16 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             ally_battle_cry = random.choice(ALLY_BATTLE_CRIES.get(ally_cls, ALLY_BATTLE_CRIES["default"]))
 
             # Dano do aliado baseado no nível e classe
+            # atk = atk_bonus_classe + level*2, multiplicado pela habilidade usada
             ally_base_atk = ally_data["atk"]
-            ally_is_crit = random.random() < 0.15
+            ally_level = ally_data["level"]
+            ally_is_crit = random.random() < 0.20
             ally_dmg_raw = int(ally_base_atk * ally_mult)
             if ally_is_crit:
                 ally_dmg_raw = int(ally_dmg_raw * 1.7)
-            ally_boss_def = max(0, boss_atk // 5)
-            ally_dmg = max(1, ally_dmg_raw - ally_boss_def)
+            # Defesa do boss reduzida para aliados (não penalizar muito aliados de level menor)
+            ally_boss_def = max(0, boss_atk // 8)
+            ally_dmg = max(ally_level * 2, ally_dmg_raw - ally_boss_def)
 
             boss_cur_hp -= ally_dmg
             total_ally_dmg += ally_dmg
