@@ -17999,11 +17999,29 @@ async def handle_new_commands(message):
         inv = player.get("inventory", [])
         scrolls = [i for i in inv if isinstance(i, dict) and i.get("type") == "scroll"]
 
+        cronicas = player.get("cronicas", [])
+
         embed = discord.Embed(
             title=f"📚 Biblioteca de {message.author.display_name}",
-            description="*Seus registros do conhecimento do mundo...*",
+            description="*O conhecimento acumulado ao longo da sua jornada.*",
             color=discord.Color.from_rgb(180, 120, 60)
         )
+
+        # Crônicas
+        if cronicas:
+            from datetime import datetime
+            cron_lines = []
+            for c in cronicas[-8:]:
+                data_str = datetime.fromtimestamp(c["data"]).strftime("%d/%m %H:%M")
+                texto_preview = c["texto"][:80] + ("..." if len(c["texto"]) > 80 else "")
+                cron_lines.append(f'📜 *"{texto_preview}"* — `{data_str}`')
+            cron_txt = "\n".join(cron_lines)
+            if len(cronicas) > 8:
+                cron_txt += f"\n*...e mais {len(cronicas)-8} crônicas*"
+            embed.add_field(name=f"📜 Crônicas ({len(cronicas)})", value=cron_txt, inline=False)
+        else:
+            embed.add_field(name="📜 Crônicas (0)", value="*Nenhuma crônica registrada ainda. Use `crônica [texto]`.*", inline=False)
+
         # Livros
         if livros:
             livros_txt = "\n".join([f"📖 **{l['nome']}** _(adicionado: {l['data']})_" for l in livros[-10:]])
@@ -18011,7 +18029,7 @@ async def handle_new_commands(message):
                 livros_txt += f"\n*...e mais {len(livros)-10} livros*"
             embed.add_field(name=f"📚 Livros ({len(livros)})", value=livros_txt, inline=False)
         else:
-            embed.add_field(name="📚 Livros (0)", value="*Nenhum livro armazenado. Use `armazenar livro [nome]`*", inline=False)
+            embed.add_field(name="📚 Livros (0)", value="*Nenhum. Use `armazenar livro [nome]`*", inline=False)
 
         # Pergaminhos
         if scrolls:
@@ -18027,7 +18045,7 @@ async def handle_new_commands(message):
         else:
             embed.add_field(name="🗣️ Falas de NPCs (0)", value="*Nenhuma. Use `registrar npc [nome] [fala]`*", inline=False)
 
-        embed.set_footer(text="Comandos: 'armazenar livro [nome]' | 'coletar pergaminho' | 'registrar npc [nome] [fala]'")
+        embed.set_footer(text="Use 'crônica [texto]' | 'armazenar livro [nome]' | 'coletar pergaminho' | 'registrar npc [nome] [fala]'")
         await message.channel.send(embed=embed)
         return
 
