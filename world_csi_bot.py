@@ -9946,17 +9946,14 @@ class BossButton(discord.ui.View):
         self.boss_name = boss_name
         self.answered = False
 
-    @discord.ui.button(label="Enfrentar Sozinho", style=discord.ButtonStyle.red, emoji="⚔️")
+    @discord.ui.button(label="Enfrentar", style=discord.ButtonStyle.red, emoji="⚔️")
     async def fight(self, interaction: discord.Interaction, button: discord.ui.Button):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Esse não é seu boss!", ephemeral=True)
         if self.answered:
             return
         self.answered = True
-        await interaction.response.edit_message(
-            content=f"⚔️ **Você avança em direção ao {self.boss_name}!**\n\n*A batalha épica começa...*", view=None
-        )
-        await asyncio.sleep(2)
+
         # AUTO-CONVOCAR membros da mesma guilda como aliados
         player = get_player(self.user_id)
         guild_allies = []
@@ -9982,13 +9979,17 @@ class BossButton(discord.ui.View):
 
         _ally_text = ""
         if guild_ally_names:
-            _ally_text = f"\n\n🛡️ **Aliados da guilda convocados:** {', '.join(guild_ally_names[:5])}"
+            _ally_text = f"\n\n🛡️ **Aliados da guilda convocados automaticamente:** {', '.join(guild_ally_names[:5])}"
 
+        # Edita a mensagem UMA SÓ VEZ e pega o canal antes de deferir
+        channel = interaction.channel
         await interaction.response.edit_message(
-            content=f"⚔️ **Você avança em direção ao {self.boss_name}!**{_ally_text}\n\n*A batalha épica começa...*", view=None
+            content=f"⚔️ **Você avança em direção ao {self.boss_name}!**{_ally_text}\n\n*A batalha épica começa...*",
+            view=None
         )
         await asyncio.sleep(2)
-        await fight_boss(interaction.channel, self.user_id, allies=guild_allies if guild_allies else None)
+        await fight_boss(channel, self.user_id, allies=guild_allies if guild_allies else None)
+
 
     @discord.ui.button(label="Chamar Aliados", style=discord.ButtonStyle.blurple, emoji="👥")
     async def call_allies(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -10045,19 +10046,15 @@ class RevengeTrainingView(discord.ui.View):
         effects["used_revenge"] = True
         player["active_effects"] = effects
         save_player_db(self.user_id, player)
-        await interaction.response.edit_message(
-            content=f"🔥 **A raiva te toma! Você avança novamente contra {self.boss_data['name']}!**\n\n*'O ódio pode ser a maior das forças!'*",
-            view=None
-        )
-        await asyncio.sleep(2)
+
         # AUTO-CONVOCAR membros da guilda na revanche
-        _r_player = get_player(self.user_id)
         _r_allies = []
-        if _r_player and _r_player.get("guild_id"):
+        _r_names = []
+        if player.get("guild_id"):
             try:
                 _rc = sqlite3.connect(DB_FILE)
                 _rcc = _rc.cursor()
-                _rcc.execute("SELECT members FROM guilds WHERE id = ?", (_r_player["guild_id"],))
+                _rcc.execute("SELECT members FROM guilds WHERE id = ?", (player["guild_id"],))
                 _rrow = _rcc.fetchone()
                 _rc.close()
                 if _rrow:
@@ -10066,9 +10063,21 @@ class RevengeTrainingView(discord.ui.View):
                             _rap = get_player(str(_rm))
                             if _rap and _rap.get("hp", 0) > 0:
                                 _r_allies.append(str(_rm))
+                                _r_names.append(_rap.get("name", str(_rm)))
             except Exception:
                 pass
-        await fight_boss(interaction.channel, self.user_id, allies=_r_allies if _r_allies else None)
+
+        _r_ally_text = ""
+        if _r_names:
+            _r_ally_text = f"\n\n🛡️ **Aliados convocados:** {', '.join(_r_names[:5])}"
+
+        channel = interaction.channel
+        await interaction.response.edit_message(
+            content=f"🔥 **A raiva te toma! Você avança novamente contra {self.boss_data['name']}!**{_r_ally_text}\n\n*'O ódio pode ser a maior das forças!'*",
+            view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(channel, self.user_id, allies=_r_allies if _r_allies else None)
 
     @discord.ui.button(label="🏋️ Treinamento", style=discord.ButtonStyle.green, emoji="💪")
     async def training(self, interaction: discord.Interaction, button: discord.ui.Button):
