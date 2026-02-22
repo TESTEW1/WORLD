@@ -9121,12 +9121,16 @@ def get_world_cycle(level):
 def get_world(level, player=None):
     """Retorna o mundo atual do jogador. Respeita current_world se o jogador viajou."""
     if player:
+        # Normaliza worlds para lista de ints
+        worlds_int = [int(w) for w in player.get("worlds", [1])]
         # Se o jogador viajou para um mundo específico, usar esse
         cw = player.get("current_world")
-        if cw and cw in WORLDS and cw in player.get("worlds", [1]):
-            return WORLDS[cw]
+        if cw is not None:
+            cw = int(cw)
+            if cw in WORLDS and cw in worlds_int:
+                return WORLDS[cw]
         # Caso contrário, maior mundo desbloqueado
-        available = sorted([k for k in WORLDS.keys() if k in player.get("worlds", [1])], reverse=True)
+        available = sorted([k for k in WORLDS.keys() if k in worlds_int], reverse=True)
     else:
         levels = sorted([k for k in WORLDS.keys() if k <= level], reverse=True)
         available = levels
@@ -15471,6 +15475,34 @@ async def on_message(message):
             if player.get("class") == "Druida":
                 player["hp"] = min(player["hp"] + random.randint(20, 40), player["max_hp"])
 
+            # Chance de drop de equipamento (10% arma, 10% armadura)
+            equip_drop_text = ""
+            if random.random() < 0.10:
+                _rarity_roll = random.random()
+                if _rarity_roll < 0.60:
+                    _pool = [w for w in ITEMS["weapons"] if w["rarity"] == "Comum"]
+                elif _rarity_roll < 0.90:
+                    _pool = [w for w in ITEMS["weapons"] if w["rarity"] == "Incomum"]
+                else:
+                    _pool = [w for w in ITEMS["weapons"] if w["rarity"] == "Raro"]
+                if _pool:
+                    _equip = random.choice(_pool)
+                    player["inventory"].append(_equip["name"])
+                    equip_drop_text += f"\n🗡️ **{_equip['name']}** ({_equip['rarity']}) caiu do chão!"
+            if random.random() < 0.10:
+                _rarity_roll = random.random()
+                if _rarity_roll < 0.60:
+                    _pool = [a for a in ITEMS["armor"] if a["rarity"] == "Comum"]
+                elif _rarity_roll < 0.90:
+                    _pool = [a for a in ITEMS["armor"] if a["rarity"] == "Incomum"]
+                else:
+                    _pool = [a for a in ITEMS["armor"] if a["rarity"] == "Raro"]
+                if _pool:
+                    _equip = random.choice(_pool)
+                    player["inventory"].append(_equip["name"])
+                    equip_drop_text += f"\n🛡️ **{_equip['name']}** ({_equip['rarity']}) encontrado!"
+            save_player_db(user_id, player)
+
             # Dungeon secreta ao minerar (chance maior em 9-10)
             secret_found = False
             if "secret_dungeons" in world and random.random() < 0.2:
@@ -15484,7 +15516,7 @@ async def on_message(message):
 
             save_player_db(user_id, player)
             items_text = "\n".join([f"• **{r}**" for r in resources])
-            embed.add_field(name="✨ Coleta Abundante!", value=f"*'Uma descoberta magnífica!'*\n\n{items_text}", inline=False)
+            embed.add_field(name="✨ Coleta Abundante!", value=f"*'Uma descoberta magnífica!'*\n\n{items_text}{equip_drop_text}", inline=False)
             embed.color = discord.Color.gold()
 
             # Progresso quest
@@ -17337,7 +17369,7 @@ async def handle_new_commands(message):
             return
         # Registrar viagem — salva current_world para explorar no reino certo
         player["worlds"] = worlds  # mantém tudo que já tem
-        player["current_world"] = found_world
+        player["current_world"] = int(found_world)  # sempre int
         save_player_db(uid, player)
         world_name = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
         embed = discord.Embed(
@@ -18315,43 +18347,104 @@ async def handle_afk_farm(message):
     content = message.content.lower().strip()
     uid = str(message.author.id)
 
-    if content in ["farm afk", "iniciar afk", "afk", "modo afk"]:
+    if content in ["farm afk", "iniciar afk", "afk", "modo afk", "coletar auto", "auto coletar", "coleta automatica", "coleta automática"]:
         player = get_player(uid)
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
         if player.get("afk_farming"):
-            # Coletar XP acumulado
+            # Coletar tudo acumulado
             elapsed = int(time.time()) - player.get("afk_start", int(time.time()))
-            minutes = elapsed // 60
-            # 1 XP por minuto (bem pouco, como pedido)
-            xp_earned = max(1, min(minutes * 1, 200))  # máx 200 XP por sessão
+            minutes = max(1, elapsed // 60)
+            hours = elapsed // 3600
+
+            # XP: 2 por minuto, máx 600
+            xp_earned = max(1, min(minutes * 2, 600))
+
+            # Coins: 1 por minuto, máx 300
+            coins_earned = max(1, min(minutes * 1, 300))
+
+            # Recursos: 1 por 5 minutos, máx 20
+            world = get_world(player["level"], player)
+            resources_found = []
+            resource_count = min(minutes // 5, 20)
+            for _ in range(resource_count):
+                if world.get("resources"):
+                    resources_found.append(random.choice(world["resources"]))
+
+            # Equipamentos: chance crescente com tempo (1% por hora, máx 15%)
+            equip_found = []
+            equip_chance = min(0.01 * max(1, hours), 0.15)
+            for _try in range(2):  # tenta arma e armadura
+                if random.random() < equip_chance:
+                    _is_weapon = (_try == 0)
+                    _pool_all = ITEMS["weapons"] if _is_weapon else ITEMS["armor"]
+                    _r = random.random()
+                    if _r < 0.60:
+                        _pool = [i for i in _pool_all if i["rarity"] == "Comum"]
+                    elif _r < 0.90:
+                        _pool = [i for i in _pool_all if i["rarity"] == "Incomum"]
+                    else:
+                        _pool = [i for i in _pool_all if i["rarity"] == "Raro"]
+                    if _pool:
+                        _item = random.choice(_pool)
+                        equip_found.append(_item)
+                        resources_found.append(_item["name"])
+
+            # Salvar tudo
             player["afk_farming"] = 0
             player["afk_start"] = 0
-            leveled = add_xp(uid, xp_earned, bypass_boss_gate=False)
+            for r in resources_found:
+                player["inventory"].append(r if isinstance(r, str) else r["name"])
+            player["coins"] = player.get("coins", 0) + coins_earned
             save_player_db(uid, player)
+            leveled = add_xp(uid, xp_earned, bypass_boss_gate=False)
+
+            h = elapsed // 3600
+            m = (elapsed % 3600) // 60
+            time_str = f"{h}h {m}m" if h > 0 else f"{m}m"
+
             embed = discord.Embed(
-                title="⏹️ Farm AFK Encerrado!",
-                description=f"*'Você retorna ao mundo após um longo descanso...'*\n\n"
-                            f"⏱️ Tempo farmando: **{minutes} minutos**\n"
-                            f"⭐ XP Ganho: **+{xp_earned}**",
-                color=discord.Color.blue()
+                title="⏹️ Coleta Automática Encerrada!",
+                description=f"*'Você retorna carregado de recursos após {time_str} de trabalho!'*",
+                color=discord.Color.gold()
             )
+            embed.add_field(name="⏱️ Tempo", value=f"`{time_str}`", inline=True)
+            embed.add_field(name="⭐ XP", value=f"`+{xp_earned}`", inline=True)
+            embed.add_field(name="💰 Coins", value=f"`+{coins_earned}`", inline=True)
+
+            if resources_found:
+                res_str = "\n".join([f"• {r}" if isinstance(r, str) else f"• **{r['name']}** ({r['rarity']})" for r in (resources_found[:8])])
+                embed.add_field(name=f"🎒 Itens Coletados ({len(resources_found)})", value=res_str, inline=False)
+            else:
+                embed.add_field(name="🎒 Itens", value="*Nada coletado — fique mais tempo para acumular recursos!*", inline=False)
+
+            if equip_found:
+                eq_str = "\n".join([f"{'🗡️' if e in ITEMS['weapons'] else '🛡️'} **{e['name']}** ({e['rarity']})" for e in equip_found])
+                embed.add_field(name="✨ Equipamentos Encontrados!", value=eq_str, inline=False)
+
             if leveled:
                 p2 = get_player(uid)
                 embed.add_field(name="🆙 Level Up!", value=f"**Nível {p2['level']}**", inline=False)
-            embed.set_footer(text="Use 'farm afk' novamente para começar nova sessão.")
+            embed.set_footer(text="Use 'farm afk' novamente para nova sessão. Quanto mais tempo, mais recompensas!")
             await message.channel.send(embed=embed)
         else:
             player["afk_farming"] = 1
             player["afk_start"] = int(time.time())
             save_player_db(uid, player)
-            await message.channel.send(
-                f"🌙 **{message.author.mention}** entrou em modo **Farm AFK**!\n\n"
-                f"*Você está treinando enquanto ausente...*\n"
-                f"⭐ Você ganhará **~1 XP por minuto** (máx 200 XP).\n\n"
-                f"Use `farm afk` novamente ao voltar para coletar o XP ganho!"
+            world = get_world(player["level"], player)
+            embed = discord.Embed(
+                title="🌙 Coleta Automática Iniciada!",
+                description=f"*'Você começa a coletar recursos automaticamente em **{world['name']}**...'*",
+                color=discord.Color.blue()
             )
+            embed.add_field(name="⭐ XP", value="`~2 por minuto` (máx 600)", inline=True)
+            embed.add_field(name="💰 Coins", value="`~1 por minuto` (máx 300)", inline=True)
+            embed.add_field(name="🎒 Recursos", value="`1 a cada 5 min` (máx 20)", inline=True)
+            embed.add_field(name="✨ Equipamentos", value="`Chance cresce com o tempo` (máx 15%)", inline=True)
+            embed.add_field(name="💡 Dica", value="Quanto mais tempo ficar no AFK, maior a chance de equipamentos raros!", inline=False)
+            embed.set_footer(text="Use 'farm afk' novamente ao voltar para resgatar tudo!")
+            await message.channel.send(embed=embed)
 
     elif content in ["ver clima", "clima", "tempo", "clima atual"]:
         weather = CURRENT_WEATHER
