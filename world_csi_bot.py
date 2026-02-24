@@ -18904,52 +18904,65 @@ async def send_prologue(guild):
     # EMBED 9 — Nota de Atualização (Patch Notes)
     # ══════════════════════════════════════════
     embed9 = discord.Embed(
-        title="📋 ATUALIZAÇÃO — Expansão: 40 Raças & 40 Classes",
+        title="📋 ATUALIZAÇÃO — Expansão: Pets, Exércitos & Empregos",
         description=(
             "*O Narrador desdobra um pergaminho oficial com o selo dos Seis Ciclos...*\n\n"
-            "**\"O mundo ficou maior. Mais diverso. Mais perigoso. Exatamente como deveria ser.\"**\n"
-            "**Versão:** Raças & Classes — Fevereiro 2026"
+            "**\"O mundo ficou mais vivo. Seus aliados têm alma. Seus exércitos, identidade. "
+            "Seus empregos, propósito.\"**\n"
+            "**Versão:** Pets Especiais • Exércitos Únicos • 10 Novos Empregos — Fevereiro 2026"
         ),
-        color=0x9B59B6
+        color=0xFF6B35
     )
     embed9.add_field(
-        name="🧬 20 Novas Raças — Total: 40",
+        name="🐾 Habilidades Especiais dos Pets",
         value=(
-            "🦊 Kitsune • 🐂 Minotauro • 🐍 Naga • 🐺 Fenrir • 🌋 Ifrit\n"
-            "🔱 Tritão • 🪽 Valquíria • 🌀 Jörmungandr • 💨 Djinn • 🐍 Medusa\n"
-            "🎶 Fauno • 👻 Banshee • 🦑 Kraken • 🐺 Anubis • 🦁 Quimera\n"
-            "❄️ Wendigo • 🐎 Pégaso • 💀 Lich Ancestral • 🏇 Centauro • 🌑 Abissal\n\n"
-            "*Cada nova raça tem passiva única, lore e 7 estágios de evolução até o nível 500.*"
+            "Todos os pets agora têm **habilidades especiais únicas** com cooldown de turnos!\n\n"
+            "💧 **Slime** → Divisão de Gosma *(absorve dano)*\n"
+            "🐺 **Lobo Cinzento** → Uivo do Bando *(+25% ATK por 2 turnos)*\n"
+            "🦂 **Escorpião Dourado** → Veneno Áureo *(5% HP/turno por 3 turnos)*\n"
+            "🦁 **Esfinge Menor** → Enigma Paralisante *(stun garantido)*\n"
+            "🔥 **Fênix Carmesim** → Chama Imortal *(cura 20% HP + +20% ATK)*\n"
+            "🕊️ **Arcanjo Primordial** → Juízo do Céu *(3x dano + stun + cura 25% HP)*\n"
+            "*...e muito mais! Cada pet tem sua própria especialidade.*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="⚔️ 10 Novas Classes — Total: 40",
+        name="🆕 Novos Pets com Habilidades Únicas",
         value=(
-            "✝️ Caçador de Demônios • 🌟 Espírito de Batalha • 🏛️ Arquimago das Ruínas\n"
-            "🌒 Patrulheiro das Sombras • 🌩️ Conjurador de Tempestades • ⚔️ Sacerdote da Guerra\n"
-            "🐾 Mestre das Bestas • 🧊 Fantasma de Gelo • 🔥 Senhor das Chamas • 💡 Guardian of Light\n\n"
-            "*Cada nova classe tem habilidades em 4 tiers (basic, intermediate, advanced, supreme) e 7 estágios de evolução.*"
+            "🐱 **Gato Sombrio** *(M1)* — *Sete Vidas:* sobrevive com 1 HP uma vez por batalha\n"
+            "🐍 **Cobra Fantasma** *(M10)* — *Mordida Necrótica:* veneno + lifesteal simultâneo\n"
+            "🧟 **Múmia Guardiã** *(M20)* — *Maldição Eterna:* -25% ATK, DEF e velocidade inimigos\n"
+            "🐯 **Tigre do Ártico** *(M30)* — *Presa Congelante:* gelo + stun + -20% DEF inimigo\n"
+            "🦄 **Kirin das Cinzas** *(M40)* — *Sopro Purificador:* remove debuffs + cura + dano sagrado\n"
+            "💀 **Ceifador das Almas** *(M50)* — ignora TODA DEF + 20% de lifesteal\n"
+            "⚔️ **Serafim da Destruição** *(M60)* — *Apocalipse Sagrado:* 4× dano + cura 30% HP"
         ),
         inline=False
     )
     embed9.add_field(
-        name="📈 Sistema de Evolução",
+        name="⚔️ Exércitos com Diferenciais Únicos",
         value=(
-            "🌱 Base → ✨ Nível 30/40 → ⭐ 70/80 → 👑 130/120 → 🌟 200/160 → ⚡ 300/200 → 💎 400 → 🌌 500\n"
-            "*Cada estágio dobra os bônus de stats e transforma o nome e emoji da sua raça/classe.*"
+            "🏹 **Arqueiros Élficos** → *Chuva de 10 Flechas* com crítico independente por flecha\n"
+            "🐺 **Alcateia de Guerra** → *+5% ATK por turno*, acumula até +50%\n"
+            "👼 **Legião Celestial** → *Ressurreição em Massa:* revive 30% das tropas caídas\n"
+            "🗿 **Colossus de Pedra** *(Novo)* → absorve 35% de dano + invulnerável 1 turno\n"
+            "🔥 **Esquadrão da Fênix** *(Novo)* → ressurge com 45% HP e +30% ATK ao cair\n"
+            "👻 **Legião dos Mortos-Vivos** *(Novo)* → ignora 40% DEF permanentemente\n"
+            "🦊 **Caçadoras das Nove Caudas** *(Novo)* → 2 clones ilusórios absorvem ataques"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🗺️ Mundo — Inalterado",
+        name="💼 10 Novos Empregos!",
         value=(
-            "40 reinos • 5 dimensões • 6 capítulos • Level máximo 600\n"
-            "Todos os sistemas anteriores continuam funcionando normalmente."
+            "⚗️ Alquimista • 🗺️ Explorador • 🕵️ Espião • 🐾 Domador • 🎖️ General\n"
+            "🔡 Artesão Rúnico • 🔭 Profeta • 🏟️ Gladiador • ☠️ Necromante Errante • 🏴‍☠️ Pirata\n\n"
+            "Use `procurar emprego` para ver todos os empregos disponíveis!"
         ),
         inline=False
     )
-    embed9.set_footer(text="📅 Expansão Raças & Classes | Use 'atualização' para rever este changelog a qualquer hora!")
+    embed9.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Use 'atualização' para rever | Fevereiro 2026")
     await channel.send(embed=embed9)
     await asyncio.sleep(2)
 
@@ -20470,171 +20483,173 @@ async def on_message(message):
 
     # ── ATUALIZAÇÃO / NOVIDADES / CHANGELOG ────────────────────────────
     if content in ["atualização", "atualizacao", "novidades", "update", "changelog", "o que é novo", "o que foi adicionado", "novidades do bot", "patch notes"]:
+
+        # ─── PÁGINA 1 — Pets Especiais ───────────────────────────────────
         e_atu1 = discord.Embed(
-            title="📋 ATUALIZAÇÃO — Expansão de Raças & Classes",
+            title="📋 ATUALIZAÇÃO — Pets Especiais & Novos Companheiros",
             description=(
-                "*O Narrador abre um tomo imenso e o poeira cai como neve dourada...*\n\n"
-                "**\"O mundo ficou maior. Mais diverso. Mais perigoso. Exatamente como deveria ser.\"**\n\n"
-                "**Versão:** Raças & Classes — Fevereiro 2026\n"
+                "*O Narrador abre um tomo imenso e a poeira cai como neve dourada...*\n\n"
+                "**\"O mundo ficou mais vivo. Seus aliados têm alma, habilidades, propósito.\"**\n\n"
+                "**Versão:** Pets Especiais • Exércitos Únicos • 10 Novos Empregos — Fevereiro 2026\n"
                 "```\n"
-                "  40 raças  •  40 classes  •  280 evoluções de raça  •  280 evoluções de classe\n"
+                "  Skills de pets  •  Exércitos únicos  •  10 empregos novos\n"
                 "```"
             ),
-            color=0x9B59B6
+            color=0xFF6B35
         )
         e_atu1.add_field(
-            name="🧬 20 Novas Raças Adicionadas",
+            name="✨ Habilidades Especiais — Pets Existentes",
             value=(
-                "O mundo agora tem **40 raças jogáveis**, cada uma com lore, passiva única e **7 estágios de evolução** (até nível 500):\n\n"
-                "🦊 **Kitsune** • 🐂 **Minotauro** • 🐍 **Naga** • 🐺 **Fenrir** • 🌋 **Ifrit**\n"
-                "🔱 **Tritão** • 🪽 **Valquíria** • 🌀 **Jörmungandr** • 💨 **Djinn** • 🐍 **Medusa**\n"
-                "🎶 **Fauno** • 👻 **Banshee** • 🦑 **Kraken** • 🐺 **Anubis** • 🦁 **Quimera**\n"
-                "❄️ **Wendigo** • 🐎 **Pégaso** • 💀 **Lich Ancestral** • 🏇 **Centauro** • 🌑 **Abissal**"
+                "Todos os pets agora possuem **skills únicas** ativáveis em batalha (com cooldown de turnos):\n\n"
+                "💧 **Slime Bebê** → *Divisão de Gosma* — absorve 10% do próximo golpe\n"
+                "🧚 **Fada da Floresta** → *Poeira Mágica* — cura 15% do HP máximo\n"
+                "🐰 **Coelho Mágico** → *Salto Relâmpago* — 60% de esquiva no próximo turno\n"
+                "🦉 **Coruja Espectral** → *Visão do Oráculo* — +40% DEF por 1 turno\n"
+                "🐺 **Lobo Cinzento** → *Uivo do Bando* — +25% ATK por 2 turnos\n"
+                "🦂 **Escorpião Dourado** → *Veneno Áureo* — 5% HP/turno × 3 turnos\n"
+                "🦁 **Esfinge Menor** → *Enigma Paralisante* — stun garantido\n"
+                "🦊 **Raposa Ártica** → *Névoa Congelante* — -30% ATK inimigo por 2 turnos\n"
+                "🦅 **Fênix de Gelo** → *Renascimento Glacial* — revive com 40% HP (1×/batalha)\n"
+                "🐉 **Dragão de Magma** → *Erupção Vulcânica* — 2.2× ATK + queimadura 3 turnos\n"
+                "🔥 **Fênix Carmesim** → *Chama Imortal* — cura 20% HP + +20% ATK\n"
+                "✨ **Entidade Cósmica** → *Pulso Cósmico* — -30% ATK e -20% DEF do inimigo\n"
+                "🕊️ **Arcanjo Primordial** → *Juízo do Céu* — 3× dano + stun + cura 25% HP"
             ),
             inline=False
         )
         e_atu1.add_field(
-            name="⚔️ 10 Novas Classes Adicionadas",
+            name="🆕 Novos Pets — Mundo 1 a 10",
             value=(
-                "O jogo agora tem **40 classes**, cada uma com habilidades em 4 tiers (basic, intermediate, advanced, supreme) e **7 estágios de evolução**:\n\n"
-                "✝️ **Caçador de Demônios** • 🌟 **Espírito de Batalha** • 🏛️ **Arquimago das Ruínas**\n"
-                "🌒 **Patrulheiro das Sombras** • 🌩️ **Conjurador de Tempestades** • ⚔️ **Sacerdote da Guerra**\n"
-                "🐾 **Mestre das Bestas** • 🧊 **Fantasma de Gelo** • 🔥 **Senhor das Chamas** • 💡 **Guardian of Light**"
+                "🐱 **Gato Sombrio** *(Incomum, M1)*\n"
+                "  Passiva: +10% esquiva física | Skill: *Sete Vidas* — sobrevive com 1 HP (1×/batalha)\n\n"
+                "🐦‍⬛ **Corvo das Ruínas** *(Raro, M1)*\n"
+                "  Passiva: -5% ATK inimigo ao entrar | Skill: *Mau Agouro* — -15% crítico inimigo\n\n"
+                "🐙 **Polvinho Arcano** *(Épico, M1)*\n"
+                "  Passiva: +15% ATK aquático | Skill: *Nuvem de Tinta* — -40% precisão inimiga\n\n"
+                "🐍 **Cobra Fantasma** *(Raro, M10)*\n"
+                "  Passiva: Imune a veneno/paralisia | Skill: *Mordida Necrótica* — veneno + lifesteal\n\n"
+                "🕷️ **Aranha de Cristal** *(Épico, M10)*\n"
+                "  Passiva: críticos +10% dano | Skill: *Teia Rúnica* — bloqueia esquivas 2 turnos\n\n"
+                "🐕 **Cão dos Infernos Menor** *(Lendário, M10)*\n"
+                "  Passiva: +20% dano vs <50% HP | Skill: *Chamas Infernais* — 2× ATK + queimadura"
             ),
             inline=False
         )
-        e_atu1.add_field(
-            name="🧬 Todas as Raças — Lista Completa (40)",
-            value=(
-                "**Originais (20):**\n"
-                "👤 Humano • 🧝 Élfico • ⚒️ Anão • 🟢 Orc • 👼 Anjo • 😈 Demônio • 🐉 Dragônico\n"
-                "🧛 Vampiro • 🐺 Lobisomem • 👻 Espectro • 🗿 Golem • 🧜 Sereia • 🏔️ Titã • 🧚 Fada\n"
-                "🌀 Elementário • 👺 Goblin • 🔧 Gnomo • 👁️ Ciclope • 🌑 Sombra • 🧙 Ancião\n\n"
-                "**Novas (20):**\n"
-                "🦊 Kitsune • 🐂 Minotauro • 🐍 Naga • 🐺 Fenrir • 🌋 Ifrit • 🔱 Tritão • 🪽 Valquíria\n"
-                "🌀 Jörmungandr • 💨 Djinn • 🐍 Medusa • 🎶 Fauno • 👻 Banshee • 🦑 Kraken\n"
-                "🐺 Anubis • 🦁 Quimera • ❄️ Wendigo • 🐎 Pégaso • 💀 Lich Ancestral • 🏇 Centauro • 🌑 Abissal"
-            ),
-            inline=False
-        )
-        e_atu1.set_footer(text="📅 Expansão Raças & Classes | Use 'atualização' para rever | Página 1/2")
+        e_atu1.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Página 1/3 | Use 'atualização' a qualquer hora")
         await message.channel.send(embed=e_atu1)
 
+        # ─── PÁGINA 2 — Novos Pets (M20+) + Exércitos ────────────────────
         e_atu2 = discord.Embed(
-            title="📋 ATUALIZAÇÃO — Classes & Sistemas (Página 2/2)",
-            description="*Continuação das novidades da expansão Raças & Classes...*",
-            color=0x9B59B6
+            title="📋 ATUALIZAÇÃO — Pets Avançados & Exércitos Especiais (Pág. 2/3)",
+            description="*O Narrador vira a página — os aliados de alto nível e os exércitos aguardam...*",
+            color=0xFF6B35
         )
         e_atu2.add_field(
-            name="⚔️ Todas as Classes — Lista Completa (40)",
+            name="🆕 Novos Pets — Mundo 20 a 60",
             value=(
-                "**Originais (10):**\n"
-                "⚔️ Guerreiro • 🔮 Mago • 🏹 Arqueiro • 🛡️ Paladino • 🗡️ Assassino\n"
-                "💀 Necromante • 🪓 Berserker • 🌿 Druida • 👊 Monge • 🎵 Bardo\n\n"
-                "**Intermediárias (20 — já existentes):**\n"
-                "🌑 Cavaleiro das Sombras • 🌀 Invocador • 🔣 Runesmith • 🎯 Cazador de Recompensas\n"
-                "🪶 Xamã • ⛈️ Tempesteiro • 🪄 Ilusionista • ⚗️ Alquimista • ♾️ Guardião do Abismo\n"
-                "💃 Dançarino da Morte • 🔮 Oráculo • 🗿 Colossus • 💫 Devorador de Almas\n"
-                "✨ Arauto Celestial • ☠️ Lançador de Venenos • 🏟️ Gladiador • ⛓️ Mestre das Correntes\n"
-                "📯 Profeta da Destruição • 🔨 Ferreiro de Guerra • 🐲 Dragonlancer\n\n"
-                "**Novas (10):**\n"
-                "✝️ Caçador de Demônios • 🌟 Espírito de Batalha • 🏛️ Arquimago das Ruínas\n"
-                "🌒 Patrulheiro das Sombras • 🌩️ Conjurador de Tempestades • ⚔️ Sacerdote da Guerra\n"
-                "🐾 Mestre das Bestas • 🧊 Fantasma de Gelo • 🔥 Senhor das Chamas • 💡 Guardian of Light"
+                "🦂 **Escorpião-Rei das Areias** *(Lendário, M20)* — ignora DEF + veneno 10% HP/turno\n"
+                "🦅 **Falcão do Deserto** *(Épico, M20)* — crítico garantido 2.5× + +15% crítico ao dono\n"
+                "🧟 **Múmia Guardiã** *(Mítico, M20)* — -25% ATK/DEF/velocidade por 3 turnos\n"
+                "🦌 **Rena Cósmica** *(Épico, M30)* — +50% velocidade, age sempre primeiro\n"
+                "🐯 **Tigre do Ártico** *(Lendário, M30)* — gelo + stun + -20% DEF inimigo\n"
+                "🏔️ **Yeti Místico** *(Mítico, M30)* — 2.3× ATK + 40% stun + -15% ATK permanente\n"
+                "🐺 **Fenrir de Chamas** *(Mítico, M40)* — todos ataques queimam + regen 5% HP/turno\n"
+                "🦁 **Mantícora de Lava** *(Lendário, M40)* — veneno ardente + ignora 30% DEF\n"
+                "🦄 **Kirin das Cinzas** *(Divino, M40)* — limpa debuffs + cura 25% + 2.2× sagrado\n"
+                "💀 **Ceifador das Almas** *(Divino, M50)* — ignora TODA DEF + 20% lifesteal\n"
+                "🌊 **Leviatã das Almas** *(Divino, M50)* — 2× ATK + -20% ATK/DEF × 3 turnos\n"
+                "👁️ **Behemoth do Vazio** *(Primordial, M50)* — stun 2 turnos + -30% tudo + imune a status\n"
+                "⚔️ **Serafim da Destruição** *(Primordial, M60)* — 4× dano + ignora DEF + cura 30% HP\n"
+                "⚡ **Deus do Trovão — Avatar** *(Primordial, M60)* — 3× dano + raio contínuo + +35% ATK"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="📈 Sistema de Evolução — Como Funciona",
+            name="⚔️ Exércitos — Habilidades dos Existentes",
             value=(
-                "Tanto raças quanto classes têm **7 estágios de evolução**:\n"
-                "• 🌱 **Base** — começa com sua raça/classe original\n"
-                "• ✨ **Estágio 1** — nível 30 (raça) ou 40 (classe)\n"
-                "• ⭐ **Estágio 2** — nível 70/80 | 👑 **Estágio 3** — nível 130/120\n"
-                "• 🌟 **Estágio 4** — nível 200/160 | ⚡ **Estágio 5** — nível 300/200\n"
-                "• 💎 **Estágio 6** — nível 400 | 🌌 **Estágio 7** — nível 500\n\n"
-                "*Cada evolução dobra os bônus de stats e muda o nome e emoji da raça/classe.*"
+                "🧠 **Milícia Real** *(Humano)* — *Estratégia Real:* adapta ataque a cada 3 turnos\n"
+                "🏹 **Arqueiros Élficos** — *Chuva de Flechas:* 10 flechas com crítico independente\n"
+                "⚒️ **Brigada de Ferro** *(Anão)* — *Muralha de Escudos:* absorve 60% do próximo ataque\n"
+                "🟢 **Horda Tribal** *(Orc)* — *Frenesi de Sangue:* +50% ATK quando HP < 40%\n"
+                "👼 **Legião Celestial** — *Ressurreição em Massa:* revive 30% das tropas\n"
+                "😈 **Exército das Trevas** — *Aura do Terror:* -15% ATK e DEF ao entrar\n"
+                "🐉 **Dragões de Guerra** — *Salva de Fogo:* área de fogo a cada 4 turnos\n"
+                "🧛 **Guarda Noturna** — *Festa de Sangue:* 20% lifesteal permanente\n"
+                "🐺 **Alcateia de Guerra** — *Implacável:* +5% ATK/turno (máx +50%)\n"
+                "🌊 **Elementais Primordiais** — *Rotação Elemental:* fogo/gelo/raio alternados"
             ),
             inline=False
         )
         e_atu2.add_field(
-            name="🗺️ Sistemas do Mundo — Mantidos",
+            name="⚔️ Novos Exércitos Especiais",
             value=(
-                "✅ 40 reinos • 5 dimensões • 6 capítulos • Level máximo 600\n"
-                "✅ Dungeons secretas com 5 tipos de chave\n"
-                "✅ Fusão de itens • Pets com forma bestial • Empregos e Rei\n"
-                "✅ Diálogo com NPCs • Quests ocultas • Mundo próprio • Farm AFK\n"
-                "✅ Sistema de alinhamento • Guilda • Arena PvP"
+                "🗿 **Colossus de Pedra** — -35% dano recebido + invulnerável 1 turno ao <20% HP\n"
+                "🔥 **Esquadrão da Fênix** — ressurge com 45% HP e +30% ATK ao cair (1×/batalha)\n"
+                "👻 **Legião dos Mortos-Vivos** — ignora 40% DEF + imune veneno/sangramento\n"
+                "🦊 **Caçadoras das Nove Caudas** — 2 clones absorvem ataques + age primeiro\n"
+                "🐙 **Tentáculos do Abismo** — 3 golpes por turno (240% ATK) + 25% stun passivo\n"
+                "✨ **Avatares dos Deuses** — +40% ATK/DEF + imune debuffs por 2 turnos\n"
+                "🐍 **Serpentes Guerreiras** — 40% de envenenar por ataque, acumula\n"
+                "💀 **Liches Anciões** — maldição irremovível -30% tudo + -3% HP/turno inimigo"
             ),
             inline=False
         )
-        e_atu2.add_field(
-            name="💡 Dicas para Novos Jogadores",
-            value=(
-                "• Use `ver raças` para comparar todas as 40 raças disponíveis\n"
-                "• Use `ver classes` para ver as 40 classes e suas evoluções\n"
-                "• Cada raça tem **afinidade com certas classes** — combine para bônus!\n"
-                "• Raças com `xp_mult` alto (🦊 Kitsune, 🧙 Ancião) evoluem mais rápido\n"
-                "• Classes com **alto ATK** (🔥 Senhor das Chamas, 👻 Banshee) são de alto risco"
-            ),
-            inline=False
-        )
-        e_atu2.set_footer(text="World CSI Bot — Expansão Raças & Classes | 40 raças • 40 classes • 6 ciclos | Página 2/3")
+        e_atu2.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Página 2/3")
         await message.channel.send(embed=e_atu2)
 
+        # ─── PÁGINA 3 — Novos Empregos + Sistemas Anteriores ─────────────
         e_atu3 = discord.Embed(
-            title="🔧 ATUALIZAÇÃO — Correções & Melhorias (Página 3/3)",
+            title="📋 ATUALIZAÇÃO — 10 Novos Empregos & Sistemas (Pág. 3/3)",
             description=(
-                "*O Ferreiro do Reino bate o martelo três vezes — sinal de que algo foi consertado...*\n\n"
-                "**\"O mundo não apenas cresceu. Ele foi corrigido. Aprimorado. Polido.\"**\n\n"
-                "**Patch:** Correções & QoL — Fevereiro 2026"
+                "*O taberneiro adiciona 10 novos cartazes na parede de empregos...*\n\n"
+                "**\"O reino cresceu. Há mais funções, mais poder, mais caminhos para a grandeza.\"**"
             ),
             color=0x2ECC71
         )
         e_atu3.add_field(
-            name="🐛 Correção Crítica — Sistema de Salvamento",
+            name="💼 10 Novos Empregos",
             value=(
-                "Foi corrigido um bug grave que impedia **todos os comandos** de funcionar.\n\n"
-                "O banco de dados tinha um campo a mais (`legendary_companion`) sem o respectivo "
-                "placeholder no SQL, causando erro toda vez que dados de jogador eram salvos — "
-                "explorar, caçar, ganhar XP, tudo travava.\n\n"
-                "✅ **Corrigido:** `save_player_db` agora salva todos os 57 campos corretamente."
+                "⚗️ **Alquimista** *(Nv.8)* — Cria poções, transmuta itens. Lv3: poções lendárias\n"
+                "🗺️ **Explorador** *(Nv.8)* — Descobre tesouros e regiões secretas. Lv3: dimensões ocultas\n"
+                "🕵️ **Espião** *(Nv.12)* — Espia, sabota e rouba informações. +75% dano no 1° turno\n"
+                "🐾 **Domador** *(Nv.5)* — 2-3 pets ativos, +75% captura, evolução acelerada\n"
+                "🎖️ **General** *(Nv.20)* — Exércitos +70% HP/ATK, recruta 3 mercenários\n"
+                "🔡 **Artesão Rúnico** *(Nv.15)* — Grava runas Lendário/Mítico, +50% stats de itens\n"
+                "🔭 **Profeta** *(Nv.18)* — +70% XP geral, vê tudo sobre boss antes da luta\n"
+                "🏟️ **Gladiador** *(Nv.10)* — +100% ATK PvP, +150% coins, torneios exclusivos\n"
+                "☠️ **Necromante Errante** *(Nv.22)* — 6 mortos-vivos, 40% lifesteal, ressuscita aliados\n"
+                "🏴‍☠️ **Pirata** *(Nv.10)* — +100% coins de saques, porto clandestino, frota de navios"
             ),
             inline=False
         )
         e_atu3.add_field(
-            name="🌟 Melhoria — Botão para Aceitar Quest Lendária",
+            name="📣 Novos comandos dos empregos",
             value=(
-                "Ao encontrar um NPC lendário explorando, agora aparecem **dois botões** na mensagem:\n\n"
-                "🟢 **Aceitar Quest Lendária!** — aceita e inicia na hora\n"
-                "⚫ **Ignorar** — dispensa o encontro\n\n"
-                "Os botões expiram em **2 minutos** e só o dono pode clicar."
+                "`fabricar poção` — Alquimista\n"
+                "`explorar mapa` — Explorador (3×/dia)\n"
+                "`espionar @user` — Espião\n"
+                "`treinar pet` — Domador\n"
+                "`convocar exército` — General\n"
+                "`gravar runa [item] [tipo]` — Artesão Rúnico\n"
+                "`profetizar` — Profeta\n"
+                "`entrar torneio` — Gladiador\n"
+                "`convocar morto-vivo` — Necromante Errante\n"
+                "`saquear` / `abordar navio` — Pirata"
             ),
             inline=False
         )
         e_atu3.add_field(
-            name="🗺️ Melhoria — NPCs Lendários por Reino",
+            name="🗺️ Sistemas Anteriores — Mantidos",
             value=(
-                "Cada NPC lendário agora aparece **exclusivamente no seu reino correspondente**.\n\n"
-                "Antes o NPC era escolhido com margem imprecisa de nível. "
-                "Agora usa o **reino atual** do jogador como referência direta.\n\n"
-                "✅ Encontros mais imersivos e fiéis ao lore de cada região."
+                "✅ 40 raças • 40 classes • 6 ciclos de evolução\n"
+                "✅ 40 reinos • 5 dimensões • Level máximo 600\n"
+                "✅ Dungeons secretas • Fusão de itens • Pets com forma bestial\n"
+                "✅ Diálogo com NPCs • Quests ocultas • Mundo próprio • Farm AFK\n"
+                "✅ Sistema de alinhamento • Guilda • Arena PvP • Rei & Cavaleiros"
             ),
             inline=False
         )
-        e_atu3.add_field(
-            name="⚔️ Melhoria — Aliados com HP na Batalha de Boss",
-            value=(
-                "Aliados e membros de guilda agora têm **barras de HP individuais** na batalha!\n\n"
-                "• Cada aliado pode **cair em batalha** se receber dano demais do boss\n"
-                "• Se o **líder cair mas aliados ainda estiverem de pé**, a batalha continua\n"
-                "• Os aliados sobreviventes podem **vencer pelo líder** caído\n"
-                "• Mensagem especial de vitória quando os aliados salvam o líder!\n\n"
-                "✅ Batalhas em grupo muito mais dinâmicas e épicas."
-            ),
-            inline=False
-        )
-        e_atu3.set_footer(text="World CSI Bot — Patch Correções & QoL | Página 3/3")
+        e_atu3.set_footer(text="World CSI Bot — Expansão Pets & Exércitos & Empregos | Página 3/3 | Use 'atualização' a qualquer hora")
         await message.channel.send(embed=e_atu3)
 
         return
