@@ -6207,11 +6207,30 @@ CURRENT_PERIOD = {"type": "dia", "changed_at": 0}
 PET_EVOLUTIONS = {
     "Slime Bebê": {
         "level_required": 5, "next": "Slime Adolescente",
-        "next_data": {"name": "Slime Adolescente", "emoji": "💧", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 8}
+        "passive": "Absorção: 10% de chance de curar 5 HP ao atacar",
+        "next_data": {
+            "name": "Slime Adolescente", "emoji": "💧", "rarity": "Incomum",
+            "bonus_hp": 25, "bonus_atk": 8,
+            "passive": "Corpo Elástico: Reduz 10% do dano recebido"
+        }
     },
     "Slime Adolescente": {
         "level_required": 15, "next": "Slime Mestre",
-        "next_data": {"name": "Slime Mestre", "emoji": "💠", "rarity": "Raro", "bonus_hp": 50, "bonus_atk": 18}
+        "passive": "Corpo Elástico: Reduz 10% do dano recebido",
+        "next_data": {
+            "name": "Slime Mestre", "emoji": "💠", "rarity": "Raro",
+            "bonus_hp": 50, "bonus_atk": 18,
+            "passive": "Divisão Celular: Quando HP < 30%, duplica o ATK"
+        }
+    },
+    "Slime Mestre": {
+        "level_required": 30, "next": "Slime Rei",
+        "passive": "Divisão Celular: Quando HP < 30%, duplica o ATK",
+        "next_data": {
+            "name": "Slime Rei", "emoji": "👑", "rarity": "Lendário",
+            "bonus_hp": 120, "bonus_atk": 55,
+            "passive": "Domínio Gelificado: Cura 8% do HP máximo por turno + imune a veneno"
+        }
     },
     "Coelho Mágico": {
         "level_required": 8, "next": "Coelho Arcano",
@@ -6455,6 +6474,41 @@ KINGDOM_DEFAULTS = {
     "trades": 0,
 }
 
+
+# ================= ARMY RACES — baseado na raça do jogador =================
+# Cada raça do jogador determina que tipo de exército seu reino possui
+ARMY_RACES = {
+    "Humano":     {"name": "Milícia Real",          "emoji": "🪖", "hp_mult": 1.0,  "atk_mult": 1.0,  "lore": "Soldados humanos versáteis e adaptáveis."},
+    "Élfico":     {"name": "Arqueiros Élficos",      "emoji": "🏹", "hp_mult": 0.85, "atk_mult": 1.25, "lore": "Arqueiros de precisão sobrenatural, letais à distância."},
+    "Anão":       {"name": "Brigada de Ferro",       "emoji": "⚒️", "hp_mult": 1.35, "atk_mult": 0.90, "lore": "Anões blindados que formam muralhas de aço impenetráveis."},
+    "Orc":        {"name": "Horda Tribal",           "emoji": "🟢", "hp_mult": 1.20, "atk_mult": 1.30, "lore": "Guerreiros selvagens que entram em frenesi total ao lutar."},
+    "Anjo":       {"name": "Legião Celestial",       "emoji": "👼", "hp_mult": 1.10, "atk_mult": 1.10, "lore": "Guardiões sagrados com cura passiva em batalha."},
+    "Demônio":    {"name": "Exército das Trevas",    "emoji": "😈", "hp_mult": 0.90, "atk_mult": 1.40, "lore": "Demônios implacáveis cujo medo paralisa inimigos."},
+    "Dragônico":  {"name": "Dragões de Guerra",      "emoji": "🐉", "hp_mult": 1.30, "atk_mult": 1.20, "lore": "Guerreiros com sangue de dragão, sofro e escamas são suas armaduras."},
+    "Vampiro":    {"name": "Guarda Noturna",         "emoji": "🧛", "hp_mult": 1.00, "atk_mult": 1.20, "lore": "Vampiros que drenam vida dos inimigos para se curar."},
+    "Lobisomem":  {"name": "Alcateia de Guerra",     "emoji": "🐺", "hp_mult": 1.15, "atk_mult": 1.15, "lore": "Lobisomens que ficam mais fortes à medida que a batalha avança."},
+    "Elemental":  {"name": "Elementais Primordiais", "emoji": "🌊", "hp_mult": 1.10, "atk_mult": 1.10, "lore": "Seres elementais que alternam entre fogo, gelo e raio."},
+    "Minotauro":  {"name": "Legião do Labirinto",    "emoji": "🐂", "hp_mult": 1.40, "atk_mult": 1.10, "lore": "Minotauros colossal com carga devastadora inicial."},
+    "Valquíria":  {"name": "Valquírias de Elite",    "emoji": "⚡", "hp_mult": 1.05, "atk_mult": 1.25, "lore": "Guerreiras celestiais que inspiram aliados à luta."},
+    "Gorgona":    {"name": "Olhares da Morte",       "emoji": "🐍", "hp_mult": 1.00, "atk_mult": 1.35, "lore": "Guerreiras que paralisam inimigos com seu olhar."},
+    "Titã":       {"name": "Colossos Titânicos",     "emoji": "🗿", "hp_mult": 1.50, "atk_mult": 1.00, "lore": "Gigantes que absorvem dano massivo antes de cair."},
+    "Esqueleto":  {"name": "Exército dos Mortos",    "emoji": "💀", "hp_mult": 0.80, "atk_mult": 1.20, "lore": "Não-mortos que ressuscitam uma vez por batalha."},
+    "Fae":        {"name": "Faéria Guerreira",       "emoji": "🧚", "hp_mult": 0.75, "atk_mult": 1.45, "lore": "Fadas que causam dano mágico ignorando defesas."},
+    "Sereiano":   {"name": "Guerreiros do Mar",      "emoji": "🌊", "hp_mult": 1.10, "atk_mult": 1.15, "lore": "Combatentes anfíbios com regeneração em batalha."},
+    "Gnomo":      {"name": "Engenheiros de Guerra",  "emoji": "⚙️", "hp_mult": 0.90, "atk_mult": 1.30, "lore": "Gnomeiros com armamentos mecânicos experimentais."},
+    "Ciclope":    {"name": "Gigantes Ciclópicos",    "emoji": "👁️", "hp_mult": 1.45, "atk_mult": 1.05, "lore": "Ciclopes cujos golpes destroem formações inteiras."},
+    "Yeti":       {"name": "Guardas do Permafrost",  "emoji": "❄️", "hp_mult": 1.25, "atk_mult": 1.15, "lore": "Yetis árticos imunes ao congelamento e resistentes."},
+}
+# Fallback para raças não mapeadas
+ARMY_RACE_DEFAULT = {"name": "Guardas do Reino", "emoji": "⚔️", "hp_mult": 1.0, "atk_mult": 1.0, "lore": "Soldados leal ao rei, prontos para qualquer ameaça."}
+
+# HP base do exército por nível de força
+ARMY_HP_BY_LEVEL = {
+    "Ruim":      300,
+    "Neutra":    600,
+    "Boa":       1200,
+    "Excelente": 2500,
+}
 
 # ================= RARITY DICE BONUS =================
 RARITY_DICE_BONUS = {
@@ -16827,37 +16881,45 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # ---- Exército do reino participa automaticamente do boss ----
     army_bonus_atk = 0
     army_bonus_desc = None
+    army_cur_hp = 0
+    army_max_hp = 0
+    army_race_data = None
     kingdom_data = player.get("kingdom_data")
     if kingdom_data:
         army_level = kingdom_data.get("army", "Neutra")
+        # Determinar raça do exército baseado na raça do jogador
+        player_race = player.get("race", "Humano")
+        army_race_data = ARMY_RACES.get(player_race, ARMY_RACE_DEFAULT)
         army_buffs = {
-            "Ruim":     {"bonus": 5,   "desc": "⚔️ Recrutas mal-treinados ajudam como podem (+5 ATK)"},
-            "Neutra":   {"bonus": 15,  "desc": "⚔️ Soldados do seu reino entram na batalha! (+15 ATK)"},
-            "Boa":      {"bonus": 35,  "desc": "⚔️ Tropas de elite marcham ao seu lado! (+35 ATK)"},
-            "Excelente":{"bonus": 70,  "desc": "⚔️ Exército lendário ataca com fúria devastadora! (+70 ATK)"},
+            "Ruim":     {"bonus": 5,   "desc": f"{army_race_data['emoji']} {army_race_data['name']} (recrutas) entram na batalha! (+5 ATK)"},
+            "Neutra":   {"bonus": 15,  "desc": f"{army_race_data['emoji']} {army_race_data['name']} marcham ao seu lado! (+15 ATK)"},
+            "Boa":      {"bonus": 35,  "desc": f"{army_race_data['emoji']} {army_race_data['name']} de elite avançam! (+35 ATK)"},
+            "Excelente":{"bonus": 70,  "desc": f"{army_race_data['emoji']} {army_race_data['name']} lendários atacam com fúria devastadora! (+70 ATK)"},
         }
         buff = army_buffs.get(army_level)
         if buff:
             army_bonus_atk = buff["bonus"]
             army_bonus_desc = buff["desc"]
             p_atk += army_bonus_atk
+            # HP do exército escalado por raça e nível
+            base_army_hp = ARMY_HP_BY_LEVEL.get(army_level, 600)
+            army_max_hp = int(base_army_hp * army_race_data.get("hp_mult", 1.0))
+            army_cur_hp = army_max_hp
     # ---- Pet combat bonus (pet entra automaticamente junto) ----
     pet_combat_name = None
     pet_combat_emoji = "🐾"
     pet_combat_hp = 0
     pet_combat_atk = 0
+    pet_combat_rarity = "Comum"
     if player.get("pet"):
         try:
-            pet_name = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", "")
-            all_pet_worlds = list(PETS.values()) + list(PETS_EXTRA.values())
-            for world_pets in all_pet_worlds:
-                for p in world_pets:
-                    if p["name"] == pet_name:
-                        pet_combat_name = pet_name
-                        pet_combat_emoji = p.get("emoji", "🐾")
-                        pet_combat_hp = p.get("bonus_hp", 10)
-                        pet_combat_atk = p.get("bonus_atk", 3)
-                        break
+            _pet_stats = get_pet_battle_stats(player)
+            if _pet_stats:
+                pet_combat_name = _pet_stats["name"]
+                pet_combat_emoji = _pet_stats.get("emoji", "🐾")
+                pet_combat_hp   = _pet_stats["battle_hp"]   # HP real escalado por nível e raridade
+                pet_combat_atk  = _pet_stats["battle_atk"]  # ATK real escalado
+                pet_combat_rarity = _pet_stats.get("rarity", "Comum")
         except:
             pass
 
@@ -16947,7 +17009,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         intro.add_field(name="👥 ALIADOS NA BATALHA", value=ally_display, inline=False)
 
     if army_bonus_desc:
-        intro.add_field(name="🏰 Exército do Reino", value=army_bonus_desc, inline=False)
+        army_intro_val = f"{army_bonus_desc}\n❤️ HP Exército: `{army_cur_hp:,}`\n_{army_race_data['lore']}_" if army_race_data else army_bonus_desc
+        intro.add_field(name="🏰 Exército do Reino", value=army_intro_val, inline=False)
 
     intro.add_field(
         name=f"{p_icon} {p_name} ({p_cls})",
@@ -17253,20 +17316,43 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             pet_dmg = max(1, pet_combat_atk + random.randint(0, pet_combat_atk // 2))
             boss_cur_hp -= pet_dmg
             pet_heal = 0
+            # Passiva: Fada/Coelho curam o dono
             if "Fada" in pet_combat_name or "Coelho" in pet_combat_name:
                 pet_heal = random.randint(5, 20)
                 p_cur_hp = min(p_max_hp, p_cur_hp + pet_heal)
+            # Passiva Slime: Absorção — 10% chance de auto-cura
+            if "Slime" in pet_combat_name and random.random() < 0.10:
+                slime_self_heal = max(3, pet_combat_hp // 10)
+                pet_cur_hp = min(pet_combat_hp, pet_cur_hp + slime_self_heal)
+            # Passiva Slime Mestre: Divisão Celular (HP < 30% = dano dobrado)
+            if pet_combat_name == "Slime Mestre" and pet_cur_hp < (pet_combat_hp * 0.30):
+                pet_dmg = pet_dmg * 2
+                boss_cur_hp -= pet_dmg  # aplica o bônus extra
+            # Passiva Slime Rei: cura 8% HP por turno
+            if pet_combat_name == "Slime Rei":
+                pet_regen = max(1, int(pet_combat_hp * 0.08))
+                pet_cur_hp = min(pet_combat_hp, pet_cur_hp + pet_regen)
 
-            pet_actions = [
-                f"{pet_combat_emoji} **{pet_combat_name}** salta sobre o boss com suas garras afiadas!",
-                f"{pet_combat_emoji} **{pet_combat_name}** rosna e ataca ferozmente!",
-                f"{pet_combat_emoji} **{pet_combat_name}** protege seu dono e contra-ataca!",
-                f"{pet_combat_emoji} **{pet_combat_name}** usa seu instinto animal para golpear o ponto fraco!",
-            ]
+            if "Slime" in pet_combat_name:
+                pet_actions = [
+                    f"{pet_combat_emoji} **{pet_combat_name}** se lança sobre o boss como uma bola de gosma!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** divide-se e envolve o inimigo por todos os lados!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** absorve o golpe e responde com uma explosão de gosma!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** GLUB GLUB! Engole parte do boss temporariamente!",
+                ]
+            else:
+                pet_actions = [
+                    f"{pet_combat_emoji} **{pet_combat_name}** salta sobre o boss com suas garras afiadas!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** rosna e ataca ferozmente!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** protege seu dono e contra-ataca!",
+                    f"{pet_combat_emoji} **{pet_combat_name}** usa seu instinto animal para golpear o ponto fraco!",
+                ]
             pet_msg = f"{random.choice(pet_actions)}\n> 💥 `−{pet_dmg}` HP para o boss"
             if pet_heal:
                 pet_msg += f"\n> 💚 Cura `+{pet_heal}` HP para você!"
                 pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
+            if "Slime" in pet_combat_name and pet_cur_hp < pet_combat_hp:
+                pet_msg += f"\n> 🫧 HP do Slime: `{max(0,pet_cur_hp)}/{pet_combat_hp}`"
             turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
 
         # === ATAQUE DO COMPANHEIRO LENDÁRIO ===
@@ -17393,6 +17479,22 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                     fallen_ally_msg = f"💀 **{ally_data['name']}** foi derrubado pelo boss! *Caiu em batalha com honra...*"
                     turn_embed.add_field(name="⚔️ Aliado Caído!", value=fallen_ally_msg, inline=False)
 
+            # === BOSS ATACA O PET (dano pequeno — pets são ágeis) ===
+            if pet_combat_name and pet_cur_hp > 0:
+                pet_splash = max(1, b_dmg_raw // 5)
+                pet_cur_hp = max(0, pet_cur_hp - pet_splash)
+                if pet_cur_hp <= 0:
+                    pet_fallen_msg = f"{pet_combat_emoji} **{pet_combat_name}** foi derrubado! *'Seu companheiro caiu... mas lutou com tudo!'*"
+                    turn_embed.add_field(name="💔 Pet Caído!", value=pet_fallen_msg, inline=False)
+
+            # === BOSS ATACA O EXÉRCITO (dano em área nas tropas) ===
+            if army_cur_hp > 0 and army_race_data:
+                army_splash = max(5, b_dmg_raw // 4)
+                army_cur_hp = max(0, army_cur_hp - army_splash)
+                if army_cur_hp <= 0:
+                    army_fallen = f"{army_race_data['emoji']} **{army_race_data['name']}** foi dizimado! *'As tropas caem, mas sua luta não foi em vão!'*"
+                    turn_embed.add_field(name="⚔️ Exército Dizimado!", value=army_fallen, inline=False)
+
             # Companheiro lendário também absorve parte do dano do boss (10% do dano)
             if legendary_comp_data and legendary_comp_cur_hp > 0:
                 lc_splash = max(1, b_dmg // 10)
@@ -17471,6 +17573,32 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 status_text += f"\n{cls_em} **{ally_data['name']}**: {ally_bar_str}"
             if total_ally_dmg > 0:
                 status_text += f"\n⚔️ *Aliados causaram `{total_ally_dmg:,}` de dano adicional neste turno!*"
+
+        # === BARRA DE HP DO PET ===
+        if pet_combat_name and pet_combat_hp > 0:
+            pet_pct = max(0, int(pet_cur_hp / pet_combat_hp * 100))
+            if pet_cur_hp <= 0:
+                pet_bar_str = "💀 CAÍDO"
+            elif pet_pct > 60:
+                pet_bar_str = make_hp_bar(pet_pct, "🟩") + f" `{pet_cur_hp}/{pet_combat_hp}` ❤️"
+            elif pet_pct > 30:
+                pet_bar_str = make_hp_bar(pet_pct, "🟨") + f" `{pet_cur_hp}/{pet_combat_hp}` ❤️"
+            else:
+                pet_bar_str = make_hp_bar(pet_pct, "🟥") + f" `{pet_cur_hp}/{pet_combat_hp}` ❤️"
+            status_text += f"\n{pet_combat_emoji} **{pet_combat_name}** (Pet): {pet_bar_str}"
+
+        # === BARRA DE HP DO EXÉRCITO ===
+        if army_max_hp > 0 and army_race_data:
+            army_pct = max(0, int(army_cur_hp / army_max_hp * 100))
+            if army_cur_hp <= 0:
+                army_bar_str = "💀 DIZIMADO"
+            elif army_pct > 60:
+                army_bar_str = make_hp_bar(army_pct, "🟩") + f" `{army_cur_hp:,}/{army_max_hp:,}` ❤️"
+            elif army_pct > 30:
+                army_bar_str = make_hp_bar(army_pct, "🟨") + f" `{army_cur_hp:,}/{army_max_hp:,}` ❤️"
+            else:
+                army_bar_str = make_hp_bar(army_pct, "🟥") + f" `{army_cur_hp:,}/{army_max_hp:,}` ❤️"
+            status_text += f"\n{army_race_data['emoji']} **{army_race_data['name']}** (Exército): {army_bar_str}"
 
         # Mensagem de alerta de HP baixo
         if p_pct <= 20:
@@ -24274,7 +24402,10 @@ async def handle_pet_evolution(message):
         if isinstance(pet_name, dict):
             pet_name = pet_name.get("name", "")
 
+        # Checar evolução normal primeiro, depois quarta forma de pets comuns
         evo_data = PET_EVOLUTIONS.get(pet_name)
+        if not evo_data:
+            evo_data = COMMON_PET_FOURTH_FORMS.get(pet_name)
         if not evo_data:
             await message.channel.send(f"😔 **{pet_name}** não tem evolução disponível ainda (ou já é a forma final).")
             return
@@ -24291,6 +24422,9 @@ async def handle_pet_evolution(message):
         player["pet"] = next_pet["name"]
         save_player_db(uid, player)
 
+        passive_text = f"\n✨ **Passiva:** _{next_pet.get('passive', '')}_ " if next_pet.get("passive") else ""
+        special_text = f"\n🌟 *Forma especial exclusiva para pets deste tipo!*" if next_pet.get("special") else ""
+
         embed = discord.Embed(
             title="⭐ EVOLUÇÃO DO PET! ⭐",
             description=f"*'Uma luz intensa envolve {pet_name}...'*\n\n"
@@ -24301,6 +24435,10 @@ async def handle_pet_evolution(message):
         embed.add_field(name="💪 Novo ATK Bônus", value=f"+{next_pet['bonus_atk']}", inline=True)
         embed.add_field(name="❤️ Novo HP Bônus", value=f"+{next_pet['bonus_hp']}", inline=True)
         embed.add_field(name="✨ Raridade", value=f"{RARITIES[next_pet['rarity']]['emoji']} {next_pet['rarity']}", inline=True)
+        if passive_text:
+            embed.add_field(name="🔮 Habilidade Passiva", value=next_pet.get("passive", ""), inline=False)
+        if special_text or next_pet.get("desc"):
+            embed.add_field(name="📖 Descrição", value=next_pet.get("desc", special_text), inline=False)
         await message.channel.send(embed=embed)
 
     elif content in ["ver fazenda", "meus pets", "todos pets", "pets"]:
@@ -24630,6 +24768,17 @@ async def handle_kingdom(message):
         embed.add_field(name="👥 População", value=f"{kd.get('population', 100)} habitantes", inline=True)
         embed.add_field(name=f"💰 Economia {status_icon(kd.get('economy','Neutra'))}", value=kd.get("economy", "Neutra"), inline=True)
         embed.add_field(name=f"⚔️ Exército {status_icon(kd.get('army','Neutra'))}", value=kd.get("army", "Neutra"), inline=True)
+        # Mostrar raça e HP do exército
+        player_race = player.get("race", "Humano")
+        ar = ARMY_RACES.get(player_race, ARMY_RACE_DEFAULT)
+        army_lvl = kd.get("army", "Neutra")
+        army_base_hp = ARMY_HP_BY_LEVEL.get(army_lvl, 600)
+        army_real_hp = int(army_base_hp * ar.get("hp_mult", 1.0))
+        embed.add_field(
+            name=f"{ar['emoji']} Tipo de Exército",
+            value=f"**{ar['name']}**\n❤️ HP Máximo: `{army_real_hp:,}`\n_{ar['lore']}_",
+            inline=False
+        )
         if kd.get("bio"):
             embed.add_field(name="📜 Descrição", value=kd["bio"], inline=False)
         embed.add_field(name="🏆 Guerras Vencidas", value=str(kd.get("wars_won", 0)), inline=True)
@@ -24749,10 +24898,24 @@ async def handle_kingdom(message):
         their_name = their_kd.get("name") or f"Reino de {mention.display_name}"
         my_name = my_kd.get("name") or f"Reino de {message.author.display_name}"
 
+        # Dados do exército de cada reino
+        my_race_data   = ARMY_RACES.get(player.get("race", "Humano"), ARMY_RACE_DEFAULT)
+        their_race_data = ARMY_RACES.get(target_player.get("race", "Humano"), ARMY_RACE_DEFAULT)
+        my_army_hp    = int(ARMY_HP_BY_LEVEL.get(my_kd.get("army","Neutra"), 600) * my_race_data.get("hp_mult", 1.0))
+        their_army_hp = int(ARMY_HP_BY_LEVEL.get(their_kd.get("army","Neutra"), 600) * their_race_data.get("hp_mult", 1.0))
+
         embed = discord.Embed(title="⚔️ GUERRA DE REINOS!", color=discord.Color.red())
-        embed.add_field(name=f"🏰 {my_name}", value=f"Poder: {my_power} + Dado: {my_roll % 10}", inline=True)
+        embed.add_field(
+            name=f"🏰 {my_name}",
+            value=f"{my_race_data['emoji']} **{my_race_data['name']}**\n❤️ HP: `{my_army_hp:,}` | Poder: {my_power} + Dado: {my_roll % 10}",
+            inline=True
+        )
         embed.add_field(name="VS", value="⚔️", inline=True)
-        embed.add_field(name=f"🏰 {their_name}", value=f"Poder: {their_power} + Dado: {their_roll % 10}", inline=True)
+        embed.add_field(
+            name=f"🏰 {their_name}",
+            value=f"{their_race_data['emoji']} **{their_race_data['name']}**\n❤️ HP: `{their_army_hp:,}` | Poder: {their_power} + Dado: {their_roll % 10}",
+            inline=True
+        )
 
         if my_roll > their_roll:
             reward = random.randint(200, 600)
@@ -25690,8 +25853,11 @@ async def handle_pet_battle(message):
             await message.channel.send("❌ Você não tem pet ativo!")
             return
         pet = get_pet_battle_stats(player)
-        evo_info = PET_EVOLUTIONS.get(pet["name"])
-        evo_text = f"\n🔄 Próx. evo: **{evo_info['next']}** (Nv. {evo_info['level_required']})" if evo_info else "\n✨ Forma final!"
+        evo_info = PET_EVOLUTIONS.get(pet["name"]) or COMMON_PET_FOURTH_FORMS.get(pet["name"])
+        if evo_info:
+            evo_text = f"\n🔄 Próx. evo: **{evo_info['next']}** (Nv. {evo_info['level_required']})"
+        else:
+            evo_text = "\n✨ Forma final!"
         embed = discord.Embed(
             title=f"{pet['emoji']} Stats de Batalha — {pet['name']}",
             description=f"{RARITIES[pet['rarity']]['emoji']} **{pet['rarity']}**{evo_text}",
@@ -25699,7 +25865,22 @@ async def handle_pet_battle(message):
         )
         embed.add_field(name="❤️ HP Batalha",  value=f"`{pet['battle_hp']}`",  inline=True)
         embed.add_field(name="⚔️ ATK Batalha", value=f"`{pet['battle_atk']}`", inline=True)
-        embed.set_footer(text="Stats escalam com o nível do dono + raridade do pet")
+        # Mostrar passiva se tiver
+        passive = pet.get("passive") or (evo_info or {}).get("passive")
+        if passive:
+            embed.add_field(name="🔮 Passiva", value=passive, inline=False)
+        # Árvore de evolução resumida
+        evo_chain = []
+        cur = pet["name"]
+        for _ in range(5):
+            next_evo = PET_EVOLUTIONS.get(cur) or COMMON_PET_FOURTH_FORMS.get(cur)
+            if not next_evo:
+                break
+            evo_chain.append(f"→ **{next_evo['next']}** (Nv.{next_evo['level_required']})")
+            cur = next_evo["next"]
+        if evo_chain:
+            embed.add_field(name="🌿 Caminho de Evolução", value="\n".join(evo_chain), inline=False)
+        embed.set_footer(text="Stats escalam com nível do dono + raridade | HP e ATK são os valores reais de batalha")
         await message.channel.send(embed=embed)
 
 
