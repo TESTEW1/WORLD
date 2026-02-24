@@ -6449,11 +6449,41 @@ KINGDOM_DEFAULTS = {
     "population": 100,
     "economy": "Neutra",  # Ruim / Neutra / Boa / Excelente
     "army": "Neutra",
+    "army_race": None,  # Raça do exército (baseado na raça do rei)
     "resources": [],
     "bio": "",
     "wars_won": 0,
     "trades": 0,
 }
+
+# Raças que têm exércitos temáticos
+ARMY_RACE_THEMES = {
+    "Élfico":      {"name": "Arqueiros Élficos",    "emoji": "🧝", "desc": "Flechas certeiras que nunca erram", "hp_mult": 0.8, "atk_mult": 1.3},
+    "Anão":        {"name": "Guerreiros Anões",      "emoji": "⚒️", "desc": "Muralha de aço e determinação",    "hp_mult": 1.4, "atk_mult": 0.9},
+    "Orc":         {"name": "Horda Orc",             "emoji": "🟢", "desc": "Brutalidade pura em forma de exército", "hp_mult": 1.2, "atk_mult": 1.2},
+    "Anjo":        {"name": "Legião Celestial",      "emoji": "👼", "desc": "Guerreiros da luz divina",          "hp_mult": 1.1, "atk_mult": 1.1},
+    "Demônio":     {"name": "Exército das Chamas",   "emoji": "😈", "desc": "Criaturas infernais com sede de destruição", "hp_mult": 1.0, "atk_mult": 1.4},
+    "Dragônico":   {"name": "Cavaleiros Dragão",     "emoji": "🐉", "desc": "Montados em wyverns, temidos em batalha", "hp_mult": 1.2, "atk_mult": 1.3},
+    "Vampiro":     {"name": "Coorte dos Noturnos",   "emoji": "🧛", "desc": "Atacam pela noite e drenam força vital", "hp_mult": 0.9, "atk_mult": 1.35},
+    "Lobisomem":   {"name": "Matilha de Guerra",     "emoji": "🐺", "desc": "Ferocidade animal em cada avanço",  "hp_mult": 1.1, "atk_mult": 1.25},
+    "Espectro":    {"name": "Legiões Fantasmas",     "emoji": "👻", "desc": "Atravessam armaduras como névoa",   "hp_mult": 0.7, "atk_mult": 1.5},
+    "Golem":       {"name": "Batalhão de Pedra",     "emoji": "🗿", "desc": "Impassíveis e indestrutíveis",      "hp_mult": 2.0, "atk_mult": 0.7},
+    "Sereia":      {"name": "Guarda das Marés",      "emoji": "🧜", "desc": "Controlam rios e oceanos como armas", "hp_mult": 1.0, "atk_mult": 1.1},
+    "Titã":        {"name": "Colossos de Guerra",    "emoji": "🏔️", "desc": "Cada passo abala o solo",           "hp_mult": 1.8, "atk_mult": 1.0},
+    "Fada":        {"name": "Enxame Feérico",        "emoji": "🧚", "desc": "Pequenos mas mágicos e rápidos",   "hp_mult": 0.6, "atk_mult": 1.6},
+    "Elementário": {"name": "Vanguarda Elemental",   "emoji": "🌀", "desc": "Fogo, gelo e raio em forma de guerra", "hp_mult": 1.0, "atk_mult": 1.3},
+    "Goblin":      {"name": "Maré Verde",            "emoji": "👺", "desc": "Infinitos em número, imprevisíveis em tática", "hp_mult": 0.9, "atk_mult": 1.1},
+    "Gnomo":       {"name": "Artilharia Gnômica",    "emoji": "🔧", "desc": "Engenhocas explosivas e armas de cerco", "hp_mult": 0.8, "atk_mult": 1.45},
+    "Humano":      {"name": "Exército Real",         "emoji": "👤", "desc": "Disciplinados, versáteis e leais",  "hp_mult": 1.0, "atk_mult": 1.0},
+    "Kitsune":     {"name": "Raposas de Guerra",     "emoji": "🦊", "desc": "Ilusão e velocidade sobrenaturais", "hp_mult": 0.85, "atk_mult": 1.4},
+    "Minotauro":   {"name": "Brigada do Labirinto",  "emoji": "🐂", "desc": "Força de touro, resistência de rocha", "hp_mult": 1.5, "atk_mult": 1.1},
+    "Naga":        {"name": "Serpentes de Batalha",  "emoji": "🐍", "desc": "Veneno e agilidade mortal",         "hp_mult": 1.0, "atk_mult": 1.35},
+}
+
+def get_army_race_theme(player):
+    """Retorna o tema de raça do exército baseado na raça do rei"""
+    race = player.get("race") or "Humano"
+    return ARMY_RACE_THEMES.get(race, ARMY_RACE_THEMES["Humano"])
 
 
 # ================= RARITY DICE BONUS =================
@@ -6482,48 +6512,106 @@ RARITIES = {
 }
 
 # ================= PETS POR MUNDO =================
+# ═══════════════════════════════════════════════════════
+# CADEIA DE EVOLUÇÃO DO SLIME BEBÊ — 10 Estágios
+# O Slime mais forte do jogo. Começa fraco, termina Absoluto.
+# Evolução via: "evoluir pet slime" quando nível do pet atingido
+# ═══════════════════════════════════════════════════════
+SLIME_EVOLUTION_CHAIN = [
+    # estágio 0 — base
+    {"name": "Slime Bebê",            "emoji": "💧", "stage": 0, "req_level": 1,
+     "rarity": "Comum",      "bonus_hp": 10,    "bonus_atk": 3,
+     "lore": "Um pequenino slime azul. Parece inofensivo... mas algo pulsa dentro dele."},
+    # estágio 1
+    {"name": "Slime Curioso",         "emoji": "🫧", "stage": 1, "req_level": 10,
+     "rarity": "Incomum",    "bonus_hp": 35,    "bonus_atk": 12,
+     "lore": "Começou a absorver magia do ambiente. Os olhos brilham diferente."},
+    # estágio 2
+    {"name": "Slime Arcano",          "emoji": "🔮", "stage": 2, "req_level": 25,
+     "rarity": "Raro",       "bonus_hp": 80,    "bonus_atk": 28,
+     "lore": "A camada externa endureceu em cristal mágico. Consegue replicar habilidades inimigas."},
+    # estágio 3
+    {"name": "Slime Predador",        "emoji": "🟣", "stage": 3, "req_level": 50,
+     "rarity": "Épico",      "bonus_hp": 180,   "bonus_atk": 65,
+     "lore": "Devorou dezenas de criaturas. Cada uma adicionou ao seu núcleo uma nova essência."},
+    # estágio 4
+    {"name": "Slime Titã",            "emoji": "🟤", "stage": 4, "req_level": 80,
+     "rarity": "Lendário",   "bonus_hp": 400,   "bonus_atk": 140,
+     "lore": "Agora do tamanho de um cavalo. Engoliu um dragão jovem e incorporou suas chamas."},
+    # estágio 5
+    {"name": "Slime Devorador",       "emoji": "🌑", "stage": 5, "req_level": 120,
+     "rarity": "Mítico",     "bonus_hp": 750,   "bonus_atk": 280,
+     "lore": "Começou a devorar outros slimes. Sua superfície agora reflete qualquer magia de volta."},
+    # estágio 6
+    {"name": "Slime Caótico",         "emoji": "🌀", "stage": 6, "req_level": 170,
+     "rarity": "Ancestral",  "bonus_hp": 1200,  "bonus_atk": 480,
+     "lore": "O núcleo colapsou e renasceu. Sua forma muda constantemente entre dimensões."},
+    # estágio 7
+    {"name": "Slime Cósmico",         "emoji": "🌌", "stage": 7, "req_level": 250,
+     "rarity": "Divino",     "bonus_hp": 2000,  "bonus_atk": 800,
+     "lore": "Transcendeu a matéria. Agora existe em múltiplos planos simultaneamente."},
+    # estágio 8
+    {"name": "Slime Primordial",      "emoji": "⚗️", "stage": 8, "req_level": 350,
+     "rarity": "Primordial", "bonus_hp": 3500,  "bonus_atk": 1400,
+     "lore": "Mais antigo que os próprios reinos. Dizem que foi o primeiro ser do mundo."},
+    # estágio 9
+    {"name": "Slime Absoluto",        "emoji": "♾️", "stage": 9, "req_level": 500,
+     "rarity": "Absoluto",   "bonus_hp": 6000,  "bonus_atk": 2500,
+     "lore": "A forma final. O slime que devora deuses. Seu rugido dissolve a realidade."},
+]
+
 PETS = {
     1: [
-        {"name": "Slime Bebê", "emoji": "💧", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3},
-        {"name": "Rato Selvagem Domesticado", "emoji": "🐀", "rarity": "Comum", "bonus_hp": 8, "bonus_atk": 4},
-        {"name": "Lagarta Arcana", "emoji": "🐛", "rarity": "Comum", "bonus_hp": 9, "bonus_atk": 3},
-        {"name": "Fungo Espiritual", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 12, "bonus_atk": 2},
-        {"name": "Coelho Mágico", "emoji": "🐰", "rarity": "Incomum", "bonus_hp": 15, "bonus_atk": 5},
-        {"name": "Fada da Floresta", "emoji": "🧚", "rarity": "Raro", "bonus_hp": 20, "bonus_atk": 8}
+        {"name": "Slime Bebê", "emoji": "💧", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3, "max_pet_hp": 50, "cur_pet_hp": 50},
+        {"name": "Rato Selvagem Domesticado", "emoji": "🐀", "rarity": "Comum", "bonus_hp": 8, "bonus_atk": 4, "max_pet_hp": 40, "cur_pet_hp": 40},
+        {"name": "Lagarta Arcana", "emoji": "🐛", "rarity": "Comum", "bonus_hp": 9, "bonus_atk": 3, "max_pet_hp": 45, "cur_pet_hp": 45},
+        {"name": "Fungo Espiritual", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 12, "bonus_atk": 2, "max_pet_hp": 60, "cur_pet_hp": 60},
+        {"name": "Coelho Mágico", "emoji": "🐰", "rarity": "Incomum", "bonus_hp": 15, "bonus_atk": 5, "max_pet_hp": 75, "cur_pet_hp": 75},
+        {"name": "Fada da Floresta", "emoji": "🧚", "rarity": "Raro", "bonus_hp": 20, "bonus_atk": 8, "max_pet_hp": 100, "cur_pet_hp": 100},
+        {"name": "Esquilo Farejador", "emoji": "🐿️", "rarity": "Comum", "bonus_hp": 7, "bonus_atk": 5, "max_pet_hp": 35, "cur_pet_hp": 35},
+        {"name": "Pássaro de Cristal", "emoji": "🐦", "rarity": "Incomum", "bonus_hp": 14, "bonus_atk": 7, "max_pet_hp": 70, "cur_pet_hp": 70},
     ],
     10: [
-        {"name": "Toupeira das Sombras", "emoji": "🦡", "rarity": "Comum", "bonus_hp": 18, "bonus_atk": 6},
-        {"name": "Cogumelo Sombrio", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 16, "bonus_atk": 7},
-        {"name": "Lobo Cinzento", "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12},
-        {"name": "Coruja Espectral", "emoji": "🦉", "rarity": "Raro", "bonus_hp": 30, "bonus_atk": 15},
-        {"name": "Espírito da Floresta", "emoji": "👻", "rarity": "Épico", "bonus_hp": 40, "bonus_atk": 20}
+        {"name": "Toupeira das Sombras", "emoji": "🦡", "rarity": "Comum", "bonus_hp": 18, "bonus_atk": 6, "max_pet_hp": 90, "cur_pet_hp": 90},
+        {"name": "Cogumelo Sombrio", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 16, "bonus_atk": 7, "max_pet_hp": 80, "cur_pet_hp": 80},
+        {"name": "Lobo Cinzento", "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12, "max_pet_hp": 125, "cur_pet_hp": 125},
+        {"name": "Coruja Espectral", "emoji": "🦉", "rarity": "Raro", "bonus_hp": 30, "bonus_atk": 15, "max_pet_hp": 150, "cur_pet_hp": 150},
+        {"name": "Espírito da Floresta", "emoji": "👻", "rarity": "Épico", "bonus_hp": 40, "bonus_atk": 20, "max_pet_hp": 200, "cur_pet_hp": 200},
+        {"name": "Gato das Sombras", "emoji": "🐱", "rarity": "Incomum", "bonus_hp": 22, "bonus_atk": 11, "max_pet_hp": 110, "cur_pet_hp": 110},
+        {"name": "Corvo Espião", "emoji": "🐦‍⬛", "rarity": "Raro", "bonus_hp": 28, "bonus_atk": 14, "max_pet_hp": 140, "cur_pet_hp": 140},
     ],
     20: [
-        {"name": "Besouro do Deserto", "emoji": "🪲", "rarity": "Comum", "bonus_hp": 22, "bonus_atk": 9},
-        {"name": "Cobra das Areias", "emoji": "🐍", "rarity": "Comum", "bonus_hp": 20, "bonus_atk": 11},
-        {"name": "Escorpião Dourado", "emoji": "🦂", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 18},
-        {"name": "Escaravelho Místico", "emoji": "🪲", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 23},
-        {"name": "Esfinge Menor", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30}
+        {"name": "Besouro do Deserto", "emoji": "🪲", "rarity": "Comum", "bonus_hp": 22, "bonus_atk": 9, "max_pet_hp": 110, "cur_pet_hp": 110},
+        {"name": "Cobra das Areias", "emoji": "🐍", "rarity": "Comum", "bonus_hp": 20, "bonus_atk": 11, "max_pet_hp": 100, "cur_pet_hp": 100},
+        {"name": "Escorpião Dourado", "emoji": "🦂", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 18, "max_pet_hp": 175, "cur_pet_hp": 175},
+        {"name": "Escaravelho Místico", "emoji": "🪲", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 23, "max_pet_hp": 225, "cur_pet_hp": 225},
+        {"name": "Esfinge Menor", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30, "max_pet_hp": 300, "cur_pet_hp": 300},
+        {"name": "Raposa das Dunas", "emoji": "🦊", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 13, "max_pet_hp": 125, "cur_pet_hp": 125},
     ],
     30: [
-        {"name": "Raposa Ártica", "emoji": "🦊", "rarity": "Épico", "bonus_hp": 50, "bonus_atk": 25},
-        {"name": "Dragão de Gelo Bebê", "emoji": "🐉", "rarity": "Lendário", "bonus_hp": 70, "bonus_atk": 35},
-        {"name": "Fênix de Gelo", "emoji": "🦅", "rarity": "Mítico", "bonus_hp": 100, "bonus_atk": 50}
+        {"name": "Raposa Ártica", "emoji": "🦊", "rarity": "Épico", "bonus_hp": 50, "bonus_atk": 25, "max_pet_hp": 250, "cur_pet_hp": 250},
+        {"name": "Dragão de Gelo Bebê", "emoji": "🐉", "rarity": "Lendário", "bonus_hp": 70, "bonus_atk": 35, "max_pet_hp": 350, "cur_pet_hp": 350},
+        {"name": "Fênix de Gelo", "emoji": "🦅", "rarity": "Mítico", "bonus_hp": 100, "bonus_atk": 50, "max_pet_hp": 500, "cur_pet_hp": 500},
+        {"name": "Urso do Permafrost", "emoji": "🐻", "rarity": "Raro", "bonus_hp": 55, "bonus_atk": 22, "max_pet_hp": 275, "cur_pet_hp": 275},
+        {"name": "Lobo de Cristal", "emoji": "🐺", "rarity": "Épico", "bonus_hp": 65, "bonus_atk": 30, "max_pet_hp": 325, "cur_pet_hp": 325},
     ],
     40: [
-        {"name": "Salamandra de Fogo", "emoji": "🦎", "rarity": "Épico", "bonus_hp": 55, "bonus_atk": 28},
-        {"name": "Fênix Carmesim", "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80, "bonus_atk": 40},
-        {"name": "Dragão de Magma", "emoji": "🐲", "rarity": "Mítico", "bonus_hp": 120, "bonus_atk": 60}
+        {"name": "Salamandra de Fogo", "emoji": "🦎", "rarity": "Épico", "bonus_hp": 55, "bonus_atk": 28, "max_pet_hp": 275, "cur_pet_hp": 275},
+        {"name": "Fênix Carmesim", "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80, "bonus_atk": 40, "max_pet_hp": 400, "cur_pet_hp": 400},
+        {"name": "Dragão de Magma", "emoji": "🐲", "rarity": "Mítico", "bonus_hp": 120, "bonus_atk": 60, "max_pet_hp": 600, "cur_pet_hp": 600},
+        {"name": "Leão das Chamas", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 90, "bonus_atk": 45, "max_pet_hp": 450, "cur_pet_hp": 450},
     ],
     50: [
-        {"name": "Espectro Sombrio", "emoji": "👤", "rarity": "Lendário", "bonus_hp": 90, "bonus_atk": 45},
-        {"name": "Elemental do Vazio", "emoji": "🌀", "rarity": "Mítico", "bonus_hp": 130, "bonus_atk": 65},
-        {"name": "Entidade Cósmica", "emoji": "✨", "rarity": "Divino", "bonus_hp": 180, "bonus_atk": 90}
+        {"name": "Espectro Sombrio", "emoji": "👤", "rarity": "Lendário", "bonus_hp": 90, "bonus_atk": 45, "max_pet_hp": 450, "cur_pet_hp": 450},
+        {"name": "Elemental do Vazio", "emoji": "🌀", "rarity": "Mítico", "bonus_hp": 130, "bonus_atk": 65, "max_pet_hp": 650, "cur_pet_hp": 650},
+        {"name": "Entidade Cósmica", "emoji": "✨", "rarity": "Divino", "bonus_hp": 180, "bonus_atk": 90, "max_pet_hp": 900, "cur_pet_hp": 900},
+        {"name": "Sombra Viva", "emoji": "🌑", "rarity": "Mítico", "bonus_hp": 140, "bonus_atk": 70, "max_pet_hp": 700, "cur_pet_hp": 700},
     ],
     60: [
-        {"name": "Anjo Guardião", "emoji": "👼", "rarity": "Divino", "bonus_hp": 200, "bonus_atk": 100},
-        {"name": "Querubim Guerreiro", "emoji": "😇", "rarity": "Divino", "bonus_hp": 250, "bonus_atk": 120},
-        {"name": "Arcanjo Primordial", "emoji": "🕊️", "rarity": "Primordial", "bonus_hp": 400, "bonus_atk": 200}
+        {"name": "Anjo Guardião", "emoji": "👼", "rarity": "Divino", "bonus_hp": 200, "bonus_atk": 100, "max_pet_hp": 1000, "cur_pet_hp": 1000},
+        {"name": "Querubim Guerreiro", "emoji": "😇", "rarity": "Divino", "bonus_hp": 250, "bonus_atk": 120, "max_pet_hp": 1250, "cur_pet_hp": 1250},
+        {"name": "Arcanjo Primordial", "emoji": "🕊️", "rarity": "Primordial", "bonus_hp": 400, "bonus_atk": 200, "max_pet_hp": 2000, "cur_pet_hp": 2000},
+        {"name": "Dragão Celestial", "emoji": "🐉", "rarity": "Primordial", "bonus_hp": 450, "bonus_atk": 220, "max_pet_hp": 2200, "cur_pet_hp": 2200},
     ]
 }
 
@@ -16823,19 +16911,25 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     # ---- Exército do reino participa automaticamente do boss ----
     army_bonus_atk = 0
     army_bonus_desc = None
+    army_cur_hp = 0
+    army_max_hp = 0
+    army_race_info = None
     kingdom_data = player.get("kingdom_data")
     if kingdom_data:
         army_level = kingdom_data.get("army", "Neutra")
+        army_race_info = get_army_race_theme(player)
         army_buffs = {
-            "Ruim":     {"bonus": 5,   "desc": "⚔️ Recrutas mal-treinados ajudam como podem (+5 ATK)"},
-            "Neutra":   {"bonus": 15,  "desc": "⚔️ Soldados do seu reino entram na batalha! (+15 ATK)"},
-            "Boa":      {"bonus": 35,  "desc": "⚔️ Tropas de elite marcham ao seu lado! (+35 ATK)"},
-            "Excelente":{"bonus": 70,  "desc": "⚔️ Exército lendário ataca com fúria devastadora! (+70 ATK)"},
+            "Ruim":     {"bonus": 5,   "base_hp": 200,  "desc": f"{army_race_info['emoji']} Recrutas mal-treinados ajudam como podem (+5 ATK)"},
+            "Neutra":   {"bonus": 15,  "base_hp": 500,  "desc": f"{army_race_info['emoji']} {army_race_info['name']} entra na batalha! (+15 ATK)"},
+            "Boa":      {"bonus": 35,  "base_hp": 1200, "desc": f"{army_race_info['emoji']} {army_race_info['name']} de elite marcha ao seu lado! (+35 ATK)"},
+            "Excelente":{"bonus": 70,  "base_hp": 3000, "desc": f"{army_race_info['emoji']} {army_race_info['name']} lendário ataca com fúria! (+70 ATK)"},
         }
         buff = army_buffs.get(army_level)
         if buff:
-            army_bonus_atk = buff["bonus"]
-            army_bonus_desc = buff["desc"]
+            army_bonus_atk = int(buff["bonus"] * army_race_info.get("atk_mult", 1.0))
+            army_max_hp = int(buff["base_hp"] * army_race_info.get("hp_mult", 1.0))
+            army_cur_hp = army_max_hp
+            army_bonus_desc = buff["desc"] + f" | ❤️ HP: `{army_max_hp:,}`"
             p_atk += army_bonus_atk
     # ---- Pet combat bonus (pet entra automaticamente junto) ----
     pet_combat_name = None
@@ -17389,6 +17483,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                     fallen_ally_msg = f"💀 **{ally_data['name']}** foi derrubado pelo boss! *Caiu em batalha com honra...*"
                     turn_embed.add_field(name="⚔️ Aliado Caído!", value=fallen_ally_msg, inline=False)
 
+            # Exército também absorve dano do boss (15% do dano)
+            if army_cur_hp > 0 and army_max_hp > 0 and army_race_info:
+                army_splash = max(10, int(b_dmg_raw * 0.15))
+                army_cur_hp = max(0, army_cur_hp - army_splash)
+                if army_cur_hp <= 0:
+                    army_fallen = f"{army_race_info['emoji']} **{army_race_info['name']}** foi dizimado pelo boss! *As tropas recuam...*"
+                    turn_embed.add_field(name="🏴 Exército Caído!", value=army_fallen, inline=False)
+
             # Companheiro lendário também absorve parte do dano do boss (10% do dano)
             if legendary_comp_data and legendary_comp_cur_hp > 0:
                 lc_splash = max(1, b_dmg // 10)
@@ -17445,6 +17547,15 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             f"{p_icon} **{p_name}**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
             f"{boss_status_line}"
         )
+        if army_cur_hp > 0 and army_max_hp > 0 and army_race_info:
+            a_pct = max(0, int(army_cur_hp / army_max_hp * 100))
+            if a_pct > 60:
+                a_bar = make_hp_bar(a_pct, "🟩")
+            elif a_pct > 30:
+                a_bar = make_hp_bar(a_pct, "🟨")
+            else:
+                a_bar = make_hp_bar(a_pct, "🟥")
+            status_text += f"\n{army_race_info['emoji']} **{army_race_info['name']}**: {a_bar} `{max(0,army_cur_hp):,}/{army_max_hp:,}` ❤️"
         if legendary_comp_data:
             lc_pct = max(0, int(legendary_comp_cur_hp / legendary_comp_hp * 100)) if legendary_comp_hp > 0 else 0
             lc_bar = make_hp_bar(lc_pct, "🟨") if lc_pct > 30 else make_hp_bar(lc_pct, "🟥")
@@ -19836,23 +19947,63 @@ async def on_message(message):
             await message.channel.send("❌ Você não pode trocar com você mesmo!")
             return
 
-        await message.channel.send(f"{to_user.mention}, que item você oferece em troca de **{from_items_text}**?\n\nResponda com: `ofereço [nome do item]`")
+        # Verify sender has the item
+        from_player_check = get_player(user_id)
+        inv_lower = [i.lower() for i in from_player_check.get("inventory", [])]
+        has_item = (
+            from_items_text.lower() in inv_lower or
+            (from_player_check.get("weapon") or "").lower() == from_items_text.lower() or
+            (from_player_check.get("armor") or "").lower() == from_items_text.lower()
+        )
+        if not has_item:
+            await message.channel.send(f"❌ Você não possui **{from_items_text}** no inventário ou equipado!")
+            return
+
+        await message.channel.send(
+            f"{to_user.mention}, **{message.author.display_name}** quer trocar **{from_items_text}** com você!\n"
+            f"Responda com: `ofereço [nome do item]` (você tem 90 segundos)"
+        )
 
         def check(m):
-            return m.author.id == to_user_id and "ofereço" in m.content.lower()
+            return (m.author.id == to_user_id and
+                    any(kw in m.content.lower() for kw in ["ofereço", "ofereco", "oferecer", "ofereço "]))
 
         try:
-            response = await bot.wait_for('message', check=check, timeout=60.0)
-            to_items_text = response.content.replace("ofereço", "").strip()
+            response = await bot.wait_for('message', check=check, timeout=90.0)
+            raw_resp = response.content.lower()
+            for kw in ["ofereço", "ofereco", "oferecer"]:
+                raw_resp = raw_resp.replace(kw, "")
+            to_items_text = raw_resp.strip()
 
-            embed = discord.Embed(title="🔄 Proposta de Troca", color=discord.Color.blue())
-            embed.add_field(name=f"📤 {message.author.name} oferece", value=f"**{from_items_text}**", inline=True)
-            embed.add_field(name=f"📥 {to_user.name} oferece", value=f"**{to_items_text}**", inline=True)
+            if not to_items_text:
+                await message.channel.send("❌ Nenhum item especificado na oferta!")
+                return
+
+            # Verify target has their item
+            to_player_check = get_player(to_user_id)
+            inv_lower_t = [i.lower() for i in to_player_check.get("inventory", [])]
+            has_item_t = (
+                to_items_text.lower() in inv_lower_t or
+                (to_player_check.get("weapon") or "").lower() == to_items_text.lower() or
+                (to_player_check.get("armor") or "").lower() == to_items_text.lower()
+            )
+            if not has_item_t:
+                await message.channel.send(f"❌ **{to_user.display_name}** não possui **{to_items_text}**!")
+                return
+
+            embed = discord.Embed(
+                title="🔄 Proposta de Troca",
+                description="*Ambos os jogadores confirmam a troca?*",
+                color=discord.Color.blue()
+            )
+            embed.add_field(name=f"📤 {message.author.display_name} oferece", value=f"**{from_items_text}**", inline=True)
+            embed.add_field(name=f"📥 {to_user.display_name} oferece", value=f"**{to_items_text}**", inline=True)
+            embed.set_footer(text="⚠️ Apenas o destinatário pode aceitar/recusar")
 
             view = TradeButton(user_id, to_user_id, [from_items_text], [to_items_text])
             await message.channel.send(embed=embed, view=view)
         except asyncio.TimeoutError:
-            await message.channel.send("⏰ Tempo esgotado! Proposta expirou.")
+            await message.channel.send(f"⏰ **{to_user.display_name}** não respondeu a tempo! Proposta expirou.")
         return
 
     # ======================================================
@@ -20288,58 +20439,37 @@ async def on_message(message):
         e_atu3 = discord.Embed(
             title="🔧 ATUALIZAÇÃO — Correções & Melhorias (Página 3/3)",
             description=(
-                "*O Ferreiro do Reino bate o martelo três vezes — sinal de que algo foi consertado...*\n\n"
-                "**\"O mundo não apenas cresceu. Ele foi corrigido. Aprimorado. Polido.\"**\n\n"
-                "**Patch:** Correções & QoL — Fevereiro 2026"
+                "*O Ferreiro do Reino bate o martelo três vezes...*\n\n"
+                '**"O mundo foi corrigido. Aprimorado. Expandido."**\n\n'
+                "**Patch:** Correções, QoL & Expansão — Fevereiro 2026"
             ),
             color=0x2ECC71
         )
-        e_atu3.add_field(
-            name="🐛 Correção Crítica — Sistema de Salvamento",
-            value=(
-                "Foi corrigido um bug grave que impedia **todos os comandos** de funcionar.\n\n"
-                "O banco de dados tinha um campo a mais (`legendary_companion`) sem o respectivo "
-                "placeholder no SQL, causando erro toda vez que dados de jogador eram salvos — "
-                "explorar, caçar, ganhar XP, tudo travava.\n\n"
-                "✅ **Corrigido:** `save_player_db` agora salva todos os 57 campos corretamente."
-            ),
-            inline=False
-        )
-        e_atu3.add_field(
-            name="🌟 Melhoria — Botão para Aceitar Quest Lendária",
-            value=(
-                "Ao encontrar um NPC lendário explorando, agora aparecem **dois botões** na mensagem:\n\n"
-                "🟢 **Aceitar Quest Lendária!** — aceita e inicia na hora\n"
-                "⚫ **Ignorar** — dispensa o encontro\n\n"
-                "Os botões expiram em **2 minutos** e só o dono pode clicar."
-            ),
-            inline=False
-        )
-        e_atu3.add_field(
-            name="🗺️ Melhoria — NPCs Lendários por Reino",
-            value=(
-                "Cada NPC lendário agora aparece **exclusivamente no seu reino correspondente**.\n\n"
-                "Antes o NPC era escolhido com margem imprecisa de nível. "
-                "Agora usa o **reino atual** do jogador como referência direta.\n\n"
-                "✅ Encontros mais imersivos e fiéis ao lore de cada região."
-            ),
-            inline=False
-        )
-        e_atu3.add_field(
-            name="⚔️ Melhoria — Aliados com HP na Batalha de Boss",
-            value=(
-                "Aliados e membros de guilda agora têm **barras de HP individuais** na batalha!\n\n"
-                "• Cada aliado pode **cair em batalha** se receber dano demais do boss\n"
-                "• Se o **líder cair mas aliados ainda estiverem de pé**, a batalha continua\n"
-                "• Os aliados sobreviventes podem **vencer pelo líder** caído\n"
-                "• Mensagem especial de vitória quando os aliados salvam o líder!\n\n"
-                "✅ Batalhas em grupo muito mais dinâmicas e épicas."
-            ),
-            inline=False
-        )
+        e_atu3.add_field(name="🐛 Correção Crítica — Sistema de Salvamento",
+            value="Bug grave corrigido: campo `legendary_companion` sem placeholder SQL fazia **todos os saves falharem silenciosamente**.\n\n✅ `save_player_db` agora salva todos os 57 campos corretamente.",
+            inline=False)
+        e_atu3.add_field(name="✈️ Correção — Sistema de Viagem",
+            value="Viajar para um reino não funcionava por conflito de tipos e emojis nos nomes.\n\n✅ Agora aceita nome parcial, sem emoji, número do reino. Ex: `viajar floresta`, `viajar 10`.",
+            inline=False)
+        e_atu3.add_field(name="🔄 Correção — Trocar Item com Jogador",
+            value="Troca não verificava se os jogadores possuíam os itens.\n\n✅ Agora valida inventário de ambos antes de confirmar.",
+            inline=False)
+        e_atu3.add_field(name="🌟 Melhoria — Botão Quest Lendária + NPC por Reino",
+            value="Encontro com NPC lendário exibe **botões interativos** (Aceitar / Ignorar).\nNPCs aparecem apenas no **reino correto** do jogador.",
+            inline=False)
+        e_atu3.add_field(name="⚔️ Aliados com HP + Batalha Continuada",
+            value="Aliados têm **barras de HP individuais** em batalha de boss.\nSe o líder cair mas aliados estiverem de pé → **batalha continua**.\nAliados podem **vencer pelo líder** caído!",
+            inline=False)
+        e_atu3.add_field(name="🏰 Exércitos com Raça e HP",
+            value="Exércitos baseados na **raça do rei** (Arqueiros Élficos, Horda Orc, Legião Celestial...).\nHP próprio em batalha — o boss pode dizimar seu exército!",
+            inline=False)
+        e_atu3.add_field(name="💧 Slime Bebê — 10 Evoluções (Pet Mais Forte!)",
+            value="💧 Bebê → 🫧 Curioso → 🔮 Arcano → 🟣 Predador → 🟤 Titã\n🌑 Devorador → 🌀 Caótico → 🌌 Cósmico → ⚗️ Primordial → **♾️ Absoluto**\n\n*O Absoluto tem 6.000 HP e 2.500 ATK — o pet definitivo.*",
+            inline=False)
+        e_atu3.add_field(name="🎒 Novos Comandos Admin",
+            value="`!admin dar item/arma/armadura/pet @user [nome]`\n`!admin tirar item/arma/armadura @user`\n`!admin ver inv @user`",
+            inline=False)
         e_atu3.set_footer(text="World CSI Bot — Patch Correções & QoL | Página 3/3")
-        await message.channel.send(embed=e_atu3)
-
         return
 
     # ======================================================
@@ -23011,52 +23141,92 @@ async def handle_new_commands(message):
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
         destination = content.split(maxsplit=1)[1].strip().lower()
-        player_map = get_player_map(player)
+
+        # Helper: strip emoji/symbols for fuzzy matching
+        import unicodedata as _ud
+        def _strip_for_match(s):
+            out = ""
+            for ch in s:
+                cat = _ud.category(ch)
+                if cat.startswith("L") or cat.startswith("N") or ch == " ":
+                    out += ch
+            return " ".join(out.lower().split())
+
+        dest_clean = _strip_for_match(destination)
         found_loc = None
         found_world = None
-        for world_id, wdata in player_map.items():
-            for loc in wdata["locations"]:
-                if loc.get("visible") and destination in loc["name"].lower():
-                    found_loc = loc
-                    found_world = world_id
-                    break
-        # Também verificar por número de mundo
+        player_worlds = [int(w) for w in player.get("worlds", [1])]
+
+        # 1. Match by world name (stripped), searching ALL unlocked worlds
+        for world_id in sorted(player_worlds):
+            wdata = MAP_LOCATIONS.get(world_id) or WORLDS.get(world_id)
+            if not wdata:
+                continue
+            wname = wdata.get("world_name") or wdata.get("name", "")
+            wname_clean = _strip_for_match(wname)
+            if dest_clean in wname_clean or wname_clean in dest_clean:
+                found_world = world_id
+                found_loc = {"name": wname, "id": f"world_{world_id}", "type": "cidade"}
+                break
+
+        # 2. Match by location name inside player map
         if not found_loc:
-            for world_id in player.get("worlds", [1]):
-                world_name = MAP_LOCATIONS.get(world_id, {}).get("world_name", "")
-                if destination in world_name.lower():
-                    found_world = world_id
-                    found_loc = {"name": world_name, "id": f"world_{world_id}", "type": "cidade"}
+            player_map = get_player_map(player)
+            for world_id, wdata in player_map.items():
+                for loc in wdata["locations"]:
+                    loc_clean = _strip_for_match(loc["name"])
+                    if dest_clean in loc_clean or loc_clean in dest_clean:
+                        found_loc = loc
+                        found_world = world_id
+                        break
+                if found_loc:
                     break
+
+        # 3. Match by world number
         if not found_loc:
+            try:
+                wnum = int(destination)
+                if wnum in player_worlds:
+                    wdata = MAP_LOCATIONS.get(wnum) or WORLDS.get(wnum)
+                    if wdata:
+                        wname = wdata.get("world_name") or wdata.get("name", str(wnum))
+                        found_world = wnum
+                        found_loc = {"name": wname, "id": f"world_{wnum}", "type": "cidade"}
+            except ValueError:
+                pass
+
+        if not found_loc or found_world is None:
+            # Show suggestions
+            suggestions = []
+            for wid in sorted(player_worlds)[:10]:
+                wdata = MAP_LOCATIONS.get(wid) or WORLDS.get(wid)
+                if wdata:
+                    suggestions.append(wdata.get("world_name") or wdata.get("name",""))
+            sugg_text = " | ".join(suggestions[:8]) if suggestions else "Use `abrir mapa`"
             await message.channel.send(
-                f"❓ Local '**{destination}**' não encontrado ou ainda não descoberto.\n"
-                "Use `abrir mapa` para ver seus locais conhecidos."
+                f"❓ Reino '**{destination}**' não encontrado ou bloqueado.\n"
+                f"💡 Reinos disponíveis: {sugg_text}"
             )
             return
-        # Verificar se o mundo está desbloqueado
-        if found_world not in player.get("worlds", [1]):
-            await message.channel.send(f"🔒 O reino **{MAP_LOCATIONS.get(found_world, {}).get('world_name', '?')}** ainda está bloqueado! Derrote o boss do reino anterior.")
+
+        found_world = int(found_world)
+        if found_world not in player_worlds:
+            wname_show = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
+            await message.channel.send(f"🔒 O reino **{wname_show}** ainda está bloqueado! Derrote o boss do reino anterior.")
             return
-        # Atualizar mundo atual do jogador
-        worlds = player.get("worlds", [1])
-        if found_world not in worlds:
-            await message.channel.send(f"🔒 Você ainda não desbloqueou este reino!")
-            return
-        # Registrar viagem — salva current_world para explorar no reino certo
-        player["worlds"] = worlds  # mantém tudo que já tem
-        player["current_world"] = int(found_world)  # sempre int
+
+        # Save travel — update current_world
+        player["current_world"] = found_world
         save_player_db(uid, player)
-        world_name = MAP_LOCATIONS.get(found_world, {}).get("world_name", str(found_world))
+        world_name = (MAP_LOCATIONS.get(found_world) or WORLDS.get(found_world, {})).get("world_name") or                      (WORLDS.get(found_world, {}).get("name", str(found_world)))
         embed = discord.Embed(
-            title=f"✈️ Viajando para {found_loc['name']}",
-            description=f"*Você parte em direção a **{world_name}**...*\n\nChegou em **{found_loc['name']}**! O ar aqui é diferente.",
+            title=f"✈️ Viajando para {world_name}",
+            description=f"*Você parte para **{world_name}**...*\n\nChegou! O ar aqui é diferente.",
             color=discord.Color.teal()
         )
-        embed.add_field(name="📍 Local", value=found_loc["name"], inline=True)
-        embed.add_field(name="🌍 Reino", value=world_name, inline=True)
+        embed.add_field(name="🌍 Reino atual", value=world_name, inline=True)
+        embed.add_field(name="📍 Reino nº", value=str(found_world), inline=True)
         embed.set_footer(text="Use `explorar` para começar a aventura neste local!")
-        # Descobrir local se ainda não estava marcado
         disc = player.get("discovered_map", {})
         key = str(found_world)
         if key not in disc:
@@ -25272,6 +25442,174 @@ async def handle_admin_commands(message):
             color=discord.Color.green()))
 
 
+    # ── !admin dar item @user [nome] ────────────────────────────────
+    elif content_lower.startswith("!admin dar item") and message.mentions:
+        target = message.mentions[0]
+        raw = content
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        item_name = raw.replace("!admin dar item", "").replace("!Admin Dar Item", "").strip()
+        if not item_name:
+            await message.channel.send("❌ Uso: `!admin dar item @user [nome do item]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        player["inventory"].append(item_name)
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="🎁 ADMIN — Item Concedido",
+            description=f"**{target.display_name}** recebeu **{item_name}**!\n📦 Total de itens: `{len(player['inventory'])}`",
+            color=discord.Color.green()))
+
+    # ── !admin tirar item @user [nome] ───────────────────────────────
+    elif content_lower.startswith("!admin tirar item") and message.mentions:
+        target = message.mentions[0]
+        raw = content
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        item_name = raw.replace("!admin tirar item", "").replace("!Admin Tirar Item", "").strip()
+        if not item_name:
+            await message.channel.send("❌ Uso: `!admin tirar item @user [nome do item]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        inv_lower = [i.lower() for i in player["inventory"]]
+        if item_name.lower() in inv_lower:
+            idx_remove = inv_lower.index(item_name.lower())
+            removed = player["inventory"].pop(idx_remove)
+            save_player_db(str(target.id), player)
+            await message.channel.send(embed=discord.Embed(
+                title="🗑️ ADMIN — Item Removido",
+                description=f"**{removed}** removido do inventário de **{target.display_name}**!",
+                color=discord.Color.orange()))
+        else:
+            await message.channel.send(f"❌ **{item_name}** não encontrado no inventário de **{target.display_name}**!")
+
+    # ── !admin dar arma @user [nome] ─────────────────────────────────
+    elif content_lower.startswith("!admin dar arma") and message.mentions:
+        target = message.mentions[0]
+        raw = content
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        weapon_name = raw.replace("!admin dar arma", "").replace("!Admin Dar Arma", "").strip()
+        if not weapon_name:
+            await message.channel.send("❌ Uso: `!admin dar arma @user [nome da arma]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        # Find exact weapon name
+        found_w = next((w["name"] for w in ITEMS["weapons"] if weapon_name.lower() in w["name"].lower()), weapon_name)
+        player["weapon"] = found_w
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="⚔️ ADMIN — Arma Equipada",
+            description=f"**{target.display_name}** agora equipa **{found_w}**!",
+            color=discord.Color.blue()))
+
+    # ── !admin tirar arma @user ──────────────────────────────────────
+    elif content_lower.startswith("!admin tirar arma") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        old_weapon = player.get("weapon") or "Nenhuma"
+        player["weapon"] = None
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="⚔️ ADMIN — Arma Removida",
+            description=f"Arma **{old_weapon}** removida de **{target.display_name}**!",
+            color=discord.Color.orange()))
+
+    # ── !admin dar armadura @user [nome] ─────────────────────────────
+    elif content_lower.startswith("!admin dar armadura") and message.mentions:
+        target = message.mentions[0]
+        raw = content
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        armor_name = raw.replace("!admin dar armadura", "").replace("!Admin Dar Armadura", "").strip()
+        if not armor_name:
+            await message.channel.send("❌ Uso: `!admin dar armadura @user [nome da armadura]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        found_a = next((a["name"] for a in ITEMS["armor"] if armor_name.lower() in a["name"].lower()), armor_name)
+        player["armor"] = found_a
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="🛡️ ADMIN — Armadura Equipada",
+            description=f"**{target.display_name}** agora veste **{found_a}**!",
+            color=discord.Color.blue()))
+
+    # ── !admin tirar armadura @user ──────────────────────────────────
+    elif content_lower.startswith("!admin tirar armadura") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        old_armor = player.get("armor") or "Nenhuma"
+        player["armor"] = None
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="🛡️ ADMIN — Armadura Removida",
+            description=f"Armadura **{old_armor}** removida de **{target.display_name}**!",
+            color=discord.Color.orange()))
+
+    # ── !admin ver inv @user ──────────────────────────────────────────
+    elif content_lower.startswith("!admin ver inv") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        inv = player.get("inventory", [])
+        inv_text = "\n".join([f"`{i+1}.` {item}" for i, item in enumerate(inv[:25])]) if inv else "*Inventário vazio*"
+        embed = discord.Embed(
+            title=f"🎒 ADMIN — Inventário de {target.display_name}",
+            description=inv_text,
+            color=discord.Color.blurple()
+        )
+        embed.add_field(name="⚔️ Arma", value=player.get("weapon") or "Nenhuma", inline=True)
+        embed.add_field(name="🛡️ Armadura", value=player.get("armor") or "Nenhuma", inline=True)
+        embed.add_field(name="🐾 Pet", value=str(player.get("pet") or "Nenhum"), inline=True)
+        embed.set_footer(text=f"Total: {len(inv)} itens")
+        await message.channel.send(embed=embed)
+
+    # ── !admin dar pet @user [nome] ───────────────────────────────────
+    elif content_lower.startswith("!admin dar pet") and message.mentions:
+        target = message.mentions[0]
+        raw = content
+        for mid in [f"<@{target.id}>", f"<@!{target.id}>"]:
+            raw = raw.replace(mid, "")
+        pet_name = raw.replace("!admin dar pet", "").replace("!Admin Dar Pet", "").strip()
+        if not pet_name:
+            await message.channel.send("❌ Uso: `!admin dar pet @user [nome do pet]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        # Search all pets
+        found_pet = None
+        all_pet_sources = list(PETS.values()) + list(PETS_EXTRA.values())
+        for world_pets in all_pet_sources:
+            for p in world_pets:
+                if pet_name.lower() in p["name"].lower():
+                    found_pet = p
+                    break
+            if found_pet:
+                break
+        # Also check Slime chain
+        if not found_pet:
+            for s in SLIME_EVOLUTION_CHAIN:
+                if pet_name.lower() in s["name"].lower():
+                    found_pet = s
+                    break
+        pet_set = found_pet["name"] if found_pet else pet_name
+        player["pet"] = pet_set
+        save_player_db(str(target.id), player)
+        emoji = found_pet["emoji"] if found_pet else "🐾"
+        await message.channel.send(embed=discord.Embed(
+            title="🐾 ADMIN — Pet Concedido",
+            description=f"**{target.display_name}** agora tem **{emoji} {pet_set}** como pet ativo!",
+            color=discord.Color.green()))
+
     # ── !admin help ──────────────────────────────────────────────────
     elif content_lower in ["!admin", "!admin help", "!adminhelp"]:
         embed = discord.Embed(title="⚙️ ADMIN — Painel de Comandos", color=discord.Color.dark_gold())
@@ -25282,35 +25620,30 @@ async def handle_admin_commands(message):
         )
         embed.add_field(
             name="💰 Economia",
-            value="`!coins @user N` — dá coins ao jogador\n`!admin coins todos N` — dá coins para TODOS os jogadores",
+            value="`!coins @user N` — dá coins\n`!admin coins todos N` — dá para TODOS",
             inline=False
         )
         embed.add_field(
             name="👤 Gerenciar Jogador",
-            value="`!ver @user` — ver ficha completa\n`!resetar @user` — resetar personagem para nível 1\n`!admin curar @user` — cura HP e Mana totais",
+            value="`!ver @user` — ver ficha\n`!resetar @user` — resetar nível 1\n`!admin curar @user` — cura HP/Mana\n`!admin ver inv @user` — ver inventário completo",
             inline=False
         )
         embed.add_field(
             name="🎭 Personagem",
-            value="`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça",
+            value="`!admin dar classe @user [classe]`\n`!admin dar raça @user [raça]`",
             inline=False
         )
         embed.add_field(
-            name="👑 Habilidade Suprema",
-            value="`!admin suprema @user` — ver estado da suprema (debug)\n`!admin dar suprema @user` — desbloquear suprema manualmente\n`!admin boss @user [nome]` — registrar boss como derrotado (e desbloqueia suprema se aplicável)",
+            name="🎒 Itens & Equipamentos",
+            value="`!admin dar item @user [nome]` — adiciona ao inventário\n`!admin tirar item @user [nome]` — remove do inventário\n`!admin dar arma @user [nome]` — equipa arma\n`!admin tirar arma @user` — remove arma equipada\n`!admin dar armadura @user [nome]` — equipa armadura\n`!admin tirar armadura @user` — remove armadura\n`!admin dar pet @user [nome]` — define pet ativo",
             inline=False
         )
         embed.add_field(
-            name="📋 Classes disponíveis",
-            value="Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante, Berserker, Druida, Monge, Bardo",
+            name="👑 Habilidades & Bosses",
+            value="`!admin suprema @user` — debug suprema\n`!admin dar suprema @user` — desbloquear suprema\n`!admin boss @user [nome]` — registrar boss derrotado",
             inline=False
         )
-        embed.add_field(
-            name="🧬 Raças disponíveis",
-            value="Humano, Élfico, Anão, Orc, Anjo, Demônio, Dragônico, Vampiro, Lobisomem + mais",
-            inline=False
-        )
-        embed.set_footer(text="⚠️ Todos os comandos funcionam em QUALQUER canal do servidor")
+        embed.set_footer(text="⚠️ Todos os comandos funcionam em QUALQUER canal")
         await message.channel.send(embed=embed)
 
 
