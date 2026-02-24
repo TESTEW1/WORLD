@@ -6232,6 +6232,98 @@ PET_EVOLUTIONS = {
             "passive": "Domínio Gelificado: Cura 8% do HP máximo por turno + imune a veneno"
         }
     },
+    # === CADEIA SUPREMA DO SLIME ===
+    "Slime Rei": {
+        "level_required": 45, "next": "Slime Abissal",
+        "passive": "Domínio Gelificado: Cura 8% HP/turno + imune a veneno",
+        "next_data": {
+            "name": "Slime Abissal", "emoji": "🌑", "rarity": "Mítico",
+            "bonus_hp": 220, "bonus_atk": 100,
+            "passive": "Toque do Abismo: Cada ataque tem 20% de chance de aplicar veneno eterno ao boss",
+            "desc": "O Slime desceu ao Abismo e absorveu sua escuridão. Sua gosma corrói qualquer substância conhecida."
+        }
+    },
+    "Slime Abissal": {
+        "level_required": 60, "next": "Slime Cósmico",
+        "passive": "Toque do Abismo: 20% de chance de envenenar o boss por ataque",
+        "next_data": {
+            "name": "Slime Cósmico", "emoji": "🌌", "rarity": "Mítico",
+            "bonus_hp": 360, "bonus_atk": 160,
+            "passive": "Gravidade Gelificada: Reduz o ATK do boss em 15% permanentemente ao entrar na batalha",
+            "desc": "Absorveu energia de estrelas mortas. Seu corpo reflete galáxias inteiras."
+        }
+    },
+    "Slime Cósmico": {
+        "level_required": 80, "next": "Slime Primordial",
+        "passive": "Gravidade Gelificada: -15% ATK do boss permanente ao entrar",
+        "next_data": {
+            "name": "Slime Primordial", "emoji": "🌀", "rarity": "Divino",
+            "bonus_hp": 550, "bonus_atk": 240,
+            "passive": "Forma Instável: Cada turno alterna entre +30% ATK, +30% DEF ou cura 15% HP",
+            "desc": "Existe desde antes do primeiro mundo. Os deuses menores temem sua gelatina."
+        }
+    },
+    "Slime Primordial": {
+        "level_required": 100, "next": "Slime Titã",
+        "passive": "Forma Instável: Alterna buffs a cada turno",
+        "next_data": {
+            "name": "Slime Titã", "emoji": "🗿", "rarity": "Divino",
+            "bonus_hp": 800, "bonus_atk": 340,
+            "passive": "Massa Titânica: Absorve 10% do dano do boss convertendo em HP para o dono",
+            "desc": "Cresceu até o tamanho de uma montanha e depois se condensou novamente. Cada centímetro cúbico pesa toneladas."
+        }
+    },
+    "Slime Titã": {
+        "level_required": 130, "next": "Slime Divino",
+        "passive": "Massa Titânica: 10% do dano recebido vira HP para o dono",
+        "next_data": {
+            "name": "Slime Divino", "emoji": "✨", "rarity": "Divino",
+            "bonus_hp": 1100, "bonus_atk": 480,
+            "passive": "Bênção Gelificada: Cura o dono em 20% do HP máximo ao início da batalha + imune a todos os debuffs",
+            "desc": "Foi abençoado pelos próprios deuses que tentaram destruí-lo. Agora brilha com uma luz própria."
+        }
+    },
+    "Slime Divino": {
+        "level_required": 160, "next": "Slime Ancestral",
+        "passive": "Bênção Gelificada: Cura 20% HP do dono no início + imune a debuffs",
+        "next_data": {
+            "name": "Slime Ancestral", "emoji": "🌟", "rarity": "Primordial",
+            "bonus_hp": 1600, "bonus_atk": 700,
+            "passive": "Memória Ancestral: Revive automaticamente uma vez por batalha com 50% HP + dano dobrado por 2 turnos",
+            "desc": "Lembra da criação de todos os mundos. Cada bolha de gosma contém um universo em miniatura."
+        }
+    },
+    "Slime Ancestral": {
+        "level_required": 200, "next": "Slime Infinito",
+        "passive": "Memória Ancestral: Revive 1x com 50% HP + dano dobrado",
+        "next_data": {
+            "name": "Slime Infinito", "emoji": "♾️", "rarity": "Primordial",
+            "bonus_hp": 2500, "bonus_atk": 1100,
+            "passive": "Existência Infinita: Imortal — ao cair, regenera 30% HP no turno seguinte. Não pode ser derrotado duas vezes seguidas.",
+            "desc": "Não tem começo nem fim. Existia antes do tempo e existirá depois do universo. Os bosses mais poderosos fogem ao vê-lo."
+        }
+    },
+    "Slime Infinito": {
+        "level_required": 250, "next": "SLIME ABSOLUTO — O SUPREMO",
+        "passive": "Existência Infinita: Imortal em batalha — regenera ao cair",
+        "next_data": {
+            "name": "SLIME ABSOLUTO — O SUPREMO", "emoji": "🫧👑",
+            "rarity": "Primordial",
+            "bonus_hp": 5000, "bonus_atk": 2500,
+            "passive": "♾️ SUPREMACIA GELIFICADA: Imune a tudo. Cura 5% HP do dono por turno. Ao atacar, ignora 50% da DEF do boss. Uma vez por batalha, pode duplicar TODO o dano de um turno inteiro.",
+            "special": True,
+            "desc": "O pináculo absoluto da existência. Não é um slime — é A IDEIA de slime, manifestada em poder puro. Bosses lendários tremem. Bosses divinos rezam. O Slime Absoluto apenas... GLUB.",
+            "supreme_skill": {
+                "name": "🫧 GELIFICAÇÃO ABSOLUTA DO COSMOS",
+                "desc": "O Slime Absoluto expande seu corpo até cobrir o campo de batalha inteiro, engolindo o boss temporariamente. Dentro da gosma primordial, o boss perde toda a DEF, é envenenado, enfraquecido, paralisado e recebe dano triplicado por um turno. Nada escapa da gosma do Supremo.",
+                "dmg_mult": 6.0,
+                "ignore_def": True,
+                "poison": True,
+                "weaken": True,
+                "stun_chance": 1.0,
+            }
+        }
+    },
     "Coelho Mágico": {
         "level_required": 8, "next": "Coelho Arcano",
         "next_data": {"name": "Coelho Arcano", "emoji": "🐰", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 12}
@@ -15819,6 +15911,7 @@ def build_map_embed(player, page: int):
     unlocked_worlds = set(player.get("worlds", [1]))
     current_world = max(unlocked_worlds)
     rng_min, rng_max = page_data["range"]
+    disc_map = player.get("discovered_map", {})
 
     # Verifica se o capítulo está desbloqueado
     chapter_unlocked = any(
@@ -15838,35 +15931,59 @@ def build_map_embed(player, page: int):
         lock_msg = MAP_CYCLE_LOCK_MSG.get(page, "🔒 Seção bloqueada.")
         embed.add_field(name="🔒 Bloqueado", value=lock_msg, inline=False)
     else:
-        lines = []
+        fields_used = 0
+
         for entry in chap["reinos"]:
             w_id, emoji, name = entry
             if w_id is None:
-                # Separador ou dimensão (sem mundo associado)
-                lines.append(f"╌╌ *{name}* ╌╌" if "──" in name else f"{emoji} **{name}**")
+                # Separador / dimensão — linha única sem campo separado
                 continue
-            if w_id in unlocked_worlds:
-                marker = " **← aqui**" if w_id == current_world else ""
-                lines.append(f"{emoji} **{name}**{marker}")
-            elif w_id <= current_world + 20:
-                lines.append(f"🔒 ~~{name}~~")
-            # reinos muito distantes não aparecem
 
-        if lines:
+            if w_id not in unlocked_worlds:
+                # Mostrar próximos reinos como bloqueados (só os próximos)
+                if w_id <= current_world + 20:
+                    embed.add_field(
+                        name=f"🔒 {emoji} {name}",
+                        value="*Derrote o boss do reino anterior para desbloquear.*",
+                        inline=False
+                    )
+                    fields_used += 1
+                continue
+
+            # Reino desbloqueado — mostrar com locais descobertos
+            marker = " **← você está aqui**" if w_id == current_world else ""
+            known_ids = disc_map.get(str(w_id), [])
+            world_map_data = MAP_LOCATIONS.get(w_id, {})
+            world_locs = world_map_data.get("locations", [])
+
+            loc_lines = []
+            for loc in world_locs:
+                is_visible = loc.get("discovered", False) or loc["id"] in known_ids
+                if is_visible:
+                    icon = MAP_TYPE_ICONS.get(loc["type"], "📍")
+                    here = " 📌" if (w_id == current_world) else ""
+                    loc_lines.append(f"{icon} {loc['name']}{here}")
+                else:
+                    loc_lines.append("❓ *Local Desconhecido* — explore para revelar")
+
+            loc_text = "\n".join(loc_lines) if loc_lines else "*Explore para descobrir locais!*"
+
             embed.add_field(
-                name="🗺️ Reinos",
-                value="\n".join(lines),
+                name=f"{emoji} **{name}**{marker}",
+                value=loc_text,
                 inline=False
             )
+            fields_used += 1
+            if fields_used >= 22:
+                embed.add_field(name="...", value="*Use `mapa 2` para ver mais reinos.*", inline=False)
+                break
 
         # Chave da dungeon secreta
-        embed.add_field(name="🗝️ Chave", value=chap["chave"], inline=True)
-
-        # Extra (ex: bosses dimensionais)
+        embed.add_field(name="🗝️ Chave do Capítulo", value=chap["chave"], inline=True)
         if chap.get("extra"):
             embed.add_field(name="⚡ Destaque", value=chap["extra"], inline=False)
 
-    embed.set_footer(text=f"Use ◀ ▶ para navegar • `viajar <nome>` para se deslocar • Capítulo {page}/6")
+    embed.set_footer(text=f"Use ◀ ▶ para navegar • Explore para revelar locais • Capítulo {page}/6")
     view = MapNavView(str(player.get("user_id", "0")), page)
     return embed, view
 
@@ -17332,28 +17449,76 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             if pet_combat_name == "Slime Rei":
                 pet_regen = max(1, int(pet_combat_hp * 0.08))
                 pet_cur_hp = min(pet_combat_hp, pet_cur_hp + pet_regen)
+            # Passiva Slime Abissal: 20% veneno
+            if pet_combat_name == "Slime Abissal" and random.random() < 0.20:
+                boss_poison = True
+            # Passiva Slime Cósmico: -15% ATK do boss (aplicado uma vez)
+            if pet_combat_name == "Slime Cósmico" and turn == 1:
+                boss_atk = int(boss_atk * 0.85)
+            # Passiva Slime Titã: 10% dano convertido em HP do dono
+            if pet_combat_name == "Slime Titã":
+                lifesteal = max(1, int(pet_dmg * 0.10))
+                p_cur_hp = min(p_max_hp, p_cur_hp + lifesteal)
+            # Passiva Slime Divino: cura dono 20% HP no turno 1
+            if pet_combat_name == "Slime Divino" and turn == 1:
+                divine_heal = int(p_max_hp * 0.20)
+                p_cur_hp = min(p_max_hp, p_cur_hp + divine_heal)
+            # Passiva Slime Ancestral: forma instável (alterna bônus)
+            if pet_combat_name == "Slime Primordial":
+                cycle = turn % 3
+                if cycle == 0:
+                    pet_dmg = int(pet_dmg * 1.30)
+                    boss_cur_hp -= int(pet_dmg * 0.30)
+                elif cycle == 1:
+                    pass  # DEF boost (representado visualmente)
+                else:
+                    pet_heal_prim = int(pet_combat_hp * 0.15)
+                    pet_cur_hp = min(pet_combat_hp, pet_cur_hp + pet_heal_prim)
 
-            if "Slime" in pet_combat_name:
-                pet_actions = [
-                    f"{pet_combat_emoji} **{pet_combat_name}** se lança sobre o boss como uma bola de gosma!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** divide-se e envolve o inimigo por todos os lados!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** absorve o golpe e responde com uma explosão de gosma!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** GLUB GLUB! Engole parte do boss temporariamente!",
-                ]
-            else:
-                pet_actions = [
-                    f"{pet_combat_emoji} **{pet_combat_name}** salta sobre o boss com suas garras afiadas!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** rosna e ataca ferozmente!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** protege seu dono e contra-ataca!",
-                    f"{pet_combat_emoji} **{pet_combat_name}** usa seu instinto animal para golpear o ponto fraco!",
-                ]
-            pet_msg = f"{random.choice(pet_actions)}\n> 💥 `−{pet_dmg}` HP para o boss"
-            if pet_heal:
-                pet_msg += f"\n> 💚 Cura `+{pet_heal}` HP para você!"
-                pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
-            if "Slime" in pet_combat_name and pet_cur_hp < pet_combat_hp:
-                pet_msg += f"\n> 🫧 HP do Slime: `{max(0,pet_cur_hp)}/{pet_combat_hp}`"
-            turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
+            # === HABILIDADE SUPREMA — SLIME ABSOLUTO ===
+            slime_supreme_used_flag = False
+            if "SLIME ABSOLUTO" in pet_combat_name and (turn == 5 or boss_cur_hp < boss_hp * 0.35):
+                # Gelificação Absoluta do Cosmos
+                skill_dmg = int(pet_combat_atk * 6.0)
+                boss_cur_hp -= skill_dmg
+                boss_poison = True
+                boss_weakened = True
+                pet_msg_header = (
+                    f"🫧👑 **SLIME ABSOLUTO** expande sua massa gelatinosa até os confins do cosmos!\n"
+                    f"**✨ GELIFICAÇÃO ABSOLUTA DO COSMOS ✨**\n"
+                    f"*O boss é engolido pela gosma primordial. Dentro dela, nada existe. Nada resiste. GLUB.*\n"
+                    f"> 💥 `−{skill_dmg:,}` dano SUPREMO (ignora DEF)\n"
+                    f"> ☠️ Veneno primordial aplicado\n"
+                    f"> 💔 Boss enfraquecido — ATK reduzido\n"
+                    f"> ⚡ Boss paralisado pelo horror da gosma\n"
+                    f"*'GLUB GLUB GLUB.'* — O Slime Absoluto, momentos antes de decidir o destino do universo."
+                )
+                boss_stun = True
+                turn_embed.add_field(name="🫧👑 HABILIDADE SUPREMA DO PET!", value=pet_msg_header, inline=False)
+                slime_supreme_used_flag = True
+
+            if not slime_supreme_used_flag:
+                if "Slime" in pet_combat_name:
+                    pet_actions = [
+                        f"{pet_combat_emoji} **{pet_combat_name}** se lança sobre o boss como uma bola de gosma!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** divide-se e envolve o inimigo por todos os lados!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** absorve o golpe e responde com uma explosão de gosma!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** GLUB GLUB! Engole parte do boss temporariamente!",
+                    ]
+                else:
+                    pet_actions = [
+                        f"{pet_combat_emoji} **{pet_combat_name}** salta sobre o boss com suas garras afiadas!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** rosna e ataca ferozmente!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** protege seu dono e contra-ataca!",
+                        f"{pet_combat_emoji} **{pet_combat_name}** usa seu instinto animal para golpear o ponto fraco!",
+                    ]
+                pet_msg = f"{random.choice(pet_actions)}\n> 💥 `−{pet_dmg}` HP para o boss"
+                if pet_heal:
+                    pet_msg += f"\n> 💚 Cura `+{pet_heal}` HP para você!"
+                    pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
+                if "Slime" in pet_combat_name and pet_cur_hp < pet_combat_hp:
+                    pet_msg += f"\n> 🫧 HP do Slime: `{max(0,pet_cur_hp)}/{pet_combat_hp}`"
+                turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
 
         # === ATAQUE DO COMPANHEIRO LENDÁRIO ===
         if legendary_comp_data and legendary_comp_cur_hp > 0:
@@ -24466,7 +24631,7 @@ async def handle_pet_evolution(message):
                         pet_obj = p
                         break
             if pet_obj:
-                evo_info = PET_EVOLUTIONS.get(aname)
+                evo_info = PET_EVOLUTIONS.get(aname) or COMMON_PET_FOURTH_FORMS.get(aname)
                 evo_text = f"\n🔄 Próx. evo: **{evo_info['next']}** (Nv. {evo_info['level_required']})" if evo_info else "\n✨ Forma final!"
                 embed.add_field(
                     name=f"⭐ Pet Ativo: {pet_obj['emoji']} {aname}",
