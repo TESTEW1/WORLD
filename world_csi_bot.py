@@ -15996,6 +15996,26 @@ class DungeonBossStartView(discord.ui.View):
         self.answered = False
         self._message = None  # guardado após send
 
+    @staticmethod
+    def apply_ally_buff(boss_data: dict, num_allies: int) -> dict:
+        """Aplica +20% HP e +10% ATK por aliado adicional (além do jogador principal)."""
+        if num_allies <= 0:
+            return boss_data
+        buffed = dict(boss_data)
+        hp_mult  = 1.0 + num_allies * 0.20   # +20% HP por aliado
+        atk_mult = 1.0 + num_allies * 0.10   # +10% ATK por aliado
+        buffed["hp"]  = int(buffed["hp"]  * hp_mult)
+        buffed["atk"] = int(buffed["atk"] * atk_mult)
+        # XP e coins também sobem levemente para compensar
+        buffed["xp"]  = int(buffed.get("xp", 0)  * (1.0 + num_allies * 0.15))
+        old_coins = buffed.get("coins", (5, 10))
+        buffed["coins"] = (
+            int(old_coins[0] * (1.0 + num_allies * 0.10)),
+            int(old_coins[1] * (1.0 + num_allies * 0.10))
+        )
+        buffed["_ally_buff_count"] = num_allies
+        return buffed
+
     async def on_timeout(self):
         """Se ninguém clicar em 60s, enfrenta sozinho automaticamente"""
         if self.answered:
@@ -16093,14 +16113,23 @@ class DungeonBossStartView(discord.ui.View):
             except:
                 guild_ally_names.append(str(_aid))
         _ally_text = f"\n\n🛡️ **Membros convocados:** {', '.join(guild_ally_names[:5])}" if guild_ally_names else "\n\n⚠️ Nenhum membro da guilda online com HP. Lutando sozinho."
+        num_allies = len(guild_allies)
+        buffed_boss = self.apply_ally_buff(boss_data, num_allies)
+        buff_text = ""
+        if num_allies > 0:
+            buff_text = (
+                f"\n\n⚡ **Boss buffado por {num_allies} aliado(s):**"
+                f" ❤️ +{num_allies*20}% HP • ⚔️ +{num_allies*10}% ATK"
+                f"\n*Mas as recompensas também aumentaram!*"
+            )
         channel = interaction.channel
         self._channel = channel
         await interaction.response.edit_message(
-            content=f"🏰 **Guilda convocada para enfrentar {boss_data['name']}!**{_ally_text}\n\n*A batalha começa...*",
+            content=f"🏰 **Guilda convocada para enfrentar {buffed_boss['name']}!**{_ally_text}{buff_text}\n\n*A batalha começa...*",
             embed=None, view=None
         )
         await asyncio.sleep(2)
-        await fight_boss(channel, self.user_id, is_dungeon=True, dungeon_boss=boss_data,
+        await fight_boss(channel, self.user_id, is_dungeon=True, dungeon_boss=buffed_boss,
                          allies=guild_allies if guild_allies else None)
 
     @discord.ui.button(label="Recuar", style=discord.ButtonStyle.gray, emoji="🏃")
@@ -20940,6 +20969,18 @@ async def on_message(message):
 
         boss_data = WORLDS.get(world_level, WORLDS[1])["boss"]
 
+        # Aplica buff ao boss baseado no número de aliados (todos exceto o líder)
+        num_allies = max(0, len(members) - 1)
+        if num_allies > 0:
+            hp_mult  = 1.0 + num_allies * 0.20
+            atk_mult = 1.0 + num_allies * 0.10
+            boss_data = dict(boss_data)
+            boss_data["hp"]  = int(boss_data.get("hp", 200)  * hp_mult)
+            boss_data["atk"] = int(boss_data.get("atk", 18)  * atk_mult)
+            boss_data["xp"]  = int(boss_data.get("xp", 400)  * (1.0 + num_allies * 0.15))
+            old_c = boss_data.get("coins", (20, 50))
+            boss_data["coins"] = (int(old_c[0] * (1.0 + num_allies * 0.10)), int(old_c[1] * (1.0 + num_allies * 0.10)))
+
         member_names = []
         for mid in members:
             try:
@@ -20948,14 +20989,18 @@ async def on_message(message):
             except:
                 pass
 
+        buff_desc = ""
+        if num_allies > 0:
+            buff_desc = f"\n\n⚡ **Boss buffado:** ❤️ +{num_allies*20}% HP • ⚔️ +{num_allies*10}% ATK\n*Recompensas também aumentaram!*"
+
         embed = discord.Embed(
             title=f"⚔️ BATALHA ÉPICA INICIADA!",
-            description=f"**{'  |  '.join(member_names)}** vs **{boss_name}**!\n\n*'Que os deuses guiem suas espadas!'*",
+            description=f"**{'  |  '.join(member_names)}** vs **{boss_name}**!\n\n*'Que os deuses guiem suas espadas!'*{buff_desc}",
             color=discord.Color.dark_red()
         )
         await message.channel.send(embed=embed)
         await asyncio.sleep(2)
-        await fight_boss(message.channel, user_id, allies=members)
+        await fight_boss(message.channel, user_id, allies=members, dungeon_boss=boss_data if num_allies > 0 else None)
         return
 
 
@@ -23083,7 +23128,7 @@ async def on_message(message):
             for item in player["inventory"]:
                 items_count[item] = items_count.get(item, 0) + 1
 
-            RARITY_ORDER = ["Primordial", "Divino", "Mítico", "Lendário", "Épico", "Raro", "Incomum", "Comum"]
+            RARITY_ORDER = ["Primordial", "Divino", "Ancestral", "Mítico", "Lendário", "Épico", "Raro", "Incomum", "Comum"]
 
             def get_item_rarity_name(item_name):
                 for w in ITEMS["weapons"]:
