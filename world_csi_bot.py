@@ -7737,36 +7737,6 @@ JOBS = {
             7: {"name": "Alquimista Supremo",   "bonus": "Poções primordiais, filosofia da transmutação", "salary_mult": 4.0, "req_work": 180},
         }
     },
-    "Explorador": {
-        "emoji": "🗺️",
-        "min_level": 8,
-        "description": "Desbravador de territórios desconhecidos. Descobre tesouros e regiões secretas.",
-        "salary_coins": (40, 85),
-        "salary_xp": (130, 300),
-        "perks": [
-            "Pode usar `explorar mapa` até 3x por dia",
-            "+40% chance de encontrar itens raros ao explorar",
-            "Descobre locais secretos inacessíveis a outros jogadores",
-            "Lv3: acesso a dimensões ocultas com drops exclusivos",
-        ],
-        "work_action": "Você parte com mochila e bússola, mapeando regiões que ninguém ousou explorar.",
-        "work_msgs": [
-            "🗺️ Você encontra uma caverna não marcada em nenhum mapa. Segredo descoberto!",
-            "🏔️ No topo da montanha, uma vista de 360° revela três aldeias perdidas.",
-            "🌿 Rastros de uma criatura desconhecida levam a uma toca recheada de recursos.",
-            "💎 Escavando num riacho, você encontra pedras semipreciosas esquecidas.",
-            "🧭 Seu instinto de navegação salva seu grupo de uma armadilha de goblin.",
-        ],
-        "levels": {
-            1: {"name": "Explorador Iniciante", "bonus": "+40% chance item raro ao explorar", "salary_mult": 1.0},
-            2: {"name": "Aventureiro",          "bonus": "+50% chance raro, 4 explorações/dia", "salary_mult": 1.3, "req_work": 15},
-            3: {"name": "Desbravador",          "bonus": "+60% chance raro, 5 explorações/dia", "salary_mult": 1.6, "req_work": 35},
-            4: {"name": "Explorador Experiente","bonus": "+70% chance raro, mapas secretos", "salary_mult": 2.0, "req_work": 60},
-            5: {"name": "Mestre Explorador",    "bonus": "+80% chance raro, 6 explorações/dia", "salary_mult": 2.5, "req_work": 90},
-            6: {"name": "Lendário Desbravador", "bonus": "+90% chance raro, dimensões abertas", "salary_mult": 3.0, "req_work": 130},
-            7: {"name": "Explorador Lendário",  "bonus": "+100% chance raro, reinos ocultos", "salary_mult": 4.0, "req_work": 180},
-        }
-    },
     "Espiao": {
         "emoji": "🕵️",
         "min_level": 12,
@@ -18708,53 +18678,21 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     if next_world and next_world in WORLDS:
         p3 = get_player(user_id)
         if next_world not in p3["worlds"]:
+            # Desbloqueia o proximo reino mas NAO viaja automaticamente
             p3["worlds"].append(next_world)
-            # AUTO-TRAVEL: move player to new world (muda mundo atual)
-            # Garante que o novo mundo está na lista e marca como mundo atual
             p3["worlds"] = sorted(list(set(p3["worlds"])))
-            p3["current_world"] = int(next_world)  # ✅ avança current_world para o novo reino (salvo no DB)
+            p3["pending_next_world"] = int(next_world)  # guarda reino pendente, aguarda "subir de reino"
             save_player_db(user_id, p3)
             new_world_data = WORLDS[next_world]
-            # Check if entering a new cycle
-            cycle_transitions = {
-                200: (2, "🌌 Reinos Avançados", "200–399", "As barreiras mortais se dissolvem! Você adentra os Reinos Avançados!"),
-                400: (3, "💫 Dimensões Superiores", "400–499", "A realidade se fragmenta! Você transcendeu os limites dimensionais!"),
-                500: (4, "♾️ Planos Absolutos", "500–600", "O cosmos tremeu com sua chegada! Você entrou nos Planos Absolutos — o fim e o começo de tudo!"),
-            }
-            if next_world in cycle_transitions:
-                cycle_num, cycle_name, cycle_range, cycle_msg = cycle_transitions[next_world]
-                cycle_embed = discord.Embed(
-                    title=f"🔄 NOVO CICLO DESBLOQUEADO — CICLO {cycle_num}!",
-                    description=f"**{cycle_name}** *(Nív. {cycle_range})*\n\n*'{cycle_msg}'*\n\n"
-                                f"✦ **Novas dimensões acessíveis!**\n"
-                                f"✦ **Raridade de itens drasticamente aumentada!**\n"
-                                f"✦ **Mecânicas e habilidades superiores desbloqueadas!**\n"
-                                f"✦ **Evolução de classes e pets do ciclo anterior liberada!**",
-                    color=discord.Color.from_rgb(255, 215, 0)
-                )
-                cycle_embed.set_footer(text=f"Ciclo {cycle_num} | Use 'evolução classe' para ver novas evoluções disponíveis")
-                await channel.send(embed=cycle_embed)
-                await asyncio.sleep(1)
             victory_embed.add_field(
-                name=f"🌍 REINO DESBLOQUEADO & VIAGEM AUTOMÁTICA!",
+                name=f"🌍 NOVO REINO DESBLOQUEADO!",
                 value=f"{new_world_data['emoji']} **{new_world_data['name']}** agora está acessível!\n\n"
                       f"*'As correntes se rompem! As névoas se dissipam!'*\n"
-                      f"**Você foi automaticamente transportado para o novo reino!**\n"
-                      f"*Para voltar, use `abrir mapa` e viaje manualmente.*",
+                      f"✦ Digite **`subir de reino`** para viajar ao novo reino!\n"
+                      f"*Ou continue aqui e viaje quando quiser via `abrir mapa`.*",
                 inline=False
             )
             await channel.send(embed=victory_embed)
-            await asyncio.sleep(2)
-            # Enviar embed de chegada ao novo mundo
-            arrival_embed = discord.Embed(
-                title=f"{new_world_data['emoji']} BEM-VINDO: {new_world_data['name']}!",
-                description=f"*'{random.choice(new_world_data.get('events', ['Você chega a um novo reino...']))}'*\n\n"
-                            f"Um novo horizonte se abre diante de você! Este reino trará novos desafios, criaturas e segredos.\n\n"
-                            f"Use `explorar` para começar sua aventura aqui.\nUse `abrir mapa` para voltar ao reino anterior.",
-                color=discord.Color.gold()
-            )
-            arrival_embed.set_footer(text=f"Reino: {new_world_data['name']} | Use 'abrir mapa' para navegar entre reinos")
-            await channel.send(embed=arrival_embed)
             # Drop + achievements after this return
             return
 
@@ -24214,6 +24152,62 @@ async def handle_new_commands(message):
         view = ScenarioChoiceView(uid, scenario)
         await message.channel.send(embed=embed, view=view)
 
+    # ===== SUBIR DE REINO =====
+    elif content in ["subir de reino", "subir reino", "ir para proximo reino", "ir para próximo reino", "proximo reino", "próximo reino"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        pending = player.get("pending_next_world")
+        if not pending:
+            await message.channel.send(
+                "🌍 Você não tem nenhum reino pendente para subir.\n"
+                "Derrote o boss do seu nível para desbloquear o próximo reino!"
+            )
+            return
+        next_world = int(pending)
+        if next_world not in WORLDS:
+            await message.channel.send("❌ Erro: reino pendente inválido. Fale com um administrador.")
+            return
+        player["current_world"] = next_world
+        player["pending_next_world"] = None
+        player["worlds"] = sorted(list(set(player.get("worlds", [1]) + [next_world])))
+        save_player_db(uid, player)
+        new_world_data = WORLDS[next_world]
+        # Verifica se é transição de ciclo
+        cycle_transitions = {
+            200: (2, "🌌 Reinos Avançados", "200–399", "As barreiras mortais se dissolvem! Você adentra os Reinos Avançados!"),
+            400: (3, "💫 Dimensões Superiores", "400–499", "A realidade se fragmenta! Você transcendeu os limites dimensionais!"),
+            500: (4, "♾️ Planos Absolutos", "500–600", "O cosmos tremeu com sua chegada! Você entrou nos Planos Absolutos — o fim e o começo de tudo!"),
+        }
+        if next_world in cycle_transitions:
+            cycle_num, cycle_name, cycle_range, cycle_msg = cycle_transitions[next_world]
+            cycle_embed = discord.Embed(
+                title=f"🔄 NOVO CICLO DESBLOQUEADO — CICLO {cycle_num}!",
+                description=(
+                    f"**{cycle_name}** *(Nív. {cycle_range})*\n\n*'{cycle_msg}'*\n\n"
+                    f"✦ **Novas dimensões acessíveis!**\n"
+                    f"✦ **Raridade de itens drasticamente aumentada!**\n"
+                    f"✦ **Mecânicas e habilidades superiores desbloqueadas!**\n"
+                    f"✦ **Evolução de classes e pets do ciclo anterior liberada!**"
+                ),
+                color=discord.Color.from_rgb(255, 215, 0)
+            )
+            cycle_embed.set_footer(text=f"Ciclo {cycle_num} | Use 'evolução classe' para ver novas evoluções disponíveis")
+            await message.channel.send(embed=cycle_embed)
+            await asyncio.sleep(1)
+        arrival_embed = discord.Embed(
+            title=f"{new_world_data['emoji']} BEM-VINDO: {new_world_data['name']}!",
+            description=(
+                f"*'{random.choice(new_world_data.get('events', ['Você chega a um novo reino...']))}'*\n\n"
+                f"Um novo horizonte se abre diante de você! Este reino trará novos desafios, criaturas e segredos.\n\n"
+                f"Use `explorar` para começar sua aventura aqui.\nUse `abrir mapa` para voltar ao reino anterior."
+            ),
+            color=discord.Color.gold()
+        )
+        arrival_embed.set_footer(text=f"Reino: {new_world_data['name']} | Use 'abrir mapa' para navegar entre reinos")
+        await message.channel.send(embed=arrival_embed)
+
     # ===== ABRIR MAPA =====
     elif content in ["abrir mapa", "mapa", "meu mapa", "ver mapa", "mapa 1"]:
         player = get_player(uid)
@@ -26713,32 +26707,64 @@ async def handle_admin_commands(message):
         embed = discord.Embed(title="⚙️ ADMIN — Painel de Comandos", color=discord.Color.dark_gold())
         embed.add_field(
             name="📈 Level & XP",
-            value="`!admin upar @user [N]` — sobe N níveis\n`!setlevel @user N` — define nível exato\n`!xp @user N` — dá XP diretamente",
+            value=(
+                "`!admin upar @user [N]` — sobe N níveis\n"
+                "`!setlevel @user N` — define nível exato (1–600)\n"
+                "`!xp @user N` — dá XP diretamente"
+            ),
             inline=False
         )
         embed.add_field(
             name="💰 Economia",
-            value="`!coins @user N` — dá coins ao jogador\n`!admin coins todos N` — dá coins para TODOS os jogadores",
+            value=(
+                "`!coins @user N` — dá coins ao jogador\n"
+                "`!admin coins todos N` — dá coins para TODOS os jogadores"
+            ),
             inline=False
         )
         embed.add_field(
             name="👤 Gerenciar Jogador",
-            value="`!ver @user` — ver ficha completa\n`!resetar @user` — resetar personagem para nível 1\n`!admin curar @user` — cura HP e Mana totais",
+            value=(
+                "`!ver @user` — ver ficha completa do jogador\n"
+                "`!resetar @user` — reseta personagem para nível 1\n"
+                "`!admin curar @user` — cura HP e Mana totais"
+            ),
             inline=False
         )
         embed.add_field(
             name="🎭 Personagem",
-            value="`!admin dar classe @user [classe]` — define classe\n`!admin dar raça @user [raça]` — define raça",
+            value=(
+                "`!admin dar classe @user [classe]` — define classe\n"
+                "`!admin dar raça @user [raça]` — define raça"
+            ),
             inline=False
         )
         embed.add_field(
-            name="👑 Habilidade Suprema",
-            value="`!admin suprema @user` — ver estado da suprema (debug)\n`!admin dar suprema @user` — desbloquear suprema manualmente\n`!admin boss @user [nome]` — registrar boss como derrotado (e desbloqueia suprema se aplicável)",
+            name="👑 Habilidade Suprema & Boss",
+            value=(
+                "`!admin suprema @user` — ver estado da suprema (debug)\n"
+                "`!admin dar suprema @user` — desbloquear suprema manualmente\n"
+                "`!admin boss @user [nome]` — registrar boss como derrotado (desbloqueia suprema se aplicável)"
+            ),
             inline=False
         )
         embed.add_field(
             name="🎒 Itens & Equipamentos",
-            value="`!admin dar item @user [nome]` — adiciona item ao inventário\n`!admin dar arma @user [nome]` — equipa arma no jogador\n`!admin dar armadura @user [nome]` — equipa armadura no jogador\n`!admin relatorio @user` — relatório detalhado de armas e armaduras",
+            value=(
+                "`!admin dar item @user [nome]` — adiciona item ao inventário\n"
+                "`!admin dar arma @user [nome]` — equipa arma no jogador\n"
+                "`!admin dar armadura @user [nome]` — equipa armadura no jogador\n"
+                "`!admin relatorio @user` — relatório detalhado de armas e armaduras\n"
+                "`!veritensadm` — lista TODOS os itens/armas/armaduras por raridade"
+            ),
+            inline=False
+        )
+        embed.add_field(
+            name="🌍 Reinos & Mundo",
+            value=(
+                "`subir de reino` — (jogador digita) avança ao próximo reino após vencer boss\n"
+                "*(o avanço de reino NÃO é automático — jogador precisa digitar o comando)*"
+            ),
             inline=False
         )
         embed.add_field(
@@ -26748,10 +26774,10 @@ async def handle_admin_commands(message):
         )
         embed.add_field(
             name="🧬 Raças disponíveis",
-            value="Humano, Élfico, Anão, Orc, Anjo, Demônio, Dragônico, Vampiro, Lobisomem + mais",
+            value="Humano, Élfico, Anão, Orc, Anjo, Demônio, Dragônico, Vampiro, Lobisomem, Espectro + mais",
             inline=False
         )
-        embed.set_footer(text="⚠️ Todos os comandos funcionam em QUALQUER canal do servidor")
+        embed.set_footer(text="⚠️ Todos os comandos admin funcionam em QUALQUER canal do servidor")
         await message.channel.send(embed=embed)
 
     # ── !admin dar item @user [nome] ─────────────────────────────────
@@ -30107,60 +30133,6 @@ async def handle_job_commands(message):
             p2 = get_player(uid)
             embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
         embed.set_footer(text=f"{lvl_data.get('name','Alquimista')} nível {job_level}/3 | Próxima fabricação em 1 hora")
-        await message.channel.send(embed=embed)
-        return
-
-    # ============================
-    # EXPLORADOR: explorar mapa
-    # ============================
-    if content_lower in ["explorar mapa", "explorar", "ir explorar"]:
-        player = get_player(uid)
-        if not player:
-            return
-        if player.get("job") != "Explorador":
-            await message.channel.send("🗺️ Apenas **Exploradores** podem explorar o mapa!\nUse `procurar emprego` para mudar de emprego.")
-            return
-        job_level, lvl_data = _get_job_level(player, "Explorador")
-        max_exploracoes = 3 + job_level
-        now = time.time()
-        exploracoes_hoje = player.get("exploracoes_hoje", [])
-        exploracoes_hoje = [t for t in exploracoes_hoje if now - t < 86400]
-        if len(exploracoes_hoje) >= max_exploracoes:
-            await message.channel.send(f"🗺️ Você já explorou {max_exploracoes}x hoje. Retorne amanhã para novas explorações!")
-            return
-        descobertas = [
-            {"desc": "uma caverna repleta de cristais", "coins": 120, "xp": 200},
-            {"desc": "ruínas de uma antiga civilização", "coins": 80, "xp": 250},
-            {"desc": "um lago subterrâneo com criaturas raras", "coins": 100, "xp": 220},
-            {"desc": "um depósito de minério esquecido", "coins": 150, "xp": 180},
-            {"desc": "um templo abandonado com tesouros internos", "coins": 200, "xp": 300},
-            {"desc": "uma rota comercial secreta", "coins": 180, "xp": 160},
-        ]
-        if job_level >= 3:
-            descobertas += [
-                {"desc": "uma fenda dimensional com drops únicos", "coins": 400, "xp": 600},
-                {"desc": "o portão de uma dimensão oculta", "coins": 500, "xp": 700},
-            ]
-        desc = random.choice(descobertas)
-        xp_gain = int(desc["xp"] * (1 + 0.4 * job_level))
-        coins_gain = int(desc["coins"] * (1 + 0.3 * job_level))
-        exploracoes_hoje.append(now)
-        player["exploracoes_hoje"] = exploracoes_hoje
-        save_player_db(uid, player)
-        leveled = add_xp(uid, xp_gain)
-        add_coins(uid, coins_gain)
-        embed = discord.Embed(
-            title="🗺️ Exploração Concluída!",
-            description=f"*{player.get('name','Explorador')} parte em expedição...*\n\nVocê descobre **{desc['desc']}**!",
-            color=discord.Color.green()
-        )
-        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
-        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
-        embed.add_field(name="🗺️ Explorações hoje", value=f"`{len(exploracoes_hoje)}/{max_exploracoes}`", inline=True)
-        if leveled:
-            p2 = get_player(uid)
-            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
-        embed.set_footer(text=f"{lvl_data.get('name','Explorador')} nível {job_level}/3")
         await message.channel.send(embed=embed)
         return
 
