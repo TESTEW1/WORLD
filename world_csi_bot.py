@@ -15985,6 +15985,114 @@ class BossButton(discord.ui.View):
         )
 
 
+class DungeonBossStartView(discord.ui.View):
+    """Botões exibidos ANTES de enfrentar o boss de dungeon — escolha: sozinho, aliado ou guilda"""
+    def __init__(self, user_id, boss_data, dungeon, timeout=120):
+        super().__init__(timeout=timeout)
+        self.user_id = user_id
+        self.boss_data = boss_data
+        self.dungeon = dungeon
+        self.answered = False
+
+    @discord.ui.button(label="Enfrentar Sozinho", style=discord.ButtonStyle.red, emoji="🗡️")
+    async def fight_solo(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        channel = interaction.channel
+        await interaction.response.edit_message(
+            content=f"🗡️ **Você avança sozinho contra {self.boss_data['name']}!**\n\n*'Nenhum aliado. Apenas você e seu destino.'*",
+            embed=None, view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(channel, self.user_id, is_dungeon=True, dungeon_boss=self.boss_data, allies=None)
+
+    @discord.ui.button(label="Chamar Aliado", style=discord.ButtonStyle.blurple, emoji="👥")
+    async def call_ally(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        boss_data = self.boss_data
+        await interaction.response.edit_message(
+            content=(
+                f"📣 **{interaction.user.mention} está convocando aliados para a dungeon!**\n\n"
+                f"👹 Boss: **{boss_data['name']}** | ❤️ HP: `{boss_data['hp']:,}` | ⚔️ ATK: `{boss_data['atk']}`\n\n"
+                f"Use `juntar boss` para participar! O líder usará `iniciar batalha boss` quando pronto."
+            ),
+            embed=None, view=None
+        )
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        try:
+            c.execute("INSERT OR IGNORE INTO boss_battles (boss_name, leader_id, members, world_level) VALUES (?, ?, ?, ?)",
+                      (boss_data["name"], str(self.user_id), json.dumps([str(self.user_id)]), 1))
+            conn.commit()
+        except Exception:
+            pass
+        finally:
+            conn.close()
+
+    @discord.ui.button(label="Chamar Guilda", style=discord.ButtonStyle.green, emoji="🏰")
+    async def call_guild(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        boss_data = self.boss_data
+        player = get_player(self.user_id)
+        guild_allies = []
+        guild_ally_names = []
+        if player and player.get("guild_id"):
+            try:
+                _conn = sqlite3.connect(DB_FILE)
+                _c = _conn.cursor()
+                _c.execute("SELECT members FROM guilds WHERE id = ?", (player["guild_id"],))
+                _row = _c.fetchone()
+                _conn.close()
+                if _row:
+                    _members = json.loads(_row[0])
+                    for _mid in _members:
+                        if str(_mid) == str(self.user_id):
+                            continue
+                        _ap = get_player(str(_mid))
+                        if _ap and _ap.get("hp", 0) > 0:
+                            guild_allies.append(str(_mid))
+            except Exception:
+                pass
+        for _aid in guild_allies:
+            try:
+                _au = await bot.fetch_user(int(_aid))
+                guild_ally_names.append(_au.display_name)
+            except:
+                guild_ally_names.append(str(_aid))
+        _ally_text = f"\n\n🛡️ **Membros convocados:** {', '.join(guild_ally_names[:5])}" if guild_ally_names else "\n\n⚠️ Nenhum membro da guilda online com HP. Lutando sozinho."
+        channel = interaction.channel
+        await interaction.response.edit_message(
+            content=f"🏰 **Guilda convocada para enfrentar {boss_data['name']}!**{_ally_text}\n\n*A batalha começa...*",
+            embed=None, view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(channel, self.user_id, is_dungeon=True, dungeon_boss=boss_data,
+                         allies=guild_allies if guild_allies else None)
+
+    @discord.ui.button(label="Recuar", style=discord.ButtonStyle.gray, emoji="🏃")
+    async def flee(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        await interaction.response.edit_message(
+            content="🏃 **Você recua da câmara do boss.**\n\n*'Sábio é quem conhece seus limites.'*",
+            embed=None, view=None
+        )
+
+
 class RevengeTrainingView(discord.ui.View):
     """Mostrado ao jogador após derrota em boss de level — opções de Vingança ou Treinamento"""
     def __init__(self, user_id, boss_data, timeout=180):
@@ -16632,25 +16740,11 @@ MAP_CHAPTER_KINGDOMS = {
         "extra": "💥 Bosses Dimensionais liberam passivas globais e slots extras!"
     },
     5: {
-        "title": "📖 Capítulo VI — As Cinco Dimensões",
-        "subtitle": "Nível 401–500  •  Além dos reinos",
+        "title": "📖 Capítulo V — Dimensões Superiores",
+        "subtitle": "Nível 401–500  •  Além dos reinos mortais",
         "color": 0xF39C12,
         "chave": "🌑 Chave Abissal",
         "reinos": [
-            (None, "🕊️", "Dimensão Celestial  •  buff sagrado passivo"),
-            (None, "🔥", "Dimensão Infernal  •  dano contínuo"),
-            (None, "🌪️", "Dimensão das Badlands  •  caos aleatório"),
-            (None, "🌑", "Dimensão Abissal  •  debuff de sanidade"),
-            (None, "🌀", "Dimensão do Vazio  •  distorção da realidade"),
-        ]
-    },
-    6: {
-        "title": "📖 Capítulo VII — Planos Absolutos",
-        "subtitle": "Nível 501–600  •  O fim e o começo",
-        "color": 0xE74C3C,
-        "chave": "🌑 Chave Abissal",
-        "reinos": [
-            (390, "🔱", "Trono dos Reinos Avançados"),
             (400, "🌠", "Dimensões Superiores — Entrada"),
             (410, "💫", "Nebulosa da Consciência"),
             (420, "🌀", "Vórtice Dimensional Supremo"),
@@ -16661,6 +16755,14 @@ MAP_CHAPTER_KINGDOMS = {
             (470, "🔱", "Olimpo Transcendente"),
             (480, "💎", "Cristal do Universo"),
             (490, "🌠", "Ápice das Dimensões Superiores"),
+        ]
+    },
+    6: {
+        "title": "📖 Capítulo VI — Planos Absolutos",
+        "subtitle": "Nível 501–600  •  O fim e o começo de tudo",
+        "color": 0xE74C3C,
+        "chave": "🌑 Chave Abissal",
+        "reinos": [
             (500, "♾️", "Planos Absolutos — Limiar"),
             (510, "🌑", "Trevas Absolutas"),
             (520, "🌟", "Luz Absoluta"),
@@ -16690,10 +16792,7 @@ def build_map_embed(player, page: int):
     disc_map = player.get("discovered_map", {})
 
     # Verifica se o capítulo está desbloqueado
-    # Página 5 (Dimensões) é desbloqueada por nível 400+
-    if page == 5:
-        chapter_unlocked = max(unlocked_worlds) >= 400
-    elif page == 1:
+    if page == 1:
         chapter_unlocked = True
     else:
         chapter_unlocked = any(
@@ -16733,7 +16832,14 @@ def build_map_embed(player, page: int):
                 continue
 
             # Reino desbloqueado — mostrar com locais descobertos
-            marker = " **← você está aqui**" if w_id == current_world else ""
+            # Seta mostra onde o jogador ESTÁ DE FATO (current_world), não onde foi desbloqueado
+            is_here = (w_id == current_world)
+            # Se current_world não está listado explicitamente neste capítulo, 
+            # mostrar seta no reino mais próximo abaixo
+            if not is_here and current_world in unlocked_worlds:
+                next_w_ids = [e[0] for e in chap["reinos"] if e[0] is not None and e[0] > w_id]
+                is_here = (current_world >= w_id and (not next_w_ids or current_world < min(next_w_ids)))
+            marker = " **← você está aqui**" if is_here else ""
             known_ids = disc_map.get(str(w_id), [])
             world_map_data = MAP_LOCATIONS.get(w_id, {})
             world_locs = world_map_data.get("locations", [])
@@ -16743,7 +16849,7 @@ def build_map_embed(player, page: int):
                 is_visible = loc.get("discovered", False) or loc["id"] in known_ids
                 if is_visible:
                     icon = MAP_TYPE_ICONS.get(loc["type"], "📍")
-                    here = " 📌" if (w_id == current_world) else ""
+                    here = " 📌" if is_here else ""
                     loc_lines.append(f"{icon} {loc['name']}{here}")
                 else:
                     loc_lines.append("❓ *Local Desconhecido* — explore para revelar")
@@ -18912,9 +19018,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                       f"✦ Ou use `subir de reino` para ir direto agora.",
                 inline=False
             )
-            await channel.send(embed=victory_embed)
-            # Drop + achievements after this return
-            return
+            # NÃO dar return aqui — o drop de item deve acontecer normalmente abaixo!
 
     # Item drop — boss é a ÚNICA fonte de Mítico+
     # Bosses de level têm chance maior de drops raros
@@ -19387,36 +19491,63 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         await channel.send(embed=embed)
         await asyncio.sleep(2)
 
-        # Boss de dungeon secreta é MUITO mais forte
-        player_level = player.get("level", 1)
+        # Boss de dungeon — stats fixos baseados no nível do REINO (world), não do jogador
+        # Igual ao sistema de world bosses: cada dungeon tem poder definido pelo reino onde está
+        world_key = max((k for k in WORLD_BOSSES_VARIANTS.keys() if k <= (world or 1)), default=1)
+        base_world_boss = WORLD_BOSSES_VARIANTS.get(world_key, [{}])[0]
+        w_lvl = world_key  # nível de referência do mundo (1, 10, 20, 30...)
+
         if is_secret:
             special_drop_rarity = dungeon.get("special_boss_drop", "Mítico")
-            # Escala fortemente pelo nível do jogador
+            # Boss secreto é ~3x mais forte que o boss do reino
             boss_data = {
                 "name": dungeon["boss"],
-                "hp":   int((player_level * 180 + dungeon["level"] * 300) * level_mult),
-                "atk":  int((player_level * 8  + dungeon["level"] * 20)  * level_mult),
-                "xp":   int((2000 + dungeon["level"] * 300 + player_level * 50) * level_mult),
+                "hp":   int(base_world_boss.get("hp", 200) * 3.0 * dungeon.get("level", 1)),
+                "atk":  int(base_world_boss.get("atk", 18) * 3.0 * dungeon.get("level", 1)),
+                "xp":   int(base_world_boss.get("xp", 400) * 2.5 * dungeon.get("level", 1)),
                 "coins": (
-                    int((60 + dungeon["level"] * 10 + player_level * 3) * level_mult),
-                    int((150 + dungeon["level"] * 20 + player_level * 6) * level_mult)
+                    int(base_world_boss.get("coins", (20, 50))[0] * 2.5),
+                    int(base_world_boss.get("coins", (20, 50))[1] * 2.5)
                 ),
                 "special_drop_rarity": special_drop_rarity,
                 "is_secret_boss": True
             }
         else:
-            # Boss comum de dungeon — agora escala pelo nível do jogador também
+            # Boss comum de dungeon — ligeiramente mais forte que o boss do reino (1x a 2x)
             boss_data = {
                 "name": dungeon["boss"],
-                "hp":   player_level * 120 + dungeon["level"] * 80,
-                "atk":  player_level * 5  + dungeon["level"] * 8,
-                "xp":   250 + dungeon["level"] * 60 + player_level * 15,
+                "hp":   int(base_world_boss.get("hp", 200) * (0.8 + dungeon.get("level", 1) * 0.4)),
+                "atk":  int(base_world_boss.get("atk", 18) * (0.8 + dungeon.get("level", 1) * 0.4)),
+                "xp":   int(base_world_boss.get("xp", 400) * (0.6 + dungeon.get("level", 1) * 0.3)),
                 "coins": (
-                    20 + dungeon["level"] * 5  + player_level * 2,
-                    60 + dungeon["level"] * 10 + player_level * 4
+                    int(base_world_boss.get("coins", (20, 50))[0] * 0.8),
+                    int(base_world_boss.get("coins", (20, 50))[1] * 0.8)
                 )
             }
-        await fight_boss(channel, user_id, is_dungeon=True, dungeon_boss=boss_data)
+
+        # ── Mostrar botões ANTES de lutar: Enfrentar Sozinho / Chamar Aliado / Chamar Guilda ──
+        pre_battle_embed = discord.Embed(
+            title=f"⚠️ BOSS DA DUNGEON — {dungeon['boss']}",
+            description=(
+                f"**{dungeon['boss']}** bloqueia a câmara final!\n\n"
+                f"❤️ HP: `{boss_data['hp']:,}` | ⚔️ ATK: `{boss_data['atk']}`\n"
+                f"🏆 XP: `{boss_data['xp']:,}` | 💰 Coins: `{boss_data['coins'][0]}–{boss_data['coins'][1]}`\n\n"
+                f"*Como deseja enfrentar este boss?*"
+            ),
+            color=discord.Color.dark_red()
+        )
+        pre_battle_embed.add_field(
+            name="⚔️ Suas Opções",
+            value=(
+                "**Sozinho** — Enfrente o boss com suas próprias forças.\n"
+                "**Chamar Aliado** — Um aliado de sua lista luta ao seu lado.\n"
+                "**Chamar Guilda** — Membros da guilda se juntam à batalha.\n\n"
+                "*Use os botões abaixo para escolher!*"
+            ),
+            inline=False
+        )
+        view = DungeonBossStartView(user_id, boss_data, dungeon)
+        await channel.send(embed=pre_battle_embed, view=view)
         return
 
     await channel.send(embed=embed)
@@ -23833,10 +23964,10 @@ MAP_PAGES = {
         "desc": "Reinos 21–30 • Impérios Avançados (nível 201–300). Use `mapa 4` para as Terras Corrompidas."},
     4: {"title": "🗺️ Mapa — Ciclo 4: Terras Corrompidas",      "range": (301, 400), "color": 0x6C3483,
         "desc": "Reinos 31–35 (Terras Corrompidas) + Reinos 36–40 (Reinos Dimensionais). Use `mapa 5` para as Dimensões."},
-    5: {"title": "🌌 Mapa — Ciclo 5: Dimensões (Nível 400+)",  "range": (401, 500), "color": 0xF39C12,
-        "desc": "Dimensões: Celestial • Infernal • Badlands • Abissal • Vazio (nível 401–500). Use `mapa 6` para o Absoluto."},
-    6: {"title": "♾️ Mapa — Ciclo 6: Planos Absolutos",        "range": (501, 600), "color": 0xE74C3C,
-        "desc": "Ciclo Absoluto (nível 501–600). O fim e o começo de tudo. Level máximo: 600."},
+    5: {"title": "🌌 Mapa — Ciclo 5: Dimensões Superiores (Nível 400+)",  "range": (400, 499), "color": 0xF39C12,
+        "desc": "Dimensões Superiores (nível 400–499). Use `mapa 6` para os Planos Absolutos."},
+    6: {"title": "♾️ Mapa — Ciclo 6: Planos Absolutos (Nível 500+)",        "range": (500, 600), "color": 0xE74C3C,
+        "desc": "Planos Absolutos (nível 500–600). O fim e o começo de tudo. Level máximo: 600."},
 }
 
 MAP_TYPE_ICONS = {
@@ -23858,8 +23989,8 @@ MAP_CYCLE_LOCK_MSG = {
     2: "🔒 Ciclo 2 bloqueado — derrote o boss de nível 99 para acessar as Nações Intermediárias.",
     3: "🔒 Ciclo 3 bloqueado — derrote o boss de nível 199 para acessar os Impérios Avançados.",
     4: "🔒 Ciclo 4 bloqueado — derrote o boss de nível 299 para acessar as Terras Corrompidas.",
-    5: "🔒 Ciclo 5 bloqueado — derrote o Boss Dimensional do nível 399 para acessar as Dimensões (nível 400+).",
-    6: "🔒 Ciclo 6 bloqueado — derrote o Boss da Dimensão do Vazio (nível 499) para acessar os Planos Absolutos.",
+    5: "🔒 Ciclo 5 bloqueado — derrote o boss do reino 390 para acessar as Dimensões Superiores (nível 400+).",
+    6: "🔒 Ciclo 6 bloqueado — derrote o boss do reino 490 para acessar os Planos Absolutos (nível 500+).",
 }
 
 async def show_map_page(message, player, page: int):
