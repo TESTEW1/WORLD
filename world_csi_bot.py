@@ -19511,66 +19511,57 @@ async def explore_dungeon(channel, user_id, dungeon, world):
                 inline=False
             )
         embed.color = discord.Color.dark_red()
-        await channel.send(embed=embed)
-        await asyncio.sleep(2)
 
         # Boss de dungeon — stats fixos baseados no nível do REINO (world), não do jogador
-        # Igual ao sistema de world bosses: cada dungeon tem poder definido pelo reino onde está
-        world_key = max((k for k in WORLD_BOSSES_VARIANTS.keys() if k <= (world or 1)), default=1)
-        base_world_boss = WORLD_BOSSES_VARIANTS.get(world_key, [{}])[0]
-        w_lvl = world_key  # nível de referência do mundo (1, 10, 20, 30...)
+        world_key = max((k for k in WORLD_BOSSES_VARIANTS.keys() if k <= int(world or 1)), default=1)
+        base_wb = WORLD_BOSSES_VARIANTS.get(world_key, [{}])[0]
+        wb_hp  = base_wb.get("hp", 200)
+        wb_atk = base_wb.get("atk", 18)
+        wb_xp  = base_wb.get("xp", 400)
+        wb_coins = base_wb.get("coins", (20, 50))
+        if not isinstance(wb_coins, (list, tuple)) or len(wb_coins) < 2:
+            wb_coins = (20, 50)
 
+        dlvl = dungeon.get("level", 1)
         if is_secret:
             special_drop_rarity = dungeon.get("special_boss_drop", "Mítico")
-            # Boss secreto é ~3x mais forte que o boss do reino
             boss_data = {
                 "name": dungeon["boss"],
-                "hp":   int(base_world_boss.get("hp", 200) * 3.0 * dungeon.get("level", 1)),
-                "atk":  int(base_world_boss.get("atk", 18) * 3.0 * dungeon.get("level", 1)),
-                "xp":   int(base_world_boss.get("xp", 400) * 2.5 * dungeon.get("level", 1)),
-                "coins": (
-                    int(base_world_boss.get("coins", (20, 50))[0] * 2.5),
-                    int(base_world_boss.get("coins", (20, 50))[1] * 2.5)
-                ),
+                "hp":   max(50, int(wb_hp  * 3.0 * dlvl)),
+                "atk":  max(5,  int(wb_atk * 3.0 * dlvl)),
+                "xp":   max(50, int(wb_xp  * 2.5 * dlvl)),
+                "coins": (max(10, int(wb_coins[0] * 2.5)), max(20, int(wb_coins[1] * 2.5))),
                 "special_drop_rarity": special_drop_rarity,
                 "is_secret_boss": True
             }
         else:
-            # Boss comum de dungeon — ligeiramente mais forte que o boss do reino (1x a 2x)
+            mult = 0.8 + dlvl * 0.4
             boss_data = {
                 "name": dungeon["boss"],
-                "hp":   int(base_world_boss.get("hp", 200) * (0.8 + dungeon.get("level", 1) * 0.4)),
-                "atk":  int(base_world_boss.get("atk", 18) * (0.8 + dungeon.get("level", 1) * 0.4)),
-                "xp":   int(base_world_boss.get("xp", 400) * (0.6 + dungeon.get("level", 1) * 0.3)),
-                "coins": (
-                    int(base_world_boss.get("coins", (20, 50))[0] * 0.8),
-                    int(base_world_boss.get("coins", (20, 50))[1] * 0.8)
-                )
+                "hp":   max(30, int(wb_hp  * mult)),
+                "atk":  max(3,  int(wb_atk * mult)),
+                "xp":   max(30, int(wb_xp  * (0.6 + dlvl * 0.3))),
+                "coins": (max(5, int(wb_coins[0] * 0.8)), max(10, int(wb_coins[1] * 0.8)))
             }
 
-        # ── Mostrar botões ANTES de lutar: Enfrentar Sozinho / Chamar Aliado / Chamar Guilda ──
-        pre_battle_embed = discord.Embed(
-            title=f"⚠️ BOSS DA DUNGEON — {dungeon['boss']}",
-            description=(
-                f"**{dungeon['boss']}** bloqueia a câmara final!\n\n"
-                f"❤️ HP: `{boss_data['hp']:,}` | ⚔️ ATK: `{boss_data['atk']}`\n"
-                f"🏆 XP: `{boss_data['xp']:,}` | 💰 Coins: `{boss_data['coins'][0]}–{boss_data['coins'][1]}`\n\n"
-                f"*Como deseja enfrentar este boss?*"
-            ),
-            color=discord.Color.dark_red()
-        )
-        pre_battle_embed.add_field(
-            name="⚔️ Suas Opções",
+        # Adicionar stats do boss + botões ao MESMO embed já exibido
+        embed.add_field(
+            name="📊 Poder do Boss",
             value=(
-                "**Sozinho** — Enfrente o boss com suas próprias forças.\n"
-                "**Chamar Aliado** — Um aliado de sua lista luta ao seu lado.\n"
-                "**Chamar Guilda** — Membros da guilda se juntam à batalha.\n\n"
-                "*Use os botões abaixo para escolher!*"
+                f"❤️ HP: `{boss_data['hp']:,}` | ⚔️ ATK: `{boss_data['atk']}`\n"
+                f"🏆 XP: `{boss_data['xp']:,}` | 💰 `{boss_data['coins'][0]}–{boss_data['coins'][1]}` coins\n\n"
+                f"⏱️ *Você tem 60s para escolher — ou enfrentará sozinho!*"
             ),
             inline=False
         )
+        embed.add_field(
+            name="⚔️ Como deseja enfrentar?",
+            value="🗡️ **Solo** • 👥 **Chamar Aliado** • 🏰 **Chamar Guilda** • 🏃 **Recuar**",
+            inline=False
+        )
+
         view = DungeonBossStartView(user_id, boss_data, dungeon, channel=channel)
-        msg = await channel.send(embed=pre_battle_embed, view=view)
+        msg = await channel.send(embed=embed, view=view)
         view._message = msg
         return
 
