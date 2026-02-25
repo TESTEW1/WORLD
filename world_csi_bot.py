@@ -7478,8 +7478,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Ferreiro Aprendiz", "bonus": "+10 ATK permanente", "atk_bonus": 10, "salary_mult": 1.0},
-            2: {"name": "Ferreiro Mestre",   "bonus": "+25 ATK, +10 DEF, acesso a forja élfica", "atk_bonus": 25, "def_bonus": 10, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Grande Ferreiro",   "bonus": "+50 ATK, +25 DEF, pode forjar armas lendárias", "atk_bonus": 50, "def_bonus": 25, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Ferreiro Oficial",     "bonus": "+20 ATK, redução 15% custo loja", "atk_bonus": 20, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Ferreiro Mestre",      "bonus": "+35 ATK, +10 DEF, forja élfica", "atk_bonus": 35, "def_bonus": 10, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Artesão das Forjas",   "bonus": "+50 ATK, +20 DEF, armas raras especiais", "atk_bonus": 50, "def_bonus": 20, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Ferreiro Lendário",    "bonus": "+70 ATK, +30 DEF, forja itens épicos", "atk_bonus": 70, "def_bonus": 30, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Grande Mestre da Forja","bonus": "+90 ATK, +45 DEF, forja armas lendárias", "atk_bonus": 90, "def_bonus": 45, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Ferreiro Primordial",  "bonus": "+120 ATK, +60 DEF, forja armas míticas únicas", "atk_bonus": 120, "def_bonus": 60, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Arcano": {
@@ -7504,8 +7508,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Aprendiz Arcano",  "bonus": "+15 Mana máxima", "mana_bonus": 15, "salary_mult": 1.0},
-            2: {"name": "Erudito Arcano",   "bonus": "+40 Mana, +XP de magia dobrado", "mana_bonus": 40, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Arquimago",         "bonus": "+80 Mana, acesso a feitiços proibidos", "mana_bonus": 80, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Estudante Arcano",     "bonus": "+25 Mana, feitiços básicos desbloqueados", "mana_bonus": 25, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Erudito Arcano",       "bonus": "+40 Mana, XP de magia dobrado", "mana_bonus": 40, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Mago de Batalha",      "bonus": "+60 Mana, +15% dano mágico", "mana_bonus": 60, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Conjurador Supremo",   "bonus": "+80 Mana, feitiços proibidos desbloqueados", "mana_bonus": 80, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Arquimago",            "bonus": "+110 Mana, regenera 5 mana/turno", "mana_bonus": 110, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Arcano Primordial",    "bonus": "+150 Mana, feitiços de nível divino", "mana_bonus": 150, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Curandeiro": {
@@ -7530,8 +7538,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Curandeiro Iniciante", "bonus": "+10 HP ao trabalhar", "hp_regen_bonus": 10, "salary_mult": 1.0},
-            2: {"name": "Curandeiro Experiente","bonus": "+25 HP ao trabalhar, cura de aliados aprimorada", "hp_regen_bonus": 25, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Curandeiro Sagrado",   "bonus": "+50 HP ao trabalhar, pode reviver aliados derrotados", "hp_regen_bonus": 50, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Auxiliar de Cura",         "bonus": "+18 HP ao trabalhar, pocoes 15% off", "hp_regen_bonus": 18, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Curandeiro Experiente",    "bonus": "+28 HP ao trabalhar, cura aliados aprimorada", "hp_regen_bonus": 28, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Mestre da Cura",           "bonus": "+40 HP ao trabalhar, cura em área", "hp_regen_bonus": 40, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Curandeiro Sagrado",       "bonus": "+55 HP ao trabalhar, revive aliados", "hp_regen_bonus": 55, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Hierofante da Cura",       "bonus": "+75 HP ao trabalhar, cura mágica permanente", "hp_regen_bonus": 75, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Arauto da Vida",           "bonus": "+100 HP ao trabalhar, imortalidade temporária", "hp_regen_bonus": 100, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Mercador": {
@@ -7556,8 +7568,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Comerciante",      "bonus": "+25% ao vender itens", "sell_bonus": 0.25, "salary_mult": 1.0},
-            2: {"name": "Mercador Próspero","bonus": "+50% venda, acesso mercado negro VIP", "sell_bonus": 0.50, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Magnata",          "bonus": "+75% venda, loja exclusiva, tributo passivo", "sell_bonus": 0.75, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Negociante",           "bonus": "+35% venda, 10% desconto compras", "sell_bonus": 0.35, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Mercador Próspero",    "bonus": "+50% venda, acesso mercado negro VIP", "sell_bonus": 0.50, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Comerciante de Elite", "bonus": "+60% venda, rotas comerciais secretas", "sell_bonus": 0.60, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Grande Mercador",      "bonus": "+70% venda, loja exclusiva Épico+", "sell_bonus": 0.70, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Tycoon",               "bonus": "+80% venda, tributo passivo diário", "sell_bonus": 0.80, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Magnata Lendário",     "bonus": "+100% venda, monopólio do mercado", "sell_bonus": 1.00, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Escriba": {
@@ -7588,8 +7604,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Escriba Iniciante",  "bonus": "Armazena até 10 livros, coleta 1 pergaminho/dia", "max_books": 10, "scrolls_per_day": 1, "salary_mult": 1.0},
-            2: {"name": "Escriba Erudito",    "bonus": "Armazena até 30 livros, coleta 3 pergaminhos/dia, registra falas de NPCs", "max_books": 30, "scrolls_per_day": 3, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Arquivista Supremo", "bonus": "Armazena livros ilimitados, coleta 5 pergaminhos/dia, acesso a textos proibidos", "max_books": 999, "scrolls_per_day": 5, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Copista",                  "bonus": "Armazena 20 livros, 2 pergaminhos/dia", "max_books": 20, "scrolls_per_day": 2, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Escriba Erudito",          "bonus": "30 livros, 3 pergaminhos/dia, registra NPCs", "max_books": 30, "scrolls_per_day": 3, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Cronista Real",            "bonus": "50 livros, 4 pergaminhos/dia, textos raros", "max_books": 50, "scrolls_per_day": 4, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Arquivista",               "bonus": "100 livros, 5 pergaminhos/dia, textos proibidos", "max_books": 100, "scrolls_per_day": 5, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Guardião do Conhecimento", "bonus": "Livros ilimitados, 7 pergaminhos/dia", "max_books": 999, "scrolls_per_day": 7, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Arquivista Supremo",       "bonus": "Ilimitados, 10 pergaminhos/dia, lore divino", "max_books": 9999, "scrolls_per_day": 10, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Cavaleiro": {
@@ -7614,8 +7634,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Cavaleiro",          "bonus": "+20 HP máximos", "hp_bonus": 20, "salary_mult": 1.0},
-            2: {"name": "Cavaleiro Veterano", "bonus": "+50 HP, +15 DEF, invocação de cavaleiros aprimorada", "hp_bonus": 50, "def_bonus": 15, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Cavaleiro Lendário", "bonus": "+100 HP, +30 DEF, imune a efeitos de medo", "hp_bonus": 100, "def_bonus": 30, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Cavaleiro Treinado",       "bonus": "+35 HP, +10 DEF", "hp_bonus": 35, "def_bonus": 10, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Cavaleiro Veterano",       "bonus": "+55 HP, +20 DEF, cavaleiros aprimorados", "hp_bonus": 55, "def_bonus": 20, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Cavaleiro de Elite",       "bonus": "+80 HP, +30 DEF, armadura bendita", "hp_bonus": 80, "def_bonus": 30, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Cavaleiro Campeão",        "bonus": "+110 HP, +45 DEF, escudo sagrado", "hp_bonus": 110, "def_bonus": 45, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Cavaleiro Lendário",       "bonus": "+150 HP, +60 DEF, imune a medo", "hp_bonus": 150, "def_bonus": 60, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Cavaleiro Divino",         "bonus": "+200 HP, +80 DEF, aura protetora", "hp_bonus": 200, "def_bonus": 80, "salary_mult": 4.0, "req_work": 180},
         },
         "city_defense_cooldown": 3600  # 1 hora
     },
@@ -7641,8 +7665,12 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Guarda Real",         "bonus": "+35 HP máximos", "hp_bonus": 35, "salary_mult": 1.0},
-            2: {"name": "Guarda de Elite",     "bonus": "+70 HP, +20 ATK, acesso a arsenal real", "hp_bonus": 70, "atk_bonus": 20, "salary_mult": 1.5, "req_work": 20},
-            3: {"name": "Comandante da Guarda","bonus": "+120 HP, +40 ATK, pode declarar alerta de guerra", "hp_bonus": 120, "atk_bonus": 40, "salary_mult": 2.5, "req_work": 50},
+            2: {"name": "Guarda de Prontidão",      "bonus": "+55 HP, +10 ATK", "hp_bonus": 55, "atk_bonus": 10, "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Guarda de Elite",          "bonus": "+80 HP, +25 ATK, arsenal real", "hp_bonus": 80, "atk_bonus": 25, "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Guarda de Honra",          "bonus": "+110 HP, +40 ATK, equipamentos reais", "hp_bonus": 110, "atk_bonus": 40, "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Guarda Sagrado",           "bonus": "+145 HP, +55 ATK, proteção divina", "hp_bonus": 145, "atk_bonus": 55, "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Comandante da Guarda",     "bonus": "+185 HP, +75 ATK, alerta de guerra", "hp_bonus": 185, "atk_bonus": 75, "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Lorde Protetor",           "bonus": "+240 HP, +100 ATK, guarda imparável", "hp_bonus": 240, "atk_bonus": 100, "salary_mult": 4.0, "req_work": 180},
         }
     },
     "Rei": {
@@ -7669,10 +7697,316 @@ JOBS = {
         ],
         "levels": {
             1: {"name": "Rei",          "bonus": "Tributo diário básico", "salary_mult": 1.0},
-            2: {"name": "Rei Poderoso", "bonus": "Tributo dobrado, +2 decretos/dia", "salary_mult": 2.0, "req_work": 30},
-            3: {"name": "Imperador",    "bonus": "Tributo x5, controle de múltiplos reinos", "salary_mult": 5.0, "req_work": 70},
+            2: {"name": "Rei Consolidado",      "bonus": "Tributo x1.5, +1 decreto/dia", "salary_mult": 1.5, "req_work": 15},
+            3: {"name": "Rei Poderoso",         "bonus": "Tributo x2, +2 decretos/dia", "salary_mult": 2.0, "req_work": 35},
+            4: {"name": "Rei Conquistador",     "bonus": "Tributo x3, guerras ofensivas", "salary_mult": 3.0, "req_work": 60},
+            5: {"name": "Rei Lendário",         "bonus": "Tributo x4, controle total do reino", "salary_mult": 4.0, "req_work": 90},
+            6: {"name": "Imperador",            "bonus": "Tributo x5, múltiplos reinos", "salary_mult": 5.0, "req_work": 130},
+            7: {"name": "Imperador Eterno",     "bonus": "Tributo x8, poder absoluto sobre a nação", "salary_mult": 8.0, "req_work": 180},
         }
-    }
+    },
+
+    # ================= 10 NOVOS EMPREGOS =================
+    "Alquimista": {
+        "emoji": "⚗️",
+        "min_level": 8,
+        "description": "Mestre da transmutação. Cria poções poderosas e transforma materiais em ouro.",
+        "salary_coins": (35, 80),
+        "salary_xp": (120, 280),
+        "perks": [
+            "Pode usar `fabricar poção` para criar poções únicas",
+            "Transmuta recursos em coins com bônus de 30%",
+            "+20% de efeito em todas as poções consumidas",
+            "Lv3: acesso a poções lendárias de cura total e bônus de batalha",
+        ],
+        "work_action": "Você aquece o alambique, misturando ingredientes raros com precisão científica.",
+        "work_msgs": [
+            "⚗️ Uma poção de cura avançada borbulha perfeitamente no seu caldeirão.",
+            "🧪 Você descobre uma reação inesperada que dobra a potência do elixir!",
+            "💫 Transmutação bem-sucedida: chumbo virou prata pura. Hoje foi produtivo.",
+            "🌿 Ervas raras chegam do mercado. Sua coleção de ingredientes cresce.",
+            "🔬 Uma fórmula experimental funciona na primeira tentativa. Gênio.",
+        ],
+        "levels": {
+            1: {"name": "Aprendiz Alquimista", "bonus": "+20% efeito de poções", "salary_mult": 1.0},
+            2: {"name": "Alquimista Júnior",    "bonus": "+30% efeito, receitas novas", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Alquimista Pleno",     "bonus": "Poções épicas, transmutação VIP", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Alquimista Sênior",    "bonus": "Poções raras de batalha", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Mestre Alquimista",    "bonus": "Poções lendárias desbloqueadas", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Grande Alquimista",    "bonus": "Poções míticas, transmutação avançada", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Alquimista Supremo",   "bonus": "Poções primordiais, filosofia da transmutação", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Explorador": {
+        "emoji": "🗺️",
+        "min_level": 8,
+        "description": "Desbravador de territórios desconhecidos. Descobre tesouros e regiões secretas.",
+        "salary_coins": (40, 85),
+        "salary_xp": (130, 300),
+        "perks": [
+            "Pode usar `explorar mapa` até 3x por dia",
+            "+40% chance de encontrar itens raros ao explorar",
+            "Descobre locais secretos inacessíveis a outros jogadores",
+            "Lv3: acesso a dimensões ocultas com drops exclusivos",
+        ],
+        "work_action": "Você parte com mochila e bússola, mapeando regiões que ninguém ousou explorar.",
+        "work_msgs": [
+            "🗺️ Você encontra uma caverna não marcada em nenhum mapa. Segredo descoberto!",
+            "🏔️ No topo da montanha, uma vista de 360° revela três aldeias perdidas.",
+            "🌿 Rastros de uma criatura desconhecida levam a uma toca recheada de recursos.",
+            "💎 Escavando num riacho, você encontra pedras semipreciosas esquecidas.",
+            "🧭 Seu instinto de navegação salva seu grupo de uma armadilha de goblin.",
+        ],
+        "levels": {
+            1: {"name": "Explorador Iniciante", "bonus": "+40% chance item raro ao explorar", "salary_mult": 1.0},
+            2: {"name": "Aventureiro",          "bonus": "+50% chance raro, 4 explorações/dia", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Desbravador",          "bonus": "+60% chance raro, 5 explorações/dia", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Explorador Experiente","bonus": "+70% chance raro, mapas secretos", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Mestre Explorador",    "bonus": "+80% chance raro, 6 explorações/dia", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Lendário Desbravador", "bonus": "+90% chance raro, dimensões abertas", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Explorador Lendário",  "bonus": "+100% chance raro, reinos ocultos", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Espiao": {
+        "emoji": "🕵️",
+        "min_level": 12,
+        "description": "Mestre do sigilo. Espia, sabota inimigos e rouba informações valiosas.",
+        "salary_coins": (45, 95),
+        "salary_xp": (110, 260),
+        "perks": [
+            "Pode usar `espionar @user` para ver status e inventário de outro jogador",
+            "+75% dano no primeiro turno de combate (ataque surpresa)",
+            "Pode `sabotar missao @user` para reduzir recompensas alheias",
+            "Lv3: invisibilidade durante exploração, evita emboscadas",
+        ],
+        "work_action": "Você se funde às sombras, coletando segredos que valem fortunas.",
+        "work_msgs": [
+            "🕵️ Você intercepta uma mensagem cifrada entre dois nobres rivais. Informação é poder.",
+            "🌑 Infiltrado na guilda inimiga, você ouve planos de ataque. Alerta enviado.",
+            "🗝️ Uma chave mestre copiada abre portas que deveriam estar fechadas.",
+            "📜 Um documento comprometedor cai nas suas mãos. Chantagem ou lealdade?",
+            "👁️ Sua identidade falsa passa pela inspeção real. Maestria do disfarce.",
+        ],
+        "levels": {
+            1: {"name": "Infiltrado",      "bonus": "+75% dano 1° turno", "salary_mult": 1.0},
+            2: {"name": "Agente Duplo",         "bonus": "+90% dano 1° turno, disfarce básico", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Agente Sombrio",       "bonus": "+110% dano 1° turno, espionagem avançada", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Espião de Elite",      "bonus": "+130% dano 1° turno, sabotagem aprimorada", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Operativo Especial",   "bonus": "+150% dano 1° turno, invisibilidade", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Agente Fantasma",      "bonus": "+175% dano 1° turno, rede de informantes", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Mestre das Sombras",   "bonus": "+200% dano 1° turno, invisibilidade total", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Domador": {
+        "emoji": "🐾",
+        "min_level": 5,
+        "description": "Senhor dos animais. Captura, treina e evolui pets com maestria incomparável.",
+        "salary_coins": (30, 70),
+        "salary_xp": (90, 200),
+        "perks": [
+            "Pode ter até 3 pets ativos simultaneamente",
+            "+75% de chance de captura de pets",
+            "Pode usar `treinar pet` para acelerar a evolução de um pet",
+            "Lv3: pets evoluem 2x mais rápido e ganham habilidades exclusivas",
+        ],
+        "work_action": "Você treina seus animais com paciência e disciplina, forjando laços inquebráveis.",
+        "work_msgs": [
+            "🐾 Um filhote de grifo escolhe você como parceiro. Raro presente do destino.",
+            "🦁 Seu pet aprende uma nova habilidade durante o treino intensivo de hoje.",
+            "🐺 Um lobo selvagem se aproxima sem medo. Você gentilmente o domestica.",
+            "🦅 Sua águia caça sozinha e traz recursos valiosos. Orgulho de mestre.",
+            "🐉 Um dragãozinho perdido te segue para casa. O vínculo já está formado.",
+        ],
+        "levels": {
+            1: {"name": "Criador",         "bonus": "3 pets ativos, +75% captura", "salary_mult": 1.0},
+            2: {"name": "Treinador",            "bonus": "3 pets, +80% captura, treino básico", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Domador Mestre",       "bonus": "4 pets, +85% captura, evolução acelerada", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Especialista em Feras","bonus": "4 pets, +90% captura, pets raros", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Mestre dos Animais",   "bonus": "5 pets, captura garantida", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Lorde dos Animais",    "bonus": "5 pets épicos, habilidades especiais", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Senhor das Criaturas", "bonus": "6 pets lendários, evolução x3", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "General": {
+        "emoji": "🎖️",
+        "min_level": 20,
+        "description": "Comandante supremo de exércitos. Lidera tropas com estratégia e poder bruto.",
+        "salary_coins": (80, 160),
+        "salary_xp": (180, 400),
+        "perks": [
+            "Exércitos ganham +70% HP e ATK sob seu comando",
+            "Pode recrutar até 3 mercenários com `convocar exército`",
+            "Acesso a táticas de batalha especiais em guerras",
+            "Lv3: pode declarar guerras e liderar invasões de reino",
+        ],
+        "work_action": "Você comanda manobras militares, forjando guerreiros em máquinas de batalha.",
+        "work_msgs": [
+            "🎖️ Suas táticas surpreendem o inimigo com um flanco inesperado. Vitória esmagadora.",
+            "⚔️ Um regimento inteiro é treinado sob seu comando rigoroso. Elite formada.",
+            "🏰 Você planeja a defesa da fortaleza com precisão cirúrgica. Impenetrável.",
+            "🗡️ Três mercenários lendários aceitam servir sob sua bandeira. Força triplicada.",
+            "📋 Sua estratégia de suprimentos garante que o exército nunca fique sem recursos.",
+        ],
+        "levels": {
+            1: {"name": "Comandante",       "bonus": "Exércitos +70% HP/ATK", "salary_mult": 1.0},
+            2: {"name": "Major",                "bonus": "+80% HP/ATK, 3 mercenários", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "General de Campo",     "bonus": "+90% HP/ATK, 4 mercenários", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "General de Divisão",   "bonus": "+105% HP/ATK, táticas avançadas", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "General de Exército",  "bonus": "+120% HP/ATK, exército de elite", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Marechal de Campo",    "bonus": "+140% HP/ATK, declarar guerras", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "General Supremo",      "bonus": "+170% HP/ATK, 7 mercenários, conquista total", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Artesao_Runico": {
+        "emoji": "🔡",
+        "min_level": 15,
+        "description": "Especialista em runas arcanas. Grava símbolos de poder em armas e armaduras.",
+        "salary_coins": (50, 110),
+        "salary_xp": (150, 340),
+        "perks": [
+            "Pode gravar runas em itens Lendário e Mítico com `gravar runa [item] [tipo]`",
+            "+50% stats de itens com runa gravada",
+            "Identifica automaticamente efeitos ocultos de equipamentos",
+            "Lv3: runas Primordiais, bônus de até +100% nos stats do item",
+        ],
+        "work_action": "Sua mão guia a faca rúnica com precisão milimétrica, gravando poder nos metais.",
+        "work_msgs": [
+            "🔡 Uma runa de fogo ganha vida na lâmina. O metal pulsa com calor sobrenatural.",
+            "✨ Você decifra uma runa ancestral desconhecida. Conhecimento raríssimo adquirido.",
+            "⚔️ A espada encantada que você criou hoje valerá uma fortuna no mercado.",
+            "🛡️ Uma runa de proteção gravada numa armadura reduz o dano em 40%. Obra-prima.",
+            "💎 Um cliente nobre paga o triplo pelo seu trabalho. Reputação construída.",
+        ],
+        "levels": {
+            1: {"name": "Gravador de Runas",  "bonus": "+50% stats com runa", "salary_mult": 1.0},
+            2: {"name": "Runicista",            "bonus": "+60% stats, runas de fogo/gelo", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Mestre Rúnico",        "bonus": "+75% stats, runas Épico/Lendário", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Gravador de Elite",    "bonus": "+85% stats, runas de alma", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Artesão Rúnico Mestre","bonus": "+95% stats, runas míticas", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Sábio das Runas",      "bonus": "+100% stats, runas primordiais", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Arquiteto Rúnico",     "bonus": "+120% stats, runas únicas inéditas", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Profeta": {
+        "emoji": "🔭",
+        "min_level": 18,
+        "description": "Vidente do futuro. Prevê eventos, revela segredos e amplifica o ganho de XP.",
+        "salary_coins": (40, 90),
+        "salary_xp": (220, 500),
+        "perks": [
+            "+70% XP em todas as atividades",
+            "Pode usar `profetizar` para ver detalhes do próximo boss antes de lutar",
+            "Prevê itens raros antes de entrar em masmorras",
+            "Lv3: visão do futuro revela eventos especiais do servidor com 24h de antecedência",
+        ],
+        "work_action": "Você mergulha em transe profético, vendo além do véu do tempo.",
+        "work_msgs": [
+            "🔭 Uma visão clara: o próximo boss tem fraqueza a fogo. Informação valiosa.",
+            "⭐ Você prevê a localização de um tesouro escondido. Marcado no mapa.",
+            "🌀 Uma profecia sobre uma invasão permite que o reino se prepare. Vidas salvas.",
+            "📿 Símbolos antigos dançam diante de seus olhos. Você os interpreta com mestria.",
+            "🌙 A lua te revela segredos que poucos mortais conhecem. Poder da visão.",
+        ],
+        "levels": {
+            1: {"name": "Vidente",           "bonus": "+70% XP geral", "salary_mult": 1.0},
+            2: {"name": "Augur",                "bonus": "+80% XP, visões básicas", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Oráculo",              "bonus": "+90% XP, previsão de bosses", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Médium",               "bonus": "+100% XP, previsão de eventos raros", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Grande Vidente",       "bonus": "+110% XP, visão dimensional", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Profeta Escolhido",    "bonus": "+125% XP, eventos do servidor", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Profeta Supremo",      "bonus": "+150% XP, previsão absoluta", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Gladiador": {
+        "emoji": "🏟️",
+        "min_level": 10,
+        "description": "Guerreiro das arenas. Luta por glória e fortuna diante de multidões.",
+        "salary_coins": (100, 200),
+        "salary_xp": (100, 240),
+        "perks": [
+            "+100% ATK em combates PvP",
+            "+150% coins ganhos em batalhas e torneios",
+            "Pode usar `entrar torneio` para participar de arenas exclusivas",
+            "Lv3: acesso ao Coliseu Lendário com recompensas únicas",
+        ],
+        "work_action": "Você entra na arena com rugido da multidão ecoando nas paredes de pedra.",
+        "work_msgs": [
+            "🏟️ Vitória esmagadora na arena! A multidão grita seu nome com fervor.",
+            "⚔️ Um duelo épico contra três inimigos de uma vez. Você vence. Lendário.",
+            "🥇 Campeão do torneio semanal. O prêmio em ouro pesa bem no bolso.",
+            "💪 Seu estilo de luta inova — o público nunca viu nada igual.",
+            "🩸 Ferido mas vitorioso. O gladiador que nunca cai de pé.",
+        ],
+        "levels": {
+            1: {"name": "Lutador da Arena",   "bonus": "+100% ATK PvP, +150% coins batalha", "salary_mult": 1.0},
+            2: {"name": "Contendor",            "bonus": "+115% ATK PvP, acesso arenas regionais", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Campeão",              "bonus": "+130% ATK PvP, torneios VIP", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Gladiador Experiente", "bonus": "+145% ATK PvP, armadura de arena", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Grande Gladiador",     "bonus": "+165% ATK PvP, combates épicos", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Mestre da Arena",      "bonus": "+185% ATK PvP, Coliseu Lendário", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Gladiador Lendário",   "bonus": "+210% ATK PvP, arena divina", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Necromante_Errante": {
+        "emoji": "☠️",
+        "min_level": 22,
+        "description": "Senhor dos mortos errantes. Convoca exércitos de mortos-vivos e drena a vida dos inimigos.",
+        "salary_coins": (55, 115),
+        "salary_xp": (160, 360),
+        "perks": [
+            "Pode convocar até 6 mortos-vivos com `convocar morto-vivo`",
+            "40% de lifesteal em todos os ataques",
+            "Pode ressuscitar aliados derrotados uma vez por batalha",
+            "Lv3: mortos-vivos ganham habilidades especiais e duram 3 batalhas",
+        ],
+        "work_action": "Você ergue os mortos do chão com rituais proibidos, formando seu exército pessoal.",
+        "work_msgs": [
+            "☠️ Seis guerreiros mortos se levantam à sua voz. Seu exército cresce.",
+            "💀 Um esqueleto antigo contém memórias de batalhas que você absorve.",
+            "🩸 O lifesteal drena a força do inimigo direto para suas veias. Poder.",
+            "🌑 Um ritual às meia-noite fortalece todos os seus servos. Eficiência necromantica.",
+            "👁️ Você ressuscita um aliado caído. Gratidão eterna conquistada.",
+        ],
+        "levels": {
+            1: {"name": "Necromante Errante",   "bonus": "6 mortos-vivos, 40% lifesteal", "salary_mult": 1.0},
+            2: {"name": "Conjurador de Mortos", "bonus": "6 mortos, 45% lifesteal, controle aprimorado", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Lorde dos Mortos",     "bonus": "8 mortos, 55% lifesteal, ressurreição", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Arauto da Morte",      "bonus": "9 mortos, 65% lifesteal, maldições", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Senhor Necromante",    "bonus": "10 mortos, 75% lifesteal, exército espectral", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Arquinecromante",      "bonus": "12 mortos, 85% lifesteal, rituais obscuros", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Rei Lich",             "bonus": "15 mortos, 95% lifesteal, imortalidade", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
+    "Pirata": {
+        "emoji": "🏴‍☠️",
+        "min_level": 10,
+        "description": "Corsário dos mares e terras. Saqueia, aborda navios e comanda uma frota clandestina.",
+        "salary_coins": (90, 180),
+        "salary_xp": (80, 200),
+        "perks": [
+            "+100% coins em saques e atividades de pirataria",
+            "Acesso ao porto clandestino com itens contrabandeados",
+            "Pode usar `saquear` para roubar recursos de regiões",
+            "Lv3: frota de navios, pode `abordar navio` para loot massivo",
+        ],
+        "work_action": "Você içar velas ao vento salgado, olhos na linha do horizonte, coração na aventura.",
+        "work_msgs": [
+            "🏴‍☠️ Um navio mercante cruza seu caminho. Abordagem relâmpago. Sucesso.",
+            "⚓ Seu porto clandestino recebe um carregamento de itens raros contrabandeados.",
+            "🗺️ Um mapa do tesouro cai nas suas mãos. X marca o local. Expedição amanhã.",
+            "⚔️ Você repele corsários rivais com sua tripulação fiel. Território defendido.",
+            "💰 A venda do espólio de hoje enche três baús até a borda. Próspero.",
+        ],
+        "levels": {
+            1: {"name": "Corsário",            "bonus": "+100% coins saque", "salary_mult": 1.0},
+            2: {"name": "Bucaneiro",            "bonus": "+120% coins, navios pequenos", "salary_mult": 1.3, "req_work": 15},
+            3: {"name": "Capitão Pirata",       "bonus": "+150% coins, porto clandestino VIP", "salary_mult": 1.6, "req_work": 35},
+            4: {"name": "Corsário Veterano",    "bonus": "+170% coins, frota de 3 navios", "salary_mult": 2.0, "req_work": 60},
+            5: {"name": "Almirante Pirata",     "bonus": "+190% coins, navios épicos", "salary_mult": 2.5, "req_work": 90},
+            6: {"name": "Lorde dos Mares",      "bonus": "+215% coins, frota lendária", "salary_mult": 3.0, "req_work": 130},
+            7: {"name": "Lorde Pirata",         "bonus": "+250% coins, domínio dos oceanos", "salary_mult": 4.0, "req_work": 180},
+        }
+    },
 }
 
 # ================= WEAPON DATABASE (para inspecionar arma) =================
@@ -7718,6 +8052,188 @@ WEAPON_TYPE_SKILLS = {
     "Cetro":   ["Pulso de Poder", "Maldição", "Invocação Menor"],
     "Martelo": ["Golpe Esmagador", "Terremoto", "Fortalecer"],
 }
+
+# ================= HABILIDADES DE ARMAS (ITEMS) =================
+# Cada arma pode ter: skill_name, skill_desc, skill_effect, skill_cooldown (segundos), skill_mana_cost
+WEAPON_SKILLS = {
+    # ── COMUM ──
+    "Espada Enferrujada":       {"skill": "Golpe Cego",         "desc": "Ataque básico com 5% de chance de atordoar.", "dmg_mult": 1.1, "stun_chance": 0.05, "cooldown": 60, "mana": 0, "element": None},
+    "Adaga de Pedra":           {"skill": "Perfurar",           "desc": "Golpe rápido que ignora 5% da DEF inimiga.", "dmg_mult": 1.15, "ignore_def": 0.05, "cooldown": 60, "mana": 0, "element": None},
+    "Machado Quebrado":         {"skill": "Fenda Bruta",        "desc": "Golpe poderoso mas lento. +20% dano.", "dmg_mult": 1.20, "cooldown": 90, "mana": 0, "element": None},
+    "Cajado de Madeira":        {"skill": "Choque Arcano",      "desc": "Pulso mágico fraco. +15% dano mágico.", "dmg_mult": 1.15, "magic": True, "cooldown": 75, "mana": 5, "element": "Arcano"},
+    "Lança de Bambu":           {"skill": "Arremesso",          "desc": "Lança arremessada. +18% dano.", "dmg_mult": 1.18, "cooldown": 80, "mana": 0, "element": None},
+    "Faca Cega":                {"skill": "Golpe Rápido",       "desc": "Ataque veloz. +10% dano, dobrado se crítico.", "dmg_mult": 1.10, "crit_bonus": 2.0, "cooldown": 45, "mana": 0, "element": None},
+    "Porrete de Madeira":       {"skill": "Pancada",            "desc": "Porrete que atordoa por 1 turno (20% chance).", "dmg_mult": 1.1, "stun_chance": 0.20, "cooldown": 90, "mana": 0, "element": None},
+    "Foice Velha":              {"skill": "Ceifar",             "desc": "Corte em arco. +15% dano.", "dmg_mult": 1.15, "cooldown": 70, "mana": 0, "element": None},
+    # ── INCOMUM ──
+    "Espada de Ferro":          {"skill": "Corte de Ferro",     "desc": "Golpe preciso que ignora 10% da DEF.", "dmg_mult": 1.25, "ignore_def": 0.10, "cooldown": 90, "mana": 0, "element": None},
+    "Machado de Batalha":       {"skill": "Fúria Bárbara",      "desc": "Fúria selvagem: +35% dano, -10% DEF própria.", "dmg_mult": 1.35, "self_def_pen": 0.10, "cooldown": 120, "mana": 0, "element": None},
+    "Arco Composto":            {"skill": "Flecha Dupla",       "desc": "Dispara 2 flechas. +30% dano total.", "dmg_mult": 1.30, "multi_hit": 2, "cooldown": 100, "mana": 0, "element": None},
+    "Martelo de Guerra":        {"skill": "Golpe de Terra",     "desc": "Terremoto local. +40% dano, chance de atordoar.", "dmg_mult": 1.40, "stun_chance": 0.25, "cooldown": 130, "mana": 5, "element": "Terra"},
+    "Katana Básica":            {"skill": "Corte Veloz",        "desc": "Golpe rápido. +25% dano e +15% crítico.", "dmg_mult": 1.25, "crit_bonus": 1.15, "cooldown": 80, "mana": 0, "element": None},
+    "Mangual de Ferro":         {"skill": "Chicote Giratório",  "desc": "Ataque giratório. +30% dano.", "dmg_mult": 1.30, "cooldown": 100, "mana": 0, "element": None},
+    "Espada Larga":             {"skill": "Golpe Amplo",        "desc": "Corte largo. +28% dano.", "dmg_mult": 1.28, "cooldown": 95, "mana": 0, "element": None},
+    "Lança de Ferro":           {"skill": "Investida",          "desc": "Carga em linha reta. +30% dano.", "dmg_mult": 1.30, "cooldown": 100, "mana": 0, "element": None},
+    "Claymore":                 {"skill": "Golpe Duplo",        "desc": "Dois cortes em sequência. +35% dano.", "dmg_mult": 1.35, "multi_hit": 2, "cooldown": 110, "mana": 0, "element": None},
+    "Arco Longo":               {"skill": "Flecha Perfurante",  "desc": "Flecha que perfura armadura. Ignora 15% DEF.", "dmg_mult": 1.28, "ignore_def": 0.15, "cooldown": 95, "mana": 0, "element": None},
+    "Alabarda":                 {"skill": "Barreira de Lanças", "desc": "+20% DEF por 2 turnos + ataque.", "dmg_mult": 1.20, "self_def_bonus": 0.20, "cooldown": 120, "mana": 0, "element": None},
+    "Machado Duplo":            {"skill": "Redemoinho",         "desc": "Giro devastador. +40% dano.", "dmg_mult": 1.40, "cooldown": 120, "mana": 5, "element": None},
+    # ── RARO ──
+    "Espada de Madeira Negra":  {"skill": "Corte das Sombras",  "desc": "Fende através de sombras. +50% dano + 10% veneno.", "dmg_mult": 1.50, "poison_chance": 0.10, "cooldown": 120, "mana": 10, "element": "Sombra"},
+    "Lança Mística":            {"skill": "Investida Arcana",   "desc": "Carga encharcada de magia. +55% dano mágico.", "dmg_mult": 1.55, "magic": True, "cooldown": 130, "mana": 15, "element": "Arcano"},
+    "Arco Élfico":              {"skill": "Flecha Certeira",    "desc": "Flecha élfica guiada. +60% dano, nunca erra.", "dmg_mult": 1.60, "never_miss": True, "cooldown": 140, "mana": 10, "element": "Natureza"},
+    "Machado Rúnico":           {"skill": "Runas de Poder",     "desc": "+65% dano quando HP > 80%.", "dmg_mult": 1.65, "hp_condition": 0.80, "cooldown": 150, "mana": 10, "element": "Arcano"},
+    "Cimitarra de Prata":       {"skill": "Corte Prateado",     "desc": "Dano extra a mortos-vivos. +50% dano padrão.", "dmg_mult": 1.50, "undead_bonus": 2.0, "cooldown": 120, "mana": 0, "element": "Sagrado"},
+    "Alabarda Encantada":       {"skill": "Golpe Sagrado",      "desc": "Ataque bendito. +55% dano sagrado.", "dmg_mult": 1.55, "magic": True, "cooldown": 130, "mana": 12, "element": "Sagrado"},
+    "Tridente de Aço":          {"skill": "Golpe Triplo",       "desc": "3 perfurações rápidas. +60% dano total.", "dmg_mult": 1.60, "multi_hit": 3, "cooldown": 140, "mana": 8, "element": None},
+    "Katana Relâmpago":         {"skill": "Corte do Relâmpago", "desc": "Velocidade elétrica. +65% dano + paralisia.", "dmg_mult": 1.65, "stun_chance": 0.30, "cooldown": 150, "mana": 15, "element": "Relâmpago"},
+    "Arco das Sombras":         {"skill": "Flecha das Trevas",  "desc": "Flecha sombria. +60% dano + reduz ATK inimigo.", "dmg_mult": 1.60, "debuff_atk": 0.15, "cooldown": 140, "mana": 12, "element": "Sombra"},
+    "Espada Lunar":             {"skill": "Bênção da Lua",      "desc": "Dano lunar. +55% dano + se cura 10% do dano.", "dmg_mult": 1.55, "lifesteal": 0.10, "cooldown": 130, "mana": 10, "element": "Lunar"},
+    "Martelo Rúnico":           {"skill": "Impacto Rúnico",     "desc": "Runas explodem no impacto. +70% dano.", "dmg_mult": 1.70, "cooldown": 160, "mana": 15, "element": "Arcano"},
+    "Lança do Caçador":         {"skill": "Arremesso Certeiro", "desc": "Arremesso preciso. +65% dano, ignora 20% DEF.", "dmg_mult": 1.65, "ignore_def": 0.20, "cooldown": 150, "mana": 8, "element": None},
+    # ── ÉPICO ──
+    "Espada de Adamantite":     {"skill": "Fenda Adamantina",   "desc": "Corte invencível. +90% dano, ignora 25% DEF.", "dmg_mult": 1.90, "ignore_def": 0.25, "cooldown": 180, "mana": 20, "element": None},
+    "Cetro da Tempestade":      {"skill": "Tempestade Arcana",  "desc": "Tempestade mágica. +100% dano de relâmpago.", "dmg_mult": 2.00, "magic": True, "cooldown": 200, "mana": 30, "element": "Relâmpago"},
+    "Arco de Dragão":           {"skill": "Flecha de Dragão",   "desc": "Flecha de fogo dracônico. +110% dano.", "dmg_mult": 2.10, "never_miss": True, "cooldown": 210, "mana": 25, "element": "Fogo"},
+    "Foice da Morte":           {"skill": "Colheita das Almas", "desc": "Ceifa a alma do inimigo. +120% dano.", "dmg_mult": 2.20, "lifesteal": 0.20, "cooldown": 220, "mana": 25, "element": "Morte"},
+    "Lança Celestial":          {"skill": "Golpe Divino",       "desc": "Poder celestial. +115% dano sagrado.", "dmg_mult": 2.15, "magic": True, "cooldown": 215, "mana": 30, "element": "Sagrado"},
+    "Machado do Inferno":       {"skill": "Fogo Infernal",      "desc": "Chamas do inferno. +130% dano de fogo.", "dmg_mult": 2.30, "cooldown": 230, "mana": 30, "element": "Fogo"},
+    # ── LENDÁRIO ──
+    "Excalibur":                {"skill": "Lâmina do Rei",      "desc": "Poder real: +180% dano, ignora 40% DEF.", "dmg_mult": 2.80, "ignore_def": 0.40, "cooldown": 300, "mana": 40, "element": "Sagrado"},
+    "Mjolnir":                  {"skill": "Trovão de Thor",     "desc": "Trovão divino: +200% dano + atordoa.", "dmg_mult": 3.00, "stun_chance": 0.50, "cooldown": 320, "mana": 45, "element": "Relâmpago"},
+    "Gungnir":                  {"skill": "Lança do Destino",   "desc": "Nunca erra. +190% dano.", "dmg_mult": 2.90, "never_miss": True, "cooldown": 310, "mana": 40, "element": "Arcano"},
+    "Gram":                     {"skill": "Corte da Dragão",    "desc": "+175% dano + 30% de instakill em bosses.", "dmg_mult": 2.75, "instakill_chance": 0.30, "cooldown": 295, "mana": 38, "element": "Fogo"},
+    "Durandal":                 {"skill": "Lâmina Inquebrável", "desc": "+185% dano, a arma é indestrutível.", "dmg_mult": 2.85, "never_miss": True, "cooldown": 305, "mana": 40, "element": "Sagrado"},
+    # ── MÍTICO ──
+    "Lâmina do Caos":           {"skill": "Explosão do Caos",   "desc": "+300% dano de caos puro, ignora toda DEF.", "dmg_mult": 4.00, "ignore_def": 1.0, "cooldown": 400, "mana": 60, "element": "Caos"},
+    "Cetro da Eternidade":      {"skill": "Feitiço Eterno",     "desc": "+350% dano mágico + paralisia total.", "dmg_mult": 4.50, "stun_chance": 0.80, "magic": True, "cooldown": 450, "mana": 70, "element": "Arcano"},
+    "Arco do Fim":              {"skill": "Flecha do Apocalipse","desc": "+400% dano + 50% lifesteal.", "dmg_mult": 5.00, "lifesteal": 0.50, "cooldown": 500, "mana": 75, "element": "Morte"},
+}
+
+# ================= HABILIDADES DE ARMADURAS =================
+ARMOR_SKILLS = {
+    # ── COMUM ──
+    "Armadura de Couro":        {"skill": "Pele Grossa",        "desc": "Reduz dano recebido em 5%.", "dmg_reduce": 0.05, "cooldown": 120, "mana": 0},
+    "Robes Simples":            {"skill": "Foco Mental",        "desc": "+5% de mana recuperada por turno.", "mana_regen": 0.05, "cooldown": 120, "mana": 0},
+    "Túnica de Linho":          {"skill": "Agilidade",          "desc": "5% de chance de esquivar ataques.", "dodge_chance": 0.05, "cooldown": 90, "mana": 0},
+    "Peitoral de Bronze":       {"skill": "Escudo de Bronze",   "desc": "Bloqueia 8% do próximo ataque.", "block": 0.08, "cooldown": 150, "mana": 0},
+    "Colete de Couro":          {"skill": "Evasão",             "desc": "5% de evasão extra.", "dodge_chance": 0.05, "cooldown": 90, "mana": 0},
+    # ── INCOMUM ──
+    "Armadura de Ferro":        {"skill": "Fortaleza de Ferro", "desc": "Reduz dano em 12% por 2 turnos.", "dmg_reduce": 0.12, "duration": 2, "cooldown": 180, "mana": 5},
+    "Cota de Malha":            {"skill": "Malha Protetora",    "desc": "Absorve 15% do dano em perfurações.", "dmg_reduce": 0.15, "cooldown": 180, "mana": 5},
+    "Armadura de Escamas":      {"skill": "Escamas Duras",      "desc": "10% de chance de refletir dano.", "reflect_chance": 0.10, "cooldown": 180, "mana": 0},
+    "Robes Reforçados":         {"skill": "Barreira Mágica",    "desc": "Barreira absorve 20 de dano.", "barrier": 20, "cooldown": 200, "mana": 10},
+    "Brigandina":               {"skill": "Armadura de Batalha","desc": "Reduz dano em 15% quando HP < 50%.", "dmg_reduce_low_hp": 0.15, "cooldown": 180, "mana": 0},
+    "Peitoral de Aço":          {"skill": "Aço Temperado",      "desc": "Bloqueia 18% do próximo ataque.", "block": 0.18, "cooldown": 200, "mana": 0},
+    "Gibão de Armas":           {"skill": "Bolsões de Guerra",  "desc": "+10% ATK enquanto a armadura estiver equipada.", "atk_bonus_pct": 0.10, "cooldown": 180, "mana": 0},
+    # ── RARO ──
+    "Armadura Mística":         {"skill": "Escudo Místico",     "desc": "Barreira mágica absorve 50 de dano.", "barrier": 50, "cooldown": 240, "mana": 15},
+    "Armadura Élfica":          {"skill": "Graça Élfica",       "desc": "15% de esquiva + cura 5% HP/turno.", "dodge_chance": 0.15, "hp_regen_pct": 0.05, "cooldown": 240, "mana": 10},
+    "Placas de Aço":            {"skill": "Parede de Aço",      "desc": "Reduz dano em 25% por 3 turnos.", "dmg_reduce": 0.25, "duration": 3, "cooldown": 250, "mana": 10},
+    "Armadura Rúnica":          {"skill": "Runas Protetoras",   "desc": "+20 DEF temporário, reflete 15% dano.", "def_bonus_flat": 20, "reflect_chance": 0.15, "cooldown": 260, "mana": 15},
+    "Cota Encantada":           {"skill": "Encantamento Protetor","desc": "20% de absorção de dano mágico.", "magic_absorb": 0.20, "cooldown": 240, "mana": 12},
+    "Armadura de Mithril":      {"skill": "Mithril Puro",       "desc": "Reduz dano em 30%, +10% HP máximo.", "dmg_reduce": 0.30, "max_hp_bonus_pct": 0.10, "cooldown": 270, "mana": 15},
+    "Vestes Arcanas":           {"skill": "Fluxo Arcano",       "desc": "+20 mana ao ser atingido.", "mana_on_hit": 20, "cooldown": 220, "mana": 0},
+    "Armadura Lunar":           {"skill": "Luz da Lua",         "desc": "+20% DEF à noite, cura 8% HP/turno.", "def_bonus_pct": 0.20, "hp_regen_pct": 0.08, "cooldown": 250, "mana": 10},
+    "Vestes do Sábio":          {"skill": "Sabedoria Arcana",   "desc": "+25 mana + 10% XP ganho.", "mana_flat": 25, "xp_bonus_pct": 0.10, "cooldown": 240, "mana": 0},
+    "Armadura do Cavaleiro":    {"skill": "Honra do Cavaleiro", "desc": "+25 DEF + reflete 10% do dano.", "def_bonus_flat": 25, "reflect_chance": 0.10, "cooldown": 260, "mana": 10},
+    "Couraça Élfica":           {"skill": "Couraça das Florestas","desc": "25% esquiva + cura por natureza.", "dodge_chance": 0.25, "hp_regen_pct": 0.06, "cooldown": 255, "mana": 10},
+    "Armadura Sombria":         {"skill": "Manto das Sombras",  "desc": "20% esquiva + ataque furtivo +30%.", "dodge_chance": 0.20, "stealth_atk_bonus": 0.30, "cooldown": 250, "mana": 12},
+    "Placas de Dragão":         {"skill": "Escamas de Dragão",  "desc": "Imune a fogo, -20% de dano físico.", "fire_immune": True, "dmg_reduce": 0.20, "cooldown": 280, "mana": 15},
+    # ── ÉPICO ──
+    "Armadura Dracônica":       {"skill": "Ira do Dragão",      "desc": "Reflete 25% do dano, imune a fogo.", "reflect_chance": 0.25, "fire_immune": True, "cooldown": 300, "mana": 20},
+    "Armadura das Sombras":     {"skill": "Abraço das Sombras", "desc": "35% esquiva + veneno ao esquivar.", "dodge_chance": 0.35, "poison_on_dodge": True, "cooldown": 320, "mana": 20},
+    "Placas do Titã":           {"skill": "Fortitude do Titã",  "desc": "+60 DEF temporário + absorção 30%.", "def_bonus_flat": 60, "dmg_reduce": 0.30, "cooldown": 330, "mana": 25},
+    "Armadura Flamejante":      {"skill": "Chamas Eternas",     "desc": "Devolve fogo ao inimigo. +40 dano/turno.", "burn_reflect": 40, "cooldown": 310, "mana": 20},
+    "Vestes Estelares":         {"skill": "Luz Estelar",        "desc": "+30% mana + barreira de 80 pontos.", "mana_pct": 0.30, "barrier": 80, "cooldown": 320, "mana": 15},
+    "Armadura do Vazio":        {"skill": "Absorção do Vazio",  "desc": "Absorve 40% de todo dano recebido.", "dmg_reduce": 0.40, "cooldown": 350, "mana": 25},
+    "Couraça Angelical":        {"skill": "Proteção Angelical", "desc": "Cura 20% HP + +30 DEF por 2 turnos.", "hp_heal_pct": 0.20, "def_bonus_flat": 30, "cooldown": 340, "mana": 25},
+    "Armadura Demoníaca":       {"skill": "Pacto Infernal",     "desc": "+50% ATK + absorve vida (15% lifesteal).", "atk_bonus_pct": 0.50, "lifesteal": 0.15, "cooldown": 360, "mana": 30},
+    "Placas do Dragão Negro":   {"skill": "Magia Negra Dracônica","desc": "+45% resistência mágica + reflete 20% magia.", "magic_absorb": 0.45, "magic_reflect": 0.20, "cooldown": 355, "mana": 28},
+    "Armadura da Tempestade":   {"skill": "Olho da Tempestade", "desc": "Imune a relâmpago + 30% dano extra em tempestade.", "lightning_immune": True, "storm_bonus": 0.30, "cooldown": 350, "mana": 25},
+    "Vestes do Arcano Maior":   {"skill": "Amplificação Arcana","desc": "+50% dano mágico + +40 mana.", "magic_dmg_bonus": 0.50, "mana_flat": 40, "cooldown": 340, "mana": 20},
+    "Armadura de Obsidiana":    {"skill": "Pele de Obsidiana",  "desc": "Absorve 45% dano físico.", "dmg_reduce": 0.45, "cooldown": 360, "mana": 20},
+    "Placas Celestiais":        {"skill": "Julgamento Celestial","desc": "+50 DEF + emite luz que ofusca inimigos.", "def_bonus_flat": 50, "blind_chance": 0.30, "cooldown": 370, "mana": 30},
+    "Armadura do Fênix":        {"skill": "Renascimento",       "desc": "Uma vez por batalha: revive com 30% HP.", "revive_once": True, "revive_hp_pct": 0.30, "cooldown": 900, "mana": 0},
+    "Couraça Infernal":         {"skill": "Fogo Infernal",      "desc": "Ao ser atingido: queima o atacante por 30 dano.", "burn_on_hit": 30, "cooldown": 300, "mana": 0},
+    "Armadura do Eclipse":      {"skill": "Eclipse Total",      "desc": "+40% esquiva por 3 turnos.", "dodge_chance": 0.40, "duration": 3, "cooldown": 360, "mana": 20},
+    "Vestes do Caos":           {"skill": "Caos Puro",          "desc": "+60% ATK + -20% DEF própria.", "atk_bonus_pct": 0.60, "self_def_pen": 0.20, "cooldown": 340, "mana": 25},
+    # ── LENDÁRIO ──
+    "Armadura Celestial":       {"skill": "Bênção dos Céus",    "desc": "Cura 30% HP + +80 DEF por 3 turnos.", "hp_heal_pct": 0.30, "def_bonus_flat": 80, "cooldown": 400, "mana": 40},
+    "Égide Divina":             {"skill": "Escudo Divino",      "desc": "Absorve até 200 de dano no próximo turno.", "barrier": 200, "cooldown": 420, "mana": 40},
+    "Armadura de Odin":         {"skill": "Sabedoria de Odin",  "desc": "+100 DEF + vê fraquezas do inimigo.", "def_bonus_flat": 100, "reveal_weakness": True, "cooldown": 430, "mana": 35},
+    "Armadura de Zeus":         {"skill": "Raio de Zeus",       "desc": "Devolve 200% de relâmpago ao atacante.", "lightning_reflect_mult": 2.0, "cooldown": 450, "mana": 45},
+    "Couraça de Thor":          {"skill": "Força de Thor",      "desc": "+120 DEF + +50% ATK por 2 turnos.", "def_bonus_flat": 120, "atk_bonus_pct": 0.50, "cooldown": 460, "mana": 45},
+    "Armadura de Ares":         {"skill": "Frenesi de Ares",    "desc": "+80% ATK + ignora 50% DEF inimiga.", "atk_bonus_pct": 0.80, "ignore_def": 0.50, "cooldown": 470, "mana": 50},
+    "Vestes de Atena":          {"skill": "Sabedoria de Atena", "desc": "+60% XP ganho + +30% resistência mágica.", "xp_bonus_pct": 0.60, "magic_absorb": 0.30, "cooldown": 440, "mana": 40},
+    # ── MÍTICO ──
+    "Armadura do Primeiro Deus":{"skill": "Poder Primordial",   "desc": "+150 DEF + absorve 60% de todo dano.", "def_bonus_flat": 150, "dmg_reduce": 0.60, "cooldown": 600, "mana": 60},
+    "Vestes da Criação":        {"skill": "Gênese",             "desc": "Cura HP completo uma vez por batalha.", "full_heal_once": True, "cooldown": 1200, "mana": 0},
+    "Placas da Eternidade":     {"skill": "Eternidade",         "desc": "Invulnerável por 1 turno.", "invulnerable_turns": 1, "cooldown": 900, "mana": 50},
+    "Armadura do Destino":      {"skill": "Fatalidade",         "desc": "+100% dano + 40% de crítico garantido.", "dmg_mult": 2.0, "guaranteed_crit": 0.40, "cooldown": 720, "mana": 55},
+}
+
+def get_equipped_weapon_skill(player):
+    """Retorna o skill da arma equipada ou None"""
+    weapon = player.get("weapon")
+    if not weapon:
+        return None
+    return WEAPON_SKILLS.get(weapon)
+
+def get_equipped_armor_skill(player):
+    """Retorna o skill da armadura equipada ou None"""
+    armor = player.get("armor")
+    if not armor:
+        return None
+    return ARMOR_SKILLS.get(armor)
+
+def apply_weapon_skill_in_combat(player, weapon_skill):
+    """Calcula o dano/efeito da skill da arma. Retorna (dano_bonus, texto_efeito)"""
+    if not weapon_skill:
+        return 0, ""
+    p_atk = player.get("atk", 10) + player.get("level", 1) * 2
+    dmg_mult = weapon_skill.get("dmg_mult", 1.0)
+    base_dmg = int(p_atk * dmg_mult)
+    effects = []
+    if weapon_skill.get("stun_chance"):
+        effects.append(f"⚡ {int(weapon_skill['stun_chance']*100)}% de atordoar")
+    if weapon_skill.get("lifesteal"):
+        effects.append(f"🩸 {int(weapon_skill['lifesteal']*100)}% lifesteal")
+    if weapon_skill.get("ignore_def"):
+        effects.append(f"🔓 Ignora {int(weapon_skill['ignore_def']*100)}% DEF")
+    if weapon_skill.get("never_miss"):
+        effects.append("🎯 Nunca erra")
+    if weapon_skill.get("multi_hit"):
+        effects.append(f"💥 {weapon_skill['multi_hit']}x hits")
+    if weapon_skill.get("poison_chance"):
+        effects.append(f"☠️ {int(weapon_skill['poison_chance']*100)}% veneno")
+    effect_txt = " | ".join(effects) if effects else "Sem efeitos extras"
+    return base_dmg, effect_txt
+
+def apply_armor_skill_in_combat(player, armor_skill):
+    """Calcula o efeito defensivo da skill da armadura. Retorna (hp_ganho, texto_efeito)"""
+    if not armor_skill:
+        return 0, ""
+    effects = []
+    hp_gain = 0
+    if armor_skill.get("dmg_reduce"):
+        effects.append(f"🛡️ -{int(armor_skill['dmg_reduce']*100)}% dano recebido")
+    if armor_skill.get("barrier"):
+        hp_gain += armor_skill["barrier"]
+        effects.append(f"🔮 Barreira de {armor_skill['barrier']} pontos")
+    if armor_skill.get("hp_heal_pct"):
+        heal = int(player.get("max_hp", 100) * armor_skill["hp_heal_pct"])
+        hp_gain += heal
+        effects.append(f"💚 Cura {int(armor_skill['hp_heal_pct']*100)}% HP ({heal})")
+    if armor_skill.get("dodge_chance"):
+        effects.append(f"💨 {int(armor_skill['dodge_chance']*100)}% esquiva")
+    if armor_skill.get("reflect_chance"):
+        effects.append(f"🔄 {int(armor_skill['reflect_chance']*100)}% reflete dano")
+    if armor_skill.get("revive_once"):
+        effects.append(f"🔥 Renascimento: revive com {int(armor_skill.get('revive_hp_pct',0.30)*100)}% HP")
+    effect_txt = " | ".join(effects) if effects else "Ativação defensiva"
+    return hp_gain, effect_txt
+
 
 # ================= EVENTOS DE INVASÃO DE CIDADE =================
 CITY_INVASION_EVENTS = {
@@ -17494,6 +18010,92 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             p_action += f"\n> 💀 **O boss foi enfraquecido pelo poder supremo!**"
         turn_embed.add_field(name=field_title, value=p_action, inline=False)
 
+        # ═══ PROC AUTOMÁTICO — HABILIDADE DA ARMA ═══
+        _w_equipped = player.get("weapon")
+        if _w_equipped:
+            _wsk = WEAPON_SKILLS.get(_w_equipped)
+            if _wsk:
+                # Chance de proc baseada na raridade: Comum=8%, Incomum=14%, Raro=20%, Épico=28%, Lend=38%, Mítico=50%
+                _all_w = ITEMS.get("weapons", []) + ITEMS_EXTRA.get("weapons", [])
+                _wr = next((w.get("rarity","Comum") for w in _all_w if w["name"] == _w_equipped), "Comum")
+                _proc_chances = {"Comum":0.08,"Incomum":0.14,"Raro":0.20,"Épico":0.28,"Lendário":0.38,"Mítico":0.50,"Ancestral":0.60,"Divino":0.70,"Primordial":0.85}
+                _pc = _proc_chances.get(_wr, 0.10)
+                if random.random() < _pc:
+                    _sk_atk = p_atk * _wsk.get("dmg_mult", 1.0)
+                    _sk_dmg = int(_sk_atk)
+                    # Apply skill effects
+                    _sk_effects = []
+                    # Multi-hit
+                    if _wsk.get("multi_hit", 1) > 1:
+                        _sk_dmg = int(_sk_dmg * _wsk["multi_hit"])
+                        _sk_effects.append(f"💥 {_wsk['multi_hit']}× hits")
+                    # Lifesteal
+                    if _wsk.get("lifesteal"):
+                        _heal = int(_sk_dmg * _wsk["lifesteal"])
+                        p_cur_hp = min(p_max_hp, p_cur_hp + _heal)
+                        _sk_effects.append(f"🩸 +{_heal} HP")
+                    # Ignore def
+                    _boss_def_sk = 0 if _wsk.get("ignore_def") else max(0, boss_atk // 4)
+                    _sk_final = max(1, _sk_dmg - _boss_def_sk)
+                    boss_cur_hp -= _sk_final
+                    # Stun
+                    if _wsk.get("stun_chance") and random.random() < _wsk["stun_chance"]:
+                        _sk_effects.append("⚡ PARALISOU o boss!")
+                    # Poison
+                    if _wsk.get("poison_chance") and random.random() < _wsk["poison_chance"]:
+                        boss_poison = True
+                        _sk_effects.append("☠️ Envenenou!")
+                    _elem = f" [{_wsk['element']}]" if _wsk.get("element") else ""
+                    _eff_str = " | ".join(_sk_effects) if _sk_effects else ""
+                    _proc_txt = (
+                        f"⚔️ **PROC!** `{_w_equipped}` ativa **{_wsk['skill']}**{_elem}!\n"
+                        f"> ✨ *{_wsk['desc']}*\n"
+                        f"> 💥 `−{_sk_final:,} HP` extra causado"
+                        + (f"\n> {_eff_str}" if _eff_str else "")
+                    )
+                    turn_embed.add_field(name=f"✨ Habilidade de Arma — {_wsk['skill']}!", value=_proc_txt, inline=False)
+
+        # ═══ PROC AUTOMÁTICO — HABILIDADE DA ARMADURA (defensiva) ═══
+        _a_equipped = player.get("armor")
+        if _a_equipped:
+            _ask = ARMOR_SKILLS.get(_a_equipped)
+            if _ask:
+                # Proc defensivo: dispara quando player toma dano (30% base, varia por raridade)
+                _all_a = ITEMS.get("armor", []) + ITEMS_EXTRA.get("armor", [])
+                _ar = next((a.get("rarity","Comum") for a in _all_a if a["name"] == _a_equipped), "Comum")
+                _aproc = {"Comum":0.10,"Incomum":0.16,"Raro":0.22,"Épico":0.30,"Lendário":0.40,"Mítico":0.52,"Ancestral":0.62,"Divino":0.72,"Primordial":0.85}
+                if random.random() < _aproc.get(_ar, 0.12):
+                    _a_effects = []
+                    _a_hp_gain = 0
+                    if _ask.get("barrier"):
+                        _a_hp_gain += _ask["barrier"]
+                        _a_effects.append(f"🔮 Barreira +{_ask['barrier']}")
+                    if _ask.get("hp_heal_pct"):
+                        _heal_a = int(p_max_hp * _ask["hp_heal_pct"])
+                        _a_hp_gain += _heal_a
+                        _a_effects.append(f"💚 Cura +{_heal_a} HP")
+                    if _ask.get("dmg_reduce"):
+                        _a_effects.append(f"🛡️ -{int(_ask['dmg_reduce']*100)}% dano próx. ataque")
+                    if _ask.get("reflect_chance") and random.random() < _ask["reflect_chance"]:
+                        _refl = int(boss_atk * 0.3)
+                        boss_cur_hp -= _refl
+                        _a_effects.append(f"🔄 Refletiu {_refl} de dano!")
+                    if _ask.get("dodge_chance"):
+                        _a_effects.append(f"💨 +{int(_ask['dodge_chance']*100)}% esquiva ativada")
+                    if _ask.get("revive_once") and not player.get("revive_stored"):
+                        player["revive_stored"] = True
+                        _a_effects.append("🔥 Renascimento guardado!")
+                    if _a_hp_gain > 0:
+                        p_cur_hp = min(p_max_hp, p_cur_hp + _a_hp_gain)
+                    if _a_effects:
+                        _a_eff_str = " | ".join(_a_effects)
+                        _aproc_txt = (
+                            f"🛡️ **PROC!** `{_a_equipped}` ativa **{_ask['skill']}**!\n"
+                            f"> ✨ *{_ask['desc']}*\n"
+                            f"> {_a_eff_str}"
+                        )
+                        turn_embed.add_field(name=f"🛡️ Habilidade de Armadura — {_ask['skill']}!", value=_aproc_txt, inline=False)
+
         # === AÇÕES DOS ALIADOS (cada aliado age ativamente!) ===
         total_ally_dmg = 0
         for ally_data in ally_full_data:
@@ -19006,65 +19608,64 @@ async def send_prologue(guild):
     # EMBED 9 — Nota de Atualização (Patch Notes)
     # ══════════════════════════════════════════
     embed9 = discord.Embed(
-        title="📋 ATUALIZAÇÃO — Expansão: Pets, Exércitos & Empregos",
+        title="⚔️ SUPER ATUALIZAÇÃO — Habilidades de Equipamentos & Empregos Lv.7",
         description=(
-            "*O Narrador desdobra um pergaminho oficial com o selo dos Seis Ciclos...*\n\n"
-            "**\"O mundo ficou mais vivo. Seus aliados têm alma. Seus exércitos, identidade. "
-            "Seus empregos, propósito.\"**\n"
-            "**Versão:** Pets Especiais • Exércitos Únicos • 10 Novos Empregos — Fevereiro 2026"
+            "*O Narrador abre um tomo reluzente — páginas de ouro puro brilham com poder arcano...*\n\n"
+            "**\"Suas armas têm alma. Suas armaduras respiram. Seus empregos chegaram ao ápice.\"**\n\n"
+            "**Versão:** Habilidades de Equipamentos • 7 Níveis de Emprego • Skills Automáticas — 2026"
         ),
-        color=0xFF6B35
+        color=0x9B59B6
     )
     embed9.add_field(
-        name="🐾 Habilidades Especiais dos Pets",
+        name="⚔️ Habilidades de Armas — AUTO em batalha!",
         value=(
-            "Todos os pets agora têm **habilidades especiais únicas** com cooldown de turnos!\n\n"
-            "💧 **Slime** → Divisão de Gosma *(absorve dano)*\n"
-            "🐺 **Lobo Cinzento** → Uivo do Bando *(+25% ATK por 2 turnos)*\n"
-            "🦂 **Escorpião Dourado** → Veneno Áureo *(5% HP/turno por 3 turnos)*\n"
-            "🦁 **Esfinge Menor** → Enigma Paralisante *(stun garantido)*\n"
-            "🔥 **Fênix Carmesim** → Chama Imortal *(cura 20% HP + +20% ATK)*\n"
-            "🕊️ **Arcanjo Primordial** → Juízo do Céu *(3x dano + stun + cura 25% HP)*\n"
-            "*...e muito mais! Cada pet tem sua própria especialidade.*"
+            "**46 armas** agora têm skills que **disparam automaticamente em combate**!\n"
+            "A chance de proc varia pela raridade do equipamento:\n\n"
+            "⬜ Comum `8%` • 🟩 Incomum `14%` • 🟦 Raro `20%`\n"
+            "🟪 Épico `28%` • 🟨 Lendário `38%` • 🔴 Mítico `50%` • 🌌 Primordial `85%`\n\n"
+            "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF\n"
+            "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa\n"
+            "🌑 **Lâmina do Caos** → *Explosão do Caos* — ignora TODA DEF\n"
+            "*Use `inspecionar arma [nome]` para ver a skill de qualquer arma!*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="🆕 Novos Pets com Habilidades Únicas",
+        name="🛡️ Habilidades de Armaduras — AUTO em batalha!",
         value=(
-            "🐱 **Gato Sombrio** *(M1)* — *Sete Vidas:* sobrevive com 1 HP uma vez por batalha\n"
-            "🐍 **Cobra Fantasma** *(M10)* — *Mordida Necrótica:* veneno + lifesteal simultâneo\n"
-            "🧟 **Múmia Guardiã** *(M20)* — *Maldição Eterna:* -25% ATK, DEF e velocidade inimigos\n"
-            "🐯 **Tigre do Ártico** *(M30)* — *Presa Congelante:* gelo + stun + -20% DEF inimigo\n"
-            "🦄 **Kirin das Cinzas** *(M40)* — *Sopro Purificador:* remove debuffs + cura + dano sagrado\n"
-            "💀 **Ceifador das Almas** *(M50)* — ignora TODA DEF + 20% de lifesteal\n"
-            "⚔️ **Serafim da Destruição** *(M60)* — *Apocalipse Sagrado:* 4× dano + cura 30% HP"
+            "**53 armaduras** com skills defensivas que procam **automaticamente**!\n\n"
+            "🔥 **Armadura do Fênix** → *Renascimento* — revive com 30% HP (1×/batalha)\n"
+            "✨ **Égide Divina** → *Escudo Divino* — absorve 200 de dano\n"
+            "💀 **Armadura Demoníaca** → *Pacto Infernal* — +50% ATK + 15% lifesteal\n"
+            "♾️ **Placas da Eternidade** → *Eternidade* — invulnerável 1 turno\n"
+            "*Use `inspecionar armadura [nome]` para ver a skill de qualquer armadura!*"
         ),
         inline=False
     )
     embed9.add_field(
-        name="⚔️ Exércitos com Diferenciais Únicos",
+        name="💼 18 Empregos — Agora com 7 Níveis!",
         value=(
-            "🏹 **Arqueiros Élficos** → *Chuva de 10 Flechas* com crítico independente por flecha\n"
-            "🐺 **Alcateia de Guerra** → *+5% ATK por turno*, acumula até +50%\n"
-            "👼 **Legião Celestial** → *Ressurreição em Massa:* revive 30% das tropas caídas\n"
-            "🗿 **Colossus de Pedra** *(Novo)* → absorve 35% de dano + invulnerável 1 turno\n"
-            "🔥 **Esquadrão da Fênix** *(Novo)* → ressurge com 45% HP e +30% ATK ao cair\n"
-            "👻 **Legião dos Mortos-Vivos** *(Novo)* → ignora 40% DEF permanentemente\n"
-            "🦊 **Caçadoras das Nove Caudas** *(Novo)* → 2 clones ilusórios absorvem ataques"
+            "Todos os **18 empregos** agora têm **7 níveis** (antes eram 3)!\n\n"
+            "⚗️ **Alquimista Supremo** *(Lv7)* — Poções primordiais • ×4.0 salário\n"
+            "🕵️ **Mestre das Sombras** *(Lv7)* — +200% dano 1° turno\n"
+            "🎖️ **General Supremo** *(Lv7)* — 7 mercenários, conquista total\n"
+            "👑 **Imperador Eterno** *(Lv7)* — Tributo ×8\n"
+            "☠️ **Rei Lich** *(Lv7)* — 15 mortos-vivos, 95% lifesteal\n\n"
+            "Lv7 requer **180 trabalhos** → salário **×4.0**"
         ),
         inline=False
     )
     embed9.add_field(
-        name="💼 10 Novos Empregos!",
+        name="📣 Novos comandos",
         value=(
-            "⚗️ Alquimista • 🗺️ Explorador • 🕵️ Espião • 🐾 Domador • 🎖️ General\n"
-            "🔡 Artesão Rúnico • 🔭 Profeta • 🏟️ Gladiador • ☠️ Necromante Errante • 🏴‍☠️ Pirata\n\n"
-            "Use `procurar emprego` para ver todos os empregos disponíveis!"
+            "`usar habilidade` — ativa skill de arma/armadura equipada\n"
+            "`inspecionar armadura [nome]` — ficha completa da armadura + skill\n"
+            "`inspecionar arma [nome]` — ficha da arma com skill e cooldown\n"
+            "`nivel emprego` / `cargo` — vê os 7 níveis do seu emprego atual"
         ),
         inline=False
     )
-    embed9.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Use 'atualização' para rever | Fevereiro 2026")
+    embed9.set_footer(text="📅 Super Atualização — Equipamentos com Alma | Use 'atualização' para rever a qualquer hora")
     await channel.send(embed=embed9)
     await asyncio.sleep(2)
 
@@ -20717,9 +21318,9 @@ async def on_message(message):
             description=(
                 "*O Narrador abre um tomo imenso e a poeira cai como neve dourada...*\n\n"
                 "**\"O mundo ficou mais vivo. Seus aliados têm alma, habilidades, propósito.\"**\n\n"
-                "**Versão:** Pets Especiais • Exércitos Únicos • 10 Novos Empregos — Fevereiro 2026\n"
+                "**Versão:** Habilidades de Equipamentos • 7 Níveis de Emprego • Skills Auto — 2026\n"
                 "```\n"
-                "  Skills de pets  •  Exércitos únicos  •  10 empregos novos\n"
+                "  46 armas com skill  •  53 armaduras  •  18 empregos Lv.7\n"
                 "```"
             ),
             color=0xFF6B35
@@ -20762,7 +21363,7 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu1.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Página 1/3 | Use 'atualização' a qualquer hora")
+        e_atu1.set_footer(text="📅 Super Atualização | Página 1/4 | Use 'atualização' a qualquer hora")
         await message.channel.send(embed=e_atu1)
 
         # ─── PÁGINA 2 — Novos Pets (M20+) + Exércitos ────────────────────
@@ -20821,63 +21422,116 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu2.set_footer(text="📅 Expansão Pets & Exércitos & Empregos | Página 2/3")
+        e_atu2.set_footer(text="📅 Super Atualização | Página 2/4")
         await message.channel.send(embed=e_atu2)
 
-        # ─── PÁGINA 3 — Novos Empregos + Sistemas Anteriores ─────────────
+        # ─── PÁGINA 3 — Super Atualização: Skills & Empregos 7 Níveis ──────
         e_atu3 = discord.Embed(
-            title="📋 ATUALIZAÇÃO — 10 Novos Empregos & Sistemas (Pág. 3/3)",
+            title="⚔️ SUPER ATUALIZAÇÃO — Skills de Equipamentos & Empregos Lv.7 (Pág. 3/4)",
             description=(
-                "*O taberneiro adiciona 10 novos cartazes na parede de empregos...*\n\n"
-                "**\"O reino cresceu. Há mais funções, mais poder, mais caminhos para a grandeza.\"**"
+                "*O Narrador bate na mesa — armas e armaduras reluzem com uma energia nunca vista...*\n\n"
+                "**\"Suas armas têm alma. Suas armaduras respiram. Seus empregos chegaram ao ápice.\"**"
             ),
+            color=0x9B59B6
+        )
+        e_atu3.add_field(
+            name="⚔️ Habilidades de Armas — AUTOMÁTICAS em batalha!",
+            value=(
+                "**46 armas** agora têm **skills únicas** que disparam automaticamente!\n"
+                "Chance por raridade: Comum `8%` → Primordial `85%`\n\n"
+                "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF\n"
+                "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa\n"
+                "🌑 **Foice da Morte** → *Colheita das Almas* — +120% dano + lifesteal\n"
+                "🗡️ **Arco das Sombras** → *Flecha das Trevas* — +60% dano + reduz ATK\n"
+                "*Use `inspecionar arma [nome]` para ver a skill!*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="🛡️ Habilidades de Armaduras — AUTOMÁTICAS em batalha!",
+            value=(
+                "**53 armaduras** com skills defensivas que procam automaticamente!\n\n"
+                "🔥 **Armadura do Fênix** → *Renascimento* — revive com 30% HP (1×)\n"
+                "✨ **Égide Divina** → *Escudo Divino* — absorve 200 de dano\n"
+                "💀 **Armadura Demoníaca** → *Pacto Infernal* — +50% ATK + lifesteal\n"
+                "♾️ **Placas da Eternidade** → *Eternidade* — invulnerável 1 turno\n"
+                "🌿 **Vestes da Criação** → *Gênese* — cura HP completo (1×)\n"
+                "*Use `inspecionar armadura [nome]` para ver a skill!*"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="💼 18 Empregos — Agora com 7 Níveis!",
+            value=(
+                "Todos os empregos têm **7 níveis** de progressão (antes eram 3)!\n\n"
+                "⚗️ **Alquimista Supremo** *(Lv7)* — Poções primordiais\n"
+                "🕵️ **Mestre das Sombras** *(Lv7)* — +200% dano 1° turno\n"
+                "🎖️ **General Supremo** *(Lv7)* — 7 mercenários, conquista total\n"
+                "👑 **Imperador Eterno** *(Lv7)* — Tributo ×8 salário\n"
+                "☠️ **Rei Lich** *(Lv7)* — 15 mortos-vivos, 95% lifesteal\n\n"
+                "Lv7 requer **180 trabalhos** → salário **×4.0**"
+            ),
+            inline=False
+        )
+        e_atu3.add_field(
+            name="📣 Novos comandos desta atualização",
+            value=(
+                "`usar habilidade` — ativa skill de arma/armadura equipada\n"
+                "`inspecionar armadura [nome]` — ficha completa da armadura\n"
+                "`nivel emprego` / `cargo` — vê os 7 níveis do emprego atual"
+            ),
+            inline=False
+        )
+        e_atu3.set_footer(text="World CSI Bot — Super Atualização | Pág. 3/4 | Use 'atualização' a qualquer hora")
+        await message.channel.send(embed=e_atu3)
+        await asyncio.sleep(0.5)
+
+        # ─── PÁGINA 4 — Empregos completos + Sistemas Anteriores ─────────
+        e_atu4 = discord.Embed(
+            title="💼 18 Empregos & Sistemas Completos (Pág. 4/4)",
+            description="*O taberneiro vira a placa — todos os cargos do reino listados aqui...*",
             color=0x2ECC71
         )
-        e_atu3.add_field(
-            name="💼 10 Novos Empregos",
+        e_atu4.add_field(
+            name="💼 10 Novos Empregos (com Lv.7)",
             value=(
-                "⚗️ **Alquimista** *(Nv.8)* — Cria poções, transmuta itens. Lv3: poções lendárias\n"
-                "🗺️ **Explorador** *(Nv.8)* — Descobre tesouros e regiões secretas. Lv3: dimensões ocultas\n"
-                "🕵️ **Espião** *(Nv.12)* — Espia, sabota e rouba informações. +75% dano no 1° turno\n"
-                "🐾 **Domador** *(Nv.5)* — 2-3 pets ativos, +75% captura, evolução acelerada\n"
-                "🎖️ **General** *(Nv.20)* — Exércitos +70% HP/ATK, recruta 3 mercenários\n"
-                "🔡 **Artesão Rúnico** *(Nv.15)* — Grava runas Lendário/Mítico, +50% stats de itens\n"
-                "🔭 **Profeta** *(Nv.18)* — +70% XP geral, vê tudo sobre boss antes da luta\n"
-                "🏟️ **Gladiador** *(Nv.10)* — +100% ATK PvP, +150% coins, torneios exclusivos\n"
-                "☠️ **Necromante Errante** *(Nv.22)* — 6 mortos-vivos, 40% lifesteal, ressuscita aliados\n"
-                "🏴‍☠️ **Pirata** *(Nv.10)* — +100% coins de saques, porto clandestino, frota de navios"
+                "⚗️ **Alquimista** *(Nv.8)* — Lv7: Alquimista Supremo, poções primordiais\n"
+                "🗺️ **Explorador** *(Nv.8)* — Lv7: Explorador Lendário, reinos ocultos\n"
+                "🕵️ **Espião** *(Nv.12)* — Lv7: Mestre das Sombras, +200% dano 1° turno\n"
+                "🐾 **Domador** *(Nv.5)* — Lv7: Senhor das Criaturas, 6 pets lendários\n"
+                "🎖️ **General** *(Nv.20)* — Lv7: General Supremo, 7 mercenários\n"
+                "🔡 **Artesão Rúnico** *(Nv.15)* — Lv7: Arquiteto Rúnico, runas únicas\n"
+                "🔭 **Profeta** *(Nv.18)* — Lv7: Profeta Supremo, +150% XP\n"
+                "🏟️ **Gladiador** *(Nv.10)* — Lv7: Gladiador Lendário, +210% ATK PvP\n"
+                "☠️ **Necromante Errante** *(Nv.22)* — Lv7: Rei Lich, 95% lifesteal\n"
+                "🏴\u200d☠️ **Pirata** *(Nv.10)* — Lv7: Lorde Pirata, +250% coins"
             ),
             inline=False
         )
-        e_atu3.add_field(
-            name="📣 Novos comandos dos empregos",
+        e_atu4.add_field(
+            name="📣 Todos os comandos de emprego",
             value=(
-                "`fabricar poção` — Alquimista\n"
-                "`explorar mapa` — Explorador (3×/dia)\n"
-                "`espionar @user` — Espião\n"
-                "`treinar pet` — Domador\n"
-                "`convocar exército` — General\n"
-                "`gravar runa [item] [tipo]` — Artesão Rúnico\n"
-                "`profetizar` — Profeta\n"
-                "`entrar torneio` — Gladiador\n"
-                "`convocar morto-vivo` — Necromante Errante\n"
-                "`saquear` / `abordar navio` — Pirata"
+                "`fabricar poção` | `explorar mapa` | `espionar @user`\n"
+                "`treinar pet` | `convocar exército` | `gravar runa [item] [tipo]`\n"
+                "`profetizar` | `entrar torneio` | `convocar morto-vivo`\n"
+                "`saquear` / `abordar navio` | `nivel emprego` | `cargo`"
             ),
             inline=False
         )
-        e_atu3.add_field(
-            name="🗺️ Sistemas Anteriores — Mantidos",
+        e_atu4.add_field(
+            name="🗺️ Sistemas Completos do Bot",
             value=(
-                "✅ 40 raças • 40 classes • 6 ciclos de evolução\n"
-                "✅ 40 reinos • 5 dimensões • Level máximo 600\n"
-                "✅ Dungeons secretas • Fusão de itens • Pets com forma bestial\n"
-                "✅ Diálogo com NPCs • Quests ocultas • Mundo próprio • Farm AFK\n"
-                "✅ Sistema de alinhamento • Guilda • Arena PvP • Rei & Cavaleiros"
+                "✅ 40 raças • 40 classes • 6 ciclos de evolução • Level máx 600\n"
+                "✅ 40 reinos • 5 dimensões • Dungeons • Fusão de itens\n"
+                "✅ 18 empregos (7 níveis) • Pets com habilidades especiais\n"
+                "✅ 46 armas com skills auto • 53 armaduras com skills auto\n"
+                "✅ Quests ocultas • Farm AFK • Reino próprio • Exércitos únicos\n"
+                "✅ Alinhamento • Guilda • Arena PvP • Rei & Cavaleiros"
             ),
             inline=False
         )
-        e_atu3.set_footer(text="World CSI Bot — Expansão Pets & Exércitos & Empregos | Página 3/3 | Use 'atualização' a qualquer hora")
-        await message.channel.send(embed=e_atu3)
+        e_atu4.set_footer(text="World CSI Bot — Super Atualização Completa | Pág. 4/4 | Use 'atualização' a qualquer hora")
+        await message.channel.send(embed=e_atu4)
 
         return
 
@@ -23925,12 +24579,12 @@ async def handle_new_commands(message):
             embed.add_field(name="📜 Pergaminho Encontrado!", value=f"**{scroll_found}** adicionado ao inventário!", inline=False)
         # Mostrar nível do emprego
         next_lvl_req = None
-        if job_level < 3:
+        if job_level < 7:
             next_lvl_data = job_levels.get(job_level + 1, {})
             next_lvl_req = next_lvl_data.get("req_work", "?")
         job_level_name = lvl_data.get("name", job)
         embed.add_field(
-            name=f"💼 Nível do Emprego: {job_level}/3",
+            name=f"💼 Nível do Emprego: {job_level}/7",
             value=f"**{job_level_name}** | Trabalhos: {job_work_count + 1}"
                   + (f"\n🔼 Próximo nível em: {next_lvl_req} trabalhos" if next_lvl_req else "\n🏆 Nível máximo atingido!"),
             inline=False
@@ -23938,7 +24592,7 @@ async def handle_new_commands(message):
         if job_leveled_up:
             new_lvl_data = job_levels.get(new_job_level, {})
             embed.add_field(
-                name=f"🎉 PROMOÇÃO! Nível {new_job_level}/3!",
+                name=f"🎉 PROMOÇÃO! Nível {new_job_level}/7!",
                 value=f"**{new_lvl_data.get('name', job)}**\n✨ Novo bônus: {new_lvl_data.get('bonus', '')}",
                 inline=False
             )
@@ -24038,12 +24692,23 @@ async def handle_new_commands(message):
                     }.get(item.get("rarity", "Comum"), discord.Color.light_grey())
                     embed = discord.Embed(
                         title=f"🔍 {item['name']}",
-                        description=f"*Arma encontrada no inventário, mas sem ficha detalhada.*",
+                        description=f"*Arma encontrada no inventário.*",
                         color=rarity_color
                     )
                     embed.add_field(name="⚔️ Raridade", value=item.get("rarity", "?"), inline=True)
                     embed.add_field(name="📦 Tipo", value=item.get("type", "Arma"), inline=True)
-                    embed.set_footer(text="Dica: Peça ao Ferreiro para identificar itens desconhecidos!")
+                    # Check WEAPON_SKILLS for this item
+                    w_skill_inv = WEAPON_SKILLS.get(item["name"])
+                    if w_skill_inv:
+                        cd_min = w_skill_inv.get("cooldown", 120) // 60
+                        embed.add_field(
+                            name=f"✨ Habilidade: **{w_skill_inv['skill']}**",
+                            value=f"_{w_skill_inv['desc']}_\n⏱️ Cooldown: `{cd_min}min`" +
+                                  (f" | 💧 Mana: `{w_skill_inv['mana']}`" if w_skill_inv.get("mana") else "") +
+                                  (f"\n🌟 Elemento: `{w_skill_inv['element']}`" if w_skill_inv.get("element") else ""),
+                            inline=False
+                        )
+                    embed.set_footer(text="Use 'usar habilidade' para ativar a skill em combate!")
                     await message.channel.send(embed=embed)
                     return
 
@@ -24112,7 +24777,30 @@ async def handle_new_commands(message):
         equipped = player.get("weapon", "") == found_key
         if equipped:
             embed.add_field(name="✅ Status", value="**Equipada atualmente**", inline=True)
-        embed.set_footer(text=f"Use 'equipar {found_key}' para equipá-la | Ferreiro pode aprimorá-la")
+
+        # Cooldown da skill em campo
+        w_cdkey = f"skill_cd_weapon_{found_key.replace(' ','_')}"
+        now_ts = time.time()
+        w_skill_extra = WEAPON_SKILLS.get(found_key)
+        if w_skill_extra:
+            last_used_w = player.get(w_cdkey, 0)
+            if now_ts - last_used_w < w_skill_extra.get("cooldown", 120):
+                rest_w = int(w_skill_extra["cooldown"] - (now_ts - last_used_w))
+                embed.add_field(name="⏳ Habilidade", value=f"Recarga: `{rest_w//60}m {rest_w%60}s`", inline=True)
+            else:
+                embed.add_field(name="✅ Habilidade", value="`Disponível!`", inline=True)
+            # Show extended skill info from WEAPON_SKILLS if not already in WEAPON_DATABASE
+            wdb_skill = found_data.get("skill")
+            if not wdb_skill or wdb_skill == "Ataque Básico":
+                cd_min = w_skill_extra.get("cooldown", 120) // 60
+                embed.add_field(
+                    name=f"✨ Habilidade (WEAPON_SKILLS): **{w_skill_extra['skill']}**",
+                    value=f"_{w_skill_extra['desc']}_\n⏱️ Cooldown: `{cd_min}min`" +
+                          (f" | 💧 Mana: `{w_skill_extra['mana']}`" if w_skill_extra.get("mana") else "") +
+                          (f"\n🌟 Elemento: `{w_skill_extra['element']}`" if w_skill_extra.get("element") else ""),
+                    inline=False
+                )
+        embed.set_footer(text=f"Use 'usar habilidade' para ativar | 'equipar {found_key}' para equipar")
         await message.channel.send(embed=embed)
         return
 
@@ -24348,25 +25036,27 @@ async def handle_new_commands(message):
         lvl_data = job_levels.get(job_level, {})
 
         embed = discord.Embed(
-            title=f"{jd['emoji']} {lvl_data.get('name', job)} — Nível {job_level}/3",
+            title=f"{jd['emoji']} {lvl_data.get('name', job)} — Nível {job_level}/7",
             description=jd["description"],
             color=discord.Color.gold()
         )
-        embed.add_field(name="📋 Cargo Atual", value=f"**{lvl_data.get('name', job)}** (Nível {job_level}/3)", inline=True)
+        embed.add_field(name="📋 Cargo Atual", value=f"**{lvl_data.get('name', job)}** (Nível {job_level}/7)", inline=True)
         embed.add_field(name="🔨 Trabalhos Realizados", value=f"`{job_work_count}`", inline=True)
         embed.add_field(name="✨ Bônus Atual", value=lvl_data.get("bonus", "Sem bônus"), inline=False)
 
-        # Próximo nível
-        for i in range(1, 4):
+        # Próximo nível (7 níveis)
+        for i in range(1, 8):
             lvl_info = job_levels.get(i, {})
+            if not lvl_info:
+                continue
             req = lvl_info.get("req_work", 0)
             status = "✅" if job_work_count >= req else ("🔄" if i == job_level else "🔒")
             embed.add_field(
-                name=f"{status} Nível {i}: {lvl_info.get('name', '?')}",
-                value=f"Bônus: _{lvl_info.get('bonus', '?')}_\nRequer: `{req}` trabalhos",
-                inline=False
+                name=f"{status} Nível {i}/7: {lvl_info.get('name', '?')}",
+                value=f"Bônus: _{lvl_info.get('bonus', '?')}_ | Requer: `{req}` trabalhos",
+                inline=True
             )
-        embed.set_footer(text=f"Use 'trabalhar' para avançar no cargo! Salário x{lvl_data.get('salary_mult', 1.0):.1f}")
+        embed.set_footer(text=f"Use 'trabalhar' para avançar no cargo! Salário x{lvl_data.get('salary_mult', 1.0):.1f} | Nível {job_level}/7")
         await message.channel.send(embed=embed)
         return
 
@@ -29360,6 +30050,849 @@ async def handle_job_commands(message):
         embed.add_field(name="❤️ HP Bônus", value="`+30 HP` pela honra", inline=True)
         embed.add_field(name="⚔️ Cavaleiros do Reino", value=f"`{len(knights)}/5`", inline=True)
         await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ALQUIMISTA: fabricar poção
+    # ============================
+    if content_lower in ["fabricar poção", "fabricar pocao", "criar poção", "criar pocao"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Alquimista":
+            await message.channel.send("⚗️ Apenas **Alquimistas** podem fabricar poções!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_fab = player.get("last_fabricar_pocao", 0)
+        now = time.time()
+        if now - last_fab < 3600:
+            rest = int(3600 - (now - last_fab))
+            await message.channel.send(f"⚗️ Você ainda está preparando ingredientes. Próxima fabricação em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Alquimista")
+        pocoes = [
+            {"nome": "Poção de Cura Avançada", "efeito": "Restaura 80 HP", "hp": 80, "xp": 60, "coins": 30},
+            {"nome": "Elixir de Força", "efeito": "+15 ATK por 1 hora", "hp": 0, "xp": 80, "coins": 40},
+            {"nome": "Poção de Resistência", "efeito": "+10 DEF por 1 hora", "hp": 0, "xp": 70, "coins": 35},
+            {"nome": "Elixir Arcano", "efeito": "+30 Mana instantaneamente", "hp": 0, "xp": 90, "coins": 45},
+        ]
+        if job_level >= 2:
+            pocoes += [
+                {"nome": "Poção Épica de Cura", "efeito": "Restaura 200 HP", "hp": 200, "xp": 150, "coins": 80},
+                {"nome": "Elixir Épico de Batalha", "efeito": "+30 ATK e +20 DEF por 2 horas", "hp": 0, "xp": 160, "coins": 90},
+            ]
+        if job_level >= 3:
+            pocoes += [
+                {"nome": "Poção Lendária de Cura Total", "efeito": "Restaura HP ao máximo", "hp": 9999, "xp": 300, "coins": 200},
+                {"nome": "Elixir Lendário do Guerreiro", "efeito": "+50 ATK, +35 DEF, +50 HP por 4 horas", "hp": 50, "xp": 350, "coins": 250},
+            ]
+        pocao = random.choice(pocoes)
+        player["last_fabricar_pocao"] = now
+        if pocao["hp"] > 0:
+            player["hp"] = min(player.get("max_hp", 100), player.get("hp", 100) + pocao["hp"])
+        save_player_db(uid, player)
+        xp_gain = pocao["xp"]
+        coins_gain = pocao["coins"]
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title="⚗️ Fabricação Concluída!",
+            description=f"*{player.get('name', 'Alquimista')} produz uma poção com maestria...*",
+            color=discord.Color.purple()
+        )
+        embed.add_field(name="🧪 Poção Criada", value=f"**{pocao['nome']}**", inline=False)
+        embed.add_field(name="✨ Efeito", value=pocao["efeito"], inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Alquimista')} nível {job_level}/3 | Próxima fabricação em 1 hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # EXPLORADOR: explorar mapa
+    # ============================
+    if content_lower in ["explorar mapa", "explorar", "ir explorar"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Explorador":
+            await message.channel.send("🗺️ Apenas **Exploradores** podem explorar o mapa!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Explorador")
+        max_exploracoes = 3 + job_level
+        now = time.time()
+        exploracoes_hoje = player.get("exploracoes_hoje", [])
+        exploracoes_hoje = [t for t in exploracoes_hoje if now - t < 86400]
+        if len(exploracoes_hoje) >= max_exploracoes:
+            await message.channel.send(f"🗺️ Você já explorou {max_exploracoes}x hoje. Retorne amanhã para novas explorações!")
+            return
+        descobertas = [
+            {"desc": "uma caverna repleta de cristais", "coins": 120, "xp": 200},
+            {"desc": "ruínas de uma antiga civilização", "coins": 80, "xp": 250},
+            {"desc": "um lago subterrâneo com criaturas raras", "coins": 100, "xp": 220},
+            {"desc": "um depósito de minério esquecido", "coins": 150, "xp": 180},
+            {"desc": "um templo abandonado com tesouros internos", "coins": 200, "xp": 300},
+            {"desc": "uma rota comercial secreta", "coins": 180, "xp": 160},
+        ]
+        if job_level >= 3:
+            descobertas += [
+                {"desc": "uma fenda dimensional com drops únicos", "coins": 400, "xp": 600},
+                {"desc": "o portão de uma dimensão oculta", "coins": 500, "xp": 700},
+            ]
+        desc = random.choice(descobertas)
+        xp_gain = int(desc["xp"] * (1 + 0.4 * job_level))
+        coins_gain = int(desc["coins"] * (1 + 0.3 * job_level))
+        exploracoes_hoje.append(now)
+        player["exploracoes_hoje"] = exploracoes_hoje
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title="🗺️ Exploração Concluída!",
+            description=f"*{player.get('name','Explorador')} parte em expedição...*\n\nVocê descobre **{desc['desc']}**!",
+            color=discord.Color.green()
+        )
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="🗺️ Explorações hoje", value=f"`{len(exploracoes_hoje)}/{max_exploracoes}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Explorador')} nível {job_level}/3")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ESPIÃO: espionar @user
+    # ============================
+    if content_lower.startswith("espionar"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Espiao":
+            await message.channel.send("🕵️ Apenas **Espiões** podem espionar!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        if not message.mentions:
+            await message.channel.send("🕵️ **Espionar**\n\n**Uso:** `espionar @jogador`\nVeja o status e inventário de outro jogador!")
+            return
+        last_esp = player.get("last_espionar", 0)
+        now = time.time()
+        if now - last_esp < 1800:
+            rest = int(1800 - (now - last_esp))
+            await message.channel.send(f"🕵️ Você precisa se reposicionar. Próxima espionagem em **{rest//60}m {rest%60}s**.")
+            return
+        target = message.mentions[0]
+        if target.id == message.author.id:
+            await message.channel.send("🕵️ Você não pode espionar a si mesmo!")
+            return
+        target_player = get_player(str(target.id))
+        if not target_player:
+            await message.channel.send(f"❌ **{target.display_name}** não tem personagem criado.")
+            return
+        player["last_espionar"] = now
+        save_player_db(uid, player)
+        job_level, lvl_data = _get_job_level(player, "Espiao")
+        embed = discord.Embed(
+            title=f"🕵️ Relatório de Espionagem — {target.display_name}",
+            description=f"*Suas sombras revelam segredos sobre {target.display_name}...*",
+            color=discord.Color.dark_gray()
+        )
+        embed.add_field(name="❤️ HP", value=f"`{target_player.get('hp',0)}/{target_player.get('max_hp',100)}`", inline=True)
+        embed.add_field(name="⚔️ ATK", value=f"`{target_player.get('atk',10)}`", inline=True)
+        embed.add_field(name="🛡️ DEF", value=f"`{target_player.get('def',5)}`", inline=True)
+        embed.add_field(name="🌟 Nível", value=f"`{target_player.get('level',1)}`", inline=True)
+        embed.add_field(name="💼 Emprego", value=f"`{target_player.get('job','Nenhum')}`", inline=True)
+        embed.add_field(name="💰 Coins (aprox)", value=f"`~{target_player.get('coins',0)}`", inline=True)
+        if job_level >= 2:
+            weapon = target_player.get("equipped_weapon", "Nenhuma")
+            armor = target_player.get("equipped_armor", "Nenhuma")
+            embed.add_field(name="⚔️ Arma Equipada", value=f"`{weapon}`", inline=True)
+            embed.add_field(name="🛡️ Armadura Equipada", value=f"`{armor}`", inline=True)
+        embed.set_footer(text=f"{lvl_data.get('name','Espião')} nível {job_level}/3 | Espionagem válida — {target.display_name} não sabe")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # DOMADOR: treinar pet
+    # ============================
+    if content_lower in ["treinar pet", "treinar meu pet"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Domador":
+            await message.channel.send("🐾 Apenas **Domadores** podem treinar pets de forma intensiva!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_treino = player.get("last_treinar_pet", 0)
+        now = time.time()
+        if now - last_treino < 7200:
+            rest = int(7200 - (now - last_treino))
+            await message.channel.send(f"🐾 Seu pet ainda está descansando. Próximo treino em **{rest//60}m {rest%60}s**.")
+            return
+        pet_data = player.get("pet")
+        if not pet_data:
+            await message.channel.send("🐾 Você não tem pet ativo! Capture um com `capturar pet` antes de treinar.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Domador")
+        xp_bonus = random.randint(80, 160) * job_level
+        coins_gain = random.randint(20, 50)
+        hp_gain = random.randint(10, 25) * job_level
+        player["last_treinar_pet"] = now
+        player["hp"] = min(player.get("max_hp", 100), player.get("hp", 100) + hp_gain)
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_bonus)
+        add_coins(uid, coins_gain)
+        msgs = [
+            f"🐾 Sessão de treino intensa! Seu pet aprende novos movimentos.",
+            f"🦁 Seu pet completa todos os desafios do treino. Evolução próxima!",
+            f"🐺 Laço entre vocês se aprofunda. Seu pet obedece cada comando.",
+            f"🦅 Voo livre e agilidade aumentada. Treino perfeito hoje!",
+        ]
+        embed = discord.Embed(
+            title="🐾 Treino de Pet Concluído!",
+            description=random.choice(msgs),
+            color=discord.Color.orange()
+        )
+        embed.add_field(name="⭐ XP Ganho", value=f"`+{xp_bonus}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        embed.add_field(name="❤️ HP Bonus", value=f"`+{hp_gain}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Domador')} nível {job_level}/3 | Próximo treino em 2 horas")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # GENERAL: convocar exército
+    # ============================
+    if content_lower in ["convocar exército", "convocar exercito", "convocar tropas"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "General":
+            await message.channel.send("🎖️ Apenas **Generais** podem convocar exércitos!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_conv = player.get("last_convocar_exercito", 0)
+        now = time.time()
+        if now - last_conv < 5400:
+            rest = int(5400 - (now - last_conv))
+            await message.channel.send(f"🎖️ Suas tropas ainda estão se reagrupando. Próxima convocação em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "General")
+        mercenarios = [
+            "⚔️ Legião de Ferro (ATK +40)",
+            "🛡️ Muralha de Escudos (DEF +50)",
+            "🏹 Arqueiros de Elite (Ataques à distância +60%)",
+            "🗡️ Assassinos das Sombras (Crítico +45%)",
+            "🔥 Magos de Batalha (Dano mágico +55%)",
+        ]
+        num_merc = min(3 + (job_level - 1), len(mercenarios))
+        escolhidos = random.sample(mercenarios, num_merc)
+        xp_gain = random.randint(200, 400) * job_level
+        coins_gain = random.randint(50, 120) * job_level
+        player["last_convocar_exercito"] = now
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title="🎖️ Exército Convocado!",
+            description=f"*General {player.get('name','Comandante')} levanta a espada. As tropas se formam!*",
+            color=discord.Color.red()
+        )
+        embed.add_field(name="⚔️ Mercenários Recrutados", value="\n".join(escolhidos), inline=False)
+        embed.add_field(name="💪 Bônus de Exército", value=f"`+{70 * job_level}% HP e ATK das tropas`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','General')} nível {job_level}/3 | Próxima convocação em 1h30")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # ARTESÃO RÚNICO: gravar runa
+    # ============================
+    if content_lower.startswith("gravar runa"):
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Artesao_Runico":
+            await message.channel.send("🔡 Apenas **Artesãos Rúnicos** podem gravar runas!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        parts = content.split(maxsplit=3)
+        if len(parts) < 4:
+            await message.channel.send(
+                "🔡 **Gravar Runa**\n\n"
+                "**Uso:** `gravar runa [item] [tipo]`\n"
+                "**Tipos disponíveis:** Fogo, Gelo, Arcano, Sombra, Vento, Terra\n"
+                "**Exemplo:** `gravar runa Espada de Ferro Fogo`"
+            )
+            return
+        last_grav = player.get("last_gravar_runa", 0)
+        now = time.time()
+        if now - last_grav < 3600:
+            rest = int(3600 - (now - last_grav))
+            await message.channel.send(f"🔡 Suas runas ainda estão esfriando. Próxima gravação em **{rest//60}m {rest%60}s**.")
+            return
+        item_name = parts[2]
+        tipo_runa = parts[3]
+        job_level, lvl_data = _get_job_level(player, "Artesao_Runico")
+        bonus_mult = 0.5 + (0.25 * (job_level - 1))
+        xp_gain = random.randint(120, 240) * job_level
+        coins_gain = random.randint(40, 100) * job_level
+        player["last_gravar_runa"] = now
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title="🔡 Runa Gravada com Sucesso!",
+            description=f"*A faca rúnica dança sobre o metal. Símbolos ancestrais ganham vida...*",
+            color=discord.Color.teal()
+        )
+        embed.add_field(name="⚔️ Item", value=f"`{item_name}`", inline=True)
+        embed.add_field(name="🔮 Tipo de Runa", value=f"`{tipo_runa}`", inline=True)
+        embed.add_field(name="📊 Bônus Aplicado", value=f"`+{int(bonus_mult*100)}% stats do item`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Artesão Rúnico')} nível {job_level}/3 | Próxima gravação em 1 hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # PROFETA: profetizar
+    # ============================
+    if content_lower in ["profetizar", "ver profecia", "profecia"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Profeta":
+            await message.channel.send("🔭 Apenas **Profetas** podem profetizar!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_prof = player.get("last_profetizar", 0)
+        now = time.time()
+        if now - last_prof < 7200:
+            rest = int(7200 - (now - last_prof))
+            await message.channel.send(f"🔭 Sua mente ainda está processando a última visão. Próxima profecia em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Profeta")
+        profecias = [
+            {"titulo": "⚔️ Visão de Batalha", "desc": "Você verá um boss com fraqueza a **Fogo**. Prepare seus ataques elementais.", "xp": 250, "coins": 80},
+            {"titulo": "💎 Visão de Riqueza", "desc": "Um tesouro escondido está a **leste** da sua posição atual. Ouro e gemas raras te aguardam.", "xp": 200, "coins": 150},
+            {"titulo": "🌑 Visão de Perigo", "desc": "Uma **invasão** se aproxima em breve. Prepare defesas e estoques de poções.", "xp": 300, "coins": 60},
+            {"titulo": "🌟 Visão de Ascensão", "desc": "Seus esforços serão recompensados. **XP dobrado** na próxima vez que trabalhar.", "xp": 400, "coins": 40},
+            {"titulo": "🗺️ Visão de Descoberta", "desc": "Uma **masmorra secreta** está prestes a ser aberta. Seja o primeiro a entrar.", "xp": 280, "coins": 100},
+        ]
+        if job_level >= 3:
+            profecias += [
+                {"titulo": "🌍 Visão Global", "desc": "Um **evento especial** ocorrerá em 24 horas no servidor. Esteja preparado.", "xp": 600, "coins": 200},
+            ]
+        profecia = random.choice(profecias)
+        player["last_profetizar"] = now
+        save_player_db(uid, player)
+        xp_gain = int(profecia["xp"] * (1 + 0.3 * (job_level - 1)))
+        coins_gain = profecia["coins"]
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title=f"🔭 {profecia['titulo']}",
+            description=f"*Você mergulha em transe profundo. Uma visão surge com clareza...*\n\n{profecia['desc']}",
+            color=discord.Color.dark_purple()
+        )
+        embed.add_field(name="⭐ XP da Visão", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Profeta')} nível {job_level}/3 | Próxima visão em 2 horas")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # GLADIADOR: entrar torneio
+    # ============================
+    if content_lower in ["entrar torneio", "entrar na arena", "arena"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Gladiador":
+            await message.channel.send("🏟️ Apenas **Gladiadores** podem entrar no torneio!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_torn = player.get("last_torneio", 0)
+        now = time.time()
+        if now - last_torn < 3600:
+            rest = int(3600 - (now - last_torn))
+            await message.channel.send(f"🏟️ Você ainda está se recuperando do último combate. Próximo torneio em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Gladiador")
+        oponentes = [
+            {"nome": "Guerreiro Veterano", "dificuldade": "Fácil", "coins_mult": 1.0, "xp_mult": 1.0},
+            {"nome": "Campeão Regional", "dificuldade": "Médio", "coins_mult": 1.5, "xp_mult": 1.5},
+            {"nome": "Lenda da Arena", "dificuldade": "Difícil", "coins_mult": 2.5, "xp_mult": 2.0},
+        ]
+        if job_level >= 3:
+            oponentes.append({"nome": "Gladiador Imortal do Coliseu Lendário", "dificuldade": "Lendário", "coins_mult": 5.0, "xp_mult": 4.0})
+        oponente = random.choice(oponentes)
+        vitoria = random.random() < (0.75 - oponentes.index(oponente) * 0.15 + job_level * 0.05)
+        base_xp = random.randint(150, 300)
+        base_coins = random.randint(100, 250)
+        xp_gain = int(base_xp * oponente["xp_mult"] * (1 + 0.3 * job_level)) if vitoria else int(base_xp * 0.3)
+        coins_gain = int(base_coins * oponente["coins_mult"] * (1 + 0.5 * job_level)) if vitoria else int(base_coins * 0.2)
+        player["last_torneio"] = now
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        resultado = "🏆 VITÓRIA!" if vitoria else "💀 DERROTA!"
+        cor = discord.Color.gold() if vitoria else discord.Color.red()
+        embed = discord.Embed(
+            title=f"🏟️ Torneio da Arena — {resultado}",
+            description=f"*{player.get('name','Gladiador')} entra na arena. A multidão urra!*\n\n**Oponente:** {oponente['nome']} *(Dificuldade: {oponente['dificuldade']})*",
+            color=cor
+        )
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="💰 Coins", value=f"`+{coins_gain}`", inline=True)
+        if vitoria:
+            embed.add_field(name="🎊 Glória", value="`A multidão grita seu nome!`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Gladiador')} nível {job_level}/3 | Próximo torneio em 1 hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # NECROMANTE ERRANTE: convocar morto-vivo
+    # ============================
+    if content_lower in ["convocar morto-vivo", "convocar mortovivo", "levantar morto", "invocar morto"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Necromante_Errante":
+            await message.channel.send("☠️ Apenas **Necromantes Errantes** podem convocar mortos-vivos!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_nec = player.get("last_convocar_morto", 0)
+        now = time.time()
+        if now - last_nec < 5400:
+            rest = int(5400 - (now - last_nec))
+            await message.channel.send(f"☠️ Seu ritual ainda está em recarregamento. Próxima convocação em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Necromante_Errante")
+        max_mortos = 6 + (job_level - 1) * 2
+        mortos = [
+            "💀 Guerreiro Esqueleto (ATK +30)",
+            "🧟 Zumbi Blindado (DEF +40)",
+            "👻 Espectro do Vazio (Lifesteal +20%)",
+            "☠️ Arqueiro Morto (Ataque à distância +35)",
+            "🦴 Golem de Ossos (HP +200)",
+            "🌑 Revenant das Sombras (ATK +50, Velocidade +25)",
+        ]
+        if job_level >= 3:
+            mortos += [
+                "⚡ Lich Menor (Magia de morte +80%)",
+                "🌑 Morto-Vivo Lendário (Todos os stats +60%)",
+            ]
+        num_convocados = min(max_mortos, len(mortos))
+        convocados = random.sample(mortos, min(4, num_convocados))
+        xp_gain = random.randint(150, 300) * job_level
+        lifesteal = 40 + (job_level - 1) * 15
+        player["last_convocar_morto"] = now
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        embed = discord.Embed(
+            title="☠️ Convocação Necromantica!",
+            description=f"*{player.get('name','Necromante')} ergue as mãos. O solo racha. Os mortos obedecem...*",
+            color=discord.Color.dark_magenta()
+        )
+        embed.add_field(name="🦴 Mortos Convocados", value="\n".join(convocados), inline=False)
+        embed.add_field(name="🩸 Lifesteal", value=f"`{lifesteal}%` de todos os ataques", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="☠️ Exército Atual", value=f"`{len(convocados)}/{max_mortos} mortos-vivos`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Necromante Errante')} nível {job_level}/3 | Próxima convocação em 1h30")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # PIRATA: saquear / abordar navio
+    # ============================
+    if content_lower in ["saquear", "saquear região", "saquear regiao", "abordar navio", "pirataria"]:
+        player = get_player(uid)
+        if not player:
+            return
+        if player.get("job") != "Pirata":
+            await message.channel.send("🏴‍☠️ Apenas **Piratas** podem saquear!\nUse `procurar emprego` para mudar de emprego.")
+            return
+        last_saq = player.get("last_saquear", 0)
+        now = time.time()
+        if now - last_saq < 3600:
+            rest = int(3600 - (now - last_saq))
+            await message.channel.send(f"🏴‍☠️ Você está aguardando o momento certo. Próximo saque em **{rest//60}m {rest%60}s**.")
+            return
+        job_level, lvl_data = _get_job_level(player, "Pirata")
+        saques = [
+            {"alvo": "um navio mercante", "coins": 200, "xp": 150, "item": "Espólio de Prata"},
+            {"alvo": "um porto costeiro desprotegido", "coins": 300, "xp": 200, "item": "Baú de Moedas"},
+            {"alvo": "uma caravana real", "coins": 500, "xp": 300, "item": "Tesouro da Coroa"},
+            {"alvo": "uma frota inimiga", "coins": 800, "xp": 450, "item": "Espólio de Batalha Naval"},
+        ]
+        if job_level >= 3:
+            saques.append({"alvo": "um navio épico carregado de itens lendários", "coins": 2000, "xp": 800, "item": "Tesouro Épico dos Mares"})
+        saque = random.choice(saques)
+        coins_gain = int(saque["coins"] * (1 + 0.5 * (job_level - 1)))
+        xp_gain = int(saque["xp"] * (1 + 0.3 * (job_level - 1)))
+        player["last_saquear"] = now
+        save_player_db(uid, player)
+        leveled = add_xp(uid, xp_gain)
+        add_coins(uid, coins_gain)
+        embed = discord.Embed(
+            title="🏴‍☠️ Saque Bem-sucedido!",
+            description=f"*{player.get('name','Pirata')} avista {saque['alvo']} e parte para o ataque!*",
+            color=discord.Color.dark_orange()
+        )
+        embed.add_field(name="🎯 Alvo", value=f"`{saque['alvo'].capitalize()}`", inline=False)
+        embed.add_field(name="💰 Coins Saqueados", value=f"`+{coins_gain}`", inline=True)
+        embed.add_field(name="⭐ XP", value=f"`+{xp_gain}`", inline=True)
+        embed.add_field(name="📦 Item Obtido", value=f"`{saque['item']}`", inline=True)
+        if leveled:
+            p2 = get_player(uid)
+            embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
+        embed.set_footer(text=f"{lvl_data.get('name','Pirata')} nível {job_level}/3 | Próximo saque em 1 hora")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # USAR HABILIDADE (arma ou armadura)
+    # ============================
+    if content_lower in ["usar habilidade", "habilidade", "skill", "usar skill", "ativar habilidade"]:
+        player = get_player(uid)
+        if not player:
+            return
+        weapon = player.get("weapon")
+        armor = player.get("armor")
+        if not weapon and not armor:
+            await message.channel.send(
+                "⚔️ **Usar Habilidade**\n\n"
+                "Você não tem arma nem armadura equipada!\n"
+                "Use `equipar [nome do item]` para equipar equipamentos."
+            )
+            return
+
+        now = time.time()
+        results = []
+
+        # ── HABILIDADE DA ARMA ──
+        if weapon:
+            w_skill = WEAPON_SKILLS.get(weapon)
+            if w_skill:
+                last_w = player.get(f"skill_cd_weapon_{weapon.replace(' ','_')}", 0)
+                cd = w_skill.get("cooldown", 120)
+                if now - last_w < cd:
+                    rest = int(cd - (now - last_w))
+                    results.append(f"⚔️ **{weapon}** — `{w_skill['skill']}` em recarga por **{rest//60}m {rest%60}s**")
+                else:
+                    mana_cost = w_skill.get("mana", 0)
+                    if mana_cost > 0:
+                        cur_mana = player.get("mana", player.get("max_mana", 50))
+                        if cur_mana < mana_cost:
+                            results.append(f"⚔️ **{weapon}** — `{w_skill['skill']}`: Mana insuficiente! ({cur_mana}/{mana_cost})")
+                        else:
+                            player["mana"] = cur_mana - mana_cost
+                    if not results or results[-1].startswith("⚔️") and "insuficiente" not in results[-1]:
+                        # Apply skill
+                        p_atk = player.get("atk", 10) + player.get("level", 1) * 2
+                        dmg = int(p_atk * w_skill.get("dmg_mult", 1.0))
+                        player[f"skill_cd_weapon_{weapon.replace(' ','_')}"] = now
+                        effects = []
+                        # Lifesteal
+                        if w_skill.get("lifesteal"):
+                            heal = int(dmg * w_skill["lifesteal"])
+                            player["hp"] = min(player.get("max_hp", 100), player.get("hp", 100) + heal)
+                            effects.append(f"🩸 Drenou {heal} HP")
+                        # Multi-hit
+                        if w_skill.get("multi_hit", 1) > 1:
+                            dmg = int(dmg * w_skill["multi_hit"])
+                            effects.append(f"💥 {w_skill['multi_hit']}x hits")
+                        effect_str = " | ".join(effects) if effects else ""
+                        elem = w_skill.get("element")
+                        elem_txt = f" [{elem}]" if elem else ""
+                        results.append(
+                            f"⚔️ **{weapon}** — `{w_skill['skill']}`{elem_txt}\n"
+                            f"*{w_skill['desc']}*\n"
+                            f"💥 Dano calculado: **{dmg}**{(' | ' + effect_str) if effect_str else ''}\n"
+                            f"{'💧 Mana usada: ' + str(mana_cost) if mana_cost else ''}"
+                        )
+            else:
+                results.append(f"⚔️ **{weapon}** — Sem habilidade especial registrada. Use `inspecionar arma` para detalhes.")
+
+        # ── HABILIDADE DA ARMADURA ──
+        if armor:
+            a_skill = ARMOR_SKILLS.get(armor)
+            if a_skill:
+                last_a = player.get(f"skill_cd_armor_{armor.replace(' ','_')}", 0)
+                cd = a_skill.get("cooldown", 180)
+                if now - last_a < cd:
+                    rest = int(cd - (now - last_a))
+                    results.append(f"🛡️ **{armor}** — `{a_skill['skill']}` em recarga por **{rest//60}m {rest%60}s**")
+                else:
+                    player[f"skill_cd_armor_{armor.replace(' ','_')}"] = now
+                    hp_gain, effect_str = apply_armor_skill_in_combat(player, a_skill)
+                    if hp_gain > 0:
+                        player["hp"] = min(player.get("max_hp", 100), player.get("hp", 100) + hp_gain)
+                    # Special: revive once
+                    if a_skill.get("revive_once"):
+                        player["revive_stored"] = True
+                    if a_skill.get("full_heal_once"):
+                        player["hp"] = player.get("max_hp", 100)
+                        effect_str = "💚 HP restaurado completamente!"
+                    results.append(
+                        f"🛡️ **{armor}** — `{a_skill['skill']}`\n"
+                        f"*{a_skill['desc']}*\n"
+                        f"{effect_str}"
+                        + (f"\n💚 HP ganho: **+{hp_gain}**" if hp_gain > 0 else "")
+                    )
+            else:
+                results.append(f"🛡️ **{armor}** — Sem habilidade especial registrada.")
+
+        save_player_db(uid, player)
+        embed = discord.Embed(
+            title="✨ Habilidades Ativadas!",
+            description="\n\n".join(results) if results else "Nenhuma habilidade disponível.",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="❤️ HP Atual", value=f"`{player.get('hp',0)}/{player.get('max_hp',100)}`", inline=True)
+        embed.add_field(name="💧 Mana", value=f"`{player.get('mana', player.get('max_mana',50))}`", inline=True)
+        embed.set_footer(text="Use 'inspecionar arma' ou 'inspecionar armadura' para ver detalhes | Habilidades têm cooldown!")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # INSPECIONAR ARMADURA
+    # ============================
+    if content_lower.startswith("inspecionar armadura") or content_lower.startswith("ver armadura"):
+        player = get_player(uid)
+        if not player:
+            return
+        if content_lower.startswith("inspecionar armadura "):
+            armor_query = content[21:].strip()
+        elif content_lower.startswith("ver armadura "):
+            armor_query = content[13:].strip()
+        else:
+            armor_query = player.get("armor", "")
+
+        if not armor_query:
+            await message.channel.send(
+                "🛡️ **Inspecionar Armadura**\n\n"
+                "Você não tem armadura equipada!\n"
+                "Uso: `inspecionar armadura [nome]`"
+            )
+            return
+
+        # Find armor in ITEMS["armor"] + ITEMS_EXTRA["armor"]
+        all_armors = ITEMS.get("armor", []) + ITEMS_EXTRA.get("armor", [])
+        found_armor = None
+        aq = armor_query.lower()
+        for a in all_armors:
+            if aq in a["name"].lower() or a["name"].lower() in aq:
+                found_armor = a
+                break
+
+        # Also check ITEMS_NOVOS_REINOS
+        if not found_armor:
+            for rd in ITEMS_NOVOS_REINOS.values():
+                for a in rd.get("armor", []):
+                    if aq in a["name"].lower() or a["name"].lower() in aq:
+                        found_armor = a
+                        break
+
+        rarity_colors = {
+            "Comum": discord.Color.light_grey(), "Incomum": discord.Color.green(),
+            "Raro": discord.Color.blue(), "Épico": discord.Color.purple(),
+            "Lendário": discord.Color.gold(), "Mítico": discord.Color.from_rgb(255, 50, 50),
+            "Ancestral": discord.Color.from_rgb(139, 69, 19), "Divino": discord.Color.from_rgb(255, 215, 0),
+            "Primordial": discord.Color.from_rgb(20, 0, 50),
+        }
+        rarity_emojis = {
+            "Comum": "⬜", "Incomum": "🟩", "Raro": "🟦", "Épico": "🟪",
+            "Lendário": "🟨", "Mítico": "🔴", "Ancestral": "🟤", "Divino": "✨", "Primordial": "🌌"
+        }
+
+        if not found_armor:
+            await message.channel.send(
+                f"🛡️ Armadura **'{armor_query}'** não encontrada.\n"
+                f"Use `inventário` para ver seus itens."
+            )
+            return
+
+        rarity = found_armor.get("rarity", "Comum")
+        def_val = found_armor.get("def", 0)
+        color = rarity_colors.get(rarity, discord.Color.light_grey())
+        rar_emoji = rarity_emojis.get(rarity, "⬛")
+
+        # DEF bar
+        max_ref = max(def_val, 1)
+        bar_filled = min(int(def_val / max(def_val, 100) * 10), 10)
+        def_bar = "🟦" * bar_filled + "⬛" * (10 - bar_filled)
+
+        embed = discord.Embed(
+            title=f"🛡️ {rar_emoji} {found_armor['name']}",
+            description=f"*Armadura de raridade **{rarity}**.*",
+            color=color
+        )
+        embed.add_field(name=f"{rar_emoji} Raridade", value=rarity, inline=True)
+        embed.add_field(name=f"🛡️ DEF: `{def_val}`", value=def_bar, inline=False)
+
+        # Skill da armadura
+        a_skill = ARMOR_SKILLS.get(found_armor["name"])
+        if a_skill:
+            cd_min = a_skill.get("cooldown", 120) // 60
+            mana_c = a_skill.get("mana", 0)
+            embed.add_field(
+                name=f"✨ Habilidade: **{a_skill['skill']}**",
+                value=(
+                    f"_{a_skill['desc']}_\n"
+                    f"⏱️ Cooldown: `{cd_min} minutos`"
+                    + (f" | 💧 Mana: `{mana_c}`" if mana_c else "")
+                ),
+                inline=False
+            )
+        else:
+            embed.add_field(name="✨ Habilidade", value="*Sem habilidade especial.*", inline=False)
+
+        equipped = player.get("armor", "") == found_armor["name"]
+        if equipped:
+            embed.add_field(name="✅ Status", value="**Equipada atualmente**", inline=True)
+
+        # Cooldown info
+        armor_key = found_armor["name"].replace(" ", "_")
+        last_used = player.get(f"skill_cd_armor_{armor_key}", 0)
+        now = time.time()
+        if a_skill and now - last_used < a_skill.get("cooldown", 120):
+            rest = int(a_skill["cooldown"] - (now - last_used))
+            embed.add_field(name="⏳ Próxima Habilidade", value=f"`{rest//60}m {rest%60}s`", inline=True)
+        elif a_skill:
+            embed.add_field(name="✅ Habilidade", value="`Disponível!`", inline=True)
+
+        embed.set_footer(text=f"Use 'equipar {found_armor['name']}' para equipar | 'usar habilidade' para ativar")
+        await message.channel.send(embed=embed)
+        return
+
+    # ============================
+    # !veritensadm — VER TODOS OS ITENS (ADMIN)
+    # ============================
+    if content_lower in ["!veritensadm", "veritensadm"]:
+        if message.author.id != ADMIN_ID:
+            await message.channel.send("❌ Apenas administradores podem usar este comando.")
+            return
+
+        # Coleta todos os itens de todas as fontes
+        raridade_ordem = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
+        raridade_emoji = {
+            "Comum": "⚪", "Incomum": "🟢", "Raro": "🔵",
+            "Épico": "🟣", "Lendário": "🟡", "Mítico": "🔴",
+            "Ancestral": "🟤", "Divino": "✨", "Primordial": "🌌"
+        }
+
+        todas_armas = {}
+        todas_armaduras = {}
+
+        def adicionar_armas(lista):
+            for item in lista:
+                r = item.get("rarity", "Comum")
+                if r not in todas_armas:
+                    todas_armas[r] = []
+                nome = item.get("name", "?")
+                atk = item.get("atk", item.get("ATK", "?"))
+                if nome not in [x[0] for x in todas_armas[r]]:
+                    todas_armas[r].append((nome, atk))
+
+        def adicionar_armaduras(lista):
+            for item in lista:
+                r = item.get("rarity", "Comum")
+                if r not in todas_armaduras:
+                    todas_armaduras[r] = []
+                nome = item.get("name", "?")
+                def_val = item.get("def", item.get("DEF", "?"))
+                if nome not in [x[0] for x in todas_armaduras[r]]:
+                    todas_armaduras[r].append((nome, def_val))
+
+        # ITEMS principal
+        adicionar_armas(ITEMS.get("weapons", []))
+        adicionar_armaduras(ITEMS.get("armor", []))
+        # ITEMS_EXTRA
+        adicionar_armas(ITEMS_EXTRA.get("weapons", []))
+        adicionar_armaduras(ITEMS_EXTRA.get("armor", []))
+        # ITEMS_NOVOS_REINOS (por região)
+        for regiao_data in ITEMS_NOVOS_REINOS.values():
+            adicionar_armas(regiao_data.get("weapons", []))
+            adicionar_armaduras(regiao_data.get("armor", []))
+
+        # WEAPON_DATABASE
+        for nome_arma, dados in WEAPON_DATABASE.items():
+            r = dados.get("rarity", "Comum")
+            if r not in todas_armas:
+                todas_armas[r] = []
+            atk = dados.get("atk", "?")
+            if nome_arma not in [x[0] for x in todas_armas[r]]:
+                todas_armas[r].append((nome_arma, atk))
+
+        # Envia por raridade
+        await message.channel.send("⚔️ **`!veritensadm` — Todos os Equipamentos do RPG**\n*Separados por raridade. Aguarde...*")
+        await asyncio.sleep(0.5)
+
+        for raridade in raridade_ordem:
+            emoji = raridade_emoji.get(raridade, "❔")
+            armas_r = todas_armas.get(raridade, [])
+            armaduras_r = todas_armaduras.get(raridade, [])
+            if not armas_r and not armaduras_r:
+                continue
+
+            # Divide em chunks de ~40 itens por embed para não ultrapassar limites
+            linhas_armas = []
+            for n, a in sorted(armas_r, key=lambda x: x[0]):
+                w_sk = WEAPON_SKILLS.get(n)
+                skill_txt = f" ✨{w_sk['skill']}" if w_sk else ""
+                linhas_armas.append(f"`{n}` ATK:{a}{skill_txt}")
+            linhas_armaduras = []
+            for n, d in sorted(armaduras_r, key=lambda x: x[0]):
+                a_sk = ARMOR_SKILLS.get(n)
+                skill_txt = f" ✨{a_sk['skill']}" if a_sk else ""
+                linhas_armaduras.append(f"`{n}` DEF:{d}{skill_txt}")
+
+            # Chunk helper
+            def chunks(lst, n):
+                for i in range(0, len(lst), n):
+                    yield lst[i:i+n]
+
+            armas_chunks = list(chunks(linhas_armas, 20))
+            arm_chunks = list(chunks(linhas_armaduras, 20))
+            max_chunks = max(len(armas_chunks), len(arm_chunks), 1)
+
+            for i in range(max_chunks):
+                embed = discord.Embed(
+                    title=f"{emoji} {raridade} {'(parte ' + str(i+1) + ')' if max_chunks > 1 else ''}",
+                    color={
+                        "Comum": 0xAAAAAA, "Incomum": 0x2ECC71, "Raro": 0x3498DB,
+                        "Épico": 0x9B59B6, "Lendário": 0xF1C40F, "Mítico": 0xE74C3C,
+                        "Ancestral": 0x8B4513, "Divino": 0xFFD700, "Primordial": 0x000000
+                    }.get(raridade, 0x95A5A6)
+                )
+                if i < len(armas_chunks):
+                    texto_armas = "\n".join(armas_chunks[i]) or "—"
+                    embed.add_field(name=f"⚔️ Armas {raridade} ({len(armas_r)} total)", value=texto_armas[:1024], inline=False)
+                if i < len(arm_chunks):
+                    texto_arm = "\n".join(arm_chunks[i]) or "—"
+                    embed.add_field(name=f"🛡️ Armaduras {raridade} ({len(armaduras_r)} total)", value=texto_arm[:1024], inline=False)
+                await message.channel.send(embed=embed)
+                await asyncio.sleep(0.3)
+
+        await message.channel.send("✅ **Lista completa enviada!** Todos os equipamentos listados por raridade.")
         return
 
 
