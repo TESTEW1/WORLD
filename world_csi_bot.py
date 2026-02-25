@@ -15987,21 +15987,43 @@ class BossButton(discord.ui.View):
 
 class DungeonBossStartView(discord.ui.View):
     """Botões exibidos ANTES de enfrentar o boss de dungeon — escolha: sozinho, aliado ou guilda"""
-    def __init__(self, user_id, boss_data, dungeon, timeout=120):
+    def __init__(self, user_id, boss_data, dungeon, channel=None, timeout=60):
         super().__init__(timeout=timeout)
         self.user_id = user_id
         self.boss_data = boss_data
         self.dungeon = dungeon
+        self._channel = channel
         self.answered = False
+        self._message = None  # guardado após send
+
+    async def on_timeout(self):
+        """Se ninguém clicar em 60s, enfrenta sozinho automaticamente"""
+        if self.answered:
+            return
+        self.answered = True
+        channel = self._channel
+        if not channel:
+            return
+        try:
+            if self._message:
+                await self._message.edit(
+                    content=f"⏱️ **Tempo esgotado! {self.boss_data['name']} avança sozinho...**\n\n*Enfrentando solo automaticamente!*",
+                    embed=None, view=None
+                )
+        except Exception:
+            pass
+        await asyncio.sleep(1)
+        await fight_boss(channel, self.user_id, is_dungeon=True, dungeon_boss=self.boss_data, allies=None)
 
     @discord.ui.button(label="Enfrentar Sozinho", style=discord.ButtonStyle.red, emoji="🗡️")
     async def fight_solo(self, interaction: discord.Interaction, button: discord.ui.Button):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
         if self.answered:
-            return
+            return await interaction.response.send_message("❌ Já foi iniciado!", ephemeral=True)
         self.answered = True
         channel = interaction.channel
+        self._channel = channel
         await interaction.response.edit_message(
             content=f"🗡️ **Você avança sozinho contra {self.boss_data['name']}!**\n\n*'Nenhum aliado. Apenas você e seu destino.'*",
             embed=None, view=None
@@ -16014,7 +16036,7 @@ class DungeonBossStartView(discord.ui.View):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
         if self.answered:
-            return
+            return await interaction.response.send_message("❌ Já foi iniciado!", ephemeral=True)
         self.answered = True
         boss_data = self.boss_data
         await interaction.response.edit_message(
@@ -16041,7 +16063,7 @@ class DungeonBossStartView(discord.ui.View):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
         if self.answered:
-            return
+            return await interaction.response.send_message("❌ Já foi iniciado!", ephemeral=True)
         self.answered = True
         boss_data = self.boss_data
         player = get_player(self.user_id)
@@ -16072,6 +16094,7 @@ class DungeonBossStartView(discord.ui.View):
                 guild_ally_names.append(str(_aid))
         _ally_text = f"\n\n🛡️ **Membros convocados:** {', '.join(guild_ally_names[:5])}" if guild_ally_names else "\n\n⚠️ Nenhum membro da guilda online com HP. Lutando sozinho."
         channel = interaction.channel
+        self._channel = channel
         await interaction.response.edit_message(
             content=f"🏰 **Guilda convocada para enfrentar {boss_data['name']}!**{_ally_text}\n\n*A batalha começa...*",
             embed=None, view=None
@@ -16085,7 +16108,7 @@ class DungeonBossStartView(discord.ui.View):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Essa não é sua dungeon!", ephemeral=True)
         if self.answered:
-            return
+            return await interaction.response.send_message("❌ Já foi iniciado!", ephemeral=True)
         self.answered = True
         await interaction.response.edit_message(
             content="🏃 **Você recua da câmara do boss.**\n\n*'Sábio é quem conhece seus limites.'*",
@@ -19546,8 +19569,9 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             ),
             inline=False
         )
-        view = DungeonBossStartView(user_id, boss_data, dungeon)
-        await channel.send(embed=pre_battle_embed, view=view)
+        view = DungeonBossStartView(user_id, boss_data, dungeon, channel=channel)
+        msg = await channel.send(embed=pre_battle_embed, view=view)
+        view._message = msg
         return
 
     await channel.send(embed=embed)
