@@ -14493,7 +14493,65 @@ async def check_class_evolution(channel, user_id):
             PREVIEW_MIN_HP  = {1: 10, 2: 80,  3: 200, 4: 500,  5: 1200,  6: 3000,  7: 7000}
             PREVIEW_MIN_ATK = {1:  5, 2: 30,  3:  80, 4: 200,  5:  500,  6: 1200,  7: 3000}
             PREVIEW_MIN_DEF = {1:  0, 2: 20,  3:  55, 4: 130,  5:  350,  6:  850,  7: 2000}
-            pmult = PREVIEW_MULTIPLIERS.get(preview_tier, PREVIEW_MULTIPLIERS[7])
+            # ── TIER 4+ (após lv 130): bônus diferenciados por identidade de classe ──
+            CLASS_STAT_IDENTITY = {
+                # ── CLASSES ORIGINAIS ──────────────────────────────────────────────
+                # Ofensivas: mais ATK, menos DEF/HP
+                "Mago":                    {"hp": 0.70, "atk": 1.50, "def": 0.60},
+                "Assassino":               {"hp": 0.75, "atk": 1.45, "def": 0.65},
+                "Arqueiro":                {"hp": 0.80, "atk": 1.35, "def": 0.70},
+                "Necromante":              {"hp": 0.75, "atk": 1.40, "def": 0.65},
+                "Berserker":               {"hp": 1.20, "atk": 1.40, "def": 0.50},  # HP alto + ATK, DEF baixa
+                # Defensivas: mais HP/DEF, menos ATK
+                "Guerreiro":               {"hp": 1.20, "atk": 1.10, "def": 1.20},
+                "Paladino":                {"hp": 1.15, "atk": 1.05, "def": 1.30},
+                # Balanceadas/suporte
+                "Druida":                  {"hp": 1.10, "atk": 1.10, "def": 1.10},
+                "Monge":                   {"hp": 1.05, "atk": 1.20, "def": 1.05},
+                "Bardo":                   {"hp": 1.00, "atk": 1.00, "def": 1.10},  # suporte puro
+
+                # ── CLASSES EXTRAS ──────────────────────────────────────────────
+                # Tank sombrio: bom HP e ATK, DEF média
+                "Cavaleiro das Sombras":   {"hp": 1.20, "atk": 1.25, "def": 0.90},
+                # Invocador: fraco fisicamente, força vem dos bichos
+                "Invocador":               {"hp": 0.80, "atk": 1.30, "def": 0.75},
+                # Runesmith: híbrido DEF/ATK, artesão de batalha
+                "Runesmith":               {"hp": 1.00, "atk": 1.15, "def": 1.25},
+                # Caçador: ofensivo de precisão, similar ao Arqueiro
+                "Cazador de Recompensas":  {"hp": 0.80, "atk": 1.40, "def": 0.70},
+                # Xamã: suporte espiritual, HP e cura, ATK baixo
+                "Xamã":                    {"hp": 1.20, "atk": 0.90, "def": 1.10},
+                # Tempesteiro: mago ofensivo elétrico, explode mas é frágil
+                "Tempesteiro":             {"hp": 0.70, "atk": 1.55, "def": 0.60},
+                # Ilusionista: esquiva, controle, dano médio
+                "Ilusionista":             {"hp": 0.75, "atk": 1.30, "def": 0.75},
+                # Alquimista: suporte/explosivo, balanceado com leve ATK
+                "Alquimista":              {"hp": 1.00, "atk": 1.20, "def": 1.00},
+                # Guardião do Abismo: tank escuro, muito DEF e HP
+                "Guardião do Abismo":      {"hp": 1.30, "atk": 0.95, "def": 1.35},
+                # Dançarino da Morte: assassino ágil, burst de ATK
+                "Dançarino da Morte":      {"hp": 0.75, "atk": 1.50, "def": 0.60},
+                # Oráculo: mago de controle, ATK mágico alto, frágil
+                "Oráculo":                 {"hp": 0.70, "atk": 1.45, "def": 0.65},
+                # Colossus: tank puro, máximo HP e DEF do jogo
+                "Colossus":                {"hp": 1.50, "atk": 0.80, "def": 1.50},
+                # Devorador de Almas: dreno de vida, HP + ATK
+                "Devorador de Almas":      {"hp": 1.10, "atk": 1.35, "def": 0.80},
+                # Arauto Celestial: protetor sagrado, DEF e HP, pouco ATK
+                "Arauto Celestial":        {"hp": 1.20, "atk": 0.90, "def": 1.30},
+                # Lançador de Venenos: dano por veneno, ATK alto, baixa sobrevivência
+                "Lançador de Venenos":     {"hp": 0.75, "atk": 1.45, "def": 0.65},
+            }
+            identity = CLASS_STAT_IDENTITY.get(cls, {"hp": 1.0, "atk": 1.0, "def": 1.0})
+            pmult = dict(PREVIEW_MULTIPLIERS.get(preview_tier, PREVIEW_MULTIPLIERS[7]))
+            # Aplicar identidade apenas nos tiers 4+ (level 130+)
+            if preview_tier >= 4:
+                pmult["hp"]  = pmult["hp"]  * identity["hp"]
+                pmult["atk"] = pmult["atk"] * identity["atk"]
+                pmult["def"] = pmult["def"] * identity["def"]
+                pmult["extra_hp"]  = int(pmult["extra_hp"]  * identity["hp"])
+                pmult["extra_atk"] = int(pmult["extra_atk"] * identity["atk"])
+                pmult["extra_def"] = int(pmult["extra_def"] * identity["def"])
             for s in specs:
                 spec_data = CLASS_SPECIALIZATIONS.get(s)
                 if spec_data:
@@ -14503,12 +14561,21 @@ async def check_class_evolution(channel, user_id):
                     b_hp  = max(b_hp,  PREVIEW_MIN_HP.get(preview_tier, 7000))
                     b_atk = max(b_atk, PREVIEW_MIN_ATK.get(preview_tier, 3000))
                     b_def = max(b_def, PREVIEW_MIN_DEF.get(preview_tier, 2000))
+                    identity_note = ""
+                    if preview_tier >= 4:
+                        atk_id = identity["atk"]
+                        if atk_id >= 1.35:
+                            identity_note = "\n⚔️ *Classe ofensiva — ATK amplificado!*"
+                        elif identity["def"] >= 1.20:
+                            identity_note = "\n🛡️ *Classe defensiva — HP e DEF amplificados!*"
+                        else:
+                            identity_note = "\n⚖️ *Classe balanceada — atributos equilibrados.*"
                     embed.add_field(
                         name=f"{spec_data['emoji']} {s}",
                         value=(
                             f"{spec_data['desc']}\n"
                             f"**Passiva:** {spec_data['passive']}\n"
-                            f"📊 **Bônus:** ❤️ +{b_hp} HP | ⚔️ +{b_atk} ATK | 🛡️ +{b_def} DEF"
+                            f"📊 **Bônus:** ❤️ +{b_hp} HP | ⚔️ +{b_atk} ATK | 🛡️ +{b_def} DEF{identity_note}"
                         ),
                         inline=False
                     )
@@ -15129,7 +15196,7 @@ class BossButton(discord.ui.View):
         self.boss_name = boss_name
         self.answered = False
 
-    @discord.ui.button(label="Enfrentar", style=discord.ButtonStyle.red, emoji="⚔️")
+    @discord.ui.button(label="Enfrentar (com aliados da guilda)", style=discord.ButtonStyle.red, emoji="⚔️")
     async def fight(self, interaction: discord.Interaction, button: discord.ui.Button):
         if str(interaction.user.id) != str(self.user_id):
             return await interaction.response.send_message("❌ Esse não é seu boss!", ephemeral=True)
@@ -15182,6 +15249,21 @@ class BossButton(discord.ui.View):
         await asyncio.sleep(2)
         await fight_boss(channel, self.user_id, allies=guild_allies if guild_allies else None)
 
+
+    @discord.ui.button(label="Lutar Solo", style=discord.ButtonStyle.green, emoji="🗡️")
+    async def fight_solo(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Esse não é seu boss!", ephemeral=True)
+        if self.answered:
+            return
+        self.answered = True
+        channel = interaction.channel
+        await interaction.response.edit_message(
+            content=f"🗡️ **Você enfrenta o {self.boss_name} SOZINHO!**\n\n*'Força, coragem e determinação — é tudo o que você tem!'*",
+            view=None
+        )
+        await asyncio.sleep(2)
+        await fight_boss(channel, self.user_id, allies=None)
 
     @discord.ui.button(label="Chamar Aliados", style=discord.ButtonStyle.blurple, emoji="👥")
     async def call_allies(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -15765,8 +15847,11 @@ class MapNavView(discord.ui.View):
         player = get_player(str(interaction.user.id))
         if not player:
             return await interaction.response.send_message("❌ Personagem não encontrado.", ephemeral=True)
-        new_page = self.page - 1
+        player["user_id"] = str(interaction.user.id)
+        new_page = max(1, self.page - 1)
         embed, view = build_map_embed(player, new_page)
+        if embed is None:
+            return await interaction.response.send_message("❌ Página inválida.", ephemeral=True)
         await interaction.response.edit_message(embed=embed, view=view)
 
     async def _next(self, interaction: discord.Interaction):
@@ -15775,8 +15860,11 @@ class MapNavView(discord.ui.View):
         player = get_player(str(interaction.user.id))
         if not player:
             return await interaction.response.send_message("❌ Personagem não encontrado.", ephemeral=True)
-        new_page = self.page + 1
+        player["user_id"] = str(interaction.user.id)
+        new_page = min(self.total_pages, self.page + 1)
         embed, view = build_map_embed(player, new_page)
+        if embed is None:
+            return await interaction.response.send_message("❌ Página inválida.", ephemeral=True)
         await interaction.response.edit_message(embed=embed, view=view)
 
 
@@ -17189,12 +17277,23 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         au = await bot.fetch_user(int(ally_id))
                         a_max_hp = ap.get("max_hp", 100)
                         a_cur_hp = min(ap.get("hp", 100), a_max_hp)
+                        # Calcular ATK real do aliado (incluindo classe, level e equipamentos)
+                        a_cls = ap.get("class", "Guerreiro")
+                        a_base_atk = CLASSES.get(a_cls, {}).get("atk_bonus", 5) + ap.get("level", 1) * 2
+                        # Bônus de arma
+                        if ap.get("weapon"):
+                            for w in ITEMS["weapons"]:
+                                if w["name"] == ap["weapon"]:
+                                    a_base_atk += w.get("atk", 0) // 3
+                                    break
+                        # Bônus de especialização de classe
+                        a_base_atk += ap.get("temp_atk_boost", 0)
                         ally_full_data.append({
                             "id": ally_id,
                             "name": au.display_name,
-                            "class": ap.get("class", "Guerreiro"),
+                            "class": a_cls,
                             "level": ap.get("level", 1),
-                            "atk": CLASSES.get(ap.get("class","Guerreiro"),{}).get("atk_bonus",5) + ap.get("level",1)*2,
+                            "atk": a_base_atk,
                             "max_hp": a_max_hp,
                             "cur_hp": a_cur_hp,
                             "alive": True,
@@ -17405,28 +17504,31 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             ally_action_text, ally_mult = random.choice(ally_actions)
             ally_battle_cry = random.choice(ALLY_BATTLE_CRIES.get(ally_cls, ALLY_BATTLE_CRIES["default"]))
 
-            # Dano do aliado baseado no nível e classe
-            # atk = atk_bonus_classe + level*2, multiplicado pela habilidade usada
-            ally_base_atk = ally_data["atk"]
+            # Dano do aliado baseado no nível, classe E equipamentos
+            # atk = atk_bonus_classe + level*2 + bônus de arma
+            ally_base_atk = ally_data["atk"]  # já inclui weapon/armor calculados no full_data
             ally_level = ally_data["level"]
-            ally_is_crit = random.random() < 0.20
-            ally_dmg_raw = int(ally_base_atk * ally_mult)
+            # Escala extra por level: aliados de level alto fazem dano decente
+            level_scale = 1.0 + (ally_level / 100.0)  # +1% por nível
+            ally_is_crit = random.random() < 0.25
+            ally_dmg_raw = int(ally_base_atk * ally_mult * level_scale)
             if ally_is_crit:
-                ally_dmg_raw = int(ally_dmg_raw * 1.7)
+                ally_dmg_raw = int(ally_dmg_raw * 1.8)
             # Defesa do boss reduzida para aliados (não penalizar muito aliados de level menor)
-            ally_boss_def = max(0, boss_atk // 8)
-            ally_dmg = max(ally_level * 2, ally_dmg_raw - ally_boss_def)
+            ally_boss_def = max(0, boss_atk // 10)
+            ally_dmg = max(ally_level * 3, ally_dmg_raw - ally_boss_def)
 
             boss_cur_hp -= ally_dmg
             total_ally_dmg += ally_dmg
 
             ally_txt = ally_action_text.format(name=ally_data["name"])
+            skill_label = f"🎯 {ally_cls}" if ally_mult >= 1.8 else f"⚔️ {ally_cls}"
             ally_display = f"{ally_txt}\n> {ally_battle_cry}\n> 💥 `−{ally_dmg:,} HP` para **{boss_data['name']}**"
             if ally_is_crit:
                 ally_display += "\n> 💥 **CRÍTICO DO ALIADO!** *A arena vibra!*"
 
             cls_emoji = CLASSES.get(ally_cls, {}).get("emoji", "⚔️")
-            turn_embed.add_field(name=f"{cls_emoji} {ally_data['name']} ataca!", value=ally_display, inline=False)
+            turn_embed.add_field(name=f"{cls_emoji} {ally_data['name']} usa habilidade!", value=ally_display, inline=False)
 
         # === ATAQUE DO PET ===
         if pet_combat_name and pet_cur_hp > 0:
@@ -20045,10 +20147,135 @@ async def on_message(message):
 
         guild_name, leader_id, members_json, total_xp = result
         members = json.loads(members_json)
-        embed = discord.Embed(title=f"🏰 {guild_name}", color=discord.Color.gold())
-        embed.add_field(name="👥 Membros", value=len(members), inline=True)
-        embed.add_field(name="⭐ XP Total", value=total_xp, inline=True)
+        embed = discord.Embed(
+            title=f"🏰 {guild_name}",
+            description=f"*A guilda que marcou sua história...*",
+            color=discord.Color.gold()
+        )
+        embed.add_field(name="👥 Total de Membros", value=f"`{len(members)}`", inline=True)
+        embed.add_field(name="⭐ XP Total da Guilda", value=f"`{total_xp:,}`", inline=True)
+        try:
+            leader_user = await bot.fetch_user(int(leader_id))
+            embed.add_field(name="👑 Líder", value=leader_user.display_name, inline=True)
+        except:
+            embed.add_field(name="👑 Líder", value=f"ID {leader_id}", inline=True)
+
+        # Listar membros com nível e classe
+        member_lines = []
+        for mid in members[:20]:
+            mp = get_player(str(mid))
+            if mp:
+                try:
+                    mu = await bot.fetch_user(int(mid))
+                    uname = mu.display_name
+                except:
+                    uname = f"Jogador {mid}"
+                is_leader = "👑 " if str(mid) == str(leader_id) else ""
+                cls_emoji = CLASSES.get(mp.get("class", ""), {}).get("emoji", "⚔️")
+                member_lines.append(
+                    f"{is_leader}{cls_emoji} **{uname}** — Nível `{mp.get('level', 1)}` | ❤️ `{mp.get('hp', 0)}/{mp.get('max_hp', 100)}`"
+                )
+        if member_lines:
+            chunk = "\n".join(member_lines)
+            embed.add_field(name="📜 Membros", value=chunk, inline=False)
+        if len(members) > 20:
+            embed.add_field(name="...", value=f"*e mais {len(members) - 20} membros*", inline=False)
+        embed.set_footer(text="Use `sair da guilda` para abandonar | `compartilhar coins` para dividir 5% com a guilda")
         await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
+    # ================= SAIR DA GUILDA =====================
+    # ======================================================
+    elif any(word in content for word in ["sair da guilda", "largar guilda", "abandonar guilda", "deixar guilda"]):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, leader_id, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        if not result:
+            player["guild_id"] = None
+            save_player_db(user_id, player)
+            conn.close()
+            await message.channel.send("✅ Você saiu da guilda!")
+            return
+        guild_name, leader_id, members_json = result
+        if str(user_id) == str(leader_id):
+            conn.close()
+            await message.channel.send(
+                f"⚠️ Você é o líder da **{guild_name}**! Um líder não pode abandonar a guilda.\n"
+                f"Transfira a liderança primeiro (em breve) ou disbanda a guilda."
+            )
+            return
+        members = json.loads(members_json)
+        if user_id in members:
+            members.remove(user_id)
+        c.execute("UPDATE guilds SET members = ? WHERE id = ?", (json.dumps(members), guild_id))
+        conn.commit()
+        conn.close()
+        player["guild_id"] = None
+        save_player_db(user_id, player)
+        await message.channel.send(embed=discord.Embed(
+            title="🚪 Saiu da Guilda",
+            description=f"Você abandonou **{guild_name}**.\n*'A estrada segue em frente...'*",
+            color=discord.Color.greyple()
+        ))
+        return
+
+    # ======================================================
+    # ================= COMPARTILHAR COINS (5%) ============
+    # ======================================================
+    elif any(word in content for word in ["compartilhar coins", "compartilhar moedas", "dividir coins", "distribuir coins"]):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda! Use `criar guilda` ou `entrar guilda`.")
+            return
+        coins_player = player.get("coins", 0)
+        if coins_player < 100:
+            await message.channel.send("❌ Você precisa de pelo menos **100 coins** para compartilhar!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        conn.close()
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!"); return
+        guild_name, members_json = result
+        members = [m for m in json.loads(members_json) if str(m) != str(user_id)]
+        if not members:
+            await message.channel.send("❌ Nenhum membro na guilda para compartilhar!"); return
+        share_total = int(coins_player * 0.05)
+        share_per = share_total // len(members)
+        if share_per < 1:
+            await message.channel.send("❌ Poucos coins para dividir (mínimo 1 por membro)."); return
+        player["coins"] -= share_total
+        save_player_db(user_id, player)
+        dist = []
+        for mid in members:
+            mp = get_player(str(mid))
+            if mp:
+                mp["coins"] = mp.get("coins", 0) + share_per
+                save_player_db(str(mid), mp)
+                try:
+                    mu = await bot.fetch_user(int(mid))
+                    dist.append(mu.display_name)
+                except:
+                    dist.append(str(mid))
+        await message.channel.send(embed=discord.Embed(
+            title="🤝 Coins Compartilhados!",
+            description=(
+                f"Você distribuiu **{share_total:,} coins** (5%) entre os membros da **{guild_name}**!\n"
+                f"Cada membro recebeu **+{share_per:,} coins**.\n\n"
+                f"👥 Beneficiados: {', '.join(dist[:10])}"
+            ),
+            color=discord.Color.gold()
+        ))
         return
 
     # ======================================================
@@ -22579,10 +22806,13 @@ def get_dungeon_difficulty_multiplier(player):
 # ================= VIEW: ESCOLHER PET DA FAZENDA =================
 # ================= VIEW: EMPREGOS =================
 class JobSelectView(discord.ui.View):
-    def __init__(self, user_id, available_jobs):
+    def __init__(self, user_id, available_jobs, page=0):
         super().__init__(timeout=90)
         self.user_id = user_id
-        for job_name in available_jobs[:5]:
+        self.available_jobs = available_jobs
+        self.page = page
+        jobs_page = available_jobs[page*4:(page+1)*4]
+        for job_name in jobs_page:
             jdata = JOBS[job_name]
             btn = discord.ui.Button(
                 label=f"{jdata['emoji']} {job_name}",
@@ -22590,7 +22820,19 @@ class JobSelectView(discord.ui.View):
             )
             btn.callback = self._make_cb(job_name)
             self.add_item(btn)
-        cancel = discord.ui.Button(label="❌ Cancelar", style=discord.ButtonStyle.secondary)
+        # Navegação de página
+        total_pages = (len(available_jobs) - 1) // 4 + 1
+        if page > 0:
+            prev_btn = discord.ui.Button(label="◀ Anterior", style=discord.ButtonStyle.secondary, row=1)
+            prev_btn.callback = self._prev_page
+            self.add_item(prev_btn)
+        if (page + 1) * 4 < len(available_jobs):
+            next_btn = discord.ui.Button(label="Próximo ▶", style=discord.ButtonStyle.secondary, row=1)
+            next_btn.callback = self._next_page
+            self.add_item(next_btn)
+        page_lbl = discord.ui.Button(label=f"Pág. {page+1}/{total_pages}", style=discord.ButtonStyle.gray, disabled=True, row=1)
+        self.add_item(page_lbl)
+        cancel = discord.ui.Button(label="❌ Cancelar", style=discord.ButtonStyle.secondary, row=2)
         cancel.callback = self._cancel
         self.add_item(cancel)
 
@@ -22629,6 +22871,18 @@ class JobSelectView(discord.ui.View):
                 item.disabled = True
             await interaction.response.edit_message(embed=embed, view=self)
         return callback
+
+    async def _prev_page(self, interaction: discord.Interaction):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Não é sua!", ephemeral=True)
+        new_view = JobSelectView(self.user_id, self.available_jobs, self.page - 1)
+        await interaction.response.edit_message(view=new_view)
+
+    async def _next_page(self, interaction: discord.Interaction):
+        if str(interaction.user.id) != str(self.user_id):
+            return await interaction.response.send_message("❌ Não é sua!", ephemeral=True)
+        new_view = JobSelectView(self.user_id, self.available_jobs, self.page + 1)
+        await interaction.response.edit_message(view=new_view)
 
     async def _cancel(self, interaction: discord.Interaction):
         if str(interaction.user.id) != str(self.user_id):
@@ -24575,7 +24829,24 @@ async def handle_pet_evolution(message):
     if content in ["evoluir pet", "evoluir meu pet", "evolução pet"]:
         player = get_player(uid)
         if not player or not player.get("pet"):
-            await message.channel.send("❌ Você não tem um pet ativo! Use `procurar pet` ou `domesticar`.")
+            # Mostrar lista de pets que podem evoluir E quais viram bestiais
+            bestial_list = "\n".join([
+                f"• **{pet}** → 🔥 {data['name']} [{data['rarity']}]"
+                for pet, data in BESTIAL_FORMS.items()
+            ])
+            evo_list_lines = []
+            for pname, evo in list(PET_EVOLUTIONS.items())[:15]:
+                evo_list_lines.append(f"• **{pname}** → **{evo['next']}** (Nv.{evo['level_required']})")
+            evo_preview = "\n".join(evo_list_lines) if evo_list_lines else "*nenhum*"
+            embed = discord.Embed(
+                title="📖 Evoluções de Pet Disponíveis",
+                description="Você não tem um pet ativo! Use `procurar pet` ou `domesticar`.",
+                color=discord.Color.blue()
+            )
+            embed.add_field(name="🔄 Evoluções Normais (exemplos)", value=evo_preview, inline=False)
+            embed.add_field(name="🔥 Pets que podem virar BESTIAIS (Nv. 80+ do jogador)", value=bestial_list or "*nenhum*", inline=False)
+            embed.set_footer(text="Use `forma bestial pet` para despertar a forma bestial (requer Lendário+ e nível 80)")
+            await message.channel.send(embed=embed)
             return
 
         pet_name = player["pet"]
@@ -24587,7 +24858,28 @@ async def handle_pet_evolution(message):
         if not evo_data:
             evo_data = COMMON_PET_FOURTH_FORMS.get(pet_name)
         if not evo_data:
-            await message.channel.send(f"😔 **{pet_name}** não tem evolução disponível ainda (ou já é a forma final).")
+            # Checar se pode virar bestial
+            bestial_data = BESTIAL_FORMS.get(pet_name)
+            if bestial_data:
+                bestial_list = "\n".join([
+                    f"• **{p}** → 🔥 {d['name']} [{d['rarity']}]"
+                    for p, d in BESTIAL_FORMS.items()
+                ])
+                await message.channel.send(
+                    f"🔥 **{pet_name}** não tem evolução comum, mas pode despertar **Forma Bestial**!\n"
+                    f"Use `forma bestial pet` (você precisa ser nível 80+).\n\n"
+                    f"**Todos os pets que podem ter Forma Bestial:**\n{bestial_list}"
+                )
+            else:
+                # Mostrar lista completa de bestiais
+                bestial_list = "\n".join([
+                    f"• **{p}** → 🔥 {d['name']} [{d['rarity']}]"
+                    for p, d in BESTIAL_FORMS.items()
+                ])
+                await message.channel.send(
+                    f"😔 **{pet_name}** não tem evolução disponível ainda (ou já é a forma final).\n\n"
+                    f"**Pets que podem ter Forma Bestial:**\n{bestial_list}"
+                )
             return
 
         if player["level"] < evo_data["level_required"]:
@@ -24619,6 +24911,14 @@ async def handle_pet_evolution(message):
             embed.add_field(name="🔮 Habilidade Passiva", value=next_pet.get("passive", ""), inline=False)
         if special_text or next_pet.get("desc"):
             embed.add_field(name="📖 Descrição", value=next_pet.get("desc", special_text), inline=False)
+        # Verificar se o próximo pet pode virar bestial
+        next_name = next_pet["name"]
+        if next_name in BESTIAL_FORMS:
+            embed.add_field(
+                name="🔥 Forma Bestial Disponível!",
+                value=f"**{next_name}** pode despertar sua **Forma Bestial** quando você atingir nível 80!\nUse `forma bestial pet`.",
+                inline=False
+            )
         await message.channel.send(embed=embed)
 
     elif content in ["ver fazenda", "meus pets", "todos pets", "pets"]:
@@ -25479,10 +25779,19 @@ async def handle_admin_commands(message):
         player["hp"] = player["max_hp"]
         player["max_mana"] = calc_max_mana(player)
         player["mana"] = player["max_mana"]
+        # Auto-desbloquear mundos de acordo com o nível definido
+        worlds_unlocked = [w for w in WORLDS.keys() if w <= new_level + 10]
+        if not worlds_unlocked:
+            worlds_unlocked = [1]
+        player["worlds"] = sorted(set(player.get("worlds", [1]) + worlds_unlocked))
         save_player_db(str(target.id), player)
+        worlds_count = len(player["worlds"])
         await message.channel.send(embed=discord.Embed(
             title="🎯 ADMIN — Nível Definido",
-            description=f"**{target.display_name}** agora está no **Nível {new_level}**!",
+            description=(
+                f"**{target.display_name}** agora está no **Nível {new_level}**!\n"
+                f"🗺️ **{worlds_count}** reinos desbloqueados automaticamente."
+            ),
             color=discord.Color.gold()))
 
     # ── !resetar @user ───────────────────────────────────────────────
@@ -25738,6 +26047,11 @@ async def handle_admin_commands(message):
             inline=False
         )
         embed.add_field(
+            name="🎒 Itens & Equipamentos",
+            value="`!admin dar item @user [nome]` — adiciona item ao inventário\n`!admin dar arma @user [nome]` — equipa arma no jogador\n`!admin dar armadura @user [nome]` — equipa armadura no jogador\n`!admin relatorio @user` — relatório detalhado de armas e armaduras",
+            inline=False
+        )
+        embed.add_field(
             name="📋 Classes disponíveis",
             value="Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante, Berserker, Druida, Monge, Bardo",
             inline=False
@@ -25749,6 +26063,144 @@ async def handle_admin_commands(message):
         )
         embed.set_footer(text="⚠️ Todos os comandos funcionam em QUALQUER canal do servidor")
         await message.channel.send(embed=embed)
+
+    # ── !admin dar item @user [nome] ─────────────────────────────────
+    elif content_lower.startswith("!admin dar item") and message.mentions:
+        target = message.mentions[0]
+        raw = content.replace("!admin dar item", "").strip()
+        # Remove a menção do texto
+        import re as _re2
+        item_name = _re2.sub(r"<@!?\d+>", "", raw).strip()
+        if not item_name:
+            await message.channel.send("❌ Uso: `!admin dar item @user [nome do item]`"); return
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        player.setdefault("inventory", []).append(item_name)
+        save_player_db(str(target.id), player)
+        await message.channel.send(embed=discord.Embed(
+            title="🎒 ADMIN — Item Adicionado",
+            description=f"**{item_name}** adicionado ao inventário de **{target.display_name}**!",
+            color=discord.Color.green()
+        ))
+
+    # ── !admin dar arma @user [nome] ─────────────────────────────────
+    elif (content_lower.startswith("!admin dar arma") and not content_lower.startswith("!admin dar armadura")) and message.mentions:
+        target = message.mentions[0]
+        raw = content.replace("!admin dar arma", "").replace("!admin dar Arma", "").strip()
+        import re as _re3
+        weapon_name = _re3.sub(r"<@!?\d+>", "", raw).strip()
+        if not weapon_name:
+            await message.channel.send("❌ Uso: `!admin dar arma @user [nome da arma]`"); return
+        # Procura a arma nos ITEMS
+        found_weapon = None
+        for w in ITEMS["weapons"]:
+            if w["name"].lower() == weapon_name.lower():
+                found_weapon = w; break
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        equip_name = found_weapon["name"] if found_weapon else weapon_name
+        player["weapon"] = equip_name
+        if equip_name not in player.get("inventory", []):
+            player.setdefault("inventory", []).append(equip_name)
+        save_player_db(str(target.id), player)
+        rarity_txt = f" [{found_weapon['rarity']}] ⚔️ ATK +{found_weapon['atk']}" if found_weapon else " (personalizado)"
+        await message.channel.send(embed=discord.Embed(
+            title="⚔️ ADMIN — Arma Equipada",
+            description=f"**{equip_name}**{rarity_txt} equipada em **{target.display_name}**!",
+            color=discord.Color.orange()
+        ))
+
+    # ── !admin dar armadura @user [nome] ─────────────────────────────
+    elif content_lower.startswith("!admin dar armadura") and message.mentions:
+        target = message.mentions[0]
+        raw = content.replace("!admin dar armadura", "").replace("!admin dar Armadura", "").strip()
+        import re as _re4
+        armor_name = _re4.sub(r"<@!?\d+>", "", raw).strip()
+        if not armor_name:
+            await message.channel.send("❌ Uso: `!admin dar armadura @user [nome da armadura]`"); return
+        found_armor = None
+        for a in ITEMS["armor"]:
+            if a["name"].lower() == armor_name.lower():
+                found_armor = a; break
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        equip_name = found_armor["name"] if found_armor else armor_name
+        player["armor"] = equip_name
+        if equip_name not in player.get("inventory", []):
+            player.setdefault("inventory", []).append(equip_name)
+        save_player_db(str(target.id), player)
+        rarity_txt = f" [{found_armor['rarity']}] 🛡️ DEF +{found_armor.get('def', 0)}" if found_armor else " (personalizada)"
+        await message.channel.send(embed=discord.Embed(
+            title="🛡️ ADMIN — Armadura Equipada",
+            description=f"**{equip_name}**{rarity_txt} equipada em **{target.display_name}**!",
+            color=discord.Color.blue()
+        ))
+
+    # ── !admin relatorio @user ────────────────────────────────────────
+    elif content_lower.startswith("!admin relatorio") and message.mentions:
+        target = message.mentions[0]
+        player = get_player(str(target.id))
+        if not player:
+            await message.channel.send(f"❌ {target.display_name} não tem personagem!"); return
+        embed = discord.Embed(
+            title=f"📋 RELATÓRIO DE EQUIPAMENTOS — {target.display_name}",
+            description=f"**Nível:** {player.get('level', 1)} | **Classe:** {player.get('class', 'Nenhuma')} | **Raça:** {player.get('race', 'Nenhuma')}",
+            color=discord.Color.dark_gold()
+        )
+        # ── Armas no inventário
+        inv = player.get("inventory", [])
+        equipped_weapon = player.get("weapon")
+        equipped_armor = player.get("armor")
+        weapon_names = {w["name"] for w in ITEMS["weapons"]}
+        armor_names = {a["name"] for a in ITEMS["armor"]}
+        weapons_inv = [i for i in inv if i in weapon_names]
+        armors_inv = [i for i in inv if i in armor_names]
+        outros_inv = [i for i in inv if i not in weapon_names and i not in armor_names]
+        def item_detail(name, item_list):
+            for it in item_list:
+                if it["name"] == name:
+                    rarity = it.get("rarity", "?")
+                    atk = it.get("atk", 0)
+                    def_ = it.get("def", 0)
+                    stat = f"⚔️ ATK+{atk}" if atk else f"🛡️ DEF+{def_}"
+                    return f"**{name}** [{rarity}] {stat}"
+            return f"**{name}**"
+        # Arma equipada
+        if equipped_weapon:
+            embed.add_field(
+                name="⚔️ ARMA EQUIPADA",
+                value=item_detail(equipped_weapon, ITEMS["weapons"]),
+                inline=False
+            )
+        # Armadura equipada
+        if equipped_armor:
+            embed.add_field(
+                name="🛡️ ARMADURA EQUIPADA",
+                value=item_detail(equipped_armor, ITEMS["armor"]),
+                inline=False
+            )
+        # Armas no inventário
+        if weapons_inv:
+            lines = [item_detail(w, ITEMS["weapons"]) for w in weapons_inv[:10]]
+            embed.add_field(name=f"⚔️ ARMAS NO INVENTÁRIO ({len(weapons_inv)})", value="\n".join(lines) or "*nenhuma*", inline=False)
+        else:
+            embed.add_field(name="⚔️ ARMAS NO INVENTÁRIO", value="*nenhuma*", inline=False)
+        # Armaduras no inventário
+        if armors_inv:
+            lines = [item_detail(a, ITEMS["armor"]) for a in armors_inv[:10]]
+            embed.add_field(name=f"🛡️ ARMADURAS NO INVENTÁRIO ({len(armors_inv)})", value="\n".join(lines) or "*nenhuma*", inline=False)
+        else:
+            embed.add_field(name="🛡️ ARMADURAS NO INVENTÁRIO", value="*nenhuma*", inline=False)
+        # Outros itens
+        if outros_inv:
+            embed.add_field(name=f"🎒 OUTROS ITENS ({len(outros_inv)})", value=", ".join(outros_inv[:15]) + ("..." if len(outros_inv) > 15 else ""), inline=False)
+        embed.set_footer(text=f"Coins: {player.get('coins', 0):,} | HP: {player.get('hp', 0)}/{player.get('max_hp', 0)}")
+        await message.channel.send(embed=embed)
+
+
 
 
 # ================= BATALHA DE PETS =================
@@ -27294,16 +27746,34 @@ async def handle_formas_especiais_pet(message):
     # ─── FORMA BESTIAL (pets de nível alto, nível 80 do jogador) ──────
     if content in ["forma bestial pet", "despertar bestial", "forma bestial", "bestial pet"]:
         player = get_player(uid)
+        # Mostrar lista de pets que podem virar bestiais mesmo sem pet ativo
+        bestial_list_text = "\n".join([
+            f"• {data['emoji']} **{pet}** → **{data['name']}** [{data['rarity']}] ⚔️+{data['bonus_atk']} ❤️+{data['bonus_hp']}"
+            for pet, data in BESTIAL_FORMS.items()
+        ])
         if not player or not player.get("pet"):
-            await message.channel.send("❌ Você não tem um pet ativo!")
+            embed = discord.Embed(
+                title="🔥 Forma Bestial — Lista de Pets Elegíveis",
+                description="Você não tem um pet ativo!\n\n**Pets que podem despertar Forma Bestial:**",
+                color=discord.Color.dark_red()
+            )
+            embed.add_field(name="📜 Pets Elegíveis", value=bestial_list_text or "*nenhum*", inline=False)
+            embed.set_footer(text="Requer: pet de raridade Lendário+ e jogador nível 80+")
+            await message.channel.send(embed=embed)
             return
 
         if player["level"] < 80:
-            await message.channel.send(
-                f"🔒 **Forma Bestial** requer que você seja **Nível 80**!\n"
-                f"Nível atual: **{player['level']}**\n\n"
-                f"*'O despertar bestial exige um mestre, não um aprendiz...'*"
+            embed = discord.Embed(
+                title="🔒 Forma Bestial Bloqueada",
+                description=(
+                    f"**Forma Bestial** requer que você seja **Nível 80**!\n"
+                    f"Nível atual: **{player['level']}**\n\n"
+                    f"*'O despertar bestial exige um mestre, não um aprendiz...'*"
+                ),
+                color=discord.Color.dark_gray()
             )
+            embed.add_field(name="📜 Pets que podem ter Forma Bestial", value=bestial_list_text, inline=False)
+            await message.channel.send(embed=embed)
             return
 
         pet_name = player["pet"]
@@ -27312,11 +27782,17 @@ async def handle_formas_especiais_pet(message):
 
         bestial_data = BESTIAL_FORMS.get(pet_name)
         if not bestial_data:
-            await message.channel.send(
-                f"❌ **{pet_name}** não possui Forma Bestial registrada.\n\n"
-                f"Pets elegíveis para Forma Bestial são de raridade **Lendário** ou superior.\n"
-                f"Use `ver fazenda` para verificar seus pets."
+            embed = discord.Embed(
+                title="❌ Sem Forma Bestial",
+                description=(
+                    f"**{pet_name}** não possui Forma Bestial registrada.\n\n"
+                    f"**Pets elegíveis para Forma Bestial (Lendário+):**"
+                ),
+                color=discord.Color.red()
             )
+            embed.add_field(name="📜 Lista Completa", value=bestial_list_text, inline=False)
+            embed.set_footer(text="Use `ver fazenda` para verificar seus pets | `trocar pet [nome]` para trocar o ativo")
+            await message.channel.send(embed=embed)
             return
 
         next_pet = bestial_data
@@ -27486,8 +27962,89 @@ async def handle_usar_chave(message):
     await message.channel.send(embed=embed)
     await asyncio.sleep(2)
 
+    # ── ONDAS DE MOBS ANTES DO BOSS (100k~200k HP) ──────────────────
+    player = get_player(uid)
+    p_level = player.get("level", 1)
+    p_atk_now = CLASSES.get(player.get("class", "Guerreiro"), {}).get("atk_bonus", 5) + p_level * 2
+    if player.get("weapon"):
+        for w in ITEMS["weapons"]:
+            if w["name"] == player["weapon"]:
+                p_atk_now += w.get("atk", 0) // 4
+                break
+
+    mob_names = [
+        "🧟 Zumbi Colossal da Masmorra",
+        "🐲 Dragão Menor da Dungeon",
+        "💀 Guardião das Sombras",
+        "👹 Demônio Sentinela",
+        "🕷️ Aranha Colossus",
+    ]
+    mob_waves = random.randint(2, 3)
+    mob_embed = discord.Embed(
+        title="⚠️ ONDAS DE MONSTROS! ⚠️",
+        description=f"*'Antes do boss, hordas de monstros surgem das paredes da masmorra!'*\n\n🌊 **{mob_waves} ondas de inimigos** bloqueiam seu caminho!",
+        color=discord.Color.dark_red()
+    )
+    await message.channel.send(embed=mob_embed)
+    await asyncio.sleep(1.5)
+
+    total_mob_dmg_to_player = 0
+    for wave_num in range(1, mob_waves + 1):
+        mob_name = random.choice(mob_names)
+        mob_hp_total = random.randint(100_000, 200_000)
+        mob_atk_wave = random.randint(p_level * 3, p_level * 6)
+        # Player derrota a onda (dano calculado)
+        turns_to_kill = max(1, mob_hp_total // max(1, p_atk_now * 10))
+        # Dano recebido pelo jogador nesta onda
+        wave_dmg = mob_atk_wave * min(turns_to_kill, 5)
+        wave_dmg = max(10, min(wave_dmg, player.get("max_hp", 100) // 4))
+        player = get_player(uid)
+        player["hp"] = max(1, player.get("hp", 100) - wave_dmg)
+        save_player_db(uid, player)
+        total_mob_dmg_to_player += wave_dmg
+
+        xp_wave = random.randint(500, 1500) * p_level // 10
+        add_xp(uid, xp_wave)
+
+        wave_embed = discord.Embed(
+            title=f"🌊 ONDA {wave_num}/{mob_waves} — {mob_name}",
+            description=f"❤️ HP do Mob: `{mob_hp_total:,}`\n⚔️ ATK: `{mob_atk_wave}`",
+            color=discord.Color.red()
+        )
+        wave_embed.add_field(
+            name="⚔️ Resultado",
+            value=f"✅ Onda destruída! *Você sofreu **{wave_dmg} HP** de dano.*\n⭐ +{xp_wave} XP",
+            inline=False
+        )
+        wave_embed.add_field(
+            name="❤️ Seu HP Atual",
+            value=f"`{player['hp']}/{player.get('max_hp', 100)}`",
+            inline=True
+        )
+        await message.channel.send(embed=wave_embed)
+        await asyncio.sleep(1.5)
+
+    # ── BOSS COM NERF POR NÍVEL DO JOGADOR ──────────────────────────
+    boss_data_mod = dict(found_dungeon)
+    # Nerf: boss recebe redução de HP/ATK se jogador for de nível muito alto
+    boss_level_hint = found_dungeon.get("level_hint", 1)
+    level_diff = max(0, p_level - (boss_level_hint or 1))
+    nerf_factor = max(0.30, 1.0 - (level_diff * 0.005))  # -0.5% por nível acima, mínimo 30% dos stats
+    if "hp" in boss_data_mod:
+        boss_data_mod["hp"] = max(1000, int(boss_data_mod["hp"] * nerf_factor))
+    if "atk" in boss_data_mod:
+        boss_data_mod["atk"] = max(10, int(boss_data_mod["atk"] * nerf_factor))
+    if nerf_factor < 1.0:
+        nerf_embed = discord.Embed(
+            title="📉 Boss Enfraquecido!",
+            description=f"*As ondas de monstros esgotaram as energias do boss.*\n⚡ **{found_dungeon['boss']}** está com `{int(nerf_factor * 100)}%` dos stats originais!",
+            color=discord.Color.orange()
+        )
+        await message.channel.send(embed=nerf_embed)
+        await asyncio.sleep(1.5)
+
     # Usa found_world_data como contexto do mundo
-    await explore_dungeon(message.channel, uid, found_dungeon, found_world_data)
+    await explore_dungeon(message.channel, uid, boss_data_mod, found_world_data)
 
 
 # ================= COMANDO: MONTARIA =================
