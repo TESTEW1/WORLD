@@ -19513,7 +19513,15 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         embed.color = discord.Color.dark_red()
 
         # Boss de dungeon — stats fixos baseados no nível do REINO (world), não do jogador
-        world_key = max((k for k in WORLD_BOSSES_VARIANTS.keys() if k <= int(world or 1)), default=1)
+        # world pode ser int ou dict (retorno de get_world())
+        try:
+            if isinstance(world, dict):
+                world_int = next((k for k, v in WORLDS.items() if v is world), 1)
+            else:
+                world_int = int(world or 1)
+            world_key = max((k for k in WORLD_BOSSES_VARIANTS.keys() if k <= world_int), default=1)
+        except Exception:
+            world_key = 1
         base_wb = WORLD_BOSSES_VARIANTS.get(world_key, [{}])[0]
         wb_hp  = base_wb.get("hp", 200)
         wb_atk = base_wb.get("atk", 18)
