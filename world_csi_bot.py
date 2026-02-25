@@ -21100,6 +21100,126 @@ async def on_message(message):
         return
 
     # ======================================================
+    # ================= VENDER TODOS OS ITENS ==============
+    # ======================================================
+    elif content in ["vender todos", "vender tudo", "vender todos os itens", "vender inventario", "vender inventário"]:
+        player = get_player(user_id)
+        inventory = player.get("inventory", [])
+
+        equipped_weapon = player.get("weapon")
+        equipped_armor = player.get("armor")
+
+        # Filtra para não vender o equipado
+        items_to_sell = [i for i in inventory if i != equipped_weapon and i != equipped_armor]
+
+        if not items_to_sell:
+            await message.channel.send(
+                "🛒 Seu inventário está vazio ou só tem itens equipados!\n"
+                "*(Itens equipados nunca são vendidos automaticamente.)*"
+            )
+            return
+
+        # Calcula lucro por raridade
+        rarity_order = ["Comum", "Incomum", "Raro", "Épico", "Lendário", "Mítico", "Ancestral", "Divino", "Primordial"]
+        rarity_emoji = {
+            "Comum": "⚪", "Incomum": "🟢", "Raro": "🔵", "Épico": "🟣",
+            "Lendário": "🟡", "Mítico": "🔴", "Ancestral": "🟠", "Divino": "💎", "Primordial": "🌌"
+        }
+
+        # Bônus de venda do Mercador
+        sell_mult = 1.0
+        if player.get("job") == "Mercador":
+            from math import floor
+            job_works = player.get("job_works", {})
+            job_level = 1
+            for lv in range(7, 0, -1):
+                req = JOBS["Mercador"]["levels"].get(lv, {}).get("req_work", 0)
+                if job_works.get("Mercador", 0) >= req:
+                    job_level = lv
+                    break
+            sell_bonus = JOBS["Mercador"]["levels"].get(job_level, {}).get("sell_bonus", 0.25)
+            sell_mult = 1.0 + sell_bonus
+
+        total_gained = 0
+        breakdown = {}  # raridade -> (qtd, total_coins)
+
+        for item in items_to_sell:
+            price = int(get_item_sell_price(item) * sell_mult)
+            total_gained += price
+
+            # Descobre raridade do item
+            item_rarity = "Recurso"
+            for w in ITEMS["weapons"]:
+                if w["name"] == item:
+                    item_rarity = w["rarity"]
+                    break
+            else:
+                for a in ITEMS["armor"]:
+                    if a["name"] == item:
+                        item_rarity = a["rarity"]
+                        break
+                else:
+                    if item in POTIONS:
+                        item_rarity = POTIONS[item].get("rarity", "Comum")
+
+            if item_rarity not in breakdown:
+                breakdown[item_rarity] = [0, 0]
+            breakdown[item_rarity][0] += 1
+            breakdown[item_rarity][1] += price
+
+        # Aplica
+        player["inventory"] = [i for i in inventory if i == equipped_weapon or i == equipped_armor]
+        player["coins"] += total_gained
+        save_player_db(user_id, player)
+
+        embed = discord.Embed(
+            title="🛒 Inventário Vendido!",
+            description=(
+                f"*'O mercador analisa cada item com olhos de águia e faz a oferta final...'*\n\n"
+                f"**{len(items_to_sell)} itens** foram vendidos!"
+            ),
+            color=discord.Color.gold()
+        )
+
+        # Detalhamento por raridade (ordenado)
+        detail_lines = []
+        for rar in rarity_order + ["Recurso"]:
+            if rar in breakdown:
+                qtd, coins = breakdown[rar]
+                emoji = rarity_emoji.get(rar, "📦")
+                detail_lines.append(f"{emoji} **{rar}** × {qtd} — `+{coins} CSI`")
+
+        embed.add_field(
+            name="📦 Detalhamento por Raridade",
+            value="\n".join(detail_lines) if detail_lines else "—",
+            inline=False
+        )
+
+        if sell_mult > 1.0:
+            embed.add_field(
+                name="💼 Bônus Mercador",
+                value=f"+{int((sell_mult - 1) * 100)}% de bônus de venda aplicado!",
+                inline=True
+            )
+
+        embed.add_field(name="💰 Total Recebido", value=f"**+{total_gained} CSI**", inline=True)
+        embed.add_field(name="🏦 Coins Totais", value=f"**{player['coins']} CSI**", inline=True)
+
+        if equipped_weapon or equipped_armor:
+            kept = []
+            if equipped_weapon: kept.append(f"⚔️ {equipped_weapon}")
+            if equipped_armor:  kept.append(f"🛡️ {equipped_armor}")
+            embed.add_field(
+                name="🔒 Mantidos (equipados)",
+                value="\n".join(kept),
+                inline=False
+            )
+
+        embed.set_footer(text="Use 'inventário' para ver o que sobrou | 'vender [item]' para vender individualmente")
+        await message.channel.send(embed=embed)
+        return
+
+    # ======================================================
     # ================= TROCAR ITEMS =======================
     # ======================================================
     if "trocar" in content and "@" in message.content and "csi" not in content:
