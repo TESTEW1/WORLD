@@ -8075,9 +8075,62 @@ WEAPON_SKILLS = {
     "Gram":                     {"skill": "Corte da Dragão",    "desc": "+175% dano + 30% de instakill em bosses.", "dmg_mult": 2.75, "instakill_chance": 0.30, "cooldown": 295, "mana": 38, "element": "Fogo"},
     "Durandal":                 {"skill": "Lâmina Inquebrável", "desc": "+185% dano, a arma é indestrutível.", "dmg_mult": 2.85, "never_miss": True, "cooldown": 305, "mana": 40, "element": "Sagrado"},
     # ── MÍTICO ──
-    "Lâmina do Caos":           {"skill": "Explosão do Caos",   "desc": "+300% dano de caos puro, ignora toda DEF.", "dmg_mult": 4.00, "ignore_def": 1.0, "cooldown": 400, "mana": 60, "element": "Caos"},
-    "Cetro da Eternidade":      {"skill": "Feitiço Eterno",     "desc": "+350% dano mágico + paralisia total.", "dmg_mult": 4.50, "stun_chance": 0.80, "magic": True, "cooldown": 450, "mana": 70, "element": "Arcano"},
-    "Arco do Fim":              {"skill": "Flecha do Apocalipse","desc": "+400% dano + 50% lifesteal.", "dmg_mult": 5.00, "lifesteal": 0.50, "cooldown": 500, "mana": 75, "element": "Morte"},
+    "Lâmina do Caos":             {"skill": "Explosão do Caos",      "desc": "+300% dano de caos puro, ignora toda DEF.", "dmg_mult": 4.00, "ignore_def": 1.0, "cooldown": 400, "mana": 60, "element": "Caos"},
+    "Cetro da Eternidade":        {"skill": "Feitiço Eterno",        "desc": "+350% dano mágico + paralisia total.", "dmg_mult": 4.50, "stun_chance": 0.80, "magic": True, "cooldown": 450, "mana": 70, "element": "Arcano"},
+    "Arco do Fim":                {"skill": "Flecha do Apocalipse",  "desc": "+400% dano + 50% lifesteal.", "dmg_mult": 5.00, "lifesteal": 0.50, "cooldown": 500, "mana": 75, "element": "Morte"},
+    "Espada do Criador":          {"skill": "Vontade do Criador",    "desc": "+380% dano sagrado + cura 25% HP ao acertar.", "dmg_mult": 4.80, "lifesteal": 0.25, "cooldown": 480, "mana": 65, "element": "Sagrado"},
+    "Lâmina do Destino":          {"skill": "Corte do Destino",      "desc": "+420% dano + 40% de instakill em monstros normais.", "dmg_mult": 5.20, "instakill_chance": 0.40, "cooldown": 520, "mana": 70, "element": "Arcano"},
+    "Arco do Apocalipse":         {"skill": "Chuva do Apocalipse",   "desc": "5 flechas simultâneas. +500% dano total.", "dmg_mult": 5.00, "multi_hit": 5, "cooldown": 550, "mana": 75, "element": "Morte"},
+    "Cetro do Cosmos":            {"skill": "Pulso Cósmico",         "desc": "+460% dano cósmico + silencia o inimigo por 2 turnos.", "dmg_mult": 4.60, "silence_turns": 2, "magic": True, "cooldown": 510, "mana": 72, "element": "Cósmico"},
+    "Martelo de Plasma":          {"skill": "Implosão de Plasma",    "desc": "+430% dano + cria escudo de plasma (+80 DEF) por 1 turno.", "dmg_mult": 4.30, "self_def_bonus_flat": 80, "cooldown": 490, "mana": 68, "element": "Plasma"},
+    # ── ANCESTRAL ──
+    "Espada do Relâmpago Eterno": {"skill": "Tempestade do Infinito","desc": "+600% dano elétrico + paralisa e queima simultaneamente.", "dmg_mult": 7.00, "stun_chance": 0.60, "burn_chance": 0.60, "cooldown": 700, "mana": 100, "element": "Relâmpago"},
+    "Lança dos Titãs Primordiais":{"skill": "Choque dos Titãs",      "desc": "+650% dano + arremessa o inimigo (stun 2 turnos).", "dmg_mult": 7.50, "stun_chance": 0.80, "stun_turns": 2, "cooldown": 740, "mana": 105, "element": "Terra"},
+    "Espada da Maré Eterna":      {"skill": "Fúria do Oceano",       "desc": "+620% dano de água + drena 30% do dano como HP.", "dmg_mult": 7.20, "lifesteal": 0.30, "cooldown": 720, "mana": 102, "element": "Água"},
+    "Lâmina do Caos Eterno":      {"skill": "Ruptura do Caos",       "desc": "+700% dano de caos + ignora TODA defesa do inimigo.", "dmg_mult": 8.00, "ignore_def": 1.0, "cooldown": 760, "mana": 110, "element": "Caos"},
+    "Lança dos Deuses Maiores":   {"skill": "Julgamento dos Deuses", "desc": "+680% dano sagrado + 50% de crítico garantido.", "dmg_mult": 7.80, "guaranteed_crit": 0.50, "magic": True, "cooldown": 750, "mana": 108, "element": "Sagrado"},
+    "Machado do Inverno Eterno":  {"skill": "Gélido Eterno",         "desc": "+640% dano de gelo + congela inimigo por 2 turnos.", "dmg_mult": 7.40, "freeze_turns": 2, "cooldown": 730, "mana": 104, "element": "Gelo"},
+    "Espada do Último Rei":       {"skill": "Legado do Rei",         "desc": "+660% dano + cura 20% HP + absorve 20% do dano recebido por 3 turnos.", "dmg_mult": 7.60, "lifesteal": 0.20, "post_dmg_reduce": 0.20, "cooldown": 745, "mana": 106, "element": "Sagrado"},
+    "Espada do Cosmos Astral":    {"skill": "Ruptura Astral",        "desc": "+720% dano astral + salta para 2 hits em inimigos adjacentes.", "dmg_mult": 8.20, "multi_hit": 2, "magic": True, "cooldown": 770, "mana": 112, "element": "Astral"},
+    "Espada do Não-Ser":          {"skill": "Apagamento",            "desc": "+800% dano do vazio + remove todos os buffs do inimigo.", "dmg_mult": 9.00, "remove_buffs": True, "cooldown": 800, "mana": 120, "element": "Vazio"},
+    # ── DIVINO ──
+    "Arco do Olimpo Verdadeiro":  {"skill": "Saraivada Olímpica",    "desc": "+1000% dano olímpico. 8 flechas sagradas simultâneas.", "dmg_mult": 11.00, "multi_hit": 8, "never_miss": True, "cooldown": 1000, "mana": 150, "element": "Sagrado"},
+    "Arco do Gelo Primordial":    {"skill": "Extinção Gelada",       "desc": "+950% dano de gelo. Congela tudo num raio devastador.", "dmg_mult": 10.50, "freeze_turns": 3, "aoe": True, "cooldown": 980, "mana": 145, "element": "Gelo"},
+    "Cajado dos Arquitetos Divinos":{"skill": "Arquitetura do Cosmos","desc": "+1100% dano arcano + reescre a realidade (cura 50% HP).", "dmg_mult": 12.00, "lifesteal": 0.50, "magic": True, "cooldown": 1100, "mana": 160, "element": "Arcano"},
+    "Arco das Estrelas Astrais":  {"skill": "Chuva de Estrelas",     "desc": "+1050% dano astral. Cada estrela explode ao impacto.", "dmg_mult": 11.50, "multi_hit": 6, "aoe": True, "cooldown": 1050, "mana": 155, "element": "Astral"},
+    "Lança do Além de Tudo":      {"skill": "Transcendência",        "desc": "+1200% dano transcendente + ignora toda DEF + stun 3 turnos.", "dmg_mult": 13.00, "ignore_def": 1.0, "stun_chance": 1.0, "stun_turns": 3, "cooldown": 1200, "mana": 170, "element": "Transcendente"},
+    "Espada do Trono Primordial": {"skill": "Édito do Trono",        "desc": "+1300% dano divino. O trono julga — instakill em não-chefes.", "dmg_mult": 14.00, "instakill_chance": 0.70, "magic": True, "cooldown": 1300, "mana": 180, "element": "Divino"},
+    # ── PRIMORDIAL ──
+    "Cetro do Plano Astral":      {"skill": "Colapso Astral",        "desc": "+2000% dano. Colapsa o plano astral do inimigo, aniquilando-o.", "dmg_mult": 21.00, "ignore_def": 1.0, "instakill_chance": 0.50, "magic": True, "cooldown": 1800, "mana": 250, "element": "Astral"},
+    "O Conceito de Arma":         {"skill": "A Ideia de Destruição", "desc": "+2500% dano puro. A arma existe além da realidade.", "dmg_mult": 26.00, "ignore_def": 1.0, "never_miss": True, "cooldown": 2000, "mana": 280, "element": "Primordial"},
+    "Cetro do Criador Primordial":{"skill": "Palavra do Criador",    "desc": "+2200% dano. Desfaz a existência do inimigo (instakill 60%).", "dmg_mult": 23.00, "instakill_chance": 0.60, "magic": True, "cooldown": 1900, "mana": 260, "element": "Primordial"},
+    "Foice do Trono Final":       {"skill": "Ceifa Final",           "desc": "+2800% dano da morte. A última ceifa — pode matar instantaneamente.", "dmg_mult": 29.00, "ignore_def": 1.0, "instakill_chance": 0.80, "lifesteal": 0.80, "cooldown": 2200, "mana": 300, "element": "Morte"},
+    "Lança do Criador dos Mundos":{"skill": "Gênese Invertida",      "desc": "+3000% dano primordial. O golpe que destruiu o universo anterior.", "dmg_mult": 31.00, "ignore_def": 1.0, "aoe": True, "never_miss": True, "cooldown": 2500, "mana": 320, "element": "Primordial"},
+    "Espada da Existência Pura":  {"skill": "Corte da Existência",   "desc": "+3500% dano. Corta através de toda dimensão, realidade e tempo.", "dmg_mult": 36.00, "ignore_def": 1.0, "never_miss": True, "stun_chance": 1.0, "stun_turns": 5, "cooldown": 3000, "mana": 360, "element": "Primordial"},
+    # ── ITEMS_EXTRA Mítico ──
+    "Lâmina do Caos Absoluto":    {"skill": "Caos Transcendente",    "desc": "+320% dano de caos + corrói a DEF inimiga por 3 turnos.", "dmg_mult": 4.20, "debuff_def": 0.30, "debuff_turns": 3, "cooldown": 420, "mana": 62, "element": "Caos"},
+    "Foice da Eternidade":        {"skill": "Colheita Eterna",       "desc": "+360% dano + drena 40% do dano causado como HP.", "dmg_mult": 4.60, "lifesteal": 0.40, "cooldown": 460, "mana": 68, "element": "Morte"},
+    "Espada do Juízo":            {"skill": "Veredicto Final",       "desc": "+340% dano sagrado. Julgamento instantâneo em monstros menores (instakill 50%).", "dmg_mult": 4.40, "instakill_chance": 0.50, "cooldown": 440, "mana": 65, "element": "Sagrado"},
+    "Martelo dos Deuses":         {"skill": "Punição Divina",        "desc": "+380% dano trovão + estilhaça a armadura inimiga (-50% DEF por 3 turnos).", "dmg_mult": 4.80, "debuff_def": 0.50, "debuff_turns": 3, "cooldown": 470, "mana": 70, "element": "Relâmpago"},
+    # ── ITEMS_EXTRA Ancestral ──
+    "Lança da Aurora Primeva":    {"skill": "Luz da Primeira Aurora","desc": "+630% dano de luz. Cega o inimigo por 2 turnos (0% precisão).", "dmg_mult": 7.30, "blind_turns": 2, "cooldown": 725, "mana": 103, "element": "Luz"},
+    "Espada do Primeiro Rei":     {"skill": "Édito Real Primordial", "desc": "+670% dano + concede escudo de 500 HP por 2 turnos.", "dmg_mult": 7.70, "self_barrier": 500, "cooldown": 742, "mana": 107, "element": "Sagrado"},
+    "Cajado do Cosmos Antigo":    {"skill": "Memória do Cosmos",     "desc": "+710% dano cósmico. Revela e explora todas as fraquezas do alvo.", "dmg_mult": 8.10, "reveal_weakness": True, "magic": True, "cooldown": 762, "mana": 111, "element": "Astral"},
+    "Arco dos Profetas Extintos": {"skill": "Profecia Cumprida",     "desc": "+690% dano. Cada flecha prevê o futuro — nunca erra e é crítico garantido.", "dmg_mult": 7.90, "never_miss": True, "guaranteed_crit": 1.0, "cooldown": 752, "mana": 109, "element": "Arcano"},
+    "Machado do Titã Primordial": {"skill": "Força do Primeiro Titã","desc": "+650% dano terrestre. Cria uma fissura que paralisa o inimigo por 3 turnos.", "dmg_mult": 7.50, "stun_chance": 1.0, "stun_turns": 3, "cooldown": 735, "mana": 105, "element": "Terra"},
+    # ── ITEMS_EXTRA Divino ──
+    "Lança da Redenção Divina":   {"skill": "Redenção Absoluta",    "desc": "+1150% dano sagrado + cura todos os aliados em 100% HP.", "dmg_mult": 12.50, "full_ally_heal": True, "magic": True, "cooldown": 1100, "mana": 162, "element": "Sagrado"},
+    "Espada do Sol Negro":        {"skill": "Eclipse Total Divino",  "desc": "+1250% dano. O sol negro apaga a existência do alvo (instakill 60%).", "dmg_mult": 13.50, "instakill_chance": 0.60, "cooldown": 1250, "mana": 175, "element": "Sombra"},
+    "Cajado da Aniquilação":      {"skill": "Aniquilação Total",    "desc": "+1350% dano arcano puro, ignora toda DEF, todo tipo de resistência.", "dmg_mult": 14.50, "ignore_def": 1.0, "magic": True, "cooldown": 1350, "mana": 185, "element": "Arcano"},
+    "Foice do Arcanjo Caído":     {"skill": "Queda do Arcanjo",     "desc": "+1100% dano sombrio + remove TODOS os buffs do alvo.", "dmg_mult": 12.00, "remove_buffs": True, "cooldown": 1100, "mana": 158, "element": "Sombra"},
+    "Tridente do Poseidon Divino":{"skill": "Fúria dos Oceanos Eternos","desc": "+1300% dano aquático. Torna o campo de batalha um oceano — imunidade a fogo por 5 turnos.", "dmg_mult": 14.00, "fire_immune_self": True, "aoe": True, "cooldown": 1300, "mana": 180, "element": "Água"},
+    # ── ITEMS_EXTRA Primordial ──
+    "Silêncio Feito Arma":        {"skill": "O Silêncio Que Mata",  "desc": "+2100% dano do vazio. O silêncio primordial apaga sons, palavras e magias.", "dmg_mult": 22.00, "silence_turns": 5, "ignore_def": 1.0, "cooldown": 1850, "mana": 255, "element": "Vazio"},
+    "A Última Vontade":           {"skill": "Vontade Inexorável",   "desc": "+2600% dano. A última vontade do cosmos se manifesta — impossível de esquivar.", "dmg_mult": 27.00, "never_miss": True, "ignore_def": 1.0, "instakill_chance": 0.55, "cooldown": 2050, "mana": 285, "element": "Primordial"},
+    "Ecos do Não-Ser":            {"skill": "Eco da Aniquilação",   "desc": "+2300% dano. O eco se repete — ataca 3 vezes o mesmo alvo.", "dmg_mult": 23.00, "multi_hit": 3, "ignore_def": 1.0, "cooldown": 1950, "mana": 265, "element": "Vazio"},
+    "Raiz da Criação":            {"skill": "Semente do Cosmos",    "desc": "+3200% dano primordial. A raiz do cosmos envenena toda a existência do inimigo.", "dmg_mult": 33.00, "ignore_def": 1.0, "poison_chance": 1.0, "lifesteal": 0.90, "cooldown": 2800, "mana": 340, "element": "Primordial"},
+    # ── ITEMS adicionais sem skill (herdam efeito genérico) ──
+    "Cetro do Cosmos":            {"skill": "Pulso Cósmico",        "desc": "+460% dano cósmico + silencia o inimigo por 2 turnos.", "dmg_mult": 4.60, "silence_turns": 2, "magic": True, "cooldown": 510, "mana": 72, "element": "Cósmico"},
 }
 
 # ================= HABILIDADES DE ARMADURAS =================
@@ -8137,10 +8190,69 @@ ARMOR_SKILLS = {
     "Armadura de Ares":         {"skill": "Frenesi de Ares",    "desc": "+80% ATK + ignora 50% DEF inimiga.", "atk_bonus_pct": 0.80, "ignore_def": 0.50, "cooldown": 470, "mana": 50},
     "Vestes de Atena":          {"skill": "Sabedoria de Atena", "desc": "+60% XP ganho + +30% resistência mágica.", "xp_bonus_pct": 0.60, "magic_absorb": 0.30, "cooldown": 440, "mana": 40},
     # ── MÍTICO ──
-    "Armadura do Primeiro Deus":{"skill": "Poder Primordial",   "desc": "+150 DEF + absorve 60% de todo dano.", "def_bonus_flat": 150, "dmg_reduce": 0.60, "cooldown": 600, "mana": 60},
-    "Vestes da Criação":        {"skill": "Gênese",             "desc": "Cura HP completo uma vez por batalha.", "full_heal_once": True, "cooldown": 1200, "mana": 0},
-    "Placas da Eternidade":     {"skill": "Eternidade",         "desc": "Invulnerável por 1 turno.", "invulnerable_turns": 1, "cooldown": 900, "mana": 50},
-    "Armadura do Destino":      {"skill": "Fatalidade",         "desc": "+100% dano + 40% de crítico garantido.", "dmg_mult": 2.0, "guaranteed_crit": 0.40, "cooldown": 720, "mana": 55},
+    "Armadura do Primeiro Deus":  {"skill": "Poder Primordial",      "desc": "+150 DEF + absorve 60% de todo dano.", "def_bonus_flat": 150, "dmg_reduce": 0.60, "cooldown": 600, "mana": 60},
+    "Vestes da Criação":          {"skill": "Gênese",                "desc": "Cura HP completo uma vez por batalha.", "full_heal_once": True, "cooldown": 1200, "mana": 0},
+    "Placas da Eternidade":       {"skill": "Eternidade",            "desc": "Invulnerável por 1 turno.", "invulnerable_turns": 1, "cooldown": 900, "mana": 50},
+    "Armadura do Destino":        {"skill": "Fatalidade",            "desc": "+100% dano + 40% de crítico garantido.", "dmg_mult": 2.0, "guaranteed_crit": 0.40, "cooldown": 720, "mana": 55},
+    "Armadura do Cosmos":         {"skill": "Escudo Cósmico",        "desc": "Absorve 70% de todo dano por 2 turnos.", "dmg_reduce": 0.70, "duration": 2, "cooldown": 800, "mana": 65},
+    "Couraça do Caos Nascente":   {"skill": "Caos Absorto",          "desc": "Absorve dano de caos e converte em HP (80% lifesteal de caos).", "chaos_lifesteal": 0.80, "dmg_reduce": 0.50, "cooldown": 750, "mana": 60},
+    "Vestes do Abismo":           {"skill": "Chamado do Abismo",     "desc": "+200 DEF + cada ataque recebido cura 10% HP.", "def_bonus_flat": 200, "hp_regen_on_hit": 0.10, "cooldown": 840, "mana": 70},
+    "Placas do Apocalipse":       {"skill": "Armadura do Fim",       "desc": "Quando HP < 20%: invulnerável por 2 turnos e cura 50% HP.", "low_hp_invuln": True, "low_hp_threshold": 0.20, "heal_on_trigger": 0.50, "cooldown": 1800, "mana": 0},
+    # ── ANCESTRAL ──
+    "Placas do Raio Eterno":      {"skill": "Imunidade Etérea",      "desc": "Imune a relâmpago + reflete 100% de ataques elétricos como relâmpago.", "lightning_immune": True, "lightning_reflect_mult": 1.0, "def_bonus_flat": 180, "cooldown": 900, "mana": 80},
+    "Armadura dos Gigantes Caídos":{"skill": "Força dos Titãs",      "desc": "+200 DEF + quando ativada: empurra o inimigo (stun 2 turnos).", "def_bonus_flat": 200, "stun_chance": 1.0, "stun_turns": 2, "cooldown": 950, "mana": 85},
+    "Couraça das Profundezas":    {"skill": "Pressão do Abismo",     "desc": "Absorve 75% dano + o inimigo perde 20% ATK por 3 turnos.", "dmg_reduce": 0.75, "debuff_atk": 0.20, "debuff_turns": 3, "cooldown": 920, "mana": 82},
+    "Manto do Caos Eterno":       {"skill": "Manto Destrutivo",      "desc": "+80% ATK + converte 50% de dano recebido em contra-ataque.", "atk_bonus_pct": 0.80, "counter_pct": 0.50, "cooldown": 940, "mana": 84},
+    "Armadura Olímpica":          {"skill": "Graça dos Olímpicos",   "desc": "Cura 40% HP + +250 DEF + +60% resistência mágica por 3 turnos.", "hp_heal_pct": 0.40, "def_bonus_flat": 250, "magic_absorb": 0.60, "cooldown": 960, "mana": 88},
+    "Placas do Inverno Absoluto": {"skill": "Casulo de Gelo",        "desc": "Encapsula em gelo: invulnerável por 2 turnos, cura 60% HP.", "invulnerable_turns": 2, "hp_heal_pct": 0.60, "cooldown": 1800, "mana": 90},
+    "Placas do Último Guardião":  {"skill": "Última Sentinela",      "desc": "Uma vez por batalha: anula dano letal + contra-ataca com 500% dano.", "death_prevent": True, "counter_fixed_mult": 5.0, "cooldown": 3600, "mana": 0},
+    "Manto do Cosmos":            {"skill": "Véu Cósmico",           "desc": "40% de esquivar qualquer ataque + se esquivar, próximo ATK +100%.", "dodge_chance": 0.40, "dodge_atk_bonus": 1.0, "cooldown": 900, "mana": 80},
+    "Armadura do Não-Ser":        {"skill": "Ausência Absoluta",     "desc": "Por 3 turnos: torna-se intangível — 80% esquiva e ataques causam 50% a mais.", "dodge_chance": 0.80, "duration": 3, "atk_bonus_pct": 0.50, "cooldown": 1200, "mana": 95},
+    # ── DIVINO ──
+    "Vestes dos Deuses Maiores":  {"skill": "Manto dos Imortais",    "desc": "Cura HP completo + +400 DEF + imune a todo dano por 1 turno.", "full_heal_once": True, "def_bonus_flat": 400, "invulnerable_turns": 1, "cooldown": 1800, "mana": 130},
+    "Pele do Gelo Primordial":    {"skill": "Armadura Glacial Absoluta","desc": "Congela ataques físicos (80% bloqueio) + o atacante é congelado por 3 turnos.", "block": 0.80, "freeze_attacker_turns": 3, "cooldown": 1500, "mana": 120},
+    "Manto dos Arquitetos Divinos":{"skill": "Projeto da Imortalidade","desc": "Reduz TODOS os danos a 1 por 2 turnos + cura 80% HP ao final.", "dmg_cap": 1, "duration": 2, "hp_heal_after": 0.80, "cooldown": 2400, "mana": 150},
+    "Placas do Plano Astral":     {"skill": "Ancoragem Astral",      "desc": "Transcende para plano astral: invulnerável por 2 turnos + retorna causando 800% dano.", "invulnerable_turns": 2, "reentry_dmg_mult": 9.0, "cooldown": 2000, "mana": 140},
+    "Vestes do Além de Tudo":     {"skill": "Além do Limite",        "desc": "Remove todas as fraquezas + +500% ATK por 3 turnos + cura 50% HP.", "atk_bonus_pct": 5.0, "duration": 3, "hp_heal_pct": 0.50, "remove_weaknesses": True, "cooldown": 2200, "mana": 160},
+    "Armadura do Trono Primordial":{"skill": "Decreto do Trono",     "desc": "O trono divino julga: absorve 90% dano + converte em ATK bônus (cada 100 dano = +10% ATK).", "dmg_reduce": 0.90, "dmg_to_atk_ratio": 0.10, "cooldown": 2500, "mana": 170},
+    # ── PRIMORDIAL ──
+    "Vestes da Consciência Pura": {"skill": "Consciência Absoluta",  "desc": "A armadura PENSA. Anula automaticamente o próximo ataque recebido + contra-ataca com 1500% dano.", "auto_block": True, "counter_fixed_mult": 15.0, "cooldown": 3600, "mana": 0},
+    "O Conceito de Proteção":     {"skill": "Proteção Além da Existência","desc": "A proteção existe no nível conceitual. Invulnerável por 5 turnos.", "invulnerable_turns": 5, "cooldown": 7200, "mana": 0},
+    "Vestes do Criador":          {"skill": "Manto do Criador",      "desc": "O Criador te veste. Cura HP completo + +1000 DEF + imune por 3 turnos.", "full_heal_once": True, "def_bonus_flat": 1000, "invulnerable_turns": 3, "cooldown": 5400, "mana": 0},
+    "Couraça do Trono Final":     {"skill": "Armadura da Realidade", "desc": "A própria realidade te protege. Todo dano recebido é reduzido a 0 por 3 turnos + cura 100% HP.", "dmg_cap": 0, "duration": 3, "full_heal_once": True, "cooldown": 7200, "mana": 0},
+    "Placas do Fim dos Tempos":   {"skill": "Fim e Recomeço",        "desc": "Quando morreria: ressuscita com 100% HP + +200% ATK e DEF por toda batalha.", "revive_once": True, "revive_hp_pct": 1.0, "revive_atk_bonus": 2.0, "revive_def_bonus": 2.0, "cooldown": 99999, "mana": 0},
+    "Manto da Existência Primordial":{"skill": "Ser ou Não Ser",     "desc": "Escolhe: ou invulnerável por 5 turnos OU cura 100% HP + +3000% ATK por 1 turno.", "dual_mode": True, "invulnerable_turns": 5, "alt_atk_mult": 30.0, "full_heal_once": True, "cooldown": 7200, "mana": 0},
+    # ── ITEMS_EXTRA Mítico ──
+    "Armadura do Ser Primevo":    {"skill": "Essência Primeva",      "desc": "+160 DEF + cura 10% HP por turno enquanto equipada.", "def_bonus_flat": 160, "hp_regen_pct": 0.10, "cooldown": 650, "mana": 55},
+    "Vestes do Cosmos":           {"skill": "Harmonia Cósmica",      "desc": "+50% mana + +50% XP + barreira de 120 pontos.", "mana_pct": 0.50, "xp_bonus_pct": 0.50, "barrier": 120, "cooldown": 700, "mana": 0},
+    "Placas do Abismo Final":     {"skill": "Abismo Devorador",      "desc": "Absorve 65% dano + regenera 5% HP ao absorver.", "dmg_reduce": 0.65, "hp_regen_on_absorb": 0.05, "cooldown": 720, "mana": 58},
+    "Couraça da Criação":         {"skill": "Escudo da Criação",     "desc": "Revive uma vez por batalha com 40% HP + +200 DEF por 2 turnos.", "revive_once": True, "revive_hp_pct": 0.40, "def_bonus_flat": 200, "cooldown": 1800, "mana": 0},
+    # ── ITEMS_EXTRA Ancestral ──
+    "Vestes do Tempo Esquecido":  {"skill": "Reversão do Tempo",     "desc": "Desfaz o último ataque recebido (nega dano retroativamente 1x/batalha).", "time_reverse_once": True, "cooldown": 3600, "mana": 0},
+    "Armadura dos Primeiros Heróis":{"skill": "Legado dos Heróis",   "desc": "+220 DEF + cada vitória de turno aumenta ATK em 5% (acumulativo até 5x).", "def_bonus_flat": 220, "stack_atk_on_win": 0.05, "max_stacks": 5, "cooldown": 900, "mana": 85},
+    "Placas da Era das Lendas":   {"skill": "Lenda Imortal",         "desc": "Torna-se imortal por 3 turnos (HP não cai abaixo de 1).", "immortal_turns": 3, "cooldown": 2400, "mana": 90},
+    "Manto do Arauto Perdido":    {"skill": "Mensagem do Além",      "desc": "+40% esquiva + ao esquivar, contra-ataca com 200% dano.", "dodge_chance": 0.40, "dodge_counter_mult": 2.0, "cooldown": 920, "mana": 82},
+    "Couraça dos Antepassados":   {"skill": "Honra Ancestral",       "desc": "+250 DEF + quando HP < 30%: +100% ATK e DEF por 3 turnos.", "def_bonus_flat": 250, "low_hp_double_stats": True, "low_hp_threshold": 0.30, "cooldown": 960, "mana": 88},
+    # ── ITEMS_EXTRA Divino ──
+    "Armadura do Serafim Caído":  {"skill": "Queda e Redenção",      "desc": "Ao quase morrer: invulnerável por 2 turnos + cura 70% HP.", "low_hp_invuln": True, "low_hp_threshold": 0.15, "heal_on_trigger": 0.70, "cooldown": 2400, "mana": 0},
+    "Vestes do Julgamento Final": {"skill": "Decreto Inapelável",    "desc": "Julga o inimigo: reduz toda sua DEF a 0 por 2 turnos + +500 DEF própria.", "strip_enemy_def": True, "strip_turns": 2, "def_bonus_flat": 500, "cooldown": 2000, "mana": 140},
+    "Placas da Divindade Menor":  {"skill": "Centelha Divina",       "desc": "Absorve 85% dano por 2 turnos + o dano absorvido explode como contra-ataque.", "dmg_reduce": 0.85, "duration": 2, "counter_from_absorbed": True, "cooldown": 2200, "mana": 150},
+    "Manto da Criação Divina":    {"skill": "Criação e Destruição",  "desc": "Alterna entre criar (+600 DEF) e destruir (+600% ATK) a cada ativação.", "toggle_mode": True, "def_bonus_flat": 600, "alt_atk_pct": 6.0, "cooldown": 1800, "mana": 135},
+    "Couraça do Arcanjo Supremo": {"skill": "Serafismo Transcendente","desc": "Ascende: +800 DEF + imune a tudo por 3 turnos + cura 100% HP.", "def_bonus_flat": 800, "invulnerable_turns": 3, "full_heal_once": True, "cooldown": 4800, "mana": 0},
+    # ── ITEMS_EXTRA Primordial ──
+    "Essência do Antes do Tempo": {"skill": "Anterioridade",         "desc": "Existe antes do ataque inimigo — anula automaticamente os 3 próximos ataques.", "auto_block_count": 3, "cooldown": 5400, "mana": 0},
+    "Armadura do Último Deus":    {"skill": "Último Decreto",        "desc": "O último deus decreta: invulnerável para sempre até o fim da batalha (10 turnos máx).", "invulnerable_turns": 10, "cooldown": 99999, "mana": 0},
+    "Manto do Vazio Absoluto":    {"skill": "Abraço do Vazio",       "desc": "O vazio te abraça: 90% de esquiva + ataques que acertam causam 0 dano por 5 turnos.", "dodge_chance": 0.90, "dmg_cap": 0, "duration": 5, "cooldown": 7200, "mana": 0},
+    "Vestes da Não-Existência":   {"skill": "Não-Existência",        "desc": "O jogador deixa de existir por 4 turnos: invulnerável e invisível. Ao retornar: instakill.", "invulnerable_turns": 4, "reentry_instakill": True, "cooldown": 7200, "mana": 0},
+    # ── ITEMS Divino extra ──
+    "Armadura do Serafim":        {"skill": "Proteção Seráfica",     "desc": "+300 DEF + cura 15% HP por turno + imune a veneno e queimadura.", "def_bonus_flat": 300, "hp_regen_pct": 0.15, "poison_immune": True, "burn_immune": True, "cooldown": 1600, "mana": 125},
+    "Vestes do Julgamento":       {"skill": "Julgamento Eterno",     "desc": "+200 DEF + 60% de anular qualquer ataque recebido.", "def_bonus_flat": 200, "block": 0.60, "cooldown": 1700, "mana": 130},
+    "Placas do Arcanjo Supremo":  {"skill": "Luz Arcanjo",           "desc": "Barreira de 600 pontos + +80% resistência mágica.", "barrier": 600, "magic_absorb": 0.80, "cooldown": 1800, "mana": 135},
+    # ── ITEMS Primordial extra ──
+    "Pele da Primeira Criatura":  {"skill": "Instinto Primordial",   "desc": "Instinto perfeito: 95% de esquivar + ao esquivar, regenera 20% HP.", "dodge_chance": 0.95, "dodge_heal_pct": 0.20, "cooldown": 4200, "mana": 0},
+    "Armadura do Antes do Começo":{"skill": "Antes do Tempo",        "desc": "Volta no tempo: nega os 2 últimos ataques recebidos e cura HP igual ao dano negado.", "rewind_attacks": 2, "cooldown": 7200, "mana": 0},
+    "Vestes do Silêncio Eterno":  {"skill": "Silêncio Absoluto",     "desc": "O silêncio primordial: congela TODA ação do inimigo por 6 turnos.", "freeze_turns": 6, "dmg_reduce": 0.80, "cooldown": 7200, "mana": 0},
+    "Proteção do Vazio Consciente":{"skill": "Consciência do Vazio", "desc": "O vazio pensa por você: anula automaticamente qualquer ataque (1x) e contra-ataca 2000% dano.", "auto_block": True, "counter_fixed_mult": 20.0, "cooldown": 5400, "mana": 0},
 }
 
 def get_equipped_weapon_skill(player):
@@ -13781,23 +13893,48 @@ ITEMS = {
         {"name": "Cetro da Eternidade", "rarity": "Mítico", "atk": 210},
         {"name": "Lâmina do Destino", "rarity": "Mítico", "atk": 205},
         {"name": "Arco do Apocalipse", "rarity": "Mítico", "atk": 208},
+        {"name": "Cetro do Cosmos", "rarity": "Mítico", "atk": 212},
+        {"name": "Martelo de Plasma", "rarity": "Mítico", "atk": 215},
+        {"name": "Lâmina do Caos", "rarity": "Mítico", "atk": 218},
+        {"name": "Arco do Fim", "rarity": "Mítico", "atk": 220},
         # Ancestral
         {"name": "Espada dos Antepassados", "rarity": "Ancestral", "atk": 280},
         {"name": "Cajado do Primeiro Mago", "rarity": "Ancestral", "atk": 295},
         {"name": "Lança da Era Perdida", "rarity": "Ancestral", "atk": 285},
         {"name": "Arco dos Antigos Caçadores", "rarity": "Ancestral", "atk": 290},
         {"name": "Machado da Raça Extinta", "rarity": "Ancestral", "atk": 288},
+        {"name": "Espada do Relâmpago Eterno", "rarity": "Ancestral", "atk": 300},
+        {"name": "Lança dos Titãs Primordiais", "rarity": "Ancestral", "atk": 305},
+        {"name": "Espada da Maré Eterna", "rarity": "Ancestral", "atk": 302},
+        {"name": "Lâmina do Caos Eterno", "rarity": "Ancestral", "atk": 308},
+        {"name": "Lança dos Deuses Maiores", "rarity": "Ancestral", "atk": 312},
+        {"name": "Machado do Inverno Eterno", "rarity": "Ancestral", "atk": 315},
+        {"name": "Espada do Último Rei", "rarity": "Ancestral", "atk": 318},
+        {"name": "Espada do Cosmos Astral", "rarity": "Ancestral", "atk": 322},
+        {"name": "Espada do Não-Ser", "rarity": "Ancestral", "atk": 330},
         # Divino (NOVO)
         {"name": "Espada da Ascensão", "rarity": "Divino", "atk": 380},
         {"name": "Cajado da Criação Divina", "rarity": "Divino", "atk": 400},
         {"name": "Lança do Juízo Final", "rarity": "Divino", "atk": 390},
         {"name": "Arco da Extinção", "rarity": "Divino", "atk": 395},
         {"name": "Foice do Ceifador Divino", "rarity": "Divino", "atk": 385},
+        {"name": "Arco do Olimpo Verdadeiro", "rarity": "Divino", "atk": 405},
+        {"name": "Arco do Gelo Primordial", "rarity": "Divino", "atk": 408},
+        {"name": "Cajado dos Arquitetos Divinos", "rarity": "Divino", "atk": 412},
+        {"name": "Arco das Estrelas Astrais", "rarity": "Divino", "atk": 418},
+        {"name": "Lança do Além de Tudo", "rarity": "Divino", "atk": 425},
+        {"name": "Espada do Trono Primordial", "rarity": "Divino", "atk": 430},
         # Primordial (NOVO)
         {"name": "Fragmento da Primeira Arma", "rarity": "Primordial", "atk": 750},
         {"name": "Vontade Feita Lâmina", "rarity": "Primordial", "atk": 800},
         {"name": "O Começo e o Fim", "rarity": "Primordial", "atk": 780},
-        {"name": "Peso da Existência", "rarity": "Primordial", "atk": 760}
+        {"name": "Peso da Existência", "rarity": "Primordial", "atk": 760},
+        {"name": "Cetro do Plano Astral", "rarity": "Primordial", "atk": 810},
+        {"name": "O Conceito de Arma", "rarity": "Primordial", "atk": 820},
+        {"name": "Cetro do Criador Primordial", "rarity": "Primordial", "atk": 830},
+        {"name": "Foice do Trono Final", "rarity": "Primordial", "atk": 850},
+        {"name": "Lança do Criador dos Mundos", "rarity": "Primordial", "atk": 870},
+        {"name": "Espada da Existência Pura", "rarity": "Primordial", "atk": 900}
     ],
     "armor": [
         # Comum
@@ -13872,21 +14009,46 @@ ITEMS = {
         {"name": "Vestes da Criação", "rarity": "Mítico", "def": 190},
         {"name": "Placas da Eternidade", "rarity": "Mítico", "def": 185},
         {"name": "Armadura do Destino", "rarity": "Mítico", "def": 188},
+        {"name": "Armadura do Cosmos", "rarity": "Mítico", "def": 192},
+        {"name": "Couraça do Caos Nascente", "rarity": "Mítico", "def": 196},
+        {"name": "Vestes do Abismo", "rarity": "Mítico", "def": 200},
+        {"name": "Placas do Apocalipse", "rarity": "Mítico", "def": 194},
         # Ancestral
         {"name": "Armadura dos Guardiões Ancestrais", "rarity": "Ancestral", "def": 260},
         {"name": "Vestes do Elo Perdido", "rarity": "Ancestral", "def": 275},
         {"name": "Placas da Civilização Extinta", "rarity": "Ancestral", "def": 268},
         {"name": "Manto do Tempo Esquecido", "rarity": "Ancestral", "def": 272},
+        {"name": "Placas do Raio Eterno", "rarity": "Ancestral", "def": 280},
+        {"name": "Armadura dos Gigantes Caídos", "rarity": "Ancestral", "def": 285},
+        {"name": "Couraça das Profundezas", "rarity": "Ancestral", "def": 282},
+        {"name": "Manto do Caos Eterno", "rarity": "Ancestral", "def": 288},
+        {"name": "Armadura Olímpica", "rarity": "Ancestral", "def": 290},
+        {"name": "Placas do Inverno Absoluto", "rarity": "Ancestral", "def": 292},
+        {"name": "Placas do Último Guardião", "rarity": "Ancestral", "def": 295},
+        {"name": "Manto do Cosmos", "rarity": "Ancestral", "def": 298},
+        {"name": "Armadura do Não-Ser", "rarity": "Ancestral", "def": 305},
         # Divino (NOVO)
         {"name": "Manto da Ascensão", "rarity": "Divino", "def": 350},
         {"name": "Armadura do Serafim", "rarity": "Divino", "def": 370},
         {"name": "Vestes do Julgamento", "rarity": "Divino", "def": 360},
         {"name": "Placas do Arcanjo Supremo", "rarity": "Divino", "def": 365},
+        {"name": "Vestes dos Deuses Maiores", "rarity": "Divino", "def": 380},
+        {"name": "Pele do Gelo Primordial", "rarity": "Divino", "def": 382},
+        {"name": "Manto dos Arquitetos Divinos", "rarity": "Divino", "def": 385},
+        {"name": "Placas do Plano Astral", "rarity": "Divino", "def": 388},
+        {"name": "Vestes do Além de Tudo", "rarity": "Divino", "def": 395},
+        {"name": "Armadura do Trono Primordial", "rarity": "Divino", "def": 400},
         # Primordial (NOVO)
         {"name": "Pele da Primeira Criatura", "rarity": "Primordial", "def": 700},
         {"name": "Armadura do Antes do Começo", "rarity": "Primordial", "def": 750},
         {"name": "Vestes do Silêncio Eterno", "rarity": "Primordial", "def": 720},
-        {"name": "Proteção do Vazio Consciente", "rarity": "Primordial", "def": 730}
+        {"name": "Proteção do Vazio Consciente", "rarity": "Primordial", "def": 730},
+        {"name": "Vestes da Consciência Pura", "rarity": "Primordial", "def": 760},
+        {"name": "O Conceito de Proteção", "rarity": "Primordial", "def": 770},
+        {"name": "Vestes do Criador", "rarity": "Primordial", "def": 780},
+        {"name": "Couraça do Trono Final", "rarity": "Primordial", "def": 800},
+        {"name": "Placas do Fim dos Tempos", "rarity": "Primordial", "def": 820},
+        {"name": "Manto da Existência Primordial", "rarity": "Primordial", "def": 840}
     ]
 }
 
@@ -14531,26 +14693,65 @@ def auto_drop_equip(user_id, world, base_chance=0.08):
     """Tenta dropar equipamento/armadura automaticamente. Retorna texto descritivo ou ''."""
     drop_text = ""
     player = get_player(user_id)
+    plevel = player.get("level", 1)
+
+    # Define tabela de raridade baseada no nível do jogador
+    def _rarity_for_level(level):
+        if level >= 500:
+            r = random.random()
+            if r < 0.10:   return "Primordial"
+            elif r < 0.30: return "Divino"
+            elif r < 0.55: return "Ancestral"
+            elif r < 0.80: return "Mítico"
+            elif r < 0.95: return "Lendário"
+            else:          return "Épico"
+        elif level >= 400:
+            r = random.random()
+            if r < 0.05:   return "Primordial"
+            elif r < 0.18: return "Divino"
+            elif r < 0.40: return "Ancestral"
+            elif r < 0.65: return "Mítico"
+            elif r < 0.85: return "Lendário"
+            else:          return "Épico"
+        elif level >= 200:
+            r = random.random()
+            if r < 0.02:   return "Divino"
+            elif r < 0.15: return "Ancestral"
+            elif r < 0.35: return "Mítico"
+            elif r < 0.60: return "Lendário"
+            elif r < 0.80: return "Épico"
+            else:          return "Raro"
+        elif level >= 100:
+            r = random.random()
+            if r < 0.05:   return "Mítico"
+            elif r < 0.20: return "Lendário"
+            elif r < 0.45: return "Épico"
+            elif r < 0.75: return "Raro"
+            else:          return "Incomum"
+        else:
+            r = random.random()
+            if r < 0.03:   return "Lendário"
+            elif r < 0.12: return "Épico"
+            elif r < 0.35: return "Raro"
+            elif r < 0.65: return "Incomum"
+            else:          return "Comum"
+
     # Arma
     if random.random() < base_chance:
-        r = random.random()
-        if r < 0.55:   rarity = "Comum"
-        elif r < 0.85: rarity = "Incomum"
-        elif r < 0.97: rarity = "Raro"
-        else:          rarity = "Épico"
+        rarity = _rarity_for_level(plevel)
         pool = [w for w in ITEMS["weapons"] if w["rarity"] == rarity]
+        if not pool:
+            pool = [w for w in ITEMS["weapons"] if w["rarity"] in ["Lendário", "Épico", "Raro"]]
         if pool:
             item = random.choice(pool)
             player["inventory"].append(item["name"])
             drop_text += f"\n🗡️ **{item['name']}** ({rarity}) caiu!"
     # Armadura
     if random.random() < base_chance:
-        r = random.random()
-        if r < 0.55:   rarity = "Comum"
-        elif r < 0.85: rarity = "Incomum"
-        elif r < 0.97: rarity = "Raro"
-        else:          rarity = "Épico"
+        rarity = _rarity_for_level(plevel)
         pool = [a for a in ITEMS["armor"] if a["rarity"] == rarity]
+        if not pool:
+            pool = [a for a in ITEMS["armor"] if a["rarity"] in ["Lendário", "Épico", "Raro"]]
         if pool:
             item = random.choice(pool)
             player["inventory"].append(item["name"])
@@ -19066,17 +19267,24 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             rarity_order = ["Mítico", "Ancestral", "Divino", "Primordial"]
             min_idx = rarity_order.index(min_rarity) if min_rarity in rarity_order else 0
             rarity_pool = rarity_order[min_idx:]
-            # Pesos decrescentes
-            all_weights = [50, 30, 25, 15]
+            # Pesos decrescentes — quanto maior o min_idx, mais chance de raros
+            all_weights = [40, 30, 20, 10]
             weights = all_weights[min_idx:min_idx + len(rarity_pool)]
+            # Normaliza pra somar 100
+            total = sum(weights)
+            weights = [int(w * 100 / total) for w in weights]
             if not weights:
                 rarity_pool = ["Mítico", "Ancestral", "Divino", "Primordial"]
-                weights = [50, 30, 25, 15]
+                weights = [40, 30, 20, 10]
         else:
             rarity_pool = ["Raro", "Épico", "Lendário"]
             weights = [40, 40, 20]
         rarity = random.choices(rarity_pool, weights=weights)[0]
+        # Busca em ITEMS principais + ITEMS_NOVOS_REINOS para raridades altas
         items_filtered = [i for i in ITEMS[item_list] if i["rarity"] == rarity]
+        if rarity in ["Mítico", "Ancestral", "Divino", "Primordial"]:
+            for rd in ITEMS_NOVOS_REINOS.values():
+                items_filtered += [i for i in rd.get(item_list, []) if i["rarity"] == rarity]
         item = random.choice(items_filtered) if items_filtered else random.choice(ITEMS[item_list])
 
         xp_base = random.randint(800, 1500) if is_secret else random.randint(120, 200)
