@@ -16684,16 +16684,23 @@ def build_map_embed(player, page: int):
         return None, None
 
     unlocked_worlds = set(player.get("worlds", [1]))
-    current_world = max(unlocked_worlds)
+    # Usar current_world real do jogador, não o maior desbloqueado
+    current_world = player.get("current_world", max(unlocked_worlds))
     rng_min, rng_max = page_data["range"]
     disc_map = player.get("discovered_map", {})
 
     # Verifica se o capítulo está desbloqueado
-    chapter_unlocked = any(
-        (w_id is not None and w_id >= rng_min and w_id <= rng_max)
-        for w_id, _, _ in chap["reinos"]
-        if w_id in unlocked_worlds
-    ) or (page == 1)  # capítulo 1 sempre visível
+    # Página 5 (Dimensões) é desbloqueada por nível 400+
+    if page == 5:
+        chapter_unlocked = max(unlocked_worlds) >= 400
+    elif page == 1:
+        chapter_unlocked = True
+    else:
+        chapter_unlocked = any(
+            (w_id is not None and w_id >= rng_min and w_id <= rng_max)
+            for w_id, _, _ in chap["reinos"]
+            if w_id in unlocked_worlds
+        )
 
     color = chap["color"]
     embed = discord.Embed(
@@ -17684,11 +17691,15 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             if correct_boss and correct_boss["name"] not in player.get("bosses", []):
                 boss_data = correct_boss
             else:
-                world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+                # Usar reino atual do jogador
+                cw = player.get("current_world", max([k for k in WORLDS.keys() if k <= player["level"]]))
+                world_level = max((k for k in WORLDS.keys() if k <= cw), default=1)
                 boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
                 boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
         else:
-            world_level = max([k for k in WORLDS.keys() if k <= player["level"]])
+            # Usar reino atual do jogador (não maior reino desbloqueado)
+            cw = player.get("current_world", max([k for k in WORLDS.keys() if k <= player["level"]]))
+            world_level = max((k for k in WORLDS.keys() if k <= cw), default=1)
             boss_pool = WORLD_BOSSES_VARIANTS.get(world_level, [])
             boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
 
@@ -17762,9 +17773,9 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         ally_names.append(au.display_name)
                     except:
                         pass
-        # Boss escala com o número de aliados (cada aliado adiciona 20% ao HP e ATK do boss)
+        # Boss escala com o número de aliados (cada aliado adiciona 10% ao HP e ATK do boss)
         if num_allies > 0:
-            scale_factor = 1.0 + (num_allies * 0.20)
+            scale_factor = 1.0 + (num_allies * 0.10)  # era 0.20 por aliado — reduzido para tornar viável
             boss_data = dict(boss_data)  # cópia para não modificar o original
             boss_data["hp"] = int(boss_data["hp"] * scale_factor)
             boss_data["atk"] = int(boss_data["atk"] * scale_factor)
@@ -17973,7 +17984,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                                 if w["name"] == ap["weapon"]:
                                     a_base_atk += w.get("atk", 0) // 3
                                     break
-                        # Bônus de especialização de classe
+                        # Bônus de especialização de classe (CRÍTICO: sem isso aliados de nível alto fazem pouco dano)
+                        spec_name_a = ap.get("specialization", "")
+                        if spec_name_a:
+                            spec_data_a = CLASS_SPECIALIZATIONS.get(spec_name_a, {})
+                            tier_a = ap.get("class_tier", 0)
+                            TIER_MULTS_A = {0: 1.0, 1: 1.0, 2: 2.5, 3: 5.0, 4: 10.0, 5: 20.0, 6: 40.0, 7: 80.0}
+                            t_mult_a = TIER_MULTS_A.get(tier_a, 1.0)
+                            a_base_atk += int(spec_data_a.get("bonus_atk", 0) * t_mult_a)
                         a_base_atk += ap.get("temp_atk_boost", 0)
                         ally_full_data.append({
                             "id": ally_id,
@@ -18278,18 +18296,18 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             ally_battle_cry = random.choice(ALLY_BATTLE_CRIES.get(ally_cls, ALLY_BATTLE_CRIES["default"]))
 
             # Dano do aliado baseado no nível, classe E equipamentos
-            # atk = atk_bonus_classe + level*2 + bônus de arma
-            ally_base_atk = ally_data["atk"]  # já inclui weapon/armor calculados no full_data
+            # atk = atk_bonus_classe + level*2 + bônus de arma + especialização
+            ally_base_atk = ally_data["atk"]  # já inclui weapon/armor/spec calculados no full_data
             ally_level = ally_data["level"]
-            # Escala extra por level: aliados de level alto fazem dano decente
-            level_scale = 1.0 + (ally_level / 100.0)  # +1% por nível
+            # Escala extra por level: aliados de level alto fazem dano relevante
+            level_scale = 1.0 + (ally_level / 50.0)  # +2% por nível (era /100)
             ally_is_crit = random.random() < 0.25
             ally_dmg_raw = int(ally_base_atk * ally_mult * level_scale)
             if ally_is_crit:
                 ally_dmg_raw = int(ally_dmg_raw * 1.8)
             # Defesa do boss reduzida para aliados (não penalizar muito aliados de level menor)
             ally_boss_def = max(0, boss_atk // 10)
-            ally_dmg = max(ally_level * 3, ally_dmg_raw - ally_boss_def)
+            ally_dmg = max(ally_level * 5, ally_dmg_raw - ally_boss_def)  # mínimo 5*level (era 3*level)
 
             boss_cur_hp -= ally_dmg
             total_ally_dmg += ally_dmg
@@ -18912,8 +18930,10 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         rand = random.random()
         if is_level_boss:
             # Boss de level: chances maiores
-            if rand < 0.002:    # 0.2% Divino/Primordial
+            if rand < 0.001:    # 0.1% Divino/Primordial
                 drop_rarity = random.choice(["Divino", "Primordial"])
+            elif rand < 0.004:  # 0.4% Ancestral
+                drop_rarity = "Ancestral"
             elif rand < 0.015:  # 1.5% Mítico
                 drop_rarity = "Mítico"
             elif rand < 0.05:   # 5% Lendário
@@ -18924,8 +18944,10 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 drop_rarity = "Raro"
         else:
             # Boss comum: chances menores em Mítico+
-            if rand < 0.0003:   # 0.03% Divino/Primordial
+            if rand < 0.0002:   # 0.02% Divino/Primordial
                 drop_rarity = random.choice(["Divino", "Primordial"])
+            elif rand < 0.001:  # 0.1% Ancestral
+                drop_rarity = "Ancestral"
             elif rand < 0.002:  # 0.2% Mítico
                 drop_rarity = "Mítico"
             elif rand < 0.015:  # 1.5% Lendário
@@ -20927,7 +20949,7 @@ async def on_message(message):
             embed.add_field(name="📜 Membros", value=chunk, inline=False)
         if len(members) > 20:
             embed.add_field(name="...", value=f"*e mais {len(members) - 20} membros*", inline=False)
-        embed.set_footer(text="Use `sair da guilda` para abandonar | `compartilhar coins` para dividir 5% com a guilda")
+        embed.set_footer(text="Comandos: `sair da guilda` | `expulsar @membro` | `transferir liderança @membro` | `disbandar guilda` | `compartilhar coins` | `convidar dungeon`")
         await message.channel.send(embed=embed)
         return
 
@@ -20952,11 +20974,34 @@ async def on_message(message):
             return
         guild_name, leader_id, members_json = result
         if str(user_id) == str(leader_id):
-            conn.close()
-            await message.channel.send(
-                f"⚠️ Você é o líder da **{guild_name}**! Um líder não pode abandonar a guilda.\n"
-                f"Transfira a liderança primeiro (em breve) ou disbanda a guilda."
-            )
+            # Líder sai: transfere liderança automaticamente para o membro mais antigo
+            if len(members) > 1:
+                new_leader = str(members[1]) if str(members[0]) == str(user_id) else str(members[0])
+                members = [m for m in members if str(m) != str(user_id)]
+                c.execute("UPDATE guilds SET leader_id = ?, members = ? WHERE id = ?",
+                          (new_leader, json.dumps(members), guild_id))
+                conn.commit()
+                conn.close()
+                player["guild_id"] = None
+                save_player_db(user_id, player)
+                try:
+                    new_leader_user = await bot.fetch_user(int(new_leader))
+                    new_leader_name = new_leader_user.display_name
+                except:
+                    new_leader_name = f"Jogador {new_leader}"
+                await message.channel.send(embed=discord.Embed(
+                    title="👑 Liderança Transferida",
+                    description=f"O líder saiu. **{new_leader_name}** agora é o novo líder de **{guild_name}**!",
+                    color=discord.Color.gold()
+                ))
+            else:
+                # Única pessoa — disbanda
+                c.execute("DELETE FROM guilds WHERE id = ?", (guild_id,))
+                conn.commit()
+                conn.close()
+                player["guild_id"] = None
+                save_player_db(user_id, player)
+                await message.channel.send(f"🏚️ A guilda **{guild_name}** foi dissolvida pois não havia mais membros.")
             return
         members = json.loads(members_json)
         if user_id in members:
@@ -20971,6 +21016,185 @@ async def on_message(message):
             description=f"Você abandonou **{guild_name}**.\n*'A estrada segue em frente...'*",
             color=discord.Color.greyple()
         ))
+        return
+
+    # ======================================================
+    # ================= EXPULSAR DA GUILDA (KICK) ==========
+    # ======================================================
+    elif content.startswith("expulsar ") or content.startswith("kick guilda ") or content.startswith("remover da guilda "):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, leader_id, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        conn.close()
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!")
+            return
+        guild_name, leader_id, members_json = result
+        if str(user_id) != str(leader_id):
+            await message.channel.send("❌ Apenas o líder pode expulsar membros!")
+            return
+        # Extrai menção ou nome
+        target_mention = message.mentions
+        if not target_mention:
+            await message.channel.send("❌ Mencione o jogador para expulsar. Uso: `expulsar @jogador`")
+            return
+        target_user = target_mention[0]
+        target_id = str(target_user.id)
+        if target_id == str(user_id):
+            await message.channel.send("❌ Você não pode se expulsar! Use `sair da guilda` ou `transferir liderança @alguem`.")
+            return
+        members = json.loads(members_json)
+        if target_id not in members:
+            await message.channel.send(f"❌ {target_user.display_name} não está na guilda!")
+            return
+        members.remove(target_id)
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("UPDATE guilds SET members = ? WHERE id = ?", (json.dumps(members), guild_id))
+        conn.commit()
+        conn.close()
+        target_player = get_player(target_id)
+        if target_player:
+            target_player["guild_id"] = None
+            save_player_db(target_id, target_player)
+        await message.channel.send(embed=discord.Embed(
+            title="🚫 Membro Expulso",
+            description=f"**{target_user.display_name}** foi expulso de **{guild_name}**.",
+            color=discord.Color.red()
+        ))
+        return
+
+    # ======================================================
+    # ================= TRANSFERIR LIDERANÇA ===============
+    # ======================================================
+    elif content.startswith("transferir liderança") or content.startswith("transferir lideranca") or content.startswith("passar liderança"):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, leader_id, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        conn.close()
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!")
+            return
+        guild_name, leader_id, members_json = result
+        if str(user_id) != str(leader_id):
+            await message.channel.send("❌ Apenas o líder pode transferir a liderança!")
+            return
+        target_mention = message.mentions
+        if not target_mention:
+            await message.channel.send("❌ Mencione o novo líder. Uso: `transferir liderança @jogador`")
+            return
+        new_leader_user = target_mention[0]
+        new_leader_id = str(new_leader_user.id)
+        members = json.loads(members_json)
+        if new_leader_id not in members:
+            await message.channel.send(f"❌ {new_leader_user.display_name} não está na guilda!")
+            return
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("UPDATE guilds SET leader_id = ? WHERE id = ?", (new_leader_id, guild_id))
+        conn.commit()
+        conn.close()
+        await message.channel.send(embed=discord.Embed(
+            title="👑 Liderança Transferida!",
+            description=f"**{new_leader_user.mention}** agora é o novo líder de **{guild_name}**!",
+            color=discord.Color.gold()
+        ))
+        return
+
+    # ======================================================
+    # ================= DISBANDAR GUILDA ===================
+    # ======================================================
+    elif any(word in content for word in ["disbandar guilda", "disbanda guilda", "dissolver guilda", "deletar guilda"]):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, leader_id, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        conn.close()
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!")
+            return
+        guild_name, leader_id, members_json = result
+        if str(user_id) != str(leader_id):
+            await message.channel.send("❌ Apenas o líder pode dissolver a guilda!")
+            return
+        members = json.loads(members_json)
+        # Remove guild_id de todos os membros
+        for mid in members:
+            mp = get_player(str(mid))
+            if mp:
+                mp["guild_id"] = None
+                save_player_db(str(mid), mp)
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("DELETE FROM guilds WHERE id = ?", (guild_id,))
+        conn.commit()
+        conn.close()
+        await message.channel.send(embed=discord.Embed(
+            title="🏚️ Guilda Dissolvida",
+            description=f"A guilda **{guild_name}** foi dissolvida pelo líder.\n*Todos os membros foram liberados.*",
+            color=discord.Color.greyple()
+        ))
+        return
+
+    # ======================================================
+    # ================= CONVIDAR PARA DUNGEON ==============
+    # ======================================================
+    elif content.startswith("convidar dungeon") or content.startswith("chamar dungeon") or content.startswith("dungeon guilda"):
+        player = get_player(user_id)
+        if not player or not player.get("guild_id"):
+            await message.channel.send("❌ Você não está em nenhuma guilda!")
+            return
+        guild_id = player["guild_id"]
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("SELECT name, members FROM guilds WHERE id = ?", (guild_id,))
+        result = c.fetchone()
+        conn.close()
+        if not result:
+            await message.channel.send("❌ Guilda não encontrada!")
+            return
+        guild_name, members_json = result
+        members = json.loads(members_json)
+        # Cria um convite de dungeon para todos da guilda
+        mentions = []
+        for mid in members:
+            if str(mid) != str(user_id):
+                try:
+                    mu = await bot.fetch_user(int(mid))
+                    mentions.append(mu.mention)
+                except:
+                    pass
+        if not mentions:
+            await message.channel.send("❌ Nenhum outro membro na guilda para convidar!")
+            return
+        embed = discord.Embed(
+            title="⚔️ CONVITE DE DUNGEON — GUILDA",
+            description=(
+                f"**{message.author.display_name}** está convocando aliados da guilda **{guild_name}** para uma dungeon!\n\n"
+                f"👥 Aliados convidados: {' '.join(mentions[:10])}\n\n"
+                f"Use `dungeon` para entrar e depois `juntar boss` quando a batalha começar!"
+            ),
+            color=discord.Color.purple()
+        )
+        embed.set_footer(text="Juntem-se ao canal e use 'dungeon' para começar!")
+        await message.channel.send(embed=embed)
         return
 
     # ======================================================
@@ -23718,9 +23942,10 @@ async def _show_map_page_old_unused(message, player, page: int):
 
 
 def get_dungeon_difficulty_multiplier(player):
-    """Dungeons secretas ficam mais difíceis conforme o nível"""
+    """Dungeons secretas ficam mais difíceis conforme o nível — mas com cap razoável"""
     level = player.get("level", 1)
-    return 1.0 + (level * 0.05)  # +5% por nível
+    # Escalamento suave: +2% por nível, máximo 5x (era +5% sem cap = impossível em lv 100+)
+    return min(5.0, 1.0 + (level * 0.02))
 
 
 # ================= VIEW: ESCOLHER PET DA FAZENDA =================
@@ -25048,10 +25273,14 @@ async def handle_new_commands(message):
             "Épico": discord.Color.purple(),
             "Lendário": discord.Color.gold(),
             "Mítico": discord.Color.from_rgb(255, 50, 50),
+            "Ancestral": discord.Color.from_rgb(255, 140, 0),
+            "Divino": discord.Color.from_rgb(200, 200, 255),
+            "Primordial": discord.Color.from_rgb(255, 255, 100),
         }
         rarity_emojis = {
             "Comum": "⬜", "Incomum": "🟩", "Raro": "🟦",
-            "Épico": "🟪", "Lendário": "🟨", "Mítico": "🔴"
+            "Épico": "🟪", "Lendário": "🟨", "Mítico": "🔴",
+            "Ancestral": "🟠", "Divino": "💙", "Primordial": "🌈",
         }
         color = rarity_colors.get(found_data["rarity"], discord.Color.light_grey())
         rar_emoji = rarity_emojis.get(found_data["rarity"], "⬛")
@@ -25538,7 +25767,10 @@ async def handle_new_commands(message):
                     f"🚨 **Você tem um Boss de Nível pendente!**\n\n👹 **{boss_data_gate['name']}** bloqueia sua passagem.\n⚠️ Seu XP está bloqueado até derrotá-lo!\n\nUse `desafiar boss` para enfrentá-lo."
                 )
                 return
-        world_key = max(k for k in player.get("worlds", [1]))
+        # Usa o reino atual do jogador (current_world), não o maior desbloqueado
+        world_key = player.get("current_world", max(k for k in player.get("worlds", [1])))
+        if world_key not in WORLD_BOSSES_VARIANTS:
+            world_key = max((k for k in WORLD_BOSSES_VARIANTS if k <= world_key), default=1)
         boss_pool = WORLD_BOSSES_VARIANTS.get(world_key, WORLD_BOSSES_VARIANTS.get(1, []))
         boss = random.choice(boss_pool)
         world_info = MAP_LOCATIONS.get(world_key, {})
@@ -29035,7 +29267,9 @@ async def handle_usar_chave(message):
     total_mob_dmg_to_player = 0
     for wave_num in range(1, mob_waves + 1):
         mob_name = random.choice(mob_names)
-        mob_hp_total = random.randint(100_000, 200_000)
+        # HP dos mobs escalado pelo nível do jogador — não mais fixo em 100k-200k
+        mob_hp_base = max(500, p_level * 80)  # nível 1 = 500 HP, nível 100 = 8000 HP
+        mob_hp_total = random.randint(mob_hp_base, mob_hp_base * 2)
         mob_atk_wave = random.randint(p_level * 3, p_level * 6)
         # Player derrota a onda (dano calculado)
         turns_to_kill = max(1, mob_hp_total // max(1, p_atk_now * 10))
