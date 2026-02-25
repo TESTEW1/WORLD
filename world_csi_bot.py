@@ -18772,11 +18772,12 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             ap["total_coins_earned"] = ap.get("total_coins_earned", 0) + ally_coins
             ap["total_xp_earned"] = ap.get("total_xp_earned", 0) + ally_xp
 
-            # Desbloqueia o próximo mundo para o aliado
+            # Desbloqueia o próximo mundo para o aliado — SEM viajar automaticamente
             if next_world_ally and next_world_ally in WORLDS:
                 if next_world_ally not in ap.get("worlds", [1]):
                     ap["worlds"].append(next_world_ally)
                     ap["worlds"] = sorted(list(set(ap["worlds"])))
+                    ap["pending_next_world"] = int(next_world_ally)  # aliado pode subir quando quiser
 
             save_player_db(ally_id, ap)
 
@@ -18814,7 +18815,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                     nw = WORLDS[next_world_ally]
                     ally_embed.add_field(
                         name=f"🌍 Reino Desbloqueado!",
-                        value=f"{nw['emoji']} **{nw['name']}** agora está acessível!\nUse `abrir mapa` para viajar.",
+                        value=f"{nw['emoji']} **{nw['name']}** agora está acessível!\n*Você **não** foi movido automaticamente.*\nUse `abrir mapa` → `viajar {nw['name'].replace(nw['emoji'], '').strip()}` quando quiser ir!",
                         inline=False
                     )
                 if ally_drop_rarity:
@@ -18907,8 +18908,8 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 name=f"🌍 NOVO REINO DESBLOQUEADO!",
                 value=f"{new_world_data['emoji']} **{new_world_data['name']}** agora está acessível!\n\n"
                       f"*'As correntes se rompem! As névoas se dissipam!'*\n"
-                      f"✦ Digite **`subir de reino`** para viajar ao novo reino!\n"
-                      f"*Ou continue aqui e viaje quando quiser via `abrir mapa`.*",
+                      f"✦ Use `abrir mapa` e `viajar` para ir ao novo reino quando quiser.\n"
+                      f"✦ Ou use `subir de reino` para ir direto agora.",
                 inline=False
             )
             await channel.send(embed=victory_embed)
@@ -19790,7 +19791,7 @@ async def send_prologue(guild):
             "**46 armas** agora têm skills que **disparam automaticamente em combate**!\n"
             "A chance de proc varia pela raridade do equipamento:\n\n"
             "⬜ Comum `8%` • 🟩 Incomum `14%` • 🟦 Raro `20%`\n"
-            "🟪 Épico `28%` • 🟨 Lendário `38%` • 🔴 Mítico `50%` • 🌌 Primordial `85%`\n\n"
+            "🟪 Épico `28%` • 🟨 Lendário `38%` • 🔴 Mítico `50%` • 🟠 Ancestral `65%` • 💙 Divino `75%` • 🌈 Primordial `85%`\n\n"
             "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF\n"
             "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa\n"
             "🌑 **Lâmina do Caos** → *Explosão do Caos* — ignora TODA DEF\n"
@@ -21665,7 +21666,9 @@ async def on_message(message):
             name="🏰 Guilda",
             value=(
                 "`criar guilda [nome]` | `entrar guilda [nome]` | `ver guilda`\n"
-                "*Guildas compartilham XP e têm rankings próprios!*"
+                "`sair da guilda` | `expulsar @membro` | `transferir liderança @membro`\n"
+                "`disbandar guilda` | `compartilhar coins` | `convidar dungeon`\n"
+                "*Liderança é transferida automaticamente se o líder sair!*"
             ),
             inline=False
         )
