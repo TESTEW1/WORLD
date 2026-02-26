@@ -21251,17 +21251,51 @@ async def on_message(message):
         roll = roll_dice()
         luck = get_luck(roll)
 
+        # ── Determina o reino atual do jogador para filtrar pets desse reino ──
+        # Usa current_world se o jogador viajou, senão o maior reino desbloqueado
+        cw = player.get("current_world")
+        if cw is not None:
+            cw = int(cw)
+        else:
+            worlds_int = [int(w) for w in player.get("worlds", [1])]
+            cw = max([k for k in WORLDS.keys() if k in worlds_int], default=1)
+
+        # Coleta pets disponíveis APENAS do reino atual (PETS + PETS_EXTRA + PETS_NOVOS_REINOS)
+        def _get_pets_for_world(world_key):
+            result_pets = []
+            # PETS original — chaves são 1,10,20,30,40,50,60 → mapeia para reino mais próximo
+            pets_keys = sorted(PETS.keys())
+            closest = max([k for k in pets_keys if k <= world_key], default=pets_keys[0])
+            if closest == world_key or world_key <= max(pets_keys):
+                result_pets.extend(PETS.get(closest, []))
+            # PETS_EXTRA — pode ter a chave exata do reino
+            if world_key in PETS_EXTRA:
+                result_pets.extend(PETS_EXTRA[world_key])
+            # PETS_NOVOS_REINOS — chave exata
+            if world_key in PETS_NOVOS_REINOS:
+                result_pets.extend(PETS_NOVOS_REINOS[world_key])
+            return result_pets
+
+        available_all = _get_pets_for_world(cw)
+        # Fallback: se não tiver pets neste reino exato, busca o mais próximo menor
+        if not available_all:
+            all_pet_keys = sorted(set(list(PETS.keys()) + list(PETS_EXTRA.keys()) + list(PETS_NOVOS_REINOS.keys())))
+            closest_key = max([k for k in all_pet_keys if k <= cw], default=all_pet_keys[0])
+            available_all = _get_pets_for_world(closest_key)
+
+        world_name = world.get("name", f"Reino {cw}")
+
         embed = discord.Embed(
             title="🔍 Procurando Criaturas...",
-            description="*'Você vasculha o ambiente em busca de criaturas selvagens...'*",
+            description=f"*'Você vasculha **{world_name}** em busca de criaturas selvagens...'*",
             color=discord.Color.blue()
         )
         embed.add_field(name="🎲 Dado da Busca", value=f"`{roll}` {luck['emoji']} **{luck['name']}**", inline=False)
+        embed.add_field(name="🗺️ Reino Atual", value=world_name, inline=True)
 
         if roll <= 2:
             # Encontra inimigo em vez de pet
             monster_name = random.choice(list(world["monsters"].keys()))
-            monster = world["monsters"][monster_name]
             dmg = random.randint(15, 35)
             player["hp"] -= dmg
             if player["hp"] <= 0:
@@ -21281,7 +21315,7 @@ async def on_message(message):
         elif roll <= 4:
             embed.add_field(
                 name="😔 Nada Encontrado",
-                value="*'Você vasculha por horas, mas só encontra rastros. As criaturas parecem evitar você.'*",
+                value=f"*'Você vasculha {world_name} por horas, mas só encontra rastros. As criaturas parecem evitar você.'*",
                 inline=False
             )
             embed.color = discord.Color.light_grey()
@@ -21289,14 +21323,13 @@ async def on_message(message):
             return
 
         elif roll <= 6:
-            # Pet comum do mundo
-            world_level = max([k for k in PETS.keys() if k <= player["level"]])
-            available = PETS[world_level]
-            pet = random.choice([p for p in available if p["rarity"] in ["Comum", "Incomum"]] or available)
+            # Pet comum do reino atual
+            available = [p for p in available_all if p["rarity"] in ["Comum", "Incomum"]] or available_all
+            pet = random.choice(available)
 
             embed.add_field(
                 name=f"{pet['emoji']} Criatura Avistada!",
-                value=f"*'Você encontra um **{pet['name']}** ({pet['rarity']}) nas proximidades!'*",
+                value=f"*'Você encontra um **{pet['name']}** ({pet['rarity']}) em **{world_name}**!'*",
                 inline=False
             )
             embed.color = RARITIES[pet["rarity"]]["color"]
@@ -21306,17 +21339,15 @@ async def on_message(message):
             await message.channel.send(f"{pet['emoji']} **{pet['name']}** está próximo!", view=view)
 
         else:  # 7-10: maior chance de pet raro
-            world_level = max([k for k in PETS.keys() if k <= player["level"]])
-            available = PETS[world_level]
             if roll >= 9:
-                pets_filtered = [p for p in available if p["rarity"] in ["Raro", "Épico", "Lendário", "Mítico", "Divino", "Primordial"]]
+                pets_filtered = [p for p in available_all if p["rarity"] in ["Raro", "Épico", "Lendário", "Mítico", "Divino", "Primordial"]]
             else:
-                pets_filtered = [p for p in available if p["rarity"] in ["Incomum", "Raro", "Épico"]]
-            pet = random.choice(pets_filtered or available)
+                pets_filtered = [p for p in available_all if p["rarity"] in ["Incomum", "Raro", "Épico"]]
+            pet = random.choice(pets_filtered or available_all)
 
             embed.add_field(
                 name=f"{pet['emoji']} Criatura Rara Avistada!",
-                value=f"*'Incrível! Você detecta um **{pet['name']}** ({RARITIES[pet['rarity']]['emoji']} {pet['rarity']}) escondido!'*",
+                value=f"*'Incrível! Você detecta um **{pet['name']}** ({RARITIES[pet['rarity']]['emoji']} {pet['rarity']}) escondido em **{world_name}**!'*",
                 inline=False
             )
             embed.color = RARITIES[pet["rarity"]]["color"]
@@ -22176,7 +22207,7 @@ async def on_message(message):
     # ======================================================
     # ================= VENDER ITEM ========================
     # ======================================================
-    elif content.startswith("vender"):
+    elif content.startswith("vender") and content not in ["vender todos", "vender tudo", "vender todos os itens", "vender inventario", "vender inventário"]:
         player = get_player(user_id)
         item_name = content.replace("vender", "").strip()
         if not item_name:
@@ -22698,7 +22729,12 @@ async def on_message(message):
                 "**Versão:** Habilidades de Equipamentos • 7 Níveis de Emprego • Skills Auto — 2026\n"
                 "```\n"
                 "  46 armas com skill  •  53 armaduras  •  18 empregos Lv.7\n"
-                "```"
+                "  Vender inventário completo  •  Pets por reino\n"
+                "```\n\n"
+                "🆕 **Novidades desta atualização:**\n"
+                "• `vender tudo` — vende **todo o inventário** de uma vez (exceto equipados)\n"
+                "• `procurar pet` agora encontra **apenas pets do reino atual** que você está\n"
+                "• Armas e armaduras com habilidades mostradas em detalhes completos expandidos"
             ),
             color=0xFF6B35
         )
@@ -22814,26 +22850,51 @@ async def on_message(message):
         e_atu3.add_field(
             name="⚔️ Habilidades de Armas — AUTOMÁTICAS em batalha!",
             value=(
-                "**46 armas** agora têm **skills únicas** que disparam automaticamente!\n"
-                "Chance por raridade: Comum `8%` → Primordial `85%`\n\n"
-                "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF\n"
-                "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa\n"
-                "🌑 **Foice da Morte** → *Colheita das Almas* — +120% dano + lifesteal\n"
-                "🗡️ **Arco das Sombras** → *Flecha das Trevas* — +60% dano + reduz ATK\n"
-                "*Use `inspecionar arma [nome]` para ver a skill!*"
+                "**46 armas** com **skills únicas** que disparam automaticamente em batalha!\n"
+                "Chance de proc por raridade: Comum `8%` → Incomum `15%` → Raro `25%` → Épico `40%` → Lendário `55%` → Mítico `65%` → Ancestral `72%` → Divino `80%` → Primordial `85%`\n\n"
+                "**Exemplos de Armas Comuns/Incomuns:**\n"
+                "🗡️ **Espada de Ferro** → *Corte Firme* — +25% dano no próximo ataque\n"
+                "🏹 **Arco Simples** → *Flecha Certeira* — ignora 10% da DEF inimiga\n\n"
+                "**Exemplos de Armas Raras/Épicas:**\n"
+                "⚡ **Lança do Trovão** → *Descarga Elétrica* — +80% dano + paralisia 1 turno\n"
+                "🌑 **Espada Sombria** → *Golpe das Trevas* — +70% dano + reduz DEF 20%\n"
+                "🔥 **Arco de Chamas** → *Saraivada Ardente* — 3 flechas (90% ATK cada) + queima\n\n"
+                "**Exemplos de Armas Lendárias/Míticas:**\n"
+                "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF inimiga\n"
+                "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa por 1 turno\n"
+                "💀 **Foice da Morte** → *Colheita das Almas* — +120% dano + drena 30% como HP\n"
+                "🌊 **Tridente de Poseidon** → *Tormenta Oceânica* — +160% dano + -30% ATK inimigo\n\n"
+                "**Exemplos de Armas Divinas/Primordiais:**\n"
+                "☀️ **Lança da Aurora** → *Raio Solar* — +220% dano + cura 20% do seu HP\n"
+                "🌌 **Espada do Cosmos** → *Fenda Dimensional* — +300% dano, ignora TODA a DEF\n"
+                "✨ **Cajado Primordial** → *Pulso da Criação* — +250% dano mágico + stun 2 turnos\n\n"
+                "*Use `inspecionar arma [nome]` para ver a skill completa com cooldown e mana!*"
             ),
             inline=False
         )
         e_atu3.add_field(
             name="🛡️ Habilidades de Armaduras — AUTOMÁTICAS em batalha!",
             value=(
-                "**53 armaduras** com skills defensivas que procam automaticamente!\n\n"
-                "🔥 **Armadura do Fênix** → *Renascimento* — revive com 30% HP (1×)\n"
-                "✨ **Égide Divina** → *Escudo Divino* — absorve 200 de dano\n"
-                "💀 **Armadura Demoníaca** → *Pacto Infernal* — +50% ATK + lifesteal\n"
-                "♾️ **Placas da Eternidade** → *Eternidade* — invulnerável 1 turno\n"
-                "🌿 **Vestes da Criação** → *Gênese* — cura HP completo (1×)\n"
-                "*Use `inspecionar armadura [nome]` para ver a skill!*"
+                "**53 armaduras** com skills **defensivas e ofensivas** que procam automaticamente!\n"
+                "Cada armadura tem cooldown (2-10 min) e pode custar mana.\n\n"
+                "**Exemplos de Armaduras Comuns/Incomuns:**\n"
+                "🪨 **Armadura de Couro** → *Resistência* — absorve 15 de dano no próximo ataque\n"
+                "⛓️ **Cota de Malha** → *Deflexão* — 20% chance de deflectir golpe crítico\n\n"
+                "**Exemplos de Armaduras Raras/Épicas:**\n"
+                "🌿 **Armadura da Floresta** → *Regeneração Natural* — recupera 8% HP por turno × 3\n"
+                "❄️ **Armadura Glacial** → *Barreira de Gelo* — absorve 80 dano + congela atacante\n"
+                "⚡ **Armadura do Trovão** → *Contra-Ataque Elétrico* — devolve 50% do dano recebido\n\n"
+                "**Exemplos de Armaduras Lendárias/Míticas:**\n"
+                "🔥 **Armadura do Fênix** → *Renascimento* — revive com 30% HP (1× por batalha)\n"
+                "💀 **Armadura Demoníaca** → *Pacto Infernal* — +50% ATK + drena 15% HP/turno\n"
+                "🌑 **Armadura das Sombras** → *Forma Sombria* — 35% esquiva + primeiro ataque crítico\n"
+                "🐉 **Escamas Dracônicas** → *Resistência do Dragão* — imune a fogo + -20% dano recebido\n\n"
+                "**Exemplos de Armaduras Divinas/Primordiais:**\n"
+                "✨ **Égide Divina** → *Escudo Divino* — absorve 200 de dano + cura 10% HP\n"
+                "♾️ **Placas da Eternidade** → *Eternidade* — invulnerável por 1 turno inteiro\n"
+                "🌿 **Vestes da Criação** → *Gênese* — cura HP completo (1× por batalha)\n"
+                "🌌 **Armadura do Cosmos** → *Absorção Cósmica* — converte 40% do dano em HP\n\n"
+                "*Use `inspecionar armadura [nome]` para ver a skill completa com cooldown!*"
             ),
             inline=False
         )
@@ -22854,8 +22915,13 @@ async def on_message(message):
             name="📣 Novos comandos desta atualização",
             value=(
                 "`usar habilidade` — ativa skill de arma/armadura equipada\n"
-                "`inspecionar armadura [nome]` — ficha completa da armadura\n"
-                "`nivel emprego` / `cargo` — vê os 7 níveis do emprego atual"
+                "`inspecionar armadura [nome]` — ficha completa da armadura com skill expandida\n"
+                "`inspecionar arma [nome]` — ficha da arma com skill, cooldown e mana\n"
+                "`nivel emprego` / `cargo` — vê os 7 níveis do emprego atual\n"
+                "`vender tudo` / `vender todos` — vende **todo o inventário** de uma só vez\n"
+                "*(Itens equipados nunca são vendidos automaticamente)*\n"
+                "`procurar pet` — agora filtra **somente pets do reino que você está**\n"
+                "*(Viaje para outro reino com `viajar [reino]` para encontrar pets diferentes!)*"
             ),
             inline=False
         )
@@ -22901,9 +22967,11 @@ async def on_message(message):
                 "✅ 40 raças • 40 classes • 6 ciclos de evolução • Level máx 600\n"
                 "✅ 40 reinos • 5 dimensões • Dungeons • Fusão de itens\n"
                 "✅ 18 empregos (7 níveis) • Pets com habilidades especiais\n"
-                "✅ 46 armas com skills auto • 53 armaduras com skills auto\n"
+                "✅ 46 armas com skills auto • 53 armaduras com skills auto expandidas\n"
                 "✅ Quests ocultas • Farm AFK • Reino próprio • Exércitos únicos\n"
-                "✅ Alinhamento • Guilda • Arena PvP • Rei & Cavaleiros"
+                "✅ Alinhamento • Guilda • Arena PvP • Rei & Cavaleiros\n"
+                "✅ `vender tudo` — vende inventário completo de uma vez\n"
+                "✅ `procurar pet` — filtra pets exclusivos do reino atual"
             ),
             inline=False
         )
