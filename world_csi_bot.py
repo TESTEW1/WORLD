@@ -6627,49 +6627,138 @@ RARITIES = {
     "Primordial": {"color": 0xFF00FF, "emoji": "🌈"}
 }
 
+# ================= WORLD NAME MAP (usado pela Pokédex) =================
+WORLD_NAMES_MAP = {
+    1: "🌱 Campos Iniciais",
+    10: "🌲 Floresta Sombria",
+    20: "🏜️ Deserto das Almas",
+    30: "❄️ Montanhas Geladas",
+    40: "🌋 Reino Vulcânico",
+    50: "🌑 Dimensão das Sombras",
+    60: "👼 Paraíso Celestial",
+    70: "🌊 Abismo Oceânico",
+    80: "💎 Gruta dos Cristais",
+    90: "⚡ Planícies do Trovão",
+    100: "🗿 Terra dos Gigantes",
+    110: "🌊 Mar das Almas",
+    120: "🌀 Reino do Caos",
+    130: "🌸 Jardim dos Deuses",
+    140: "❄️ Reino do Gelo Eterno",
+    150: "🏛️ Ruínas da Civilização Perdida",
+    160: "✨ Plano Astral",
+    170: "👁️ Além da Existência",
+    180: "👑 O Trono Primordial",
+}
+
+# Tipo de montaria → quais bônus de ATRIBUTO ela dá ao cavalgar
+# Além do DEF padrão, cada "tipo" concede bônus extras
+MOUNT_TYPE_BONUSES = {
+    "dragão":    {"bonus_atk_pct": 0.08, "bonus_hp_pct": 0.05, "desc": "🐉 Dragão: +8% ATK, +5% HP ao cavalgar"},
+    "fenix":     {"bonus_atk_pct": 0.10, "bonus_hp_regen": 3,   "desc": "🔥 Fênix: +10% ATK, regenera 3 HP/turno"},
+    "lobo":      {"bonus_atk_pct": 0.06, "crit_bonus": 5,       "desc": "🐺 Lobo: +6% ATK, +5% chance crítico"},
+    "unicornio": {"mana_bonus_pct": 0.15,"bonus_hp_pct": 0.08,  "desc": "🦄 Unicórnio: +15% Mana Máx, +8% HP"},
+    "grifo":     {"bonus_atk_pct": 0.07, "crit_bonus": 8,       "desc": "🦅 Grifo: +7% ATK, +8% chance crítico"},
+    "urso":      {"bonus_def_pct": 0.10, "bonus_hp_pct": 0.10,  "desc": "🐻 Urso: +10% DEF, +10% HP"},
+    "cavalo":    {"xp_bonus_pct": 0.10,  "bonus_def_flat": 5,   "desc": "🐴 Cavalo: +10% XP ganho, +5 DEF flat"},
+    "touro":     {"bonus_atk_pct": 0.12, "bonus_def_flat": 8,   "desc": "🐂 Touro: +12% ATK, +8 DEF flat"},
+    "wyvern":    {"bonus_atk_pct": 0.09, "bonus_hp_pct": 0.07,  "desc": "🐲 Wyvern: +9% ATK, +7% HP"},
+    "generico":  {"bonus_def_pct": 0.05,                         "desc": "🐾 +5% DEF ao cavalgar"},
+}
+
+def get_mount_type(pet_name: str) -> str:
+    """Detecta o tipo de montaria pelo nome do pet para aplicar bônus correto."""
+    name = pet_name.lower()
+    if any(x in name for x in ["dragão", "dragao", "dragon"]):
+        return "dragão"
+    if any(x in name for x in ["fênix", "fenix", "phoenix"]):
+        return "fenix"
+    if any(x in name for x in ["lobo", "wolf"]):
+        return "lobo"
+    if any(x in name for x in ["unicórnio", "unicornio"]):
+        return "unicornio"
+    if any(x in name for x in ["grifo", "gryphon"]):
+        return "grifo"
+    if any(x in name for x in ["urso", "bear"]):
+        return "urso"
+    if any(x in name for x in ["cavalo", "titã equino", "sombra equina", "horse"]):
+        return "cavalo"
+    if any(x in name for x in ["touro", "bull"]):
+        return "touro"
+    if any(x in name for x in ["wyvern"]):
+        return "wyvern"
+    return "generico"
+
 # ================= PETS POR MUNDO =================
 PETS = {
     1: [
-        {"name": "Slime Bebê", "emoji": "💧", "rarity": "Comum", "bonus_hp": 10, "bonus_atk": 3},
-        {"name": "Rato Selvagem Domesticado", "emoji": "🐀", "rarity": "Comum", "bonus_hp": 8, "bonus_atk": 4},
-        {"name": "Lagarta Arcana", "emoji": "🐛", "rarity": "Comum", "bonus_hp": 9, "bonus_atk": 3},
-        {"name": "Fungo Espiritual", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 12, "bonus_atk": 2},
-        {"name": "Coelho Mágico", "emoji": "🐰", "rarity": "Incomum", "bonus_hp": 15, "bonus_atk": 5},
-        {"name": "Fada da Floresta", "emoji": "🧚", "rarity": "Raro", "bonus_hp": 20, "bonus_atk": 8}
+        {"name": "Slime Bebê",              "emoji": "💧", "rarity": "Comum",    "bonus_hp": 10, "bonus_atk": 3,  "lore": "Criatura gelatinosa dos campos abertos. Inofensivo e curioso."},
+        {"name": "Rato Selvagem Domesticado","emoji": "🐀", "rarity": "Comum",    "bonus_hp": 8,  "bonus_atk": 4,  "lore": "Rato capturado jovem e treinado para ser companheiro."},
+        {"name": "Lagarta Arcana",           "emoji": "🐛", "rarity": "Comum",    "bonus_hp": 9,  "bonus_atk": 3,  "lore": "Lagarta que absorve energia mágica do ar dos Campos."},
+        {"name": "Fungo Espiritual",         "emoji": "🍄", "rarity": "Comum",    "bonus_hp": 12, "bonus_atk": 2,  "lore": "Fungo que libera esporos curativos nas batalhas."},
+        {"name": "Coelho Mágico",            "emoji": "🐰", "rarity": "Incomum",  "bonus_hp": 15, "bonus_atk": 5,  "lore": "Coelho albino com orelhas que detectam magia."},
+        {"name": "Besouro das Pedras",       "emoji": "🪲", "rarity": "Comum",    "bonus_hp": 11, "bonus_atk": 3,  "lore": "Besouro resistente que vive entre as pedras dos campos."},
+        {"name": "Raposa Caçadora",          "emoji": "🦊", "rarity": "Incomum",  "bonus_hp": 16, "bonus_atk": 7,  "can_mount": True,  "mount_bonus_def": 6,  "mount_bonus_spd": 4, "lore": "Raposa ágil dos campos abertos. Boa companheira de caça."},
+        {"name": "Fada da Floresta",         "emoji": "🧚", "rarity": "Raro",     "bonus_hp": 20, "bonus_atk": 8,  "lore": "Fada que habita as bordas da floresta proibida."},
+        {"name": "Golem de Terra Bebê",      "emoji": "🪨", "rarity": "Raro",     "bonus_hp": 25, "bonus_atk": 6,  "can_mount": True,  "mount_bonus_def": 10, "mount_bonus_spd": 2, "lore": "Pequeno golem que se formou das pedras dos Campos Iniciais."},
+        {"name": "Tartaruga Mística",        "emoji": "🐢", "rarity": "Incomum",  "bonus_hp": 20, "bonus_atk": 3,  "can_mount": True,  "mount_bonus_def": 8,  "mount_bonus_spd": 1, "lore": "Tartaruga antiga cujo casco guarda inscrições mágicas."},
     ],
     10: [
-        {"name": "Toupeira das Sombras", "emoji": "🦡", "rarity": "Comum", "bonus_hp": 18, "bonus_atk": 6},
-        {"name": "Cogumelo Sombrio", "emoji": "🍄", "rarity": "Comum", "bonus_hp": 16, "bonus_atk": 7},
-        {"name": "Lobo Cinzento", "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12},
-        {"name": "Coruja Espectral", "emoji": "🦉", "rarity": "Raro", "bonus_hp": 30, "bonus_atk": 15},
-        {"name": "Espírito da Floresta", "emoji": "👻", "rarity": "Épico", "bonus_hp": 40, "bonus_atk": 20}
+        {"name": "Toupeira das Sombras",   "emoji": "🦡", "rarity": "Comum",   "bonus_hp": 18, "bonus_atk": 6,  "lore": "Toupeira que cava túneis sob as raízes negras da floresta."},
+        {"name": "Cogumelo Sombrio",       "emoji": "🍄", "rarity": "Comum",   "bonus_hp": 16, "bonus_atk": 7,  "lore": "Cogumelo que cresce em locais sem luz e absorve sombras."},
+        {"name": "Lobo Cinzento",          "emoji": "🐺", "rarity": "Incomum", "bonus_hp": 25, "bonus_atk": 12, "lore": "Lobo líder de uma matilha fantasma da floresta sombria."},
+        {"name": "Coruja Espectral",       "emoji": "🦉", "rarity": "Raro",    "bonus_hp": 30, "bonus_atk": 15, "lore": "Coruja com penas que brilham na escuridão absoluta."},
+        {"name": "Espírito da Floresta",   "emoji": "👻", "rarity": "Épico",   "bonus_hp": 40, "bonus_atk": 20, "lore": "Antiga entidade que protege as árvores milenares."},
+        {"name": "Vespa das Sombras",      "emoji": "🐝", "rarity": "Comum",   "bonus_hp": 14, "bonus_atk": 9,  "lore": "Vespa cuja ferroada paralisa e confunde os inimigos."},
+        {"name": "Pantera Negra Jovem",    "emoji": "🐆", "rarity": "Raro",    "bonus_hp": 32, "bonus_atk": 16, "can_mount": True, "mount_bonus_def": 12, "mount_bonus_spd": 9, "lore": "Filhote de pantera que aprendeu a andar em silêncio absoluto."},
+        {"name": "Serpente das Raízes",    "emoji": "🐍", "rarity": "Incomum", "bonus_hp": 22, "bonus_atk": 10, "lore": "Serpente que se enrola nas raízes das árvores negras."},
+        {"name": "Besouro Fluorescente",   "emoji": "✨", "rarity": "Incomum", "bonus_hp": 20, "bonus_atk": 8,  "lore": "Besouro cujo brilho atrai e confunde criaturas da floresta."},
     ],
     20: [
-        {"name": "Besouro do Deserto", "emoji": "🪲", "rarity": "Comum", "bonus_hp": 22, "bonus_atk": 9},
-        {"name": "Cobra das Areias", "emoji": "🐍", "rarity": "Comum", "bonus_hp": 20, "bonus_atk": 11},
-        {"name": "Escorpião Dourado", "emoji": "🦂", "rarity": "Raro", "bonus_hp": 35, "bonus_atk": 18},
-        {"name": "Escaravelho Místico", "emoji": "🪲", "rarity": "Épico", "bonus_hp": 45, "bonus_atk": 23},
-        {"name": "Esfinge Menor", "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30}
+        {"name": "Besouro do Deserto",     "emoji": "🪲", "rarity": "Comum",    "bonus_hp": 22, "bonus_atk": 9,  "lore": "Besouro com carapaça dourada endurecida pelo sol das dunas."},
+        {"name": "Cobra das Areias",       "emoji": "🐍", "rarity": "Comum",    "bonus_hp": 20, "bonus_atk": 11, "lore": "Cobra que se camufla perfeitamente nas dunas douradas."},
+        {"name": "Escorpião Dourado",      "emoji": "🦂", "rarity": "Raro",     "bonus_hp": 35, "bonus_atk": 18, "lore": "Escorpião cujo veneno foi abençoado pelos deuses do deserto."},
+        {"name": "Escaravelho Místico",    "emoji": "🪲", "rarity": "Épico",    "bonus_hp": 45, "bonus_atk": 23, "lore": "Escaravelho sagrado encontrado apenas nas câmaras das pirâmides."},
+        {"name": "Esfinge Menor",          "emoji": "🦁", "rarity": "Lendário", "bonus_hp": 60, "bonus_atk": 30, "can_mount": True, "mount_bonus_def": 18, "mount_bonus_spd": 12, "lore": "Guarda ancestral das pirâmides. Poucos merecem montá-la."},
+        {"name": "Lagarto das Dunas",      "emoji": "🦎", "rarity": "Comum",    "bonus_hp": 18, "bonus_atk": 8,  "lore": "Lagarto que sobrevive sem água por semanas no deserto."},
+        {"name": "Falcão do Faraó",        "emoji": "🦅", "rarity": "Incomum",  "bonus_hp": 28, "bonus_atk": 14, "lore": "Falcão treinado pelos faraós para vigiar o horizonte."},
+        {"name": "Camelo Espiritual",      "emoji": "🐪", "rarity": "Raro",     "bonus_hp": 40, "bonus_atk": 12, "can_mount": True, "mount_bonus_def": 14, "mount_bonus_spd": 5, "lore": "Camelo que percorre rotas mágicas no deserto das almas."},
+        {"name": "Chacal das Sombras",     "emoji": "🦊", "rarity": "Incomum",  "bonus_hp": 25, "bonus_atk": 13, "lore": "Chacal que habita os túmulos do deserto como guardião."},
     ],
     30: [
-        {"name": "Raposa Ártica", "emoji": "🦊", "rarity": "Épico", "bonus_hp": 50, "bonus_atk": 25},
-        {"name": "Dragão de Gelo Bebê", "emoji": "🐉", "rarity": "Lendário", "bonus_hp": 70, "bonus_atk": 35},
-        {"name": "Fênix de Gelo", "emoji": "🦅", "rarity": "Mítico", "bonus_hp": 100, "bonus_atk": 50}
+        {"name": "Raposa Ártica",          "emoji": "🦊", "rarity": "Épico",    "bonus_hp": 50,  "bonus_atk": 25, "lore": "Raposa das montanhas geladas cujo pelo brilha como cristal."},
+        {"name": "Dragão de Gelo Bebê",    "emoji": "🐉", "rarity": "Lendário", "bonus_hp": 70,  "bonus_atk": 35, "can_mount": True, "mount_bonus_def": 20, "mount_bonus_spd": 12, "lore": "Filhote de dragão glacial. Seu sopro já congela pequenos rios."},
+        {"name": "Fênix de Gelo",          "emoji": "🦅", "rarity": "Mítico",   "bonus_hp": 100, "bonus_atk": 50, "can_mount": True, "mount_bonus_def": 30, "mount_bonus_spd": 18, "lore": "Ave lendária que renascia em gelo ao invés de chamas."},
+        {"name": "Urso do Ártico Jovem",   "emoji": "🐻", "rarity": "Raro",     "bonus_hp": 45,  "bonus_atk": 18, "can_mount": True, "mount_bonus_def": 16, "mount_bonus_spd": 7,  "lore": "Urso branco criado entre os glaciares das montanhas."},
+        {"name": "Corvo das Neves",        "emoji": "🐦", "rarity": "Incomum",  "bonus_hp": 30,  "bonus_atk": 14, "lore": "Corvo de penas brancas que traz presságios gelados."},
+        {"name": "Lince de Cristal",       "emoji": "🐱", "rarity": "Épico",    "bonus_hp": 52,  "bonus_atk": 26, "can_mount": True, "mount_bonus_def": 18, "mount_bonus_spd": 11, "lore": "Felino cujas patas geram rastros de gelo ao caminhar."},
+        {"name": "Serpente de Gelo",       "emoji": "🐍", "rarity": "Raro",     "bonus_hp": 38,  "bonus_atk": 20, "lore": "Serpente congelada por dentro. Seu toque paralisa."},
     ],
     40: [
-        {"name": "Salamandra de Fogo", "emoji": "🦎", "rarity": "Épico", "bonus_hp": 55, "bonus_atk": 28},
-        {"name": "Fênix Carmesim", "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80, "bonus_atk": 40},
-        {"name": "Dragão de Magma", "emoji": "🐲", "rarity": "Mítico", "bonus_hp": 120, "bonus_atk": 60}
+        {"name": "Salamandra de Fogo",     "emoji": "🦎", "rarity": "Épico",    "bonus_hp": 55,  "bonus_atk": 28, "lore": "Salamandra nascida dentro de um vulcão ativo."},
+        {"name": "Fênix Carmesim",         "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80,  "bonus_atk": 40, "can_mount": True, "mount_bonus_def": 25, "mount_bonus_spd": 16, "lore": "Fênix de plumas carmesim que brilha como lava líquida."},
+        {"name": "Dragão de Magma",        "emoji": "🐲", "rarity": "Mítico",   "bonus_hp": 120, "bonus_atk": 60, "can_mount": True, "mount_bonus_def": 35, "mount_bonus_spd": 22, "lore": "Dragão que nada em rios de lava como se fossem água."},
+        {"name": "Touro Vulcânico",        "emoji": "🐂", "rarity": "Raro",     "bonus_hp": 50,  "bonus_atk": 22, "can_mount": True, "mount_bonus_def": 17, "mount_bonus_spd": 6,  "lore": "Touro cujos chifres têm núcleo de magma puro."},
+        {"name": "Morcego de Cinzas",      "emoji": "🦇", "rarity": "Incomum",  "bonus_hp": 35,  "bonus_atk": 16, "lore": "Morcego que vive nas chaminés vulcânicas."},
+        {"name": "Golem de Magma",         "emoji": "🪨", "rarity": "Épico",    "bonus_hp": 65,  "bonus_atk": 24, "can_mount": True, "mount_bonus_def": 22, "mount_bonus_spd": 4,  "lore": "Criatura de pedra e magma moldada pelos vulcões."},
+        {"name": "Escorpião de Lava",      "emoji": "🦂", "rarity": "Raro",     "bonus_hp": 42,  "bonus_atk": 21, "lore": "Escorpião cujo ferrão injeta veneno escaldante."},
     ],
     50: [
-        {"name": "Espectro Sombrio", "emoji": "👤", "rarity": "Lendário", "bonus_hp": 90, "bonus_atk": 45},
-        {"name": "Elemental do Vazio", "emoji": "🌀", "rarity": "Mítico", "bonus_hp": 130, "bonus_atk": 65},
-        {"name": "Entidade Cósmica", "emoji": "✨", "rarity": "Divino", "bonus_hp": 180, "bonus_atk": 90}
+        {"name": "Espectro Sombrio",       "emoji": "👤", "rarity": "Lendário", "bonus_hp": 90,  "bonus_atk": 45, "lore": "Sombra que ganhou consciência nas trevas da Dimensão."},
+        {"name": "Elemental do Vazio",     "emoji": "🌀", "rarity": "Mítico",   "bonus_hp": 130, "bonus_atk": 65, "lore": "Ser formado pela energia primordial do vazio dimensional."},
+        {"name": "Entidade Cósmica",       "emoji": "✨", "rarity": "Divino",   "bonus_hp": 180, "bonus_atk": 90, "can_mount": True, "mount_bonus_def": 55, "mount_bonus_spd": 30, "lore": "Entidade que existe entre as dimensões. Raríssima."},
+        {"name": "Sombra Equina",          "emoji": "🌑", "rarity": "Épico",   "bonus_hp": 55,  "bonus_atk": 27, "can_mount": True, "mount_bonus_def": 20, "mount_bonus_spd": 16, "lore": "Cavalo feito de sombra pura. Não deixa rastros."},
+        {"name": "Espectro Felino",        "emoji": "🐱", "rarity": "Épico",   "bonus_hp": 60,  "bonus_atk": 30, "lore": "Gato dimensional que atravessa paredes e tempo."},
+        {"name": "Corvo das Trevas",       "emoji": "🐦", "rarity": "Raro",    "bonus_hp": 40,  "bonus_atk": 22, "lore": "Corvo que nunca é visto mas sempre está presente."},
+        {"name": "Lobo do Vazio",          "emoji": "🐺", "rarity": "Lendário","bonus_hp": 95,  "bonus_atk": 48, "can_mount": True, "mount_bonus_def": 40, "mount_bonus_spd": 24, "lore": "Lobo que habita o espaço entre as dimensões."},
     ],
     60: [
-        {"name": "Anjo Guardião", "emoji": "👼", "rarity": "Divino", "bonus_hp": 200, "bonus_atk": 100},
-        {"name": "Querubim Guerreiro", "emoji": "😇", "rarity": "Divino", "bonus_hp": 250, "bonus_atk": 120},
-        {"name": "Arcanjo Primordial", "emoji": "🕊️", "rarity": "Primordial", "bonus_hp": 400, "bonus_atk": 200}
+        {"name": "Anjo Guardião",          "emoji": "👼", "rarity": "Divino",     "bonus_hp": 200, "bonus_atk": 100, "can_mount": True, "mount_bonus_def": 65, "mount_bonus_spd": 35, "lore": "Anjo enviado para guiar os guerreiros mais virtuosos."},
+        {"name": "Querubim Guerreiro",     "emoji": "😇", "rarity": "Divino",     "bonus_hp": 250, "bonus_atk": 120, "can_mount": True, "mount_bonus_def": 80, "mount_bonus_spd": 42, "lore": "Querubim que trocou a harpa pela espada."},
+        {"name": "Arcanjo Primordial",     "emoji": "🕊️","rarity": "Primordial", "bonus_hp": 400, "bonus_atk": 200, "can_mount": True, "mount_bonus_def": 120,"mount_bonus_spd": 60, "lore": "Arcanjo da primeira ordem celestial. Poder além da compreensão."},
+        {"name": "Pegasus Sagrado",        "emoji": "🦄", "rarity": "Divino",     "bonus_hp": 220, "bonus_atk": 95,  "can_mount": True, "mount_bonus_def": 70, "mount_bonus_spd": 55, "lore": "Cavalo alado do paraíso. Só aceita cavaleiros puros."},
+        {"name": "Leão Celestial Bebê",    "emoji": "🦁", "rarity": "Lendário",   "bonus_hp": 130, "bonus_atk": 65,  "can_mount": True, "mount_bonus_def": 50, "mount_bonus_spd": 28, "lore": "Filhote do leão que guarda o trono celestial."},
+        {"name": "Fênix da Luz",           "emoji": "☀️", "rarity": "Divino",     "bonus_hp": 240, "bonus_atk": 110, "can_mount": True, "mount_bonus_def": 85, "mount_bonus_spd": 48, "lore": "Fênix cujas plumas são feitas de luz divina pura."},
+        {"name": "Cervo Estelar",          "emoji": "🦌", "rarity": "Lendário",   "bonus_hp": 140, "bonus_atk": 60,  "can_mount": True, "mount_bonus_def": 55, "mount_bonus_spd": 40, "lore": "Cervo celestial cujos chifres são feitos de estrelas."},
     ]
 }
 
@@ -15423,6 +15512,7 @@ def create_player(user_id):
         "bio": "",
         "last_force_entry": 0,
         "job_works": {},
+        "last_ride": 0,
     }
     save_player_db(user_id, player)
     return player
@@ -22557,6 +22647,7 @@ async def on_message(message):
         e2.add_field(name="🚨 Boss de Nível (40+ bosses)", value="**Níveis 9/19/29/.../599** — XP bloqueado até vencer!\nBoss de Nível desbloqueia o próximo reino e novas habilidades.", inline=False)
         e2.add_field(name="💪 Treinamento pós-derrota", value="`treinar força` (+ATK) | `treinar defesa` (+DEF) | `treinar vitalidade` (+HP) | `treinar intensivo`", inline=False)
         e2.add_field(name="🗺️ Mapa & Viagem", value="`abrir mapa` — navega pelos 40 reinos + 5 dimensões | `procurar cidade` | `viajar [local]`", inline=False)
+        e2.add_field(name="🐎 Montaria & Pets", value="`montar [pet]` | `desmontar` | `cavalgar` | `ver montaria` | `lista montarias` | `pokédex` | `pokédex [nome]`", inline=False)
         e2.set_footer(text="Página 2/5 — Use 'comandos 3' para continuar")
         await message.channel.send(embed=e2)
         return
@@ -23673,7 +23764,24 @@ async def on_message(message):
                         race_display += " ⚡ *(evolução disponível!)*"
             embed.add_field(name=f"{race_emoji} Raça", value=race_display, inline=True)
         if player.get("pet"):
-            embed.add_field(name="🐉 Pet", value=player["pet"], inline=True)
+            pet_display = player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name","?")
+            embed.add_field(name="🐉 Pet Ativo", value=pet_display, inline=True)
+        # Mostrar montaria com tipo e bônus
+        current_mount = player.get("mount")
+        if current_mount:
+            mount_data = get_pet_mount_data(current_mount)
+            mtype = get_mount_type(current_mount)
+            mtype_bonus = MOUNT_TYPE_BONUSES.get(mtype, MOUNT_TYPE_BONUSES["generico"])
+            if mount_data:
+                embed.add_field(
+                    name="🐎 Montaria Ativa",
+                    value=(
+                        f"**{current_mount}**\n"
+                        f"🛡️ DEF +{mount_data['mount_bonus_def']} | 💨 Spd +{mount_data['mount_bonus_spd']}\n"
+                        f"*{mtype_bonus['desc']}*"
+                    ),
+                    inline=True
+                )
         embed.add_field(name="🌍 Localização", value=f"{world['emoji']} **{world['name']}**", inline=False)
         cycle_num, cycle_name, cycle_range = get_world_cycle(player['level'])
         embed.add_field(name="🔄 Ciclo de Mundo", value=f"**Ciclo {cycle_num}** — {cycle_name}\n*{cycle_range}*", inline=False)
@@ -25678,16 +25786,111 @@ async def handle_new_commands(message):
         wl = WORLDS.get(found_world, {})
         world_name = ml.get("world_name") or wl.get("name", str(found_world))
 
-        embed = discord.Embed(
-            title=f"✈️ Viajando para {world_name}",
-            description=f"*Você parte para **{world_name}**...*\n\nChegou! O ar aqui é diferente.",
-            color=discord.Color.teal()
-        )
-        embed.add_field(name="🌍 Reino atual", value=world_name, inline=True)
-        embed.add_field(name="📍 Reino nº", value=str(found_world), inline=True)
-        embed.set_footer(text="Use `explorar` para começar a aventura neste local!")
+        # ── Animação cinematográfica de viagem ──
+        # Determinar emojis/flavor baseado no reino destino
+        reino_flavor = {
+            1:   ("🌱", "Os ventos suaves dos campos te envolvem...", "🌿🌾🌿", 0x78C850),
+            10:  ("🌲", "A escuridão da floresta engole o caminho...", "🌑🌲🌑", 0x2E7D32),
+            20:  ("🏜️", "Uma onda de calor abrasa seus pulmões...", "☀️🏜️☀️", 0xD4A017),
+            30:  ("❄️", "Cristais de gelo cortam o ar ao seu redor...", "❄️🏔️❄️", 0x4FC3F7),
+            40:  ("🌋", "O cheiro de enxofre e cinzas te alcança...", "🔥🌋🔥", 0xD32F2F),
+            50:  ("🌑", "A realidade ao seu redor começa a derreter...", "🌑🌀🌑", 0x4A148C),
+            60:  ("☁️", "Luz dourada desce do céu como cascata...", "✨👼✨", 0xFFD700),
+            70:  ("🌊", "O rugido das ondas do abismo ecoa no vazio...", "🌊🐋🌊", 0x0D47A1),
+            80:  ("💎", "A luz se fragmenta em mil cores de cristal...", "💎✨💎", 0x00BCD4),
+            90:  ("⚡", "Relâmpagos rasgam o céu nas planícies...", "⚡🌩️⚡", 0xFFC107),
+            100: ("🗿", "A terra treme sob cada passo de gigantes...", "🗿🏔️🗿", 0x795548),
+        }
+        flavor = reino_flavor.get(found_world, ("🌐", "O portal se abre diante de você...", "🌀✨🌀", 0x607D8B))
+        world_emoji, flavor_text, decoration, color_int = flavor
 
-        # Auto-discover all pre-discovered locations of this world on arrival
+        # Detectar se tem montaria ativa para personalizar a mensagem
+        mount = player.get("mount")
+        if mount:
+            travel_intro = f"*Você sobe em seu(sua) **{mount}** e parte em direção a {world_name}...*"
+            travel_icon = "🐎"
+        else:
+            travel_intro = f"*Você ajusta sua mochila e parte em direção a {world_name}...*"
+            travel_icon = "🚶"
+
+        # FASE 1 — Partida
+        embed_go = discord.Embed(
+            title=f"{travel_icon} Partindo para {world_name}...",
+            description=travel_intro,
+            color=discord.Color.from_rgb(80, 80, 80)
+        )
+        embed_go.add_field(name="​", value=f"```\n⊰ {decoration} ⊱\n```", inline=False)
+        embed_go.set_footer(text="Iniciando viagem...")
+        msg_travel = await message.channel.send(embed=embed_go)
+        await asyncio.sleep(1.2)
+
+        # FASE 2 — Em trânsito
+        embed_mid = discord.Embed(
+            title=f"🌀 Em viagem... {decoration}",
+            description=f"*{flavor_text}*",
+            color=discord.Color(color_int)
+        )
+        embed_mid.add_field(name="\u200b", value=(
+            f"```\n  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n"
+            f"  \u2502  {decoration:^25} \u2502\n"
+            f"  \u2502  Destino: {world_name[:15]:<15} \u2502\n"
+            f"  \u2502  Reino N\u00ba {found_world:<15} \u2502\n"
+            f"  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```"
+        ), inline=False)
+        embed_mid.set_footer(text="Quase lá...")
+        await msg_travel.edit(embed=embed_mid)
+        await asyncio.sleep(1.5)
+
+        # FASE 3 — Chegada épica
+        # Buscar pets disponíveis neste reino
+        all_pets_here = []
+        for p_world, p_list in (list(PETS.items()) + list(PETS_EXTRA.items())):
+            if p_world == found_world:
+                all_pets_here.extend(p_list)
+        # Também PETS_NOVOS_REINOS
+        if found_world in PETS_NOVOS_REINOS:
+            all_pets_here.extend(PETS_NOVOS_REINOS[found_world])
+
+        pets_preview = ""
+        if all_pets_here:
+            shown = all_pets_here[:4]
+            pets_preview = "  ".join(f"{p['emoji']} {p['name']}" for p in shown)
+            if len(all_pets_here) > 4:
+                pets_preview += f"  *(+{len(all_pets_here)-4} mais)*"
+
+        embed_arrive = discord.Embed(
+            title=f"{world_emoji} Você chegou em {world_name}!",
+            description=(
+                f"*O portal fecha-se atrás de você. "
+                f"O ar de **{world_name}** tem um sabor único..."
+                f"\n\n{flavor_text}"
+            ),
+            color=discord.Color(color_int)
+        )
+        embed_arrive.add_field(name="📍 Reino", value=f"**{world_name}** (Nº {found_world})", inline=True)
+        if mount:
+            mount_data = get_pet_mount_data(mount)
+            if mount_data:
+                embed_arrive.add_field(
+                    name="🐎 Montaria",
+                    value=f"**{mount}** — DEF +{mount_data['mount_bonus_def']} | Spd +{mount_data['mount_bonus_spd']}",
+                    inline=True
+                )
+        if pets_preview:
+            embed_arrive.add_field(
+                name=f"🐾 Criaturas deste Reino ({len(all_pets_here)} tipos)",
+                value=pets_preview,
+                inline=False
+            )
+            embed_arrive.add_field(
+                name="💡 Dica",
+                value="Use `explorar` para encontrar pets deste reino! Use `pokédex` para ver todos os pets.",
+                inline=False
+            )
+        embed_arrive.set_footer(text=f"Use `explorar` para começar | `pokédex` para ver pets | `abrir mapa` para navegar")
+        await msg_travel.edit(embed=embed_arrive)
+
+        # Auto-discover locations
         disc = player.get("discovered_map", {})
         key = str(found_world)
         if key not in disc:
@@ -25701,11 +25904,182 @@ async def handle_new_commands(message):
             player2["discovered_map"] = disc
             save_player_db(uid, player2)
             for nloc in newly_found:
-                embed.add_field(name="🗺️ Descoberta!", value=f"**{nloc['name']}** adicionado ao mapa!", inline=False)
+                disc_embed = discord.Embed(
+                    title="🗺️ Local Descoberto!",
+                    description=f"**{nloc['name']}** foi adicionado ao seu mapa!",
+                    color=discord.Color.gold()
+                )
+                await message.channel.send(embed=disc_embed)
             player["discovered_map"] = disc
             save_player_db(uid, player)
-            embed.add_field(name="🗺️ Descoberta!", value=f"Local adicionado ao mapa!", inline=False)
+
+    # ===== POKÉDEX DE PETS =====
+    elif content in ["pokédex", "pokedex", "lista pets", "todos os pets", "catálogo pets", "catalogo pets"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+
+        # Coletar todos os pets do jogador
+        my_pets = set()
+        if player.get("pet"):
+            my_pets.add(player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name", ""))
+        for p in player.get("pets_list", []):
+            my_pets.add(p.get("name", "") if isinstance(p, dict) else str(p))
+
+        # Decidir quais pets mostrar: do reino atual se tiver viajado, senão todos
+        current_world_id = player.get("current_world")
+        player_worlds = [int(w) for w in player.get("worlds", [1])]
+
+        # Coletar pets por reino visitado
+        pets_by_world = {}
+        for w_id, p_list in PETS.items():
+            if w_id in player_worlds:
+                wname = WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")
+                pets_by_world.setdefault(wname, []).extend(p_list)
+        for w_id, p_list in PETS_EXTRA.items():
+            if w_id in player_worlds:
+                wname = WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")
+                pets_by_world.setdefault(wname, []).extend(p_list)
+        for w_id, p_list in PETS_NOVOS_REINOS.items():
+            if w_id in player_worlds:
+                wname = WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")
+                pets_by_world.setdefault(wname, []).extend(p_list)
+
+        RARITY_COLORS = {
+            "Comum": "⚪", "Incomum": "🟢", "Raro": "🔵",
+            "Épico": "🟣", "Lendário": "🟡", "Mítico": "🔴",
+            "Ancestral": "🟤", "Divino": "✨", "Primordial": "🌌"
+        }
+
+        total_pets = sum(len(v) for v in pets_by_world.values())
+        header_embed = discord.Embed(
+            title="📖 POKÉDEX — Criaturas dos Reinos",
+            description=(
+                "*Seu caderno de aventureiro registra todas as criaturas encontradas nos reinos visitados.*\n\n"
+                f"🌍 **Reinos visitados:** {len(pets_by_world)}\n"
+                f"🐾 **Criaturas registradas:** {total_pets}\n"
+                f"✅ **Seus pets capturados:** {len(my_pets)}\n\n"
+                "*Use `viajar [reino]` para explorar novos reinos e desbloquear mais criaturas!*"
+            ),
+            color=discord.Color.from_rgb(255, 165, 0)
+        )
+        await message.channel.send(embed=header_embed)
+        await asyncio.sleep(0.3)
+
+        # Mostrar pets por reino (max 3 reinos por vez para não spammar)
+        shown_worlds = 0
+        for wname, pets in sorted(pets_by_world.items())[:6]:
+            embed = discord.Embed(
+                title=f"📍 {wname}",
+                color=discord.Color.teal()
+            )
+            lines = []
+            for p in pets:
+                captured = "✅" if p["name"] in my_pets else "🔲"
+                rarity_icon = RARITY_COLORS.get(p["rarity"], "❔")
+                mount_icon = "🐎" if p.get("can_mount") else "  "
+                lore_short = p.get("lore", "")[:60] + ("..." if len(p.get("lore","")) > 60 else "")
+                line = f"{captured} {p['emoji']} **{p['name']}** {rarity_icon} {mount_icon}\n"
+                if lore_short:
+                    line += f"   ┗ *{lore_short}*\n"
+                line += f"   ┗ ❤️ +{p['bonus_hp']} HP | ⚔️ +{p['bonus_atk']} ATK"
+                if p.get("can_mount"):
+                    line += f" | 🛡️ DEF+{p.get('mount_bonus_def',0)} SPD+{p.get('mount_bonus_spd',0)}"
+                lines.append(line)
+
+            # Chunk para evitar ultrapassar limite do Discord
+            chunk = "\n".join(lines[:5])
+            if len(chunk) > 1024:
+                chunk = chunk[:1020] + "..."
+            embed.description = chunk or "*(Sem criaturas registradas)*"
+            if len(pets) > 5:
+                embed.set_footer(text=f"+{len(pets)-5} criaturas neste reino | ✅ = capturado | 🐎 = montaria")
+            else:
+                embed.set_footer(text="✅ = capturado | 🔲 = não capturado | 🐎 = pode ser montaria")
+            await message.channel.send(embed=embed)
+            await asyncio.sleep(0.4)
+            shown_worlds += 1
+
+        if len(pets_by_world) > 6:
+            await message.channel.send(
+                f"📖 *Sua Pokédex tem **{len(pets_by_world)}** reinos registrados. "
+                f"Mostrando os primeiros 6. Visite mais reinos para expandir seu catálogo!*"
+            )
+        return
+
+    # ===== POKÉDEX — pet específico =====
+    elif content.startswith("pokédex ") or content.startswith("pokedex "):
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        query = content.split(maxsplit=1)[1].strip().lower()
+        found_pet_data = None
+        found_world_name = "Desconhecido"
+
+        all_sources = []
+        for w_id, p_list in PETS.items():
+            for p in p_list:
+                all_sources.append((p, WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")))
+        for w_id, p_list in PETS_EXTRA.items():
+            for p in p_list:
+                all_sources.append((p, WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")))
+        for w_id, p_list in PETS_NOVOS_REINOS.items():
+            for p in p_list:
+                all_sources.append((p, WORLD_NAMES_MAP.get(w_id, f"Reino {w_id}")))
+
+        for p, wname in all_sources:
+            if query in p["name"].lower():
+                found_pet_data = p
+                found_world_name = wname
+                break
+
+        if not found_pet_data:
+            await message.channel.send(f"❌ Pet **'{query}'** não encontrado na Pokédex. Use `pokédex` para ver todos os pets dos seus reinos.")
+            return
+
+        RARITY_COLORS_INT = {
+            "Comum": 0xAAAAAA, "Incomum": 0x2ECC71, "Raro": 0x3498DB,
+            "Épico": 0x9B59B6, "Lendário": 0xF1C40F, "Mítico": 0xE74C3C,
+            "Ancestral": 0x8B4513, "Divino": 0xFFD700, "Primordial": 0x1a0040
+        }
+        p = found_pet_data
+        color = RARITY_COLORS_INT.get(p["rarity"], 0x607D8B)
+
+        my_pets = set()
+        if player.get("pet"):
+            my_pets.add(player["pet"] if isinstance(player["pet"], str) else player["pet"].get("name",""))
+        for pp in player.get("pets_list", []):
+            my_pets.add(pp.get("name","") if isinstance(pp, dict) else str(pp))
+        captured = p["name"] in my_pets
+
+        embed = discord.Embed(
+            title=f"{p['emoji']} {p['name']}",
+            description=f"*{p.get('lore', 'Uma criatura misteriosa dos reinos...')}*",
+            color=discord.Color(color)
+        )
+        embed.add_field(name="🏆 Raridade", value=p["rarity"], inline=True)
+        embed.add_field(name="🌍 Reino de Origem", value=found_world_name, inline=True)
+        embed.add_field(name="✅ Status", value="**CAPTURADO!**" if captured else "Não capturado", inline=True)
+        embed.add_field(name="❤️ Bônus HP", value=f"`+{p['bonus_hp']}`", inline=True)
+        embed.add_field(name="⚔️ Bônus ATK", value=f"`+{p['bonus_atk']}`", inline=True)
+        if p.get("can_mount"):
+            mtype = get_mount_type(p["name"])
+            mbonus = MOUNT_TYPE_BONUSES.get(mtype, MOUNT_TYPE_BONUSES["generico"])
+            embed.add_field(
+                name="🐎 Montaria",
+                value=(
+                    f"**DEF:** +{p.get('mount_bonus_def',0)} | **SPD:** +{p.get('mount_bonus_spd',0)}\n"
+                    f"**Tipo:** {mbonus['desc']}"
+                ),
+                inline=False
+            )
+        else:
+            embed.add_field(name="🐎 Montaria", value="*Este pet não pode ser usado como montaria.*", inline=False)
+        embed.set_footer(text=f"Use 'explorar' no reino {found_world_name} para tentar capturar | 'montar {p['name']}' para cavalgar")
         await message.channel.send(embed=embed)
+        return
 
     # ===== MISSÃO MORAL =====
     elif content in ["missão moral", "missao moral", "quest moral", "missão alinhamento"]:
@@ -30176,6 +30550,9 @@ async def handle_montaria(message):
         player["mount"] = found_pet
         save_player_db(uid, player)
 
+        mtype = get_mount_type(found_pet)
+        mtype_bonus = MOUNT_TYPE_BONUSES.get(mtype, MOUNT_TYPE_BONUSES["generico"])
+
         embed = discord.Embed(
             title="🐎 MONTARIA EQUIPADA!",
             description=f"*'Você sobe em **{found_pet}** e sente o poder da criatura sob você!'*",
@@ -30185,10 +30562,30 @@ async def handle_montaria(message):
         embed.add_field(name="🛡️ DEF Bônus", value=f"`+{mount_data['mount_bonus_def']}`", inline=True)
         embed.add_field(name="💨 Velocidade", value=f"`+{mount_data['mount_bonus_spd']}`", inline=True)
         embed.add_field(
-            name="✅ Efeito Ativo",
-            value="*Sua montaria te acompanha automaticamente em batalhas de boss, adicionando bônus de DEF!*",
+            name="⭐ Bônus Especial de Cavalgar",
+            value=f"*{mtype_bonus['desc']}*",
             inline=False
         )
+        # Montar bônus ATK extra se aplicável
+        if mtype_bonus.get("bonus_atk_pct"):
+            embed.add_field(name="⚔️ ATK Extra", value=f"+{int(mtype_bonus['bonus_atk_pct']*100)}% ATK ao cavalgar", inline=True)
+        if mtype_bonus.get("crit_bonus"):
+            embed.add_field(name="🎯 Crítico Extra", value=f"+{mtype_bonus['crit_bonus']}% chance crítico", inline=True)
+        if mtype_bonus.get("mana_bonus_pct"):
+            embed.add_field(name="💙 Mana Extra", value=f"+{int(mtype_bonus['mana_bonus_pct']*100)}% Mana Máx", inline=True)
+        if mtype_bonus.get("xp_bonus_pct"):
+            embed.add_field(name="⭐ XP Extra", value=f"+{int(mtype_bonus['xp_bonus_pct']*100)}% XP ganho", inline=True)
+        if mtype_bonus.get("bonus_hp_regen"):
+            embed.add_field(name="❤️ Regen HP", value=f"+{mtype_bonus['bonus_hp_regen']} HP/turno", inline=True)
+        embed.add_field(
+            name="✅ Efeitos Ativos",
+            value=(
+                "*Sua montaria te acompanha automaticamente em batalhas de boss!*\n"
+                "*Use `pokédex <nome>` para ver detalhes desta criatura.*"
+            ),
+            inline=False
+        )
+        embed.set_footer(text="desmontar | ver montaria | cavalgar | pokédex")
         await message.channel.send(embed=embed)
         return
 
@@ -30204,6 +30601,85 @@ async def handle_montaria(message):
         player["mount"] = None
         save_player_db(uid, player)
         await message.channel.send(f"🐎 Montaria **{current_mount}** removida. *Você desce do seu companheiro.*")
+        return
+
+    # ---- cavalgar ----
+    if content in ["cavalgar", "andar na montaria", "passear montaria"]:
+        player = get_player(uid)
+        if not player:
+            await message.channel.send("❌ Crie seu personagem primeiro!")
+            return
+        current_mount = player.get("mount")
+        if not current_mount:
+            await message.channel.send(
+                "❌ Você não tem montaria ativa!\n"
+                "Use `montar [nome do pet]` para equipar uma montaria primeiro."
+            )
+            return
+        mount_data = get_pet_mount_data(current_mount)
+        mtype = get_mount_type(current_mount)
+        mtype_bonus = MOUNT_TYPE_BONUSES.get(mtype, MOUNT_TYPE_BONUSES["generico"])
+
+        # Verificar cooldown de cavalgar (5 minutos)
+        last_ride = player.get("last_ride", 0)
+        now = time.time()
+        if now - last_ride < 300:
+            rest = int(300 - (now - last_ride))
+            await message.channel.send(f"🐎 Você acabou de cavalgar! Aguarde `{rest//60}m {rest%60}s`.")
+            return
+
+        player["last_ride"] = now
+        # Aplicar bônus temporários de cavalgar (30 minutos = 1800s)
+        active_effects = player.get("active_effects", {})
+
+        xp_gained = random.randint(20, 50) + mount_data.get("mount_bonus_spd", 0) // 2
+        coins_gained = random.randint(10, 30)
+
+        # Bônus baseados no tipo
+        bonuses_applied = []
+        if mtype_bonus.get("bonus_hp_regen"):
+            active_effects["ride_hp_regen"] = {"value": mtype_bonus["bonus_hp_regen"], "expires": now + 1800}
+            bonuses_applied.append(f"❤️ Regenera {mtype_bonus['bonus_hp_regen']} HP/turno por 30min")
+        if mtype_bonus.get("xp_bonus_pct"):
+            active_effects["ride_xp_bonus"] = {"value": mtype_bonus["xp_bonus_pct"], "expires": now + 1800}
+            bonuses_applied.append(f"⭐ +{int(mtype_bonus['xp_bonus_pct']*100)}% XP por 30min")
+        if mtype_bonus.get("crit_bonus"):
+            active_effects["ride_crit"] = {"value": mtype_bonus["crit_bonus"], "expires": now + 1800}
+            bonuses_applied.append(f"🎯 +{mtype_bonus['crit_bonus']}% crítico por 30min")
+
+        player["active_effects"] = active_effects
+        player["xp"] = player.get("xp", 0) + xp_gained
+        player["coins"] = player.get("coins", 0) + coins_gained
+        save_player_db(uid, player)
+
+        # Frases de cavalgar por tipo
+        ride_msgs = {
+            "dragão":    "O dragão ruge enquanto você o guia entre as nuvens. Chamas dançam ao seu lado.",
+            "fenix":     "A Fênix eleva você acima das chamas. Suas penas incandescentes aquecem sua alma.",
+            "lobo":      "O lobo corre veloz entre as árvores. Você sente o vento cortando seu rosto.",
+            "unicornio": "O unicórnio galopa em trilhas de luz. Uma magia suave permeia o ar.",
+            "grifo":     "O grifo bate suas asas majestosas e decola. O mundo fica pequeno lá embaixo.",
+            "urso":      "O urso avança com poder impressionante. Cada passada abala o chão.",
+            "cavalo":    "O cavalo galopa livre pelos campos. Seus cascos ecoam como trovões.",
+            "touro":     "O touro carrega com fúria inabalável. Nada fica em seu caminho.",
+            "wyvern":    "A Wyvern planeja sobre o abismo. Sua cauda varre os inimigos.",
+            "generico":  "Você cavalga sua montaria com destreza. Uma sensação de liberdade te preenche.",
+        }
+        ride_desc = ride_msgs.get(mtype, ride_msgs["generico"])
+
+        embed = discord.Embed(
+            title=f"🐎 Cavalcando {current_mount}!",
+            description=f"*{ride_desc}*",
+            color=discord.Color.green()
+        )
+        embed.add_field(name="⭐ XP Ganho", value=f"`+{xp_gained}`", inline=True)
+        embed.add_field(name="💰 Moedas", value=f"`+{coins_gained}`", inline=True)
+        if bonuses_applied:
+            embed.add_field(name="✨ Bônus Ativados", value="\n".join(bonuses_applied), inline=False)
+        embed.add_field(name="🛡️ DEF da Montaria", value=f"+{mount_data.get('mount_bonus_def',0) if mount_data else 0}", inline=True)
+        embed.add_field(name="💨 Velocidade", value=f"+{mount_data.get('mount_bonus_spd',0) if mount_data else 0}", inline=True)
+        embed.set_footer(text="Cavalgar pode ser feito a cada 5 minutos | Bônus duram 30 min")
+        await message.channel.send(embed=embed)
         return
 
     # ---- ver montaria ----
