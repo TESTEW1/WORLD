@@ -21,6 +21,8 @@ TOKEN = os.getenv("TOKEN")
 DB_FILE = "world_csi.db"
 CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
+MUNDO_PROPRIO_CHANNELS = {}
+BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=seu_discord_id
 
 
 # ================= CLASSES =================
@@ -25328,7 +25330,6 @@ class ScenarioChoiceView(discord.ui.View):
 
 
 # ================= COMANDOS NOVOS =================
-BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=seu_discord_id
 
 @bot.listen("on_message")
 async def handle_new_commands(message):
@@ -26386,25 +26387,6 @@ async def handle_new_commands(message):
             embed.add_field(name="🆙 Level Up!", value=f"Nível **{p2['level']}**!", inline=False)
         embed.set_footer(text=f"Próximo turno em 5 minutos. | Use 'ver emprego' para detalhes do cargo")
         await message.channel.send(embed=embed)
-
-    elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
-        player = get_player(uid)
-        if not player:
-            return
-        job = player.get("job")
-        if not job:
-            await message.channel.send("💼 Você não tem emprego para largar!")
-            return
-        jd = JOBS[job]
-        player["job"] = None
-        save_player_db(uid, player)
-        await message.channel.send(
-            embed=discord.Embed(
-                title=f"{jd['emoji']} Você largou o emprego de **{job}**",
-                description=f"*Você entrega sua ferramenta e parte. Um novo capítulo começa.*",
-                color=discord.Color.greyple()
-            )
-        )
 
     elif content in ["largar emprego", "demissao", "demissão", "sair do emprego"]:
         player = get_player(uid)
@@ -29311,7 +29293,6 @@ NPC_NAME_MAP = {
 }
 
 # Dicionário de canais de mundo próprio: {user_id: channel_id}
-MUNDO_PROPRIO_CHANNELS = {}
 
 # ================= HANDLER: CRIAR MUNDO PRÓPRIO + ADICIONAR JOGADOR =================
 @bot.listen("on_message")
