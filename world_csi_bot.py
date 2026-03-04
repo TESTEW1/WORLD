@@ -33446,18 +33446,32 @@ def get_god_by_name(query: str):
             return nome, dados
     return None, None
 
+# ── Persistência: todos os dados de deuses ficam dentro de active_effects ──
+# Isso garante que são salvos no banco SQLite existente sem alterar o schema.
+
+def _god_data(player):
+    """Retorna (e cria se necessário) o sub-dict de deuses dentro de active_effects."""
+    ae = player.setdefault("active_effects", {})
+    if "_deuses" not in ae:
+        ae["_deuses"] = {"status": {}, "quests": {}, "god_kill_atk": 0}
+    # Garante chaves caso o dict já exista mas incompleto
+    ae["_deuses"].setdefault("status", {})
+    ae["_deuses"].setdefault("quests", {})
+    ae["_deuses"].setdefault("god_kill_atk", 0)
+    return ae["_deuses"]
+
 def god_status(player, nome):
-    return player.get("deuses_status", {}).get(nome, "disponivel")
+    return _god_data(player)["status"].get(nome, "disponivel")
 
 def set_god_status(player, nome, status):
-    player.setdefault("deuses_status", {})[nome] = status
+    _god_data(player)["status"][nome] = status
 
 def get_god_quest(player, nome):
-    return player.get("quests_divinas", {}).get(nome)
+    return _god_data(player)["quests"].get(nome)
 
 def start_god_quest(player, nome):
     d = DEUSES[nome]
-    player.setdefault("quests_divinas", {})[nome] = {
+    _god_data(player)["quests"][nome] = {
         "progresso": 0,
         "objetivo": d["quest_objetivo"],
         "tipo": d["quest_tipo"],
@@ -33466,7 +33480,7 @@ def start_god_quest(player, nome):
     }
 
 def get_allied_gods(player):
-    return [n for n, s in player.get("deuses_status", {}).items() if s == "aliado"]
+    return [n for n, s in _god_data(player)["status"].items() if s == "aliado"]
 
 def advance_god_quests(player, tipo_acao: str, reino_atual: int):
     """
@@ -33475,7 +33489,7 @@ def advance_god_quests(player, tipo_acao: str, reino_atual: int):
     Retorna lista de nomes de quests que foram completadas agora.
     """
     completadas = []
-    quests = player.get("quests_divinas", {})
+    quests = _god_data(player)["quests"]
     modificado = False
     for nome, q in quests.items():
         if q.get("completa"):
@@ -33483,11 +33497,9 @@ def advance_god_quests(player, tipo_acao: str, reino_atual: int):
         tipo_req = q.get("tipo", "boss_kill")
         reino_req = q.get("reino_req", 0)
 
-        # Verifica se o reino está próximo o suficiente (±40 níveis)
         if abs(reino_atual - reino_req) > 40:
             continue
 
-        # Verifica se a ação bate com o tipo da quest
         aceita = False
         if tipo_req in ("boss_kill", "caçar") and tipo_acao in ("caçar", "explorar", "minerar"):
             aceita = True
@@ -33502,8 +33514,6 @@ def advance_god_quests(player, tipo_acao: str, reino_atual: int):
             if q["progresso"] >= q["objetivo"]:
                 q["completa"] = True
                 completadas.append(nome)
-    if modificado:
-        player["quests_divinas"] = quests
     return completadas
 
 
@@ -33563,7 +33573,9 @@ class GodDecisionView(discord.ui.View):
         bonus_hp = 50 + player["level"] * 2
         player["max_hp"] = player.get("max_hp", 100) + bonus_hp
         player["hp"] = min(player.get("hp", 1), player["max_hp"])
-        player["god_kill_atk"] = player.get("god_kill_atk", 0) + bonus_atk
+        # Guardar bônus de ATK dentro de active_effects/_deuses
+        gd = _god_data(player)
+        gd["god_kill_atk"] = gd.get("god_kill_atk", 0) + bonus_atk
         set_god_status(player, nome, "finalizado")
         save_player_db(self.user_id, player)
         embed = discord.Embed(
@@ -33757,7 +33769,6 @@ async def handle_god_commands(message):
         if message.author.id != ADMIN_ID and str(message.author.id) != BOT_OWNER_ID:
             await message.channel.send("❌ Apenas administradores podem usar `!finalizarquest`.")
             return
-        # Target: pode ser @user ou próprio
         target_id = uid
         if message.mentions:
             target_id = str(message.mentions[0].id)
@@ -33765,7 +33776,7 @@ async def handle_god_commands(message):
         if not player:
             await message.channel.send("❌ Jogador não encontrado.")
             return
-        quests = player.get("quests_divinas", {})
+        quests = _god_data(player)["quests"]
         ativas = [n for n, q in quests.items() if not q.get("completa")]
         if not ativas:
             await message.channel.send("⚠️ Nenhuma quest divina ativa encontrada para este jogador.")
@@ -33775,7 +33786,6 @@ async def handle_god_commands(message):
             quests[nome]["progresso"] = quests[nome]["objetivo"]
             quests[nome]["completa"] = True
             completadas.append(nome)
-        player["quests_divinas"] = quests
         save_player_db(target_id, player)
         nomes_txt = ", ".join(f"{DEUSES.get(n, {}).get('emoji','✨')} **{n}**" for n in completadas)
         embed = discord.Embed(
@@ -34129,14 +34139,15 @@ async def handle_god_commands(message):
         return
 
     # ── Tracking automático de quests ao explorar/caçar/minerar ─────────────
-    # Este bloco DEVE rodar DEPOIS dos comandos acima mas ANTES do return final
-    if any(word in content for word in ["explorar", "vou explorar", "caçar", "cacar", "lutar", "atacar", "batalhar", "minerar", "coletar", "minerar"]):
+    if any(word in content for word in ["explorar", "vou explorar", "caçar", "cacar", "lutar", "atacar", "batalhar", "minerar", "coletar"]):
         player = get_player(uid)
         if not player:
             return
+        quests = _god_data(player)["quests"]
+        if not any(not q.get("completa") for q in quests.values()):
+            return
         cw = player.get("current_world", 1)
 
-        # Determina tipo de ação
         if any(w in content for w in ["minerar", "coletar"]):
             tipo_acao = "minerar"
         elif any(w in content for w in ["caçar", "cacar", "lutar", "atacar", "batalhar"]):
@@ -34145,8 +34156,7 @@ async def handle_god_commands(message):
             tipo_acao = "explorar"
 
         completadas = advance_god_quests(player, tipo_acao, cw)
-        if completadas or any(not get_god_quest(player, n) is None and not get_god_quest(player, n).get("completa") for n in player.get("quests_divinas", {})):
-            save_player_db(uid, player)
+        save_player_db(uid, player)
 
         for nome_c in completadas:
             d = DEUSES.get(nome_c, {})
