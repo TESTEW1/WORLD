@@ -33036,7 +33036,7 @@ DEUSES = {
     "Fyranor": {
         "titulo": "O Guardião do Vulcão", "emoji": "🌋", "categoria": "Elemental",
         "reino_id": 40, "reino_nome": "Campos Vulcânicos de Pyreth",
-        "hp": 3300, "atk": 255, "def": 80, "xp": 9000, "coins": (400, 900), "cor": 0xFF4500,
+        "hp": 5500, "atk": 380, "def": 110, "xp": 9000, "coins": (400, 900), "cor": 0xFF4500,
         "descricao": "Contem e canaliza a fúria dos vulcões. Seu corpo é magma solidificado.",
         "lore": "Fyranor surgiu no exato momento em que o primeiro vulcão de Valtherra entrou em erupção. Os Ignístios o veneram como protetor; os Pyroclastas o temem como força ancestral. Quem o confronta sente o chão ferver sob os pés antes mesmo de vê-lo.",
         "intro": "O vulcão que parecia extinto explode sem aviso. Magma escorre pelas paredes como sangue. Uma figura colossal de rocha e fogo abre olhos de brasa.\n**'Você ousou entrar no meu santuário. Agora arde junto com ele.'**",
@@ -33060,7 +33060,7 @@ DEUSES = {
     "Thalmyra": {
         "titulo": "A Guardiã da Floresta", "emoji": "🌿", "categoria": "Natural",
         "reino_id": 10, "reino_nome": "Floresta de Sylvenmara",
-        "hp": 2700, "atk": 189, "def": 63, "xp": 5400, "coins": (200, 500), "cor": 0x228B22,
+        "hp": 4500, "atk": 270, "def": 100, "xp": 5400, "coins": (200, 500), "cor": 0x228B22,
         "descricao": "Protetora das florestas e de todos os seres que nelas habitam.",
         "lore": "Thalmyra teceu as primeiras raízes de Sylvenmara com seus próprios cabelos. Os Flordílios a chamam de mãe da vegetação; os Silvanos juram ter ouvido sua voz no vento. Ela não ataca por raiva — ataca para proteger o que é seu.",
         "intro": "A floresta para de respirar. Cada folha, cada galho, cada raiz se curva em direção a uma figura feita de árvore e luz verde.\n**'Esta floresta não é sua para profanar. Mostre-me que você é digno de caminhar nela.'**",
@@ -33084,7 +33084,7 @@ DEUSES = {
     "Aqualis": {
         "titulo": "O Senhor das Correntes", "emoji": "🌊", "categoria": "Elemental",
         "reino_id": 110, "reino_nome": "Arquipélago de Quorval",
-        "hp": 7200, "atk": 405, "def": 135, "xp": 18000, "coins": (700, 1600), "cor": 0x1E90FF,
+        "hp": 11500, "atk": 580, "def": 185, "xp": 18000, "coins": (700, 1600), "cor": 0x1E90FF,
         "descricao": "Controla rios e lagos. As Sereias e Quorálidas dependem de sua benevolência.",
         "lore": "Aqualis foi o primeiro a sentir a sede da terra. Abriu suas mãos e das palmas jorrou o primeiro rio de Valtherra. Ele não fala muito — mas quando o oceano ruge, é porque ele está irritado.",
         "intro": "O arquipélago inteiro treme. Ondas sobrenaturais formam uma figura humanoide de água pura e turquesa.\n**'Você atravessou meus mares sem permissão. Agora mergulhe — de verdade.'**",
@@ -33108,7 +33108,7 @@ DEUSES = {
     "Ventharis": {
         "titulo": "O Espírito dos Céus", "emoji": "✨", "categoria": "Celestial",
         "reino_id": 160, "reino_nome": "Céu de Venthar — Gavídeos",
-        "hp": 9000, "atk": 477, "def": 159, "xp": 22500, "coins": (800, 1900), "cor": 0x87CEEB,
+        "hp": 14000, "atk": 680, "def": 215, "xp": 22500, "coins": (800, 1900), "cor": 0x87CEEB,
         "descricao": "Protege os céus e todos que os atravessam. Gavídeos e Dragões o veneram.",
         "lore": "Ventharis não nasceu — ascendeu. Era o primeiro ser de Valtherra a alcançar as nuvens mais altas e descobrir o que há além delas. Desde então vigia os céus, testando quem ousa voar.",
         "intro": "O céu escurece sem nuvens. Relâmpagos silenciosos cruzam o horizonte. Uma entidade de vento e luz desce em espiral.\n**'O céu não pertence a qualquer ser que salte alto o suficiente. Prove que pode sustentar o voo.'**",
@@ -33132,7 +33132,7 @@ DEUSES = {
     "Georrus": {
         "titulo": "A Rocha Imortal", "emoji": "⛏️", "categoria": "Elemental",
         "reino_id": 100, "reino_nome": "Xaltharis — Nação Xaltariana",
-        "hp": 8700, "atk": 459, "def": 153, "xp": 21000, "coins": (750, 1800), "cor": 0x8B4513,
+        "hp": 14000, "atk": 560, "def": 280, "xp": 21000, "coins": (750, 1800), "cor": 0x8B4513,
         "descricao": "Representa a força da terra e os segredos das cavernas.",
         "lore": "Georrus é mais velho do que qualquer montanha. Dizem que ele É a montanha — que cada pico de Valtherra é uma parte de seu corpo. Encontrá-lo nas profundezas significa que você foi longe o suficiente.",
         "intro": "O teto da caverna range. Estalactites caem. Do centro da rocha sólida, uma figura de pedra pura se separa da parede lentamente.\n**'A terra não foi feita para ser cruzada. Foi feita para ser respeitada. Vamos ver se você entende isso.'**",
@@ -33156,7 +33156,7 @@ DEUSES = {
     "Elaris": {
         "titulo": "A Senhora da Cura", "emoji": "💚", "categoria": "Vida",
         "reino_id": 130, "reino_nome": "Planícies de Velkar",
-        "hp": 7800, "atk": 387, "def": 129, "xp": 19500, "coins": (720, 1750), "cor": 0x00FF7F,
+        "hp": 13000, "atk": 500, "def": 220, "xp": 19500, "coins": (720, 1750), "cor": 0x00FF7F,
         "descricao": "Provedora de cura e esperança. Sythranos e Velkarianos a veneram.",
         "lore": "Elaris chorou quando o primeiro ser de Valtherra morreu de doença. Das suas lágrimas nasceram as primeiras ervas medicinais. Ela não é uma deusa gentil — é uma deusa justa.",
         "intro": "Uma luz suave invade o campo de batalha, mais quente que o sol. Uma mulher vestida de luz verde te observa com olhos que viram milênios de sofrimento.\n**'Você veio até mim com feridas no corpo. Agora testarei as feridas na alma.'**",
@@ -33180,7 +33180,7 @@ DEUSES = {
     "Nyxaris": {
         "titulo": "O Mestre dos Espirituais", "emoji": "🌑", "categoria": "Espiritual",
         "reino_id": 330, "reino_nome": "Noxtherion — Reino dos Vampiros",
-        "hp": 15000, "atk": 711, "def": 237, "xp": 37500, "coins": (1300, 3000), "cor": 0x4B0082,
+        "hp": 26000, "atk": 1050, "def": 350, "xp": 37500, "coins": (1300, 3000), "cor": 0x4B0082,
         "descricao": "Guia almas perdidas. Umbrotides e Nocturnais o reverenciam.",
         "lore": "Nyxaris existe no espaço entre o que é vivo e o que foi. Cada alma que morre em Valtherra passa por seus olhos por uma fração de segundo — tempo suficiente para ele julgar o que merece continuar.",
         "intro": "A noite cai instantaneamente. Estrelas aparecem, mas são negras — buracos na luz. Uma voz vem de todo lugar e de lugar nenhum:\n**'Você cruzou o véu entre vivos e mortos para me encontrar. Vamos ver se é digno de voltar.'**",
@@ -33204,7 +33204,7 @@ DEUSES = {
     "Morthrak": {
         "titulo": "O Rei da Eternidade", "emoji": "💀", "categoria": "Morte",
         "reino_id": 62, "reino_nome": "Pântano das Almas Perdidas",
-        "hp": 4200, "atk": 306, "def": 102, "xp": 10500, "coins": (450, 1050), "cor": 0x2F4F4F,
+        "hp": 7000, "atk": 440, "def": 150, "xp": 10500, "coins": (450, 1050), "cor": 0x2F4F4F,
         "descricao": "Mantém o equilíbrio entre vida e morte.",
         "lore": "Morthrak não escolheu ser o guardião da morte — ele simplesmente foi o último a morrer no mundo anterior. Não há raiva nele. Há apenas a paciência absoluta de quem sabe que tudo, eventualmente, passa por ele.",
         "intro": "O pântano para. Uma figura em manto negro surge das águas negras sem fazer ondas. Onde ela pisa, flores mortas brotam e imediatamente murcham.\n**'Vida e morte são a mesma moeda. Vamos ver qual face você representa.'**",
@@ -33228,7 +33228,7 @@ DEUSES = {
     "Altheron": {
         "titulo": "O Mestre da Magia", "emoji": "🔮", "categoria": "Conhecimento",
         "reino_id": 50, "reino_nome": "Plano do Vazio de Valtherra",
-        "hp": 4500, "atk": 360, "def": 120, "xp": 11250, "coins": (480, 1100), "cor": 0x9400D3,
+        "hp": 6500, "atk": 550, "def": 140, "xp": 11250, "coins": (480, 1100), "cor": 0x9400D3,
         "descricao": "Protetor e expansor do conhecimento mágico.",
         "lore": "Altheron escreveu o primeiro feitiço antes de qualquer civilização existir — com os dedos no ar, em uma língua que só ele conhecia. A Coluna de Altheron em Arcenveil é apenas uma cópia apagada de sua biblioteca real.",
         "intro": "O ar cheira a ozônio e algo muito mais antigo. Runas flutuam ao seu redor antes mesmo de você ver quem as projeta. Um mago de olhos que refletem dimensões inteiras te observa.\n**'Você tem a audácia de buscar o mestre da magia. Vamos ver se tem o conhecimento para isso.'**",
@@ -33252,7 +33252,7 @@ DEUSES = {
     "Chronis": {
         "titulo": "O Guardião do Tempo", "emoji": "⏳", "categoria": "Conhecimento",
         "reino_id": 140, "reino_nome": "Chronoveil",
-        "hp": 8100, "atk": 423, "def": 141, "xp": 20250, "coins": (740, 1780), "cor": 0xFFD700,
+        "hp": 12500, "atk": 630, "def": 195, "xp": 20250, "coins": (740, 1780), "cor": 0xFFD700,
         "descricao": "Controla o fluxo do tempo para evitar catástrofes.",
         "lore": "Chronis viu Valtherra nascer e sabe como ela termina. Não revela o fim — apenas testa se você tem o que é necessário para adiá-lo.",
         "intro": "O tempo para, literalmente. Gotas de chuva ficam suspensas. Uma figura que parece velha e jovem ao mesmo tempo te olha de um ponto fixo no espaço.\n**'Você cruzou o véu do tempo. Provar que merece isso exigirá mais do que força.'**",
@@ -33276,7 +33276,7 @@ DEUSES = {
     "Eryndra": {
         "titulo": "A Tecelã dos Destinos", "emoji": "🕸️", "categoria": "Conhecimento",
         "reino_id": 90, "reino_nome": "Estepes de Orrathis",
-        "hp": 7500, "atk": 369, "def": 123, "xp": 18750, "coins": (715, 1725), "cor": 0xDA70D6,
+        "hp": 10000, "atk": 540, "def": 165, "xp": 18750, "coins": (715, 1725), "cor": 0xDA70D6,
         "descricao": "Cria os destinos de mortais e imortais.",
         "lore": "Eryndra não age — ela já agiu. Cada decisão que você tomou até aqui estava nos fios que ela teceu. Confrontá-la é confrontar seu próprio destino.",
         "intro": "Fios invisíveis aparecem no ar ao seu redor, iluminados por uma luz âmbar. Uma mulher de olhos de ouro e mãos que se movem sem parar te olha.\n**'Você chegou até mim. Mas isso sempre estava nos fios. O que você fará com o que eu não teci ainda?'**",
@@ -33300,7 +33300,7 @@ DEUSES = {
     "Feralis": {
         "titulo": "O Deus da Ira Selvagem", "emoji": "🔥", "categoria": "Caos",
         "reino_id": 120, "reino_nome": "Wasteland de Feraxis",
-        "hp": 7200, "atk": 432, "def": 144, "xp": 18000, "coins": (700, 1680), "cor": 0xDC143C,
+        "hp": 10000, "atk": 650, "def": 160, "xp": 18000, "coins": (700, 1680), "cor": 0xDC143C,
         "descricao": "Traz destruição para purificar terras antigas.",
         "lore": "Feralis não é mal — é necessário. Ele aparece quando uma terra ficou corrompida demais para ser salva. O Wasteland de Feraxis foi purificado por ele, não destruído.",
         "intro": "O chão do wasteland racha. Chamas irrompem sem combustível. Uma figura de puro fogo e raiva toma forma.\n**'Você quer destruição? Então prove que pode sobreviver ao que eu trouxer.'**",
@@ -33324,7 +33324,7 @@ DEUSES = {
     "Zenthyr": {
         "titulo": "O Juiz Eterno", "emoji": "⚖️", "categoria": "Ordem",
         "reino_id": 100, "reino_nome": "Xaltharis — Nação Xaltariana",
-        "hp": 8400, "atk": 441, "def": 147, "xp": 21000, "coins": (760, 1830), "cor": 0xFFFFFF,
+        "hp": 12000, "atk": 630, "def": 195, "xp": 21000, "coins": (760, 1830), "cor": 0xFFFFFF,
         "descricao": "Proporciona justiça imparcial.",
         "lore": "Zenthyr não pune — ele equilibra. Para cada ação há uma consequência exata, nem mais nem menos. Aqueles que buscam sua bênção precisam primeiro ser julgados.",
         "intro": "Uma balança imensa aparece no ar. Em um prato, todas as suas ações passadas. No outro, seu potencial futuro. Uma figura de manto branco e olhos vendados fala:\n**'Serei justo com você. Exatamente tão justo quanto você foi com o mundo.'**",
@@ -33348,7 +33348,7 @@ DEUSES = {
     "Lytheris": {
         "titulo": "A Dualidade da Harmonia", "emoji": "☯️", "categoria": "Dualidade",
         "reino_id": 320, "reino_nome": "Prismveil — Lúzidos",
-        "hp": 14700, "atk": 693, "def": 231, "xp": 36750, "coins": (1250, 2900), "cor": 0xC0C0C0,
+        "hp": 24000, "atk": 1000, "def": 320, "xp": 36750, "coins": (1250, 2900), "cor": 0xC0C0C0,
         "descricao": "Mantém equilíbrio entre luz e escuridão.",
         "lore": "Lytheris é dois em um — ou nenhum. Ela é luz quando o mundo precisa de esperança, e escuridão quando precisa de verdade. Confrontá-la significa confrontar as duas metades de si mesmo.",
         "intro": "Prismveil se divide em duas. Metade iluminada, metade em trevas. Uma figura que é literalmente duas — uma de luz, uma de sombra — caminha em sua direção.\n**'Você é luz? Escuridão? Nenhum dos dois? Mostre-me.'**",
@@ -33372,7 +33372,7 @@ DEUSES = {
     "Korrath": {
         "titulo": "O General Supremo", "emoji": "⚔️", "categoria": "Guerra",
         "reino_id": 80, "reino_nome": "Sombras Eternas",
-        "hp": 7200, "atk": 414, "def": 138, "xp": 18000, "coins": (700, 1680), "cor": 0xB22222,
+        "hp": 10500, "atk": 600, "def": 180, "xp": 18000, "coins": (700, 1680), "cor": 0xB22222,
         "descricao": "Inspira liderança em tempos de guerra.",
         "lore": "Korrath nunca perdeu uma batalha que considerou digna de lutar. Ele escolhe seus campos com cuidado, pois sabe que cada vitória sem propósito é um passo em direção à derrota final.",
         "intro": "Bandeiras de guerra aparecem de lugar nenhum. Um guerreiro em armadura negra absoluta bloqueia o caminho, imóvel como estátua.\n**'Você chegou ao campo de batalha do general supremo. Espero que esteja preparado para a guerra.'**",
@@ -33396,7 +33396,7 @@ DEUSES = {
     "Almira": {
         "titulo": "A Protetora da Diplomacia", "emoji": "🕊️", "categoria": "Paz",
         "reino_id": 180, "reino_nome": "Axis — Centro de Valtherra",
-        "hp": 9600, "atk": 477, "def": 159, "xp": 24000, "coins": (780, 1880), "cor": 0xF0E68C,
+        "hp": 13500, "atk": 650, "def": 220, "xp": 24000, "coins": (780, 1880), "cor": 0xF0E68C,
         "descricao": "Media conflitos entre raças.",
         "lore": "Almira encerrou a Guerra das Cinco Raças com três palavras que ninguém ouviu — porque se fossem ouvidas, a guerra teria continuado.",
         "intro": "Almira aparece ao seu lado, não na sua frente. Seus olhos dourados te avaliam com uma frieza honesta.\n**'Você poderia evitar esta batalha. Escolheu não evitar. Então prove que a batalha era necessária.'**",
@@ -33420,7 +33420,7 @@ DEUSES = {
     "Vorlath": {
         "titulo": "O Criador de Mundos", "emoji": "🌍", "categoria": "Criação",
         "reino_id": 170, "reino_nome": "Planos Absolutos de Valtherra",
-        "hp": 9300, "atk": 504, "def": 168, "xp": 23250, "coins": (800, 1920), "cor": 0x32CD32,
+        "hp": 15000, "atk": 710, "def": 225, "xp": 23250, "coins": (800, 1920), "cor": 0x32CD32,
         "descricao": "Expande os limites do universo.",
         "lore": "Vorlath não criou Valtherra — ele criou as condições para que Valtherra criasse a si mesma. Há uma diferença. E ele insiste nessa diferença.",
         "intro": "O chão ao redor começa a se reconfigurar. Montanhas crescem em segundos. Uma figura colossal que parece fazer parte do próprio terreno te olha com curiosidade.\n**'Você chegou ao criador de mundos. O que você criou que te trouxe até aqui?'**",
@@ -33444,7 +33444,7 @@ DEUSES = {
     "Nyxara": {
         "titulo": "A Destruidora dos Reinos", "emoji": "💥", "categoria": "Destruição",
         "reino_id": 300, "reino_nome": "O Olho do Multiverso",
-        "hp": 14100, "atk": 675, "def": 225, "xp": 35250, "coins": (1200, 2800), "cor": 0x8B0000,
+        "hp": 23000, "atk": 980, "def": 310, "xp": 35250, "coins": (1200, 2800), "cor": 0x8B0000,
         "descricao": "Encerra ciclos antigos para iniciar novos.",
         "lore": "Nyxara é a razão de civilizações desaparecerem sem vestígio. Não por maldade — por necessidade. Ela elimina o que ficou estagnado para dar lugar ao que pode crescer.",
         "intro": "Você chega ao Olho do Multiverso e vê a destruição de mil mundos acontecendo simultaneamente. Uma figura feminina de cabelos negros como buracos negros te observa.\n**'Você é um ciclo antigo ou um ciclo novo? Não importa — eu encerro os dois.'**",
@@ -33468,7 +33468,7 @@ DEUSES = {
     "Ignarys": {
         "titulo": "O Deus da Forja", "emoji": "🔨", "categoria": "Forja",
         "reino_id": 40, "reino_nome": "Campos Vulcânicos de Pyreth",
-        "hp": 3600, "atk": 279, "def": 93, "xp": 9000, "coins": (400, 900), "cor": 0xFF6347,
+        "hp": 5800, "atk": 430, "def": 130, "xp": 9000, "coins": (400, 900), "cor": 0xFF6347,
         "descricao": "Criador de armas e ferramentas divinas.",
         "lore": "Ignarys forjou a primeira espada de Valtherra numa bigorna que ainda existe, enterrada 40 metros abaixo da Forja Sagrada dos Anões. Cada arma que criou carrega um pedaço de sua alma.",
         "intro": "O calor da Forja Sagrada dobra. Um anão colossal segurando um martelo que brilha como um sol toma forma.\n**'Você quer o poder da forja? Então aguente o calor que o forja.'**",
@@ -33492,7 +33492,7 @@ DEUSES = {
     "Arenys": {
         "titulo": "A Senhora dos Espelhos", "emoji": "🪞", "categoria": "Conhecimento",
         "reino_id": 310, "reino_nome": "Plano Astral Inferior",
-        "hp": 13800, "atk": 657, "def": 219, "xp": 34500, "coins": (1150, 2700), "cor": 0xE0E0E0,
+        "hp": 20000, "atk": 880, "def": 290, "xp": 34500, "coins": (1150, 2700), "cor": 0xE0E0E0,
         "descricao": "Reflete verdades ocultas. Velkarianos e Nykarons a buscam para autoconhecimento.",
         "lore": "Arenys nunca mente — mas também nunca diz a verdade diretamente. Ela mostra. Cada espelho em seu domínio reflete não o que você é, mas o que você se recusa a ver.",
         "intro": "Você entra numa sala de espelhos infinita. Em cada reflexo, uma versão diferente de você — algumas grandiosas, algumas terríveis. Uma mulher que parece ser cada reflexo simultaneamente te observa.\n**'Qual desses é o verdadeiro você? Prove para mim — e para você mesmo.'**",
@@ -33516,7 +33516,7 @@ DEUSES = {
     "Esmirion": {
         "titulo": "O Observador das Estrelas", "emoji": "⭐", "categoria": "Celestial",
         "reino_id": 410, "reino_nome": "Nebulosa da Consciência",
-        "hp": 18000, "atk": 828, "def": 276, "xp": 45000, "coins": (1600, 3700), "cor": 0x191970,
+        "hp": 33000, "atk": 1300, "def": 430, "xp": 45000, "coins": (1600, 3700), "cor": 0x191970,
         "descricao": "Guia viajantes e estudiosos pelo cosmos. Lunárquicos e Gavídeos o seguem como guia celestial.",
         "lore": "Esmirion existe há tanto tempo que se lembra de quando havia apenas uma estrela. Cada constelação de Valtherra tem um nome que ele deu, e cada nome é a história de alguém que valeu ser lembrado.",
         "intro": "Você chega à Nebulosa e vê o cosmos inteiro acima de você, próximo o suficiente para tocar. Uma figura feita de poeira estelar e luz antiga te observa com a paciência de eras.\n**'Você viajou muito para chegar até as estrelas. Agora mostre-me que pode alcançá-las.'**",
@@ -33540,7 +33540,7 @@ DEUSES = {
     "Krathos": {
         "titulo": "O Senhor das Feras", "emoji": "🦁", "categoria": "Natural",
         "reino_id": 1, "reino_nome": "Planícies de Ashenvorn",
-        "hp": 1800, "atk": 147, "def": 49, "xp": 4500, "coins": (200, 500), "cor": 0xCD853F,
+        "hp": 3000, "atk": 240, "def": 75, "xp": 4500, "coins": (200, 500), "cor": 0xCD853F,
         "descricao": "Preserva o ciclo animal. Fangrenos e Grifos seguem sua sabedoria selvagem.",
         "lore": "Krathos é o primeiro ser que caçou em Valtherra. Cada predador carrega um fragmento de seu instinto. Ele não é cruel — é a natureza em sua forma mais honesta.",
         "intro": "A caça começa antes de você perceber. Você é seguido. Criaturas se afastam ao redor de uma figura que é metade homem, metade todas as feras ao mesmo tempo.\n**'Você entrou no meu território. Agora: caçador ou presa?'**",
@@ -33564,7 +33564,7 @@ DEUSES = {
     "Thalyn": {
         "titulo": "O Espírito das Chamas e Glórias", "emoji": "✨", "categoria": "Inspiração",
         "reino_id": 190, "reino_nome": "Reinos Mortais — Ápice",
-        "hp": 10200, "atk": 531, "def": 177, "xp": 25500, "coins": (820, 1950), "cor": 0xFF8C00,
+        "hp": 17000, "atk": 750, "def": 235, "xp": 25500, "coins": (820, 1950), "cor": 0xFF8C00,
         "descricao": "Inspira coragem e renovação. Símbolo de resistência.",
         "lore": "Thalyn morreu três vezes. Cada vez que voltou, era mais forte — e com uma mensagem diferente para quem encontrava. A terceira mensagem ainda não foi dada.",
         "intro": "Uma chama que não queima aparece acima de você. Uma figura de fogo branco te olha com os olhos de quem já morreu e escolheu voltar.\n**'A glória não é conquistada. É renovada. Vamos renovar a sua.'**",
@@ -33842,24 +33842,24 @@ async def fight_god(channel, user_id: str, nome_deus: str):
     # Pool de habilidades do deus por fase
     GOD_SKILLS_POOL = {
         1: [
-            {"name": f"Toque Divino {deus['emoji']}", "dmg_mult": 1.0, "desc": "Um ataque contido — ainda assim brutal para um mortal."},
-            {"name": f"Julgamento {deus['emoji']}", "dmg_mult": 1.2, "desc": "O deus te avalia e golpeia onde mais dói."},
-            {"name": f"Ira Controlada {deus['emoji']}", "dmg_mult": 1.1, "desc": "Nem todo o poder divino — mas já sufoca."},
+            {"name": f"Toque Divino {deus['emoji']}", "dmg_mult": 1.2, "desc": "Um ataque contido — ainda assim brutal para um mortal."},
+            {"name": f"Julgamento {deus['emoji']}", "dmg_mult": 1.5, "desc": "O deus te avalia e golpeia onde mais dói."},
+            {"name": f"Ira Controlada {deus['emoji']}", "dmg_mult": 1.4, "desc": "Nem todo o poder divino — mas já sufoca."},
         ],
         2: [
-            {"name": f"Punição Divina {deus['emoji']}", "dmg_mult": 1.4, "desc": "O deus para de se conter."},
-            {"name": f"Chama da Imortalidade {deus['emoji']}", "dmg_mult": 1.6, "desc": "Fogo que nunca se apaga queima sua carne."},
-            {"name": f"Cólera dos Céus {deus['emoji']}", "dmg_mult": 1.3, "poison": True, "desc": "Uma chuva de energia divina envenena tudo."},
+            {"name": f"Punição Divina {deus['emoji']}", "dmg_mult": 1.7, "desc": "O deus para de se conter."},
+            {"name": f"Chama da Imortalidade {deus['emoji']}", "dmg_mult": 2.0, "desc": "Fogo que nunca se apaga queima sua carne."},
+            {"name": f"Cólera dos Céus {deus['emoji']}", "dmg_mult": 1.7, "poison": True, "desc": "Uma chuva de energia divina envenena tudo."},
         ],
         3: [
-            {"name": f"⚡ FÚRIA DIVINA {deus['emoji']}", "dmg_mult": 1.8, "desc": "O deus libera parte do seu poder verdadeiro."},
-            {"name": f"☄️ Meteoro Sagrado {deus['emoji']}", "dmg_mult": 2.0, "desc": "Uma rocha celestial cai sobre você."},
-            {"name": f"🌪️ Tempestade do Panteão {deus['emoji']}", "dmg_mult": 1.7, "stun": True, "desc": "Vendaval que derruba montanhas."},
+            {"name": f"⚡ FÚRIA DIVINA {deus['emoji']}", "dmg_mult": 2.3, "desc": "O deus libera parte do seu poder verdadeiro."},
+            {"name": f"☄️ Meteoro Sagrado {deus['emoji']}", "dmg_mult": 2.6, "desc": "Uma rocha celestial cai sobre você."},
+            {"name": f"🌪️ Tempestade do Panteão {deus['emoji']}", "dmg_mult": 2.2, "stun": True, "desc": "Vendaval que derruba montanhas."},
         ],
         4: [
-            {"name": f"💀 EXTINÇÃO DIVINA {deus['emoji']}", "dmg_mult": 2.4, "desc": "O deus não tem nada a perder. Tudo ou nada."},
-            {"name": f"🔥 APOCALIPSE PESSOAL {deus['emoji']}", "dmg_mult": 2.2, "poison": True, "stun": True, "desc": "O deus desencadeia o caos em forma pura."},
-            {"name": f"⚡ GOLPE FINAL DOS DEUSES {deus['emoji']}", "dmg_mult": 2.6, "desc": "O último recurso de uma divindade moribunda."},
+            {"name": f"💀 EXTINÇÃO DIVINA {deus['emoji']}", "dmg_mult": 3.0, "desc": "O deus não tem nada a perder. Tudo ou nada."},
+            {"name": f"🔥 APOCALIPSE PESSOAL {deus['emoji']}", "dmg_mult": 2.8, "poison": True, "stun": True, "desc": "O deus desencadeia o caos em forma pura."},
+            {"name": f"⚡ GOLPE FINAL DOS DEUSES {deus['emoji']}", "dmg_mult": 3.3, "desc": "O último recurso de uma divindade moribunda."},
         ],
     }
 
@@ -33884,7 +33884,7 @@ async def fight_god(channel, user_id: str, nome_deus: str):
         if hp_pct_god <= 25 and not phases_triggered[25]:
             phases_triggered[25] = True
             god_phase = 4
-            boss_atk = int(boss_atk * 1.30)
+            boss_atk = int(boss_atk * 1.40)
             phase_embed = discord.Embed(
                 title=f"💀 FASE CRÍTICA — {nome_deus.upper()} LIBERA TUDO!",
                 description=(
@@ -33904,7 +33904,7 @@ async def fight_god(channel, user_id: str, nome_deus: str):
         elif hp_pct_god <= 50 and not phases_triggered[50]:
             phases_triggered[50] = True
             god_phase = 3
-            boss_atk = int(boss_atk * 1.20)
+            boss_atk = int(boss_atk * 1.30)
             phase_embed = discord.Embed(
                 title=f"🔥 FASE II — {nome_deus.upper()} ENTRA EM FÚRIA DIVINA!",
                 description=(
@@ -34024,7 +34024,7 @@ async def fight_god(channel, user_id: str, nome_deus: str):
         # ── Ação do deus ──
         g_skill = random.choice(GOD_SKILLS_POOL.get(god_phase, GOD_SKILLS_POOL[1]))
         g_dmg_raw = int(boss_atk * g_skill["dmg_mult"] * random.uniform(0.85, 1.20))
-        g_crit = random.random() < (0.20 if god_phase >= 3 else 0.12)
+        g_crit = random.random() < (0.28 if god_phase >= 3 else 0.15)
         if g_crit:
             g_dmg_raw = int(g_dmg_raw * 1.7)
         g_dmg = max(1, g_dmg_raw - p_def // 2)
