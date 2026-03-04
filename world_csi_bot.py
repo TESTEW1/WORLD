@@ -18,8 +18,8 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
-DB_FILE = "world_csi.db"
-CANAL_BETA = "🌎・mundo-csi"
+DB_FILE = "valtherra.db"
+CANAL_BETA = "🌍・valtherra"
 ADMIN_ID = 769951556388257812
 MUNDO_PROPRIO_CHANNELS = {}
 BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=seu_discord_id
@@ -27,82 +27,92 @@ BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=s
 
 # ================= CLASSES =================
 CLASSES = {
-    "Guerreiro": {
+    "Guardião de Ashenvorn": {
         "emoji": "⚔️",
         "hp_bonus": 30,
         "atk_bonus": 15,
         "def_bonus": 10,
-        "description": "Mestre do combate corpo a corpo, resistente e poderoso."
+        "description": "Soldados de Crestfall forjados nas Planícies de Ashenvorn. Mestres do combate corpo a corpo, resistentes como as muralhas que defendem.",
+        "lore": "Treinados desde jovens nos campos abertos de Ashenvorn, os Guardiões aprenderam que sobreviver não é sorte — é disciplina."
     },
-    "Mago": {
+    "Mago Arcano de Altheron": {
         "emoji": "🔮",
         "hp_bonus": 10,
         "atk_bonus": 25,
         "def_bonus": 5,
-        "description": "Manipulador de energias arcanas, devastador mas frágil."
+        "description": "Estudiosos da Coluna de Altheron em Arcenveil. Canalizadores de energia arcana pura, devastadores mas frágeis como cristal.",
+        "lore": "Cada feitiço lançado por um Mago Arcano é uma reverência a Altheron — a ideia de que o conhecimento conquistado pode mover o mundo."
     },
-    "Arqueiro": {
+    "Arqueiro de Sylvenmara": {
         "emoji": "🏹",
         "hp_bonus": 15,
         "atk_bonus": 20,
         "def_bonus": 8,
-        "description": "Atirador preciso, ágil e letal à distância."
+        "description": "Caçadores treinados entre as copas de Sylvenmara. Precisão absoluta, nascida de anos atirando flechas entre galhos a quarenta metros do chão.",
+        "lore": "Na Floresta de Sylvenmara, errar um tiro significa cair. Os Arqueiros que sobrevivem ao treinamento nunca mais erram."
     },
-    "Paladino": {
+    "Paladino da Luz": {
         "emoji": "🛡️",
         "hp_bonus": 25,
         "atk_bonus": 12,
         "def_bonus": 15,
-        "description": "Guerreiro sagrado, equilibrado entre ataque e defesa."
+        "description": "Arautos de Elaris abençoados pela luz sagrada. Equilibrados entre ataque e defesa, carregam a cura como arma tanto quanto a espada.",
+        "lore": "Um Paladino da Luz não escolheu o caminho — foi chamado por ele. Elaris não abençoa quem pede. Abençoa quem já age."
     },
-    "Assassino": {
+    "Assassino das Sombras": {
         "emoji": "🗡️",
         "hp_bonus": 12,
         "atk_bonus": 22,
         "def_bonus": 6,
-        "description": "Mestre das sombras, golpes críticos devastadores."
+        "description": "Umbrotides treinados nas Florestas de Umbreth. Mestres da invisibilidade, especialistas em golpes críticos que encerram batalhas antes de começarem.",
+        "lore": "Veilmoor não ensina assassinos — ensina fantasmas. A diferença é que fantasmas nunca são encontrados."
     },
-    "Necromante": {
+    "Necromante do Veil": {
         "emoji": "💀",
         "hp_bonus": 8,
         "atk_bonus": 23,
         "def_bonus": 7,
-        "description": "Senhor dos mortos, drena vida dos inimigos."
+        "description": "Praticantes das artes proibidas de Veilmoor. Cruzam a fronteira entre vivos e mortos, drenando vida e invocando aliados do outro lado.",
+        "lore": "Em Veilmoor, a morte não é o fim — é a porta. Os Necromantes do Veil aprenderam a segurar essa porta aberta."
     },
-    "Berserker": {
+    "Berserker Orkrioniano": {
         "emoji": "🪓",
         "hp_bonus": 35,
         "atk_bonus": 18,
         "def_bonus": 5,
-        "description": "Fúria incontrolável, quanto menor o HP mais forte."
+        "description": "Guerreiros de Warcheld forjados pela filosofia do combate honroso. Fúria pura — quanto menor o HP, mais intensa a tempestade.",
+        "lore": "No Domínio de Orkrion, cada cicatriz é um título. O Berserker que está de pé no fim da batalha decidiu, desde o início, que ficaria."
     },
-    "Druida": {
+    "Druida de Sylvenmara": {
         "emoji": "🌿",
         "hp_bonus": 20,
         "atk_bonus": 14,
         "def_bonus": 12,
-        "description": "Guardião da natureza, se cura ao coletar recursos."
+        "description": "Guardiões abençoados por Thalmyra. A floresta os cura enquanto lutam — cada recurso coletado restaura o que o combate tirou.",
+        "lore": "Os Druidas não comandam a natureza. Pedem. E Sylvenmara sempre responde quando quem pede é digno."
     },
-    "Monge": {
+    "Monge de Fiorveth": {
         "emoji": "👊",
         "hp_bonus": 18,
         "atk_bonus": 16,
         "def_bonus": 14,
-        "description": "Mestre das artes marciais, equilibrado e versátil."
+        "description": "Discípulos das Estepes de Orrathis treinados em Fiorveth. Equilibrio perfeito entre corpo e mente, versáteis como os fios do destino.",
+        "lore": "Fiorveth fica no nó visível dos fios do destino. Quem treina aqui aprende que cada movimento tem consequência — e aprende a controlá-las."
     },
-    "Bardo": {
+    "Bardo de Accordis": {
         "emoji": "🎵",
         "hp_bonus": 15,
         "atk_bonus": 10,
         "def_bonus": 10,
         "mana_bonus": 20,
-        "description": "Músico encantador, bônus de XP e sorte aumentada."
+        "description": "Artistas das Cidades-Estado de Zircan. Suas canções encantam aliados e paralisam inimigos — a diplomacia como arte marcial.",
+        "lore": "Em Accordis, dizem que a voz certa na hora certa já encerrou guerras. Os Bardos são a prova viva disso."
     }
 }
 
 # ================= RAÇAS =================
 RACES = {
-    "Humano": {
+    "Humano de Crestfall": {
         "emoji": "👤",
         "hp_bonus": 20,
         "atk_bonus": 8,
@@ -112,7 +122,7 @@ RACES = {
         "passive": "Adaptabilidade: +10% XP ganho permanentemente.",
         "lore": "Os humanos são os mais jovens entre as raças, mas sua ambição supera qualquer limitação natural."
     },
-    "Élfico": {
+    "Élfico de Lótharim": {
         "emoji": "🧝",
         "hp_bonus": 12,
         "atk_bonus": 18,
@@ -122,7 +132,7 @@ RACES = {
         "passive": "Visão Élfica: +15% chance de crítico com ataques à distância.",
         "lore": "Os elfos habitam as florestas eternas, guardiões da memória do mundo antes dos humanos."
     },
-    "Anão": {
+    "Anão de Durrheim": {
         "emoji": "⚒️",
         "hp_bonus": 35,
         "atk_bonus": 12,
@@ -132,7 +142,7 @@ RACES = {
         "passive": "Pele de Pedra: Reduz o dano recebido em 10%.",
         "lore": "Os anões nasceram das rochas primordiais. Cada golpe deles ecoa como um martelo na bigorna."
     },
-    "Orc": {
+    "Orc de Warcheld": {
         "emoji": "🟢",
         "hp_bonus": 40,
         "atk_bonus": 22,
@@ -152,7 +162,7 @@ RACES = {
         "passive": "Graça Divina: Recupera 5% HP ao início de cada turno de batalha.",
         "lore": "Os anjos desceram do Trono Celestial. Poucos escolhem o caminho mortal — aqueles que o fazem carregam um propósito eterno."
     },
-    "Demônio": {
+    "Tiefling Infernal": {
         "emoji": "😈",
         "hp_bonus": 15,
         "atk_bonus": 25,
@@ -252,7 +262,7 @@ RACES = {
         "passive": "Mudança Elemental: Alterna entre bônus de fogo, gelo ou raio a cada batalha.",
         "lore": "Os elementários são os pensamentos dos elementos ganhos em forma. Não nasceram — simplesmente sempre existiram."
     },
-    "Goblin": {
+    "Goblin de Ashenvorn": {
         "emoji": "👺",
         "hp_bonus": 10,
         "atk_bonus": 15,
@@ -509,7 +519,7 @@ RACES = {
 # Cada raça tem 3 estágios de evolução com bônus em dobro
 # Req: level 30 → Evo1, level 70 → Evo2, level 130 → Evo3
 RACE_EVOLUTION_TREE = {
-    "Humano": [
+    "Humano de Crestfall": [
         {"level": 30,  "name": "Humano Desperto",     "emoji": "👤✨", "suffix": " Desperto",
          "lore": "Sua ambição ultrapassou os limites do comum. O potencial humano começa a se revelar.",
          "hp_bonus": 40, "atk_bonus": 16, "def_bonus": 16},
@@ -532,7 +542,7 @@ RACE_EVOLUTION_TREE = {
          "lore": "Você é o ápice absoluto da raça humana. Uma força que moldará o destino de toda a criação.",
          "hp_bonus": 2560, "atk_bonus": 1024, "def_bonus": 1024},
     ],
-    "Élfico": [
+    "Élfico de Lótharim": [
         {"level": 30,  "name": "Alto Élfico",         "emoji": "🧝✨", "suffix": " Alto",
          "lore": "A magia élfica flui com mais pureza em suas veias. Seus olhos enxergam além do véu.",
          "hp_bonus": 24, "atk_bonus": 36, "def_bonus": 12},
@@ -555,7 +565,7 @@ RACE_EVOLUTION_TREE = {
          "lore": "A essência pura da magia élfica encarnada. Imortal além da compreensão.",
          "hp_bonus": 1536, "atk_bonus": 2304, "def_bonus": 768},
     ],
-    "Anão": [
+    "Anão de Durrheim": [
         {"level": 30,  "name": "Anão de Ferro",       "emoji": "⚒️🔩", "suffix": " de Ferro",
          "lore": "Seu corpo endureceu como o metal que forja. Cada golpe que você absorve te torna mais forte.",
          "hp_bonus": 70, "atk_bonus": 24, "def_bonus": 40},
@@ -578,7 +588,7 @@ RACE_EVOLUTION_TREE = {
          "lore": "Você é a rocha primordial. O universo foi esculpido sobre sua base.",
          "hp_bonus": 4480, "atk_bonus": 1536, "def_bonus": 2560},
     ],
-    "Orc": [
+    "Orc de Warcheld": [
         {"level": 30,  "name": "Orc Warchief",        "emoji": "🟢⚔️", "suffix": " Warchief",
          "lore": "Sua fúria não é cega — é calculada. Os outros orcs te seguem sem questionar.",
          "hp_bonus": 80, "atk_bonus": 44, "def_bonus": 10},
@@ -624,11 +634,11 @@ RACE_EVOLUTION_TREE = {
          "lore": "A luz divina primordial em forma de ser. Não há trevas que te resistam.",
          "hp_bonus": 2304, "atk_bonus": 1792, "def_bonus": 2048},
     ],
-    "Demônio": [
+    "Tiefling Infernal": [
         {"level": 30,  "name": "Demônio Maior",       "emoji": "😈🔥", "suffix": " Maior",
          "lore": "Sua essência corrompida se intensificou. Você não apenas destrói — você consome.",
          "hp_bonus": 30, "atk_bonus": 50, "def_bonus": 16},
-        {"level": 70,  "name": "Arquidemônio",        "emoji": "😈💀", "suffix": " Arqui",
+        {"level": 70,  "name": "Morthikan Supremo",        "emoji": "😈💀", "suffix": " Arqui",
          "lore": "Você lidera legiões do abismo. Sua simples presença corrói a realidade.",
          "hp_bonus": 60, "atk_bonus": 100, "def_bonus": 32},
         {"level": 130, "name": "Demônio Primordial",  "emoji": "😈👑", "suffix": " Primordial",
@@ -854,7 +864,7 @@ RACE_EVOLUTION_TREE = {
          "lore": "O elemento primordial antes da criação. Você é a energia que criou tudo.",
          "hp_bonus": 2560, "atk_bonus": 2560, "def_bonus": 1280},
     ],
-    "Goblin": [
+    "Goblin de Ashenvorn": [
         {"level": 30,  "name": "Goblin Mestre",       "emoji": "👺💰", "suffix": " Mestre",
          "lore": "Sua astúcia ultrapassou qualquer goblin comum. O ouro te encontra antes de você o procurar.",
          "hp_bonus": 20, "atk_bonus": 30, "def_bonus": 10},
@@ -1493,7 +1503,7 @@ NEW_CLASSES = {
         "atk_bonus": 24,
         "def_bonus": 8,
         "description": "Especialista em rastrear e eliminar alvos específicos.",
-        "race_affinity": ["Humano", "Élfico", "Goblin"],
+        "race_affinity": ["Humano", "Élfico", "Goblin de Ashenvorn"],
     },
     "Xamã": {
         "emoji": "🪶",
@@ -1525,7 +1535,7 @@ NEW_CLASSES = {
         "atk_bonus": 16,
         "def_bonus": 12,
         "description": "Transforma elementos em poderosas poções e bombas.",
-        "race_affinity": ["Gnomo", "Goblin", "Humano"],
+        "race_affinity": ["Gnomo", "Goblin de Ashenvorn", "Humano"],
     },
     "Guardião do Abismo": {
         "emoji": "♾️",
@@ -1581,7 +1591,7 @@ NEW_CLASSES = {
         "atk_bonus": 22,
         "def_bonus": 8,
         "description": "Especialista em venenos, doenças e debuffs devastadores.",
-        "race_affinity": ["Goblin", "Vampiro", "Dragônico"],
+        "race_affinity": ["Goblin de Ashenvorn", "Vampiro", "Dragônico"],
     },
     "Gladiador": {
         "emoji": "🏟️",
@@ -1654,7 +1664,7 @@ NEW_CLASSES = {
         "atk_bonus": 24,
         "def_bonus": 10,
         "description": "Guardião que patrulha as fronteiras entre luz e trevas, mestre da sobrevivência.",
-        "race_affinity": ["Lobisomem", "Sombra", "Goblin"],
+        "race_affinity": ["Lobisomem", "Sombra", "Goblin de Ashenvorn"],
     },
     "Conjurador de Tempestades": {
         "emoji": "🌩️",
@@ -1717,95 +1727,95 @@ CLASSES.update(NEW_CLASSES)
 # Ao evoluir, o jogador escolhe uma especialização
 CLASS_EVOLUTION_TREE = {
     # ── CLASSES ORIGINAIS ──────────────────────────────────────────
-    "Guerreiro": {
-        40:  {"name": "Guerreiro Elite",     "spec_options": ["Campeão", "Guardião Inabalável"]},
-        80:  {"name": "Lorde da Guerra",     "spec_options": ["Berserker Sagrado", "Comandante Tático"]},
-        120: {"name": "Titan da Batalha",    "spec_options": ["Avatar da Guerra", "Senhor dos Exércitos"]},
-        160: {"name": "Imperador Guerreiro", "spec_options": ["Deus da Guerra Mortal", "Lenda Imortal"]},
-        200: {"name": "Avatar da Guerra Transcendental", "spec_options": ["Conquistador dos Planos", "Devastador de Dimensões"]},
-        400: {"name": "Força Dimensional Absoluta", "spec_options": ["Guerreiro do Vazio", "Titã do Multiverso"]},
-        500: {"name": "Guerreiro do Plano Absoluto", "spec_options": ["O Último Guerreiro", "Força Primordial Final"]},
+    "Guardião de Ashenvorn": {
+        40:  {"name": "Soldado de Crestfall",        "spec_options": ["Campeão das Planícies", "Guardião Inabalável"]},
+        80:  {"name": "Lorde de Ashenvorn",           "spec_options": ["Berserker das Planícies", "Comandante Tático"]},
+        120: {"name": "Titã da Batalha de Valtherra", "spec_options": ["Avatar da Guerra", "Senhor dos Exércitos de Crestfall"]},
+        160: {"name": "Lenda das Planícies",          "spec_options": ["Herói de Ashenvorn", "Defensor Imortal"]},
+        200: {"name": "Avatar Transcendental de Ashenvorn", "spec_options": ["Conquistador dos Planos", "Devastador Dimensional"]},
+        400: {"name": "Força Dimensional Absoluta",   "spec_options": ["Guardião do Vazio", "Titã do Multiverso"]},
+        500: {"name": "Guardião do Plano Absoluto",   "spec_options": ["O Último Defensor de Valtherra", "Força Primordial Final"]},
     },
-    "Mago": {
-        40:  {"name": "Arcano Iniciado",   "spec_options": ["Piromante", "Criomante"]},
-        80:  {"name": "Arquimago",         "spec_options": ["Mago do Caos", "Conjurador Estelar"]},
-        120: {"name": "Sábio Eterno",      "spec_options": ["Deus Arcano", "Tecedor da Realidade"]},
-        160: {"name": "Transcendente",     "spec_options": ["Onisciente do Cosmos", "Destruidor de Planos"]},
-        200: {"name": "Arquiteto da Realidade", "spec_options": ["Tejedor do Cosmos", "Mago Primordial"]},
-        400: {"name": "Consciência Dimensional", "spec_options": ["Mente do Multiverso", "Deus da Magia Absoluta"]},
-        500: {"name": "A Magia em Pessoa", "spec_options": ["Origem de Todo Feitiço", "Magia do Plano Absoluto"]},
+    "Mago Arcano de Altheron": {
+        40:  {"name": "Estudante da Coluna de Altheron", "spec_options": ["Piromante de Pyreth", "Criomante de Khervak"]},
+        80:  {"name": "Arquimago de Arcenveil",           "spec_options": ["Mago do Caos de Runeveil", "Conjurador Estelar de Lótharim"]},
+        120: {"name": "Sábio Eterno de Lótharim",         "spec_options": ["Avatar de Altheron", "Tecedor da Realidade Arcana"]},
+        160: {"name": "Transcendente Arcano",             "spec_options": ["Onisciente do Cosmos de Valtherra", "Destruidor de Planos"]},
+        200: {"name": "Arquiteto da Realidade Mágica",    "spec_options": ["Tejedor do Cosmos", "Mago Primordial de Valtherra"]},
+        400: {"name": "Consciência Dimensional de Altheron", "spec_options": ["Mente do Multiverso", "Deus da Magia Absoluta"]},
+        500: {"name": "A Magia em Pessoa",               "spec_options": ["Origem de Todo Feitiço de Valtherra", "Magia do Plano Absoluto"]},
     },
-    "Arqueiro": {
-        40:  {"name": "Atirador de Elite",   "spec_options": ["Caçador Sombrio", "Arqueiro da Tempestade"]},
-        80:  {"name": "Mestre dos Arcos",    "spec_options": ["Atirador Fantasma", "Arqueiro Divino"]},
-        120: {"name": "Lenda do Arco",       "spec_options": ["Caçador de Deuses", "Vendaval de Flechas"]},
-        160: {"name": "Flecha Primordial",   "spec_options": ["Atirador do Fim dos Tempos", "Sombra Alada"]},
-        200: {"name": "Caçador Além dos Planos", "spec_options": ["Atirador Dimensional", "Caçador do Vazio"]},
-        400: {"name": "Flecha do Cosmos", "spec_options": ["Tiro Que Perfura Dimensões", "Arqueiro do Multiverso"]},
-        500: {"name": "Flecha do Plano Absoluto", "spec_options": ["O Último Disparo", "Extintor de Mundos à Distância"]},
+    "Arqueiro de Sylvenmara": {
+        40:  {"name": "Caçador das Copas de Thalverde",  "spec_options": ["Caçador Sombrio de Umbreth", "Arqueiro da Tempestade"]},
+        80:  {"name": "Mestre dos Arcos de Sylvenmara",   "spec_options": ["Atirador Fantasma de Veilmoor", "Arqueiro de Thalmyra"]},
+        120: {"name": "Lenda dos Arcos de Valtherra",     "spec_options": ["Caçador de Deuses", "Vendaval de Flechas Sagradas"]},
+        160: {"name": "Flecha Primordial de Sylvenmara",  "spec_options": ["Atirador do Fim dos Tempos", "Sombra Alada da Floresta"]},
+        200: {"name": "Caçador Além dos Planos",          "spec_options": ["Atirador Dimensional", "Caçador do Vazio"]},
+        400: {"name": "Flecha do Cosmos",                 "spec_options": ["Tiro Que Perfura Dimensões", "Arqueiro do Multiverso"]},
+        500: {"name": "Flecha do Plano Absoluto",         "spec_options": ["O Último Disparo de Valtherra", "Extintor de Mundos à Distância"]},
     },
-    "Paladino": {
+    "Paladino da Luz": {
         40:  {"name": "Cavaleiro Sagrado",   "spec_options": ["Cruzado", "Sentinela Divina"]},
         80:  {"name": "Arauto da Luz",       "spec_options": ["Campeão Celestial", "Protetor Eterno"]},
-        120: {"name": "Lorde Sagrado",       "spec_options": ["Avatar Divino", "Juiz dos Deuses"]},
-        160: {"name": "Divindade Encarnada", "spec_options": ["Santo Guerreiro", "Escudo do Universo"]},
-        200: {"name": "Campeão Transcendente", "spec_options": ["Paladino da Luz Absoluta", "Guardião dos Planos"]},
-        400: {"name": "Divindade Sagrada Dimensional", "spec_options": ["Escudo do Cosmos", "Paladino do Multiverso"]},
-        500: {"name": "Santo do Plano Absoluto", "spec_options": ["Protetor da Criação Final", "Escudo do Universo Absoluto"]},
+        120: {"name": "Arauto Sagrado de Elaris",     "spec_options": ["Avatar Divino de Valtherra", "Juiz dos Deuses"]},
+        160: {"name": "Campeão Imortal da Luz",        "spec_options": ["Santo Guerreiro de Valtherra", "Escudo do Universo"]},
+        200: {"name": "Campeão Transcendente da Luz",  "spec_options": ["Paladino da Luz Absoluta", "Guardião dos Planos"]},
+        400: {"name": "Divindade Sagrada Dimensional", "spec_options": ["Escudo do Cosmos de Valtherra", "Paladino do Multiverso"]},
+        500: {"name": "Santo do Plano Absoluto",       "spec_options": ["Protetor da Criação Final", "Escudo do Universo Absoluto"]},
     },
-    "Assassino": {
-        40:  {"name": "Phantom Blade",     "spec_options": ["Mestre das Sombras", "Envenenador Letal"]},
-        80:  {"name": "Sombra Absoluta",   "spec_options": ["Caçador Dimensional", "Executor Supremo"]},
-        120: {"name": "Espectro Mortal",   "spec_options": ["Sombra do Abismo", "Dançarino da Morte Noir"]},
-        160: {"name": "Void Walker",       "spec_options": ["Ceifador do Vazio", "Aniquilador Silencioso"]},
-        200: {"name": "Sombra Transcendental", "spec_options": ["Ceifador dos Planos", "Assassino do Cosmos"]},
-        400: {"name": "Executor Dimensional", "spec_options": ["Morte que Atravessa Dimensões", "Sombra do Multiverso"]},
-        500: {"name": "Extinção Silenciosa Absoluta", "spec_options": ["O Golpe Final", "Aniquilador do Plano Absoluto"]},
+    "Assassino das Sombras": {
+        40:  {"name": "Lâmina Fantasma de Veilmoor",  "spec_options": ["Mestre das Sombras de Umbreth", "Envenenador de Noxtherion"]},
+        80:  {"name": "Sombra Absoluta de Veilmoor",  "spec_options": ["Caçador Dimensional", "Executor Supremo das Sombras"]},
+        120: {"name": "Espectro Mortal das Trevas",   "spec_options": ["Sombra do Abismo de Veilmoor", "Dançarino da Morte Umbrotide"]},
+        160: {"name": "Caminhante do Vazio",          "spec_options": ["Ceifador do Vazio Dimensional", "Aniquilador Silencioso"]},
+        200: {"name": "Sombra Transcendental",        "spec_options": ["Ceifador dos Planos", "Assassino do Cosmos de Valtherra"]},
+        400: {"name": "Executor Dimensional",         "spec_options": ["Morte que Atravessa Dimensões", "Sombra do Multiverso"]},
+        500: {"name": "Extinção Silenciosa Absoluta", "spec_options": ["O Golpe Final de Valtherra", "Aniquilador do Plano Absoluto"]},
     },
-    "Necromante": {
-        40:  {"name": "Mestre dos Mortos",   "spec_options": ["Invocador Sombrio", "Lich Aprendiz"]},
-        80:  {"name": "Lorde dos Não-Mortos","spec_options": ["Lich Verdadeiro", "Senhor das Almas"]},
-        120: {"name": "Soberano Eterno",     "spec_options": ["Deus Morto-Vivo", "Destruidor de Almas"]},
-        160: {"name": "Lich Primordial",     "spec_options": ["Rei da Morte Eterna", "Corrompedor do Cosmos"]},
-        200: {"name": "Senhor da Morte Transcendente", "spec_options": ["Necrômante dos Planos", "Deus dos Mortos-Vivos Cósmicos"]},
-        400: {"name": "Morte Dimensional", "spec_options": ["Senhor dos Mortos do Multiverso", "Corruptor de Dimensões"]},
-        500: {"name": "A Morte Absoluta", "spec_options": ["Fim de Toda Vida", "Necromante do Plano Final"]},
+    "Necromante do Veil": {
+        40:  {"name": "Mestre dos Mortos de Valkmorr", "spec_options": ["Invocador Sombrio de Veilmoor", "Lich de Noxtherion"]},
+        80:  {"name": "Lorde dos Não-Mortos de Veilmoor", "spec_options": ["Lich Verdadeiro de Valkmorr", "Senhor das Almas Perdidas"]},
+        120: {"name": "Soberano Eterno das Ruínas",    "spec_options": ["Deus Morto-Vivo de Valtherra", "Destruidor de Almas"]},
+        160: {"name": "Lich Primordial de Veilmoor",   "spec_options": ["Rei da Morte Eterna", "Corrompedor do Cosmos"]},
+        200: {"name": "Senhor da Morte Transcendente", "spec_options": ["Necromante dos Planos", "Deus dos Mortos-Vivos Cósmicos"]},
+        400: {"name": "Morte Dimensional",             "spec_options": ["Senhor dos Mortos do Multiverso", "Corruptor de Dimensões"]},
+        500: {"name": "A Morte Absoluta de Valtherra", "spec_options": ["Fim de Toda Vida", "Necromante do Plano Final"]},
     },
-    "Berserker": {
-        40:  {"name": "Bárbaro Sangrento",   "spec_options": ["Carnificina", "Orc-Sangue"]},
-        80:  {"name": "Destruidor",          "spec_options": ["Avatar da Fúria", "Berserker Divino"]},
-        120: {"name": "Flagelo Vivo",        "spec_options": ["Destruidor de Mundos", "Cataclismo Ambulante"]},
-        160: {"name": "Fúria Primordial",    "spec_options": ["Ira dos Titãs", "Apocalipse em Forma"]},
-        200: {"name": "Fúria Transcendente", "spec_options": ["Devastador dos Planos", "Colosso da Fúria Cósmica"]},
-        400: {"name": "Apocalipse Dimensional", "spec_options": ["Raiva do Multiverso", "Destruidor de Dimensões"]},
-        500: {"name": "Ira do Plano Absoluto", "spec_options": ["Raiva que Destrói Tudo", "Calamidade Final"]},
+    "Berserker Orkrioniano": {
+        40:  {"name": "Bárbaro de Warcheld",          "spec_options": ["Carnificina Orkrioniana", "Guerreiro de Sangue"]},
+        80:  {"name": "Destruidor de Orkrion",        "spec_options": ["Avatar da Fúria de Korrath", "Berserker Abençoado"]},
+        120: {"name": "Flagelo de Warcheld",          "spec_options": ["Destruidor de Mundos", "Cataclismo Vivo de Orkrion"]},
+        160: {"name": "Fúria Primordial de Orkrion",  "spec_options": ["Ira dos Titãs de Valtherra", "Apocalipse em Forma"]},
+        200: {"name": "Fúria Transcendente de Korrath", "spec_options": ["Devastador dos Planos", "Colosso da Fúria Cósmica"]},
+        400: {"name": "Apocalipse Dimensional",       "spec_options": ["Raiva do Multiverso", "Destruidor de Dimensões"]},
+        500: {"name": "Ira do Plano Absoluto",        "spec_options": ["Raiva que Destrói Tudo", "Calamidade Final de Valtherra"]},
     },
-    "Druida": {
-        40:  {"name": "Guardião da Floresta","spec_options": ["Metamorfo", "Druida Lunar"]},
-        80:  {"name": "Ancião da Natureza",  "spec_options": ["Druida do Caos", "Guardião Primordial"]},
-        120: {"name": "Espírito da Terra",   "spec_options": ["Avatar da Natureza", "Ent Vivente"]},
-        160: {"name": "Gaia Encarnada",      "spec_options": ["A Própria Floresta", "Senhor das Bestas Eternas"]},
-        200: {"name": "Natureza Transcendente", "spec_options": ["Guardião dos Planos", "Espírito da Criação"]},
-        400: {"name": "Alma Dimensional da Terra", "spec_options": ["Natureza do Cosmos", "Gaia Dimensional"]},
-        500: {"name": "A Natureza Primordial Absoluta", "spec_options": ["Criação que Sustenta Tudo", "Druida do Plano Final"]},
+    "Druida de Sylvenmara": {
+        40:  {"name": "Guardião de Thalverde",        "spec_options": ["Metamorfo de Sylvenmara", "Druida Lunar de Thalmyra"]},
+        80:  {"name": "Ancião de Sylvenmara",         "spec_options": ["Druida do Caos de Valtherra", "Guardião Primordial da Floresta"]},
+        120: {"name": "Espírito da Terra de Vorveth", "spec_options": ["Avatar de Thalmyra", "Treant Vivente Abençoado"]},
+        160: {"name": "Gaia Encarnada de Sylvenmara", "spec_options": ["A Própria Floresta Eterna", "Senhor das Bestas de Krathos"]},
+        200: {"name": "Natureza Transcendente",       "spec_options": ["Guardião dos Planos de Valtherra", "Espírito da Criação"]},
+        400: {"name": "Alma Dimensional da Terra",    "spec_options": ["Natureza do Cosmos de Aetherion", "Gaia Dimensional"]},
+        500: {"name": "Natureza Primordial Absoluta", "spec_options": ["Criação que Sustenta Valtherra", "Druida do Plano Final"]},
     },
-    "Monge": {
-        40:  {"name": "Mestre do Ki",         "spec_options": ["Punho de Aço", "Monge do Vento"]},
-        80:  {"name": "Mestre Supremo",       "spec_options": ["Monge Celestial", "Fúria Controlada"]},
-        120: {"name": "Iluminado",            "spec_options": ["Monge Transcendente", "Dançarino do Ki"]},
-        160: {"name": "Além do Mortal",       "spec_options": ["Ki Primordial", "Vazio em Movimento"]},
-        200: {"name": "Transcendência do Ki", "spec_options": ["Monge dos Planos", "Ki Cósmico"]},
-        400: {"name": "Ki Dimensional Absoluto", "spec_options": ["Punho do Multiverso", "Movimento do Cosmos"]},
-        500: {"name": "Ki do Plano Absoluto", "spec_options": ["Golpe que Para o Tempo", "Monge do Fim"]},
+    "Monge de Fiorveth": {
+        40:  {"name": "Mestre do Ki de Fiorveth",     "spec_options": ["Punho de Aço de Orrathis", "Monge do Vento das Estepes"]},
+        80:  {"name": "Mestre Supremo das Estepes",   "spec_options": ["Monge Celestial de Eryndra", "Fúria Controlada de Orrathis"]},
+        120: {"name": "Iluminado de Fiorveth",        "spec_options": ["Monge Transcendente de Valtherra", "Dançarino dos Fios do Destino"]},
+        160: {"name": "Além do Mortal das Estepes",   "spec_options": ["Ki Primordial de Orryx", "Vazio em Movimento"]},
+        200: {"name": "Transcendência do Ki Cósmico", "spec_options": ["Monge dos Planos de Valtherra", "Ki Cósmico de Fiorveth"]},
+        400: {"name": "Ki Dimensional Absoluto",      "spec_options": ["Punho do Multiverso", "Movimento do Cosmos"]},
+        500: {"name": "Ki do Plano Absoluto",         "spec_options": ["Golpe que Para o Tempo de Chronis", "Monge do Fim de Valtherra"]},
     },
-    "Bardo": {
-        40:  {"name": "Maestro",            "spec_options": ["Bardo da Batalha", "Encantador Supremo"]},
-        80:  {"name": "Lenda Viva",         "spec_options": ["Bardo do Destino", "Cantor dos Deuses"]},
-        120: {"name": "Voz do Cosmos",      "spec_options": ["Sinfonia da Destruição", "Música do Universo"]},
-        160: {"name": "A Canção Eterna",    "spec_options": ["Compositor do Fim", "Eco Primordial"]},
-        200: {"name": "Melodia dos Planos", "spec_options": ["Cantor do Cosmos", "Bardo Transcendente"]},
-        400: {"name": "Sinfonia Dimensional", "spec_options": ["Música do Multiverso", "Eco Dimensional"]},
-        500: {"name": "A Última Canção", "spec_options": ["Música do Plano Absoluto", "Compositor do Fim de Tudo"]},
+    "Bardo de Accordis": {
+        40:  {"name": "Maestro de Accordis",           "spec_options": ["Bardo da Batalha de Zircan", "Encantador Supremo"]},
+        80:  {"name": "Lenda Viva de Zircan",          "spec_options": ["Bardo do Destino de Eryndra", "Cantor dos Deuses de Valtherra"]},
+        120: {"name": "Voz do Cosmos de Accordis",     "spec_options": ["Sinfonia da Destruição", "Música do Universo de Valtherra"]},
+        160: {"name": "A Canção Eterna de Zircan",     "spec_options": ["Compositor do Fim dos Tempos", "Eco Primordial de Valtherra"]},
+        200: {"name": "Melodia dos Planos",            "spec_options": ["Cantor do Cosmos", "Bardo Transcendente de Accordis"]},
+        400: {"name": "Sinfonia Dimensional",          "spec_options": ["Música do Multiverso de Valtherra", "Eco Dimensional"]},
+        500: {"name": "A Última Canção de Valtherra",  "spec_options": ["Música do Plano Absoluto", "Compositor do Fim de Tudo"]},
     },
     # ── NOVAS CLASSES ──────────────────────────────────────────────
     "Cavaleiro das Sombras": {
@@ -1821,7 +1831,7 @@ CLASS_EVOLUTION_TREE = {
         40:  {"name": "Senhor das Criaturas",  "spec_options": ["Invocador Elemental", "Portão do Abismo"]},
         80:  {"name": "Mestre dos Planos",     "spec_options": ["Invocador Divino", "Abridor de Portais"]},
         120: {"name": "Soberano das Dimensões","spec_options": ["Senhor das Legiões", "Tecedor de Planos"]},
-        160: {"name": "Criador de Mundos",     "spec_options": ["Pai das Criaturas", "Nexo Dimensional"]},
+        160: {"name": "Criador de Mundos",     "spec_options": ["Pai das Criaturas", "Axis — Ponto Central"]},
         200: {"name": "Invocador dos Planos", "spec_options": ["Senhor das Dimensões", "Portão do Cosmos"]},
         400: {"name": "Criador Dimensional", "spec_options": ["Nexo do Multiverso", "Invocador Absoluto"]},
         500: {"name": "Pai de Tudo do Plano Final", "spec_options": ["Criador Primordial das Criaturas", "Invocador do Absoluto"]},
@@ -2085,7 +2095,7 @@ CLASS_EVOLUTION_TREE = {
 # basic=nível 1-39, intermediate=40-79, advanced=80-119, supreme=desbloqueada por boss
 CLASS_TIERED_SKILLS = {
     # ── GUERREIRO ──────────────────────────────────────────────────
-    "Guerreiro": {
+    "Guardião de Ashenvorn": {
         "basic": [
             {"name": "🗡️ Golpe Devastador",  "mana_cost": 0,  "dmg_mult": 1.4, "desc": "Um golpe poderoso com toda a força!"},
             {"name": "🛡️ Ataque Protetor",   "mana_cost": 10, "dmg_mult": 1.2, "def_bonus": 10, "desc": "Ataca enquanto se defende."},
@@ -2102,11 +2112,11 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "☠️ Aniquilação Total", "mana_cost": 80, "dmg_mult": 5.0, "stun_chance": 0.5, "ignore_def": True,
             "desc": "O poder de um deus mortal. Destrói qualquer defesa!",
-            "unlock_boss": "Yeti Colossal"
+            "unlock_boss": "Geomárcio Ancião"
         },
     },
     # ── MAGO ───────────────────────────────────────────────────────
-    "Mago": {
+    "Mago Arcano de Altheron": {
         "basic": [
             {"name": "🔥 Bola de Fogo",      "mana_cost": 25, "dmg_mult": 2.0, "desc": "Uma esfera flamejante!"},
             {"name": "❄️ Toque Gelado",      "mana_cost": 20, "dmg_mult": 1.6, "slow_chance": 0.4, "desc": "Congela o adversário."},
@@ -2127,7 +2137,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── ARQUEIRO ───────────────────────────────────────────────────
-    "Arqueiro": {
+    "Arqueiro de Sylvenmara": {
         "basic": [
             {"name": "🏹 Flecha Certeira",   "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Flecha com precisão mortal."},
             {"name": "🌿 Flecha Envenenada", "mana_cost": 10, "dmg_mult": 1.3, "poison": True, "desc": "Veneno corrosivo."},
@@ -2148,7 +2158,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── PALADINO ───────────────────────────────────────────────────
-    "Paladino": {
+    "Paladino da Luz": {
         "basic": [
             {"name": "✨ Golpe Sagrado",     "mana_cost": 15, "dmg_mult": 1.6, "desc": "Energia divina!"},
             {"name": "🛡️ Escudo da Fé",     "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 30, "desc": "Cura ao defender."},
@@ -2169,7 +2179,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── ASSASSINO ──────────────────────────────────────────────────
-    "Assassino": {
+    "Assassino das Sombras": {
         "basic": [
             {"name": "🗡️ Golpe Sorrateiro",  "mana_cost": 0,  "dmg_mult": 1.8, "crit_chance": 0.4, "desc": "Das sombras, golpe mortal!"},
             {"name": "☠️ Veneno Assassino",  "mana_cost": 15, "dmg_mult": 1.3, "poison": True, "desc": "Veneno letal."},
@@ -2186,11 +2196,11 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "💀 Morte Certa", "mana_cost": 85, "dmg_mult": 6.0, "crit_chance": 0.9, "ignore_def": True, "poison": True,
             "desc": "Um golpe que não pode ser evitado. Veneno, crítico e ignora toda defesa.",
-            "unlock_boss": "Senhor das Sombras"
+            "unlock_boss": "Umbrotide Corrompido Ancião"
         },
     },
     # ── NECROMANTE ─────────────────────────────────────────────────
-    "Necromante": {
+    "Necromante do Veil": {
         "basic": [
             {"name": "💀 Dreno de Vida",    "mana_cost": 20, "dmg_mult": 1.5, "self_heal": 20, "desc": "Rouba HP!"},
             {"name": "🌑 Maldição Sombria", "mana_cost": 25, "dmg_mult": 1.4, "weaken": True, "desc": "Enfraquece o inimigo."},
@@ -2211,7 +2221,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── BERSERKER ──────────────────────────────────────────────────
-    "Berserker": {
+    "Berserker Orkrioniano": {
         "basic": [
             {"name": "🪓 Frenesi",           "mana_cost": 0,  "dmg_mult": 2.0, "desc": "Ataque frenético!"},
             {"name": "💢 Ira Incontrolável", "mana_cost": 15, "dmg_mult": 2.2, "self_dmg": 10, "desc": "Sacrifica HP por poder."},
@@ -2232,7 +2242,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── DRUIDA ─────────────────────────────────────────────────────
-    "Druida": {
+    "Druida de Sylvenmara": {
         "basic": [
             {"name": "🌿 Golpe Natural",     "mana_cost": 0,  "dmg_mult": 1.3, "self_heal": 15, "desc": "Natureza cura ao atacar."},
             {"name": "🌪️ Tempestade de Folhas","mana_cost": 20,"dmg_mult": 1.6, "desc": "Tempestade de espinhos!"},
@@ -2249,11 +2259,11 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "🌌 Gaia's Wrath", "mana_cost": 90, "dmg_mult": 5.3, "self_heal": 120, "stun_chance": 0.4,
             "desc": "A raiva do planeta em forma de ataque. A natureza em seu estado mais puro e destrutivo.",
-            "unlock_boss": "Ent Ancião"
+            "unlock_boss": "Treant Ancião de Sylvenmara"
         },
     },
     # ── MONGE ──────────────────────────────────────────────────────
-    "Monge": {
+    "Monge de Fiorveth": {
         "basic": [
             {"name": "👊 Soco do Dragão",    "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Soco carregado de ki!"},
             {"name": "🌀 Cem Golpes",        "mana_cost": 20, "dmg_mult": 1.7, "desc": "Cem golpes em um segundo!"},
@@ -2274,7 +2284,7 @@ CLASS_TIERED_SKILLS = {
         },
     },
     # ── BARDO ──────────────────────────────────────────────────────
-    "Bardo": {
+    "Bardo de Accordis": {
         "basic": [
             {"name": "🎵 Nota Dissonante",   "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.3, "desc": "Nota que atordoa!"},
             {"name": "🎸 Acorde do Caos",    "mana_cost": 20, "dmg_mult": 1.6, "desc": "Confunde os sentidos."},
@@ -2312,7 +2322,7 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "🏇 Cavaleiro do Apocalipse", "mana_cost": 90, "dmg_mult": 5.5, "ignore_def": True, "stun_chance": 0.5, "weaken": True,
             "desc": "Monta o corcel da morte e arrasa tudo em seu caminho.",
-            "unlock_boss": "Senhor das Sombras"
+            "unlock_boss": "Umbrotide Corrompido Ancião"
         },
     },
     # ── INVOCADOR ──────────────────────────────────────────────────
@@ -2396,7 +2406,7 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "🌌 Convocação Primordial", "mana_cost": 90, "dmg_mult": 5.2, "self_heal": 100, "stun_chance": 0.5,
             "desc": "Chama todos os ancestrais de todas as eras. O maior poder espiritual do mundo.",
-            "unlock_boss": "Yeti Colossal"
+            "unlock_boss": "Geomárcio Ancião"
         },
     },
     # ── TEMPESTEIRO ────────────────────────────────────────────────
@@ -2606,7 +2616,7 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "☠️ O Veneno de Todos os Venenos", "mana_cost": 80, "dmg_mult": 4.8, "poison": True, "weaken": True, "ignore_def": True, "stun_chance": 0.5,
             "desc": "Combina todo veneno existente. Paralisa, corrói, enfraquece e mata simultaneamente.",
-            "unlock_boss": "Dragão de Magma"
+            "unlock_boss": "Ignístio Primordial"
         },
     },
     # ── GLADIADOR ──────────────────────────────────────────────────
@@ -2711,7 +2721,7 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "🐉 O Último Dragão Desperta", "mana_cost": 95, "dmg_mult": 5.8, "ignore_def": True, "stun_chance": 0.4, "poison": True,
             "desc": "O primeiro e último dragão primordial emerge. Fogo que não tem temperatura — apenas destruição.",
-            "unlock_boss": "Dragão de Magma"
+            "unlock_boss": "Ignístio Primordial"
         },
     },
     # ── CLASSES ADICIONAIS SKILLS (31-40) ──────────────────────────
@@ -2892,7 +2902,7 @@ CLASS_TIERED_SKILLS = {
         "supreme": {
             "name": "🌋 A Grande Extinção Flamejante", "mana_cost": 105, "dmg_mult": 7.0, "ignore_def": True, "poison": True, "stun_chance": 0.5,
             "desc": "O fogo que existia antes do universo. Queima qualquer coisa — matéria, energia, esperança.",
-            "unlock_boss": "Dragão de Magma"
+            "unlock_boss": "Ignístio Primordial"
         },
     },
     "Guardian of Light": {
@@ -3897,7 +3907,7 @@ CLASS_SPECIALIZATIONS = {
         "passive": "+15% atributos principais. Poder elevado de Invocador.",
         "bonus_atk": 20, "bonus_hp": 15, "bonus_def": 11,
     },
-    "Nexo Dimensional": {
+    "Axis — Ponto Central": {
         "emoji": "🌀",
         "desc": "Poder que atravessa dimensões. Além da realidade.",
         "passive": "+15% a todos atributos. Bônus dimensional.",
@@ -5443,16 +5453,16 @@ CLASS_SPECIALIZATIONS = {
 
 # ================= MANA POR CLASSE (novas classes incluídas) =================
 CLASS_MANA = {
-    "Guerreiro":  {"base_mana": 30,  "mana_per_level": 2},
-    "Mago":       {"base_mana": 100, "mana_per_level": 8},
-    "Arqueiro":   {"base_mana": 40,  "mana_per_level": 3},
-    "Paladino":   {"base_mana": 60,  "mana_per_level": 4},
-    "Assassino":  {"base_mana": 50,  "mana_per_level": 3},
-    "Necromante": {"base_mana": 80,  "mana_per_level": 6},
-    "Berserker":  {"base_mana": 20,  "mana_per_level": 1},
-    "Druida":     {"base_mana": 70,  "mana_per_level": 5},
-    "Monge":      {"base_mana": 55,  "mana_per_level": 4},
-    "Bardo":      {"base_mana": 65,  "mana_per_level": 5},
+    "Guardião de Ashenvorn":  {"base_mana": 30,  "mana_per_level": 2},
+    "Mago Arcano de Altheron":       {"base_mana": 100, "mana_per_level": 8},
+    "Arqueiro de Sylvenmara":   {"base_mana": 40,  "mana_per_level": 3},
+    "Paladino da Luz":   {"base_mana": 60,  "mana_per_level": 4},
+    "Assassino das Sombras":  {"base_mana": 50,  "mana_per_level": 3},
+    "Necromante do Veil": {"base_mana": 80,  "mana_per_level": 6},
+    "Berserker Orkrioniano":  {"base_mana": 20,  "mana_per_level": 1},
+    "Druida de Sylvenmara":     {"base_mana": 70,  "mana_per_level": 5},
+    "Monge de Fiorveth":      {"base_mana": 55,  "mana_per_level": 4},
+    "Bardo de Accordis":      {"base_mana": 65,  "mana_per_level": 5},
     # Novas classes
     "Cavaleiro das Sombras": {"base_mana": 55, "mana_per_level": 4},
     "Invocador":             {"base_mana": 90, "mana_per_level": 7},
@@ -5478,61 +5488,61 @@ CLASS_MANA = {
 
 # ================= HABILIDADES POR CLASSE (PvP) =================
 CLASS_SKILLS = {
-    "Guerreiro": [
+    "Guardião de Ashenvorn": [
         {"name": "🗡️ Golpe Devastador", "mana_cost": 0, "dmg_mult": 1.4, "desc": "Um golpe poderoso com toda a força!"},
         {"name": "🛡️ Ataque Protetor", "mana_cost": 10, "dmg_mult": 1.2, "def_bonus": 10, "desc": "Ataca enquanto se defende."},
         {"name": "⚔️ Fúria do Guerreiro", "mana_cost": 20, "dmg_mult": 1.8, "desc": "Desencadeia uma rajada de golpes furiosos!"},
         {"name": "🔥 Grito de Batalha", "mana_cost": 15, "dmg_mult": 1.5, "stun_chance": 0.2, "desc": "Grita aterrorizante que pode paralisar."},
     ],
-    "Mago": [
+    "Mago Arcano de Altheron": [
         {"name": "🔥 Bola de Fogo", "mana_cost": 25, "dmg_mult": 2.0, "desc": "Uma esfera flamejante de destruição!"},
         {"name": "⚡ Relâmpago Arcano", "mana_cost": 30, "dmg_mult": 2.2, "stun_chance": 0.3, "desc": "Eletricidade arcana que pode paralisar."},
         {"name": "❄️ Toque Gelado", "mana_cost": 20, "dmg_mult": 1.6, "slow_chance": 0.4, "desc": "Congela o adversário reduzindo sua ação."},
         {"name": "🌀 Explosão do Vazio", "mana_cost": 40, "dmg_mult": 2.8, "desc": "Poder do abismo canalizado em destruição!"},
     ],
-    "Arqueiro": [
+    "Arqueiro de Sylvenmara": [
         {"name": "🏹 Flecha Certeira", "mana_cost": 0, "dmg_mult": 1.5, "desc": "Uma flecha lançada com precisão mortal."},
         {"name": "💨 Chuva de Flechas", "mana_cost": 20, "dmg_mult": 1.7, "desc": "Múltiplas flechas caem como chuva!"},
         {"name": "🎯 Tiro Perfurante", "mana_cost": 15, "dmg_mult": 2.0, "ignore_def": True, "desc": "Flecha que penetra qualquer defesa."},
         {"name": "🌿 Flecha Envenenada", "mana_cost": 10, "dmg_mult": 1.3, "poison": True, "desc": "Veneno que corrói lentamente."},
     ],
-    "Paladino": [
+    "Paladino da Luz": [
         {"name": "✨ Golpe Sagrado", "mana_cost": 15, "dmg_mult": 1.6, "desc": "Energia divina concentrada em um golpe!"},
         {"name": "🛡️ Escudo da Fé", "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 30, "desc": "Cura a si mesmo enquanto defende."},
         {"name": "☀️ Julgamento Divino", "mana_cost": 35, "dmg_mult": 2.0, "desc": "O julgamento dos céus cai sobre o inimigo!"},
         {"name": "🌟 Aura de Proteção", "mana_cost": 25, "dmg_mult": 1.2, "def_bonus": 20, "desc": "Aura que reduz o dano recebido."},
     ],
-    "Assassino": [
+    "Assassino das Sombras": [
         {"name": "🗡️ Golpe Sorrateiro", "mana_cost": 0, "dmg_mult": 1.8, "crit_chance": 0.4, "desc": "Das sombras, um golpe mortal!"},
         {"name": "💨 Dança das Lâminas", "mana_cost": 20, "dmg_mult": 1.5, "desc": "Uma sequência vertiginosa de ataques."},
         {"name": "☠️ Veneno Assassino", "mana_cost": 15, "dmg_mult": 1.3, "poison": True, "desc": "Aplica veneno letal no adversário."},
         {"name": "🌑 Golpe das Sombras", "mana_cost": 30, "dmg_mult": 2.5, "crit_chance": 0.5, "desc": "Ataque das trevas com alta chance crítica!"},
     ],
-    "Necromante": [
+    "Necromante do Veil": [
         {"name": "💀 Dreno de Vida", "mana_cost": 20, "dmg_mult": 1.5, "self_heal": 20, "desc": "Rouba HP do adversário!"},
         {"name": "🦴 Invocar Esqueleto", "mana_cost": 30, "dmg_mult": 1.7, "desc": "Um esqueleto guerreiro ataca!"},
         {"name": "🌑 Maldição Sombria", "mana_cost": 25, "dmg_mult": 1.4, "weaken": True, "desc": "Maldição que enfraquece o inimigo."},
         {"name": "☠️ Morte Instantânea", "mana_cost": 50, "dmg_mult": 3.0, "desc": "Toca o véu entre vida e morte!"},
     ],
-    "Berserker": [
+    "Berserker Orkrioniano": [
         {"name": "🪓 Frenesi", "mana_cost": 0, "dmg_mult": 2.0, "desc": "Ataque frenético sem controle!"},
         {"name": "💢 Ira Incontrolável", "mana_cost": 15, "dmg_mult": 2.2, "self_dmg": 10, "desc": "Sacrifica HP próprio por poder devastador."},
         {"name": "🩸 Sede de Sangue", "mana_cost": 10, "dmg_mult": 1.8, "hp_scale": True, "desc": "Quanto menos HP, mais forte o golpe!"},
         {"name": "💥 Explosão de Fúria", "mana_cost": 25, "dmg_mult": 2.8, "desc": "Toda a raiva liberada em um instante!"},
     ],
-    "Druida": [
+    "Druida de Sylvenmara": [
         {"name": "🌿 Golpe Natural", "mana_cost": 0, "dmg_mult": 1.3, "self_heal": 15, "desc": "A natureza cura ao atacar."},
         {"name": "🌪️ Tempestade de Folhas", "mana_cost": 20, "dmg_mult": 1.6, "desc": "Uma tempestade de espinhos e folhas!"},
         {"name": "🐺 Fúria Animal", "mana_cost": 30, "dmg_mult": 2.0, "desc": "Transforma-se em besta selvagem!"},
         {"name": "⚡ Trovão da Terra", "mana_cost": 35, "dmg_mult": 2.3, "stun_chance": 0.3, "desc": "A terra responde com trovão!"},
     ],
-    "Monge": [
+    "Monge de Fiorveth": [
         {"name": "👊 Soco do Dragão", "mana_cost": 0, "dmg_mult": 1.5, "desc": "Um soco carregado de ki!"},
         {"name": "🌀 Cem Golpes", "mana_cost": 20, "dmg_mult": 1.7, "desc": "Cem golpes em menos de um segundo!"},
         {"name": "⚡ Raio de Ki", "mana_cost": 25, "dmg_mult": 2.0, "desc": "Energia vital lançada como projétil!"},
         {"name": "🧘 Golpe Transcendente", "mana_cost": 40, "dmg_mult": 2.5, "desc": "O corpo e a mente em perfeita harmonia."},
     ],
-    "Bardo": [
+    "Bardo de Accordis": [
         {"name": "🎵 Nota Dissonante", "mana_cost": 10, "dmg_mult": 1.3, "stun_chance": 0.3, "desc": "Uma nota que atordoa o adversário!"},
         {"name": "🎸 Acorde do Caos", "mana_cost": 20, "dmg_mult": 1.6, "desc": "Um acorde que confunde os sentidos."},
         {"name": "🎺 Fanfarra da Ruína", "mana_cost": 15, "dmg_mult": 1.5, "weaken": True, "desc": "Enfraquece o inimigo com música mágica."},
@@ -5550,14 +5560,14 @@ BOSS_SKILLS = {
         {"name": "💀 Golpe Devastador", "dmg_mult": 2.5, "desc": "Toda a força bestial concentrada num único golpe!"},
         {"name": "🌑 Sombra Voraz", "dmg_mult": 1.9, "desc": "Tentáculos de escuridão envolhem o alvo!", "weaken": True},
     ],
-    "Slime Rei": [
+    "Pyroclasta Rei": [
         {"name": "🟢 Divisão Slime", "dmg_mult": 1.2, "desc": "O Rei se divide em dezenas de fragmentos corrosivos!", "poison": True},
         {"name": "💧 Ácido Corrosivo", "dmg_mult": 1.8, "desc": "Um jato de ácido dissolve armadura e carne!", "weaken": True},
         {"name": "🌊 Onda Viscosa", "dmg_mult": 2.0, "desc": "Uma onda gigante de gosma engole o campo inteiro!", "stun_chance": 0.3},
         {"name": "👑 Proclamação Real", "dmg_mult": 2.3, "desc": "*GLUB GLUB!* O Rei slime proclama seu domínio com um ataque esmagador!"},
         {"name": "🦠 Infecção Celular", "dmg_mult": 1.6, "desc": "Células slime invadem o corpo e se reproduzem dentro!", "poison": True, "weaken": True},
     ],
-    "Ent Ancião": [
+    "Treant Ancião de Sylvenmara": [
         {"name": "🌿 Chicote de Raiz", "dmg_mult": 1.6, "desc": "Raízes milenares se enroscam nos tornozelos com força brutal!"},
         {"name": "🌪️ Tempestade de Espinhos", "dmg_mult": 1.9, "desc": "Mil espinhos perfuram de todos os lados!", "poison": True},
         {"name": "🌳 Esmagamento Arbóreo", "dmg_mult": 2.3, "desc": "Galhos do tamanho de troncos esmagam como marretas!", "stun_chance": 0.35},
@@ -5571,14 +5581,14 @@ BOSS_SKILLS = {
         {"name": "📿 Olho de Rá", "dmg_mult": 2.1, "desc": "O olho sagrado abre e emite um feixe de energia devastadora!", "poison": True},
         {"name": "⚰️ AMALDIÇOAMENTO ETERNO", "dmg_mult": 3.0, "desc": "O Faraó invoca o poder de todos os deuses egípcios! Morte inevitável!", "weaken": True, "stun_chance": 0.3},
     ],
-    "Yeti Colossal": [
+    "Geomárcio Ancião": [
         {"name": "❄️ Sopro Ártico", "dmg_mult": 1.8, "desc": "Um sopro que congela o sangue nas veias!", "stun_chance": 0.4},
         {"name": "🏔️ Avalanche", "dmg_mult": 2.1, "desc": "Toneladas de neve e pedra rolam montanha abaixo!"},
         {"name": "💪 Soco Colossal", "dmg_mult": 2.6, "desc": "Um punho do tamanho de uma pedra de granito!"},
         {"name": "🌨️ Nevasca Mortal", "dmg_mult": 1.7, "desc": "Gelo cortante como navalhas cobre tudo ao redor!", "poison": True, "stun_chance": 0.2},
         {"name": "🦣 FÚRIA DAS MONTANHAS", "dmg_mult": 3.2, "desc": "O Yeti bate o peito e avança com toda a sua massa colossal! A terra treme!", "stun_chance": 0.5},
     ],
-    "Dragão de Magma": [
+    "Ignístio Primordial": [
         {"name": "🔥 Chama Draconiana", "dmg_mult": 2.0, "desc": "Fogo a 3000°C que derrete aço e pedra!", "poison": True},
         {"name": "💨 Rugido de Magma", "dmg_mult": 1.7, "desc": "O rugido cria ondas de calor que queimam por dentro!", "stun_chance": 0.2},
         {"name": "🌋 Erupção Dracônica", "dmg_mult": 2.8, "desc": "O dragão explode — lava brota do corpo como uma vulcão!"},
@@ -5586,7 +5596,7 @@ BOSS_SKILLS = {
         {"name": "💎 ESCAMAS DE OBSIDIANA", "dmg_mult": 2.4, "desc": "O dragão mergulha na lava e ressurge com escamas incandescentes — invulnerável!"},
         {"name": "☄️ CHUVA DE METEOROS", "dmg_mult": 3.5, "desc": "O Dragão libera toda a energia vulcânica acumulada! Pedras em chamas caem do céu!", "poison": True, "stun_chance": 0.35},
     ],
-    "Senhor das Sombras": [
+    "Umbrotide Corrompido Ancião": [
         {"name": "🌑 Trevas Absolutas", "dmg_mult": 2.2, "desc": "A escuridão total consome todos os sentidos!", "weaken": True},
         {"name": "👁️ Olhar Paralisante", "dmg_mult": 1.5, "desc": "Um olhar que paralisa corpo e alma simultaneamente!", "stun_chance": 0.5},
         {"name": "💀 Ceifada da Morte", "dmg_mult": 3.0, "desc": "A foice etérea avança — não há defesa contra ela!", "poison": True},
@@ -5598,11 +5608,11 @@ BOSS_SKILLS = {
 
 # ================= BOSS INTROS (diálogos de entrada) =================
 BOSS_INTROS = {
-    "Slime Rei": [
+    "Pyroclasta Rei": [
         "👑 *Uma massa gelatinosa gigantesca emerge do pântano com uma coroa de cristal na cabeça...*\n> **'GLUB GLUB! GLUB GLUB GLUB!'** *— O Slime Rei anuncia seu domínio!*",
         "🟢 *O chão estremece enquanto uma gosma colossal coroada avança em sua direção...*\n> **'Pequeno intruso... você ousa entrar no meu domínio viscoso?!'**",
     ],
-    "Ent Ancião": [
+    "Treant Ancião de Sylvenmara": [
         "🌳 *As raízes da floresta tremem... um ser de madeira e ira milenária se ergue das sombras...*\n> **'Esta floresta existia antes de você nascer. E permanecerá depois que você morrer.'**",
         "🌿 *O vento para. Os pássaros fogem. E então... ele abre os olhos de âmbar...*\n> **'Você perturbou minha paz por 500 anos. Agora pague com sangue.'**",
     ],
@@ -5610,15 +5620,15 @@ BOSS_INTROS = {
         "⚰️ *Vendagens se enrolam. Ouro brilha nas trevas. O faraó se levanta do sarcófago...*\n> **'EU FUI TRAÍDO... e agora toda alma que me encontra paga pela traição!'**",
         "🔮 *Os hieróglifos na parede brilham em vermelho. Uma risada seca ecoa nas câmaras...*\n> **'Milhares de anos de maldição aumentaram meu poder além da compreensão mortal!'**",
     ],
-    "Yeti Colossal": [
+    "Geomárcio Ancião": [
         "❄️ *Uma silhueta branca e imensa surge através da nevasca. O chão racha com cada passo...*\n> **'GRAAAAAAAH!'** *— Não há palavras. Apenas fúria ancestral.*",
         "🏔️ *Avalanches começam ao redor. E então você o vê: um colosso de pelo e raiva...*\n> **'VOCÊ INVADIU MEU TERRITÓRIO... agora sofra as consequências!'**",
     ],
-    "Dragão de Magma": [
+    "Ignístio Primordial": [
         "🌋 *A montanha explode. Lava jorra. E das chamas emerge algo que parece um deus...*\n> **'Ousei de tudo que veio antes de mim. NADA SOBREVIVEU!'**",
         "🔥 *Você sente o calor antes de vê-lo. Então o Dragão de Magma abre seus olhos de fogo...*\n> **'Eu sou o fim de todas as coisas combustíveis. E você... arde fácil.'**",
     ],
-    "Senhor das Sombras": [
+    "Umbrotide Corrompido Ancião": [
         "🌑 *A luz some. Toda a luz. E uma voz que vem de todos os lugares ao mesmo tempo ressoa...*\n> **'Você buscou poder nas sombras. Agora as sombras te consomem.'**",
         "👁️ *Um olho enorme se forma na escuridão. Depois outro. E mais. Até que tudo é olhos...*\n> **'Eu vi o início dos mundos. Serei a testemunha do SEU fim.'**",
     ],
@@ -5631,12 +5641,12 @@ BOSS_INTROS = {
 
 # ================= BOSS PHASE TAUNTS =================
 BOSS_PHASE_TAUNTS = {
-    "Slime Rei": {
+    "Pyroclasta Rei": {
         "phase2": "💢 **'GLUB! GLUB GLUB! VOCÊ ME MACHUCOU?! EU VOU TE DISSOLVER!!!'** *— O Slime Rei pulsa com raiva gelatinosa!*",
         "phase3": "😤 **'N-NÃO! IMPOSSÍVEL! EU SOU O REI! O REI NÃO PERDE!!!'** *— Sua massa começa a borbulhar de forma caótica!*",
         "enrage": "💀 **'MODO REI ABSOLUTO ATIVADO!!!'** *— O Slime explode e se reagrega em uma forma aterrorizante!*",
     },
-    "Ent Ancião": {
+    "Treant Ancião de Sylvenmara": {
         "phase2": "🌿 **'Você ousou ferir a floresta... Agora ela responde com toda sua FÚRiA!'** *— Raízes cobrem o céu!*",
         "phase3": "😡 **'MIL ANOS DE PACIÊNCIA SE ESGOTARAM!'** *— Toda a floresta ao redor começa a se mover!*",
         "enrage": "💥 **'EU SOU A FLORESTA! EU SOU A IRA DA NATUREZA!'** *— O Ent cresce o dobro do seu tamanho!*",
@@ -5646,17 +5656,17 @@ BOSS_PHASE_TAUNTS = {
         "phase3": "💀 **'Rá me abandona... mas SET me dará força! A MALDIÇÃO É ETERNA!'**",
         "enrage": "☠️ **'NÃO HÁ MORTE PARA MIM! EU SOU A PRÓPRIA MALDIÇÃO ENCARNADA!'** *— Aura negra explode ao redor!*",
     },
-    "Yeti Colossal": {
+    "Geomárcio Ancião": {
         "phase2": "😤 **'GRRRAAAHHH!!!'** *— Mais alto. Mais furioso. A neve ao redor vira uma nevasca!*",
         "phase3": "🩸 **'ARGH! VOCÊ... VOCÊ ME FERIU! NINGUÉM ME FERE!'** *— Sangue misturado com neve escorre de seu pelo!*",
         "enrage": "💀 **'MODO FERAL ATIVADO!'** *— Os olhos do Yeti ficam completamente vermelhos. Toda contenção foi perdida!*",
     },
-    "Dragão de Magma": {
+    "Ignístio Primordial": {
         "phase2": "🔥 **'Você... conseguiu me ferir?! IMPRESSIONANTE! E INACEITÁVEL!'** *— As escamas incendeiam com mais intensidade!*",
         "phase3": "🌋 **'SINTO O MAGMA FERVER EM MINHAS VEIAS! VOCÊ ACORDOU O VULCÃO DENTRO DE MIM!'**",
         "enrage": "☄️ **'FORMA FINAL DE DRAGÃO!'** *— O dragão se ergue, libera um rugido que racha o céu e a terra pega fogo!*",
     },
-    "Senhor das Sombras": {
+    "Umbrotide Corrompido Ancião": {
         "phase2": "👁️ **'Dor? Há décadas não sinto dor... Que sensação... DELICIOSA.'**",
         "phase3": "🌑 **'Você me surpreende, mortal. Talvez eu te dê a honra de te matar pessoalmente.'**",
         "enrage": "💀 **'MODO DEUS DAS TREVAS!'** *— O Senhor das Sombras se dissolve e a escuridão toma conta de tudo!*",
@@ -5670,74 +5680,74 @@ BOSS_PHASE_TAUNTS = {
 
 # ================= BOSS DEATH LINES =================
 BOSS_DEATH_LINES = {
-    "Slime Rei": "💚 *O Slime Rei emite um último 'glub' triste... e se desfaz lentamente em uma poça de gosma inerte. Sua coroa cai no chão com um tinido.*\n> **'...glub...'**",
-    "Ent Ancião": "🍂 *Com um gemido que soa como mil árvores caindo, o Ent Ancião tremula... suas folhas caem todas de uma vez. E então ele para.*\n> **'...proteji... o que pude...'**",
+    "Pyroclasta Rei": "💚 *O Slime Rei emite um último 'glub' triste... e se desfaz lentamente em uma poça de gosma inerte. Sua coroa cai no chão com um tinido.*\n> **'...glub...'**",
+    "Treant Ancião de Sylvenmara": "🍂 *Com um gemido que soa como mil árvores caindo, o Ent Ancião tremula... suas folhas caem todas de uma vez. E então ele para.*\n> **'...proteji... o que pude...'**",
     "Faraó Amaldiçoado": "⚰️ *As vendagens se desintegram. O ouro escurece. Com um grito de agonia, o Faraó se desfaz em pó de areia...*\n> **'A MALDIÇÃO... segue contigo... para sempre...'**",
-    "Yeti Colossal": "❄️ *O Yeti Colossal tamba para trás como uma montanha desabando. A neve se assentua. Silêncio nas montanhas.*\n> **'...queria apenas... paz...'**",
-    "Dragão de Magma": "🌋 *O Dragão de Magma emite um rugido final que range os ossos. Seu corpo se resfria... rachadurasaparecem em suas escamas. E então... silêncio vulcânico.*\n> **'Eu... eu era... invencível...'**",
-    "Senhor das Sombras": "🌑 *A escuridão recua. Pela primeira vez em milênios, luz penetra neste lugar. O Senhor das Sombras se fragmenta em mil sombras menores, que desaparecem no vento.*\n> **'...a escuridão... sempre... retorna...'**",
+    "Geomárcio Ancião": "❄️ *O Yeti Colossal tamba para trás como uma montanha desabando. A neve se assentua. Silêncio nas montanhas.*\n> **'...queria apenas... paz...'**",
+    "Ignístio Primordial": "🌋 *O Dragão de Magma emite um rugido final que range os ossos. Seu corpo se resfria... rachadurasaparecem em suas escamas. E então... silêncio vulcânico.*\n> **'Eu... eu era... invencível...'**",
+    "Umbrotide Corrompido Ancião": "🌑 *A escuridão recua. Pela primeira vez em milênios, luz penetra neste lugar. O Senhor das Sombras se fragmenta em mil sombras menores, que desaparecem no vento.*\n> **'...a escuridão... sempre... retorna...'**",
     "default": "*O boss emite um grito final e cai, derrubando o chão ao redor. O eco da batalha se dissipa lentamente...*",
 }
 
 # ================= BOSS VICTORY LINES (quando o boss vence) =================
 BOSS_VICTORY_TAUNTS = {
-    "Slime Rei": "👑 **'GLUB GLUB GLORIOSO!'** *— O Slime Rei celebra engolindo seu equipamento.*",
-    "Ent Ancião": "🌿 **'A floresta prevalece. Como sempre prevaleceu.'**",
+    "Pyroclasta Rei": "👑 **'GLUB GLUB GLORIOSO!'** *— O Slime Rei celebra engolindo seu equipamento.*",
+    "Treant Ancião de Sylvenmara": "🌿 **'A floresta prevalece. Como sempre prevaleceu.'**",
     "Faraó Amaldiçoado": "⚰️ **'Mais uma alma para minha coleção. Descanse entre os mortos, herói.'**",
-    "Yeti Colossal": "❄️ **'GRAAAAH!'** *— O Yeti assopra neve sobre você e vai embora.*",
-    "Dragão de Magma": "🔥 **'Patético. Vejo melhores guerreiros na sola das minhas garras.'**",
-    "Senhor das Sombras": "🌑 **'As sombras te agradecem pela refeição, herói. Descanse nas trevas eternas.'**",
+    "Geomárcio Ancião": "❄️ **'GRAAAAH!'** *— O Yeti assopra neve sobre você e vai embora.*",
+    "Ignístio Primordial": "🔥 **'Patético. Vejo melhores guerreiros na sola das minhas garras.'**",
+    "Umbrotide Corrompido Ancião": "🌑 **'As sombras te agradecem pela refeição, herói. Descanse nas trevas eternas.'**",
     "default": "*O boss te olha com desprezo e vai embora, deixando você na poeira da derrota.*",
 }
 
 # ================= ALLY BATTLE SYSTEM =================
 ALLY_CLASS_ACTIONS = {
-    "Guerreiro": [
+    "Guardião de Ashenvorn": [
         ("⚔️ **{name}** avança com um grito de guerra e golpeia com todo o peso de sua armadura!", 1.4),
         ("🛡️ **{name}** para na frente para proteger o grupo e devolve o dano em dobro!", 1.6),
         ("💪 **{name}** levanta sua espada para os céus e desfere um golpe devastador!", 1.8),
     ],
-    "Mago": [
+    "Mago Arcano de Altheron": [
         ("🔮 **{name}** conjura uma explosão arcana que faz o boss recuar em dor!", 1.7),
         ("⚡ **{name}** lança raios mágicos em série que perfuram as defesas do boss!", 1.9),
         ("✨ **{name}** abre um tomo proibido e libera energia que distorce a realidade ao redor do boss!", 2.1),
     ],
-    "Arqueiro": [
+    "Arqueiro de Sylvenmara": [
         ("🏹 **{name}** mira com precisão cirúrgica e dispara uma flecha no ponto fraco!", 1.5),
         ("🎯 **{name}** solta uma chuva de flechas encantadas que cobre o boss por inteiro!", 1.7),
         ("💨 **{name}** atira uma flecha de vento que atravessa todas as defesas!", 1.6),
     ],
-    "Paladino": [
+    "Paladino da Luz": [
         ("🌟 **{name}** invoca a luz sagrada e descarrega energia divina sobre o boss!", 1.6),
         ("⚡ **{name}** bate o escudo no chão e cria uma onda sagrada expansiva!", 1.8),
         ("🛡️ **{name}** ergue a espada sagrada e esmaga o boss com o peso da justiça!", 1.7),
     ],
-    "Assassino": [
+    "Assassino das Sombras": [
         ("🗡️ **{name}** some nas sombras e reaparece pelas costas do boss — golpe crítico garantido!", 2.0),
         ("🌑 **{name}** usa veneno de cobra real e finca duas lâminas nos pontos vitais!", 1.9),
         ("⚡ **{name}** executa dez golpes em um segundo — uma dança mortal de lâminas!", 1.8),
     ],
-    "Necromante": [
+    "Necromante do Veil": [
         ("💀 **{name}** invoca o espírito de um guerreiro caído que ataca com fúria fantasmagórica!", 1.7),
         ("🩸 **{name}** drena a força vital do boss e transfere energia para os aliados!", 1.6),
         ("☠️ **{name}** lança uma maldição que apodrece a armadura do boss por dentro!", 1.8),
     ],
-    "Berserker": [
+    "Berserker Orkrioniano": [
         ("🪓 **{name}** entra em frenesi total e desmonta o boss com golpes descomunais!", 2.0),
         ("😤 **{name}** ignora qualquer dano e avança como uma máquina de destruição!", 1.9),
         ("💥 **{name}** grita com os pulmões e ataca sem controle — puro poder bruto!", 2.2),
     ],
-    "Druida": [
+    "Druida de Sylvenmara": [
         ("🌿 **{name}** convoca um enxame de besouros mágicos que corroem o boss!", 1.5),
         ("🌱 **{name}** faz raízes emergirem do chão e imobilizarem o boss momentaneamente!", 1.7),
         ("🌊 **{name}** chama uma tempestade natural que esmaga o boss com granizo mágico!", 1.8),
     ],
-    "Monge": [
+    "Monge de Fiorveth": [
         ("👊 **{name}** desacorrentado de toda inibição, golpeia 50 vezes em 3 segundos!", 1.9),
         ("🌀 **{name}** canaliza ki puro e desfere um soco que cria uma onda de choque!", 2.0),
         ("⚡ **{name}** combina defesa e ataque num movimento de arte marcial ancestral!", 1.7),
     ],
-    "Bardo": [
+    "Bardo de Accordis": [
         ("🎵 **{name}** toca uma melodia de guerra que amplifica o poder de todos os aliados! O boss estremece!", 1.4),
         ("🎶 **{name}** canta uma canção maldita que enfraquece as defesas do boss!", 1.5),
         ("🎸 **{name}** executa um acorde tão poderoso que cria uma onda sonora destruidora!", 1.6),
@@ -5749,52 +5759,52 @@ ALLY_CLASS_ACTIONS = {
 }
 
 ALLY_BATTLE_CRIES = {
-    "Guerreiro": [
+    "Guardião de Ashenvorn": [
         "⚔️ *'Por honra e glória!'*",
         "🛡️ *'Nenhum de nós cai hoje!'*",
         "💪 *'Juntos somos invencíveis!'*",
     ],
-    "Mago": [
+    "Mago Arcano de Altheron": [
         "🔮 *'Minha magia está do nosso lado!'*",
         "✨ *'O arcanismo nunca falha!'*",
         "⚡ *'Deixa eu acabar com isso!'*",
     ],
-    "Arqueiro": [
+    "Arqueiro de Sylvenmara": [
         "🏹 *'Achei o ponto fraco!'*",
         "🎯 *'Essa flecha vai doer!'*",
         "💨 *'Confiem na minha pontaria!'*",
     ],
-    "Paladino": [
+    "Paladino da Luz": [
         "🌟 *'A luz nos protege!'*",
         "⚔️ *'Pela justiça divina!'*",
         "🛡️ *'Eu nunca recuo!'*",
     ],
-    "Assassino": [
+    "Assassino das Sombras": [
         "🗡️ *'Já vi o ponto fatal...'*",
         "🌑 *'Silêncio antes da tempestade.'*",
         "⚡ *'Rápido como o vento, mortal como a noite.'*",
     ],
-    "Necromante": [
+    "Necromante do Veil": [
         "💀 *'Os mortos trabalham para nós!'*",
         "☠️ *'A morte é apenas o começo!'*",
         "🩸 *'Meus aliados nunca morrem de verdade.'*",
     ],
-    "Berserker": [
+    "Berserker Orkrioniano": [
         "🪓 *'MATAR! DESTRUIR! SMASH!'*",
         "😤 *'EU NÃO SINTO DOR!!!*",
         "💥 *'MODO BERSERK ATIVADO!!!'*",
     ],
-    "Druida": [
+    "Druida de Sylvenmara": [
         "🌿 *'A natureza responde ao chamado!'*",
         "🌱 *'Raízes e trevas nos obedecem!'*",
         "🌊 *'Os elementos lutam conosco!'*",
     ],
-    "Monge": [
+    "Monge de Fiorveth": [
         "👊 *'Foco. Respiração. Destruição.'*",
         "🌀 *'Meu ki está no limite máximo!'*",
         "⚡ *'Um golpe. É tudo que preciso.'*",
     ],
-    "Bardo": [
+    "Bardo de Accordis": [
         "🎵 *'Que minha música seja nossa arma!'*",
         "🎶 *'Ouçam o som da vitória!'*",
         "🎸 *'Esta batalha merece uma balada épica!'*",
@@ -5861,11 +5871,11 @@ ACHIEVEMENTS = [
     {"id": "survive_trap", "cat": "🗺️ Exploração", "name": "Sortudo", "desc": "Sobreviva a 5 armadilhas em masmorras", "xp": 150, "special": "survive_5_traps"},
     {"id": "no_fail_explore", "cat": "🗺️ Exploração", "name": "Explorador Invicto", "desc": "Explore 10 vezes seguidas sem falhar", "xp": 400, "special": "explore_10_streak"},
     # === ECONOMIA (20) ===
-    {"id": "coins_1k", "cat": "💰 Economia", "name": "Primeiras Moedas", "desc": "Ganhe 1.000 CSI no total", "xp": 100, "stat": "total_coins_earned", "threshold": 1000},
-    {"id": "coins_10k", "cat": "💰 Economia", "name": "Comerciante", "desc": "Ganhe 10.000 CSI no total", "xp": 200, "stat": "total_coins_earned", "threshold": 10000},
-    {"id": "coins_50k", "cat": "💰 Economia", "name": "Mercador Rico", "desc": "Ganhe 50.000 CSI no total", "xp": 450, "stat": "total_coins_earned", "threshold": 50000},
-    {"id": "coins_100k", "cat": "💰 Economia", "name": "Milionário", "desc": "Ganhe 100.000 CSI no total", "xp": 900, "stat": "total_coins_earned", "threshold": 100000},
-    {"id": "coins_500k", "cat": "💰 Economia", "name": "Magnata", "desc": "Ganhe 500.000 CSI no total", "xp": 1800, "stat": "total_coins_earned", "threshold": 500000},
+    {"id": "coins_1k", "cat": "💰 Economia", "name": "Primeiras Moedas", "desc": "Ganhe 1.000 MV no total", "xp": 100, "stat": "total_coins_earned", "threshold": 1000},
+    {"id": "coins_10k", "cat": "💰 Economia", "name": "Comerciante", "desc": "Ganhe 10.000 MV no total", "xp": 200, "stat": "total_coins_earned", "threshold": 10000},
+    {"id": "coins_50k", "cat": "💰 Economia", "name": "Mercador Rico", "desc": "Ganhe 50.000 MV no total", "xp": 450, "stat": "total_coins_earned", "threshold": 50000},
+    {"id": "coins_100k", "cat": "💰 Economia", "name": "Milionário", "desc": "Ganhe 100.000 MV no total", "xp": 900, "stat": "total_coins_earned", "threshold": 100000},
+    {"id": "coins_500k", "cat": "💰 Economia", "name": "Magnata", "desc": "Ganhe 500.000 MV no total", "xp": 1800, "stat": "total_coins_earned", "threshold": 500000},
     {"id": "buy_first_item", "cat": "💰 Economia", "name": "Primeira Compra", "desc": "Compre seu primeiro item na loja", "xp": 50, "special": "buy_first"},
     {"id": "buy_legendary", "cat": "💰 Economia", "name": "Comprador de Sonhos", "desc": "Compre um item Lendário", "xp": 300, "special": "buy_legendary"},
     {"id": "sell_items", "cat": "💰 Economia", "name": "Comerciante Nato", "desc": "Venda 20 itens", "xp": 150, "special": "sell_20"},
@@ -5876,7 +5886,7 @@ ACHIEVEMENTS = [
     {"id": "inv_20", "cat": "💰 Economia", "name": "Colecionador", "desc": "Tenha 20 itens no inventário", "xp": 100, "special": "inv_20"},
     {"id": "inv_50", "cat": "💰 Economia", "name": "Acumulador", "desc": "Tenha 50 itens no inventário", "xp": 200, "special": "inv_50"},
     {"id": "potion_10", "cat": "💰 Economia", "name": "Alquimista", "desc": "Beba 10 poções", "xp": 100, "special": "potion_10"},
-    {"id": "broke", "cat": "💰 Economia", "name": "Falido", "desc": "Fique com 0 moedas CSI", "xp": 50, "special": "broke"},
+    {"id": "broke", "cat": "💰 Economia", "name": "Falido", "desc": "Fique com 0 Moedas de Valtherra", "xp": 50, "special": "broke"},
     {"id": "xp_10k", "cat": "💰 Economia", "name": "Veterano", "desc": "Acumule 10.000 XP no total", "xp": 150, "stat": "total_xp_earned", "threshold": 10000},
     {"id": "xp_100k", "cat": "💰 Economia", "name": "Lendário do XP", "desc": "Acumule 100.000 XP no total", "xp": 750, "stat": "total_xp_earned", "threshold": 100000},
     {"id": "xp_500k", "cat": "💰 Economia", "name": "Transcendente", "desc": "Acumule 500.000 XP no total", "xp": 1800, "stat": "total_xp_earned", "threshold": 500000},
@@ -5918,7 +5928,7 @@ ACHIEVEMENTS = [
     {"id": "max_mana", "cat": "🔮 Secreta", "name": "Reservatório Arcano", "desc": "Use mana máxima em uma única batalha", "xp": 450, "special": "max_mana_battle"},
     {"id": "all_classes", "cat": "🔮 Secreta", "name": "O Polivalente", "desc": "Mude de classe 3 vezes", "xp": 1200, "special": "all_classes_tried"},
     {"id": "midnight_boss", "cat": "🔮 Secreta", "name": "Criatura da Meia-Noite", "desc": "Derrote um boss à meia-noite", "xp": 600, "special": "boss_midnight"},
-    {"id": "rich_broke", "cat": "🔮 Secreta", "name": "Ciclo da Fortuna", "desc": "Acumule 10k CSI e depois fique com 0", "xp": 450, "special": "rich_then_broke"},
+    {"id": "rich_broke", "cat": "🔮 Secreta", "name": "Ciclo da Fortuna", "desc": "Acumule 10k MV e depois fique com 0", "xp": 450, "special": "rich_then_broke"},
     {"id": "solo_all_bosses", "cat": "🔮 Secreta", "name": "Solitário Lendário", "desc": "Derrote todos os bosses de level sozinho", "xp": 1500, "special": "solo_all_bosses"},
     {"id": "perfect_boss", "cat": "🔮 Secreta", "name": "Combate Perfeito", "desc": "Derrote um boss sem ser envenenado/atordoado", "xp": 900, "special": "perfect_boss_fight"},
     {"id": "first_message", "cat": "🔮 Secreta", "name": "O Começo", "desc": "Seja o primeiro jogador do servidor", "xp": 150, "special": "first_player"},
@@ -5940,62 +5950,62 @@ TRAINING_MULTIPLIERS = [1, 2, 3, 5, 10, 20]
 # Cada monstro pode dropar itens comuns ou incomuns específicos
 MONSTER_DROPS = {
     # Campos Iniciais
-    "Slime": [
-        {"name": "Gel de Slime", "type": "resource"},
-        {"name": "Espada Enferrujada", "type": "weapon", "rarity": "Comum"},
+    "Pyroclasta Menor": [
+        {"name": "Escória de Pyroclasta", "type": "resource"},
+        {"name": "Lâmina de Crestfall Enferrujada", "type": "weapon", "rarity": "Comum"},
     ],
-    "Goblin": [
+    "Goblin de Ashenvorn": [
         {"name": "Faca de Goblin", "type": "weapon", "rarity": "Comum"},
-        {"name": "Escudo de Madeira", "type": "armor", "rarity": "Comum"},
+        {"name": "Escudo de Tronco de Sylvenmara", "type": "armor", "rarity": "Comum"},
         {"name": "Espada Pequena", "type": "weapon", "rarity": "Incomum"},
     ],
-    "Lobo": [
-        {"name": "Pele de Lobo", "type": "resource"},
-        {"name": "Garra de Lobo", "type": "resource"},
+    "Lobisomem de Fronteira": [
+        {"name": "Pele de Lobisomem", "type": "resource"},
+        {"name": "Garra de Lobisomem", "type": "resource"},
         {"name": "Colete de Couro", "type": "armor", "rarity": "Incomum"},
     ],
-    "Esqueleto": [
-        {"name": "Osso Afiado", "type": "weapon", "rarity": "Comum"},
+    "Espírito Fixo de Valkmorr": [
+        {"name": "Fragmento Espiritual de Valkmorr", "type": "weapon", "rarity": "Comum"},
         {"name": "Armadura Óssea", "type": "armor", "rarity": "Incomum"},
         {"name": "Espada de Ferro", "type": "weapon", "rarity": "Incomum"},
     ],
-    "Rato Selvagem": [
-        {"name": "Pelo de Rato", "type": "resource"},
+    "Kobold Errante": [
+        {"name": "Escama de Kobold", "type": "resource"},
         {"name": "Adaga de Pedra", "type": "weapon", "rarity": "Comum"},
     ],
     # Floresta Élfica
-    "Ent Menor": [
-        {"name": "Galho Mágico", "type": "resource"},
-        {"name": "Cajado de Madeira Viva", "type": "weapon", "rarity": "Incomum"},
+    "Treant Jovem": [
+        {"name": "Galho de Treant", "type": "resource"},
+        {"name": "Cajado de Treant Jovem", "type": "weapon", "rarity": "Incomum"},
         {"name": "Vestes de Batalha", "type": "armor", "rarity": "Incomum"},
     ],
-    "Aranha Gigante": [
-        {"name": "Seda Venenosa", "type": "resource"},
-        {"name": "Adaga Venenosa", "type": "weapon", "rarity": "Raro"},
+    "Arácnido das Cavernas": [
+        {"name": "Teia de Arácnido", "type": "resource"},
+        {"name": "Presa de Arácnido", "type": "weapon", "rarity": "Raro"},
         {"name": "Capa de Sombras", "type": "armor", "rarity": "Raro"},
     ],
-    "Elfo Renegado": [
-        {"name": "Arco Élfic", "type": "weapon", "rarity": "Raro"},
+    "Drow Renegado": [
+        {"name": "Arco Élfíco de Lótharim", "type": "weapon", "rarity": "Raro"},
         {"name": "Capa de Sombras", "type": "armor", "rarity": "Raro"},
         {"name": "Armadura Élfica", "type": "armor", "rarity": "Raro"},
     ],
-    "Espírito Florestal": [
+    "Flordílio Corrompido": [
         {"name": "Essência Etérea", "type": "resource"},
         {"name": "Vestes Arcanas", "type": "armor", "rarity": "Raro"},
     ],
     # Deserto
-    "Múmia": [
-        {"name": "Ataduras Mágicas", "type": "resource"},
-        {"name": "Cetro Antigo", "type": "weapon", "rarity": "Raro"},
-        {"name": "Armadura de Ouro", "type": "armor", "rarity": "Épico"},
+    "Ambarino Corrompido": [
+        {"name": "Âmbar Fragmentado", "type": "resource"},
+        {"name": "Cetro de Âmbar de Ambervault", "type": "weapon", "rarity": "Raro"},
+        {"name": "Armadura Dourada dos Anões de Durrheim", "type": "armor", "rarity": "Épico"},
     ],
-    "Escorpião": [
-        {"name": "Veneno de Escorpião", "type": "resource"},
+    "Shal'kar Jovem": [
+        {"name": "Veneno de Shal'kar", "type": "resource"},
         {"name": "Garras de Escorpião", "type": "weapon", "rarity": "Incomum"},
         {"name": "Lança do Caçador", "type": "weapon", "rarity": "Raro"},
     ],
-    "Escorpião Gigante": [
-        {"name": "Veneno Concentrado", "type": "resource"},
+    "Shal'kar Adulto": [
+        {"name": "Veneno Shal'kar Puro", "type": "resource"},
         {"name": "Lança do Caçador", "type": "weapon", "rarity": "Raro"},
         {"name": "Armadura de Escamas", "type": "armor", "rarity": "Incomum"},
     ],
@@ -6226,16 +6236,16 @@ PET_EVOLUTIONS = {
         }
     },
     "Slime Mestre": {
-        "level_required": 30, "next": "Slime Rei",
+        "level_required": 30, "next": "Pyroclasta Rei",
         "passive": "Divisão Celular: Quando HP < 30%, duplica o ATK",
         "next_data": {
-            "name": "Slime Rei", "emoji": "👑", "rarity": "Lendário",
+            "name": "Pyroclasta Rei", "emoji": "👑", "rarity": "Lendário",
             "bonus_hp": 120, "bonus_atk": 55,
             "passive": "Domínio Gelificado: Cura 8% do HP máximo por turno + imune a veneno"
         }
     },
     # === CADEIA SUPREMA DO SLIME ===
-    "Slime Rei": {
+    "Pyroclasta Rei": {
         "level_required": 45, "next": "Slime Abissal",
         "passive": "Domínio Gelificado: Cura 8% HP/turno + imune a veneno",
         "next_data": {
@@ -6438,7 +6448,7 @@ PET_EVOLUTIONS = {
         "level_required": 49, "next": "Fênix Eterna",
         "next_data": {"name": "Fênix Eterna", "emoji": "☀️", "rarity": "Divino", "bonus_hp": 270, "bonus_atk": 135}
     },
-    "Dragão de Magma": {
+    "Ignístio Primordial": {
         "level_required": 38, "next": "Dragão Vulcânico",
         "next_data": {"name": "Dragão Vulcânico", "emoji": "🐲", "rarity": "Divino", "bonus_hp": 200, "bonus_atk": 100}
     },
@@ -6503,7 +6513,7 @@ MANA_CATEGORIES = [
 ]
 
 SPELL_BOOK_SKILLS = {
-    "Mago": [
+    "Mago Arcano de Altheron": [
         {"cat": "goblin",     "name": "🔥 Chispa Arcana",      "mana_cost": 5,  "dmg_mult": 1.2, "desc": "Uma centelha mágica básica."},
         {"cat": "aprendiz",   "name": "❄️ Flecha de Gelo",     "mana_cost": 12, "dmg_mult": 1.5, "slow": True, "desc": "Desacelera o inimigo."},
         {"cat": "estudante",  "name": "⚡ Tempestade Arcana",  "mana_cost": 20, "dmg_mult": 1.8, "desc": "Múltiplos raios arcanos."},
@@ -6515,7 +6525,7 @@ SPELL_BOOK_SKILLS = {
         {"cat": "lendario",   "name": "💥 Explosão Cósmica",  "mana_cost": 90, "dmg_mult": 4.8, "desc": "O universo colapsa no alvo."},
         {"cat": "supremo",    "name": "⚗️ Aniquilação Total", "mana_cost": 120,"dmg_mult": 6.0, "ignore_def": True, "desc": "Poder absoluto e irresistível!"},
     ],
-    "Necromante": [
+    "Necromante do Veil": [
         {"cat": "goblin",     "name": "💀 Toque da Morte",     "mana_cost": 5,  "dmg_mult": 1.2, "desc": "A morte roça o inimigo."},
         {"cat": "aprendiz",   "name": "🦴 Esqueleto Básico",   "mana_cost": 12, "dmg_mult": 1.4, "desc": "Invoca um guerreiro ósseo."},
         {"cat": "estudante",  "name": "☠️ Praga",              "mana_cost": 20, "dmg_mult": 1.6, "poison": True, "desc": "Praga que corrói a alma."},
@@ -6527,7 +6537,7 @@ SPELL_BOOK_SKILLS = {
         {"cat": "lendario",   "name": "🌚 Véu da Morte",       "mana_cost": 95, "dmg_mult": 5.0, "desc": "A morte se materializa."},
         {"cat": "supremo",    "name": "💀 Exterminação",       "mana_cost": 130,"dmg_mult": 6.5, "ignore_def": True, "desc": "Nada escapa à morte absoluta!"},
     ],
-    "Paladino": [
+    "Paladino da Luz": [
         {"cat": "goblin",     "name": "✨ Bênção Menor",       "mana_cost": 5,  "dmg_mult": 1.1, "self_heal": 10, "desc": "A luz cura levemente."},
         {"cat": "aprendiz",   "name": "☀️ Raio Sagrado",       "mana_cost": 12, "dmg_mult": 1.5, "desc": "Um raio de luz divina."},
         {"cat": "estudante",  "name": "🛡️ Barreira Sagrada",   "mana_cost": 20, "dmg_mult": 1.0, "self_heal": 35, "def_bonus": 15, "desc": "Barreira protetora."},
@@ -6539,7 +6549,7 @@ SPELL_BOOK_SKILLS = {
         {"cat": "lendario",   "name": "🕊️ Intervenção Divina", "mana_cost": 100,"dmg_mult": 4.5, "self_heal": 80, "desc": "Os deuses intervêm pessoalmente."},
         {"cat": "supremo",    "name": "🌈 Juízo Final",        "mana_cost": 140,"dmg_mult": 6.0, "stun_chance": 0.5, "desc": "O julgamento eterno cai!"},
     ],
-    "Druida": [
+    "Druida de Sylvenmara": [
         {"cat": "goblin",     "name": "🌿 Cura Menor",         "mana_cost": 5,  "dmg_mult": 1.0, "self_heal": 20, "desc": "A natureza cura."},
         {"cat": "aprendiz",   "name": "🌱 Espinhos Vivos",     "mana_cost": 12, "dmg_mult": 1.4, "poison": True, "desc": "Espinhos que envenenam."},
         {"cat": "estudante",  "name": "🐺 Forma Animal",       "mana_cost": 20, "dmg_mult": 1.8, "desc": "Se transforma em besta."},
@@ -6554,7 +6564,7 @@ SPELL_BOOK_SKILLS = {
 }
 
 # Classes de suporte que podem curar aliados em grupo
-SUPPORT_CLASSES = {"Paladino", "Druida", "Mago", "Bardo", "Necromante"}
+SUPPORT_CLASSES = {"Paladino da Luz", "Druida de Sylvenmara", "Mago Arcano de Altheron", "Bardo de Accordis", "Necromante do Veil"}
 
 # ================= KINGDOM SYSTEM (para Reis) =================
 KINGDOM_DEFAULTS = {
@@ -6572,12 +6582,12 @@ KINGDOM_DEFAULTS = {
 # ================= ARMY RACES — baseado na raça do jogador =================
 # Cada raça do jogador determina que tipo de exército seu reino possui
 ARMY_RACES = {
-    "Humano":     {"name": "Milícia Real",          "emoji": "🪖", "hp_mult": 1.0,  "atk_mult": 1.0,  "lore": "Soldados humanos versáteis e adaptáveis."},
-    "Élfico":     {"name": "Arqueiros Élficos",      "emoji": "🏹", "hp_mult": 0.85, "atk_mult": 1.25, "lore": "Arqueiros de precisão sobrenatural, letais à distância."},
-    "Anão":       {"name": "Brigada de Ferro",       "emoji": "⚒️", "hp_mult": 1.35, "atk_mult": 0.90, "lore": "Anões blindados que formam muralhas de aço impenetráveis."},
-    "Orc":        {"name": "Horda Tribal",           "emoji": "🟢", "hp_mult": 1.20, "atk_mult": 1.30, "lore": "Guerreiros selvagens que entram em frenesi total ao lutar."},
+    "Humano de Crestfall":     {"name": "Milícia Real",          "emoji": "🪖", "hp_mult": 1.0,  "atk_mult": 1.0,  "lore": "Soldados humanos versáteis e adaptáveis."},
+    "Élfico de Lótharim":     {"name": "Arqueiros Élficos",      "emoji": "🏹", "hp_mult": 0.85, "atk_mult": 1.25, "lore": "Arqueiros de precisão sobrenatural, letais à distância."},
+    "Anão de Durrheim":       {"name": "Brigada de Ferro",       "emoji": "⚒️", "hp_mult": 1.35, "atk_mult": 0.90, "lore": "Anões blindados que formam muralhas de aço impenetráveis."},
+    "Orc de Warcheld":        {"name": "Horda Tribal",           "emoji": "🟢", "hp_mult": 1.20, "atk_mult": 1.30, "lore": "Guerreiros selvagens que entram em frenesi total ao lutar."},
     "Anjo":       {"name": "Legião Celestial",       "emoji": "👼", "hp_mult": 1.10, "atk_mult": 1.10, "lore": "Guardiões sagrados com cura passiva em batalha."},
-    "Demônio":    {"name": "Exército das Trevas",    "emoji": "😈", "hp_mult": 0.90, "atk_mult": 1.40, "lore": "Demônios implacáveis cujo medo paralisa inimigos."},
+    "Tiefling Infernal":    {"name": "Exército das Trevas",    "emoji": "😈", "hp_mult": 0.90, "atk_mult": 1.40, "lore": "Demônios implacáveis cujo medo paralisa inimigos."},
     "Dragônico":  {"name": "Dragões de Guerra",      "emoji": "🐉", "hp_mult": 1.30, "atk_mult": 1.20, "lore": "Guerreiros com sangue de dragão, sofro e escamas são suas armaduras."},
     "Vampiro":    {"name": "Guarda Noturna",         "emoji": "🧛", "hp_mult": 1.00, "atk_mult": 1.20, "lore": "Vampiros que drenam vida dos inimigos para se curar."},
     "Lobisomem":  {"name": "Alcateia de Guerra",     "emoji": "🐺", "hp_mult": 1.15, "atk_mult": 1.15, "lore": "Lobisomens que ficam mais fortes à medida que a batalha avança."},
@@ -6586,7 +6596,7 @@ ARMY_RACES = {
     "Valquíria":  {"name": "Valquírias de Elite",    "emoji": "⚡", "hp_mult": 1.05, "atk_mult": 1.25, "lore": "Guerreiras celestiais que inspiram aliados à luta."},
     "Gorgona":    {"name": "Olhares da Morte",       "emoji": "🐍", "hp_mult": 1.00, "atk_mult": 1.35, "lore": "Guerreiras que paralisam inimigos com seu olhar."},
     "Titã":       {"name": "Colossos Titânicos",     "emoji": "🗿", "hp_mult": 1.50, "atk_mult": 1.00, "lore": "Gigantes que absorvem dano massivo antes de cair."},
-    "Esqueleto":  {"name": "Exército dos Mortos",    "emoji": "💀", "hp_mult": 0.80, "atk_mult": 1.20, "lore": "Não-mortos que ressuscitam uma vez por batalha."},
+    "Espírito Fixo de Valkmorr":  {"name": "Exército dos Mortos",    "emoji": "💀", "hp_mult": 0.80, "atk_mult": 1.20, "lore": "Não-mortos que ressuscitam uma vez por batalha."},
     "Fae":        {"name": "Faéria Guerreira",       "emoji": "🧚", "hp_mult": 0.75, "atk_mult": 1.45, "lore": "Fadas que causam dano mágico ignorando defesas."},
     "Sereiano":   {"name": "Guerreiros do Mar",      "emoji": "🌊", "hp_mult": 1.10, "atk_mult": 1.15, "lore": "Combatentes anfíbios com regeneração em batalha."},
     "Gnomo":      {"name": "Engenheiros de Guerra",  "emoji": "⚙️", "hp_mult": 0.90, "atk_mult": 1.30, "lore": "Gnomeiros com armamentos mecânicos experimentais."},
@@ -6631,23 +6641,23 @@ RARITIES = {
 
 # ================= WORLD NAME MAP (usado pela Pokédex) =================
 WORLD_NAMES_MAP = {
-    1: "🌱 Campos Iniciais",
-    10: "🌲 Floresta Sombria",
-    20: "🏜️ Deserto das Almas",
-    30: "❄️ Montanhas Geladas",
-    40: "🌋 Reino Vulcânico",
-    50: "🌑 Dimensão das Sombras",
-    60: "👼 Paraíso Celestial",
-    70: "🌊 Abismo Oceânico",
-    80: "💎 Gruta dos Cristais",
-    90: "⚡ Planícies do Trovão",
-    100: "🗿 Terra dos Gigantes",
-    110: "🌊 Mar das Almas",
-    120: "🌀 Reino do Caos",
-    130: "🌸 Jardim dos Deuses",
-    140: "❄️ Reino do Gelo Eterno",
-    150: "🏛️ Ruínas da Civilização Perdida",
-    160: "✨ Plano Astral",
+    1: "🌾 Planícies de Ashenvorn",
+    10: "🌿 Floresta de Sylvenmara",
+    20: "🏜️ Desertos de Roksveld",
+    30: "⛰️ Montanhas de Khervak",
+    40: "🌋 Campos Vulcânicos de Pyreth",
+    50: "🌑 Florestas Sombrias de Umbreth",
+    60: "👼 Reino de Lótharim",
+    70: "🌊 Costas de Aquenmar",
+    80: "💎 Montanhas de Khervak — Profundezas",
+    90: "⚡ Estepes de Orrathis",
+    100: "🗿 Nação de Xaltharis",
+    110: "🌊 Arquipélago de Quorval",
+    120: "🌀 Wasteland de Feraxis",
+    130: "🌸 Planícies de Velkar",
+    140: "❄️ Chronoveil — Reinos Dimensionais",
+    150: "🏛️ Ruínas de Valkmorr",
+    160: "✨ Céu de Venthar",
     170: "👁️ Além da Existência",
     180: "👑 O Trono Primordial",
 }
@@ -6738,7 +6748,7 @@ PETS = {
     40: [
         {"name": "Salamandra de Fogo",     "emoji": "🦎", "rarity": "Épico",    "bonus_hp": 55,  "bonus_atk": 28, "lore": "Salamandra nascida dentro de um vulcão ativo."},
         {"name": "Fênix Carmesim",         "emoji": "🔥", "rarity": "Lendário", "bonus_hp": 80,  "bonus_atk": 40, "can_mount": True, "mount_bonus_def": 25, "mount_bonus_spd": 16, "lore": "Fênix de plumas carmesim que brilha como lava líquida."},
-        {"name": "Dragão de Magma",        "emoji": "🐲", "rarity": "Mítico",   "bonus_hp": 120, "bonus_atk": 60, "can_mount": True, "mount_bonus_def": 35, "mount_bonus_spd": 22, "lore": "Dragão que nada em rios de lava como se fossem água."},
+        {"name": "Ignístio Primordial",        "emoji": "🐲", "rarity": "Mítico",   "bonus_hp": 120, "bonus_atk": 60, "can_mount": True, "mount_bonus_def": 35, "mount_bonus_spd": 22, "lore": "Dragão que nada em rios de lava como se fossem água."},
         {"name": "Touro Vulcânico",        "emoji": "🐂", "rarity": "Raro",     "bonus_hp": 50,  "bonus_atk": 22, "can_mount": True, "mount_bonus_def": 17, "mount_bonus_spd": 6,  "lore": "Touro cujos chifres têm núcleo de magma puro."},
         {"name": "Morcego de Cinzas",      "emoji": "🦇", "rarity": "Incomum",  "bonus_hp": 35,  "bonus_atk": 16, "lore": "Morcego que vive nas chaminés vulcânicas."},
         {"name": "Golem de Magma",         "emoji": "🪨", "rarity": "Épico",    "bonus_hp": 65,  "bonus_atk": 24, "can_mount": True, "mount_bonus_def": 22, "mount_bonus_spd": 4,  "lore": "Criatura de pedra e magma moldada pelos vulcões."},
@@ -6875,7 +6885,7 @@ EXISTING_PETS_MOUNT = {
     "Fênix de Gelo":       {"can_mount": True,  "mount_bonus_def": 30, "mount_bonus_spd": 18},
     "Salamandra de Fogo":  {"can_mount": True,  "mount_bonus_def": 16, "mount_bonus_spd": 10},
     "Fênix Carmesim":      {"can_mount": True,  "mount_bonus_def": 25, "mount_bonus_spd": 16},
-    "Dragão de Magma":     {"can_mount": True,  "mount_bonus_def": 35, "mount_bonus_spd": 22},
+    "Ignístio Primordial":     {"can_mount": True,  "mount_bonus_def": 35, "mount_bonus_spd": 22},
     "Esfinge Menor":       {"can_mount": True,  "mount_bonus_def": 18, "mount_bonus_spd": 12},
     "Arcanjo Primordial":  {"can_mount": True,  "mount_bonus_def": 120,"mount_bonus_spd": 60},
     "Entidade Cósmica":    {"can_mount": True,  "mount_bonus_def": 55, "mount_bonus_spd": 30},
@@ -7267,13 +7277,13 @@ QUESTS = {
             "description": "Os aldeões estão desesperados. Ratos selvagens invadiram os campos e destroem as colheitas. Elimine 5 Ratos Selvagens e traga paz à região.",
             "type": "individual",
             "objective": "hunt",
-            "target": "Rato Selvagem",
+            "target": "Kobold Errante",
             "count": 5,
             "reward_xp": 450,
             "reward_coins": 90,
             "reward_item": "Poção de Vida",
             "lore": "Os aldeões sussurram sobre uma criatura maior controlando os ratos... O Rato Rei.",
-            "npc": "Aldeão Theron",
+            "npc": "Eldoriano Thessevan",
             "difficulty": "Fácil"
         },
         {
@@ -7287,7 +7297,7 @@ QUESTS = {
             "reward_coins": 60,
             "reward_item": "Poção de XP Menor",
             "lore": "O curandeiro menciona que as ervas desta região têm propriedades mágicas únicas desde a queda do primeiro meteoro.",
-            "npc": "Curandeira Elara",
+            "npc": "Sacerdotisa de Elaris",
             "difficulty": "Fácil"
         },
         {
@@ -7298,12 +7308,12 @@ QUESTS = {
             "min_players": 2,
             "max_players": 3,
             "objective": "boss",
-            "target": "Slime Rei",
+            "target": "Pyroclasta Rei",
             "reward_xp": 1200,
             "reward_coins": 240,
             "reward_item": "Espada de Ferro",
             "lore": "O Slime Rei absorveu a magia de um cristal antigo e agora é imune a ataques solitários. Apenas a força combinada pode pará-lo.",
-            "npc": "Capitão Aldric",
+            "npc": "Capitão da Milícia de Crestfall",
             "difficulty": "Médio"
         },
         {
@@ -7328,7 +7338,7 @@ QUESTS = {
             "description": "Aranhas Gigantes bloqueiam a passagem principal da floresta. Elimine-as para reabrir o caminho dos mercadores.",
             "type": "individual",
             "objective": "hunt",
-            "target": "Aranha Gigante",
+            "target": "Arácnido das Cavernas",
             "count": 6,
             "reward_xp": 1050,
             "reward_coins": 150,
@@ -7345,12 +7355,12 @@ QUESTS = {
             "min_players": 2,
             "max_players": 3,
             "objective": "boss",
-            "target": "Ent Ancião",
+            "target": "Treant Ancião de Sylvenmara",
             "reward_xp": 2700,
             "reward_coins": 450,
             "reward_item": "Armadura Élfica",
             "lore": "O Ent Ancião tem 3.000 anos. Ele guarda em sua memória o segredo da origem da floresta.",
-            "npc": "Druida Sylvara",
+            "npc": "Druida Guardiã de Thalverde",
             "difficulty": "Difícil"
         },
         {
@@ -7405,7 +7415,7 @@ QUESTS = {
             "description": "Elimine Escorpiões Gigantes que envenenaram o único oásis da região.",
             "type": "individual",
             "objective": "hunt",
-            "target": "Escorpião Gigante",
+            "target": "Shal'kar Adulto",
             "count": 8,
             "reward_xp": 1800,
             "reward_coins": 270,
@@ -7424,7 +7434,7 @@ QUESTS = {
             "min_players": 2,
             "max_players": 3,
             "objective": "boss",
-            "target": "Yeti Colossal",
+            "target": "Geomárcio Ancião",
             "reward_xp": 5400,
             "reward_coins": 840,
             "reward_item": "Armadura Rúnica",
@@ -7456,7 +7466,7 @@ QUESTS = {
             "min_players": 3,
             "max_players": 3,
             "objective": "boss",
-            "target": "Dragão de Magma",
+            "target": "Ignístio Primordial",
             "reward_xp": 7500,
             "reward_coins": 1200,
             "reward_item": "Excalibur",
@@ -7488,7 +7498,7 @@ QUESTS = {
             "min_players": 3,
             "max_players": 3,
             "objective": "boss",
-            "target": "Senhor das Sombras",
+            "target": "Umbrotide Corrompido Ancião",
             "reward_xp": 12000,
             "reward_coins": 1800,
             "reward_item": "Cetro da Eternidade",
@@ -8073,19 +8083,19 @@ JOBS = {
 # ================= WEAPON DATABASE (para inspecionar arma) =================
 WEAPON_DATABASE = {
     # Comuns
-    "Espada Enferrujada":   {"type": "Espada", "rarity": "Comum",   "atk": 5,  "crit": 5,  "speed": 8,  "element": None,     "skill": "Golpe Básico",      "skill_desc": "Ataque simples. +0% dano.", "lore": "Uma espada velha, cheia de ferrugem. Mas ainda corta."},
+    "Lâmina de Crestfall Enferrujada":   {"type": "Espada", "rarity": "Comum",   "atk": 5,  "crit": 5,  "speed": 8,  "element": None,     "skill": "Golpe Básico",      "skill_desc": "Ataque simples. +0% dano.", "lore": "Uma espada velha, cheia de ferrugem. Mas ainda corta."},
     "Faca de Goblin":       {"type": "Adaga",  "rarity": "Comum",   "atk": 4,  "crit": 8,  "speed": 12, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido. +10% chance de sangramento.", "lore": "Roubada de um goblin. Tem uma mancha que não sai."},
-    "Osso Afiado":          {"type": "Adaga",  "rarity": "Comum",   "atk": 3,  "crit": 6,  "speed": 10, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido.", "lore": "Improviso ósseo. Funciona melhor do que deveria."},
+    "Fragmento Espiritual de Valkmorr":          {"type": "Adaga",  "rarity": "Comum",   "atk": 3,  "crit": 6,  "speed": 10, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido.", "lore": "Improviso ósseo. Funciona melhor do que deveria."},
     "Espada Pequena":       {"type": "Espada", "rarity": "Incomum", "atk": 8,  "crit": 7,  "speed": 10, "element": None,     "skill": "Golpe Duplo",       "skill_desc": "Dois ataques rápidos. Cada um com 75% do dano base.", "lore": "Compacta e equilibrada. Favorita de viajantes espertos."},
     "Adaga de Pedra":       {"type": "Adaga",  "rarity": "Comum",   "atk": 4,  "crit": 7,  "speed": 11, "element": None,     "skill": "Perfurar",          "skill_desc": "Ataque rápido básico.", "lore": "Talhada em pedra vulcânica. Primitiva, mas eficaz."},
     # Incomuns
     "Espada de Ferro":      {"type": "Espada", "rarity": "Incomum", "atk": 12, "crit": 8,  "speed": 9,  "element": None,     "skill": "Golpe Cortante",    "skill_desc": "Ignora 10% da defesa inimiga.", "lore": "Forjada em ferro padrão. Confiável e resistente."},
-    "Cajado de Madeira Viva":{"type": "Cajado","rarity": "Incomum", "atk": 10, "crit": 6,  "speed": 7,  "element": "Natureza","skill": "Raiz Viva",        "skill_desc": "+20% dano contra inimigos imóveis.", "lore": "A madeira ainda cresce. Você pode sentir a seiva pulsando."},
-    "Garras de Escorpião":  {"type": "Garras", "rarity": "Incomum", "atk": 11, "crit": 12, "speed": 13, "element": "Veneno", "skill": "Veneno de Escorpião","skill_desc": "15% chance de envenenar o inimigo por 3 turnos.", "lore": "Arrancar estas garras foi um erro do escorpião."},
+    "Cajado de Treant Jovem":{"type": "Cajado","rarity": "Incomum", "atk": 10, "crit": 6,  "speed": 7,  "element": "Natureza","skill": "Raiz Viva",        "skill_desc": "+20% dano contra inimigos imóveis.", "lore": "A madeira ainda cresce. Você pode sentir a seiva pulsando."},
+    "Garras de Escorpião":  {"type": "Garras", "rarity": "Incomum", "atk": 11, "crit": 12, "speed": 13, "element": "Veneno", "skill": "Veneno de Shal'kar","skill_desc": "15% chance de envenenar o inimigo por 3 turnos.", "lore": "Arrancar estas garras foi um erro do escorpião."},
     # Raros
-    "Adaga Venenosa":       {"type": "Adaga",  "rarity": "Raro",    "atk": 18, "crit": 15, "speed": 14, "element": "Veneno", "skill": "Inoculação Fatal",  "skill_desc": "25% chance de veneno devastador: -5% HP/turno.", "lore": "Destilada com o veneno de 100 aranhas da floresta negra."},
+    "Presa de Arácnido":       {"type": "Adaga",  "rarity": "Raro",    "atk": 18, "crit": 15, "speed": 14, "element": "Veneno", "skill": "Inoculação Fatal",  "skill_desc": "25% chance de veneno devastador: -5% HP/turno.", "lore": "Destilada com o veneno de 100 aranhas da floresta negra."},
     "Arco Élfico":          {"type": "Arco",   "rarity": "Raro",    "atk": 20, "crit": 18, "speed": 15, "element": "Arcano", "skill": "Flecha Certeira",   "skill_desc": "+40% dano crítico. Nunca erra se concentrado.", "lore": "Encantado por elfos há séculos. Vibra ao mirar em inimigos."},
-    "Cetro Antigo":         {"type": "Cetro",  "rarity": "Raro",    "atk": 22, "crit": 10, "speed": 6,  "element": "Arcano", "skill": "Pulso Arcano",      "skill_desc": "Dano mágico que ignora 25% da DEF.", "lore": "Recuperado de uma tumba. Palavras inscritas nele pulsam à noite."},
+    "Cetro de Âmbar de Ambervault":         {"type": "Cetro",  "rarity": "Raro",    "atk": 22, "crit": 10, "speed": 6,  "element": "Arcano", "skill": "Pulso Arcano",      "skill_desc": "Dano mágico que ignora 25% da DEF.", "lore": "Recuperado de uma tumba. Palavras inscritas nele pulsam à noite."},
     "Machado de Gelo":      {"type": "Machado","rarity": "Raro",    "atk": 25, "crit": 9,  "speed": 6,  "element": "Gelo",   "skill": "Tempestade Gélida", "skill_desc": "20% chance de congelar inimigo por 1 turno (perde ação).", "lore": "Forjado no coração de uma avalanche. Está sempre frio ao toque."},
     "Lança do Caçador":     {"type": "Lança",  "rarity": "Raro",    "atk": 23, "crit": 11, "speed": 10, "element": None,     "skill": "Arremesso Preciso", "skill_desc": "Pode atacar à distância. +15% dano a distância.", "lore": "Usada por caçadores ancestrais. Ainda tem marcas de antigas presas."},
     "Foice Maldita":        {"type": "Foice",  "rarity": "Raro",    "atk": 21, "crit": 14, "speed": 9,  "element": "Sombra", "skill": "Ceifar Almas",      "skill_desc": "Drena 5% HP do inimigo por acerto.", "lore": "Ela não foi forjada. Surgiu de um pacto que é melhor não repetir."},
@@ -8118,7 +8128,7 @@ WEAPON_TYPE_SKILLS = {
 # Cada arma pode ter: skill_name, skill_desc, skill_effect, skill_cooldown (segundos), skill_mana_cost
 WEAPON_SKILLS = {
     # ── COMUM ──
-    "Espada Enferrujada":       {"skill": "Golpe Cego",         "desc": "Ataque básico com 5% de chance de atordoar.", "dmg_mult": 1.1, "stun_chance": 0.05, "cooldown": 60, "mana": 0, "element": None},
+    "Lâmina de Crestfall Enferrujada":       {"skill": "Golpe Cego",         "desc": "Ataque básico com 5% de chance de atordoar.", "dmg_mult": 1.1, "stun_chance": 0.05, "cooldown": 60, "mana": 0, "element": None},
     "Adaga de Pedra":           {"skill": "Perfurar",           "desc": "Golpe rápido que ignora 5% da DEF inimiga.", "dmg_mult": 1.15, "ignore_def": 0.05, "cooldown": 60, "mana": 0, "element": None},
     "Machado Quebrado":         {"skill": "Fenda Bruta",        "desc": "Golpe poderoso mas lento. +20% dano.", "dmg_mult": 1.20, "cooldown": 90, "mana": 0, "element": None},
     "Cajado de Madeira":        {"skill": "Choque Arcano",      "desc": "Pulso mágico fraco. +15% dano mágico.", "dmg_mult": 1.15, "magic": True, "cooldown": 75, "mana": 5, "element": "Arcano"},
@@ -9561,9 +9571,9 @@ MIMIC_TIERS = [
 MAP_LOCATIONS = {
     # Cada mundo tem uma lista de locais descobríveis
     1: {
-        "world_name": "🌱 Campos Iniciais",
+        "world_name": "🌾 Planícies de Ashenvorn",
         "locations": [
-            {"id": "campos_vila", "name": "🏘️ Vila dos Primeiros Passos", "type": "cidade", "discovered": True},
+            {"id": "campos_vila", "name": "🏘️ Crestfall — Planícies de Ashenvorn", "type": "cidade", "discovered": True},
             {"id": "campos_pedreira", "name": "⛏️ Pedreira dos Iniciantes", "type": "recurso", "discovered": False},
             {"id": "campos_gruta", "name": "🕳️ Gruta do Slime Ancião", "type": "dungeon", "discovered": False},
             {"id": "campos_floresta_borda", "name": "🌿 Borda da Floresta Proibida", "type": "portal", "discovered": False},
@@ -9571,9 +9581,9 @@ MAP_LOCATIONS = {
         ]
     },
     10: {
-        "world_name": "🌲 Floresta Sombria",
+        "world_name": "🌿 Floresta de Sylvenmara",
         "locations": [
-            {"id": "floresta_acampamento", "name": "⛺ Acampamento das Sombras", "type": "cidade", "discovered": True},
+            {"id": "floresta_acampamento", "name": "🌿 Thalverde (Floresta de Sylvenmara)", "type": "cidade", "discovered": True},
             {"id": "floresta_arvore_milenar", "name": "🌳 Árvore Milenar do Ent", "type": "boss_local", "discovered": False},
             {"id": "floresta_rio_negro", "name": "🖤 Rio das Águas Negras", "type": "recurso", "discovered": False},
             {"id": "floresta_ruinas", "name": "🏚️ Ruínas do Reino Élfico", "type": "dungeon", "discovered": False},
@@ -9581,7 +9591,7 @@ MAP_LOCATIONS = {
         ]
     },
     20: {
-        "world_name": "🏜️ Deserto das Almas",
+        "world_name": "🏜️ Desertos de Roksveld",
         "locations": [
             {"id": "deserto_oasis", "name": "🌴 Oásis de Amun", "type": "cidade", "discovered": True},
             {"id": "deserto_piramide", "name": "🔺 Grande Pirâmide de Kha-Mentu", "type": "boss_local", "discovered": False},
@@ -9591,7 +9601,7 @@ MAP_LOCATIONS = {
         ]
     },
     30: {
-        "world_name": "❄️ Montanhas Geladas",
+        "world_name": "⛰️ Montanhas de Khervak",
         "locations": [
             {"id": "gelo_fortaleza", "name": "🏰 Fortaleza Permafrost", "type": "cidade", "discovered": True},
             {"id": "gelo_pico", "name": "🏔️ Pico dos Titãs", "type": "boss_local", "discovered": False},
@@ -9601,7 +9611,7 @@ MAP_LOCATIONS = {
         ]
     },
     40: {
-        "world_name": "🌋 Reino Vulcânico",
+        "world_name": "🌋 Campos Vulcânicos de Pyreth",
         "locations": [
             {"id": "vulcao_cidadela", "name": "🔥 Cidadela Cinzenta", "type": "cidade", "discovered": True},
             {"id": "vulcao_cratera", "name": "🌋 Cratera Principal", "type": "boss_local", "discovered": False},
@@ -10502,7 +10512,7 @@ voavam livres sobre todos os reinos.*
 Mas cuidado — a floresta também ouve você.
 E ela lembra de tudo.
 
-— Coletado pelo Druida Sylvara, Guardiã da Floresta"""
+— Coletado pelo Druida Guardiã Sylvara, Guardiã da Floresta"""
         }
     ],
     20: [
@@ -10743,7 +10753,7 @@ Seus frutos concedem visões do passado e do futuro.
 — Druida Vel, desaparecido"""
         },
         {
-            "title": "📖 Diário da Druida Sylvara — Entradas Escolhidas",
+            "title": "📖 Diário da Druida Guardiã Sylvara — Entradas Escolhidas",
             "content": """*Escrito com tinta feita de seiva e terra...*
 
 **Entrada 47:**
@@ -11001,7 +11011,7 @@ LEGENDARY_NPCS = {
             "name": "🌾 A Guardiã que Precisava de Ajuda",
             "description": "Lyra está cercada por uma matilha enorme de Ratos Selvagens que infectaram os campos. Mate 8 Ratos Selvagens para salvá-la!",
             "objective": "hunt",
-            "target": "Rato Selvagem",
+            "target": "Kobold Errante",
             "count": 8,
             "reward_xp": 800,
             "reward_coins": 120,
@@ -11031,7 +11041,7 @@ LEGENDARY_NPCS = {
             "name": "🌲 O Guardião Aprisionado",
             "description": "Sylvan foi capturado pelas Aranhas Gigantes enquanto protegia o Cristal da Floresta. Elimine 10 Aranhas Gigantes para libertá-lo!",
             "objective": "hunt",
-            "target": "Aranha Gigante",
+            "target": "Arácnido das Cavernas",
             "count": 10,
             "reward_xp": 2000,
             "reward_coins": 300,
@@ -11061,7 +11071,7 @@ LEGENDARY_NPCS = {
             "name": "📜 Os Pergaminhos do Faraó Perdido",
             "description": "Múmias roubaram os pergaminhos sagrados que Neferu guardava. Explore o Deserto e derrote 6 Múmias Guardiãs para recuperá-los!",
             "objective": "hunt",
-            "target": "Múmia",
+            "target": "Ambarino Corrompido",
             "count": 6,
             "reward_xp": 3500,
             "reward_coins": 500,
@@ -12063,10 +12073,10 @@ def get_legendary_companion(player):
 # ================= NPCs POR CIDADE =================
 CITY_NPCS = {
     1: {
-        "city_name": "🏘️ Vila dos Primeiros Passos",
+        "city_name": "🏘️ Crestfall — Planícies de Ashenvorn",
         "npcs": [
             {
-                "name": "Aldeão Theron",
+                "name": "Eldoriano Thessevan",
                 "role": "Fazendeiro",
                 "emoji": "👨‍🌾",
                 "dialogues": [
@@ -12077,7 +12087,7 @@ CITY_NPCS = {
                 ]
             },
             {
-                "name": "Curandeira Elara",
+                "name": "Sacerdotisa de Elaris",
                 "role": "Curandeira da Vila",
                 "emoji": "👩‍⚕️",
                 "dialogues": [
@@ -12088,7 +12098,7 @@ CITY_NPCS = {
                 ]
             },
             {
-                "name": "Capitão Aldric",
+                "name": "Capitão da Milícia de Crestfall",
                 "role": "Guarda da Vila",
                 "emoji": "💂",
                 "dialogues": [
@@ -12101,10 +12111,10 @@ CITY_NPCS = {
         ]
     },
     10: {
-        "city_name": "🌲 Acampamento das Sombras",
+        "city_name": "🌿 Thalverde — Floresta de Sylvenmara",
         "npcs": [
             {
-                "name": "Druida Sylvara",
+                "name": "Druida Guardiã de Thalverde",
                 "role": "Guardiã da Floresta",
                 "emoji": "🧙‍♀️",
                 "dialogues": [
@@ -12267,17 +12277,17 @@ CITY_NPCS = {
 # ================= MUNDOS E EVENTOS =================
 WORLDS = {
     1: {
-        "name": "🌱 Campos Iniciais",
+        "name": "🌾 Planícies de Ashenvorn",
         "emoji": "🌱",
         "xp_loss_multiplier": 0.3,
         "monsters": {
-            "Slime": {"xp": (10, 20), "hp": 30, "atk": 5, "coins": (1, 3)},
-            "Rato Selvagem": {"xp": (12, 22), "hp": 25, "atk": 7, "coins": (1, 4)},
+            "Pyroclasta Menor": {"xp": (10, 20), "hp": 30, "atk": 5, "coins": (1, 3)},
+            "Kobold Errante": {"xp": (12, 22), "hp": 25, "atk": 7, "coins": (1, 4)},
             "Coelho Raivoso": {"xp": (11, 21), "hp": 20, "atk": 6, "coins": (1, 3)},
             "Javali Jovem": {"xp": (13, 23), "hp": 35, "atk": 8, "coins": (2, 5)},
             "Vespa Gigante": {"xp": (12, 22), "hp": 22, "atk": 7, "coins": (1, 4)}
         },
-        "boss": {"name": "Slime Rei", "hp": 567, "atk": 49, "xp": 500, "level": 9, "coins": (50, 100)},
+        "boss": {"name": "Pyroclasta Rei", "hp": 567, "atk": 49, "xp": 500, "level": 9, "coins": (50, 100)},
         "resources": ["Pedra fraca", "Grama mágica", "Couro de rato", "Flor silvestre", "Mel selvagem"],
         "dungeons": [
             {"name": "Caverna dos Slimes", "level": 1, "boss": "Slime Ancião"},
@@ -12314,17 +12324,17 @@ WORLDS = {
         ]
     },
     10: {
-        "name": "🌲 Floresta Sombria",
+        "name": "🌿 Floresta de Sylvenmara",
         "emoji": "🌲",
         "xp_loss_multiplier": 0.5,
         "monsters": {
-            "Goblin": {"xp": (25, 40), "hp": 60, "atk": 12, "coins": (3, 8)},
+            "Goblin de Ashenvorn": {"xp": (25, 40), "hp": 60, "atk": 12, "coins": (3, 8)},
             "Lobo Negro": {"xp": (28, 45), "hp": 70, "atk": 15, "coins": (4, 9)},
-            "Aranha Gigante": {"xp": (30, 43), "hp": 65, "atk": 14, "coins": (3, 8)},
+            "Arácnido das Cavernas": {"xp": (30, 43), "hp": 65, "atk": 14, "coins": (3, 8)},
             "Ogro Menor": {"xp": (32, 47), "hp": 80, "atk": 16, "coins": (5, 10)},
             "Espectro Florestal": {"xp": (29, 44), "hp": 55, "atk": 13, "coins": (4, 9)}
         },
-        "boss": {"name": "Ent Ancião", "hp": 1134, "atk": 81, "xp": 900, "level": 19, "coins": (100, 200)},
+        "boss": {"name": "Treant Ancião de Sylvenmara", "hp": 1134, "atk": 81, "xp": 900, "level": 19, "coins": (100, 200)},
         "resources": ["Madeira escura", "Ervas raras", "Pele de lobo", "Teia mágica", "Musgo brilhante"],
         "dungeons": [
             {"name": "Covil dos Goblins", "level": 4, "boss": "Chefe Goblin"},
@@ -12361,12 +12371,12 @@ WORLDS = {
         ]
     },
     20: {
-        "name": "🏜️ Deserto das Almas",
+        "name": "🏜️ Desertos de Roksveld",
         "emoji": "🏜️",
         "xp_loss_multiplier": 0.7,
         "monsters": {
-            "Escorpião Gigante": {"xp": (40, 60), "hp": 100, "atk": 20, "coins": (5, 12)},
-            "Múmia": {"xp": (45, 65), "hp": 120, "atk": 22, "coins": (6, 13)},
+            "Shal'kar Adulto": {"xp": (40, 60), "hp": 100, "atk": 20, "coins": (5, 12)},
+            "Ambarino Corrompido": {"xp": (45, 65), "hp": 120, "atk": 22, "coins": (6, 13)},
             "Serpente de Areia": {"xp": (43, 63), "hp": 110, "atk": 21, "coins": (5, 12)},
             "Guardião de Tumba": {"xp": (47, 67), "hp": 130, "atk": 24, "coins": (7, 14)},
             "Espírito do Deserto": {"xp": (44, 64), "hp": 105, "atk": 20, "coins": (5, 12)}
@@ -12408,7 +12418,7 @@ WORLDS = {
         ]
     },
     30: {
-        "name": "❄️ Montanhas Geladas",
+        "name": "⛰️ Montanhas de Khervak",
         "emoji": "❄️",
         "xp_loss_multiplier": 0.9,
         "monsters": {
@@ -12418,7 +12428,7 @@ WORLDS = {
             "Dragão de Gelo Jovem": {"xp": (70, 90), "hp": 200, "atk": 32, "coins": (10, 18)},
             "Elemental de Gelo": {"xp": (67, 87), "hp": 170, "atk": 31, "coins": (8, 16)}
         },
-        "boss": {"name": "Yeti Colossal", "hp": 2835, "atk": 172, "xp": 2000, "level": 39, "coins": (280, 500)},
+        "boss": {"name": "Geomárcio Ancião", "hp": 2835, "atk": 172, "xp": 2000, "level": 39, "coins": (280, 500)},
         "resources": ["Cristal de gelo", "Minério frio", "Pele de yeti", "Neve eterna", "Gema congelada"],
         "dungeons": [
             {"name": "Caverna Congelada", "level": 10, "boss": "Guardião do Gelo"},
@@ -12455,7 +12465,7 @@ WORLDS = {
         ]
     },
     40: {
-        "name": "🌋 Reino Vulcânico",
+        "name": "🌋 Campos Vulcânicos de Pyreth",
         "emoji": "🌋",
         "xp_loss_multiplier": 1.2,
         "monsters": {
@@ -12465,7 +12475,7 @@ WORLDS = {
             "Hidra de Magma": {"xp": (90, 110), "hp": 250, "atk": 45, "coins": (13, 23)},
             "Fênix Negra": {"xp": (87, 107), "hp": 220, "atk": 43, "coins": (12, 22)}
         },
-        "boss": {"name": "Dragão de Magma", "hp": 4252, "atk": 236, "xp": 2800, "level": 49, "coins": (400, 700)},
+        "boss": {"name": "Ignístio Primordial", "hp": 4252, "atk": 236, "xp": 2800, "level": 49, "coins": (400, 700)},
         "resources": ["Pedra vulcânica", "Núcleo de fogo", "Escamas de dragão", "Obsidiana pura", "Cinza sagrada"],
         "dungeons": [
             {"name": "Caldeirão de Lava", "level": 13, "boss": "Senhor do Fogo"},
@@ -12512,7 +12522,7 @@ WORLDS = {
             "Lich": {"xp": (110, 140), "hp": 320, "atk": 55, "coins": (15, 25)},
             "Golem Arcano": {"xp": (107, 137), "hp": 310, "atk": 53, "coins": (14, 24)}
         },
-        "boss": {"name": "Senhor das Sombras", "hp": 6615, "atk": 318, "xp": 4000, "level": 59, "coins": (600, 1000)},
+        "boss": {"name": "Umbrotide Corrompido Ancião", "hp": 6615, "atk": 318, "xp": 4000, "level": 59, "coins": (600, 1000)},
         "resources": ["Essência arcana", "Fragmento sombrio", "Cristal do vazio", "Poeira estelar", "Runa mística"],
         "dungeons": [
             {"name": "Torre Arcana", "level": 16, "boss": "Arquimago Corrupto"},
@@ -12706,7 +12716,7 @@ WORLDS = {
     },
     # ─── REINO 11: PLANÍCIES DO TROVÃO (desbloqueado no nível 90) ───
     90: {
-        "name": "⚡ Planícies do Trovão",
+        "name": "⚡ Estepes de Orrathis",
         "emoji": "⚡",
         "xp_loss_multiplier": 2.7,
         "monsters": {
@@ -12742,7 +12752,7 @@ WORLDS = {
     },
     # ─── REINO 12: TERRA DOS GIGANTES (desbloqueado no nível 100) ───
     100: {
-        "name": "🗿 Terra dos Gigantes",
+        "name": "🗿 Nação de Xaltharis",
         "emoji": "🗿",
         "xp_loss_multiplier": 3.0,
         "monsters": {
@@ -12778,7 +12788,7 @@ WORLDS = {
     },
     # ─── REINO 13: MAR DAS ALMAS (desbloqueado no nível 110) ───
     110: {
-        "name": "🌊 Mar das Almas",
+        "name": "🌊 Arquipélago de Quorval",
         "emoji": "🌊",
         "xp_loss_multiplier": 3.2,
         "monsters": {
@@ -12793,7 +12803,7 @@ WORLDS = {
         "dungeons": [
             {"name": "Navio Fantasma", "level": 37, "boss": "Capitão Espectral"},
             {"name": "Templo Submerso", "level": 38, "boss": "Sacerdote do Mar"},
-            {"name": "Abismo Oceânico", "level": 39, "boss": "Kraken Ancião"}
+            {"name": "Costas de Aquenmar", "level": 39, "boss": "Kraken Ancião"}
         ],
         "secret_dungeons": [
             {"name": "🌊 Coração do Oceano Eterno", "level": 37, "boss": "O Mar Consciente", "secret": True,
@@ -12814,7 +12824,7 @@ WORLDS = {
     },
     # ─── REINO 14: REINO DO CAOS (desbloqueado no nível 120) ───
     120: {
-        "name": "🌀 Reino do Caos",
+        "name": "🌀 Wasteland de Feraxis",
         "emoji": "🌀",
         "xp_loss_multiplier": 3.5,
         "monsters": {
@@ -12850,7 +12860,7 @@ WORLDS = {
     },
     # ─── REINO 15: JARDIM DOS DEUSES (desbloqueado no nível 130) ───
     130: {
-        "name": "🌸 Jardim dos Deuses",
+        "name": "🌸 Planícies de Velkar",
         "emoji": "🌸",
         "xp_loss_multiplier": 3.8,
         "monsters": {
@@ -12922,7 +12932,7 @@ WORLDS = {
     },
     # ─── REINO 17: RUÍNAS DA CIVILIZAÇÃO PERDIDA (desbloqueado no nível 150) ───
     150: {
-        "name": "🏛️ Ruínas da Civilização Perdida",
+        "name": "🏛️ Ruínas de Valkmorr",
         "emoji": "🏛️",
         "xp_loss_multiplier": 4.3,
         "monsters": {
@@ -12958,7 +12968,7 @@ WORLDS = {
     },
     # ─── REINO 18: PLANO ASTRAL (desbloqueado no nível 160) ───
     160: {
-        "name": "✨ Plano Astral",
+        "name": "✨ Céu de Venthar",
         "emoji": "✨",
         "xp_loss_multiplier": 4.6,
         "monsters": {
@@ -14507,7 +14517,7 @@ WORLDS = {
 ITEMS = {
     "weapons": [
         # Comum
-        {"name": "Espada Enferrujada", "rarity": "Comum", "atk": 5},
+        {"name": "Lâmina de Crestfall Enferrujada", "rarity": "Comum", "atk": 5},
         {"name": "Adaga de Pedra", "rarity": "Comum", "atk": 6},
         {"name": "Cajado de Madeira", "rarity": "Comum", "atk": 5},
         {"name": "Machado Quebrado", "rarity": "Comum", "atk": 6},
@@ -14542,7 +14552,7 @@ ITEMS = {
         {"name": "Martelo Rúnico", "rarity": "Raro", "atk": 28},
         {"name": "Lança do Caçador", "rarity": "Raro", "atk": 27},
         {"name": "Foice Maldita", "rarity": "Raro", "atk": 26},
-        {"name": "Adaga Venenosa", "rarity": "Raro", "atk": 25},
+        {"name": "Presa de Arácnido", "rarity": "Raro", "atk": 25},
         {"name": "Clava Titânica", "rarity": "Raro", "atk": 28},
         # Épico
         {"name": "Lâmina Flamejante", "rarity": "Épico", "atk": 45},
@@ -15082,7 +15092,7 @@ def init_db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id TEXT,
         username TEXT,
-        csi_coins INTEGER,
+        mv_coins INTEGER,
         status TEXT DEFAULT 'pending',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )''')
@@ -15362,7 +15372,7 @@ def roll_with_bonus(player):
     """Rola dado com bônus de raridade de itens e classe"""
     roll = roll_dice()
     item_bonus = get_item_dice_bonus(player)
-    if player.get("class") == "Bardo":
+    if player.get("class") == "Bardo de Accordis":
         roll = min(10, roll + 1)
     roll = min(10, roll + item_bonus)
     return roll
@@ -15584,7 +15594,7 @@ def add_xp(user_id, amount, bypass_boss_gate=False):
     # XP aumentado significativamente
     amount = int(amount * 2.5)
 
-    if player.get("class") == "Bardo":
+    if player.get("class") == "Bardo de Accordis":
         amount = int(amount * 1.2)
 
     # Race XP multiplier
@@ -15798,12 +15808,12 @@ def apply_race_bonuses(player, race_name):
 # HELPER: get current skills for player (tiered system)
 # ─────────────────────────────────────────────────────────────
 def get_player_skills(player):
-    cls = player.get("class", "Guerreiro") or "Guerreiro"
+    cls = player.get("class", "Guardião de Ashenvorn") or "Guardião de Ashenvorn"
     lvl = player.get("level", 1)
     tier_data = CLASS_TIERED_SKILLS.get(cls)
     if not tier_data:
         # fallback to old CLASS_SKILLS
-        return CLASS_SKILLS.get(cls, CLASS_SKILLS["Guerreiro"])
+        return CLASS_SKILLS.get(cls, CLASS_SKILLS["Guardião de Ashenvorn"])
 
     skills = list(tier_data["basic"])
     if lvl >= 40:
@@ -15870,18 +15880,18 @@ async def check_class_evolution(channel, user_id):
             CLASS_STAT_IDENTITY = {
                 # ── CLASSES ORIGINAIS ──────────────────────────────────────────────
                 # Ofensivas: mais ATK, menos DEF/HP
-                "Mago":                    {"hp": 0.70, "atk": 1.50, "def": 0.60},
-                "Assassino":               {"hp": 0.75, "atk": 1.45, "def": 0.65},
-                "Arqueiro":                {"hp": 0.80, "atk": 1.35, "def": 0.70},
-                "Necromante":              {"hp": 0.75, "atk": 1.40, "def": 0.65},
-                "Berserker":               {"hp": 1.20, "atk": 1.40, "def": 0.50},  # HP alto + ATK, DEF baixa
+                "Mago Arcano de Altheron":                    {"hp": 0.70, "atk": 1.50, "def": 0.60},
+                "Assassino das Sombras":               {"hp": 0.75, "atk": 1.45, "def": 0.65},
+                "Arqueiro de Sylvenmara":                {"hp": 0.80, "atk": 1.35, "def": 0.70},
+                "Necromante do Veil":              {"hp": 0.75, "atk": 1.40, "def": 0.65},
+                "Berserker Orkrioniano":               {"hp": 1.20, "atk": 1.40, "def": 0.50},  # HP alto + ATK, DEF baixa
                 # Defensivas: mais HP/DEF, menos ATK
-                "Guerreiro":               {"hp": 1.20, "atk": 1.10, "def": 1.20},
-                "Paladino":                {"hp": 1.15, "atk": 1.05, "def": 1.30},
+                "Guardião de Ashenvorn":               {"hp": 1.20, "atk": 1.10, "def": 1.20},
+                "Paladino da Luz":                {"hp": 1.15, "atk": 1.05, "def": 1.30},
                 # Balanceadas/suporte
-                "Druida":                  {"hp": 1.10, "atk": 1.10, "def": 1.10},
-                "Monge":                   {"hp": 1.05, "atk": 1.20, "def": 1.05},
-                "Bardo":                   {"hp": 1.00, "atk": 1.00, "def": 1.10},  # suporte puro
+                "Druida de Sylvenmara":                  {"hp": 1.10, "atk": 1.10, "def": 1.10},
+                "Monge de Fiorveth":                   {"hp": 1.05, "atk": 1.20, "def": 1.05},
+                "Bardo de Accordis":                   {"hp": 1.00, "atk": 1.00, "def": 1.10},  # suporte puro
 
                 # ── CLASSES EXTRAS ──────────────────────────────────────────────
                 # Tank sombrio: bom HP e ATK, DEF média
@@ -16922,7 +16932,7 @@ class RevengeTrainingView(discord.ui.View):
                 boosts.append(f"+{data['hp_boost']} HP Max")
             embed.add_field(
                 name=f"{data['emoji']} Treino de {name.capitalize()}",
-                value=f"**{data['desc']}**\n💰 Custo: `{data['cost']:,}` CSI\n📈 Bônus: {', '.join(boosts)}",
+                value=f"**{data['desc']}**\n💰 Custo: `{data['cost']:,}` MV\n📈 Bônus: {', '.join(boosts)}",
                 inline=True
             )
         embed.set_footer(text="Use: treinar força | treinar defesa | treinar vitalidade | treinar intensivo")
@@ -16950,7 +16960,7 @@ class TrainingView(discord.ui.View):
         self.boss_data = boss_data
         self.answered = False
         for key, data in TRAINING_OPTIONS.items():
-            label = f"{data['emoji']} {key.capitalize()} ({data['cost']} CSI)"
+            label = f"{data['emoji']} {key.capitalize()} ({data['cost']} MV)"
             btn = discord.ui.Button(label=label, style=discord.ButtonStyle.primary)
             btn.callback = self._make_callback(key)
             self.add_item(btn)
@@ -16968,7 +16978,7 @@ class TrainingView(discord.ui.View):
             if player["coins"] < cost:
                 self.answered = False
                 return await interaction.response.send_message(
-                    f"❌ Você não tem CSI suficiente! Precisa de `{cost:,}` mas tem `{player['coins']:,}`.", ephemeral=True
+                    f"❌ Você não tem MV suficiente! Precisa de `{cost:,}` mas tem `{player['coins']:,}`.", ephemeral=True
                 )
             player["coins"] -= cost
             boosts = []
@@ -16991,7 +17001,7 @@ class TrainingView(discord.ui.View):
 
             embed = discord.Embed(
                 title=f"💪 Treino Completo!",
-                description=f"*'O ancião sorri: Você ficou mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}** concluído!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{cost:,} CSI",
+                description=f"*'O ancião sorri: Você ficou mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}** concluído!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{cost:,} MV",
                 color=discord.Color.green()
             )
             if self.boss_data:
@@ -17114,12 +17124,12 @@ PROLOGUE_CHAPTERS = {
         "chave": "🗝️ Chave Antiga",
         "nivel": "Nível 1 – 100  •  Reinos 1–10",
         "reinos": [
-            ("🌱", "Campos Iniciais", "nível 1–9", "Planícies abertas. O Slime Rei guarda os primeiros segredos."),
-            ("🌲", "Floresta Sombria", "nível 10–19", "A floresta respira e lembra. O Ent Ancião aguarda."),
-            ("🏜️", "Deserto das Almas", "nível 20–29", "Calor que consome almas. Uma pirâmide esconde o Faraó das Sombras."),
-            ("❄️", "Montanhas Geladas", "nível 30–39", "O frio não é inimigo, é teste. O Yeti Colossal ronda os picos."),
-            ("🌋", "Reino Vulcânico", "nível 40–49", "O fogo transforma. O Dragão de Magma dorme no núcleo."),
-            ("🌌", "Abismo Arcano", "nível 50–59", "Onde toda magia nasce e morre. O Olho do Abismo tudo vê."),
+            ("🌱", "Planícies de Ashenvorn", "nível 1–9", "Planícies abertas. O Slime Rei guarda os primeiros segredos."),
+            ("🌲", "Floresta de Sylvenmara", "nível 10–19", "A floresta respira e lembra. O Ent Ancião aguarda."),
+            ("🏜️", "Desertos de Roksveld", "nível 20–29", "Calor que consome almas. Uma pirâmide esconde o Faraó das Sombras."),
+            ("❄️", "Montanhas de Khervak", "nível 30–39", "O frio não é inimigo, é teste. O Yeti Colossal ronda os picos."),
+            ("🌋", "Campos Vulcânicos de Pyreth", "nível 40–49", "O fogo transforma. O Dragão de Magma dorme no núcleo."),
+            ("🌌", "Plano do Vazio de Valtherra", "nível 50–59", "Onde toda magia nasce e morre. O Olho do Abismo tudo vê."),
             ("👑", "Trono Celestial", "nível 60–69", "Quem chegar não será mais mortal. O Querubim Corrompido guarda."),
             ("🌿", "Pântano das Almas Perdidas", "nível 70–79", "Almas presas na lama. Templo afundado de Morthak."),
             ("💎", "Floresta Cristalina", "nível 80–89", "Cristais que refletem versões suas que não sobreviveram."),
@@ -17133,16 +17143,16 @@ PROLOGUE_CHAPTERS = {
         "chave": "🔑 Chave Arcana",
         "nivel": "Nível 101 – 200  •  Reinos 11–20",
         "reinos": [
-            ("⚡", "Planícies do Trovão", "nível 100–109", "Relâmpagos que são criaturas vivas. Zeus Menor troveja."),
-            ("🗿", "Terra dos Gigantes", "nível 110–119", "Montanhas que são costas de gigantes dormindo."),
-            ("🌊", "Mar das Almas", "nível 120–129", "Um oceano onde o tempo não flui normalmente."),
-            ("🌀", "Reino do Caos", "nível 130–139", "A realidade como inimigo. O Caos em Pessoa reina."),
-            ("🌸", "Jardim dos Deuses", "nível 140–149", "Um paraíso onde cada flor é uma armadilha divina."),
-            ("🧊", "Reino do Gelo Eterno", "nível 150–159", "Frio que antecede o próprio universo."),
-            ("🏛️", "Ruínas da Civilização Perdida", "nível 160–169", "Autômatos de uma civilização que precedeu os deuses."),
-            ("✨", "Plano Astral", "nível 170–179", "O cosmos consciente. A linguagem não alcança tudo."),
-            ("🌌", "Além da Existência", "nível 180–189", "Onde o conceito de existir se torna opcional."),
-            ("⭐", "O Trono Primordial", "nível 190–199", "O Criador Primordial espera aqui desde sempre."),
+            ("⚡", "Estepes de Orrathis", "nível 100–109", "Relâmpagos que são criaturas vivas. Zeus Menor troveja."),
+            ("🗿", "Xaltharis — Nação Xaltariana", "nível 110–119", "Montanhas que são costas de gigantes dormindo."),
+            ("🌊", "Arquipélago de Quorval", "nível 120–129", "Um oceano onde o tempo não flui normalmente."),
+            ("🌀", "Wasteland de Feraxis", "nível 130–139", "A realidade como inimigo. O Caos em Pessoa reina."),
+            ("🌸", "Planícies de Velkar", "nível 140–149", "Um paraíso onde cada flor é uma armadilha divina."),
+            ("🧊", "Chronoveil", "nível 150–159", "Frio que antecede o próprio universo."),
+            ("🏛️", "Ruínas de Valkmorr", "nível 160–169", "Autômatos de uma civilização que precedeu os deuses."),
+            ("✨", "Céu de Venthar — Gavídeos", "nível 170–179", "O cosmos consciente. A linguagem não alcança tudo."),
+            ("🌌", "Planos Absolutos de Valtherra", "nível 180–189", "Onde o conceito de existir se torna opcional."),
+            ("⭐", "Axis — Centro de Valtherra", "nível 190–199", "O Criador Primordial espera aqui desde sempre."),
         ]
     },
     3: {
@@ -17160,7 +17170,7 @@ PROLOGUE_CHAPTERS = {
             ("🔥", "Forjas do Caos", "nível 250–259", "Onde os melhores itens do mundo são criados — e destruídos."),
             ("❄️", "Tundra Absoluta", "nível 260–269", "Frio absoluto onde nem a magia funciona normalmente."),
             ("⚗️", "Alquimia das Eras", "nível 270–279", "O conhecimento de mil civilizações condensado aqui."),
-            ("🌌", "Galáxia Interior", "nível 280–289", "Uma galáxia inteira dentro de um único plano."),
+            ("🌌", "Chronoveil Profundo", "nível 280–289", "Uma galáxia inteira dentro de um único plano."),
             ("⚖️", "Tribunal do Cosmo", "nível 290–299", "Onde almas são julgadas antes de avançar."),
         ]
     },
@@ -17174,8 +17184,8 @@ PROLOGUE_CHAPTERS = {
             ("🗡️", "Arena dos Deuses Menores", "nível 300–309", "Deuses menores se combatem eternamente. Você entra no meio."),
             ("👁️", "O Olho do Multiverso", "nível 310–319", "Uma entidade que observa todas as realidades simultaneamente."),
             ("🔮", "Plano Astral Inferior", "nível 320–329", "A versão corrompida do Plano Astral. Mais perigosa."),
-            ("💎", "Fortaleza de Cristal", "nível 330–339", "Cristais corrompidos que amplificam e distorcem poderes."),
-            ("🌑", "Lua Negra", "nível 340–349", "A lua que existia antes do sol. Corrupção pura cristalizada."),
+            ("💎", "Prismveil — Lúzidos", "nível 330–339", "Cristais corrompidos que amplificam e distorcem poderes."),
+            ("🌑", "Noxtherion — Reino dos Vampiros", "nível 340–349", "A lua que existia antes do sol. Corrupção pura cristalizada."),
         ]
     },
     5: {
@@ -17186,10 +17196,10 @@ PROLOGUE_CHAPTERS = {
         "nivel": "Nível 351 – 400  •  Reinos 36–40",
         "reinos": [
             ("☄️", "Cemitério de Estrelas", "nível 350–359", "Estrelas mortas que ainda guardam poder imenso."),
-            ("🌞", "Coração Solar", "nível 360–369", "O núcleo de uma estrela viva — calor além da compreensão."),
+            ("🌞", "Dimensão Celestial — Aetherveil", "nível 360–369", "O núcleo de uma estrela viva — calor além da compreensão."),
             ("🕳️", "Buraco Negro Vivo", "nível 370–379", "Um buraco negro consciente que devora tudo ao redor."),
             ("🌐", "Nexo das Dimensões", "nível 380–389", "O ponto onde todas as dimensões se encontram."),
-            ("⚡", "Tempestade Interdimensional", "nível 390–399", "Uma tempestade que existe entre dimensões ao mesmo tempo."),
+            ("⚡", "Dimensão Badlands — Arena Sem Fim", "nível 390–399", "Uma tempestade que existe entre dimensões ao mesmo tempo."),
         ]
     },
     6: {
@@ -17232,9 +17242,9 @@ PROLOGUE_CHAPTERS = {
             ("🌠", "Dimensões Superiores — Entrada", "nível 400–409", "O portal de entrada para o além absoluto."),
             ("💫", "Nebulosa da Consciência", "nível 410–419", "Uma nebulosa que pensa e sente."),
             ("🌀", "Vórtice Dimensional Supremo", "nível 420–429", "O vórtice que gerou todas as dimensões."),
-            ("🏛️", "Templo dos Deuses Maiores", "nível 430–439", "Onde os deuses maiores residem — e morrem."),
-            ("⭐", "Estrela Primordial Viva", "nível 440–449", "A primeira estrela que existiu. Ainda viva."),
-            ("🌌", "Abismo Cósmico", "nível 450–459", "O abismo que circunda toda a criação."),
+            ("🏛️", "Aethervast — Plano da Origem", "nível 430–439", "Onde os deuses maiores residem — e morrem."),
+            ("⭐", "Infinitum — Plano do Tempo", "nível 440–449", "A primeira estrela que existiu. Ainda viva."),
+            ("🌌", "Depthveil — Dimensão Abissal", "nível 450–459", "O abismo que circunda toda a criação."),
             ("⚡", "Plasma da Criação", "nível 460–469", "A energia pura usada para criar o universo."),
             ("🔱", "Olimpo Transcendente", "nível 470–479", "O Olimpo real, não a cópia mortal."),
             ("💎", "Cristal do Universo", "nível 480–489", "O cristal que sustenta toda a realidade."),
@@ -17409,12 +17419,12 @@ MAP_CHAPTER_KINGDOMS = {
         "color": 0x3498DB,
         "chave": "🗝️ Chave Antiga",
         "reinos": [
-            (1,   "🌱", "Campos Iniciais"),
-            (10,  "🌲", "Floresta Sombria"),
-            (20,  "🏜️", "Deserto das Almas"),
-            (30,  "❄️", "Montanhas Geladas"),
-            (40,  "🌋", "Reino Vulcânico"),
-            (50,  "🌌", "Abismo Arcano"),
+            (1,   "🌱", "Planícies de Ashenvorn"),
+            (10,  "🌲", "Floresta de Sylvenmara"),
+            (20,  "🏜️", "Desertos de Roksveld"),
+            (30,  "❄️", "Montanhas de Khervak"),
+            (40,  "🌋", "Campos Vulcânicos de Pyreth"),
+            (50,  "🌌", "Plano do Vazio de Valtherra"),
             (60,  "👑", "Trono Celestial"),
             (62,  "🌿", "Pântano das Almas Perdidas"),
             (70,  "💎", "Floresta Cristalina"),
@@ -17427,16 +17437,16 @@ MAP_CHAPTER_KINGDOMS = {
         "color": 0x2980B9,
         "chave": "🔑 Chave Arcana",
         "reinos": [
-            (90,  "⚡", "Planícies do Trovão"),
-            (100, "🗿", "Terra dos Gigantes"),
-            (110, "🌊", "Mar das Almas"),
-            (120, "🌀", "Reino do Caos"),
-            (130, "🌸", "Jardim dos Deuses"),
-            (140, "🧊", "Reino do Gelo Eterno"),
-            (150, "🏛️", "Ruínas da Civilização Perdida"),
-            (160, "✨", "Plano Astral"),
-            (170, "🌌", "Além da Existência"),
-            (180, "⭐", "O Trono Primordial"),
+            (90,  "⚡", "Estepes de Orrathis"),
+            (100, "🗿", "Xaltharis — Nação Xaltariana"),
+            (110, "🌊", "Arquipélago de Quorval"),
+            (120, "🌀", "Wasteland de Feraxis"),
+            (130, "🌸", "Planícies de Velkar"),
+            (140, "🧊", "Chronoveil"),
+            (150, "🏛️", "Ruínas de Valkmorr"),
+            (160, "✨", "Céu de Venthar — Gavídeos"),
+            (170, "🌌", "Planos Absolutos de Valtherra"),
+            (180, "⭐", "Axis — Centro de Valtherra"),
         ]
     },
     3: {
@@ -17453,7 +17463,7 @@ MAP_CHAPTER_KINGDOMS = {
             (240, "🔥", "Forjas do Caos"),
             (250, "❄️", "Tundra Absoluta"),
             (260, "⚗️", "Alquimia das Eras"),
-            (270, "🌌", "Galáxia Interior"),
+            (270, "🌌", "Chronoveil Profundo"),
             (280, "⚖️", "Tribunal do Cosmo"),
         ]
     },
@@ -17466,14 +17476,14 @@ MAP_CHAPTER_KINGDOMS = {
             (290, "🗡️", "Arena dos Deuses Menores"),
             (300, "👁️", "O Olho do Multiverso"),
             (310, "🔮", "Plano Astral Inferior"),
-            (320, "💎", "Fortaleza de Cristal"),
-            (330, "🌑", "Lua Negra"),
+            (320, "💎", "Prismveil — Lúzidos"),
+            (330, "🌑", "Noxtherion — Reino dos Vampiros"),
             (None, "─────", "── Reinos Dimensionais ──"),
             (340, "☄️", "Cemitério de Estrelas"),
-            (350, "🌞", "Coração Solar"),
+            (350, "🌞", "Dimensão Celestial — Aetherveil"),
             (360, "🕳️", "Buraco Negro Vivo"),
             (370, "🌐", "Nexo das Dimensões"),
-            (380, "⚡", "Tempestade Interdimensional"),
+            (380, "⚡", "Dimensão Badlands — Arena Sem Fim"),
         ],
         "extra": "💥 Bosses Dimensionais liberam passivas globais e slots extras!"
     },
@@ -17486,9 +17496,9 @@ MAP_CHAPTER_KINGDOMS = {
             (400, "🌠", "Dimensões Superiores — Entrada"),
             (410, "💫", "Nebulosa da Consciência"),
             (420, "🌀", "Vórtice Dimensional Supremo"),
-            (430, "🏛️", "Templo dos Deuses Maiores"),
-            (440, "⭐", "Estrela Primordial Viva"),
-            (450, "🌌", "Abismo Cósmico"),
+            (430, "🏛️", "Aethervast — Plano da Origem"),
+            (440, "⭐", "Infinitum — Plano do Tempo"),
+            (450, "🌌", "Depthveil — Dimensão Abissal"),
             (460, "⚡", "Plasma da Criação"),
             (470, "🔱", "Olimpo Transcendente"),
             (480, "💎", "Cristal do Universo"),
@@ -17644,7 +17654,7 @@ class ShopButton(discord.ui.View):
 
         if player["coins"] < item["price"]:
             return await interaction.response.send_message(
-                f"❌ **Moedas insuficientes!**\n\nVocê precisa de **{item['price']} CSI** mas tem apenas **{player['coins']} CSI**.",
+                f"❌ **Moedas insuficientes!**\n\nVocê precisa de **{item['price']} MV** mas tem apenas **{player['coins']} MV**.",
                 ephemeral=True
             )
 
@@ -17659,7 +17669,7 @@ class ShopButton(discord.ui.View):
             save_player_db(interaction.user.id, player)
 
         await interaction.response.send_message(
-            f"✅ **Compra realizada!**\n\nVocê comprou **{item['name']}** por **{item['price']} CSI**!\n\n*'Uma boa escolha!'*",
+            f"✅ **Compra realizada!**\n\nVocê comprou **{item['name']}** por **{item['price']} MV**!\n\n*'Uma boa escolha!'*",
             ephemeral=True
         )
 
@@ -17834,8 +17844,8 @@ async def fight_pvp(channel, challenger_id, target_id):
         ch_name = "Desafiante"
         tg_name = "Alvo"
 
-    ch_cls = challenger.get("class", "Guerreiro")
-    tg_cls = target.get("class", "Guerreiro")
+    ch_cls = challenger.get("class", "Guardião de Ashenvorn")
+    tg_cls = target.get("class", "Guardião de Ashenvorn")
     ch_skills = get_player_skills(challenger)
     tg_skills = get_player_skills(target)
     ch_race = challenger.get("race", "Humano")
@@ -17895,52 +17905,52 @@ async def fight_pvp(channel, challenger_id, target_id):
 
     # ── Frases de duelo por classe ────────────────────────────────────────
     DUEL_TAUNTS = {
-        "Guerreiro": [
+        "Guardião de Ashenvorn": [
             "⚔️ *«Eu nasci para o combate. Você vai aprender isso da pior forma.»*",
             "🗡️ *«Minha lâmina já cortou criaturas que te fariam fugir. Prepare-se.»*",
             "💪 *«Resistência é tudo. Vamos ver quanto você aguentará.»*",
         ],
-        "Mago": [
+        "Mago Arcano de Altheron": [
             "🔮 *«Os arcanos obedecem à minha voz. Você é apenas mais um obstáculo.»*",
             "✨ *«Cada feitiço que conjuro carrega séculos de estudo. Você não terá chance.»*",
             "⚡ *«O poder arcano não conhece misericórdia. Nem eu.»*",
         ],
-        "Arqueiro": [
+        "Arqueiro de Sylvenmara": [
             "🏹 *«Já mirei em alvos maiores que você. E nenhum escapou.»*",
             "🎯 *«Do topo daquele morro, você nem me veria. Pena que estamos aqui.»*",
             "💨 *«Minhas flechas voam mais rápido que seus reflexos. Conta regressiva iniciada.»*",
         ],
-        "Paladino": [
+        "Paladino da Luz": [
             "🛡️ *«Combato em nome do sagrado. Que os deuses testemunhem sua derrota.»*",
             "☀️ *«A luz que carrego não ilumina covardes. Mostre do que é feito!»*",
             "✨ *«Eu não luto por glória. Luto por dever. E esse dever é te derrotar.»*",
         ],
-        "Assassino": [
+        "Assassino das Sombras": [
             "🗡️ *«Você nem me verá chegar. Quando perceber, já terá caído.»*",
             "🌑 *«As sombras são meu lar. Você está prestes a entrar nelas.»*",
             "💀 *«Contratantes pagam muito por uma cabeça como a sua. Hoje faço de graça.»*",
         ],
-        "Necromante": [
+        "Necromante do Veil": [
             "💀 *«A morte não é fim para mim. É começo. Para você, é diferente.»*",
             "🦴 *«Meus aliados mais leais já morreram uma vez. Logo você se juntará a eles.»*",
             "🌑 *«Cada inimigo que derrotei agora me serve. Prepare seu espírito.»*",
         ],
-        "Berserker": [
+        "Berserker Orkrioniano": [
             "🪓 *«AAAARGH! VENHA! EU QUERO VER SANGUE!»*",
             "💢 *«Dor? Ela me alimenta. Quanto mais você me machucar, mais forte fico!»*",
             "🔥 *«Minha fúria não tem limites. Prepare-se para o caos puro!»*",
         ],
-        "Druida": [
+        "Druida de Sylvenmara": [
             "🌿 *«A natureza já escolheu o vencedor. Ouça o vento — ele fala meu nome.»*",
             "🐺 *«Cada criatura viva ao meu redor é minha aliada. Você está sozinho.»*",
             "⚡ *«A terra treme quando eu luto. Sinta isso nos seus pés.»*",
         ],
-        "Monge": [
+        "Monge de Fiorveth": [
             "👊 *«Cem anos de disciplina concentrados neste momento. Defenda-se.»*",
             "🧘 *«Ki, mente, corpo — tudo em harmonia. Nada pode me deter.»*",
             "🌀 *«Velocidade não é tudo. Mas ajuda quando você a tem toda.»*",
         ],
-        "Bardo": [
+        "Bardo de Accordis": [
             "🎵 *«Escrevi a música da sua derrota antes mesmo de você chegar.»*",
             "🎸 *«Esta batalha? Vai virar uma balada épica. Com você como o derrotado.»*",
             "🎺 *«Minha melodia vai ecoar nos seus pesadelos por anos.»*",
@@ -17949,16 +17959,16 @@ async def fight_pvp(channel, challenger_id, target_id):
 
     # Frases de vitória por classe
     VICTORY_LINES = {
-        "Guerreiro": ["*«Foi uma boa luta. Da próxima vez, treine mais.»*", "*«A força sempre prevalece.»*", "*«Isso é o que anos de batalha fazem.»*"],
-        "Mago":      ["*«O poder arcano nunca falha.»*", "*«Você lutou contra a magia. A magia sempre vence.»*", "*«Cada feitiço tinha seu propósito.»*"],
-        "Arqueiro":  ["*«Nenhum alvo escapa de mim.»*", "*«Precisão supera força bruta.»*", "*«Já sabia o resultado quando mirei pela primeira vez.»*"],
-        "Paladino":  ["*«Que os deuses guiem sua recuperação.»*", "*«A luz sempre triunfa.»*", "*«Foi uma honra combater alguém com tal coragem.»*"],
-        "Assassino": ["*«Você nunca teve chance desde o início.»*", "*«As sombras me acompanharam bem hoje.»*", "*«Eficiência perfeita.»*"],
-        "Necromante":["*«Agora você entende a verdade da morte.»*", "*«Bem-vindo ao lado que sempre vence.»*", "*«A escuridão consome tudo.»*"],
-        "Berserker": ["*«ISSO É O QUE CHAMO DE BATALHA!»*", "*«HAHAHA! MAIS! QUERO MAIS!»*", "*«A fúria... sempre prevalece...»*"],
-        "Druida":    ["*«A natureza escolheu sabiamente.»*", "*«O equilíbrio foi restaurado.»*", "*«As raízes da terra me apoiaram até o fim.»*"],
-        "Monge":     ["*«O ki nunca mente.»*", "*«Disciplina e paciência sempre vencem.»*", "*«Uma batalha de mente, não apenas de corpo.»*"],
-        "Bardo":     ["*«E assim termina o primeiro ato!»*", "*«Que balada épica foi essa!»*", "*«Já estou compondo sua derrota em versos.»*"],
+        "Guardião de Ashenvorn": ["*«Foi uma boa luta. Da próxima vez, treine mais.»*", "*«A força sempre prevalece.»*", "*«Isso é o que anos de batalha fazem.»*"],
+        "Mago Arcano de Altheron":      ["*«O poder arcano nunca falha.»*", "*«Você lutou contra a magia. A magia sempre vence.»*", "*«Cada feitiço tinha seu propósito.»*"],
+        "Arqueiro de Sylvenmara":  ["*«Nenhum alvo escapa de mim.»*", "*«Precisão supera força bruta.»*", "*«Já sabia o resultado quando mirei pela primeira vez.»*"],
+        "Paladino da Luz":  ["*«Que os deuses guiem sua recuperação.»*", "*«A luz sempre triunfa.»*", "*«Foi uma honra combater alguém com tal coragem.»*"],
+        "Assassino das Sombras": ["*«Você nunca teve chance desde o início.»*", "*«As sombras me acompanharam bem hoje.»*", "*«Eficiência perfeita.»*"],
+        "Necromante do Veil":["*«Agora você entende a verdade da morte.»*", "*«Bem-vindo ao lado que sempre vence.»*", "*«A escuridão consome tudo.»*"],
+        "Berserker Orkrioniano": ["*«ISSO É O QUE CHAMO DE BATALHA!»*", "*«HAHAHA! MAIS! QUERO MAIS!»*", "*«A fúria... sempre prevalece...»*"],
+        "Druida de Sylvenmara":    ["*«A natureza escolheu sabiamente.»*", "*«O equilíbrio foi restaurado.»*", "*«As raízes da terra me apoiaram até o fim.»*"],
+        "Monge de Fiorveth":     ["*«O ki nunca mente.»*", "*«Disciplina e paciência sempre vencem.»*", "*«Uma batalha de mente, não apenas de corpo.»*"],
+        "Bardo de Accordis":     ["*«E assim termina o primeiro ato!»*", "*«Que balada épica foi essa!»*", "*«Já estou compondo sua derrota em versos.»*"],
     }
 
     # Comentários estratégicos do narrador por situação
@@ -18139,13 +18149,13 @@ async def fight_pvp(channel, challenger_id, target_id):
             dmg_raw = int(a_atk * skill["dmg_mult"])
 
             # Berserker: bônus de fúria e dano próprio
-            if a_cls == "Berserker":
+            if a_cls == "Berserker Orkrioniano":
                 hp_bonus_mult = 1.0 + (1.0 - hp_ratio) * 0.6  # até +60% quando HP baixo
                 dmg_raw = int(dmg_raw * hp_bonus_mult)
                 a_rage = min(a_rage + 1, 5)
                 if skill.get("self_dmg"):
                     a_hp = max(1, a_hp - skill["self_dmg"])
-            elif a_cls == "Monge":
+            elif a_cls == "Monge de Fiorveth":
                 a_ki = min(a_ki + 1, 3)
                 if a_ki >= 3:
                     dmg_raw = int(dmg_raw * 1.4)  # Ki cheio: bônus
@@ -18181,7 +18191,7 @@ async def fight_pvp(channel, challenger_id, target_id):
                 a_hp = min(a_max_hp, a_hp + heal_amt)
 
             # Escudo paladino
-            if a_cls == "Paladino" and skill.get("def_bonus", 0) >= 15:
+            if a_cls == "Paladino da Luz" and skill.get("def_bonus", 0) >= 15:
                 a_shielded = True
 
             # Efeitos no alvo
@@ -18226,11 +18236,11 @@ async def fight_pvp(channel, challenger_id, target_id):
                 log += f"\n🔻 **{defender_name}** está **ENFRAQUECIDO** por 2 turnos!"
             if a_shielded:
                 log += f"\n🛡️ **{attacker_name}** ergue um **Escudo Divino**!"
-            if a_cls == "Berserker" and skill.get("self_dmg"):
+            if a_cls == "Berserker Orkrioniano" and skill.get("self_dmg"):
                 log += f"\n🩸 **{attacker_name}** sacrifica `{skill['self_dmg']} HP` por mais poder!"
-            if a_cls == "Monge" and a_ki == 0 and dmg_raw > 0:
+            if a_cls == "Monge de Fiorveth" and a_ki == 0 and dmg_raw > 0:
                 log += f"\n🌀 **Ki liberado!** Bônus de ki ativado neste golpe!"
-            if a_cls == "Berserker":
+            if a_cls == "Berserker Orkrioniano":
                 rage_bar = "🔴" * a_rage + "⚫" * (5 - a_rage)
                 log += f"\n🪓 Fúria: {rage_bar}"
 
@@ -18393,8 +18403,8 @@ async def fight_pvp(channel, challenger_id, target_id):
         xp_draw = 100
         add_xp(challenger_id, xp_draw)
         add_xp(target_id, xp_draw)
-        result_embed.add_field(name=f"{ch_icon} {ch_name}", value=f"+{xp_draw} XP | +{coins_draw} CSI", inline=True)
-        result_embed.add_field(name=f"{tg_icon} {tg_name}", value=f"+{xp_draw} XP | +{coins_draw} CSI", inline=True)
+        result_embed.add_field(name=f"{ch_icon} {ch_name}", value=f"+{xp_draw} XP | +{coins_draw} MV", inline=True)
+        result_embed.add_field(name=f"{tg_icon} {tg_name}", value=f"+{xp_draw} XP | +{coins_draw} MV", inline=True)
         winner_id = None
 
     elif tg_cur_hp <= 0 or (ch_cur_hp > tg_cur_hp and turn > MAX_TURNS):
@@ -18427,7 +18437,7 @@ async def fight_pvp(channel, challenger_id, target_id):
             ),
             color=discord.Color.from_rgb(255, 215, 0)
         )
-        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} CSI | HP restante: `{hp_left}`", inline=True)
+        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} MV | HP restante: `{hp_left}`", inline=True)
         result_embed.add_field(name=f"💀 {loser_name} — Derrotado", value=f"+50 XP por bravura | *'Derrota honrosa.'*", inline=True)
         add_xp(challenger_id, xp_win)
         add_xp(target_id, 50)
@@ -18469,7 +18479,7 @@ async def fight_pvp(channel, challenger_id, target_id):
             ),
             color=discord.Color.from_rgb(255, 215, 0)
         )
-        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} CSI | HP restante: `{hp_left}`", inline=True)
+        result_embed.add_field(name=f"🏆 {winner_name} — VENCEDOR", value=f"+{xp_win} XP | +{coins_win} MV | HP restante: `{hp_left}`", inline=True)
         result_embed.add_field(name=f"💀 {loser_name} — Derrotado", value=f"+50 XP por bravura | *'Derrota honrosa.'*", inline=True)
         add_xp(target_id, xp_win)
         add_xp(challenger_id, 50)
@@ -18548,7 +18558,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             boss_data = random.choice(boss_pool) if boss_pool else WORLDS[world_level]["boss"]
 
     # ---- Player stats ----
-    p_cls = player.get("class", "Guerreiro")
+    p_cls = player.get("class", "Guardião de Ashenvorn")
     p_skills = get_player_skills(player)
     p_icon = CLASSES.get(p_cls, {}).get("emoji", "⚔️")
 
@@ -18820,7 +18830,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         a_max_hp = ap.get("max_hp", 100)
                         a_cur_hp = min(ap.get("hp", 100), a_max_hp)
                         # Calcular ATK real do aliado (incluindo classe, level e equipamentos)
-                        a_cls = ap.get("class", "Guerreiro")
+                        a_cls = ap.get("class", "Guardião de Ashenvorn")
                         a_base_atk = CLASSES.get(a_cls, {}).get("atk_bonus", 5) + ap.get("level", 1) * 2
                         # Bônus de arma
                         if ap.get("weapon"):
@@ -19175,7 +19185,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 pet_heal = random.randint(5, 20)
                 p_cur_hp = min(p_max_hp, p_cur_hp + pet_heal)
             # Passiva Slime: Absorção — 10% chance de auto-cura
-            if "Slime" in pet_combat_name and random.random() < 0.10:
+            if "Pyroclasta Menor" in pet_combat_name and random.random() < 0.10:
                 slime_self_heal = max(3, pet_combat_hp // 10)
                 pet_cur_hp = min(pet_combat_hp, pet_cur_hp + slime_self_heal)
             # Passiva Slime Mestre: Divisão Celular (HP < 30% = dano dobrado)
@@ -19183,7 +19193,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 pet_dmg = pet_dmg * 2
                 boss_cur_hp -= pet_dmg  # aplica o bônus extra
             # Passiva Slime Rei: cura 8% HP por turno
-            if pet_combat_name == "Slime Rei":
+            if pet_combat_name == "Pyroclasta Rei":
                 pet_regen = max(1, int(pet_combat_hp * 0.08))
                 pet_cur_hp = min(pet_combat_hp, pet_cur_hp + pet_regen)
             # Passiva Slime Abissal: 20% veneno
@@ -19235,7 +19245,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 slime_supreme_used_flag = True
 
             if not slime_supreme_used_flag:
-                if "Slime" in pet_combat_name:
+                if "Pyroclasta Menor" in pet_combat_name:
                     pet_actions = [
                         f"{pet_combat_emoji} **{pet_combat_name}** se lança sobre o boss como uma bola de gosma!",
                         f"{pet_combat_emoji} **{pet_combat_name}** divide-se e envolve o inimigo por todos os lados!",
@@ -19253,7 +19263,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 if pet_heal:
                     pet_msg += f"\n> 💚 Cura `+{pet_heal}` HP para você!"
                     pet_msg += f"\n> *'Seu companheiro cuida de você mesmo em batalha!'*"
-                if "Slime" in pet_combat_name and pet_cur_hp < pet_combat_hp:
+                if "Pyroclasta Menor" in pet_combat_name and pet_cur_hp < pet_combat_hp:
                     pet_msg += f"\n> 🫧 HP do Slime: `{max(0,pet_cur_hp)}/{pet_combat_hp}`"
                 turn_embed.add_field(name="🐾 Companheiro de batalha!", value=pet_msg, inline=False)
 
@@ -19543,7 +19553,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         )
         await channel.send(embed=defeat_embed)
         # Show revenge/training buttons for level bosses
-        boss_levels_set = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+        boss_levels_set = {"Pyroclasta Rei", "Treant Ancião de Sylvenmara", "Faraó Amaldiçoado", "Geomárcio Ancião", "Ignístio Primordial", "Umbrotide Corrompido Ancião"}
         if boss_data["name"] in boss_levels_set or player.get("level") in [9,19,29,39,49,59]:
             view = RevengeTrainingView(user_id, boss_data)
             await channel.send("**O que você deseja fazer?**", view=view)
@@ -19691,7 +19701,7 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
     ]
     victory_embed = discord.Embed(
         title="🏆 VITÓRIA GLORIOSA! A BATALHA ÉPICA TERMINOU!",
-        description=random.choice(victory_descs) + f"\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} CSI**",
+        description=random.choice(victory_descs) + f"\n\n⭐ **+{xp:,} XP** | 💰 **+{coins:,} MV**",
         color=discord.Color.gold()
     )
     if ally_full_data:
@@ -19849,17 +19859,17 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
         await check_achievements(channel, user_id, "boss_no_damage")
     if not was_poisoned and not was_stunned:
         await check_achievements(channel, user_id, "perfect_boss_fight")
-    if boss_data["name"] == "Slime Rei":
+    if boss_data["name"] == "Pyroclasta Rei":
         await check_achievements(channel, user_id, "boss_slime_rei")
-    if boss_data["name"] == "Dragão de Magma":
+    if boss_data["name"] == "Ignístio Primordial":
         await check_achievements(channel, user_id, "boss_dragao")
-    if boss_data["name"] == "Senhor das Sombras":
+    if boss_data["name"] == "Umbrotide Corrompido Ancião":
         await check_achievements(channel, user_id, "boss_sombras")
     # Check level boss
     p_bosses_beaten = player2.get("bosses", [])
     if len(p_bosses_beaten) >= 1:
         await check_achievements(channel, user_id, "level_boss_1")
-    level_bosses_names = {"Slime Rei", "Ent Ancião", "Faraó Amaldiçoado", "Yeti Colossal", "Dragão de Magma", "Senhor das Sombras"}
+    level_bosses_names = {"Pyroclasta Rei", "Treant Ancião de Sylvenmara", "Faraó Amaldiçoado", "Geomárcio Ancião", "Ignístio Primordial", "Umbrotide Corrompido Ancião"}
     p3_final = get_player(user_id)
     if all(b in p3_final.get("bosses", []) for b in level_bosses_names):
         await check_achievements(channel, user_id, "all_level_bosses")
@@ -20115,7 +20125,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         _edrop_dg_mid = auto_drop_equip(user_id, world, base_chance=0.15)
         embed.add_field(
             name="💎 Câmara do Tesouro!",
-            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{chest_bonus}{_edrop_dg_mid}",
+            value=f"*'{'Um tesouro ancestral brilha com luz própria!' if is_secret else 'Você encontra um baú antigo cheio de riquezas!'}'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} MV**{chest_bonus}{_edrop_dg_mid}",
             inline=False
         )
         if leveled:
@@ -20162,7 +20172,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
         rarity_info = RARITIES[item["rarity"]]
         embed.add_field(
             name=f"{'🌟 ITEM LENDÁRIO DA MASMORRA!' if is_secret else '✨ Equipamento Raro!'}",
-            value=f"*'{'Um artefato que não deveria existir...' if is_secret else 'Em uma sala secreta, você encontra um equipamento magnífico!'}'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**",
+            value=f"*'{'Um artefato que não deveria existir...' if is_secret else 'Em uma sala secreta, você encontra um equipamento magnífico!'}'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP**\n💰 **+{coins} MV**",
             inline=False
         )
         if leveled:
@@ -20193,7 +20203,7 @@ async def explore_dungeon(channel, user_id, dungeon, world):
             rarity_info = RARITIES.get(item["rarity"], RARITIES["Épico"])
             embed.add_field(
                 name="💎 Câmara do Tesouro Oculta!",
-                value=f"*'No fundo da dungeon, você encontra uma câmara escondida...'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP** | 💰 **+{coins} CSI**",
+                value=f"*'No fundo da dungeon, você encontra uma câmara escondida...'*\n\n{rarity_info['emoji']} **{item['name']}**\n⭐ **+{xp} XP** | 💰 **+{coins} MV**",
                 inline=False
             )
             player = get_player(user_id)
@@ -20344,7 +20354,7 @@ async def random_world_events():
                 color=discord.Color.gold()
             )
             for i, item in enumerate(items_for_sale, 1):
-                embed.add_field(name=f"Item {i}: {item['name']}", value=f"💰 **Preço: {item['price']} CSI**", inline=False)
+                embed.add_field(name=f"Item {i}: {item['name']}", value=f"💰 **Preço: {item['price']} MV**", inline=False)
 
             await channel.send(embed=embed, view=ShopButton(None, items_for_sale))
 
@@ -20567,7 +20577,7 @@ async def send_prologue(guild):
     # EMBED 8 — Guia Completo de Comandos
     # ══════════════════════════════════════════
     embed8 = discord.Embed(
-        title="⚔️ Guia Completo de Comandos — World CSI",
+        title="⚔️ Guia Completo de Comandos — Valtherra RPG",
         description="*Tudo que você precisa para conquistar os quatro ciclos:*",
         color=0x3498DB
     )
@@ -22115,7 +22125,7 @@ async def on_message(message):
         return
 
     # ======================================================
-    # ================= COMPARTILHAR COINS (5%) ============
+    # ================= COMPARTILHAR MV (5%) ============
     # ======================================================
     elif any(word in content for word in ["compartilhar coins", "compartilhar moedas", "dividir coins", "distribuir coins"]):
         player = get_player(user_id)
@@ -22233,10 +22243,10 @@ async def on_message(message):
 
         embed = discord.Embed(
             title="💰 Item Vendido!",
-            description=f"*'Você vendeu **{found_item}** por **{price} CSI**!'*",
+            description=f"*'Você vendeu **{found_item}** por **{price} MV**!'*",
             color=discord.Color.gold()
         )
-        embed.add_field(name="💰 Moedas Atuais", value=f"{player['coins']} CSI", inline=False)
+        embed.add_field(name="💰 Moedas de Valtherra", value=f"{player['coins']} MV", inline=False)
         await message.channel.send(embed=embed)
         return
 
@@ -22328,7 +22338,7 @@ async def on_message(message):
             if rar in breakdown:
                 qtd, coins = breakdown[rar]
                 emoji = rarity_emoji.get(rar, "📦")
-                detail_lines.append(f"{emoji} **{rar}** × {qtd} — `+{coins} CSI`")
+                detail_lines.append(f"{emoji} **{rar}** × {qtd} — `+{coins} MV`")
 
         embed.add_field(
             name="📦 Detalhamento por Raridade",
@@ -22343,8 +22353,8 @@ async def on_message(message):
                 inline=True
             )
 
-        embed.add_field(name="💰 Total Recebido", value=f"**+{total_gained} CSI**", inline=True)
-        embed.add_field(name="🏦 Coins Totais", value=f"**{player['coins']} CSI**", inline=True)
+        embed.add_field(name="💰 Total Recebido", value=f"**+{total_gained} MV**", inline=True)
+        embed.add_field(name="🏦 Coins Totais", value=f"**{player['coins']} MV**", inline=True)
 
         if equipped_weapon or equipped_armor:
             kept = []
@@ -22363,7 +22373,7 @@ async def on_message(message):
     # ======================================================
     # ================= TROCAR ITEMS =======================
     # ======================================================
-    if "trocar" in content and "@" in message.content and "csi" not in content:
+    if "trocar" in content and "@" in message.content and "mv" not in content:
         parts = message.content.split("com")
         if len(parts) < 2:
             return
@@ -22401,22 +22411,22 @@ async def on_message(message):
         return
 
     # ======================================================
-    # ================= TROCAR COINS CSI ===================
+    # ================= TROCAR MV ===================
     # ======================================================
-    elif "trocar" in content and "csi" in content:
+    elif "trocar" in content and "mv" in content:
         player = get_player(user_id)
         embed = discord.Embed(
             title="💱 Solicitação de Conversão",
-            description=f"{message.author.mention} deseja converter moedas CSI.",
+            description=f"{message.author.mention} deseja converter moedas MV.",
             color=discord.Color.gold()
         )
-        embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}` CSI", inline=False)
+        embed.add_field(name="💰 Moedas de Valtherra", value=f"`{player['coins']}` MV", inline=False)
         await message.channel.send(embed=embed)
         try:
             admin = await bot.fetch_user(int(BOT_OWNER_ID))
             dm_embed = discord.Embed(title="🔔 Solicitação de Conversão", color=discord.Color.gold())
             dm_embed.add_field(name="Jogador", value=f"{message.author.name} ({message.author.id})", inline=False)
-            dm_embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}` CSI", inline=False)
+            dm_embed.add_field(name="💰 Moedas de Valtherra", value=f"`{player['coins']}` MV", inline=False)
             await admin.send(embed=dm_embed)
         except:
             pass
@@ -22428,7 +22438,7 @@ async def on_message(message):
     if content in ["comandos", "ver comandos", "lista de comandos", "ajuda", "help", "/comandos"]:
         # ── Página 1: Personagem, Início, Ciclos ──
         e1 = discord.Embed(
-            title="📋 COMANDOS — World CSI  [1/5]",
+            title="📋 COMANDOS — Valtherra RPG  [1/5]",
             description="*Guia completo — 40 reinos, 5 dimensões, 6 ciclos!*\n`comandos 2` `comandos 3` `comandos 4` `comandos 5` para mais páginas",
             color=0x3498DB
         )
@@ -22472,7 +22482,7 @@ async def on_message(message):
 
         # ── Página 2: Exploração, Boss, Combate ──
         e2 = discord.Embed(
-            title="📋 COMANDOS — World CSI  [2/5]",
+            title="📋 COMANDOS — Valtherra RPG  [2/5]",
             description="*Exploração, boss, dungeons e combate*",
             color=0x2ECC71
         )
@@ -22514,7 +22524,7 @@ async def on_message(message):
 
         # ── Página 3: Pets, Empregos, Quests ──
         e3 = discord.Embed(
-            title="📋 COMANDOS — World CSI  [3/5]",
+            title="📋 COMANDOS — Valtherra RPG  [3/5]",
             description="*Pets, empregos, quests e moral*",
             color=0xF39C12
         )
@@ -22557,7 +22567,7 @@ async def on_message(message):
 
         # ── Página 4: Itens, Magia, Guilda, Reino ──
         e4 = discord.Embed(
-            title="📋 COMANDOS — World CSI  [4/5]",
+            title="📋 COMANDOS — Valtherra RPG  [4/5]",
             description="*Itens, magia, guilda, reino e AFK*",
             color=0x9B59B6
         )
@@ -22610,7 +22620,7 @@ async def on_message(message):
 
         # ── Página 5: NPCs, Fusão, Dicas ──
         e5 = discord.Embed(
-            title="📋 COMANDOS — World CSI  [5/5]",
+            title="📋 COMANDOS — Valtherra RPG  [5/5]",
             description="*NPCs, fusão de itens, sistemas especiais e dicas*",
             color=0xE74C3C
         )
@@ -22653,7 +22663,7 @@ async def on_message(message):
             ),
             inline=False
         )
-        e5.set_footer(text="World CSI Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
+        e5.set_footer(text="Valtherra RPG Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
 
         await message.channel.send(embed=e1)
         await message.channel.send(embed=e2)
@@ -22715,7 +22725,7 @@ async def on_message(message):
             "• **Raça:** Escolha permanente — pense bem! | **Classe:** 7 tiers de evolução até o Absoluto\n"
             "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos"
         ), inline=False)
-        e5.set_footer(text="World CSI Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
+        e5.set_footer(text="Valtherra RPG Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
         await message.channel.send(embed=e5)
         return
 
@@ -22927,7 +22937,7 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu3.set_footer(text="World CSI Bot — Super Atualização | Pág. 3/4 | Use 'atualização' a qualquer hora")
+        e_atu3.set_footer(text="Valtherra RPG Bot — Super Atualização | Pág. 3/4 | Use 'atualização' a qualquer hora")
         await message.channel.send(embed=e_atu3)
         await asyncio.sleep(0.5)
 
@@ -22977,7 +22987,7 @@ async def on_message(message):
             ),
             inline=False
         )
-        e_atu4.set_footer(text="World CSI Bot — Super Atualização Completa | Pág. 4/4 | Use 'atualização' a qualquer hora")
+        e_atu4.set_footer(text="Valtherra RPG Bot — Super Atualização Completa | Pág. 4/4 | Use 'atualização' a qualquer hora")
         await message.channel.send(embed=e_atu4)
 
         return
@@ -23026,7 +23036,7 @@ async def on_message(message):
             res = random.choice(world["resources"])
             player = get_player(user_id)
             player["inventory"].append(res)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(5, 15), player["max_hp"])
             save_player_db(user_id, player)
             _edrop5 = auto_drop_equip(user_id, world, base_chance=0.05)
@@ -23045,7 +23055,7 @@ async def on_message(message):
             res = random.choice(world["resources"])
             player = get_player(user_id)
             player["inventory"].append(res)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(10, 20), player["max_hp"])
             save_player_db(user_id, player)
             leveled = add_xp(user_id, xp)
@@ -23074,7 +23084,7 @@ async def on_message(message):
             player = get_player(user_id)
             for r in resources:
                 player["inventory"].append(r)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(15, 30), player["max_hp"])
 
             # Chance de dungeon secreta ao explorar
@@ -23406,7 +23416,7 @@ async def on_message(message):
             _edrop_hunt_low = auto_drop_equip(user_id, world, base_chance=0.06)
             embed.add_field(
                 name="😓 Vitória Suada",
-                value=f"*'A batalha foi feroz, mas você prevalece!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**\n💔 **−{dmg} HP**{_edrop_hunt_low}",
+                value=f"*'A batalha foi feroz, mas você prevalece!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} MV**\n💔 **−{dmg} HP**{_edrop_hunt_low}",
                 inline=False
             )
             if leveled:
@@ -23432,7 +23442,7 @@ async def on_message(message):
             _edrop_hunt_mid = auto_drop_equip(user_id, world, base_chance=0.10)
             embed.add_field(
                 name="⚔️ Vitória!",
-                value=f"*'Cada golpe seu é preciso!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{potion_text}{_edrop_hunt_mid}",
+                value=f"*'Cada golpe seu é preciso!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} MV**{potion_text}{_edrop_hunt_mid}",
                 inline=False
             )
             if leveled:
@@ -23502,7 +23512,7 @@ async def on_message(message):
 
             embed.add_field(
                 name="✨ Domínio Total!",
-                value=f"*'Vitória absoluta!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} CSI**{drop_text}",
+                value=f"*'Vitória absoluta!'*\n\n⭐ **+{xp} XP**\n💰 **+{coins} MV**{drop_text}",
                 inline=False
             )
             if leveled:
@@ -23578,7 +23588,7 @@ async def on_message(message):
             res = random.choice(world["resources"])
             player = get_player(user_id)
             player["inventory"].append(res)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(10, 20), player["max_hp"])
             save_player_db(user_id, player)
             embed.add_field(name="📦 Recurso Encontrado", value=f"*'Você encontra algo útil!'*\n\n**{res}**", inline=False)
@@ -23600,7 +23610,7 @@ async def on_message(message):
             player = get_player(user_id)
             for r in resources:
                 player["inventory"].append(r)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(15, 30), player["max_hp"])
             save_player_db(user_id, player)
             items_text = "\n".join([f"• **{r}**" for r in resources])
@@ -23624,7 +23634,7 @@ async def on_message(message):
             player = get_player(user_id)
             for r in resources:
                 player["inventory"].append(r)
-            if player.get("class") == "Druida":
+            if player.get("class") == "Druida de Sylvenmara":
                 player["hp"] = min(player["hp"] + random.randint(20, 40), player["max_hp"])
 
             # Chance de drop de equipamento (10% arma, 10% armadura)
@@ -23801,7 +23811,7 @@ async def on_message(message):
         embed.set_thumbnail(url=message.author.display_avatar.url)
         embed.add_field(name="⭐ Nível", value=f"`{player['level']}`", inline=True)
         embed.add_field(name="✨ XP", value=f"`{player['xp']}/{xp_need}`", inline=True)
-        embed.add_field(name="💰 Moedas CSI", value=f"`{player['coins']}`", inline=True)
+        embed.add_field(name="💰 Moedas de Valtherra", value=f"`{player['coins']}`", inline=True)
         embed.add_field(name="❤️ HP", value=f"`{player['hp']}/{player['max_hp']}`", inline=True)
 
         if player.get("class"):
@@ -23970,7 +23980,7 @@ async def on_message(message):
                     equip_txt.append(f"{RARITIES.get(r,{}).get('emoji','🛡️')} Armadura: **{player['armor']}**")
                 embed.add_field(name="🎖️ Equipado", value="\n".join(equip_txt), inline=False)
 
-        embed.set_footer(text=f"Total: {len(player['inventory'])} itens | Moedas CSI: {player['coins']:,} | Conquistas: {len(player.get('achievements', []))}/{len(ACHIEVEMENTS)}")
+        embed.set_footer(text=f"Total: {len(player['inventory'])} itens | Moedas de Valtherra: {player['coins']:,} | Conquistas: {len(player.get('achievements', []))}/{len(ACHIEVEMENTS)}")
         await message.channel.send(embed=embed)
         return
 
@@ -24147,8 +24157,8 @@ async def on_message(message):
 
         if player["coins"] < total_cost:
             await message.channel.send(
-                f"❌ Você não tem CSI suficiente!\n"
-                f"Custo: `{total_cost:,}` CSI ({multiplier}× `{cost_per:,}`) | Você tem: `{player['coins']:,}`\n"
+                f"❌ Você não tem MV suficiente!\n"
+                f"Custo: `{total_cost:,}` MV ({multiplier}× `{cost_per:,}`) | Você tem: `{player['coins']:,}`\n"
                 f"⚠️ *O custo dobra a cada 10 treinos! Tier atual: {tier+1}/6 (x{tier_mult})*"
             )
             return
@@ -24185,11 +24195,11 @@ async def on_message(message):
         tier_bars = "🟥" * (tier+1) + "⬛" * (5 - tier)
         embed = discord.Embed(
             title=f"💪 Treino{mult_txt} Completo!",
-            description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}**{mult_txt} realizado!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{total_cost:,} CSI",
+            description=f"*'Seus músculos queimam, mas você fica mais forte!'*\n\n{opt['emoji']} **Treino de {training_key.capitalize()}**{mult_txt} realizado!\n\n📈 **Melhorias:** {', '.join(boosts)}\n💰 **Custo:** −{total_cost:,} MV",
             color=discord.Color.green()
         )
         embed.add_field(name="📊 Stats Bônus Totais", value=f"⚔️ ATK: +{player.get('temp_atk_boost',0)}\n🛡️ DEF: +{player.get('temp_def_boost',0)}\n❤️ HP Max: +{player.get('temp_hp_boost',0)}", inline=True)
-        embed.add_field(name="💰 Próximo custo", value=f"`{next_cost:,}` CSI\nTier {next_tier+1}/6 {tier_bars}", inline=True)
+        embed.add_field(name="💰 Próximo custo", value=f"`{next_cost:,}` MV\nTier {next_tier+1}/6 {tier_bars}", inline=True)
         embed.add_field(name="⚠️ Escalonamento", value=f"Tier atual: **{tier+1}** (×{tier_mult} do base)\nA cada 10 treinos o custo **dobra**!\nUso: `treinar {training_key} 3x` para 3 de uma vez", inline=False)
         embed.set_footer(text=f"Treinos realizados: {training_count} | Multiplicadores: 2x 3x 5x 10x 20x")
         await message.channel.send(embed=embed)
@@ -24235,7 +24245,7 @@ async def on_message(message):
         embed.add_field(name="💡 Dica", value=obj_tip.get(objective, "Explore o mundo!"), inline=False)
 
         # Recompensas
-        rewards = f"⭐ **{quest['reward_xp']} XP** | 💰 **{quest['reward_coins']} CSI**"
+        rewards = f"⭐ **{quest['reward_xp']} XP** | 💰 **{quest['reward_coins']} MV**"
         if quest.get("reward_item"):
             rewards += f" | 🎁 **{quest['reward_item']}**"
         embed.add_field(name="🏆 Recompensas ao Completar", value=rewards, inline=False)
@@ -24350,7 +24360,7 @@ async def on_message(message):
             description=f"*Você se aproxima do NPC na cidade...*\n\n*'{dialogue}'*",
             color=discord.Color.green()
         )
-        visit_embed.add_field(name="💰 Recompensa pela Visita", value=f"+{coins_found} CSI", inline=True)
+        visit_embed.add_field(name="💰 Recompensa pela Visita", value=f"+{coins_found} MV", inline=True)
 
         # 25% chance de livro de lore ao visitar
         if random.random() < 0.25:
@@ -25480,7 +25490,7 @@ async def handle_new_commands(message):
         except Exception as e:
             await message.channel.send(f"❌ Erro ao enviar pet: {e}")
 
-    # ===== TROCAR CSI COINS POR MONSTRINHOS COINS =====
+    # ===== TROCAR MV POR MONSTRINHOS COINS =====
     elif content.startswith("trocar coins") or content.startswith("converter coins"):
         player = get_player(uid)
         if not player:
@@ -25494,9 +25504,9 @@ async def handle_new_commands(message):
                 break
         if amount <= 0:
             await message.channel.send(
-                "💱 **Como trocar coins:**\n`trocar coins 100` — envia pedido de troca de 100 CSI Coins por Monstrinhos Coins.\n"
+                "💱 **Como trocar coins:**\n`trocar coins 100` — envia pedido de troca de 100 MV por Monstrinhos Coins.\n"
                 "O dono do servidor será notificado e aprovará a troca.\n\n"
-                f"Seu saldo atual: **{player['coins']} CSI Coins** 💰"
+                f"Seu saldo atual: **{player['coins']} MV** 💰"
             )
             return
         if player["coins"] < amount:
@@ -25518,8 +25528,8 @@ async def handle_new_commands(message):
             try:
                 owner = await bot.fetch_user(owner_id)
                 dm_embed = discord.Embed(
-                    title="💱 PEDIDO DE TROCA DE COINS",
-                    description=f"**Usuário:** {message.author} (`{uid}`)\n**Servidor:** {message.guild.name if message.guild else 'DM'}\n**Pedido:** {amount} CSI Coins → Monstrinhos Coins\n**ID do Pedido:** #{req_id}",
+                    title="💱 PEDIDO DE TROCA DE MV",
+                    description=f"**Usuário:** {message.author} (`{uid}`)\n**Servidor:** {message.guild.name if message.guild else 'DM'}\n**Pedido:** {amount} MV → Monstrinhos Coins\n**ID do Pedido:** #{req_id}",
                     color=discord.Color.orange()
                 )
                 dm_embed.add_field(name="✅ Para APROVAR", value=f"`aprovar troca {req_id}`", inline=True)
@@ -25530,7 +25540,7 @@ async def handle_new_commands(message):
 
         embed = discord.Embed(
             title="📤 Pedido Enviado!",
-            description=f"Seu pedido de troca de **{amount} CSI Coins** foi registrado e enviado ao administrador.\nAguarde a aprovação!",
+            description=f"Seu pedido de troca de **{amount} MV** foi registrado e enviado ao administrador.\nAguarde a aprovação!",
             color=discord.Color.blurple()
         )
         embed.add_field(name="📋 ID do Pedido", value=f"#{req_id}", inline=True)
@@ -25571,7 +25581,7 @@ async def handle_new_commands(message):
             target_user = await bot.fetch_user(int(req_uid))
             notify_embed = discord.Embed(
                 title="✅ Troca Aprovada!",
-                description=f"Sua troca de **{req_coins} CSI Coins** por Monstrinhos Coins foi **APROVADA**!\nSeus coins foram descontados. Entre em contato com o administrador para receber seus Monstrinhos Coins! 🎉",
+                description=f"Sua troca de **{req_coins} MV** por Monstrinhos Coins foi **APROVADA**!\nSeus coins foram descontados. Entre em contato com o administrador para receber seus Monstrinhos Coins! 🎉",
                 color=discord.Color.green()
             )
             await target_user.send(embed=notify_embed)
@@ -25603,7 +25613,7 @@ async def handle_new_commands(message):
             target_user = await bot.fetch_user(int(req_uid))
             await target_user.send(embed=discord.Embed(
                 title="❌ Troca Recusada",
-                description=f"Seu pedido de troca de **{req_coins} CSI Coins** foi recusado. Entre em contato com o administrador para mais detalhes.",
+                description=f"Seu pedido de troca de **{req_coins} MV** foi recusado. Entre em contato com o administrador para mais detalhes.",
                 color=discord.Color.red()
             ))
         except:
@@ -26201,7 +26211,7 @@ async def handle_new_commands(message):
             req_id, req_uid, req_uname, req_coins, req_status, created = row
             embed.add_field(
                 name=f"#{req_id} — {req_uname}",
-                value=f"💰 **{req_coins}** CSI Coins\n`aprovar troca {req_id}` | `recusar troca {req_id}`",
+                value=f"💰 **{req_coins}** MV\n`aprovar troca {req_id}` | `recusar troca {req_id}`",
                 inline=False
             )
         await message.channel.send(embed=embed)
@@ -27655,7 +27665,7 @@ async def handle_spell_book(message):
 
         if player["coins"] < total_cost:
             await message.channel.send(
-                f"❌ Treinar mana custa **{total_cost:,} CSI** ({multiplier}× {cost_per:,}). Você tem: {player['coins']:,} CSI.\n"
+                f"❌ Treinar mana custa **{total_cost:,} MV** ({multiplier}× {cost_per:,}). Você tem: {player['coins']:,} MV.\n"
                 f"⚠️ *Custo aumenta a cada 10 treinos! Tier {tier+1}/6 (x{tier_mult})*"
             )
             return
@@ -27670,7 +27680,7 @@ async def handle_spell_book(message):
         mult_txt = f" ×{multiplier}" if multiplier > 1 else ""
         await message.channel.send(
             f"💎 **Treino de Mana{mult_txt} Concluído!**\n\n"
-            f"−{total_cost:,} CSI | +{mana_boost} Mana Máxima\n"
+            f"−{total_cost:,} MV | +{mana_boost} Mana Máxima\n"
             f"Nova mana máxima: **{player['max_mana']}**\n"
             f"Treinos de mana: **{player['mana_training_points']}** | Tier {tier+1}/6\n"
             f"💡 `treinar mana 3x` para treinar 3 vezes de uma vez!"
@@ -27730,7 +27740,7 @@ async def handle_kingdom(message):
         embed.add_field(
             name="🛠️ Comandos de Reino",
             value="`personalizar reino [nome]` — Renomear seu reino\n"
-                  "`melhorar economia` — Invista CSI para melhorar\n"
+                  "`melhorar economia` — Invista MV para melhorar\n"
                   "`reforçar exercito` — Fortaleça suas tropas\n"
                   "`atacar reino @rei` — Declare guerra!\n"
                   "`trocar recursos @rei [valor]` — Coopere com outros reinos",
@@ -27773,7 +27783,7 @@ async def handle_kingdom(message):
             return
         cost = costs[cur_idx]
         if player["coins"] < cost:
-            await message.channel.send(f"❌ Melhorar a economia custa **{cost} CSI**. Você tem {player['coins']} CSI.")
+            await message.channel.send(f"❌ Melhorar a economia custa **{cost} MV**. Você tem {player['coins']} MV.")
             return
         player["coins"] -= cost
         kd["economy"] = levels[cur_idx + 1]
@@ -27800,7 +27810,7 @@ async def handle_kingdom(message):
             return
         cost = costs[cur_idx]
         if player["coins"] < cost:
-            await message.channel.send(f"❌ Reforçar o exército custa **{cost} CSI**. Você tem {player['coins']} CSI.")
+            await message.channel.send(f"❌ Reforçar o exército custa **{cost} MV**. Você tem {player['coins']} MV.")
             return
         player["coins"] -= cost
         kd["army"] = levels[cur_idx + 1]
@@ -27871,7 +27881,7 @@ async def handle_kingdom(message):
             save_player_db(mention.id, target_player)
             embed.add_field(
                 name=f"🏆 {my_name} VENCEU!",
-                value=f"*'{my_name} domina {their_name}!'*\n\n+{reward} CSI | +20 população",
+                value=f"*'{my_name} domina {their_name}!'*\n\n+{reward} MV | +20 população",
                 inline=False
             )
         else:
@@ -27891,7 +27901,7 @@ async def handle_kingdom(message):
         if not player:
             return
         if "@" not in content:
-            await message.channel.send("❌ Use: `trocar recursos @rei [valor em CSI]`")
+            await message.channel.send("❌ Use: `trocar recursos @rei [valor em MV]`")
             return
         parts = content.split()
         mention = message.mentions[0] if message.mentions else None
@@ -27907,7 +27917,7 @@ async def handle_kingdom(message):
             await message.channel.send("❌ Use: `trocar recursos @rei [valor]` — ex: `trocar recursos @rei 500`")
             return
         if player["coins"] < amount:
-            await message.channel.send(f"❌ Você tem apenas **{player['coins']} CSI**!")
+            await message.channel.send(f"❌ Você tem apenas **{player['coins']} MV**!")
             return
 
         target_player = get_player(mention.id)
@@ -27924,7 +27934,7 @@ async def handle_kingdom(message):
         save_player_db(mention.id, target_player)
         await message.channel.send(
             f"🤝 **Troca de Recursos!**\n\n"
-            f"**{message.author.display_name}** enviou **{amount} CSI** para {mention.mention}!\n"
+            f"**{message.author.display_name}** enviou **{amount} MV** para {mention.mention}!\n"
             f"*Alianças entre reinos fortalecem a todos!*"
         )
 
@@ -28205,7 +28215,7 @@ async def handle_admin_commands(message):
         save_player_db(str(target.id), player)
         await message.channel.send(embed=discord.Embed(
             title="💰 ADMIN — Coins",
-            description=f"**{target.display_name}** recebeu `{amount:,}` CSI!\nTotal: `{player['coins']:,}`",
+            description=f"**{target.display_name}** recebeu `{amount:,}` MV!\nTotal: `{player['coins']:,}`",
             color=discord.Color.gold()))
 
     # ── !xp @user N ─────────────────────────────────────────────────
@@ -28376,7 +28386,7 @@ async def handle_admin_commands(message):
                 save_player_db(puid, p)
         await message.channel.send(embed=discord.Embed(
             title="💰 ADMIN — Coins Para Todos",
-            description=f"**{len(rows)} jogadores** receberam `{amount:,}` CSI cada!",
+            description=f"**{len(rows)} jogadores** receberam `{amount:,}` MV cada!",
             color=discord.Color.gold()))
 
     # ── !admin suprema @user ─────────────────────────────────────────
@@ -29133,7 +29143,7 @@ BESTIAL_FORMS = {
 # NPCs do mundo com diálogos de lore, segredos e quests ocultas
 NPC_DIALOGUES_EXTENDED = {
     "Theron": {
-        "full_name": "Aldeão Theron",
+        "full_name": "Eldoriano Thessevan",
         "emoji": "👨‍🌾",
         "world": 1,
         "lore": [
@@ -29153,12 +29163,12 @@ NPC_DIALOGUES_EXTENDED = {
                 "type": "individual", "objective": "explore", "count": 1,
                 "reward_xp": 2000, "reward_coins": 50, "reward_item": "Fragmento de Cristal Antigo",
                 "lore": "A cripta guarda um segredo que os aldeões preferiram esquecer.",
-                "npc": "Aldeão Theron", "difficulty": "Raro"
+                "npc": "Eldoriano Thessevan", "difficulty": "Raro"
             }
         ]
     },
     "Elara": {
-        "full_name": "Curandeira Elara",
+        "full_name": "Sacerdotisa de Elaris",
         "emoji": "👩‍⚕️",
         "world": 1,
         "lore": [
@@ -29173,7 +29183,7 @@ NPC_DIALOGUES_EXTENDED = {
         "hidden_quests": []
     },
     "Sylvara": {
-        "full_name": "Druida Sylvara",
+        "full_name": "Druida Guardiã de Thalverde",
         "emoji": "🧙‍♀️",
         "world": 10,
         "lore": [
@@ -29193,7 +29203,7 @@ NPC_DIALOGUES_EXTENDED = {
                 "type": "individual", "objective": "explore", "count": 5,
                 "reward_xp": 4000, "reward_coins": 80, "reward_item": "Essência Pura da Floresta",
                 "lore": "O artefato pulsa com uma energia estranha. Como chegou aqui ninguém sabe.",
-                "npc": "Druida Sylvara", "difficulty": "Difícil"
+                "npc": "Druida Guardiã de Thalverde", "difficulty": "Difícil"
             }
         ]
     },
@@ -29215,7 +29225,7 @@ NPC_DIALOGUES_EXTENDED = {
                 "id": "hq_bjorn_001",
                 "name": "❄️ O Segredo de Krom",
                 "description": "Bjorn te conta que Krom guarda um segredo que pode revelar o paradeiro dos Titãs do Gelo.",
-                "type": "individual", "objective": "boss", "target": "Yeti Colossal",
+                "type": "individual", "objective": "boss", "target": "Geomárcio Ancião",
                 "reward_xp": 8000, "reward_coins": 200, "reward_item": "Fragmento de Titã do Gelo",
                 "lore": "A verdade sobre os Titãs do Gelo pode mudar tudo que você sabe sobre este mundo.",
                 "npc": "Ancião Bjorn", "difficulty": "Muito Difícil"
@@ -29289,7 +29299,7 @@ NPC_NAME_MAP = {
     "spectra": "Spectra", "bibliotecária": "Spectra", "bibliotecaria": "Spectra",
     "imperador": "Imperador Astral", "astral": "Imperador Astral",
     "brynn": "Mercador Brynn", "mercador": "Mercador Brynn",
-    "capitão": "Capitão Aldric", "capitao": "Capitão Aldric", "aldric": "Capitão Aldric",
+    "capitão": "Capitão da Milícia de Crestfall", "capitao": "Capitão da Milícia de Crestfall", "aldric": "Capitão da Milícia de Crestfall",
 }
 
 # Dicionário de canais de mundo próprio: {user_id: channel_id}
@@ -29540,7 +29550,7 @@ FORGE_RECIPES = {
     },
     "Katana do Trovão": {
         "type": "weapon", "rarity": "Raro", "atk": 30,
-        "materials": {"Minério de Aço": 3, "Pedra de Trovão": 2, "Seda Venenosa": 1},
+        "materials": {"Minério de Aço": 3, "Pedra de Trovão": 2, "Teia de Arácnido": 1},
         "cost": 250, "level_req": 18, "job_req": "Ferreiro",
         "desc": "Conduz eletricidade em cada corte."
     },
@@ -29741,7 +29751,7 @@ async def handle_forge_craft(message):
             status = "✅" if have >= qty else f"❌ ({have}/{qty})"
             mat_lines.append(f"{status} **{mat}** × {qty}")
         embed.add_field(name="🧱 Materiais Necessários", value="\n".join(mat_lines), inline=False)
-        embed.add_field(name="💰 Custo de Forja", value=f"`{recipe['cost']:,}` CSI", inline=True)
+        embed.add_field(name="💰 Custo de Forja", value=f"`{recipe['cost']:,}` MV", inline=True)
         can_forge = player["level"] >= recipe["level_req"] and (not recipe.get("job_req") or player.get("job") == recipe["job_req"])
         has_mats = all(inv_counts.get(m, 0) >= q for m, q in recipe["materials"].items())
         has_coins = player["coins"] >= recipe["cost"]
@@ -29790,7 +29800,7 @@ async def handle_forge_craft(message):
 
         # Verificar moedas
         if player["coins"] < recipe["cost"]:
-            await message.channel.send(f"❌ Você precisa de **{recipe['cost']:,} CSI** para forjar **{iname}**!\nVocê tem: `{player['coins']:,}` CSI.")
+            await message.channel.send(f"❌ Você precisa de **{recipe['cost']:,} MV** para forjar **{iname}**!\nVocê tem: `{player['coins']:,}` MV.")
             return
 
         # Verificar e consumir materiais
@@ -29855,7 +29865,7 @@ async def handle_forge_craft(message):
         embed.add_field(name="⭐ Raridade", value=rar, inline=True)
         mat_txt = " | ".join([f"{mat} ×{qty}" for mat, qty in recipe["materials"].items()])
         embed.add_field(name="🧱 Materiais Usados", value=mat_txt, inline=False)
-        embed.add_field(name="💰 CSI Gasto", value=f"`{recipe['cost']:,}` CSI", inline=True)
+        embed.add_field(name="💰 MV Gasto", value=f"`{recipe['cost']:,}` MV", inline=True)
         embed.set_footer(text=f"Use 'equipar {iname}' para equipar | 'inspecionar arma {iname}' para detalhes")
         await message.channel.send(embed=embed)
         # Adicionar ao ITEMS para ser reconhecida pelo sistema
@@ -30030,9 +30040,9 @@ async def handle_dialogar_npc(message):
                 "*'Os NPCs do reino têm muito a contar...'*\n\n"
                 "Use: `dialogar com npc [nome]`\n\n"
                 "**NPCs disponíveis:**\n"
-                "• `dialogar com npc theron` — Aldeão Theron\n"
-                "• `dialogar com npc elara` — Curandeira Elara\n"
-                "• `dialogar com npc sylvara` — Druida Sylvara\n"
+                "• `dialogar com npc thessevan` — Eldoriano Thessevan\n"
+                "• `dialogar com npc elaris` — Sacerdotisa de Elaris\n"
+                "• `dialogar com npc sylvara` — Druida Guardiã Sylvara\n"
                 "• `dialogar com npc bjorn` — Ancião Bjorn\n"
                 "• `dialogar com npc ramses` — Arqueólogo Ramses\n"
                 "• `dialogar com npc spectra` — Bibliotecária Spectra\n"
@@ -30460,7 +30470,7 @@ async def handle_usar_chave(message):
     # ── ONDAS DE MOBS ANTES DO BOSS (100k~200k HP) ──────────────────
     player = get_player(uid)
     p_level = player.get("level", 1)
-    p_atk_now = CLASSES.get(player.get("class", "Guerreiro"), {}).get("atk_bonus", 5) + p_level * 2
+    p_atk_now = CLASSES.get(player.get("class", "Guardião de Ashenvorn"), {}).get("atk_bonus", 5) + p_level * 2
     if player.get("weapon"):
         for w in ITEMS["weapons"]:
             if w["name"] == player["weapon"]:
@@ -30999,16 +31009,16 @@ async def handle_definir_bio(message):
 
     classe = player.get("class", "")
     frases = {
-        "Guerreiro":  "*'A lâmina forja o homem tanto quanto o fogo forja o aço.'*",
-        "Mago":       "*'As palavras têm poder. E estas palavras são suas.'*",
-        "Arqueiro":   "*'A flecha voa mais longe quando o arqueiro conhece sua própria história.'*",
-        "Assassino":  "*'Nas sombras, cada cicatriz conta um segredo.'*",
-        "Necromante": "*'Até os mortos merecem um nome. Que dirá os vivos.'*",
-        "Paladino":   "*'Palavras gravadas no coração valem mais que as esculpidas em pedra.'*",
-        "Berserker":  "*'Não existe fúria sem origem. Agora a sua foi registrada.'*",
-        "Druida":     "*'As árvores guardam memórias nas suas raízes. E você, em suas palavras.'*",
-        "Monge":      "*'Conhecer a si mesmo é a primeira forma de iluminação.'*",
-        "Bardo":      "*'Toda boa canção começa com uma boa história.'*",
+        "Guardião de Ashenvorn":  "*'A lâmina forja o homem tanto quanto o fogo forja o aço.'*",
+        "Mago Arcano de Altheron":       "*'As palavras têm poder. E estas palavras são suas.'*",
+        "Arqueiro de Sylvenmara":   "*'A flecha voa mais longe quando o arqueiro conhece sua própria história.'*",
+        "Assassino das Sombras":  "*'Nas sombras, cada cicatriz conta um segredo.'*",
+        "Necromante do Veil": "*'Até os mortos merecem um nome. Que dirá os vivos.'*",
+        "Paladino da Luz":   "*'Palavras gravadas no coração valem mais que as esculpidas em pedra.'*",
+        "Berserker Orkrioniano":  "*'Não existe fúria sem origem. Agora a sua foi registrada.'*",
+        "Druida de Sylvenmara":     "*'As árvores guardam memórias nas suas raízes. E você, em suas palavras.'*",
+        "Monge de Fiorveth":      "*'Conhecer a si mesmo é a primeira forma de iluminação.'*",
+        "Bardo de Accordis":      "*'Toda boa canção começa com uma boa história.'*",
     }
     frase = frases.get(classe, "*'Cada aventureiro merece ter sua história contada.'*")
 
@@ -31058,11 +31068,11 @@ async def handle_forcar_entrada(message):
         def_stat = player.get("def", 5)
         chance_base = min(55, 15 + (player_level // 5) + (atk // 20) + (def_stat // 25))
         classe = player.get("class", "")
-        if classe == "Assassino":
+        if classe == "Assassino das Sombras":
             chance_base = min(70, chance_base + 15)
-        elif classe == "Berserker":
+        elif classe == "Berserker Orkrioniano":
             chance_base = min(65, chance_base + 10)
-        elif classe == "Mago":
+        elif classe == "Mago Arcano de Altheron":
             chance_base = min(60, chance_base + 5)
 
         embed = discord.Embed(
@@ -31150,11 +31160,11 @@ async def handle_forcar_entrada(message):
     def_stat = player.get("def", 5)
     chance = min(55, 15 + (player_level // 5) + (atk // 20) + (def_stat // 25))
     classe = player.get("class", "")
-    if classe == "Assassino":
+    if classe == "Assassino das Sombras":
         chance = min(70, chance + 15)
-    elif classe == "Berserker":
+    elif classe == "Berserker Orkrioniano":
         chance = min(65, chance + 10)
-    elif classe == "Mago":
+    elif classe == "Mago Arcano de Altheron":
         chance = min(60, chance + 5)
 
     roll = random.randint(1, 100)
@@ -32360,7 +32370,7 @@ async def handle_job_commands(message):
         leveled = add_xp(uid, xp_gain)
         embed = discord.Embed(
             title="☠️ Convocação Necromantica!",
-            description=f"*{player.get('name','Necromante')} ergue as mãos. O solo racha. Os mortos obedecem...*",
+            description=f"*{player.get('name','Necromante do Veil')} ergue as mãos. O solo racha. Os mortos obedecem...*",
             color=discord.Color.dark_magenta()
         )
         embed.add_field(name="🦴 Mortos Convocados", value="\n".join(convocados), inline=False)
