@@ -34987,8 +34987,7 @@ async def handle_god_commands(message):
         status_lore = god_status(player, nome)
         eh_aliado_lore = status_lore in ("aliado", "derrotado", "finalizado")
         if deus["reino_id"] not in set(player.get("worlds", [1])) and not eh_aliado_lore:
-            await message.channel.send(f"🔒 Você ainda não chegou ao reino deste ser divino.
-*Explore Valtherra para revelar seus segredos.*")
+            await message.channel.send("🔒 Você ainda não chegou ao reino deste ser divino.\n*Explore Valtherra para revelar seus segredos.*")
             return
         embed = discord.Embed(title=f"{deus['emoji']} {nome} — {deus['titulo']}", description=deus["lore"], color=deus["cor"])
         embed.add_field(name="🏛️ Categoria", value=deus["categoria"], inline=True)
