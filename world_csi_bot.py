@@ -714,7 +714,7 @@ RACES = {
         "lore": "Os Fangrenos não lutam como indivíduos — lutam como matilha. Mesmo sozinho, um Fangreno carrega o espírito de todos que vieram antes."
     },
     "Nykarons": {
-        "emoji": "👁️‍🗨️",
+        "emoji": "🔍",
         "hp_bonus": 14,
         "atk_bonus": 20,
         "def_bonus": 16,
@@ -16713,6 +16713,10 @@ class RaceSelectView(discord.ui.View):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
             if self.answered:
+                try:
+                    await interaction.response.send_message("⏳ Processando...", ephemeral=True)
+                except Exception:
+                    pass
                 return
             self.answered = True
             player = get_player(self.user_id)
@@ -16769,22 +16773,29 @@ class RaceSelectView(discord.ui.View):
         async def callback(interaction: discord.Interaction):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta não é sua seleção!", ephemeral=True)
-            all_races = list(RACES.keys())
-            chunk = all_races[new_page*5:(new_page+1)*5]
-            embed = discord.Embed(
-                title=f"🧬 Escolha sua Raça (Página {new_page+1})",
-                description="Sua raça define bônus permanentes e passivas únicas.",
-                color=discord.Color.purple()
-            )
-            for rn in chunk:
-                rd = RACES[rn]
-                embed.add_field(
-                    name=f"{rd['emoji']} {rn}",
-                    value=f"{rd['description']}\n**Passiva:** {rd['passive']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}",
-                    inline=False
+            try:
+                all_races = list(RACES.keys())
+                total_pages = (len(all_races) + 4) // 5
+                chunk = all_races[new_page*5:(new_page+1)*5]
+                embed = discord.Embed(
+                    title=f"🧬 Escolha sua Raça (Página {new_page+1}/{total_pages})",
+                    description="Sua raça define bônus permanentes e passivas únicas.",
+                    color=discord.Color.purple()
                 )
-            new_view = RaceSelectView(self.user_id, page=new_page, allow_change=self.allow_change)
-            await interaction.response.edit_message(embed=embed, view=new_view)
+                for rn in chunk:
+                    rd = RACES[rn]
+                    embed.add_field(
+                        name=f"{rd['emoji']} {rn}",
+                        value=f"{rd['description']}\n**Passiva:** {rd['passive']}\n**HP:** +{rd['hp_bonus']} | **ATK:** +{rd['atk_bonus']} | **DEF:** +{rd['def_bonus']}",
+                        inline=False
+                    )
+                new_view = RaceSelectView(self.user_id, page=new_page, allow_change=self.allow_change)
+                await interaction.response.edit_message(embed=embed, view=new_view)
+            except Exception as e:
+                try:
+                    await interaction.response.send_message(f"❌ Erro ao carregar a página. Tente novamente.", ephemeral=True)
+                except Exception:
+                    pass
         return callback
 
 
@@ -16830,6 +16841,10 @@ class ClassSelectView(discord.ui.View):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta escolha não é sua!", ephemeral=True)
             if self.answered:
+                try:
+                    await interaction.response.send_message("⏳ Processando...", ephemeral=True)
+                except Exception:
+                    pass
                 return
             self.answered = True
             player = get_player(self.user_id)
@@ -16952,6 +16967,10 @@ class ClassEvolutionView(discord.ui.View):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Esta evolução não é sua!", ephemeral=True)
             if self.answered:
+                try:
+                    await interaction.response.send_message("⏳ Processando...", ephemeral=True)
+                except Exception:
+                    pass
                 return
             self.answered = True
             player = get_player(self.user_id)
@@ -17672,6 +17691,10 @@ class TrainingView(discord.ui.View):
             if str(interaction.user.id) != str(self.user_id):
                 return await interaction.response.send_message("❌ Essa escolha não é sua!", ephemeral=True)
             if self.answered:
+                try:
+                    await interaction.response.send_message("⏳ Processando...", ephemeral=True)
+                except Exception:
+                    pass
                 return
             self.answered = True
             player = get_player(self.user_id)
@@ -34873,25 +34896,46 @@ async def handle_god_commands(message):
         if not player:
             await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        categorias = {}
+        worlds_unlocked = set(player.get("worlds", [1]))
+        # Agrupar deuses por reino, ordenado por reino_id
+        reinos_visiveis = {}   # reino_id -> {"nome": ..., "deuses": [...]}
+        deuses_bloqueados = 0
         for nome, d in DEUSES.items():
-            cat = d["categoria"]
-            categorias.setdefault(cat, [])
+            rid = d["reino_id"]
             status = god_status(player, nome)
-            s_emoji = {"disponivel": "⬜", "quest_pendente": "🟡", "derrotado": "🏆", "aliado": "✅", "finalizado": "💀"}.get(status, "⬜")
-            lock = "" if d["reino_id"] in set(player.get("worlds", [1])) else " 🔒"
-            q = get_god_quest(player, nome)
-            prog = f" `{q['progresso']}/{q['objetivo']}`" if q and not q.get("completa") else ""
-            categorias[cat].append(f"{s_emoji} {d['emoji']} **{nome}**{lock}{prog} — *{d['titulo']}*")
-        embed = discord.Embed(title="🏛️ PANTEÃO DE VALTHERRA", description="*Os deuses que moldaram este mundo.*", color=0xFFD700)
-        for cat, linhas in categorias.items():
-            embed.add_field(name=f"📖 {cat}", value="\n".join(linhas), inline=False)
+            # Deus visível se: reino desbloqueado OU já é aliado/derrotado/finalizado
+            eh_aliado = status in ("aliado", "derrotado", "finalizado")
+            if rid in worlds_unlocked or eh_aliado:
+                if rid not in reinos_visiveis:
+                    reinos_visiveis[rid] = {"nome": d["reino_nome"], "deuses": []}
+                s_emoji = {"disponivel": "⬜", "quest_pendente": "🟡", "derrotado": "🏆", "aliado": "✅", "finalizado": "💀"}.get(status, "⬜")
+                q = get_god_quest(player, nome)
+                prog = f" `{q['progresso']}/{q['objetivo']}`" if q and not q.get("completa") else ""
+                reinos_visiveis[rid]["deuses"].append(f"{s_emoji} {d['emoji']} **{nome}**{prog} — *{d['titulo']}*")
+            else:
+                deuses_bloqueados += 1
+        if not reinos_visiveis:
+            await message.channel.send("🔒 Você ainda não desbloqueou nenhum reino com deuses. Explore mais o mundo!")
+            return
+        embed = discord.Embed(
+            title="🏛️ PANTEÃO DE VALTHERRA",
+            description=f"*Os deuses dos reinos que você pisou. Explore novos reinos para revelar mais.*",
+            color=0xFFD700
+        )
+        for rid in sorted(reinos_visiveis.keys()):
+            info = reinos_visiveis[rid]
+            embed.add_field(
+                name=f"🌍 {info['nome']} (Nível {rid})",
+                value="\n".join(info["deuses"]),
+                inline=False
+            )
+        rodape_lock = f" | 🔒 {deuses_bloqueados} deus(es) em reinos inexplorados" if deuses_bloqueados > 0 else ""
         embed.add_field(
             name="📜 Comandos",
-            value="`deuses do reino` | `quest divina <nome>` | `confrontar deus <nome>` | `lore do deus <nome>` | `deuses aliados` | `conversar com <nome>` | `oferecer <item>`",
+            value="`quest divina <nome>` | `confrontar deus <nome>` | `lore do deus <nome>` | `deuses aliados` | `conversar com <nome>` | `oferecer <item>`",
             inline=False,
         )
-        embed.set_footer(text="⬜ disponível | 🟡 quest | ✅ aliado | 💀 finalizado | 🔒 bloqueado")
+        embed.set_footer(text=f"⬜ disponível | 🟡 quest ativa | ✅ aliado | 💀 finalizado{rodape_lock}")
         await message.channel.send(embed=embed)
         return
 
@@ -34901,14 +34945,20 @@ async def handle_god_commands(message):
         if not player:
             return
         cw = player.get("current_world", 1)
-        deuses_aqui = []
-        for rid, nomes in DEUSES_POR_REINO.items():
-            if abs(rid - cw) <= 30:
-                deuses_aqui.extend(nomes)
-        if not deuses_aqui:
-            await message.channel.send("🏛️ Não há deuses próximos. Use `ver deuses` para ver todos.")
+        worlds_unlocked = set(player.get("worlds", [1]))
+        # Só mostra deuses do reino atual SE ele foi desbloqueado
+        if cw not in worlds_unlocked:
+            await message.channel.send(f"🔒 Você ainda não desbloqueou completamente o reino atual (nível {cw}).")
             return
-        embed = discord.Embed(title=f"⚡ Deuses Próximos (Reino nível {cw})", color=0xFFD700)
+        deuses_aqui = DEUSES_POR_REINO.get(cw, [])
+        if not deuses_aqui:
+            await message.channel.send(f"🏛️ Nenhum deus habita o reino nível {cw}. Use `ver deuses` para ver todos os deuses dos seus reinos.")
+            return
+        embed = discord.Embed(
+            title=f"⚡ Deuses de {deuses_aqui and DEUSES[deuses_aqui[0]]['reino_nome'] or f'Reino {cw}'}",
+            description=f"*Os deuses que habitam o reino em que você está agora.*",
+            color=0xFFD700
+        )
         for nome in deuses_aqui:
             d = DEUSES[nome]
             status = god_status(player, nome)
@@ -34917,18 +34967,28 @@ async def handle_god_commands(message):
             prog = f"\n📊 Quest: `{q['progresso']}/{q['objetivo']}`" if q and not q.get("completa") else ""
             embed.add_field(
                 name=f"{d['emoji']} {nome} — {d['titulo']}",
-                value=f"Status: {s_txt}{prog}\n❤️`{d['hp']:,}` ⚔️`{d['atk']}` | {d['reino_nome']}",
+                value=f"**Status:** {s_txt}{prog}\n❤️ `{d['hp']:,}` | ⚔️ `{d['atk']}` | 🛡️ `{d['def']}`\n`quest divina {nome}` | `lore do deus {nome}`",
                 inline=False,
             )
+        embed.set_footer(text="Use 'ver deuses' para ver todos os deuses de todos os seus reinos.")
         await message.channel.send(embed=embed)
         return
 
     # ── lore do deus ───────────────────────────────────────────────────────────
     if content.startswith("lore do deus ") or content.startswith("lore deus "):
+        player = get_player(uid)
+        if not player:
+            return
         q = content.replace("lore do deus ", "").replace("lore deus ", "").strip()
         nome, deus = get_god_by_name(q)
         if not deus:
             await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
+            return
+        status_lore = god_status(player, nome)
+        eh_aliado_lore = status_lore in ("aliado", "derrotado", "finalizado")
+        if deus["reino_id"] not in set(player.get("worlds", [1])) and not eh_aliado_lore:
+            await message.channel.send(f"🔒 Você ainda não chegou ao reino deste ser divino.
+*Explore Valtherra para revelar seus segredos.*")
             return
         embed = discord.Embed(title=f"{deus['emoji']} {nome} — {deus['titulo']}", description=deus["lore"], color=deus["cor"])
         embed.add_field(name="🏛️ Categoria", value=deus["categoria"], inline=True)
@@ -35091,6 +35151,11 @@ async def handle_god_commands(message):
             # Pode ser que não seja um deus — ignorar silenciosamente
             return
         status = god_status(player, nome)
+        # Bloqueia se o reino não foi desbloqueado E não é aliado/derrotado
+        eh_conhecido = status in ("aliado", "derrotado", "finalizado")
+        if deus["reino_id"] not in set(player.get("worlds", [1])) and not eh_conhecido:
+            # Ignora silenciosamente — o deus não existe para quem não chegou lá
+            return
         if status != "aliado":
             if status == "finalizado":
                 await message.channel.send(f"💀 Você finalizou **{nome}**. Não há mais como conversar com ele.")
@@ -35160,6 +35225,8 @@ async def handle_god_commands(message):
         if not player:
             return
         item_q = content.replace("oferecer ", "").replace("oferenda ", "").strip()
+        # Só aceita oferendas de deuses cujo reino foi desbloqueado
+        worlds_oferta = set(player.get("worlds", [1]))
         inv = player.get("inventory", [])
         item_found = None
         for it in inv:
@@ -35172,12 +35239,18 @@ async def handle_god_commands(message):
             return
         cw = player.get("current_world", 1)
         deus_aceita = None
-        for nome_d in DEUSES_POR_REINO.get(cw, []):
-            d = DEUSES[nome_d]
-            for oferta in d.get("oferta_aceita", []):
-                if item_q.lower() in oferta.lower():
-                    deus_aceita = nome_d
+        # Busca entre todos os deuses dos reinos desbloqueados
+        for rid in worlds_oferta:
+            for nome_d in DEUSES_POR_REINO.get(rid, []):
+                d = DEUSES[nome_d]
+                for oferta in d.get("oferta_aceita", []):
+                    if item_q.lower() in oferta.lower():
+                        deus_aceita = nome_d
+                        break
+                if deus_aceita:
                     break
+            if deus_aceita:
+                break
         # Remove item
         if inv and isinstance(inv[0], str):
             player["inventory"] = [i for i in inv if i != item_found]
