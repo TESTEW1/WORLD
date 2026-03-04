@@ -32871,1084 +32871,771 @@ async def handle_job_commands(message):
 
 
 
+
 # ================= SISTEMA DE DEUSES =================
+# Versão 2.0 — Quest tracking corrigido, botões de decisão, conversa com aliados, !finalizarquest
+
 DEUSES = {
-    # ── Deuses Elementais e Naturais ──────────────────────────────────────────
     "Fyranor": {
-        "titulo": "O Guardião do Vulcão",
-        "emoji": "🌋",
-        "categoria": "Elemental",
-        "reino_id": 40,          # Campos Vulcânicos de Pyreth
-        "reino_nome": "Campos Vulcânicos de Pyreth",
-        "hp": 3300, "atk": 255, "def": 80,
-        "xp": 9000, "coins": (400, 900),
-        "cor": 0xFF4500,
-        "descricao": "Contem e canaliza a fúria dos vulcões. Seu corpo é magma solidificado e seu olhar faz pedra derreter.",
-        "lore": (
-            "Fyranor surgiu no exato momento em que o primeiro vulcão de Valtherra entrou em erupção. "
-            "Os Ignístios o veneram como protetor; os Pyroclastas o temem como força ancestral. "
-            "Quem o confronta sente o chão ferver sob os pés antes mesmo de vê-lo."
-        ),
-        "intro": (
-            "O vulcão que parecia extinto explode sem aviso. Magma escorre pelas paredes como sangue. "
-            "Uma figura colossal de rocha e fogo abre olhos de brasa. "
-            "**'Você ousou entrar no meu santuário. Agora arde junto com ele.'**"
-        ),
+        "titulo": "O Guardião do Vulcão", "emoji": "🌋", "categoria": "Elemental",
+        "reino_id": 40, "reino_nome": "Campos Vulcânicos de Pyreth",
+        "hp": 3300, "atk": 255, "def": 80, "xp": 9000, "coins": (400, 900), "cor": 0xFF4500,
+        "descricao": "Contem e canaliza a fúria dos vulcões. Seu corpo é magma solidificado.",
+        "lore": "Fyranor surgiu no exato momento em que o primeiro vulcão de Valtherra entrou em erupção. Os Ignístios o veneram como protetor; os Pyroclastas o temem como força ancestral. Quem o confronta sente o chão ferver sob os pés antes mesmo de vê-lo.",
+        "intro": "O vulcão que parecia extinto explode sem aviso. Magma escorre pelas paredes como sangue. Uma figura colossal de rocha e fogo abre olhos de brasa.\n**'Você ousou entrar no meu santuário. Agora arde junto com ele.'**",
         "vitoria": "O magma recua. Fyranor cai num joelho, sua forma crepitando. '...Você tem o fogo dentro de você. Raros merecem isso.'",
         "derrota": "Fyranor ri enquanto você é varrido pela erupção. '...Volte quando for digno.'",
         "idolatrado_por": ["Ignístios", "Pyroclastas"],
         "quest_nome": "Prova do Fogo Eterno",
-        "quest_desc": "Colete 5 'Fragmentos de Magma Primordial' derrotando criaturas no Reino dos Vulcões.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 5,
-        "quest_reino": 40,
+        "quest_desc": "Derrote 5 criaturas/bosses nos Campos Vulcânicos de Pyreth.",
+        "quest_tipo": "boss_kill", "quest_objetivo": 5, "quest_reino": 40,
         "oferta_aceita": ["Lava Solidificada", "Escória Vulcânica", "Cristal de Pyreth"],
-        "ally_skill": {
-            "nome": "Erupção Divina",
-            "emoji": "🌋",
-            "desc": "Fyranor emerge do chão e lança uma onda de magma contra todos os inimigos.",
-            "dmg_mult": 2.8,
-            "efeito": "queima",
-        },
+        "falas_aliado": [
+            "O fogo que não te queima é o fogo que te forja.",
+            "Chame por mim quando as chamas do inimigo ameaçarem apagar a sua.",
+            "Aprendi a respeitar você no dia em que não fugiu da minha erupção.",
+            "O vulcão dorme, mas nunca morre. Assim como eu.",
+            "Se precisar de destruição, eu sou o mais honesto que existe sobre isso.",
+        ],
+        "ally_skill": {"nome": "Erupção Divina", "emoji": "🌋", "desc": "Fyranor emerge do chão e lança magma contra todos os inimigos.", "dmg_mult": 2.8},
         "ally_passive": "Imune a veneno e fogo; +20% ATK em territórios vulcânicos.",
     },
     "Thalmyra": {
-        "titulo": "A Guardiã da Floresta",
-        "emoji": "🌿",
-        "categoria": "Natural",
-        "reino_id": 10,
-        "reino_nome": "Floresta de Sylvenmara",
-        "hp": 2700, "atk": 189, "def": 63,
-        "xp": 5400, "coins": (200, 500),
-        "cor": 0x228B22,
-        "descricao": "Protetora das florestas e de todos os seres que nelas habitam. Seus filhos são os Silvanos.",
-        "lore": (
-            "Thalmyra teceu as primeiras raízes de Sylvenmara com seus próprios cabelos. "
-            "Os Flordílios a chamam de mãe da vegetação; os Silvanos juram ter ouvido sua voz no vento. "
-            "Ela não ataca por raiva — ataca para proteger o que é seu."
-        ),
-        "intro": (
-            "A floresta para de respirar. Cada folha, cada galho, cada raiz se curva em direção a uma figura "
-            "feita de árvore e luz verde. "
-            "**'Esta floresta não é sua para profanar. Mostre-me que você é digno de caminhar nela.'**"
-        ),
+        "titulo": "A Guardiã da Floresta", "emoji": "🌿", "categoria": "Natural",
+        "reino_id": 10, "reino_nome": "Floresta de Sylvenmara",
+        "hp": 2700, "atk": 189, "def": 63, "xp": 5400, "coins": (200, 500), "cor": 0x228B22,
+        "descricao": "Protetora das florestas e de todos os seres que nelas habitam.",
+        "lore": "Thalmyra teceu as primeiras raízes de Sylvenmara com seus próprios cabelos. Os Flordílios a chamam de mãe da vegetação; os Silvanos juram ter ouvido sua voz no vento. Ela não ataca por raiva — ataca para proteger o que é seu.",
+        "intro": "A floresta para de respirar. Cada folha, cada galho, cada raiz se curva em direção a uma figura feita de árvore e luz verde.\n**'Esta floresta não é sua para profanar. Mostre-me que você é digno de caminhar nela.'**",
         "vitoria": "As raízes se afastam. Thalmyra inclina a cabeça. '...A floresta te aceita. Poucos chegam aqui.'",
         "derrota": "Raízes te prendem ao chão. '...Você não estava pronto para a floresta viva.'",
         "idolatrado_por": ["Silvanos", "Flordílios"],
         "quest_nome": "Guardiã das Raízes",
-        "quest_desc": "Derrote o Treant Ancião de Sylvenmara e traga uma 'Folha da Árvore Milenar'.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 3,
-        "quest_reino": 10,
+        "quest_desc": "Explore ou colete recursos 5 vezes na Floresta de Sylvenmara.",
+        "quest_tipo": "explorar", "quest_objetivo": 5, "quest_reino": 10,
         "oferta_aceita": ["Flor Rara", "Seiva Antiga", "Folha Sagrada de Sylvenmara"],
-        "ally_skill": {
-            "nome": "Floresta Viva",
-            "emoji": "🌳",
-            "desc": "Raízes gigantescas emergem do chão, imobilizando e sufocando o inimigo.",
-            "dmg_mult": 2.4,
-            "efeito": "paralisia",
-        },
+        "falas_aliado": [
+            "A floresta sempre soube que você era diferente dos outros que passaram por aqui.",
+            "Cada árvore que você protege fortalece o vínculo entre nós.",
+            "Chame por mim quando precisar de cura. A floresta sempre responde.",
+            "Meus filhos Silvanos falam bem de você agora. Isso é raro.",
+            "A natureza não tem pressa. Mas quando age, é imparável. Lembre disso.",
+        ],
+        "ally_skill": {"nome": "Floresta Viva", "emoji": "🌳", "desc": "Raízes gigantescas emergem do chão, imobilizando e sufocando o inimigo.", "dmg_mult": 2.4},
         "ally_passive": "Cura 8% do HP do jogador por turno; +15% DEF em qualquer batalha.",
     },
     "Aqualis": {
-        "titulo": "O Senhor das Correntes",
-        "emoji": "🌊",
-        "categoria": "Elemental",
-        "reino_id": 110,
-        "reino_nome": "Arquipélago de Quorval",
-        "hp": 7200, "atk": 405, "def": 135,
-        "xp": 18000, "coins": (700, 1600),
-        "cor": 0x1E90FF,
-        "descricao": "Controla rios e lagos. As Sereias e Quorálidas dependem de sua benevolência para sobreviver.",
-        "lore": (
-            "Aqualis foi o primeiro a sentir a sede da terra. Abriu suas mãos e das palmas jorrou "
-            "o primeiro rio de Valtherra. Ele não fala muito — mas quando o oceano ruge, é porque ele está irritado."
-        ),
-        "intro": (
-            "O arquipélago inteiro treme. Ondas sobrenaturais formam uma figura humanoide de água pura e turquesa. "
-            "**'Você atravessou meus mares sem permissão. Agora mergulhe — de verdade.'**"
-        ),
+        "titulo": "O Senhor das Correntes", "emoji": "🌊", "categoria": "Elemental",
+        "reino_id": 110, "reino_nome": "Arquipélago de Quorval",
+        "hp": 7200, "atk": 405, "def": 135, "xp": 18000, "coins": (700, 1600), "cor": 0x1E90FF,
+        "descricao": "Controla rios e lagos. As Sereias e Quorálidas dependem de sua benevolência.",
+        "lore": "Aqualis foi o primeiro a sentir a sede da terra. Abriu suas mãos e das palmas jorrou o primeiro rio de Valtherra. Ele não fala muito — mas quando o oceano ruge, é porque ele está irritado.",
+        "intro": "O arquipélago inteiro treme. Ondas sobrenaturais formam uma figura humanoide de água pura e turquesa.\n**'Você atravessou meus mares sem permissão. Agora mergulhe — de verdade.'**",
         "vitoria": "A maré recua. Aqualis se dissolve lentamente. '...Você nadou contra a corrente e ganhou. Raro.'",
         "derrota": "A corrente te arrasta. '...O oceano nunca perde.'",
         "idolatrado_por": ["Sereias", "Quorálidas"],
         "quest_nome": "Prova das Marés",
-        "quest_desc": "Derrote 7 criaturas aquáticas no Arquipélago de Quorval.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 7,
-        "quest_reino": 110,
+        "quest_desc": "Derrote 7 criaturas/bosses no Arquipélago de Quorval.",
+        "quest_tipo": "boss_kill", "quest_objetivo": 7, "quest_reino": 110,
         "oferta_aceita": ["Pérola Profunda", "Escama de Sereia", "Cristal de Quorval"],
-        "ally_skill": {
-            "nome": "Maré Devastadora",
-            "emoji": "🌊",
-            "desc": "Uma onda colossal varre o campo, causando dano massivo e lavando buffs do inimigo.",
-            "dmg_mult": 2.6,
-            "efeito": "debuff_atk",
-        },
+        "falas_aliado": [
+            "O oceano me disse que você voltaria. Ele nunca erra.",
+            "As sereias cantam seu nome agora. É uma honra que poucos mortais recebem.",
+            "Água nunca resiste — ela contorna. Aprenda isso e será imparável.",
+            "Precisa de mim? Vou onde a água vai. E a água vai em todo lugar.",
+            "Você provou ter mais profundidade do que aparenta. Boa qualidade.",
+        ],
+        "ally_skill": {"nome": "Maré Devastadora", "emoji": "🌊", "desc": "Uma onda colossal varre o campo, causando dano massivo.", "dmg_mult": 2.6},
         "ally_passive": "+25% dano em batalhas contra criaturas de fogo ou terra.",
     },
     "Ventharis": {
-        "titulo": "O Espírito dos Céus",
-        "emoji": "✨",
-        "categoria": "Celestial",
-        "reino_id": 160,
-        "reino_nome": "Céu de Venthar — Gavídeos",
-        "hp": 9000, "atk": 477, "def": 159,
-        "xp": 22500, "coins": (800, 1900),
-        "cor": 0x87CEEB,
-        "descricao": "Protege os céus e todos que os atravessam. Os Gavídeos e Dragões o veneram como senhor dos ares.",
-        "lore": (
-            "Ventharis não nasceu — ascendeu. Era o primeiro ser de Valtherra a alcançar as nuvens mais altas "
-            "e descobrir o que há além delas. Desde então vigia os céus, testando quem ousa voar."
-        ),
-        "intro": (
-            "O céu escurece sem nuvens. Relâmpagos silenciosos cruzam o horizonte. "
-            "Uma entidade de vento e luz desce em espiral. "
-            "**'O céu não pertence a qualquer ser que salte alto o suficiente. Prove que você pode sustentar o voo.'**"
-        ),
+        "titulo": "O Espírito dos Céus", "emoji": "✨", "categoria": "Celestial",
+        "reino_id": 160, "reino_nome": "Céu de Venthar — Gavídeos",
+        "hp": 9000, "atk": 477, "def": 159, "xp": 22500, "coins": (800, 1900), "cor": 0x87CEEB,
+        "descricao": "Protege os céus e todos que os atravessam. Gavídeos e Dragões o veneram.",
+        "lore": "Ventharis não nasceu — ascendeu. Era o primeiro ser de Valtherra a alcançar as nuvens mais altas e descobrir o que há além delas. Desde então vigia os céus, testando quem ousa voar.",
+        "intro": "O céu escurece sem nuvens. Relâmpagos silenciosos cruzam o horizonte. Uma entidade de vento e luz desce em espiral.\n**'O céu não pertence a qualquer ser que salte alto o suficiente. Prove que pode sustentar o voo.'**",
         "vitoria": "Ventharis recua no vento. '...Você resistiu à altitude. O céu te reconhece como igual.'",
         "derrota": "O vento te lança ao chão. '...Ainda não. Continue subindo.'",
         "idolatrado_por": ["Gavídeos", "Dragões"],
         "quest_nome": "Asas do Firmamento",
-        "quest_desc": "Complete 5 explorações nos Céus de Venthar e derrote o boss do reino.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 5,
-        "quest_reino": 160,
+        "quest_desc": "Derrote 5 criaturas/bosses nos Céus de Venthar.",
+        "quest_tipo": "boss_kill", "quest_objetivo": 5, "quest_reino": 160,
         "oferta_aceita": ["Pena de Dragão", "Cristal Celestial", "Brisa Encantada"],
-        "ally_skill": {
-            "nome": "Tempestade Celestial",
-            "emoji": "⚡",
-            "desc": "Ventharis desce em forma de raio sobre o inimigo, causando dano massivo e atordoando.",
-            "dmg_mult": 2.7,
-            "efeito": "atordoamento",
-        },
+        "falas_aliado": [
+            "Do alto, tudo parece menor. Seus problemas também.",
+            "Os Gavídeos me pediram para proteger você. Aceitei de bom grado.",
+            "Vento e velocidade — é isso que tenho a oferecer. Use bem.",
+            "Você é um dos poucos mortais que não tem medo das alturas. Respeito isso.",
+            "Quando o céu fechar contra você, me chame. Sou o motivo pelo qual ele abre.",
+        ],
+        "ally_skill": {"nome": "Tempestade Celestial", "emoji": "⚡", "desc": "Ventharis desce em forma de raio sobre o inimigo, causando dano massivo.", "dmg_mult": 2.7},
         "ally_passive": "+15% esquiva; primeiro ataque de cada batalha sempre acerta.",
     },
     "Georrus": {
-        "titulo": "A Rocha Imortal",
-        "emoji": "⛏️",
-        "categoria": "Elemental",
-        "reino_id": 100,
-        "reino_nome": "Xaltharis — Nação Xaltariana",
-        "hp": 8700, "atk": 459, "def": 153,
-        "xp": 21000, "coins": (750, 1800),
-        "cor": 0x8B4513,
-        "descricao": "Representa a força da terra e os segredos das cavernas. Anões, Geomárcios e Rocceris o veneram.",
-        "lore": (
-            "Georrus é mais velho do que qualquer montanha. Dizem que ele É a montanha — "
-            "que cada pico de Valtherra é uma parte de seu corpo. "
-            "Encontrá-lo nas profundezas da terra significa que você foi longe o suficiente."
-        ),
-        "intro": (
-            "O teto da caverna range. Estalactites caem. Do centro da rocha sólida, "
-            "uma figura de pedra pura se separa da parede, lentamente, como se sempre estivesse lá. "
-            "**'A terra não foi feita para ser cruzada. Foi feita para ser respeitada. Vamos ver se você entende isso.'**"
-        ),
-        "vitoria": "Georrus para, as rachaduras no corpo se fechando devagar. '...Você tem a força da rocha em você.'",
+        "titulo": "A Rocha Imortal", "emoji": "⛏️", "categoria": "Elemental",
+        "reino_id": 100, "reino_nome": "Xaltharis — Nação Xaltariana",
+        "hp": 8700, "atk": 459, "def": 153, "xp": 21000, "coins": (750, 1800), "cor": 0x8B4513,
+        "descricao": "Representa a força da terra e os segredos das cavernas.",
+        "lore": "Georrus é mais velho do que qualquer montanha. Dizem que ele É a montanha — que cada pico de Valtherra é uma parte de seu corpo. Encontrá-lo nas profundezas significa que você foi longe o suficiente.",
+        "intro": "O teto da caverna range. Estalactites caem. Do centro da rocha sólida, uma figura de pedra pura se separa da parede lentamente.\n**'A terra não foi feita para ser cruzada. Foi feita para ser respeitada. Vamos ver se você entende isso.'**",
+        "vitoria": "Georrus para, as rachaduras no corpo se fechando. '...Você tem a força da rocha em você.'",
         "derrota": "A terra te engole até os joelhos. '...Volte quando tiver raízes mais fundas.'",
         "idolatrado_por": ["Anões", "Geomárcios", "Rocceris"],
         "quest_nome": "Coração da Pedra",
-        "quest_desc": "Mine 10 vezes nas profundezas de Xaltharis e traga o 'Núcleo de Georrus'.",
-        "quest_objetivo": "mine",
-        "quest_kills": 10,
-        "quest_reino": 100,
+        "quest_desc": "Mine 10 vezes nas profundezas de Xaltharis.",
+        "quest_tipo": "minerar", "quest_objetivo": 10, "quest_reino": 100,
         "oferta_aceita": ["Minério de Adamantio", "Cristal de Geopoder", "Terra Primordial"],
-        "ally_skill": {
-            "nome": "Punho da Terra",
-            "emoji": "🪨",
-            "desc": "Um pilar de rocha emerge do chão e esmaga o inimigo com força primordial.",
-            "dmg_mult": 3.0,
-            "efeito": "atordoamento",
-        },
+        "falas_aliado": [
+            "Pedra não tem pressa. Mas quando cai, nada para ela.",
+            "Os anões me disseram que você os respeitou. Isso conta muito para mim.",
+            "Chame-me quando precisar de uma defesa inabalável.",
+            "Cada pedra que você minera carrega um pouco da minha bênção agora.",
+            "A terra lembra de tudo que passa por ela. Ela lembra de você com respeito.",
+        ],
+        "ally_skill": {"nome": "Punho da Terra", "emoji": "🪨", "desc": "Um pilar de rocha emerge do chão e esmaga o inimigo com força primordial.", "dmg_mult": 3.0},
         "ally_passive": "Reduz dano recebido em 20%; +30 DEF permanente em batalha.",
     },
-
-    # ── Deuses da Vida, Morte e Espiritualidade ───────────────────────────────
     "Elaris": {
-        "titulo": "A Senhora da Cura",
-        "emoji": "💚",
-        "categoria": "Vida",
-        "reino_id": 130,
-        "reino_nome": "Planícies de Velkar",
-        "hp": 7800, "atk": 387, "def": 129,
-        "xp": 19500, "coins": (720, 1750),
-        "cor": 0x00FF7F,
-        "descricao": "Provedora de cura e esperança. Sythranos e Velkarianos a veneram como fonte de equilíbrio emocional.",
-        "lore": (
-            "Elaris chorou quando o primeiro ser de Valtherra morreu de doença. "
-            "Das suas lágrimas nasceram as primeiras ervas medicinais. "
-            "Ela não é uma deusa gentil — é uma deusa justa, e há uma diferença crucial."
-        ),
-        "intro": (
-            "Uma luz suave invade o campo de batalha, mais quente que o sol. "
-            "Uma mulher vestida de luz verde te observa com olhos que viram milênios de sofrimento. "
-            "**'Você veio até mim com feridas no corpo. Agora testarei as feridas na alma.'**"
-        ),
-        "vitoria": "Elaris sorri — não com prazer, mas com alívio. '...Você sobreviveu. Isso já é uma forma de cura.'",
+        "titulo": "A Senhora da Cura", "emoji": "💚", "categoria": "Vida",
+        "reino_id": 130, "reino_nome": "Planícies de Velkar",
+        "hp": 7800, "atk": 387, "def": 129, "xp": 19500, "coins": (720, 1750), "cor": 0x00FF7F,
+        "descricao": "Provedora de cura e esperança. Sythranos e Velkarianos a veneram.",
+        "lore": "Elaris chorou quando o primeiro ser de Valtherra morreu de doença. Das suas lágrimas nasceram as primeiras ervas medicinais. Ela não é uma deusa gentil — é uma deusa justa.",
+        "intro": "Uma luz suave invade o campo de batalha, mais quente que o sol. Uma mulher vestida de luz verde te observa com olhos que viram milênios de sofrimento.\n**'Você veio até mim com feridas no corpo. Agora testarei as feridas na alma.'**",
+        "vitoria": "Elaris sorri com alívio. '...Você sobreviveu. Isso já é uma forma de cura.'",
         "derrota": "Elaris te cura após a derrota. '...Você não estava pronto. Mas eu não deixo ninguém morrer aqui.'",
         "idolatrado_por": ["Sythranos", "Velkarianos"],
         "quest_nome": "A Cura Verdadeira",
-        "quest_desc": "Cure aliados 5 vezes em batalha ou complete 5 batalhas sem morrer.",
-        "quest_objetivo": "sobreviver",
-        "quest_kills": 5,
-        "quest_reino": 130,
+        "quest_desc": "Explore ou colete 5 vezes nas Planícies de Velkar.",
+        "quest_tipo": "explorar", "quest_objetivo": 5, "quest_reino": 130,
         "oferta_aceita": ["Erva Sagrada de Velkar", "Poção Divina", "Lágrima de Cristal"],
-        "ally_skill": {
-            "nome": "Cura Divina",
-            "emoji": "💚",
-            "desc": "Elaris envolve o jogador em luz sagrada, restaurando 40% do HP máximo instantaneamente.",
-            "dmg_mult": 0,
-            "efeito": "cura_40",
-            "cura_pct": 0.40,
-        },
+        "falas_aliado": [
+            "A cura não é fraqueza. É a forma mais corajosa de força que existe.",
+            "Você carrega feridas que o mundo não pode ver. Me chame quando pesarem demais.",
+            "Toda batalha deixa marcas. Eu me especializo nas que não aparecem.",
+            "Os Velkarianos rezam por você agora. Uma proteção que nenhuma armadura supera.",
+            "Viva. É a única coisa que peço em troca da minha proteção.",
+        ],
+        "ally_skill": {"nome": "Cura Divina", "emoji": "💚", "desc": "Elaris restaura 40% do HP máximo do jogador instantaneamente.", "dmg_mult": 0, "cura_pct": 0.40},
         "ally_passive": "Regenera 5% do HP máximo por turno em batalha; imune a veneno.",
     },
     "Nyxaris": {
-        "titulo": "O Mestre dos Espirituais",
-        "emoji": "🌑",
-        "categoria": "Espiritual",
-        "reino_id": 330,
-        "reino_nome": "Noxtherion — Reino dos Vampiros",
-        "hp": 15000, "atk": 711, "def": 237,
-        "xp": 37500, "coins": (1300, 3000),
-        "cor": 0x4B0082,
-        "descricao": "Guia almas perdidas. Umbrotides e Nocturnais o reverenciam por sua conexão com o espiritual e a noite.",
-        "lore": (
-            "Nyxaris existe no espaço entre o que é vivo e o que foi. "
-            "Cada alma que morre em Valtherra passa por seus olhos por uma fração de segundo — "
-            "tempo suficiente para ele julgar o que merece continuar e o que deve desaparecer."
-        ),
-        "intro": (
-            "A noite cai instantaneamente, mesmo que seja meio-dia. "
-            "Estrelas aparecem, mas são negras — buracos na luz. "
-            "Uma voz vem de todo lugar e de lugar nenhum: "
-            "**'Você cruzou o véu entre vivos e mortos para me encontrar. Vamos ver se é digno de voltar.'**"
-        ),
+        "titulo": "O Mestre dos Espirituais", "emoji": "🌑", "categoria": "Espiritual",
+        "reino_id": 330, "reino_nome": "Noxtherion — Reino dos Vampiros",
+        "hp": 15000, "atk": 711, "def": 237, "xp": 37500, "coins": (1300, 3000), "cor": 0x4B0082,
+        "descricao": "Guia almas perdidas. Umbrotides e Nocturnais o reverenciam.",
+        "lore": "Nyxaris existe no espaço entre o que é vivo e o que foi. Cada alma que morre em Valtherra passa por seus olhos por uma fração de segundo — tempo suficiente para ele julgar o que merece continuar.",
+        "intro": "A noite cai instantaneamente. Estrelas aparecem, mas são negras — buracos na luz. Uma voz vem de todo lugar e de lugar nenhum:\n**'Você cruzou o véu entre vivos e mortos para me encontrar. Vamos ver se é digno de voltar.'**",
         "vitoria": "A noite artificial desaparece. '...Sua chama não se apagou. Cuide dela.'",
         "derrota": "Você acorda no início do caminho. '...O véu te devolveu. Por enquanto.'",
         "idolatrado_por": ["Umbrotides", "Nocturnais"],
         "quest_nome": "Caminho das Almas",
-        "quest_desc": "Morra e reviva em batalha 3 vezes (use pets ou habilidades de reviver), ou derrote 10 criaturas do tipo morto-vivo.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 10,
-        "quest_reino": 330,
+        "quest_desc": "Derrote 10 criaturas no Reino dos Vampiros.",
+        "quest_tipo": "boss_kill", "quest_objetivo": 10, "quest_reino": 330,
         "oferta_aceita": ["Fragmento de Alma", "Tinta das Sombras", "Cristal de Nyxaris"],
-        "ally_skill": {
-            "nome": "Mão do Além",
-            "emoji": "👻",
-            "desc": "Nyxaris drena a vida do inimigo e transfere metade para o jogador.",
-            "dmg_mult": 2.5,
-            "efeito": "dreno_vida",
-        },
-        "ally_passive": "Uma vez por batalha, ao chegar a 0 HP, retorna com 25% HP (bênção de Nyxaris).",
+        "falas_aliado": [
+            "Você cruzou o véu e voltou. Isso te dá perspectiva que outros mortais jamais terão.",
+            "A morte não é o fim. Eu sou a prova. E agora você tem minha proteção contra ela.",
+            "Quando seu coração parar entre dois batimentos, serei eu segurando o tempo.",
+            "Os espíritos que guio me disseram que você merecia ser guardado. Confio neles.",
+            "Chame-me quando a escuridão parecer absoluta. Sou dono dela — posso abrí-la.",
+        ],
+        "ally_skill": {"nome": "Mão do Além", "emoji": "👻", "desc": "Nyxaris drena a vida do inimigo e transfere metade para o jogador.", "dmg_mult": 2.5},
+        "ally_passive": "Uma vez por batalha, ao chegar a 0 HP, retorna com 25% HP.",
     },
     "Morthrak": {
-        "titulo": "O Rei da Eternidade",
-        "emoji": "💀",
-        "categoria": "Morte",
-        "reino_id": 62,
-        "reino_nome": "Pântano das Almas Perdidas",
-        "hp": 4200, "atk": 306, "def": 102,
-        "xp": 10500, "coins": (450, 1050),
-        "cor": 0x2F4F4F,
-        "descricao": "Mantém o equilíbrio entre vida e morte. Tieflings, Vampiros e Sombrianos o veneram.",
-        "lore": (
-            "Morthrak não escolheu ser o guardião da morte — ele simplesmente foi o último a morrer "
-            "no mundo anterior, e quando Valtherra nasceu, ele ainda estava lá. "
-            "Não há raiva nele. Há apenas a paciência absoluta de quem sabe que tudo, eventualmente, passa por ele."
-        ),
-        "intro": (
-            "O pântano para. Não há som. Não há vento. "
-            "Uma figura em manto negro surge das águas negras sem fazer ondas. "
-            "Onde ela pisa, flores mortas brotam e imediatamente murcham. "
-            "**'Vida e morte são a mesma moeda. Vamos ver qual face você representa.'**"
-        ),
-        "vitoria": "Morthrak recua, sua forma ficando mais translúcida. '...Você não é meu ainda. Volte quando chegar sua hora.'",
+        "titulo": "O Rei da Eternidade", "emoji": "💀", "categoria": "Morte",
+        "reino_id": 62, "reino_nome": "Pântano das Almas Perdidas",
+        "hp": 4200, "atk": 306, "def": 102, "xp": 10500, "coins": (450, 1050), "cor": 0x2F4F4F,
+        "descricao": "Mantém o equilíbrio entre vida e morte.",
+        "lore": "Morthrak não escolheu ser o guardião da morte — ele simplesmente foi o último a morrer no mundo anterior. Não há raiva nele. Há apenas a paciência absoluta de quem sabe que tudo, eventualmente, passa por ele.",
+        "intro": "O pântano para. Uma figura em manto negro surge das águas negras sem fazer ondas. Onde ela pisa, flores mortas brotam e imediatamente murcham.\n**'Vida e morte são a mesma moeda. Vamos ver qual face você representa.'**",
+        "vitoria": "Morthrak recua. '...Você não é meu ainda. Volte quando chegar sua hora.'",
         "derrota": "Você acorda no pântano, vivo. '...Não era sua hora. Desta vez.'",
         "idolatrado_por": ["Tieflings", "Vampiros", "Sombrianos"],
         "quest_nome": "O Equilíbrio Eterno",
-        "quest_desc": "Sobreviva a 5 batalhas no Pântano das Almas Perdidas sem usar poções.",
-        "quest_objetivo": "sobreviver",
-        "quest_kills": 5,
-        "quest_reino": 62,
+        "quest_desc": "Explore ou colete 5 vezes no Pântano das Almas Perdidas.",
+        "quest_tipo": "explorar", "quest_objetivo": 5, "quest_reino": 62,
         "oferta_aceita": ["Osso Amaldiçoado", "Essência do Pântano", "Flor da Morte"],
-        "ally_skill": {
-            "nome": "Toque da Eternidade",
-            "emoji": "☠️",
-            "desc": "Morthrak toca o inimigo e drena sua vitalidade, enfraquecendo todos os stats por 3 turnos.",
-            "dmg_mult": 2.2,
-            "efeito": "debuff_total",
-        },
-        "ally_passive": "Ganha 10% dos HP drenados do inimigo; não pode ser eliminado por dano de veneno.",
+        "falas_aliado": [
+            "Toda vida que protejo é uma dívida que o universo deve a mim.",
+            "Não tenho afeto — tenho compromisso. E o meu compromisso com você é absoluto.",
+            "O pântano me contou sobre você. As almas lá dentro te respeitam.",
+            "Quando morrer, não vai ser aqui. Isso eu garanto enquanto formos aliados.",
+            "O equilíbrio entre nós é simples: você luta, eu garanto que volte.",
+        ],
+        "ally_skill": {"nome": "Toque da Eternidade", "emoji": "☠️", "desc": "Morthrak drena a vitalidade do inimigo e enfraquece todos os stats por 3 turnos.", "dmg_mult": 2.2},
+        "ally_passive": "Ganha 10% dos HP drenados do inimigo; imune a dano de veneno.",
     },
-
-    # ── Deuses da Sabedoria e Conhecimento ────────────────────────────────────
     "Altheron": {
-        "titulo": "O Mestre da Magia",
-        "emoji": "🔮",
-        "categoria": "Conhecimento",
-        "reino_id": 50,
-        "reino_nome": "Plano do Vazio de Valtherra",
-        "hp": 4500, "atk": 360, "def": 120,
-        "xp": 11250, "coins": (480, 1100),
-        "cor": 0x9400D3,
-        "descricao": "Protetor e expansor do conhecimento mágico. Elfos, Lotharins e Sythranos o veneram.",
-        "lore": (
-            "Altheron escreveu o primeiro feitiço antes de qualquer civilização existir — "
-            "com os dedos no ar, em uma língua que só ele conhecia. "
-            "A Coluna de Altheron em Arcenveil é apenas uma cópia apagada de sua biblioteca real, "
-            "que existe em algum lugar entre dimensões."
-        ),
-        "intro": (
-            "O ar cheira a ozônio e algo muito mais antigo. "
-            "Runas flutuam ao seu redor antes mesmo de você ver quem as projeta. "
-            "Um mago de aparência humana, mas olhos que refletem dimensões inteiras, te observa. "
-            "**'Você tem o audácia de buscar o mestre da magia. Vamos ver se tem o conhecimento para isso.'**"
-        ),
-        "vitoria": "As runas se dissolvem. '...Você aprendeu a lição mais importante: o poder não é sobre força. É sobre entendimento.'",
+        "titulo": "O Mestre da Magia", "emoji": "🔮", "categoria": "Conhecimento",
+        "reino_id": 50, "reino_nome": "Plano do Vazio de Valtherra",
+        "hp": 4500, "atk": 360, "def": 120, "xp": 11250, "coins": (480, 1100), "cor": 0x9400D3,
+        "descricao": "Protetor e expansor do conhecimento mágico.",
+        "lore": "Altheron escreveu o primeiro feitiço antes de qualquer civilização existir — com os dedos no ar, em uma língua que só ele conhecia. A Coluna de Altheron em Arcenveil é apenas uma cópia apagada de sua biblioteca real.",
+        "intro": "O ar cheira a ozônio e algo muito mais antigo. Runas flutuam ao seu redor antes mesmo de você ver quem as projeta. Um mago de olhos que refletem dimensões inteiras te observa.\n**'Você tem a audácia de buscar o mestre da magia. Vamos ver se tem o conhecimento para isso.'**",
+        "vitoria": "As runas se dissolvem. '...O poder não é sobre força. É sobre entendimento. Você provou isso.'",
         "derrota": "Os feitiços cessam. '...Você ainda tem muito a estudar. Volte quando o fizer.'",
         "idolatrado_por": ["Elfos", "Lotharins", "Sythranos"],
         "quest_nome": "Tomo do Conhecimento Arcano",
-        "quest_desc": "Use 20 feitiços do Livro de Feitiços em batalhas diferentes.",
-        "quest_objetivo": "usar_feitiços",
-        "quest_kills": 20,
-        "quest_reino": 50,
+        "quest_desc": "Use feitiços em batalha 8 vezes (combate com caçar/lutar).",
+        "quest_tipo": "caçar", "quest_objetivo": 8, "quest_reino": 50,
         "oferta_aceita": ["Tomo Arcano", "Cristal de Mana Pura", "Pena da Sabedoria"],
-        "ally_skill": {
-            "nome": "Feitiço Absoluto de Altheron",
-            "emoji": "🔮",
-            "desc": "Altheron lança o feitiço mais poderoso já escrito, causando dano mágico puro que ignora DEF.",
-            "dmg_mult": 3.2,
-            "efeito": "ignora_def",
-            "ignore_def": True,
-        },
+        "falas_aliado": [
+            "O conhecimento que você acumula é o que me faz querer continuar te observando.",
+            "Cada feitiço que você lança com intenção honra o que passei eras construindo.",
+            "Venha me ver quando tiver dúvidas sobre magia. Não cobro — mas cobro atenção.",
+            "A Coluna de Altheron registrou seu nome hoje. Isso não acontece com frequência.",
+            "Mana não é combustível. É linguagem. Você está aprendendo a fluência.",
+        ],
+        "ally_skill": {"nome": "Feitiço Absoluto de Altheron", "emoji": "🔮", "desc": "Altheron lança o feitiço mais poderoso já escrito, ignorando toda DEF.", "dmg_mult": 3.2, "ignore_def": True},
         "ally_passive": "+30% dano de todos os feitiços; -20% custo de mana em batalha.",
     },
     "Chronis": {
-        "titulo": "O Guardião do Tempo",
-        "emoji": "⏳",
-        "categoria": "Conhecimento",
-        "reino_id": 140,
-        "reino_nome": "Chronoveil",
-        "hp": 8100, "atk": 423, "def": 141,
-        "xp": 20250, "coins": (740, 1780),
-        "cor": 0xFFD700,
-        "descricao": "Controla o fluxo do tempo para evitar catástrofes. Os Omnifernos o buscam através de visões.",
-        "lore": (
-            "Chronis viu Valtherra nascer e sabe como ela termina. "
-            "Não revela o fim — apenas testa se você tem o que é necessário para adiá-lo. "
-            "Encontrá-lo em Chronoveil significa que o tempo, por um instante, te escolheu."
-        ),
-        "intro": (
-            "O tempo para, literalmente. Gotas de chuva ficam suspensas. "
-            "Seu próprio coração para entre duas batidas. "
-            "Uma figura que parece velha e jovem ao mesmo tempo te olha de um ponto fixo no espaço. "
-            "**'Você cruzou o véu do tempo. Provar que merece isso exigirá mais do que força — exigirá sobreviver ao que está por vir.'**"
-        ),
+        "titulo": "O Guardião do Tempo", "emoji": "⏳", "categoria": "Conhecimento",
+        "reino_id": 140, "reino_nome": "Chronoveil",
+        "hp": 8100, "atk": 423, "def": 141, "xp": 20250, "coins": (740, 1780), "cor": 0xFFD700,
+        "descricao": "Controla o fluxo do tempo para evitar catástrofes.",
+        "lore": "Chronis viu Valtherra nascer e sabe como ela termina. Não revela o fim — apenas testa se você tem o que é necessário para adiá-lo.",
+        "intro": "O tempo para, literalmente. Gotas de chuva ficam suspensas. Uma figura que parece velha e jovem ao mesmo tempo te olha de um ponto fixo no espaço.\n**'Você cruzou o véu do tempo. Provar que merece isso exigirá mais do que força.'**",
         "vitoria": "O tempo retoma. '...Você provou que pode existir além do momento presente. Raro.'",
         "derrota": "Você acorda um momento antes da batalha começar. '...O tempo deu a você uma segunda chance. Use-a.'",
         "idolatrado_por": ["Omnifernos"],
         "quest_nome": "Visão de Chronis",
-        "quest_desc": "Complete 3 dungeons secretas em reinos diferentes.",
-        "quest_objetivo": "dungeon",
-        "quest_kills": 3,
-        "quest_reino": 140,
+        "quest_desc": "Explore ou colete 8 vezes em Chronoveil.",
+        "quest_tipo": "explorar", "quest_objetivo": 8, "quest_reino": 140,
         "oferta_aceita": ["Areia do Tempo", "Relógio Quebrado", "Cristal de Chronoveil"],
-        "ally_skill": {
-            "nome": "Rewind Temporal",
-            "emoji": "⏪",
-            "desc": "Chronis reverte o tempo 2 turnos, restaurando o HP do jogador ao valor de 2 turnos atrás.",
-            "dmg_mult": 1.5,
-            "efeito": "rewind",
-            "cura_pct": 0.30,
-        },
+        "falas_aliado": [
+            "Você me vê como antigo. Para mim, você é o mais novo ser que já encontrei.",
+            "O futuro que vejo para você é impressionante. Por isso ainda estou aqui.",
+            "Tempo perdido não volta. Mas eu posso tornar o que resta mais eficiente.",
+            "Já vi sua morte possível. Minha presença aqui garante que não seja hoje.",
+            "Chronoveil guarda seus passos. Cada decisão que toma reescreve o que está por vir.",
+        ],
+        "ally_skill": {"nome": "Rewind Temporal", "emoji": "⏪", "desc": "Chronis reverte o tempo, restaurando 30% do HP do jogador.", "dmg_mult": 1.5, "cura_pct": 0.30},
         "ally_passive": "30% de chance de repetir o ataque anterior sem custo de mana.",
     },
     "Eryndra": {
-        "titulo": "A Tecelã dos Destinos",
-        "emoji": "🕸️",
-        "categoria": "Conhecimento",
-        "reino_id": 90,
-        "reino_nome": "Estepes de Orrathis",
-        "hp": 7500, "atk": 369, "def": 123,
-        "xp": 18750, "coins": (715, 1725),
-        "cor": 0xDA70D6,
-        "descricao": "Cria os destinos de mortais e imortais. Nagás e Centauros acreditam estar ligados a seus fios.",
-        "lore": (
-            "Eryndra não age — ela já agiu. Cada decisão que você tomou até aqui estava nos fios que ela teceu. "
-            "Confrontá-la é confrontar seu próprio destino, o que não é tarefa para os fracos de vontade."
-        ),
-        "intro": (
-            "Fios invisíveis aparecem no ar ao seu redor, iluminados por uma luz âmbar. "
-            "Você vê, por um segundo, todas as versões de você que poderiam ter chegado aqui. "
-            "Uma mulher de olhos de ouro e mãos que se movem sem parar te olha. "
-            "**'Você chegou até mim. Mas isso sempre estava nos fios. A questão é: o que você fará com o que eu não teci ainda?'**"
-        ),
+        "titulo": "A Tecelã dos Destinos", "emoji": "🕸️", "categoria": "Conhecimento",
+        "reino_id": 90, "reino_nome": "Estepes de Orrathis",
+        "hp": 7500, "atk": 369, "def": 123, "xp": 18750, "coins": (715, 1725), "cor": 0xDA70D6,
+        "descricao": "Cria os destinos de mortais e imortais.",
+        "lore": "Eryndra não age — ela já agiu. Cada decisão que você tomou até aqui estava nos fios que ela teceu. Confrontá-la é confrontar seu próprio destino.",
+        "intro": "Fios invisíveis aparecem no ar ao seu redor, iluminados por uma luz âmbar. Uma mulher de olhos de ouro e mãos que se movem sem parar te olha.\n**'Você chegou até mim. Mas isso sempre estava nos fios. O que você fará com o que eu não teci ainda?'**",
         "vitoria": "'...Você escolheu seu próprio destino. Não existem muitos que conseguem.'",
         "derrota": "'...Ainda não. O destino reservou mais para você antes deste momento.'",
         "idolatrado_por": ["Nagás", "Centauros"],
         "quest_nome": "Fios do Destino",
-        "quest_desc": "Complete 5 quests morais (quest moral) em qualquer alinhamento.",
-        "quest_objetivo": "quests_morais",
-        "quest_kills": 5,
-        "quest_reino": 90,
+        "quest_desc": "Explore ou lute 8 vezes nas Estepes de Orrathis.",
+        "quest_tipo": "explorar", "quest_objetivo": 8, "quest_reino": 90,
         "oferta_aceita": ["Fio de Seda Dourada", "Âmbar Primordial", "Tapeçaria Incompleta"],
-        "ally_skill": {
-            "nome": "Corte dos Fios",
-            "emoji": "🧵",
-            "desc": "Eryndra corta os fios do destino do inimigo, causando dano baseado no HP máximo do boss.",
-            "dmg_mult": 0,
-            "efeito": "pct_hp_max",
-            "pct_hp_max": 0.15,
-        },
-        "ally_passive": "+20% chance de crítico; críticos causam 2.5× dano em vez de 2×.",
+        "falas_aliado": [
+            "Seus fios do destino são os mais intrincados que já teci. Boa sorte os seguindo.",
+            "Cada escolha que você faz cria novos fios. Continue escolhendo com coragem.",
+            "Os Nagás me enviaram mensagens sobre você. Tudo favorável.",
+            "O destino não é uma prisão — é um mapa. E você aprendeu a lê-lo.",
+            "Quando tudo parecer perdido, lembre: os fios ainda não acabaram.",
+        ],
+        "ally_skill": {"nome": "Corte dos Fios", "emoji": "🧵", "desc": "Eryndra corta os fios do destino do inimigo, causando 15% do HP máximo como dano.", "dmg_mult": 0, "pct_hp_max": 0.15},
+        "ally_passive": "+20% chance de crítico; críticos causam 2.5x dano.",
     },
-
-    # ── Deuses do Caos, Ordem e Dualidade ─────────────────────────────────────
     "Feralis": {
-        "titulo": "O Deus da Ira Selvagem",
-        "emoji": "🔥",
-        "categoria": "Caos",
-        "reino_id": 120,
-        "reino_nome": "Wasteland de Feraxis",
-        "hp": 7200, "atk": 432, "def": 144,
-        "xp": 18000, "coins": (700, 1680),
-        "cor": 0xDC143C,
-        "descricao": "Traz destruição para purificar terras antigas. Férixos e Varxians vivem para o combate em seu nome.",
-        "lore": (
-            "Feralis não é mal — é necessário. "
-            "Ele aparece quando uma terra ficou corrompida demais para ser salva. "
-            "O Wasteland de Feraxis não foi destruído por ele; foi purificado. "
-            "A diferença importa para quem entende destruição como transformação."
-        ),
-        "intro": (
-            "O chão do wasteland racha. Chamas irrompem sem combustível. "
-            "Uma figura de puro fogo e raiva toma forma, cada movimento incendiando o ar ao redor. "
-            "**'Você quer destruição? Então prove que pode sobreviver ao que eu trouxer.'**"
-        ),
+        "titulo": "O Deus da Ira Selvagem", "emoji": "🔥", "categoria": "Caos",
+        "reino_id": 120, "reino_nome": "Wasteland de Feraxis",
+        "hp": 7200, "atk": 432, "def": 144, "xp": 18000, "coins": (700, 1680), "cor": 0xDC143C,
+        "descricao": "Traz destruição para purificar terras antigas.",
+        "lore": "Feralis não é mal — é necessário. Ele aparece quando uma terra ficou corrompida demais para ser salva. O Wasteland de Feraxis foi purificado por ele, não destruído.",
+        "intro": "O chão do wasteland racha. Chamas irrompem sem combustível. Uma figura de puro fogo e raiva toma forma.\n**'Você quer destruição? Então prove que pode sobreviver ao que eu trouxer.'**",
         "vitoria": "'...Você sobreviveu ao caos. Então você faz parte da renovação, não da destruição.'",
         "derrota": "'...Ainda não purificado o suficiente. Volte mais forte.'",
         "idolatrado_por": ["Férixos", "Varxians"],
         "quest_nome": "Batismo de Fogo",
-        "quest_desc": "Vença 5 batalhas no Wasteland de Feraxis sem fugir.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 5,
-        "quest_reino": 120,
+        "quest_desc": "Lute ou explore 8 vezes no Wasteland de Feraxis.",
+        "quest_tipo": "caçar", "quest_objetivo": 8, "quest_reino": 120,
         "oferta_aceita": ["Carvão do Caos", "Chama do Wasteland", "Cinzas de Feraxis"],
-        "ally_skill": {
-            "nome": "Ira Purificadora",
-            "emoji": "💥",
-            "desc": "Feralis desencadeia sua ira total, causando dano massivo e queimando o inimigo por 3 turnos.",
-            "dmg_mult": 3.1,
-            "efeito": "queima",
-        },
+        "falas_aliado": [
+            "Destruição sem propósito é desperdício. Você tem propósito. Por isso ainda está de pé.",
+            "A raiva que você carrega é combustível. Não a desperdice.",
+            "Chame-me quando precisar que algo seja purificado pelo fogo.",
+            "Os Varxians me pediram para não te matar. Fiz isso por eles. Agora faço por mim.",
+            "Caos não é o oposto da ordem. É a ordem que ainda não encontrou sua forma.",
+        ],
+        "ally_skill": {"nome": "Ira Purificadora", "emoji": "💥", "desc": "Feralis desencadeia ira total, causando dano massivo e queimando o inimigo por 3 turnos.", "dmg_mult": 3.1},
         "ally_passive": "+25% ATK quando o jogador tem menos de 50% HP.",
     },
     "Zenthyr": {
-        "titulo": "O Juiz Eterno",
-        "emoji": "⚖️",
-        "categoria": "Ordem",
-        "reino_id": 100,
-        "reino_nome": "Xaltharis — Nação Xaltariana",
-        "hp": 8400, "atk": 441, "def": 147,
-        "xp": 21000, "coins": (760, 1830),
-        "cor": 0xFFFFFF,
-        "descricao": "Proporciona justiça imparcial. Os Xaltarianos seguem seus princípios de equilíbrio a risca.",
-        "lore": (
-            "Zenthyr não pune — ele equilibra. "
-            "Para cada ação há uma consequência exata, nem mais nem menos. "
-            "Aqueles que buscam sua bênção descobrem que primeiro precisam ser julgados por tudo que fizeram."
-        ),
-        "intro": (
-            "Uma balança imensa aparece no ar. Em um prato, todas as suas ações passadas. "
-            "No outro, seu potencial futuro. "
-            "Uma figura de manto branco e olhos vendados fala sem abrir a boca: "
-            "**'Serei justo com você. Exatamente tão justo quanto você foi com o mundo.'**"
-        ),
+        "titulo": "O Juiz Eterno", "emoji": "⚖️", "categoria": "Ordem",
+        "reino_id": 100, "reino_nome": "Xaltharis — Nação Xaltariana",
+        "hp": 8400, "atk": 441, "def": 147, "xp": 21000, "coins": (760, 1830), "cor": 0xFFFFFF,
+        "descricao": "Proporciona justiça imparcial.",
+        "lore": "Zenthyr não pune — ele equilibra. Para cada ação há uma consequência exata, nem mais nem menos. Aqueles que buscam sua bênção precisam primeiro ser julgados.",
+        "intro": "Uma balança imensa aparece no ar. Em um prato, todas as suas ações passadas. No outro, seu potencial futuro. Uma figura de manto branco e olhos vendados fala:\n**'Serei justo com você. Exatamente tão justo quanto você foi com o mundo.'**",
         "vitoria": "'...A balança inclinou a seu favor. Você provou valer o que afirma ser.'",
         "derrota": "'...A balança não mente. Ainda há muito a equilibrar.'",
         "idolatrado_por": ["Xaltarianos"],
         "quest_nome": "Julgamento de Zenthyr",
-        "quest_desc": "Mantenha alinhamento neutro (entre -30 e +30) e complete 3 missões morais.",
-        "quest_objetivo": "alinhamento",
-        "quest_kills": 3,
-        "quest_reino": 100,
+        "quest_desc": "Lute ou explore 8 vezes em Xaltharis.",
+        "quest_tipo": "caçar", "quest_objetivo": 8, "quest_reino": 100,
         "oferta_aceita": ["Pedra do Equilíbrio", "Tecido da Justiça", "Ouro Puro de Xaltharis"],
-        "ally_skill": {
-            "nome": "Sentença Final",
-            "emoji": "⚖️",
-            "desc": "Zenthyr pronuncia sentença, causando dano igual a 20% do HP máximo do inimigo, ignorando toda defesa.",
-            "dmg_mult": 0,
-            "efeito": "pct_hp_max",
-            "pct_hp_max": 0.20,
-            "ignore_def": True,
-        },
+        "falas_aliado": [
+            "A justiça que você pratica faz minha balança pender positivamente.",
+            "Não sou aliado de todos. Ser aliado seu é uma declaração sobre seu caráter.",
+            "Quando somar os seus atos até aqui, o resultado é favorável. Continue assim.",
+            "O equilíbrio não é neutralidade — é o ponto certo. Você está nele.",
+            "Qualquer injustiça que tentar te atingir terá que passar por mim primeiro.",
+        ],
+        "ally_skill": {"nome": "Sentença Final", "emoji": "⚖️", "desc": "Zenthyr pronuncia sentença, causando 20% do HP máximo do inimigo ignorando toda defesa.", "dmg_mult": 0, "pct_hp_max": 0.20, "ignore_def": True},
         "ally_passive": "Reduz o ATK do boss em 15% no início da batalha.",
     },
     "Lytheris": {
-        "titulo": "A Dualidade da Harmonia",
-        "emoji": "☯️",
-        "categoria": "Dualidade",
-        "reino_id": 320,
-        "reino_nome": "Prismveil — Lúzidos",
-        "hp": 14700, "atk": 693, "def": 231,
-        "xp": 36750, "coins": (1250, 2900),
-        "cor": 0xC0C0C0,
-        "descricao": "Mantém equilíbrio entre luz e escuridão. Drakonians e Lúzidos a veneram como entidade da transição.",
-        "lore": (
-            "Lytheris é dois em um — ou nenhum. "
-            "Ela é luz quando o mundo precisa de esperança, e escuridão quando precisa de verdade. "
-            "Confrontá-la significa confrontar as duas metades de si mesmo simultaneamente."
-        ),
-        "intro": (
-            "Prismveil se divide em duas. Metade iluminada, metade em trevas profundas. "
-            "Uma figura que é literalmente duas — uma de luz, uma de sombra — caminha em sua direção. "
-            "**'Você é luz? Escuridão? Nenhum dos dois? Mostre-me.'**"
-        ),
+        "titulo": "A Dualidade da Harmonia", "emoji": "☯️", "categoria": "Dualidade",
+        "reino_id": 320, "reino_nome": "Prismveil — Lúzidos",
+        "hp": 14700, "atk": 693, "def": 231, "xp": 36750, "coins": (1250, 2900), "cor": 0xC0C0C0,
+        "descricao": "Mantém equilíbrio entre luz e escuridão.",
+        "lore": "Lytheris é dois em um — ou nenhum. Ela é luz quando o mundo precisa de esperança, e escuridão quando precisa de verdade. Confrontá-la significa confrontar as duas metades de si mesmo.",
+        "intro": "Prismveil se divide em duas. Metade iluminada, metade em trevas. Uma figura que é literalmente duas — uma de luz, uma de sombra — caminha em sua direção.\n**'Você é luz? Escuridão? Nenhum dos dois? Mostre-me.'**",
         "vitoria": "'...Você abraçou as duas faces. Isso é mais do que a maioria consegue.'",
         "derrota": "'...Você ainda está lutando contra uma metade sua. Reconcilie-se primeiro.'",
         "idolatrado_por": ["Drakonians", "Lúzidos"],
         "quest_nome": "A Dualidade Interior",
-        "quest_desc": "Complete uma ação heróica (alinhamento +) e uma ação sombria (alinhamento -) no mesmo dia.",
-        "quest_objetivo": "alinhamento",
-        "quest_kills": 2,
-        "quest_reino": 320,
+        "quest_desc": "Lute ou explore 10 vezes em Prismveil.",
+        "quest_tipo": "explorar", "quest_objetivo": 10, "quest_reino": 320,
         "oferta_aceita": ["Prisma Dual", "Cristal de Lúzidos", "Sombra Solidificada"],
-        "ally_skill": {
-            "nome": "Convergência Dual",
-            "emoji": "☯️",
-            "desc": "Lytheris ataca com luz e sombra simultaneamente — dano dobrado e cura 15% do jogador.",
-            "dmg_mult": 2.6,
-            "efeito": "dual",
-            "cura_pct": 0.15,
-        },
+        "falas_aliado": [
+            "Você carrega luz e sombra em equilíbrio agora. Isso é harmonia real.",
+            "Os Lúzidos me disseram que você passou pela transição com graça.",
+            "Quando a luz falhar, uso a sombra. Quando a sombra assustar, uso a luz. Sempre tenho algo.",
+            "Dualidade não é conflito — é completude. Você entende isso agora.",
+            "Chame-me quando precisar de perspectiva. Sempre vejo os dois lados.",
+        ],
+        "ally_skill": {"nome": "Convergência Dual", "emoji": "☯️", "desc": "Lytheris ataca com luz e sombra simultaneamente — dano dobrado e cura 15% do jogador.", "dmg_mult": 2.6, "cura_pct": 0.15},
         "ally_passive": "+20% ATK e +20% DEF simultaneamente em batalha.",
     },
-
-    # ── Deuses da Guerra e Paz ────────────────────────────────────────────────
     "Korrath": {
-        "titulo": "O General Supremo",
-        "emoji": "⚔️",
-        "categoria": "Guerra",
-        "reino_id": 80,
-        "reino_nome": "Sombras Eternas",
-        "hp": 7200, "atk": 414, "def": 138,
-        "xp": 18000, "coins": (700, 1680),
-        "cor": 0xB22222,
-        "descricao": "Inspira liderança em tempos de guerra. Tactilóides e Orkrionianos o veem como a perfeição militar.",
-        "lore": (
-            "Korrath nunca perdeu uma batalha que considerou digna de lutar. "
-            "Ele escolhe seus campos com cuidado, pois sabe que cada vitória sem propósito "
-            "é um passo em direção à derrota final."
-        ),
-        "intro": (
-            "Bandeiras de guerra aparecem de lugar nenhum, açoitadas por um vento inexistente. "
-            "Um guerreiro em armadura negra absoluta bloqueia o caminho, imóvel como estátua. "
-            "**'Você chegou ao campo de batalha do general supremo. Espero que esteja preparado para a guerra.'**"
-        ),
+        "titulo": "O General Supremo", "emoji": "⚔️", "categoria": "Guerra",
+        "reino_id": 80, "reino_nome": "Sombras Eternas",
+        "hp": 7200, "atk": 414, "def": 138, "xp": 18000, "coins": (700, 1680), "cor": 0xB22222,
+        "descricao": "Inspira liderança em tempos de guerra.",
+        "lore": "Korrath nunca perdeu uma batalha que considerou digna de lutar. Ele escolhe seus campos com cuidado, pois sabe que cada vitória sem propósito é um passo em direção à derrota final.",
+        "intro": "Bandeiras de guerra aparecem de lugar nenhum. Um guerreiro em armadura negra absoluta bloqueia o caminho, imóvel como estátua.\n**'Você chegou ao campo de batalha do general supremo. Espero que esteja preparado para a guerra.'**",
         "vitoria": "Korrath saúda com a espada. '...Você lutou com disciplina e coragem. São qualidades raras.'",
         "derrota": "Korrath abaixa a espada. '...Uma boa tentativa. Mas a guerra não perdoa tentativas.'",
         "idolatrado_por": ["Tactilóides", "Orkrionianos"],
         "quest_nome": "A Prova do General",
-        "quest_desc": "Vença 8 batalhas consecutivas sem descansar (sem usar o comando descansar entre elas).",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 8,
-        "quest_reino": 80,
+        "quest_desc": "Lute 8 vezes nas Sombras Eternas.",
+        "quest_tipo": "caçar", "quest_objetivo": 8, "quest_reino": 80,
         "oferta_aceita": ["Lâmina Sagrada", "Escudo de Korrath", "Sangue de Guerreiro"],
-        "ally_skill": {
-            "nome": "Carga do General",
-            "emoji": "⚔️",
-            "desc": "Korrath lidera uma carga devastadora, triplicando o ATK do jogador por 1 turno.",
-            "dmg_mult": 0,
-            "efeito": "buff_atk_temp",
-            "atk_mult": 3.0,
-        },
+        "falas_aliado": [
+            "Você luta com estratégia. Isso te coloca acima de 90% dos guerreiros que conheci.",
+            "Um general reconhece outro. Você tem o instinto — agora afine a disciplina.",
+            "Quando a batalha parecer perdida, é quando o verdadeiro general decide a guerra.",
+            "Os Orkrionianos me pediram para te treinar. Aceito — você é digno disso.",
+            "Força sem direção é tempestade. Direção sem força é palavra. Você tem os dois.",
+        ],
+        "ally_skill": {"nome": "Carga do General", "emoji": "⚔️", "desc": "Korrath lidera uma carga devastadora, triplicando o ATK do jogador por 1 turno.", "dmg_mult": 0, "buff_atk_mult": 3.0},
         "ally_passive": "+20 ATK por cada vitória em batalha (acumula, máximo +100).",
     },
     "Almira": {
-        "titulo": "A Protetora da Diplomacia",
-        "emoji": "🕊️",
-        "categoria": "Paz",
-        "reino_id": 180,
-        "reino_nome": "Axis — Centro de Valtherra",
-        "hp": 9600, "atk": 477, "def": 159,
-        "xp": 24000, "coins": (780, 1880),
-        "cor": 0xF0E68C,
-        "descricao": "Media conflitos entre raças. Zircanos e Neyteranos preferem suas soluções pacíficas.",
-        "lore": (
-            "Almira encerrou a Guerra das Cinco Raças com três palavras que ninguém ouviu — "
-            "porque se fossem ouvidas, a guerra teria continuado. "
-            "Ela é a prova de que o silêncio certo tem mais poder que o grito mais alto."
-        ),
-        "intro": (
-            "Ao contrário de outros deuses, Almira não bloqueia seu caminho — ela aparece ao seu lado. "
-            "Mas seus olhos dourados te avaliam com uma frieza que não é hostil. Apenas honesta. "
-            "**'Você poderia evitar esta batalha. Escolheu não evitar. Então prove que a batalha era necessária.'**"
-        ),
+        "titulo": "A Protetora da Diplomacia", "emoji": "🕊️", "categoria": "Paz",
+        "reino_id": 180, "reino_nome": "Axis — Centro de Valtherra",
+        "hp": 9600, "atk": 477, "def": 159, "xp": 24000, "coins": (780, 1880), "cor": 0xF0E68C,
+        "descricao": "Media conflitos entre raças.",
+        "lore": "Almira encerrou a Guerra das Cinco Raças com três palavras que ninguém ouviu — porque se fossem ouvidas, a guerra teria continuado.",
+        "intro": "Almira aparece ao seu lado, não na sua frente. Seus olhos dourados te avaliam com uma frieza honesta.\n**'Você poderia evitar esta batalha. Escolheu não evitar. Então prove que a batalha era necessária.'**",
         "vitoria": "'...Às vezes a batalha é o único caminho para a paz verdadeira. Você entendeu isso.'",
         "derrota": "'...Esta batalha não era necessária ainda. Volte quando entender o porquê.'",
         "idolatrado_por": ["Zircanos", "Neyteranos"],
         "quest_nome": "Caminho da Paz",
-        "quest_desc": "Escolha a opção pacífica em 5 missões morais.",
-        "quest_objetivo": "quests_morais",
-        "quest_kills": 5,
-        "quest_reino": 180,
+        "quest_desc": "Explore ou colete 8 vezes em Axis.",
+        "quest_tipo": "explorar", "quest_objetivo": 8, "quest_reino": 180,
         "oferta_aceita": ["Flor da Paz Eterna", "Tinta Dourada", "Anel de Almira"],
-        "ally_skill": {
-            "nome": "Escudo da Diplomacia",
-            "emoji": "🛡️",
-            "desc": "Almira cria uma barreira de paz que absorve o próximo ataque do boss completamente.",
-            "dmg_mult": 0,
-            "efeito": "escudo_total",
-        },
+        "falas_aliado": [
+            "A diplomacia que você usa em batalha me impressiona mais do que a espada.",
+            "Paz não é ausência de conflito — é conflito resolvido. Me chame quando precisar resolver.",
+            "Os Zircanos te elegeram como exemplo de como um guerreiro deve agir. Estou de acordo.",
+            "Cada aliança que você constrói é uma muralha que nenhum inimigo atravessa fácil.",
+            "Protejo quem protege os outros. Você se qualifica.",
+        ],
+        "ally_skill": {"nome": "Escudo da Diplomacia", "emoji": "🛡️", "desc": "Almira cria uma barreira que absorve o próximo ataque do boss completamente.", "dmg_mult": 0, "escudo": True},
         "ally_passive": "Reduz em 25% o dano recebido de todos os ataques; +15% XP de batalhas.",
     },
-
-    # ── Deuses da Criação e Destruição ────────────────────────────────────────
     "Vorlath": {
-        "titulo": "O Criador de Mundos",
-        "emoji": "🌍",
-        "categoria": "Criação",
-        "reino_id": 170,
-        "reino_nome": "Planos Absolutos de Valtherra",
-        "hp": 9300, "atk": 504, "def": 168,
-        "xp": 23250, "coins": (800, 1920),
-        "cor": 0x32CD32,
-        "descricao": "Expande os limites do universo. Artênios e Treants o veneram por sua criação natural.",
-        "lore": (
-            "Vorlath não criou Valtherra — ele criou as condições para que Valtherra criasse a si mesma. "
-            "Há uma diferença. E ele insiste nessa diferença."
-        ),
-        "intro": (
-            "O chão ao redor começa a se reconfigurar. Montanhas crescem em segundos. "
-            "Rios nascem do nada. Uma figura colossal que parece fazer parte do próprio terreno "
-            "te olha com curiosidade genuína. "
-            "**'Você chegou ao criador de mundos. Interessante. O que você criou que te trouxe até aqui?'**"
-        ),
+        "titulo": "O Criador de Mundos", "emoji": "🌍", "categoria": "Criação",
+        "reino_id": 170, "reino_nome": "Planos Absolutos de Valtherra",
+        "hp": 9300, "atk": 504, "def": 168, "xp": 23250, "coins": (800, 1920), "cor": 0x32CD32,
+        "descricao": "Expande os limites do universo.",
+        "lore": "Vorlath não criou Valtherra — ele criou as condições para que Valtherra criasse a si mesma. Há uma diferença. E ele insiste nessa diferença.",
+        "intro": "O chão ao redor começa a se reconfigurar. Montanhas crescem em segundos. Uma figura colossal que parece fazer parte do próprio terreno te olha com curiosidade.\n**'Você chegou ao criador de mundos. O que você criou que te trouxe até aqui?'**",
         "vitoria": "'...Você criou esta vitória com suas próprias mãos. Isso é criação. Isso é o que respeito.'",
         "derrota": "'...Você não criou o que era necessário. Volte e construa mais.'",
         "idolatrado_por": ["Artênios", "Treants"],
         "quest_nome": "Obra do Criador",
-        "quest_desc": "Construa ou melhore seu reino 3 vezes (personalizar reino / melhorar economia / reforçar exército).",
-        "quest_objetivo": "reino",
-        "quest_kills": 3,
-        "quest_reino": 170,
+        "quest_desc": "Explore ou colete 8 vezes nos Planos Absolutos.",
+        "quest_tipo": "explorar", "quest_objetivo": 8, "quest_reino": 170,
         "oferta_aceita": ["Terra Primordial", "Semente do Mundo", "Pedra da Criação"],
-        "ally_skill": {
-            "nome": "Terraformar",
-            "emoji": "🌍",
-            "desc": "Vorlath remodela o campo de batalha, causando dano massivo em área e criando terreno favorável ao jogador.",
-            "dmg_mult": 2.9,
-            "efeito": "buff_def_temp",
-            "def_mult": 1.5,
-        },
-        "ally_passive": "+500 HP máximo permanente após cada vez que o deus ajuda na batalha.",
+        "falas_aliado": [
+            "Cada vez que você constrói algo — aliança, força, conhecimento — estou observando com aprovação.",
+            "O universo é uma obra inacabada. Você é um dos que ajuda a completá-la.",
+            "Os Treants falaram do seu respeito pela natureza. Isso me importa mais do que saber lutar.",
+            "Criação e destruição são o mesmo ciclo. Me chame em qualquer fase dele.",
+            "O que você está construindo é impressionante. Continue.",
+        ],
+        "ally_skill": {"nome": "Terraformar", "emoji": "🌍", "desc": "Vorlath remodela o campo de batalha, causando dano em área e criando terreno favorável.", "dmg_mult": 2.9},
+        "ally_passive": "+500 HP máximo permanente após cada vitória com este aliado.",
     },
     "Nyxara": {
-        "titulo": "A Destruidora dos Reinos",
-        "emoji": "💥",
-        "categoria": "Destruição",
-        "reino_id": 300,
-        "reino_nome": "O Olho do Multiverso",
-        "hp": 14100, "atk": 675, "def": 225,
-        "xp": 35250, "coins": (1200, 2800),
-        "cor": 0x8B0000,
-        "descricao": "Encerra ciclos antigos para iniciar novos. Raklions e Varxians veem destruição como renovação.",
-        "lore": (
-            "Nyxara é a razão de civilizações desaparecerem sem vestígio. "
-            "Não por maldade — por necessidade. Ela elimina o que ficou estagnado para dar lugar ao que pode crescer. "
-            "Confrontá-la é confrontar a inevitabilidade de seu próprio fim."
-        ),
-        "intro": (
-            "Você chega ao Olho do Multiverso e vê a destruição de mil mundos acontecendo simultaneamente. "
-            "Uma figura feminina de cabelos negros como buracos negros te observa do centro. "
-            "**'Você é um ciclo antigo ou um ciclo novo? Não importa — eu encerro os dois.'**"
-        ),
+        "titulo": "A Destruidora dos Reinos", "emoji": "💥", "categoria": "Destruição",
+        "reino_id": 300, "reino_nome": "O Olho do Multiverso",
+        "hp": 14100, "atk": 675, "def": 225, "xp": 35250, "coins": (1200, 2800), "cor": 0x8B0000,
+        "descricao": "Encerra ciclos antigos para iniciar novos.",
+        "lore": "Nyxara é a razão de civilizações desaparecerem sem vestígio. Não por maldade — por necessidade. Ela elimina o que ficou estagnado para dar lugar ao que pode crescer.",
+        "intro": "Você chega ao Olho do Multiverso e vê a destruição de mil mundos acontecendo simultaneamente. Uma figura feminina de cabelos negros como buracos negros te observa.\n**'Você é um ciclo antigo ou um ciclo novo? Não importa — eu encerro os dois.'**",
         "vitoria": "'...Curioso. Você sobreviveu ao fim. Talvez seja o começo de algo.'",
         "derrota": "'...Era o seu fim. Por enquanto.'",
         "idolatrado_por": ["Raklions", "Varxians"],
         "quest_nome": "O Fim Necessário",
-        "quest_desc": "Derrote o boss do reino do Olho do Multiverso.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 3,
-        "quest_reino": 300,
+        "quest_desc": "Lute ou explore 8 vezes no Olho do Multiverso.",
+        "quest_tipo": "boss_kill", "quest_objetivo": 8, "quest_reino": 300,
         "oferta_aceita": ["Fragmento do Fim", "Cinzas de um Mundo", "Cristal Negro do Multiverso"],
-        "ally_skill": {
-            "nome": "Extinção",
-            "emoji": "💥",
-            "desc": "Nyxara desencadeia destruição pura — dano igual a 25% do HP ATUAL do boss (escalável).",
-            "dmg_mult": 0,
-            "efeito": "pct_hp_atual",
-            "pct_hp_atual": 0.25,
-        },
+        "falas_aliado": [
+            "Sobreviver ao meu fim não é sorte. É prova de que você pertence ao próximo ciclo.",
+            "Destruição é meu presente para o universo. Usá-la a seu favor é seu presente para mim.",
+            "Os Raklions me disseram que você entende o que precisa ser encerrado. Eles estão certos.",
+            "Todo inimigo que você derrota é um ciclo encerrando. Sou especialista nisso.",
+            "Quando tudo parecer apocalíptico — lembre que eu sou o apocalipse, e eu sou seu aliado.",
+        ],
+        "ally_skill": {"nome": "Extinção", "emoji": "💥", "desc": "Nyxara desencadeia destruição pura — dano igual a 25% do HP ATUAL do boss.", "dmg_mult": 0, "pct_hp_atual": 0.25},
         "ally_passive": "Cada boss derrotado com este aliado dá +1% permanente de dano (máx +15%).",
     },
-
-    # ── Deuses Específicos ─────────────────────────────────────────────────────
     "Ignarys": {
-        "titulo": "O Deus da Forja",
-        "emoji": "🔨",
-        "categoria": "Forja",
-        "reino_id": 40,
-        "reino_nome": "Campos Vulcânicos de Pyreth",
-        "hp": 3600, "atk": 279, "def": 93,
-        "xp": 9000, "coins": (400, 900),
-        "cor": 0xFF6347,
-        "descricao": "Criador de armas e ferramentas divinas. Anões e Kalthoritas o veneram pela excelência em construção.",
-        "lore": (
-            "Ignarys forjou a primeira espada de Valtherra numa bigorna que ainda existe, "
-            "enterrada a 40 metros abaixo da Forja Sagrada dos Anões. "
-            "Cada arma que ele criou carrega um pedaço de sua alma — e por isso ele testa quem quer mais."
-        ),
-        "intro": (
-            "O calor da Forja Sagrada dobra. Faíscas voadoras tomam a forma de um anão colossal "
-            "segurando um martelo que brilha como um sol. "
-            "**'Você quer o poder da forja? Então aguente o calor que o forja.'**"
-        ),
+        "titulo": "O Deus da Forja", "emoji": "🔨", "categoria": "Forja",
+        "reino_id": 40, "reino_nome": "Campos Vulcânicos de Pyreth",
+        "hp": 3600, "atk": 279, "def": 93, "xp": 9000, "coins": (400, 900), "cor": 0xFF6347,
+        "descricao": "Criador de armas e ferramentas divinas.",
+        "lore": "Ignarys forjou a primeira espada de Valtherra numa bigorna que ainda existe, enterrada 40 metros abaixo da Forja Sagrada dos Anões. Cada arma que criou carrega um pedaço de sua alma.",
+        "intro": "O calor da Forja Sagrada dobra. Um anão colossal segurando um martelo que brilha como um sol toma forma.\n**'Você quer o poder da forja? Então aguente o calor que o forja.'**",
         "vitoria": "'...Você tem temperamento de aço. Raros têm. Eu respeito isso.'",
         "derrota": "'...Aço impuro. Precise mais, volte depois.'",
         "idolatrado_por": ["Anões", "Kalthoritas"],
         "quest_nome": "Prova do Forjador",
-        "quest_desc": "Equipe uma arma de raridade Épica ou superior e complete 5 batalhas com ela equipada.",
-        "quest_objetivo": "boss_kill",
-        "quest_kills": 5,
-        "quest_reino": 40,
+        "quest_desc": "Lute ou explore 5 vezes nos Campos Vulcânicos.",
+        "quest_tipo": "caçar", "quest_objetivo": 5, "quest_reino": 40,
         "oferta_aceita": ["Minério Divino", "Carvão Sagrado da Forja", "Martelo Quebrado"],
-        "ally_skill": {
-            "nome": "Arma Divina de Ignarys",
-            "emoji": "🔨",
-            "desc": "Ignarys temporariamente forja a arma do jogador em metal divino, triplicando seu dano por 2 turnos.",
-            "dmg_mult": 0,
-            "efeito": "buff_arma",
-            "atk_mult": 3.0,
-        },
+        "falas_aliado": [
+            "Cada golpe que você desfere tem mais precisão agora. Estou te ensinando sem que perceba.",
+            "A arma que você usa foi forjada por mim em espírito. Cuide dela.",
+            "Anões me disseram que você merecia o melhor. Concordei depois de te ver lutar.",
+            "Forja não é só metal — é caráter. O seu está bem temperado.",
+            "Me chame quando quiser que eu aperfeiçoe sua arma. Só faço isso por aliados.",
+        ],
+        "ally_skill": {"nome": "Arma Divina", "emoji": "🔨", "desc": "Ignarys forja a arma do jogador em metal divino, triplicando seu dano por 2 turnos.", "dmg_mult": 0, "buff_atk_mult": 3.0},
         "ally_passive": "Bônus de todas as armas equipadas aumentado em 50%.",
     },
     "Arenys": {
-        "titulo": "A Senhora dos Espelhos",
-        "emoji": "🪞",
-        "categoria": "Conhecimento",
-        "reino_id": 310,
-        "reino_nome": "Plano Astral Inferior",
-        "hp": 13800, "atk": 657, "def": 219,
-        "xp": 34500, "coins": (1150, 2700),
-        "cor": 0xE0E0E0,
+        "titulo": "A Senhora dos Espelhos", "emoji": "🪞", "categoria": "Conhecimento",
+        "reino_id": 310, "reino_nome": "Plano Astral Inferior",
+        "hp": 13800, "atk": 657, "def": 219, "xp": 34500, "coins": (1150, 2700), "cor": 0xE0E0E0,
         "descricao": "Reflete verdades ocultas. Velkarianos e Nykarons a buscam para autoconhecimento.",
-        "lore": (
-            "Arenys nunca mente — mas também nunca diz a verdade diretamente. "
-            "Ela mostra. Cada espelho em seu domínio reflete não o que você é, mas o que você se recusa a ver."
-        ),
-        "intro": (
-            "Você entra numa sala de espelhos infinita. "
-            "Em cada reflexo, uma versão diferente de você — algumas grandiosas, algumas terríveis. "
-            "Uma mulher que parece ser cada reflexo simultaneamente te observa. "
-            "**'Qual desses é o verdadeiro você? Prove para mim — e para você mesmo.'**"
-        ),
+        "lore": "Arenys nunca mente — mas também nunca diz a verdade diretamente. Ela mostra. Cada espelho em seu domínio reflete não o que você é, mas o que você se recusa a ver.",
+        "intro": "Você entra numa sala de espelhos infinita. Em cada reflexo, uma versão diferente de você — algumas grandiosas, algumas terríveis. Uma mulher que parece ser cada reflexo simultaneamente te observa.\n**'Qual desses é o verdadeiro você? Prove para mim — e para você mesmo.'**",
         "vitoria": "'...Você enfrentou o reflexo e ganhou. A verdade é uma arma mais afiada do que parece.'",
         "derrota": "'...O reflexo te engoliu. Conheça-se melhor antes de voltar.'",
         "idolatrado_por": ["Velkarianos", "Nykarons"],
         "quest_nome": "Reflexo da Verdade",
-        "quest_desc": "Complete a quest moral de cada alinhamento (heróica E sombria) uma vez cada.",
-        "quest_objetivo": "alinhamento",
-        "quest_kills": 2,
-        "quest_reino": 310,
+        "quest_desc": "Explore ou lute 8 vezes no Plano Astral Inferior.",
+        "quest_tipo": "explorar", "quest_objetivo": 8, "quest_reino": 310,
         "oferta_aceita": ["Espelho Partido", "Cristal Astral", "Reflexo Solidificado"],
-        "ally_skill": {
-            "nome": "Reflexo do Mal",
-            "emoji": "🪞",
-            "desc": "Arenys cria um espelho perfeito do inimigo e o faz lutar contra si mesmo — dano igual a 30% do ATK do boss.",
-            "dmg_mult": 0,
-            "efeito": "reflexo",
-            "reflexo_pct": 0.30,
-        },
+        "falas_aliado": [
+            "O espelho não mente. Você aprendeu isso melhor do que a maioria.",
+            "Cada inimigo que você enfrenta é um reflexo de um obstáculo interno. Você está vencendo os dois.",
+            "Os Nykarons me disseram que você tem coragem de se olhar de verdade. Isso é raro.",
+            "A verdade que você evitava ver? Ela se tornou sua maior força agora.",
+            "Chame-me quando precisar ver algo que os outros não conseguem enxergar.",
+        ],
+        "ally_skill": {"nome": "Reflexo do Mal", "emoji": "🪞", "desc": "Arenys cria um espelho perfeito do inimigo — dano igual a 30% do ATK atual do boss.", "dmg_mult": 0, "pct_atk_boss": 0.30},
         "ally_passive": "+15% de chance de esquivar; ao esquivar, contra-ataca automaticamente.",
     },
     "Esmirion": {
-        "titulo": "O Observador das Estrelas",
-        "emoji": "⭐",
-        "categoria": "Celestial",
-        "reino_id": 410,
-        "reino_nome": "Nebulosa da Consciência",
-        "hp": 18000, "atk": 828, "def": 276,
-        "xp": 45000, "coins": (1600, 3700),
-        "cor": 0x191970,
+        "titulo": "O Observador das Estrelas", "emoji": "⭐", "categoria": "Celestial",
+        "reino_id": 410, "reino_nome": "Nebulosa da Consciência",
+        "hp": 18000, "atk": 828, "def": 276, "xp": 45000, "coins": (1600, 3700), "cor": 0x191970,
         "descricao": "Guia viajantes e estudiosos pelo cosmos. Lunárquicos e Gavídeos o seguem como guia celestial.",
-        "lore": (
-            "Esmirion existe há tanto tempo que se lembra de quando havia apenas uma estrela. "
-            "Cada constelação de Valtherra tem um nome que ele deu, "
-            "e cada nome é a história de alguém que valeu ser lembrado."
-        ),
-        "intro": (
-            "Você chega à Nebulosa e vê o cosmos inteiro acima de você, próximo o suficiente para tocar. "
-            "Uma figura feita de poeira estelar e luz antiga te observa com a paciência de eras. "
-            "**'Você viajou muito para chegar até as estrelas. Agora mostre-me que pode alcançá-las.'**"
-        ),
+        "lore": "Esmirion existe há tanto tempo que se lembra de quando havia apenas uma estrela. Cada constelação de Valtherra tem um nome que ele deu, e cada nome é a história de alguém que valeu ser lembrado.",
+        "intro": "Você chega à Nebulosa e vê o cosmos inteiro acima de você, próximo o suficiente para tocar. Uma figura feita de poeira estelar e luz antiga te observa com a paciência de eras.\n**'Você viajou muito para chegar até as estrelas. Agora mostre-me que pode alcançá-las.'**",
         "vitoria": "'...Você tocou as estrelas. Poucas almas fazem isso. Bem-vindo ao cosmos.'",
         "derrota": "'...Ainda não. O cosmos tem paciência. Você deveria ter também.'",
         "idolatrado_por": ["Lunárquicos", "Gavídeos"],
         "quest_nome": "Rota das Estrelas",
-        "quest_desc": "Explore 5 reinos diferentes (use 'abrir mapa' e viajar para reinos novos).",
-        "quest_objetivo": "explorar",
-        "quest_kills": 5,
-        "quest_reino": 410,
+        "quest_desc": "Explore ou lute 10 vezes na Nebulosa da Consciência.",
+        "quest_tipo": "explorar", "quest_objetivo": 10, "quest_reino": 410,
         "oferta_aceita": ["Poeira Estelar", "Cristal da Nebulosa", "Luz Primordial"],
-        "ally_skill": {
-            "nome": "Chuva de Meteoros",
-            "emoji": "☄️",
-            "desc": "Esmirion direciona uma chuva de meteoros sobre o inimigo, causando dano em 3 rajadas.",
-            "dmg_mult": 1.8,
-            "efeito": "multi_hit",
-            "hits": 3,
-        },
-        "ally_passive": "+20% XP de todos os combates; revela habilidades supremas mais cedo.",
+        "falas_aliado": [
+            "Cada estrela que nomeei tem uma história. A sua vai ser uma das melhores.",
+            "O cosmos inteiro observou você chegar até aqui. Poucas histórias chegam tão longe.",
+            "Os Lunárquicos cantam sobre você agora. As estrelas ouviram.",
+            "Existência é uma coisa rara e preciosa. Você está fazendo algo digno com a sua.",
+            "Chame-me quando precisar de perspectiva cósmica. Às vezes o problema parece menor do alto das estrelas.",
+        ],
+        "ally_skill": {"nome": "Chuva de Meteoros", "emoji": "☄️", "desc": "Esmirion direciona 3 rajadas de meteoros sobre o inimigo — dano total massivo.", "dmg_mult": 1.8, "multi_hit": 3},
+        "ally_passive": "+20% XP de todos os combates; +10% chance de drop raro.",
     },
     "Krathos": {
-        "titulo": "O Senhor das Feras",
-        "emoji": "🦁",
-        "categoria": "Natural",
-        "reino_id": 1,
-        "reino_nome": "Planícies de Ashenvorn",
-        "hp": 1800, "atk": 147, "def": 49,
-        "xp": 4500, "coins": (200, 500),
-        "cor": 0xCD853F,
+        "titulo": "O Senhor das Feras", "emoji": "🦁", "categoria": "Natural",
+        "reino_id": 1, "reino_nome": "Planícies de Ashenvorn",
+        "hp": 1800, "atk": 147, "def": 49, "xp": 4500, "coins": (200, 500), "cor": 0xCD853F,
         "descricao": "Preserva o ciclo animal. Fangrenos e Grifos seguem sua sabedoria selvagem.",
-        "lore": (
-            "Krathos é o primeiro ser que caçou em Valtherra. "
-            "Cada predador carrega um fragmento de seu instinto. "
-            "Ele não é cruel — é a natureza em sua forma mais honesta."
-        ),
-        "intro": (
-            "A caça começa antes de você perceber. Você é seguido. "
-            "Criaturas de todos os tipos se afastam em silêncio ao redor de uma figura "
-            "que é metade homem, metade todas as feras ao mesmo tempo. "
-            "**'Você entrou no meu território. Agora: caçador ou presa?'**"
-        ),
+        "lore": "Krathos é o primeiro ser que caçou em Valtherra. Cada predador carrega um fragmento de seu instinto. Ele não é cruel — é a natureza em sua forma mais honesta.",
+        "intro": "A caça começa antes de você perceber. Você é seguido. Criaturas se afastam ao redor de uma figura que é metade homem, metade todas as feras ao mesmo tempo.\n**'Você entrou no meu território. Agora: caçador ou presa?'**",
         "vitoria": "'...Você é predador. Eu respeito predadores.'",
         "derrota": "'...Neste território, você era presa. Aprenda.'",
         "idolatrado_por": ["Fangrenos", "Grifos"],
         "quest_nome": "Lei da Selva",
-        "quest_desc": "Capture 3 pets novos (não precisam ser raros — apenas capturar 3 criaturas diferentes).",
-        "quest_objetivo": "pets",
-        "quest_kills": 3,
-        "quest_reino": 1,
+        "quest_desc": "Lute ou explore 3 vezes nas Planícies de Ashenvorn.",
+        "quest_tipo": "caçar", "quest_objetivo": 3, "quest_reino": 1,
         "oferta_aceita": ["Presa de Besta", "Pele Selvagem", "Osso de Predador Ancestral"],
-        "ally_skill": {
-            "nome": "Matilha de Krathos",
-            "emoji": "🐾",
-            "desc": "Krathos invoca uma matilha de feras que atacam o inimigo em conjunto com todos os pets do jogador.",
-            "dmg_mult": 2.2,
-            "efeito": "matilha",
-        },
+        "falas_aliado": [
+            "A matilha me perguntou quem era você. Disse que era predador. Aceitaram.",
+            "Instinto não mente. O seu me disse que você era aliado antes de sua boca falar.",
+            "Todos os meus pets te respeitam agora. Isso é raro entre criaturas selvagens.",
+            "Quando a floresta ficar silenciosa antes de uma batalha, sou eu avisando que estou pronto.",
+            "Chame-me e a matilha inteira responde. Você não luta mais sozinho neste território.",
+        ],
+        "ally_skill": {"nome": "Matilha de Krathos", "emoji": "🐾", "desc": "Krathos invoca uma matilha de feras que atacam o inimigo com todos os pets do jogador.", "dmg_mult": 2.2},
         "ally_passive": "Todos os pets ganham +50% de stats em batalha enquanto este deus é aliado.",
     },
     "Thalyn": {
-        "titulo": "O Espírito das Chamas e Glórias",
-        "emoji": "✨",
-        "categoria": "Inspiração",
-        "reino_id": 190,
-        "reino_nome": "Reinos Mortais — Ápice",
-        "hp": 10200, "atk": 531, "def": 177,
-        "xp": 25500, "coins": (820, 1950),
-        "cor": 0xFF8C00,
-        "descricao": "Inspira coragem e renovação. Tieflings e Volgraths o veem como símbolo de resistência.",
-        "lore": (
-            "Thalyn morreu três vezes. "
-            "Cada vez que voltou, era mais forte — e com uma mensagem diferente para quem encontrava. "
-            "A terceira mensagem ainda não foi dada. Mas quem o confronta percebe que pode ser a próxima a recebê-la."
-        ),
-        "intro": (
-            "Uma chama que não queima aparece acima de você. "
-            "Ela não aquece — ela ilumina o que você é, não o que você aparenta ser. "
-            "Uma figura de fogo branco te olha com os olhos de quem já morreu e escolheu voltar. "
-            "**'A glória não é conquistada. É renovada. Vamos renovar a sua.'**"
-        ),
+        "titulo": "O Espírito das Chamas e Glórias", "emoji": "✨", "categoria": "Inspiração",
+        "reino_id": 190, "reino_nome": "Reinos Mortais — Ápice",
+        "hp": 10200, "atk": 531, "def": 177, "xp": 25500, "coins": (820, 1950), "cor": 0xFF8C00,
+        "descricao": "Inspira coragem e renovação. Símbolo de resistência.",
+        "lore": "Thalyn morreu três vezes. Cada vez que voltou, era mais forte — e com uma mensagem diferente para quem encontrava. A terceira mensagem ainda não foi dada.",
+        "intro": "Uma chama que não queima aparece acima de você. Uma figura de fogo branco te olha com os olhos de quem já morreu e escolheu voltar.\n**'A glória não é conquistada. É renovada. Vamos renovar a sua.'**",
         "vitoria": "'...A chama não se apagou. Você é resistência encarnada.'",
         "derrota": "'...A chama vacilou. Mas não se apagou. Haverá uma próxima vez.'",
         "idolatrado_por": ["Tieflings", "Volgraths"],
         "quest_nome": "Renasce das Cinzas",
-        "quest_desc": "Perca uma batalha e vença a próxima sem descansar entre elas.",
-        "quest_objetivo": "sobreviver",
-        "quest_kills": 2,
-        "quest_reino": 190,
+        "quest_desc": "Lute ou explore 8 vezes no Ápice dos Reinos Mortais.",
+        "quest_tipo": "caçar", "quest_objetivo": 8, "quest_reino": 190,
         "oferta_aceita": ["Chama Imortal", "Cinzas de Glória", "Cristal da Renovação"],
-        "ally_skill": {
-            "nome": "Renascimento em Chamas",
-            "emoji": "🔥",
-            "desc": "Thalyn envolve o jogador em chamas sagradas — cura 50% HP e concede +30% ATK por 2 turnos.",
-            "dmg_mult": 1.0,
-            "efeito": "renascimento",
-            "cura_pct": 0.50,
-            "atk_mult": 1.30,
-        },
-        "ally_passive": "Uma vez por batalha, ao chegar a 0 HP, renasce com 40% HP (chama de Thalyn).",
+        "falas_aliado": [
+            "A glória que você está construindo vai durar mais do que qualquer reino que já vi cair.",
+            "Morri e voltei. Você também consegue. Sempre consegue.",
+            "Os Tieflings cantam canções sobre você agora. Essa é a única imortalidade que importa.",
+            "Cada vez que você levanta depois de cair, a chama dentro de mim fica um pouco mais brilhante.",
+            "Resistência não é não cair — é sempre levantar. Você aprendeu isso melhor do que eu esperava.",
+        ],
+        "ally_skill": {"nome": "Renascimento em Chamas", "emoji": "🔥", "desc": "Thalyn envolve o jogador em chamas sagradas — cura 50% HP e concede +30% ATK por 2 turnos.", "dmg_mult": 1.0, "cura_pct": 0.50},
+        "ally_passive": "Uma vez por batalha, ao chegar a 0 HP, renasce com 40% HP.",
     },
 }
 
-# Mapeamento de reino_id → deuses naquele reino
+# Índice: reino_id → lista de nomes de deuses
 DEUSES_POR_REINO = {}
-for _nome_deus, _d in DEUSES.items():
-    _rid = _d["reino_id"]
-    if _rid not in DEUSES_POR_REINO:
-        DEUSES_POR_REINO[_rid] = []
-    DEUSES_POR_REINO[_rid].append(_nome_deus)
+for _nd, _dd in DEUSES.items():
+    _rid = _dd["reino_id"]
+    DEUSES_POR_REINO.setdefault(_rid, []).append(_nd)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# FUNÇÕES AUXILIARES
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── Funções auxiliares ───────────────────────────────────────────────────────
 
 def get_god_by_name(query: str):
-    """Retorna (nome_chave, dados_deus) por busca parcial case-insensitive."""
     q = query.strip().lower()
     for nome, dados in DEUSES.items():
         if q == nome.lower() or q in nome.lower() or q in dados["titulo"].lower():
             return nome, dados
     return None, None
 
+def god_status(player, nome):
+    return player.get("deuses_status", {}).get(nome, "disponivel")
 
-def player_god_status(player, nome_deus: str) -> str:
-    """
-    Retorna o status do jogador com relação a um deus:
-    'disponivel', 'quest_pendente', 'derrotado', 'aliado', 'finalizado'
-    """
-    deuses_status = player.get("deuses_status", {})
-    return deuses_status.get(nome_deus, "disponivel")
+def set_god_status(player, nome, status):
+    player.setdefault("deuses_status", {})[nome] = status
 
+def get_god_quest(player, nome):
+    return player.get("quests_divinas", {}).get(nome)
 
-def set_god_status(player, nome_deus: str, status: str):
-    if "deuses_status" not in player:
-        player["deuses_status"] = {}
-    player["deuses_status"][nome_deus] = status
-
-
-def player_has_god_quest(player, nome_deus: str) -> bool:
-    quests_divinas = player.get("quests_divinas", {})
-    return nome_deus in quests_divinas and not quests_divinas[nome_deus].get("completa", False)
-
-
-def get_god_quest_progress(player, nome_deus: str):
-    return player.get("quests_divinas", {}).get(nome_deus, None)
-
-
-def start_god_quest(player, nome_deus: str):
-    if "quests_divinas" not in player:
-        player["quests_divinas"] = {}
-    deus = DEUSES[nome_deus]
-    player["quests_divinas"][nome_deus] = {
+def start_god_quest(player, nome):
+    d = DEUSES[nome]
+    player.setdefault("quests_divinas", {})[nome] = {
         "progresso": 0,
-        "objetivo": deus["quest_kills"],
-        "tipo": deus["quest_objetivo"],
-        "reino_req": deus["quest_reino"],
+        "objetivo": d["quest_objetivo"],
+        "tipo": d["quest_tipo"],
+        "reino_req": d["quest_reino"],
         "completa": False,
     }
 
-
 def get_allied_gods(player):
-    """Retorna lista de nomes de deuses aliados do jogador."""
-    deuses_status = player.get("deuses_status", {})
-    return [nome for nome, status in deuses_status.items() if status == "aliado"]
+    return [n for n, s in player.get("deuses_status", {}).items() if s == "aliado"]
 
-
-def get_god_for_current_world(player) -> list:
-    """Retorna deuses disponíveis para o reino atual do jogador."""
-    current_world = player.get("current_world", 1)
-    # Encontrar o reino mais próximo
-    matching = []
-    for rid, nomes in DEUSES_POR_REINO.items():
-        if rid in player.get("worlds", [1]):
-            matching.extend(nomes)
-    return matching
-
-
-def god_ally_bonus(player):
+def advance_god_quests(player, tipo_acao: str, reino_atual: int):
     """
-    Retorna (bonus_atk_total, descricao) de todos os deuses aliados.
-    Usado para adicionar bônus na batalha.
+    Avança as quests divinas ativas do jogador.
+    tipo_acao: "explorar", "caçar", "minerar"
+    Retorna lista de nomes de quests que foram completadas agora.
     """
-    aliados = get_allied_gods(player)
-    if not aliados:
-        return 0, None
-    total_atk = 0
-    nomes = []
-    for nome in aliados:
-        deus = DEUSES.get(nome, {})
-        # Cada deus aliado contribui com um bônus de ATK baseado no nível do jogador
-        total_atk += player.get("level", 1) * 2
-        nomes.append(f"{deus.get('emoji','✨')} {nome}")
-    desc = "Deuses aliados: " + ", ".join(nomes) + f" (+{total_atk} ATK)"
-    return total_atk, desc
+    completadas = []
+    quests = player.get("quests_divinas", {})
+    modificado = False
+    for nome, q in quests.items():
+        if q.get("completa"):
+            continue
+        tipo_req = q.get("tipo", "boss_kill")
+        reino_req = q.get("reino_req", 0)
+
+        # Verifica se o reino está próximo o suficiente (±40 níveis)
+        if abs(reino_atual - reino_req) > 40:
+            continue
+
+        # Verifica se a ação bate com o tipo da quest
+        aceita = False
+        if tipo_req in ("boss_kill", "caçar") and tipo_acao in ("caçar", "explorar", "minerar"):
+            aceita = True
+        elif tipo_req == "explorar" and tipo_acao in ("explorar", "caçar", "minerar"):
+            aceita = True
+        elif tipo_req == "minerar" and tipo_acao == "minerar":
+            aceita = True
+
+        if aceita:
+            q["progresso"] = q.get("progresso", 0) + 1
+            modificado = True
+            if q["progresso"] >= q["objetivo"]:
+                q["completa"] = True
+                completadas.append(nome)
+    if modificado:
+        player["quests_divinas"] = quests
+    return completadas
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# BATALHA CONTRA DEUS
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── View: Botões Aliar / Finalizar após derrota ─────────────────────────────
+
+class GodDecisionView(discord.ui.View):
+    def __init__(self, user_id: str, nome_deus: str):
+        super().__init__(timeout=600)   # 10 minutos
+        self.user_id = user_id
+        self.nome_deus = nome_deus
+        self.decided = False
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        if str(interaction.user.id) != self.user_id:
+            await interaction.response.send_message("❌ Esta decisão não é sua!", ephemeral=True)
+            return False
+        return True
+
+    @discord.ui.button(label="✅ Aliar", style=discord.ButtonStyle.success, emoji="🤝")
+    async def btn_aliar(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if self.decided:
+            await interaction.response.send_message("⚠️ Você já tomou sua decisão.", ephemeral=True)
+            return
+        self.decided = True
+        self.disable_all()
+        player = get_player(self.user_id)
+        nome = self.nome_deus
+        deus = DEUSES[nome]
+        set_god_status(player, nome, "aliado")
+        save_player_db(self.user_id, player)
+        ally_sk = deus.get("ally_skill", {})
+        embed = discord.Embed(
+            title=f"✅ {deus['emoji']} {nome} AGORA É SEU ALIADO!",
+            description=f"*{deus['vitoria']}*",
+            color=deus["cor"],
+        )
+        embed.add_field(
+            name=f"✨ Habilidade: {ally_sk.get('emoji','✨')} {ally_sk.get('nome','—')}",
+            value=ally_sk.get("desc", "—"),
+            inline=False,
+        )
+        embed.add_field(name="🌟 Passiva Permanente", value=deus.get("ally_passive", "—"), inline=False)
+        embed.add_field(name="💬 Como interagir", value=f"`conversar com {nome}` | `invocar deus {nome}` em batalha", inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="💀 Finalizar", style=discord.ButtonStyle.danger, emoji="☠️")
+    async def btn_finalizar(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if self.decided:
+            await interaction.response.send_message("⚠️ Você já tomou sua decisão.", ephemeral=True)
+            return
+        self.decided = True
+        self.disable_all()
+        player = get_player(self.user_id)
+        nome = self.nome_deus
+        deus = DEUSES[nome]
+        bonus_atk = 10 + player["level"] // 10
+        bonus_hp = 50 + player["level"] * 2
+        player["max_hp"] = player.get("max_hp", 100) + bonus_hp
+        player["hp"] = min(player.get("hp", 1), player["max_hp"])
+        player["god_kill_atk"] = player.get("god_kill_atk", 0) + bonus_atk
+        set_god_status(player, nome, "finalizado")
+        save_player_db(self.user_id, player)
+        embed = discord.Embed(
+            title=f"💀 {deus['emoji']} {nome} FOI FINALIZADO!",
+            description=f"*Com um golpe definitivo, você encerra a existência de {nome}.*\n*Ele nunca mais aparecerá no seu caminho.*",
+            color=discord.Color.dark_red(),
+        )
+        embed.add_field(name="⚡ Bônus Permanente", value=f"+{bonus_atk} ATK | +{bonus_hp} HP Máximo", inline=False)
+        embed.add_field(name="⚠️ Permanente", value="Você não poderá mais tê-lo como aliado.", inline=False)
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    def disable_all(self):
+        for item in self.children:
+            item.disabled = True
+
+
+# ─── Batalha contra Deus ─────────────────────────────────────────────────────
 
 async def fight_god(channel, user_id: str, nome_deus: str):
-    """Sistema de batalha contra um Deus — similar ao fight_boss mas 3× mais poderoso."""
     player = get_player(user_id)
     deus = DEUSES[nome_deus]
 
-    # ─── Stats do jogador ────────────────────────────────────────────────────
     p_cls = player.get("class", "Guardião de Ashenvorn")
     p_skills = get_player_skills(player)
     p_icon = CLASSES.get(p_cls, {}).get("emoji", "⚔️")
-
     p_max_hp = player["max_hp"]
     p_hp = min(player["hp"], p_max_hp)
     p_mana = calc_max_mana(player)
     p_cur_mana = p_mana
-
     p_atk = CLASSES.get(p_cls, {}).get("atk_bonus", 5) + player["level"] * 2
     p_def = CLASSES.get(p_cls, {}).get("def_bonus", 3) + player["level"]
 
-    # Bônus de equipamento
-    if player.get("weapon"):
-        for w in ITEMS.get("weapons", []):
-            if w["name"] == player["weapon"]:
-                p_atk += w.get("atk", 0) // 4
-                break
-    if player.get("armor"):
-        for a in ITEMS.get("armor", []):
-            if a["name"] == player["armor"]:
-                p_def += a.get("def", 0) // 4
-                break
+    for w in ITEMS.get("weapons", []):
+        if w["name"] == player.get("weapon", ""):
+            p_atk += w.get("atk", 0) // 4
+            break
+    for a in ITEMS.get("armor", []):
+        if a["name"] == player.get("armor", ""):
+            p_def += a.get("def", 0) // 4
+            break
 
     # Bônus de deuses aliados
-    god_atk_bonus, god_bonus_desc = god_ally_bonus(player)
-    p_atk += god_atk_bonus
+    aliados = get_allied_gods(player)
+    god_atk_bonus = len(aliados) * player["level"] * 2
+    if aliados:
+        p_atk += god_atk_bonus
 
-    # ─── Stats do deus ───────────────────────────────────────────────────────
     boss_hp = deus["hp"]
     boss_cur_hp = boss_hp
     boss_atk = deus["atk"]
     boss_def = deus.get("def", 0)
 
-    # ─── Embed inicial ───────────────────────────────────────────────────────
     embed_intro = discord.Embed(
         title=f"{deus['emoji']} CONFRONTO DIVINO — {nome_deus.upper()}",
         description=f"*{deus['intro']}*",
         color=deus["cor"],
     )
-    embed_intro.add_field(name=f"{deus['emoji']} {nome_deus}", value=f"**{deus['titulo']}**\n*{deus['descricao']}*", inline=False)
-    embed_intro.add_field(name="❤️ HP Divino", value=f"`{boss_cur_hp}`", inline=True)
-    embed_intro.add_field(name="⚔️ ATK Divino", value=f"`{boss_atk}`", inline=True)
-    embed_intro.add_field(name=f"{p_icon} Você", value=f"HP: `{p_hp}/{p_max_hp}` | ATK: `{p_atk}`", inline=False)
-    if god_bonus_desc:
-        embed_intro.add_field(name="✨ Aliados Divinos", value=god_bonus_desc, inline=False)
+    embed_intro.add_field(name=f"{deus['emoji']} {nome_deus} — {deus['titulo']}", value=f"❤️ HP: `{boss_hp:,}` | ⚔️ ATK: `{boss_atk}` | 🛡️ DEF: `{boss_def}`", inline=False)
+    embed_intro.add_field(name=f"{p_icon} Você", value=f"HP: `{p_hp}/{p_max_hp}` | ATK: `{p_atk}`", inline=True)
+    if aliados:
+        embed_intro.add_field(name="✨ Aliados Divinos", value=" | ".join(f"{DEUSES[n]['emoji']} {n}" for n in aliados), inline=False)
     embed_intro.set_footer(text="⚠️ Os deuses são 3× mais poderosos que qualquer boss de level!")
     await channel.send(embed=embed_intro)
     await asyncio.sleep(2)
 
-    # ─── Loop de batalha ─────────────────────────────────────────────────────
     turn = 0
-    god_special_used = False
-    p_atk_mult = 1.0
-    p_def_mult = 1.0
-    p_shield_next = False  # escudo de Almira
+    p_shield = False
+    revived = False
 
     while p_hp > 0 and boss_cur_hp > 0:
         turn += 1
 
-        # ─ Turno do jogador ─
         skill = random.choice(p_skills) if p_skills else {"name": "Ataque Básico", "dmg_mult": 1.0, "mana_cost": 0}
         mana_cost = skill.get("mana_cost", 0)
         if p_cur_mana < mana_cost:
@@ -33958,65 +33645,57 @@ async def fight_god(channel, user_id: str, nome_deus: str):
 
         base_dmg = max(1, p_atk - boss_def // 2)
         crit = random.random() < 0.15
-        skill_dmg = int(base_dmg * skill.get("dmg_mult", 1.0) * p_atk_mult * (2 if crit else 1))
+        p_dmg = int(base_dmg * skill.get("dmg_mult", 1.0) * (2 if crit else 1))
+        boss_cur_hp = max(0, boss_cur_hp - p_dmg)
+        crit_txt = " 💥 **CRÍTICO!**" if crit else ""
 
-        # Efeito de skill especial (ignore_def)
-        if skill.get("ignore_def"):
-            skill_dmg = int(base_dmg * skill.get("dmg_mult", 1.0) * p_atk_mult * (2 if crit else 1))
-
-        boss_cur_hp = max(0, boss_cur_hp - skill_dmg)
-        p_atk_mult = 1.0  # reset buff temporário
-
-        # ─ Turno do deus ─
         god_dmg = 0
         god_action = "atacou"
         if boss_cur_hp > 0:
-            god_base = max(1, boss_atk - int(p_def * p_def_mult * 0.3))
+            god_base = max(1, boss_atk - int(p_def * 0.3))
             god_dmg = int(god_base * random.uniform(0.8, 1.3))
-
-            # Habilidade especial do deus (a cada 3 turnos)
-            if turn % 3 == 0 and not god_special_used:
+            if turn % 3 == 0:
                 god_dmg = int(god_dmg * 1.8)
-                god_action = f"usou **Poder Divino** ({deus['emoji']})"
-                if turn > 9:
-                    god_special_used = True  # usa uma vez extra nas fases finais
-
-            # Escudo de Almira
-            if p_shield_next:
+                god_action = f"usou **Poder Divino** {deus['emoji']}"
+            if p_shield:
                 god_dmg = 0
-                god_action = "foi BLOQUEADO pelo Escudo da Diplomacia!"
-                p_shield_next = False
-
+                god_action = "foi BLOQUEADO! 🛡️"
+                p_shield = False
             p_hp = max(0, p_hp - god_dmg)
-            p_def_mult = 1.0  # reset
 
-        # ─ Barra de HP ─
-        def hp_bar(cur, max_hp, size=10):
-            filled = max(0, int(cur / max(max_hp, 1) * size))
-            return "🟥" * filled + "⬛" * (size - filled)
+        # Passiva de reviver (Nyxaris / Thalyn como aliado)
+        if p_hp <= 0 and not revived:
+            for n in aliados:
+                d_al = DEUSES.get(n, {})
+                passive = d_al.get("ally_passive", "")
+                if "retorna com" in passive and "HP" in passive:
+                    pct = 0.25 if "25%" in passive else 0.40
+                    p_hp = int(p_max_hp * pct)
+                    revived = True
+                    god_action += f" | {d_al['emoji']} **{n}** te reviveu com {int(pct*100)}% HP!"
+                    break
 
-        crit_txt = " 💥 **CRÍTICO!**" if crit else ""
-        embed_turn = discord.Embed(
-            title=f"⚔️ Turno {turn}",
-            color=deus["cor"],
-        )
+        def hp_bar(cur, mx, sz=10):
+            f = max(0, int(cur / max(mx, 1) * sz))
+            return "🟥" * f + "⬛" * (sz - f)
+
+        embed_turn = discord.Embed(title=f"⚔️ Turno {turn}", color=deus["cor"])
         embed_turn.add_field(
-            name=f"{p_icon} Você → **{skill['name']}**{crit_txt}",
-            value=f"Dano: `{skill_dmg}` | {hp_bar(boss_cur_hp, boss_hp)} `{boss_cur_hp}/{boss_hp}`",
+            name=f"{p_icon} **{skill['name']}**{crit_txt}",
+            value=f"Dano: `{p_dmg}` | {hp_bar(boss_cur_hp, boss_hp)} `{boss_cur_hp:,}/{boss_hp:,}`",
             inline=False,
         )
-        if boss_cur_hp > 0:
+        if boss_cur_hp > 0 or god_dmg:
             embed_turn.add_field(
-                name=f"{deus['emoji']} {nome_deus} → {god_action}",
+                name=f"{deus['emoji']} {god_action}",
                 value=f"Dano: `{god_dmg}` | {hp_bar(p_hp, p_max_hp)} `{p_hp}/{p_max_hp}`",
                 inline=False,
             )
         await channel.send(embed=embed_turn)
         await asyncio.sleep(1.5)
 
-    # ─── Resultado ───────────────────────────────────────────────────────────
+    # ─── Derrota ───
     if p_hp <= 0:
-        # DERROTA
         player["hp"] = 1
         save_player_db(user_id, player)
         embed_fim = discord.Embed(
@@ -34025,23 +33704,21 @@ async def fight_god(channel, user_id: str, nome_deus: str):
             color=discord.Color.dark_red(),
         )
         embed_fim.add_field(
-            name="📖 O que fazer agora?",
-            value=(
-                f"• Use `ver deuses` para monitorar o deus\n"
-                f"• Use `quest divina {nome_deus}` para verificar/iniciar a quest de preparação\n"
-                f"• Use `oferecer <item>` no reino do deus para reduzir a resistência\n"
-                f"• Use `confrontar deus {nome_deus}` para tentar novamente"
-            ),
+            name="O que fazer?",
+            value=f"• `quest divina {nome_deus}` — ver progresso da quest\n• `oferecer <item>` — oferenda para reduzir resistência\n• `confrontar deus {nome_deus}` — tentar novamente",
             inline=False,
         )
         await channel.send(embed=embed_fim)
         return
 
-    # VITÓRIA
+    # ─── Vitória ───
     xp_ganho = deus["xp"]
     coins_ganho = random.randint(*deus["coins"])
     add_xp(user_id, xp_ganho)
     add_coins(user_id, coins_ganho)
+
+    set_god_status(player, nome_deus, "derrotado")
+    save_player_db(user_id, player)
 
     embed_vit = discord.Embed(
         title=f"🏆 VOCÊ DERROTOU {nome_deus.upper()}!",
@@ -34051,36 +33728,23 @@ async def fight_god(channel, user_id: str, nome_deus: str):
     embed_vit.add_field(name="✨ XP Ganho", value=f"+{xp_ganho:,}", inline=True)
     embed_vit.add_field(name="💰 Moedas", value=f"+{coins_ganho}", inline=True)
     embed_vit.add_field(
-        name="⚡ O que deseja fazer?",
+        name="⚡ DECISÃO — O que deseja fazer?",
         value=(
-            f"Digite **`finalizar deus {nome_deus}`** para eliminar o deus permanentemente.\n"
-            f"Digite **`aliar deus {nome_deus}`** para torná-lo seu aliado eterno."
+            f"🤝 **Aliar** — {nome_deus} se torna seu aliado permanente, com habilidade e passiva.\n"
+            f"☠️ **Finalizar** — Elimina o deus para sempre, ganhando bônus permanente de ATK e HP.\n\n"
+            f"*Você tem 10 minutos para decidir.*"
         ),
         inline=False,
     )
-    embed_vit.set_footer(text="⚠️ Um deus derrotado fica em estado de submissão por 10 minutos. Decida logo!")
-    await channel.send(embed=embed_vit)
-
-    # Marcar como "derrotado" e salvar timestamp para decisão
-    set_god_status(player, nome_deus, "derrotado")
-    effects = player.get("active_effects", {})
-    effects[f"god_decision_{nome_deus}"] = time.time()
-    player["active_effects"] = effects
-    save_player_db(user_id, player)
+    view = GodDecisionView(user_id, nome_deus)
+    await channel.send(embed=embed_vit, view=view)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# HANDLER PRINCIPAL DE COMANDOS DE DEUSES
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── Handler principal de comandos de deuses ─────────────────────────────────
 
 async def handle_god_commands(message):
-    """
-    Coloque uma chamada a esta função no on_message principal:
-        await handle_god_commands(message)
-    """
     if message.author.bot:
         return
-    # Verificar canal (adapte conforme necessário)
     if hasattr(message.channel, 'name'):
         if message.channel.name != CANAL_BETA and message.channel.id not in MUNDO_PROPRIO_CHANNELS.values():
             return
@@ -34088,53 +33752,66 @@ async def handle_god_commands(message):
     content = message.content.lower().strip()
     uid = str(message.author.id)
 
+    # ── !finalizarquest (admin) ────────────────────────────────────────────────
+    if content.startswith("!finalizarquest"):
+        if message.author.id != ADMIN_ID and str(message.author.id) != BOT_OWNER_ID:
+            await message.channel.send("❌ Apenas administradores podem usar `!finalizarquest`.")
+            return
+        # Target: pode ser @user ou próprio
+        target_id = uid
+        if message.mentions:
+            target_id = str(message.mentions[0].id)
+        player = get_player(target_id)
+        if not player:
+            await message.channel.send("❌ Jogador não encontrado.")
+            return
+        quests = player.get("quests_divinas", {})
+        ativas = [n for n, q in quests.items() if not q.get("completa")]
+        if not ativas:
+            await message.channel.send("⚠️ Nenhuma quest divina ativa encontrada para este jogador.")
+            return
+        completadas = []
+        for nome in ativas:
+            quests[nome]["progresso"] = quests[nome]["objetivo"]
+            quests[nome]["completa"] = True
+            completadas.append(nome)
+        player["quests_divinas"] = quests
+        save_player_db(target_id, player)
+        nomes_txt = ", ".join(f"{DEUSES.get(n, {}).get('emoji','✨')} **{n}**" for n in completadas)
+        embed = discord.Embed(
+            title="✅ Quest(s) Divina(s) Finalizada(s) pelo Admin!",
+            description=f"Quests completadas: {nomes_txt}",
+            color=discord.Color.green(),
+        )
+        embed.set_footer(text=f"Admin: {message.author.display_name} | Alvo: {target_id}")
+        await message.channel.send(embed=embed)
+        return
+
     # ── ver deuses ─────────────────────────────────────────────────────────────
     if content in ["ver deuses", "deuses", "lista deuses", "todos deuses"]:
         player = get_player(uid)
         if not player:
-            await message.channel.send("❌ Crie seu personagem primeiro com `criar personagem`!")
+            await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-
-        embed = discord.Embed(
-            title="🏛️ PANTEÃO DE VALTHERRA",
-            description="*Os deuses que moldaram este mundo — e que podem ser confrontados por heróis dignos.*",
-            color=0xFFD700,
-        )
         categorias = {}
         for nome, d in DEUSES.items():
             cat = d["categoria"]
-            if cat not in categorias:
-                categorias[cat] = []
-            status = player_god_status(player, nome)
-            status_emoji = {
-                "disponivel": "⬜", "quest_pendente": "🟡",
-                "derrotado": "🏆", "aliado": "✅", "finalizado": "💀",
-            }.get(status, "⬜")
-            nivel_req = ""
-            worlds_unlocked = set(player.get("worlds", [1]))
-            reino_unlocked = d["reino_id"] in worlds_unlocked
-            lock = "" if reino_unlocked else " 🔒"
-            categorias[cat].append(f"{status_emoji} {d['emoji']} **{nome}** — *{d['titulo']}*{lock}\n  └ Reino: {d['reino_nome']}")
-
+            categorias.setdefault(cat, [])
+            status = god_status(player, nome)
+            s_emoji = {"disponivel": "⬜", "quest_pendente": "🟡", "derrotado": "🏆", "aliado": "✅", "finalizado": "💀"}.get(status, "⬜")
+            lock = "" if d["reino_id"] in set(player.get("worlds", [1])) else " 🔒"
+            q = get_god_quest(player, nome)
+            prog = f" `{q['progresso']}/{q['objetivo']}`" if q and not q.get("completa") else ""
+            categorias[cat].append(f"{s_emoji} {d['emoji']} **{nome}**{lock}{prog} — *{d['titulo']}*")
+        embed = discord.Embed(title="🏛️ PANTEÃO DE VALTHERRA", description="*Os deuses que moldaram este mundo.*", color=0xFFD700)
         for cat, linhas in categorias.items():
-            valor = "\n".join(linhas[:5])
-            if len(linhas) > 5:
-                valor += f"\n*...e mais {len(linhas)-5}*"
-            embed.add_field(name=f"📖 {cat}", value=valor, inline=False)
-
+            embed.add_field(name=f"📖 {cat}", value="\n".join(linhas), inline=False)
         embed.add_field(
             name="📜 Comandos",
-            value=(
-                "`deuses do reino` — deuses no seu reino atual\n"
-                "`quest divina <nome>` — iniciar/ver quest de preparação\n"
-                "`confrontar deus <nome>` — batalhar contra o deus\n"
-                "`lore do deus <nome>` — história completa\n"
-                "`deuses aliados` — seus aliados divinos\n"
-                "`oferecer <item>` — oferenda para um deus"
-            ),
+            value="`deuses do reino` | `quest divina <nome>` | `confrontar deus <nome>` | `lore do deus <nome>` | `deuses aliados` | `conversar com <nome>` | `oferecer <item>`",
             inline=False,
         )
-        embed.set_footer(text="🔒 = reino ainda não desbloqueado | ⬜ disponível | 🟡 quest ativa | ✅ aliado | 💀 finalizado")
+        embed.set_footer(text="⬜ disponível | 🟡 quest | ✅ aliado | 💀 finalizado | 🔒 bloqueado")
         await message.channel.send(embed=embed)
         return
 
@@ -34142,84 +33819,48 @@ async def handle_god_commands(message):
     if content in ["deuses do reino", "deuses aqui", "deuses deste reino"]:
         player = get_player(uid)
         if not player:
-            await message.channel.send("❌ Crie seu personagem primeiro!")
             return
-        current_world = player.get("current_world", 1)
-        # Procura deuses do reino atual ou próximos
-        deuses_aqui = DEUSES_POR_REINO.get(current_world, [])
+        cw = player.get("current_world", 1)
+        deuses_aqui = []
+        for rid, nomes in DEUSES_POR_REINO.items():
+            if abs(rid - cw) <= 30:
+                deuses_aqui.extend(nomes)
         if not deuses_aqui:
-            # Verifica reinos próximos
-            for rid, nomes in DEUSES_POR_REINO.items():
-                if abs(rid - current_world) <= 20:
-                    deuses_aqui.extend(nomes)
-
-        if not deuses_aqui:
-            await message.channel.send(
-                f"🗺️ Não há deuses próximos ao seu reino atual.\n"
-                f"Use `ver deuses` para ver todos e seus reinos."
-            )
+            await message.channel.send("🏛️ Não há deuses próximos. Use `ver deuses` para ver todos.")
             return
-
-        embed = discord.Embed(
-            title=f"⚡ Deuses Próximos ao Seu Reino",
-            description=f"*Reino atual: nível {current_world}*",
-            color=0xFFD700,
-        )
+        embed = discord.Embed(title=f"⚡ Deuses Próximos (Reino nível {cw})", color=0xFFD700)
         for nome in deuses_aqui:
             d = DEUSES[nome]
-            status = player_god_status(player, nome)
-            status_txt = {
-                "disponivel": "Disponível para confronto",
-                "quest_pendente": "🟡 Quest em andamento",
-                "derrotado": "🏆 Já derrotado (aguardando decisão)",
-                "aliado": "✅ Seu aliado",
-                "finalizado": "💀 Finalizado",
-            }.get(status, "?")
-            quest_q = get_god_quest_progress(player, nome)
-            prog_txt = ""
-            if quest_q and not quest_q.get("completa"):
-                prog = quest_q["progresso"]
-                obj = quest_q["objetivo"]
-                prog_txt = f"\n  📊 Quest: `{prog}/{obj}`"
+            status = god_status(player, nome)
+            s_txt = {"disponivel": "⬜ Disponível", "quest_pendente": "🟡 Quest ativa", "derrotado": "🏆 Derrotado", "aliado": "✅ Seu aliado", "finalizado": "💀 Finalizado"}.get(status, "⬜")
+            q = get_god_quest(player, nome)
+            prog = f"\n📊 Quest: `{q['progresso']}/{q['objetivo']}`" if q and not q.get("completa") else ""
             embed.add_field(
                 name=f"{d['emoji']} {nome} — {d['titulo']}",
-                value=f"*{d['descricao'][:80]}...*\n  Status: {status_txt}{prog_txt}\n  HP: `{d['hp']:,}` | ATK: `{d['atk']}`",
+                value=f"Status: {s_txt}{prog}\n❤️`{d['hp']:,}` ⚔️`{d['atk']}` | {d['reino_nome']}",
                 inline=False,
             )
-        embed.add_field(
-            name="📜 Ação",
-            value=f"`quest divina <nome>` | `confrontar deus <nome>` | `lore do deus <nome>`",
-            inline=False,
-        )
         await message.channel.send(embed=embed)
         return
 
-    # ── lore do deus <nome> ────────────────────────────────────────────────────
+    # ── lore do deus ───────────────────────────────────────────────────────────
     if content.startswith("lore do deus ") or content.startswith("lore deus "):
         q = content.replace("lore do deus ", "").replace("lore deus ", "").strip()
         nome, deus = get_god_by_name(q)
         if not deus:
-            await message.channel.send(f"❌ Deus **'{q}'** não encontrado. Use `ver deuses` para ver a lista.")
+            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
             return
-        embed = discord.Embed(
-            title=f"{deus['emoji']} {nome} — {deus['titulo']}",
-            description=deus["lore"],
-            color=deus["cor"],
-        )
+        embed = discord.Embed(title=f"{deus['emoji']} {nome} — {deus['titulo']}", description=deus["lore"], color=deus["cor"])
         embed.add_field(name="🏛️ Categoria", value=deus["categoria"], inline=True)
         embed.add_field(name="🌍 Reino", value=deus["reino_nome"], inline=True)
         embed.add_field(name="💪 Poder", value=f"HP: `{deus['hp']:,}` | ATK: `{deus['atk']}` | DEF: `{deus['def']}`", inline=False)
         embed.add_field(name="🙏 Idolatrado por", value=", ".join(deus["idolatrado_por"]), inline=False)
         ally_sk = deus.get("ally_skill", {})
-        if ally_sk:
-            embed.add_field(
-                name=f"✨ Habilidade como Aliado: {ally_sk['emoji']} {ally_sk['nome']}",
-                value=ally_sk["desc"],
-                inline=False,
-            )
-        embed.add_field(name="🌟 Passiva de Aliado", value=deus.get("ally_passive", "—"), inline=False)
-        embed.add_field(name="🎁 Oferendas aceitas", value=" | ".join(deus.get("oferta_aceita", [])), inline=False)
-        embed.set_footer(text=f"Use 'quest divina {nome}' para iniciar a quest de confronto.")
+        embed.add_field(name=f"✨ Habilidade de Aliado: {ally_sk.get('emoji','✨')} {ally_sk.get('nome','—')}", value=ally_sk.get("desc", "—"), inline=False)
+        embed.add_field(name="🌟 Passiva", value=deus.get("ally_passive", "—"), inline=False)
+        embed.add_field(name="🎯 Quest", value=f"**{deus['quest_nome']}**\n{deus['quest_desc']}", inline=False)
+        embed.add_field(name="🎁 Oferendas", value=" | ".join(deus.get("oferta_aceita", [])), inline=False)
+        embed.set_footer(text=f"Use 'quest divina {nome}' para iniciar a quest.")
         await message.channel.send(embed=embed)
         return
 
@@ -34227,77 +33868,72 @@ async def handle_god_commands(message):
     if content.startswith("quest divina ") or content.startswith("quest do deus "):
         player = get_player(uid)
         if not player:
-            await message.channel.send("❌ Crie seu personagem primeiro!")
             return
         q = content.replace("quest divina ", "").replace("quest do deus ", "").strip()
         nome, deus = get_god_by_name(q)
         if not deus:
-            await message.channel.send(f"❌ Deus **'{q}'** não encontrado. Use `ver deuses`.")
+            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
             return
-
-        status = player_god_status(player, nome)
+        status = god_status(player, nome)
         if status == "aliado":
-            await message.channel.send(f"✅ {deus['emoji']} **{nome}** já é seu aliado! Use `deuses aliados` para ver suas habilidades.")
+            await message.channel.send(f"✅ {deus['emoji']} **{nome}** já é seu aliado!")
             return
         if status == "finalizado":
-            await message.channel.send(f"💀 Você já finalizou **{nome}**. Ele não existe mais no seu caminho.")
+            await message.channel.send(f"💀 Você já finalizou **{nome}**.")
+            return
+        if deus["reino_id"] not in set(player.get("worlds", [1])):
+            await message.channel.send(f"🔒 Você precisa desbloquear **{deus['reino_nome']}** (nível {deus['reino_id']}) primeiro.")
             return
 
-        # Verificar reino desbloqueado
-        worlds = set(player.get("worlds", [1]))
-        if deus["reino_id"] not in worlds:
-            await message.channel.send(
-                f"🔒 O reino de **{nome}** ({deus['reino_nome']}) ainda não está desbloqueado.\n"
-                f"Você precisa chegar ao nível {deus['reino_id']} para acessá-lo."
-            )
-            return
-
-        quest_q = get_god_quest_progress(player, nome)
+        quest_q = get_god_quest(player, nome)
         if quest_q and quest_q.get("completa"):
-            embed = discord.Embed(
-                title=f"✅ Quest Concluída: {deus['quest_nome']}",
-                description=f"*Você está pronto para confrontar {nome}!*",
-                color=discord.Color.green(),
-            )
+            embed = discord.Embed(title=f"✅ Quest Concluída: {deus['quest_nome']}", description="Você está pronto para o confronto!", color=discord.Color.green())
             embed.add_field(name="⚡ Próxima ação", value=f"`confrontar deus {nome}`", inline=False)
             await message.channel.send(embed=embed)
             return
-
         if not quest_q:
-            # Iniciar quest
             start_god_quest(player, nome)
             save_player_db(uid, player)
+            quest_q = get_god_quest(player, nome)
             embed = discord.Embed(
                 title=f"📜 QUEST DIVINA INICIADA: {deus['quest_nome']}",
                 description=f"*Para confrontar {deus['emoji']} **{nome}**, você precisa provar seu valor.*",
                 color=deus["cor"],
             )
             embed.add_field(name="🎯 Objetivo", value=deus["quest_desc"], inline=False)
-            embed.add_field(name="📊 Progresso", value=f"`0/{deus['quest_kills']}`", inline=True)
+            embed.add_field(name="📊 Progresso", value=f"`0/{deus['quest_objetivo']}`", inline=True)
             embed.add_field(name="🌍 Reino", value=deus["reino_nome"], inline=True)
-            embed.add_field(name="🎁 Dica", value=f"Oferendas aceitas por este deus: {', '.join(deus['oferta_aceita'])}", inline=False)
-            embed.set_footer(text="Aventure-se no reino do deus para avançar na quest!")
+            embed.add_field(
+                name="📌 Como avançar",
+                value=f"• Use **`explorar`**, **`caçar`** ou **`minerar`** no reino **{deus['reino_nome']}**\n"
+                      f"• Ou faça **`oferecer <item>`** com: {', '.join(deus['oferta_aceita'][:2])}\n"
+                      f"• O progresso atualiza automaticamente a cada ação",
+                inline=False,
+            )
+            embed.set_footer(text="Progresso salvo automaticamente ao explorar/caçar/minerar!")
             await message.channel.send(embed=embed)
         else:
-            # Mostrar progresso
             prog = quest_q["progresso"]
             obj = quest_q["objetivo"]
             pct = int(prog / max(obj, 1) * 10)
             barra = "🟦" * pct + "⬛" * (10 - pct)
             embed = discord.Embed(
-                title=f"📊 Quest de {nome}: {deus['quest_nome']}",
+                title=f"📊 Quest: {deus['quest_nome']}",
                 description=f"*{deus['quest_desc']}*",
                 color=deus["cor"],
             )
             embed.add_field(name="Progresso", value=f"{barra} `{prog}/{obj}`", inline=False)
             if prog >= obj:
-                embed.add_field(name="✅ CONCLUÍDA!", value=f"Use `confrontar deus {nome}` para a batalha!", inline=False)
                 quest_q["completa"] = True
                 save_player_db(uid, player)
+                embed.add_field(name="✅ COMPLETA!", value=f"Use `confrontar deus {nome}`!", inline=False)
             else:
-                faltam = obj - prog
-                embed.add_field(name="📌 Faltam", value=f"`{faltam}` ações", inline=True)
-                embed.add_field(name="🌍 Reino", value=deus["reino_nome"], inline=True)
+                embed.add_field(name="📌 Faltam", value=f"`{obj - prog}` ações em **{deus['reino_nome']}**", inline=True)
+                embed.add_field(
+                    name="💡 Dica",
+                    value=f"Use `explorar`, `caçar` ou `minerar` no reino certo para avançar!",
+                    inline=False,
+                )
             await message.channel.send(embed=embed)
         return
 
@@ -34305,170 +33941,35 @@ async def handle_god_commands(message):
     if content.startswith("confrontar deus ") or content.startswith("desafiar deus ") or content.startswith("batalhar deus "):
         player = get_player(uid)
         if not player:
-            await message.channel.send("❌ Crie seu personagem primeiro!")
             return
         q = content.replace("confrontar deus ", "").replace("desafiar deus ", "").replace("batalhar deus ", "").strip()
         nome, deus = get_god_by_name(q)
         if not deus:
             await message.channel.send(f"❌ Deus **'{q}'** não encontrado. Use `ver deuses`.")
             return
-
-        status = player_god_status(player, nome)
+        status = god_status(player, nome)
         if status == "aliado":
-            await message.channel.send(f"✅ {deus['emoji']} **{nome}** já é seu aliado! Você não pode confrontar um aliado.")
+            await message.channel.send(f"✅ {deus['emoji']} **{nome}** já é seu aliado!")
             return
         if status == "finalizado":
-            await message.channel.send(f"💀 Você já finalizou **{nome}**. Ele não aparece mais no seu caminho.")
+            await message.channel.send(f"💀 Você já finalizou **{nome}**.")
             return
-
-        # Verificar reino
-        worlds = set(player.get("worlds", [1]))
-        if deus["reino_id"] not in worlds:
-            await message.channel.send(
-                f"🔒 Você precisa desbloquear **{deus['reino_nome']}** (nível {deus['reino_id']}) para confrontar {nome}."
-            )
+        if deus["reino_id"] not in set(player.get("worlds", [1])):
+            await message.channel.send(f"🔒 Você precisa desbloquear **{deus['reino_nome']}** (nível {deus['reino_id']}).")
             return
-
-        # Verificar quest
-        quest_q = get_god_quest_progress(player, nome)
+        quest_q = get_god_quest(player, nome)
         if not quest_q or not quest_q.get("completa"):
             if not quest_q:
-                await message.channel.send(
-                    f"⚠️ Você ainda não iniciou a quest para confrontar {nome}!\n"
-                    f"Use `quest divina {nome}` para começar sua preparação."
-                )
+                await message.channel.send(f"⚠️ Inicie a quest primeiro!\nUse `quest divina {nome}` para começar.")
             else:
                 prog = quest_q["progresso"]
                 obj = quest_q["objetivo"]
                 await message.channel.send(
-                    f"⚠️ Sua quest para confrontar **{nome}** ainda não está completa.\n"
-                    f"Progresso: `{prog}/{obj}` | Use `quest divina {nome}` para ver detalhes."
+                    f"⚠️ Quest incompleta para **{nome}**.\n"
+                    f"Progresso: `{prog}/{obj}` — Use `explorar`, `caçar` ou `minerar` em **{deus['reino_nome']}**!"
                 )
             return
-
-        # Batalha!
         await fight_god(message.channel, uid, nome)
-        return
-
-    # ── aliar deus <nome> ──────────────────────────────────────────────────────
-    if content.startswith("aliar deus ") or content.startswith("fazer aliado ") or content.startswith("aceitar aliança "):
-        player = get_player(uid)
-        if not player:
-            return
-        q = content.replace("aliar deus ", "").replace("fazer aliado ", "").replace("aceitar aliança ", "").strip()
-        nome, deus = get_god_by_name(q)
-        if not deus:
-            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
-            return
-
-        status = player_god_status(player, nome)
-        if status != "derrotado":
-            await message.channel.send(
-                f"⚠️ Você só pode aliar um deus após derrotá-lo.\n"
-                f"Status atual de **{nome}**: `{status}`"
-            )
-            return
-
-        # Verificar janela de decisão (10 minutos)
-        effects = player.get("active_effects", {})
-        ts = effects.get(f"god_decision_{nome}", 0)
-        if time.time() - ts > 600:
-            await message.channel.send(
-                f"⏰ A janela de decisão para **{nome}** expirou (10 minutos).\n"
-                f"Você precisará derrotá-lo novamente para tomar esta decisão."
-            )
-            set_god_status(player, nome, "disponivel")
-            save_player_db(uid, player)
-            return
-
-        # Aliar!
-        set_god_status(player, nome, "aliado")
-        if f"god_decision_{nome}" in effects:
-            del effects[f"god_decision_{nome}"]
-        player["active_effects"] = effects
-        save_player_db(uid, player)
-
-        ally_sk = deus.get("ally_skill", {})
-        embed = discord.Embed(
-            title=f"✅ {deus['emoji']} {nome} AGORA É SEU ALIADO!",
-            description=(
-                f"*{deus['titulo']} inclina a cabeça em respeito.*\n\n"
-                f"**'{deus['vitoria']}'**"
-            ),
-            color=deus["cor"],
-        )
-        embed.add_field(
-            name=f"✨ Habilidade de Aliado: {ally_sk.get('emoji','✨')} {ally_sk.get('nome','Ataque Divino')}",
-            value=ally_sk.get("desc", "—"),
-            inline=False,
-        )
-        embed.add_field(name="🌟 Passiva Permanente", value=deus.get("ally_passive", "—"), inline=False)
-        embed.add_field(
-            name="📜 Como usar em batalha",
-            value=f"`invocar deus {nome}` durante uma batalha para chamar sua habilidade.",
-            inline=False,
-        )
-        embed.set_footer(text="O deus aliado também concede bônus passivo em TODAS as batalhas automaticamente.")
-        await message.channel.send(embed=embed)
-        return
-
-    # ── finalizar deus <nome> ──────────────────────────────────────────────────
-    if content.startswith("finalizar deus ") or content.startswith("eliminar deus ") or content.startswith("matar deus "):
-        player = get_player(uid)
-        if not player:
-            return
-        q = content.replace("finalizar deus ", "").replace("eliminar deus ", "").replace("matar deus ", "").strip()
-        nome, deus = get_god_by_name(q)
-        if not deus:
-            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
-            return
-
-        status = player_god_status(player, nome)
-        if status != "derrotado":
-            await message.channel.send(
-                f"⚠️ Você só pode finalizar um deus após derrotá-lo.\n"
-                f"Status atual de **{nome}**: `{status}`"
-            )
-            return
-
-        effects = player.get("active_effects", {})
-        ts = effects.get(f"god_decision_{nome}", 0)
-        if time.time() - ts > 600:
-            await message.channel.send(f"⏰ Janela de decisão expirada. Derrote **{nome}** novamente.")
-            set_god_status(player, nome, "disponivel")
-            save_player_db(uid, player)
-            return
-
-        # Recompensa por finalizar (bônus permanente)
-        bonus_atk = 10 + player["level"] // 10
-        bonus_hp = 50 + player["level"] * 2
-        player["level"]  # just access
-        player["max_hp"] = player.get("max_hp", 100) + bonus_hp
-        player["hp"] = min(player["hp"], player["max_hp"])
-        # Guardar bônus de ATK como permanente
-        player["god_kill_atk"] = player.get("god_kill_atk", 0) + bonus_atk
-
-        set_god_status(player, nome, "finalizado")
-        if f"god_decision_{nome}" in effects:
-            del effects[f"god_decision_{nome}"]
-        player["active_effects"] = effects
-        save_player_db(uid, player)
-
-        embed = discord.Embed(
-            title=f"💀 {deus['emoji']} {nome} FOI FINALIZADO!",
-            description=(
-                f"*Com um golpe definitivo, você encerra a existência de {nome}.*\n"
-                f"*Ele nunca mais aparecerá no seu caminho.*"
-            ),
-            color=discord.Color.dark_red(),
-        )
-        embed.add_field(name="⚡ Bônus Permanente Ganho", value=f"+{bonus_atk} ATK | +{bonus_hp} HP Máximo", inline=False)
-        embed.add_field(
-            name="⚠️ Atenção",
-            value="Finalizar um deus é permanente. Você não poderá mais tê-lo como aliado.",
-            inline=False,
-        )
-        await message.channel.send(embed=embed)
         return
 
     # ── deuses aliados ─────────────────────────────────────────────────────────
@@ -34478,17 +33979,9 @@ async def handle_god_commands(message):
             return
         aliados = get_allied_gods(player)
         if not aliados:
-            embed = discord.Embed(
-                title="🤝 Aliados Divinos",
-                description="*Você ainda não tem deuses aliados.*\nUse `ver deuses` para conhecer os deuses e `quest divina <nome>` para começar sua jornada.",
-                color=discord.Color.greyple(),
-            )
+            embed = discord.Embed(title="🤝 Aliados Divinos", description="*Você ainda não tem deuses aliados.*\nDerrote um deus e escolha aliá-lo!", color=discord.Color.greyple())
         else:
-            embed = discord.Embed(
-                title=f"✅ Seus Aliados Divinos ({len(aliados)})",
-                description="*Estes deuses caminham ao seu lado.*",
-                color=discord.Color.gold(),
-            )
+            embed = discord.Embed(title=f"✅ Seus Aliados Divinos ({len(aliados)})", description="*Estes deuses caminham ao seu lado.*", color=discord.Color.gold())
             for nome in aliados:
                 d = DEUSES.get(nome, {})
                 ally_sk = d.get("ally_skill", {})
@@ -34496,14 +33989,88 @@ async def handle_god_commands(message):
                     name=f"{d.get('emoji','✨')} {nome} — {d.get('titulo','')}",
                     value=(
                         f"*{d.get('ally_passive','—')}*\n"
-                        f"Habilidade: **{ally_sk.get('nome','—')}** — {ally_sk.get('desc','')[:60]}...\n"
-                        f"`invocar deus {nome}` para usar em batalha"
+                        f"Skill: **{ally_sk.get('nome','—')}**\n"
+                        f"`invocar deus {nome}` | `conversar com {nome}`"
                     ),
                     inline=False,
                 )
-        god_atk, _ = god_ally_bonus(player)
+        god_atk = len(aliados) * player.get("level", 1) * 2
         if god_atk:
-            embed.set_footer(text=f"Bônus total de ATK dos aliados divinos: +{god_atk}")
+            embed.set_footer(text=f"Bônus de ATK dos aliados em batalha: +{god_atk}")
+        await message.channel.send(embed=embed)
+        return
+
+    # ── conversar com <deus aliado> ────────────────────────────────────────────
+    if content.startswith("conversar com ") or content.startswith("falar com ") or content.startswith("chamar "):
+        player = get_player(uid)
+        if not player:
+            return
+        q = content.replace("conversar com ", "").replace("falar com ", "").replace("chamar ", "").strip()
+        nome, deus = get_god_by_name(q)
+        if not deus:
+            # Pode ser que não seja um deus — ignorar silenciosamente
+            return
+        status = god_status(player, nome)
+        if status != "aliado":
+            if status == "finalizado":
+                await message.channel.send(f"💀 Você finalizou **{nome}**. Não há mais como conversar com ele.")
+            elif status == "disponivel":
+                await message.channel.send(f"⚠️ **{nome}** não é seu aliado ainda. Derrote-o e aliai-o primeiro.\nUse `quest divina {nome}` para começar.")
+            return
+        fala = random.choice(deus.get("falas_aliado", ["*O deus te observa em silêncio.*"]))
+        embed = discord.Embed(
+            title=f"{deus['emoji']} {nome} diz...",
+            description=f"*\"{fala}\"*",
+            color=deus["cor"],
+        )
+        embed.set_footer(text=f"{nome} — {deus['titulo']} | Aliado de {message.author.display_name}")
+        await message.channel.send(embed=embed)
+        return
+
+    # ── invocar deus <nome> ────────────────────────────────────────────────────
+    if content.startswith("invocar deus ") or content.startswith("chamar deus "):
+        player = get_player(uid)
+        if not player:
+            return
+        q = content.replace("invocar deus ", "").replace("chamar deus ", "").strip()
+        nome, deus = get_god_by_name(q)
+        if not deus:
+            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
+            return
+        if god_status(player, nome) != "aliado":
+            await message.channel.send(f"❌ **{nome}** não é seu aliado.")
+            return
+        effects = player.get("active_effects", {})
+        last_invoke = effects.get(f"invoke_cd_{nome}", 0)
+        cd = 300
+        if time.time() - last_invoke < cd:
+            resto = int(cd - (time.time() - last_invoke))
+            await message.channel.send(f"⏳ **{nome}** está descansando. Pronto em `{resto//60}m{resto%60}s`.")
+            return
+        ally_sk = deus.get("ally_skill", {})
+        cura = 0
+        if ally_sk.get("cura_pct"):
+            cura = int(player["max_hp"] * ally_sk["cura_pct"])
+            player["hp"] = min(player["max_hp"], player.get("hp", 1) + cura)
+        effects[f"invoke_cd_{nome}"] = time.time()
+        effects["god_invoke_dmg"] = int(player.get("level", 1) * 10 * ally_sk.get("dmg_mult", 1.5)) if ally_sk.get("dmg_mult", 0) > 0 else 0
+        effects["god_invoke_name"] = f"{deus['emoji']} {nome}: {ally_sk.get('nome','Ataque Divino')}"
+        if ally_sk.get("ignore_def"):
+            effects["god_invoke_ignore_def"] = True
+        if ally_sk.get("escudo"):
+            effects["god_shield"] = True
+        player["active_effects"] = effects
+        save_player_db(uid, player)
+        embed = discord.Embed(
+            title=f"{deus['emoji']} {nome} INVOCADO!",
+            description=f"*{ally_sk.get('desc', 'O deus responde ao seu chamado.')}*",
+            color=deus["cor"],
+        )
+        if effects["god_invoke_dmg"] > 0:
+            embed.add_field(name="⚔️ Dano Extra", value=f"+`{effects['god_invoke_dmg']}` na próxima batalha", inline=True)
+        if cura > 0:
+            embed.add_field(name="💚 HP Curado", value=f"+`{cura}` HP | `{player['hp']}/{player['max_hp']}`", inline=True)
+        embed.add_field(name="⏳ Cooldown", value="`5 minutos`", inline=True)
         await message.channel.send(embed=embed)
         return
 
@@ -34512,275 +34079,84 @@ async def handle_god_commands(message):
         player = get_player(uid)
         if not player:
             return
-        item_query = content.replace("oferecer ", "").replace("oferenda ", "").strip()
-        current_world = player.get("current_world", 1)
-
-        # Verificar qual deus está no reino atual
-        deuses_aqui = DEUSES_POR_REINO.get(current_world, [])
-        if not deuses_aqui:
-            await message.channel.send("🏛️ Não há templos divinos neste reino. Viaje até um reino com deuses para fazer oferendas.")
-            return
-
-        # Verificar se o item está no inventário
+        item_q = content.replace("oferecer ", "").replace("oferenda ", "").strip()
         inv = player.get("inventory", [])
         item_found = None
         for it in inv:
-            it_name = it if isinstance(it, str) else it.get("name", "")
-            if item_query.lower() in it_name.lower():
-                item_found = it_name
+            n = it if isinstance(it, str) else it.get("name", "")
+            if item_q.lower() in n.lower():
+                item_found = n
                 break
-
         if not item_found:
-            await message.channel.send(f"❌ Item **'{item_query}'** não encontrado no seu inventário.")
+            await message.channel.send(f"❌ Item **'{item_q}'** não encontrado no inventário.")
             return
-
-        # Verificar qual deus aceita este item
+        cw = player.get("current_world", 1)
         deus_aceita = None
-        for nome_d in deuses_aqui:
+        for nome_d in DEUSES_POR_REINO.get(cw, []):
             d = DEUSES[nome_d]
             for oferta in d.get("oferta_aceita", []):
-                if item_query.lower() in oferta.lower():
+                if item_q.lower() in oferta.lower():
                     deus_aceita = nome_d
                     break
-
-        if not deus_aceita:
-            # Qualquer oferenda dá bônus genérico
-            embed = discord.Embed(
-                title="🙏 Oferenda feita",
-                description=f"*Você oferece **{item_found}** aos deuses do reino.*\nO item foi consumido. Nenhum deus específico estava aguardando esta oferenda, mas sua fé foi registrada.",
-                color=0xFFD700,
-            )
-            # Remover item do inventário
-            if isinstance(inv[0], str):
-                player["inventory"] = [i for i in inv if i != item_found]
-            else:
-                player["inventory"] = [i for i in inv if i.get("name", "") != item_found]
-            save_player_db(uid, player)
-            await message.channel.send(embed=embed)
-            return
-
-        # Item aceito pelo deus!
-        d = DEUSES[deus_aceita]
-        status = player_god_status(player, deus_aceita)
-        quest_q = get_god_quest_progress(player, deus_aceita)
-
-        # Avança o progresso da quest divina se houver
-        bonus_prog = 0
-        if quest_q and not quest_q.get("completa"):
-            quest_q["progresso"] = min(quest_q["progresso"] + 1, quest_q["objetivo"])
-            bonus_prog = 1
-            if quest_q["progresso"] >= quest_q["objetivo"]:
-                quest_q["completa"] = True
-
-        # Remover item do inventário
+        # Remove item
         if inv and isinstance(inv[0], str):
             player["inventory"] = [i for i in inv if i != item_found]
         else:
-            player["inventory"] = [i for i in inv if i.get("name", "") != item_found]
-        save_player_db(uid, player)
-
-        embed = discord.Embed(
-            title=f"🙏 Oferenda Aceita por {d['emoji']} {deus_aceita}!",
-            description=f"*{deus_aceita} recebe sua oferenda de **{item_found}** com dignidade.*",
-            color=d["cor"],
-        )
-        if bonus_prog:
-            prog = quest_q["progresso"]
-            obj = quest_q["objetivo"]
-            embed.add_field(name="📊 Quest Avançou!", value=f"`{prog}/{obj}`", inline=True)
-            if quest_q.get("completa"):
-                embed.add_field(name="✅ Quest Completa!", value=f"Use `confrontar deus {deus_aceita}` para a batalha!", inline=False)
-        embed.set_footer(text="Oferendas reduzem resistência e avançam quests divinas.")
-        await message.channel.send(embed=embed)
-        return
-
-    # ── invocar deus <nome> ────────────────────────────────────────────────────
-    if content.startswith("invocar deus "):
-        player = get_player(uid)
-        if not player:
-            return
-        q = content.replace("invocar deus ", "").strip()
-        nome, deus = get_god_by_name(q)
-        if not deus:
-            await message.channel.send(f"❌ Deus **'{q}'** não encontrado.")
-            return
-        status = player_god_status(player, nome)
-        if status != "aliado":
-            await message.channel.send(f"❌ **{nome}** não é seu aliado ainda. Derrote-o primeiro e escolha aliá-lo.")
-            return
-
-        # Cooldown de invocação (5 minutos por deus)
-        effects = player.get("active_effects", {})
-        last_invoke = effects.get(f"invoke_cd_{nome}", 0)
-        cd = 300  # 5 minutos
-        if time.time() - last_invoke < cd:
-            resto = int(cd - (time.time() - last_invoke))
-            await message.channel.send(f"⏳ **{nome}** está descansando. Próxima invocação em `{resto//60}m{resto%60}s`.")
-            return
-
-        # Aplicar habilidade
-        ally_sk = deus.get("ally_skill", {})
-        efeito = ally_sk.get("efeito", "")
-        dmg_mult = ally_sk.get("dmg_mult", 1.5)
-        base_dmg = player.get("level", 1) * 10 * dmg_mult if dmg_mult else 0
-        cura = 0
-        if ally_sk.get("cura_pct"):
-            cura = int(player["max_hp"] * ally_sk["cura_pct"])
-            player["hp"] = min(player["max_hp"], player.get("hp", 1) + cura)
-
-        effects[f"invoke_cd_{nome}"] = time.time()
-        # Guardar efeito de batalha para próxima batalha
-        if dmg_mult > 0:
-            effects["god_invoke_dmg"] = int(base_dmg)
-            effects["god_invoke_name"] = f"{deus['emoji']} {nome}: {ally_sk.get('nome','Ataque Divino')}"
-        if ally_sk.get("atk_mult"):
-            effects["god_invoke_atk_mult"] = ally_sk["atk_mult"]
-        if ally_sk.get("def_mult"):
-            effects["god_invoke_def_mult"] = ally_sk["def_mult"]
-        if efeito == "escudo_total":
-            effects["god_shield"] = True
-        if ally_sk.get("ignore_def"):
-            effects["god_invoke_ignore_def"] = True
-
-        player["active_effects"] = effects
-        save_player_db(uid, player)
-
-        embed = discord.Embed(
-            title=f"{deus['emoji']} {nome} INVOCADO!",
-            description=f"*{ally_sk.get('desc', 'O deus responde ao seu chamado.')}*",
-            color=deus["cor"],
-        )
-        if base_dmg > 0:
-            embed.add_field(name="⚔️ Dano de Invocação", value=f"+`{int(base_dmg)}` dano na próxima batalha", inline=True)
-        if cura > 0:
-            embed.add_field(name="💚 HP Curado", value=f"+`{cura}` HP", inline=True)
-        embed.add_field(name="⏳ Cooldown", value="`5 minutos`", inline=True)
-        embed.set_footer(text=f"Efeito ativo para a próxima batalha! | HP: {player['hp']}/{player['max_hp']}")
-        await message.channel.send(embed=embed)
-        return
-
-    # ── Avançar quest divina automaticamente (ao explorar/caçar/minerar) ───────
-    # Esta seção detecta se o jogador está avançando quests divinas passivamente
-    if any(word in content for word in ["explorar", "caçar", "coletar", "minerar", "dungeon"]):
-        player = get_player(uid)
-        if not player:
-            return
-        current_world = player.get("current_world", 1)
-        quests_ativas = player.get("quests_divinas", {})
-        notificacoes = []
-        modified = False
-
-        for nome_d, q_data in quests_ativas.items():
-            if q_data.get("completa"):
-                continue
-            d = DEUSES.get(nome_d, {})
-            tipo = q_data.get("tipo", "boss_kill")
-            reino_req = q_data.get("reino_req", 0)
-
-            # Avançar somente se estiver no reino certo (ou próximo)
-            if abs(current_world - reino_req) > 30:
-                continue
-
-            # Tipos que avançam com explorar/caçar/minerar
-            if tipo in ["boss_kill", "sobreviver", "explorar", "mine"] and \
-               any(w in content for w in ["explorar", "caçar", "minerar"]):
-                q_data["progresso"] = q_data.get("progresso", 0) + 1
-                modified = True
-                if q_data["progresso"] >= q_data["objetivo"]:
-                    q_data["completa"] = True
-                    notificacoes.append(
-                        f"✅ **Quest Divina Completa!** `{d.get('quest_nome','Quest')}` de {d.get('emoji','')} **{nome_d}**\n"
-                        f"Use `confrontar deus {nome_d}` para a batalha!"
-                    )
-
-        if modified:
-            player["quests_divinas"] = quests_ativas
+            player["inventory"] = [i for i in inv if (i if isinstance(i, str) else i.get("name", "")) != item_found]
+        if not deus_aceita:
             save_player_db(uid, player)
-        for notif in notificacoes:
-            await asyncio.sleep(0.5)
-            await message.channel.send(f"📜 {notif}")
+            await message.channel.send(f"🙏 Você oferece **{item_found}** aos deuses do reino.\n*Nenhum deus específico estava aguardando, mas sua fé foi registrada.*")
+            return
+        d = DEUSES[deus_aceita]
+        quest_q = get_god_quest(player, deus_aceita)
+        bonus_prog = 0
+        if quest_q and not quest_q.get("completa"):
+            quest_q["progresso"] = min(quest_q["progresso"] + 2, quest_q["objetivo"])  # oferenda vale 2
+            bonus_prog = quest_q["progresso"]
+            if quest_q["progresso"] >= quest_q["objetivo"]:
+                quest_q["completa"] = True
+        save_player_db(uid, player)
+        embed = discord.Embed(title=f"🙏 Oferenda Aceita por {d['emoji']} {deus_aceita}!", description=f"*{deus_aceita} recebe **{item_found}** com dignidade.*", color=d["cor"])
+        if bonus_prog:
+            q = get_god_quest(player, deus_aceita)
+            prog = q["progresso"] if q else 0
+            obj = q["objetivo"] if q else 1
+            embed.add_field(name="📊 Quest Avançou (+2)!", value=f"`{prog}/{obj}`", inline=True)
+            if q and q.get("completa"):
+                embed.add_field(name="✅ Quest Completa!", value=f"Use `confrontar deus {deus_aceita}`!", inline=False)
+        embed.set_footer(text="Oferendas valem +2 pontos de progresso na quest divina!")
+        await message.channel.send(embed=embed)
+        return
 
+    # ── Tracking automático de quests ao explorar/caçar/minerar ─────────────
+    # Este bloco DEVE rodar DEPOIS dos comandos acima mas ANTES do return final
+    if any(word in content for word in ["explorar", "vou explorar", "caçar", "cacar", "lutar", "atacar", "batalhar", "minerar", "coletar", "minerar"]):
+        player = get_player(uid)
+        if not player:
+            return
+        cw = player.get("current_world", 1)
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PATCH DE BUG: build_map_embed — usa .get("discovered", False) para evitar KeyError
-# ─────────────────────────────────────────────────────────────────────────────
-# INSTRUÇÕES: Substitua a linha no build_map_embed original:
-#   is_visible = loc.get("discovered", False) or loc["id"] in known_ids
-# Já está correto no código fornecido, mas certifique-se de que todos os
-# MAP_LOCATIONS entries tenham "discovered" explícito ou usem .get().
+        # Determina tipo de ação
+        if any(w in content for w in ["minerar", "coletar"]):
+            tipo_acao = "minerar"
+        elif any(w in content for w in ["caçar", "cacar", "lutar", "atacar", "batalhar"]):
+            tipo_acao = "caçar"
+        else:
+            tipo_acao = "explorar"
 
-# PATCH: chapter_unlocked para página 1 sempre True — já está no código.
-# Verifique se o bloco é:
-#   if page == 1:
-#       chapter_unlocked = True
-# (Já está correto no código original.)
+        completadas = advance_god_quests(player, tipo_acao, cw)
+        if completadas or any(not get_god_quest(player, n) is None and not get_god_quest(player, n).get("completa") for n in player.get("quests_divinas", {})):
+            save_player_db(uid, player)
 
-# ─────────────────────────────────────────────────────────────────────────────
-# LOCAIS DE TEMPLO A ADICIONAR NO MAP_LOCATIONS
-# ─────────────────────────────────────────────────────────────────────────────
-# Adicione estes locais nos MAP_LOCATIONS correspondentes para que os templos
-# apareçam no mapa quando explorados:
-
-MAP_LOCATIONS_TEMPLES = {
-    1: {"id": "templo_krathos", "name": "🦁 Templo de Krathos — Senhor das Feras", "type": "npc_especial", "discovered": False},
-    10: {"id": "templo_thalmyra", "name": "🌿 Santuário de Thalmyra — Guardiã da Floresta", "type": "npc_especial", "discovered": False},
-    40: {"id": "templo_fyranor", "name": "🌋 Santuário de Fyranor — Guardião do Vulcão", "type": "npc_especial", "discovered": False},
-    40: {"id": "templo_ignarys", "name": "🔨 Forja Sagrada de Ignarys", "type": "crafting", "discovered": False},
-    50: {"id": "templo_altheron", "name": "🔮 Coluna de Altheron — Mestre da Magia", "type": "npc_especial", "discovered": False},
-    62: {"id": "templo_morthrak", "name": "💀 Templo de Morthrak — Rei da Eternidade", "type": "dungeon_secreta", "discovered": False},
-    90: {"id": "templo_eryndra", "name": "🕸️ Tear de Eryndra — Tecelã dos Destinos", "type": "npc_especial", "discovered": False},
-    100: {"id": "templo_georrus", "name": "⛏️ Câmara de Georrus — A Rocha Imortal", "type": "dungeon_secreta", "discovered": False},
-    100: {"id": "templo_zenthyr", "name": "⚖️ Tribunal de Zenthyr — O Juiz Eterno", "type": "npc_especial", "discovered": False},
-    110: {"id": "templo_aqualis", "name": "🌊 Templo Subaquático de Aqualis", "type": "dungeon_secreta", "discovered": False},
-    120: {"id": "templo_feralis", "name": "🔥 Altar de Feralis — Deus da Ira", "type": "boss_local", "discovered": False},
-    130: {"id": "templo_elaris", "name": "💚 Santuário de Elaris — Senhora da Cura", "type": "npc_especial", "discovered": False},
-    140: {"id": "templo_chronis", "name": "⏳ Relógio de Chronis — Guardião do Tempo", "type": "dungeon_secreta", "discovered": False},
-    160: {"id": "templo_ventharis", "name": "✨ Altar Celestial de Ventharis", "type": "npc_especial", "discovered": False},
-    170: {"id": "templo_vorlath", "name": "🌍 Pedra da Criação de Vorlath", "type": "boss_local", "discovered": False},
-    180: {"id": "templo_almira", "name": "🕊️ Salão de Almira — Protetora da Diplomacia", "type": "npc_especial", "discovered": False},
-    190: {"id": "templo_thalyn", "name": "✨ Chama de Thalyn — Espírito das Glórias", "type": "npc_especial", "discovered": False},
-    300: {"id": "templo_nyxara", "name": "💥 Altar de Nyxara — Destruidora dos Reinos", "type": "boss_local", "discovered": False},
-    310: {"id": "templo_arenys", "name": "🪞 Câmara dos Espelhos de Arenys", "type": "dungeon_secreta", "discovered": False},
-    330: {"id": "templo_nyxaris", "name": "🌑 Santuário de Nyxaris — Mestre dos Espirituais", "type": "dungeon_secreta", "discovered": False},
-    320: {"id": "templo_lytheris", "name": "☯️ Portal Dual de Lytheris", "type": "boss_local", "discovered": False},
-    410: {"id": "templo_esmirion", "name": "⭐ Observatório de Esmirion", "type": "npc_especial", "discovered": False},
-}
-
-# Para adicionar os templos automaticamente ao MAP_LOCATIONS, descomente e execute:
-# def apply_temple_patches():
-#     for world_id, temple_loc in MAP_TEMPLES_TO_ADD.items():
-#         if world_id in MAP_LOCATIONS:
-#             existing_ids = [l["id"] for l in MAP_LOCATIONS[world_id]["locations"]]
-#             if temple_loc["id"] not in existing_ids:
-#                 MAP_LOCATIONS[world_id]["locations"].append(temple_loc)
-# apply_temple_patches()  # Chame isto após definir MAP_LOCATIONS
-
-# ─────────────────────────────────────────────────────────────────────────────
-# RESUMO DE BUGS CORRIGIDOS
-# ─────────────────────────────────────────────────────────────────────────────
-# (resumo de bugs corrigidos acima)
-# BUGS CORRIGIDOS:
-
-# 1. MAP BUG — build_map_embed "discovered" KeyError:
-#    PROBLEMA: Locais no MAP_LOCATIONS sem a chave "discovered" causavam
-#              AttributeError/KeyError na linha: is_visible = loc["discovered"] ...
-#    CORREÇÃO: Já estava usando loc.get("discovered", False). Verifique sua versão.
-#    LINHA: ~17675 | Confirme: is_visible = loc.get("discovered", False) or loc["id"] in known_ids
-
-# 2. MAP BUG — chapter_unlocked para novos jogadores:
-#    PROBLEMA: Novos jogadores com worlds=[1] não tinham o capítulo 1 unlocked
-#              corretamente pois o loop checava w_id in unlocked_worlds mas a chave
-#              era "1" (int) e worlds era [1] (list de ints), OK — mas se worlds fosse
-#              guardado como strings no DB, falhava.
-#    CORREÇÃO: Normalize com: unlocked_worlds = set(int(w) for w in player.get("worlds", [1]))
-
-# 3. FIGHT_BOSS — itens de outros dicts não somavam ATK/DEF:
-#    PROBLEMA: A busca de itens em fight_boss só checava ITEMS["weapons"] mas não
-#              ITEMS_EXTRA nem ITEMS_NOVOS_REINOS.
-#    CORREÇÃO: Adicione busca em todos os dicts de itens.
-#    LINHA: ~18667 | Adicione loop por ITEMS_EXTRA.get("weapons",[]) também.
-
-# 4. CONFRONTAR DEUS — sistema completamente novo (feature, não bug).
+        for nome_c in completadas:
+            d = DEUSES.get(nome_c, {})
+            await asyncio.sleep(0.3)
+            embed = discord.Embed(
+                title=f"✅ Quest Divina Completa! {d.get('emoji','')} {nome_c}",
+                description=f"**{d.get('quest_nome','')}** concluída!\nUse `confrontar deus {nome_c}` para a batalha!",
+                color=discord.Color.gold(),
+            )
+            await message.channel.send(embed=embed)
 
 # ================= RUN BOT =================
 bot.run(TOKEN)
