@@ -107,6 +107,15 @@ CLASSES = {
         "mana_bonus": 20,
         "description": "Artistas das Cidades-Estado de Zircan. Suas canções encantam aliados e paralisam inimigos — a diplomacia como arte marcial.",
         "lore": "Em Accordis, dizem que a voz certa na hora certa já encerrou guerras. Os Bardos são a prova viva disso."
+    },
+    "Samurai de Kenshiro": {
+        "emoji": "⚔️",
+        "hp_bonus": 22,
+        "atk_bonus": 18,
+        "def_bonus": 12,
+        "mana_bonus": 10,
+        "description": "Guerreiros de honra das Ilhas de Kenshiro. Mestres da katana e do Bushido — atacam com velocidade letal e carregam a honra acima da própria vida.",
+        "lore": "Nas Ilhas de Kenshiro, a katana não é apenas uma arma — é a alma do guerreiro. Cada Samurai jura pelo Bushido: honra acima da vida, lealdade acima do medo. Dizem que um Samurai de Kenshiro, mesmo ferido de morte, tem força para um golpe final perfeito."
     }
 }
 
@@ -2089,6 +2098,16 @@ CLASS_EVOLUTION_TREE = {
         400: {"name": "Luz Dimensional Absoluta", "spec_options": ["Guardião do Multiverso da Luz", "Protetor do Cosmos"]},
         500: {"name": "A Luz do Plano Absoluto", "spec_options": ["Protetor Final de Toda Criação", "Luz que Não Tem Fim"]},
     },
+    # ── SAMURAI ────────────────────────────────────────────────────
+    "Samurai de Kenshiro": {
+        40:  {"name": "Ronin de Kenshiro",            "spec_options": ["Lâmina Errante", "Guardião do Código"]},
+        80:  {"name": "Mestre da Katana",             "spec_options": ["Espadachim Fantasma", "Senhor do Iaijutsu"]},
+        120: {"name": "Samurai Lendário de Kenshiro", "spec_options": ["Dragão de Aço", "Ceifador do Vento"]},
+        160: {"name": "Daimyo das Ilhas",             "spec_options": ["Senhor da Guerra de Kenshiro", "Espírito da Katana"]},
+        200: {"name": "Samurai Transcendente",        "spec_options": ["Lâmina dos Planos", "Bushido Eterno"]},
+        400: {"name": "Guerreiro Dimensional de Kenshiro", "spec_options": ["Corte que Atravessa Dimensões", "Katana do Multiverso"]},
+        500: {"name": "A Katana do Plano Absoluto",   "spec_options": ["O Último Golpe de Valtherra", "Honra que Transcende Tudo"]},
+    },
 }
 
 # ================= HABILIDADES POR TIER DE EVOLUÇÃO =================
@@ -2925,7 +2944,29 @@ CLASS_TIERED_SKILLS = {
             "unlock_boss": "Entidade das Sombras Absolutas"
         },
     },
+    # ── SAMURAI ────────────────────────────────────────────────────
+    "Samurai de Kenshiro": {
+        "basic": [
+            {"name": "⚔️ Corte Rápido",        "mana_cost": 0,  "dmg_mult": 1.5, "desc": "Um corte veloz com a katana — o Iaijutsu básico."},
+            {"name": "🗡️ Postura Bushido",      "mana_cost": 10, "dmg_mult": 1.3, "def_bonus": 12, "desc": "Postura rígida do código — ataca e resiste."},
+        ],
+        "intermediate": [
+            {"name": "⚡ Iaijutsu",             "mana_cost": 20, "dmg_mult": 2.0, "crit_chance": 0.4, "desc": "Saca e golpeia em um único movimento — velocidade letal."},
+            {"name": "🌀 Kata do Dragão",       "mana_cost": 25, "dmg_mult": 1.8, "stun_chance": 0.3, "desc": "Sequência de golpes em espiral que atordoa."},
+            {"name": "🩸 Corte do Vento",       "mana_cost": 30, "dmg_mult": 2.2, "ignore_def": True, "desc": "Golpe tão veloz que passa por qualquer armadura."},
+        ],
+        "advanced": [
+            {"name": "🔥 Golpe do Dragão Ardente","mana_cost": 40, "dmg_mult": 2.8, "poison": True, "crit_chance": 0.3, "desc": "Lâmina aquecida pela fúria do dragão — queima e perfura."},
+            {"name": "💫 Dança da Morte Honrosa", "mana_cost": 50, "dmg_mult": 3.2, "stun_chance": 0.35, "ignore_def": True, "desc": "Uma série de cortes precisos dançando como cerejeiras ao vento."},
+        ],
+        "supreme": {
+            "name": "⚔️ Seppuku Invertido — O Último Corte", "mana_cost": 85, "dmg_mult": 5.5, "ignore_def": True, "crit_chance": 0.8,
+            "desc": "O Samurai canaliza toda sua honra em um único golpe imparável. Quem o recebe sente o peso de mil batalhas.",
+            "unlock_boss": "Shogun Espectral Muramasa"
+        },
+    },
 }
+
 
 # ================= ESPECIALIZAÇÕES (desbloqueadas ao evoluir de classe) =================
 CLASS_SPECIALIZATIONS = {
@@ -18870,6 +18911,19 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             value=f"❤️ `{legendary_comp_cur_hp:,}` | ⚔️ ATK `{legendary_comp_atk}`\n*{legendary_comp_data['battle_cry']}*",
             inline=True
         )
+    # Mostrar deuses aliados que participarão da batalha
+    try:
+        _intro_aliados_div = get_allied_gods(player)
+        if _intro_aliados_div:
+            gods_display = " | ".join(f"{DEUSES[n]['emoji']} **{n}**" for n in _intro_aliados_div if n in DEUSES)
+            if gods_display:
+                intro.add_field(
+                    name="⚡ Deuses Aliados na Batalha",
+                    value=f"{gods_display}\n*Seus aliados divinos agem a cada turno!*",
+                    inline=False
+                )
+    except:
+        pass
     intro.add_field(
         name=f"👹 {boss_data['name']}",
         value=f"❤️ `{boss_cur_hp:,}/{boss_hp:,}` | ⚔️ ATK `{boss_atk}`\n_{boss_data.get('desc','...')[:70]}_",
@@ -18937,6 +18991,23 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                         })
                     except:
                         pass
+
+    # ---- Aliados Divinos (deuses aliados participam automaticamente do boss!) ----
+    god_allies_data = []
+    try:
+        aliados_divinos = get_allied_gods(player)
+        for nome_deus_aliado in aliados_divinos:
+            d = DEUSES.get(nome_deus_aliado)
+            if d:
+                ally_sk = d.get("ally_skill", {})
+                god_allies_data.append({
+                    "nome": nome_deus_aliado,
+                    "emoji": d.get("emoji", "✨"),
+                    "ally_skill_nome": ally_sk.get("nome", "Golpe Divino"),
+                    "dmg_mult": ally_sk.get("dmg_mult", 1.3),
+                })
+    except:
+        pass
 
     # Narração dinâmica por turno
     TURN_NARRATIONS = [
@@ -19252,6 +19323,23 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
 
             cls_emoji = CLASSES.get(ally_cls, {}).get("emoji", "⚔️")
             turn_embed.add_field(name=f"{cls_emoji} {ally_data['name']} usa habilidade!", value=ally_display, inline=False)
+
+        # === ATAQUES DOS DEUSES ALIADOS (cada deus aliado age todo turno!) ===
+        for god_ally in god_allies_data:
+            if boss_cur_hp > 0:
+                god_ally_dmg = int(player["level"] * 10 * god_ally["dmg_mult"] * random.uniform(0.9, 1.2))
+                boss_cur_hp = max(0, boss_cur_hp - god_ally_dmg)
+                god_crit = random.random() < 0.20
+                if god_crit:
+                    extra = int(god_ally_dmg * 0.5)
+                    boss_cur_hp = max(0, boss_cur_hp - extra)
+                    god_ally_dmg += extra
+                god_crit_txt = " ✨ **GOLPE DIVINO CRÍTICO!**" if god_crit else ""
+                turn_embed.add_field(
+                    name=f"{god_ally['emoji']} {god_ally['nome']} intervém!{god_crit_txt}",
+                    value=f"*{god_ally['ally_skill_nome']}* — 💥 `−{god_ally_dmg:,} HP` para **{boss_data['name']}**\n*'Lembro desse boss. Não me impressiona.'*",
+                    inline=False,
+                )
 
         # === ATAQUE DO PET ===
         if pet_combat_name and pet_cur_hp > 0:
@@ -22625,6 +22713,19 @@ async def on_message(message):
             value="`abrir mapa` | `viajar <local>` | `procurar cidade`",
             inline=False
         )
+        e2.add_field(
+            name="🌟 Sistema de Deuses",
+            value=(
+                "`quest divina [deus]` — iniciar quest divina\n"
+                "`confrontar deus [nome]` — batalha épica (deuses são 3× mais fortes!)\n"
+                "`aliar deus [nome]` — após vitória, aliar o deus\n"
+                "`deuses aliados` — ver aliados divinos\n"
+                "`invocar deus [nome]` — skill divina (5min cooldown)\n"
+                "`oferecer [item]` — oferenda para quest\n"
+                "*⚡ Deuses aliados participam automaticamente de boss battles!*"
+            ),
+            inline=False
+        )
         e2.set_footer(text="Página 2/5 — Use 'comandos 3' para Pets, Empregos & Quests")
 
         # ── Página 3: Pets, Empregos, Quests ──
@@ -22763,7 +22864,8 @@ async def on_message(message):
                 "• **4 Ciclos:** Ciclo 2 (200), Ciclo 3 (400), Ciclo 4 (500) — cada um escala tudo\n"
                 "• **Drops:** Monstros → Épico | Bosses → Mítico+ | Ciclos avançados → Divino/Primordial\n"
                 "• **Raça:** Escolha permanente — escolha com cuidado!\n"
-                "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos\n"
+                "• **Samurai de Kenshiro:** Nova classe — ATK+18, HP+22, especializada em katana e Iaijutsu\n"
+                "• **Sistema de Deuses:** Deuses aliados participam de boss battles e dão skills poderosas!\n"
                 "• Use `atualização` para ver o que foi adicionado recentemente!"
             ),
             inline=False
@@ -22793,6 +22895,15 @@ async def on_message(message):
         e2.add_field(name="🌍 Exploração", value="`explorar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon` | `abrir mapa` | `viajar [local]`", inline=False)
         e2.add_field(name="👹 Boss & Combate", value="`encontrar boss` | `desafiar boss` | `juntar boss` | `iniciar batalha boss` | `desafiar @jogador`", inline=False)
         e2.add_field(name="🚨 Boss de Nível (40+ bosses)", value="**Níveis 9/19/29/.../599** — XP bloqueado até vencer!\nBoss de Nível desbloqueia o próximo reino e novas habilidades.", inline=False)
+        e2.add_field(name="🌟 Sistema de Deuses", value=(
+            "`quest divina [deus]` — quest divina\n"
+            "`confrontar deus [nome]` — batalha épica com fases\n"
+            "`aliar deus [nome]` — aliá-lo após vitória\n"
+            "`deuses aliados` — ver aliados\n"
+            "`invocar deus [nome]` — skill divina (5min CD)\n"
+            "`oferecer [item]` — oferenda para quest\n"
+            "*⚡ Deuses aliados participam automaticamente de boss battles!*"
+        ), inline=False)
         e2.add_field(name="💪 Treinamento pós-derrota", value="`treinar força` (+ATK) | `treinar defesa` (+DEF) | `treinar vitalidade` (+HP) | `treinar intensivo`", inline=False)
         e2.add_field(name="🗺️ Mapa & Viagem", value="`abrir mapa` — navega pelos 40 reinos + 5 dimensões | `procurar cidade` | `viajar [local]`", inline=False)
         e2.add_field(name="🐎 Montaria & Pets", value="`montar [pet]` | `desmontar` | `cavalgar` | `ver montaria` | `lista montarias` | `pokédex` | `pokédex [nome]`", inline=False)
@@ -22828,7 +22939,9 @@ async def on_message(message):
             "• **Ciclos:** Ciclo 2 (nível 200), Ciclo 3 (400), Ciclo 4 (500) — cada um escala tudo\n"
             "• **Drops:** Monstros → até Épico | Bosses → Mítico+ | Ciclos avançados → Divino/Primordial\n"
             "• **Raça:** Escolha permanente — pense bem! | **Classe:** 7 tiers de evolução até o Absoluto\n"
-            "• **Mundo Próprio:** Canal privado funciona com TODOS os comandos"
+            "• **⚔️ Samurai de Kenshiro:** Nova classe — Katana, Iaijutsu e código Bushido!\n"
+            "• **🌟 Sistema de Deuses:** Aliados divinos atacam automaticamente em boss battles!\n"
+            "• **Batalha contra Deuses:** 3 fases épicas — cada deus fica mais forte ao ser ferido!"
         ), inline=False)
         e5.set_footer(text="Valtherra RPG Bot — Use 'atualização' para ver novidades | 'comandos' para esta lista")
         await message.channel.send(embed=e5)
@@ -28667,12 +28780,25 @@ async def handle_admin_commands(message):
         )
         embed.add_field(
             name="📋 Classes disponíveis",
-            value="Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante, Berserker, Druida, Monge, Bardo",
+            value="Guerreiro, Mago, Arqueiro, Paladino, Assassino, Necromante, Berserker, Druida, Monge, Bardo, **Samurai** + 30 classes extras",
             inline=False
         )
         embed.add_field(
             name="🧬 Raças disponíveis",
             value="Humano, Élfico, Anão, Orc, Anjo, Demônio, Dragônico, Vampiro, Lobisomem, Espectro + mais",
+            inline=False
+        )
+        embed.add_field(
+            name="🌟 Sistema de Deuses",
+            value=(
+                "`quest divina [deus]` — iniciar/ver quest do deus\n"
+                "`confrontar deus [nome]` — batalha épica contra o deus\n"
+                "`aliar deus [nome]` — após vitória, torná-lo aliado\n"
+                "`deuses aliados` — ver seus aliados divinos ativos\n"
+                "`invocar deus [nome]` — usar skill divina (5min CD)\n"
+                "`oferecer [item]` — oferenda para progressão de quest\n"
+                "*Deuses aliados participam automaticamente de boss battles!*"
+            ),
             inline=False
         )
         embed.set_footer(text="⚠️ Todos os comandos admin funcionam em QUALQUER canal do servidor")
@@ -33629,21 +33755,47 @@ async def fight_god(channel, user_id: str, nome_deus: str):
     boss_def = deus.get("def", 0)
 
     embed_intro = discord.Embed(
-        title=f"{deus['emoji']} CONFRONTO DIVINO — {nome_deus.upper()}",
-        description=f"*{deus['intro']}*",
+        title=f"⚡ {deus['emoji']} CONFRONTO DIVINO — {nome_deus.upper()} ⚡",
+        description=f"*{deus['intro']}*\n\n🌩️ *O céu racha. A terra treme. Um deus desceu para te destruir.*",
         color=deus["cor"],
     )
-    embed_intro.add_field(name=f"{deus['emoji']} {nome_deus} — {deus['titulo']}", value=f"❤️ HP: `{boss_hp:,}` | ⚔️ ATK: `{boss_atk}` | 🛡️ DEF: `{boss_def}`", inline=False)
-    embed_intro.add_field(name=f"{p_icon} Você", value=f"HP: `{p_hp}/{p_max_hp}` | ATK: `{p_atk}`", inline=True)
+    embed_intro.add_field(name=f"{deus['emoji']} {nome_deus} — {deus['titulo']}", value=f"❤️ HP: `{boss_hp:,}` | ⚔️ ATK: `{boss_atk}` | 🛡️ DEF: `{boss_def}`\n*'Mortais não sobrevivem à ira divina.'*", inline=False)
+    embed_intro.add_field(name=f"{p_icon} Você ({p_cls})", value=f"HP: `{p_hp}/{p_max_hp}` | ⚔️ ATK: `{p_atk}`\n*'Enfrento o impossível — e vencerei.'*", inline=True)
     if aliados:
-        embed_intro.add_field(name="✨ Aliados Divinos", value=" | ".join(f"{DEUSES[n]['emoji']} {n}" for n in aliados), inline=False)
-    embed_intro.set_footer(text="⚠️ Os deuses são 3× mais poderosos que qualquer boss de level!")
+        embed_intro.add_field(name="✨ Aliados Divinos ao Seu Lado", value=" | ".join(f"{DEUSES[n]['emoji']} **{n}**" for n in aliados), inline=False)
+    embed_intro.add_field(name="⚠️ AVISO DIVINO", value="*Os deuses são 3× mais poderosos que qualquer boss de level!\nFases de poder se ativam conforme a batalha avança...*", inline=False)
+    embed_intro.set_footer(text="⚡ Que o mais forte entre mortal e divino prevaleça!")
     await channel.send(embed=embed_intro)
     await asyncio.sleep(2)
+
+    # Mensagens épicas por fase do deus
+    GOD_PHASE_MSGS = {
+        75: [
+            f"💢 **{nome_deus} está irritado!** *'{deus['emoji']} Você ousa me ferir, mortal?!'*",
+            f"🌩️ **{nome_deus} revela seu poder real!** *'Isso foi apenas um aquecimento!'*",
+        ],
+        50: [
+            f"🔥 **{nome_deus} entra em FÚRIA DIVINA!** *'{deus['emoji']} Você irá se arrepender desse dia!'*\n*O poder do deus aumenta em 30%!*",
+            f"⚡ **FASE II — {nome_deus.upper()} DESPERTA!** *'Eu subestimei você, mortal. Erro que não repetirei!'*",
+        ],
+        25: [
+            f"💀 **{nome_deus} está DESESPERADO!** *'{deus['emoji']} IMPOSSÍVEL! UM MORTAL ME REDUZINDO A ISSO?!'*\n*⚠️ Poder divino transbordando — prepare-se para o pior!*",
+            f"🌑 **FASE FINAL — {nome_deus.upper()} LIBERA TUDO!** *'Se vou cair, arrasto você comigo!'*",
+        ],
+    }
+
+    GOD_SKILL_NAMES = [
+        f"lançou **Ira Divina** {deus['emoji']}",
+        f"usou **Julgamento dos Deuses** {deus['emoji']}",
+        f"invocou **Punição Celestial** {deus['emoji']}",
+        f"desferiu **Golpe de Divindade** {deus['emoji']}",
+        f"canaliza **Poder Primordial** {deus['emoji']}",
+    ]
 
     turn = 0
     p_shield = False
     revived = False
+    phases_triggered = {75: False, 50: False, 25: False}
 
     while p_hp > 0 and boss_cur_hp > 0:
         turn += 1
@@ -33662,18 +33814,49 @@ async def fight_god(channel, user_id: str, nome_deus: str):
         crit_txt = " 💥 **CRÍTICO!**" if crit else ""
 
         god_dmg = 0
-        god_action = "atacou"
+        god_action = random.choice(GOD_SKILL_NAMES)
         if boss_cur_hp > 0:
             god_base = max(1, boss_atk - int(p_def * 0.3))
-            god_dmg = int(god_base * random.uniform(0.8, 1.3))
+            # Fase 50%: boss fica 30% mais forte
+            phase_mult = 1.0
+            if boss_cur_hp <= boss_hp * 0.50:
+                phase_mult = 1.30
+            # Fase 25%: boss fica 60% mais forte
+            if boss_cur_hp <= boss_hp * 0.25:
+                phase_mult = 1.60
+            god_dmg = int(god_base * random.uniform(0.8, 1.3) * phase_mult)
             if turn % 3 == 0:
                 god_dmg = int(god_dmg * 1.8)
-                god_action = f"usou **Poder Divino** {deus['emoji']}"
+                god_action = f"desferiu **GOLPE SUPREMO DIVINO** {deus['emoji']} 💥"
             if p_shield:
                 god_dmg = 0
-                god_action = "foi BLOQUEADO! 🛡️"
+                god_action = f"foi BLOQUEADO pelo seu escudo! 🛡️ *'{nome_deus} ruge de frustração!'*"
                 p_shield = False
             p_hp = max(0, p_hp - god_dmg)
+
+        # Verificar transições de fase (mensagens cinematográficas)
+        hp_pct = int(boss_cur_hp / boss_hp * 100)
+        for phase_threshold in [75, 50, 25]:
+            if hp_pct <= phase_threshold and not phases_triggered[phase_threshold]:
+                phases_triggered[phase_threshold] = True
+                phase_embed = discord.Embed(
+                    title=f"⚡ FASE {['', 'II', 'III', 'IV'][list([75,50,25]).index(phase_threshold)+1]} — {nome_deus.upper()} MUDA DE PATAMAR!",
+                    description=random.choice(GOD_PHASE_MSGS[phase_threshold]),
+                    color=deus["cor"]
+                )
+                phase_embed.set_footer(text=f"HP do Deus: {boss_cur_hp:,}/{boss_hp:,} ({hp_pct}%)")
+                await channel.send(embed=phase_embed)
+                await asyncio.sleep(1.5)
+
+        # Ataques dos aliados divinos neste turno
+        ally_atk_lines = []
+        for n_al in aliados:
+            d_al = DEUSES.get(n_al, {})
+            ally_sk = d_al.get("ally_skill", {})
+            if ally_sk and boss_cur_hp > 0:
+                al_dmg = int(player.get("level", 1) * 8 * ally_sk.get("dmg_mult", 1.2))
+                boss_cur_hp = max(0, boss_cur_hp - al_dmg)
+                ally_atk_lines.append(f"{d_al['emoji']} **{n_al}** usou *{ally_sk.get('nome', 'Golpe Divino')}* — `{al_dmg}` dano!")
 
         # Passiva de reviver (Nyxaris / Thalyn como aliado)
         if p_hp <= 0 and not revived:
@@ -33691,16 +33874,29 @@ async def fight_god(channel, user_id: str, nome_deus: str):
             f = max(0, int(cur / max(mx, 1) * sz))
             return "🟥" * f + "⬛" * (sz - f)
 
-        embed_turn = discord.Embed(title=f"⚔️ Turno {turn}", color=deus["cor"])
+        TURN_TITLES = [
+            f"⚔️ Turno {turn} — *Os golpes se intensificam!*",
+            f"🌩️ Turno {turn} — *O poder divino ressoa!*",
+            f"💥 Turno {turn} — *A batalha épica continua!*",
+            f"🔥 Turno {turn} — *Cada golpe pode ser o decisivo!*",
+            f"⚡ Turno {turn} — *Mortal versus Divino!*",
+        ]
+        embed_turn = discord.Embed(title=random.choice(TURN_TITLES), color=deus["cor"])
         embed_turn.add_field(
             name=f"{p_icon} **{skill['name']}**{crit_txt}",
-            value=f"Dano: `{p_dmg}` | {hp_bar(boss_cur_hp, boss_hp)} `{boss_cur_hp:,}/{boss_hp:,}`",
+            value=f"💥 Dano: `{p_dmg}` | {hp_bar(boss_cur_hp, boss_hp)} `{boss_cur_hp:,}/{boss_hp:,}`",
             inline=False,
         )
         if boss_cur_hp > 0 or god_dmg:
             embed_turn.add_field(
                 name=f"{deus['emoji']} {god_action}",
-                value=f"Dano: `{god_dmg}` | {hp_bar(p_hp, p_max_hp)} `{p_hp}/{p_max_hp}`",
+                value=f"💢 Dano: `{god_dmg}` | {hp_bar(p_hp, p_max_hp)} `{p_hp}/{p_max_hp}`",
+                inline=False,
+            )
+        if ally_atk_lines:
+            embed_turn.add_field(
+                name="✨ Aliados Divinos Intervêm!",
+                value="\n".join(ally_atk_lines),
                 inline=False,
             )
         await channel.send(embed=embed_turn)
