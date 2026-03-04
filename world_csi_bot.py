@@ -19000,11 +19000,14 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             d = DEUSES.get(nome_deus_aliado)
             if d:
                 ally_sk = d.get("ally_skill", {})
+                god_base_hp = max(300, player["level"] * 40)
                 god_allies_data.append({
                     "nome": nome_deus_aliado,
                     "emoji": d.get("emoji", "✨"),
                     "ally_skill_nome": ally_sk.get("nome", "Golpe Divino"),
                     "dmg_mult": ally_sk.get("dmg_mult", 1.3),
+                    "max_hp": god_base_hp,
+                    "cur_hp": god_base_hp,
                 })
     except:
         pass
@@ -19580,6 +19583,18 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
                 if legendary_comp_cur_hp <= 0:
                     fallen_msg = f"{legendary_comp_data['emoji']} **{legendary_comp_data['name']}** foi derrubado pelo boss! *'Continua... eu preciso descansar...'*"
                     turn_embed.add_field(name="💔 Companheiro Caído!", value=fallen_msg, inline=False)
+
+            # Deuses aliados absorvem pequeno respingo (15% do dano do boss)
+            for god_ally in god_allies_data:
+                if god_ally.get("cur_hp", 0) > 0:
+                    god_splash = max(1, b_dmg // 15)
+                    god_ally["cur_hp"] = max(0, god_ally["cur_hp"] - god_splash)
+                    if god_ally["cur_hp"] <= 0:
+                        turn_embed.add_field(
+                            name=f"{god_ally['emoji']} Deus Aliado Exausto!",
+                            value=f"*{god_ally['nome']} absorveu demais — está exausto mas protegeu você!*",
+                            inline=False
+                        )
         else:
             stun_msgs = [
                 f"⚡ **{boss_data['name']}** está PARALISADO! O boss perdeu o turno!",
@@ -19677,6 +19692,22 @@ async def fight_boss(channel, user_id, is_dungeon=False, dungeon_boss=None, alli
             else:
                 army_bar_str = make_hp_bar(army_pct, "🟥") + f" `{army_cur_hp:,}/{army_max_hp:,}` ❤️"
             status_text += f"\n{army_race_data['emoji']} **{army_race_data['name']}** (Exército): {army_bar_str}"
+
+        # === BARRAS DE HP DOS DEUSES ALIADOS ===
+        for god_ally in god_allies_data:
+            g_hp  = god_ally.get("cur_hp", god_ally.get("max_hp", 0))
+            g_max = god_ally.get("max_hp", 1)
+            g_pct = max(0, int(g_hp / max(g_max, 1) * 100))
+            if g_hp <= 0:
+                g_bar_str = "💔 EXAUSTO"
+            elif g_pct > 60:
+                g_bar_str = make_hp_bar(g_pct, "🟩") + f" `{g_hp:,}/{g_max:,}` ❤️"
+            elif g_pct > 30:
+                g_bar_str = make_hp_bar(g_pct, "🟨") + f" `{g_hp:,}/{g_max:,}` ❤️"
+            else:
+                g_bar_str = make_hp_bar(g_pct, "🟥") + f" `{g_hp:,}/{g_max:,}` ❤️"
+            status_text += f"\n{god_ally['emoji']} **{god_ally['nome']}** (Deus Aliado): {g_bar_str}"
+
 
         # Mensagem de alerta de HP baixo
         if p_pct <= 20:
@@ -33793,114 +33824,296 @@ async def fight_god(channel, user_id: str, nome_deus: str):
     ]
 
     turn = 0
-    p_shield = False
+    p_cur_hp = p_hp
     revived = False
     phases_triggered = {75: False, 50: False, 25: False}
+    p_poisoned = False
+    god_poisoned = False
+    god_phase = 1  # 1=normal, 2=irritado, 3=fúria, 4=desespero
 
-    while p_hp > 0 and boss_cur_hp > 0:
+    # HP dos aliados divinos (rastreado individualmente)
+    ally_god_hp = {}
+    ally_god_max_hp = {}
+    for n_al in aliados:
+        base_hp = max(200, player["level"] * 30)
+        ally_god_hp[n_al] = base_hp
+        ally_god_max_hp[n_al] = base_hp
+
+    # Pool de habilidades do deus por fase
+    GOD_SKILLS_POOL = {
+        1: [
+            {"name": f"Toque Divino {deus['emoji']}", "dmg_mult": 1.0, "desc": "Um ataque contido — ainda assim brutal para um mortal."},
+            {"name": f"Julgamento {deus['emoji']}", "dmg_mult": 1.2, "desc": "O deus te avalia e golpeia onde mais dói."},
+            {"name": f"Ira Controlada {deus['emoji']}", "dmg_mult": 1.1, "desc": "Nem todo o poder divino — mas já sufoca."},
+        ],
+        2: [
+            {"name": f"Punição Divina {deus['emoji']}", "dmg_mult": 1.4, "desc": "O deus para de se conter."},
+            {"name": f"Chama da Imortalidade {deus['emoji']}", "dmg_mult": 1.6, "desc": "Fogo que nunca se apaga queima sua carne."},
+            {"name": f"Cólera dos Céus {deus['emoji']}", "dmg_mult": 1.3, "poison": True, "desc": "Uma chuva de energia divina envenena tudo."},
+        ],
+        3: [
+            {"name": f"⚡ FÚRIA DIVINA {deus['emoji']}", "dmg_mult": 1.8, "desc": "O deus libera parte do seu poder verdadeiro."},
+            {"name": f"☄️ Meteoro Sagrado {deus['emoji']}", "dmg_mult": 2.0, "desc": "Uma rocha celestial cai sobre você."},
+            {"name": f"🌪️ Tempestade do Panteão {deus['emoji']}", "dmg_mult": 1.7, "stun": True, "desc": "Vendaval que derruba montanhas."},
+        ],
+        4: [
+            {"name": f"💀 EXTINÇÃO DIVINA {deus['emoji']}", "dmg_mult": 2.4, "desc": "O deus não tem nada a perder. Tudo ou nada."},
+            {"name": f"🔥 APOCALIPSE PESSOAL {deus['emoji']}", "dmg_mult": 2.2, "poison": True, "stun": True, "desc": "O deus desencadeia o caos em forma pura."},
+            {"name": f"⚡ GOLPE FINAL DOS DEUSES {deus['emoji']}", "dmg_mult": 2.6, "desc": "O último recurso de uma divindade moribunda."},
+        ],
+    }
+
+    def make_hp_bar(pct, filled_emoji, empty_emoji="⬛"):
+        filled = max(0, min(10, pct // 10))
+        return filled_emoji * filled + empty_emoji * (10 - filled)
+
+    TURN_NARRATIONS_GOD = [
+        f"⚔️ **TURNO {{t}}** — *Mortal versus Divino — quem vai ceder primeiro?*",
+        f"🌩️ **TURNO {{t}}** — *Os raios divinos iluminam o campo de batalha!*",
+        f"💥 **TURNO {{t}}** — *O chão racha com cada golpe trocado!*",
+        f"🔥 **TURNO {{t}}** — *A energia transcendente queima o ar ao redor!*",
+        f"⚡ **TURNO {{t}}** — *Um ser imortal enfrenta um mortal que recusa morrer!*",
+        f"🌑 **TURNO {{t}}** — *As estrelas param para assistir esse confronto épico!*",
+    ]
+
+    while p_cur_hp > 0 and boss_cur_hp > 0:
         turn += 1
 
-        skill = random.choice(p_skills) if p_skills else {"name": "Ataque Básico", "dmg_mult": 1.0, "mana_cost": 0}
-        mana_cost = skill.get("mana_cost", 0)
-        if p_cur_mana < mana_cost:
-            skill = {"name": "Ataque Básico", "dmg_mult": 1.0, "mana_cost": 0}
-            mana_cost = 0
-        p_cur_mana = max(0, p_cur_mana - mana_cost)
+        # Verificar transição de fase ANTES do turno
+        hp_pct_god = int(boss_cur_hp / boss_hp * 100)
+        if hp_pct_god <= 25 and not phases_triggered[25]:
+            phases_triggered[25] = True
+            god_phase = 4
+            boss_atk = int(boss_atk * 1.30)
+            phase_embed = discord.Embed(
+                title=f"💀 FASE CRÍTICA — {nome_deus.upper()} LIBERA TUDO!",
+                description=(
+                    f"*{deus['emoji']} — 'IMPOSSÍVEL! UM MORTAL ME REDUZINDO A ISSO?!'*\n\n"
+                    f"⚠️ **{nome_deus} está desesperado e libera 100% do poder divino!**\n"
+                    f"💢 *ATK aumentou 30%! Prepare-se para o pior!*"
+                ),
+                color=discord.Color.from_rgb(180, 0, 0)
+            )
+            phase_embed.add_field(
+                name=f"🩸 HP do Deus",
+                value=f"{make_hp_bar(hp_pct_god, '🟥')} `{boss_cur_hp:,}/{boss_hp:,}` ❤️\n*Uma divindade na beira do abismo é a mais perigosa!*",
+                inline=False
+            )
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(2)
+        elif hp_pct_god <= 50 and not phases_triggered[50]:
+            phases_triggered[50] = True
+            god_phase = 3
+            boss_atk = int(boss_atk * 1.20)
+            phase_embed = discord.Embed(
+                title=f"🔥 FASE II — {nome_deus.upper()} ENTRA EM FÚRIA DIVINA!",
+                description=(
+                    f"*{deus['emoji']} — 'Eu subestimei você, mortal. Erro que não repetirei!'*\n\n"
+                    f"⚡ **O poder divino de {nome_deus} aumentou 20%!**"
+                ),
+                color=deus["cor"]
+            )
+            phase_embed.add_field(name="📊 HP do Deus", value=f"{make_hp_bar(hp_pct_god, '🟧')} `{boss_cur_hp:,}/{boss_hp:,}` ❤️", inline=False)
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(2)
+        elif hp_pct_god <= 75 and not phases_triggered[75]:
+            phases_triggered[75] = True
+            god_phase = 2
+            phase_embed = discord.Embed(
+                title=f"💢 {nome_deus.upper()} ESTÁ IRRITADO!",
+                description=f"*{deus['emoji']} — 'Você ousa me ferir, mortal?! Interessante...'*\n\n*O deus começa a revelar seu poder verdadeiro...*",
+                color=deus["cor"]
+            )
+            await channel.send(embed=phase_embed)
+            await asyncio.sleep(1.5)
 
+        # ── Ação do jogador ──
+        available_skills = [s for s in p_skills if s.get("mana_cost", 0) <= p_cur_mana] or [{"name": "Ataque Básico", "dmg_mult": 1.0, "mana_cost": 0, "desc": "Golpe básico."}]
+
+        # Suprema disponível?
+        p_supreme_skill = None
+        for sk in get_player_skills(player):
+            if sk.get("unlock_boss") and sk.get("mana_cost", 0) <= p_cur_mana:
+                p_supreme_skill = sk
+        use_supreme = p_supreme_skill and (hp_pct_god <= 30 or int(p_cur_hp / p_max_hp * 100) <= 25 or turn >= 7)
+
+        if use_supreme:
+            skill = p_supreme_skill
+            supreme_announce = discord.Embed(
+                title="⚡👑 HABILIDADE SUPREMA ATIVADA! 👑⚡",
+                description=f"*O campo de batalha treme! Uma energia descomunal emana de você!*\n\n## {skill['name']}\n*{skill.get('desc','')}*",
+                color=discord.Color.from_rgb(255, 215, 0)
+            )
+            await channel.send(embed=supreme_announce)
+            await asyncio.sleep(1.5)
+        else:
+            skill = random.choice(available_skills)
+
+        p_cur_mana = max(0, p_cur_mana - skill.get("mana_cost", 0))
         base_dmg = max(1, p_atk - boss_def // 2)
-        crit = random.random() < 0.15
-        p_dmg = int(base_dmg * skill.get("dmg_mult", 1.0) * (2 if crit else 1))
+        is_crit = random.random() < (0.60 if use_supreme else skill.get("crit_chance", 0.15))
+        p_dmg = int(base_dmg * skill.get("dmg_mult", 1.0) * (1.8 if is_crit else 1.0))
         boss_cur_hp = max(0, boss_cur_hp - p_dmg)
-        crit_txt = " 💥 **CRÍTICO!**" if crit else ""
+        if skill.get("self_heal"):
+            p_cur_hp = min(p_max_hp, p_cur_hp + skill["self_heal"])
+        if skill.get("poison"):
+            god_poisoned = True
 
-        god_dmg = 0
-        god_action = random.choice(GOD_SKILL_NAMES)
-        if boss_cur_hp > 0:
-            god_base = max(1, boss_atk - int(p_def * 0.3))
-            # Fase 50%: boss fica 30% mais forte
-            phase_mult = 1.0
-            if boss_cur_hp <= boss_hp * 0.50:
-                phase_mult = 1.30
-            # Fase 25%: boss fica 60% mais forte
-            if boss_cur_hp <= boss_hp * 0.25:
-                phase_mult = 1.60
-            god_dmg = int(god_base * random.uniform(0.8, 1.3) * phase_mult)
-            if turn % 3 == 0:
-                god_dmg = int(god_dmg * 1.8)
-                god_action = f"desferiu **GOLPE SUPREMO DIVINO** {deus['emoji']} 💥"
-            if p_shield:
-                god_dmg = 0
-                god_action = f"foi BLOQUEADO pelo seu escudo! 🛡️ *'{nome_deus} ruge de frustração!'*"
-                p_shield = False
-            p_hp = max(0, p_hp - god_dmg)
+        crit_txt = " 💥 **CRÍTICO DIVINO!**" if is_crit else ""
+        sup_txt = " 👑 **GOLPE SUPREMO!**" if use_supreme else ""
+        narr = random.choice(TURN_NARRATIONS_GOD).format(t=turn)
+        turn_embed = discord.Embed(title=narr, color=deus["cor"])
 
-        # Verificar transições de fase (mensagens cinematográficas)
-        hp_pct = int(boss_cur_hp / boss_hp * 100)
-        for phase_threshold in [75, 50, 25]:
-            if hp_pct <= phase_threshold and not phases_triggered[phase_threshold]:
-                phases_triggered[phase_threshold] = True
-                phase_embed = discord.Embed(
-                    title=f"⚡ FASE {['', 'II', 'III', 'IV'][list([75,50,25]).index(phase_threshold)+1]} — {nome_deus.upper()} MUDA DE PATAMAR!",
-                    description=random.choice(GOD_PHASE_MSGS[phase_threshold]),
-                    color=deus["cor"]
-                )
-                phase_embed.set_footer(text=f"HP do Deus: {boss_cur_hp:,}/{boss_hp:,} ({hp_pct}%)")
-                await channel.send(embed=phase_embed)
-                await asyncio.sleep(1.5)
+        atk_intros = [
+            f"{p_icon} **Você** usa **{skill['name']}**{crit_txt}{sup_txt}!",
+            f"⚡ Com tudo que tem, você lança **{skill['name']}**{crit_txt}!",
+            f"🔥 **{skill['name']}** direcionado ao deus com toda a força!{crit_txt}",
+        ]
+        p_action = f"{random.choice(atk_intros)}\n> 💥 `−{p_dmg:,} HP` causado a **{nome_deus}**\n> _{skill.get('desc','')}_"
+        if is_crit and use_supreme:
+            p_action += "\n> 🌌 *O cosmos inteiro sentiu esse golpe!*"
+        elif is_crit:
+            p_action += "\n> 🎯 *A batalha estremeceu!*"
+        if skill.get("self_heal"):
+            p_action += f"\n> 💚 Você recuperou `{skill['self_heal']}` HP!"
+        if skill.get("poison"):
+            p_action += f"\n> ☠️ **{nome_deus} foi ENVENENADO!**"
+        turn_embed.add_field(name=f"{'👑 GOLPE SUPREMO' if use_supreme else '🔴 Seu Ataque'}!", value=p_action, inline=False)
 
-        # Ataques dos aliados divinos neste turno
-        ally_atk_lines = []
+        # ── Veneno no deus ──
+        if god_poisoned and boss_cur_hp > 0:
+            gp_dmg = max(5, int(boss_hp * 0.04))
+            boss_cur_hp = max(0, boss_cur_hp - gp_dmg)
+            turn_embed.add_field(name="☠️ Veneno Corroendo o Deus!", value=f"*O veneno queima até a carne divina!*\n> 🩸 `−{gp_dmg}` dano contínuo em **{nome_deus}**", inline=False)
+
+        # ── Ataques dos aliados divinos ──
         for n_al in aliados:
             d_al = DEUSES.get(n_al, {})
+            if not d_al or ally_god_hp.get(n_al, 0) <= 0:
+                continue
             ally_sk = d_al.get("ally_skill", {})
-            if ally_sk and boss_cur_hp > 0:
-                al_dmg = int(player.get("level", 1) * 8 * ally_sk.get("dmg_mult", 1.2))
+            al_dmg = int(player.get("level", 1) * 10 * ally_sk.get("dmg_mult", 1.2) * random.uniform(0.9, 1.2))
+            al_crit = random.random() < 0.20
+            if al_crit:
+                al_dmg = int(al_dmg * 1.6)
+            if boss_cur_hp > 0:
                 boss_cur_hp = max(0, boss_cur_hp - al_dmg)
-                ally_atk_lines.append(f"{d_al['emoji']} **{n_al}** usou *{ally_sk.get('nome', 'Golpe Divino')}* — `{al_dmg}` dano!")
+            al_crit_txt = " ✨ **GOLPE DIVINO!**" if al_crit else ""
+            turn_embed.add_field(
+                name=f"{d_al['emoji']} {n_al} intervém!{al_crit_txt}",
+                value=f"*{ally_sk.get('nome', 'Ataque Aliado')}*\n> ⚔️ `−{al_dmg:,} HP` em **{nome_deus}**\n> *'{n_al} não deixa um aliado lutar sozinho contra um deus!'*",
+                inline=False,
+            )
 
-        # Passiva de reviver (Nyxaris / Thalyn como aliado)
-        if p_hp <= 0 and not revived:
+        # ── Se o deus morreu ──
+        if boss_cur_hp <= 0:
+            turn_embed.add_field(
+                name=f"💥 {nome_deus.upper()} FOI DERROTADO!",
+                value=f"*{deus['emoji']} Juntos, vocês derrubaram uma divindade!*\n\n🏆 **{nome_deus} caiu!**",
+                inline=False
+            )
+            p_pct_f = max(0, int(p_cur_hp / p_max_hp * 100))
+            p_bar_f = make_hp_bar(p_pct_f, "🟩" if p_pct_f > 60 else ("🟨" if p_pct_f > 30 else "🟥"))
+            turn_embed.add_field(name="📊 Situação Final", value=(
+                f"{p_icon} **Você**: {p_bar_f} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️\n"
+                f"{deus['emoji']} **{nome_deus}**: {make_hp_bar(0,'🟥')} `0/{boss_hp:,}` ❤️ — ☠️ DERROTADO"
+            ), inline=False)
+            await channel.send(embed=turn_embed)
+            break
+
+        # ── Ação do deus ──
+        g_skill = random.choice(GOD_SKILLS_POOL.get(god_phase, GOD_SKILLS_POOL[1]))
+        g_dmg_raw = int(boss_atk * g_skill["dmg_mult"] * random.uniform(0.85, 1.20))
+        g_crit = random.random() < (0.20 if god_phase >= 3 else 0.12)
+        if g_crit:
+            g_dmg_raw = int(g_dmg_raw * 1.7)
+        g_dmg = max(1, g_dmg_raw - p_def // 2)
+
+        stun_happened = g_skill.get("stun") and random.random() < 0.35
+        p_cur_hp = max(0, p_cur_hp - g_dmg)
+        if g_skill.get("poison"):
+            p_poisoned = True
+
+        g_crit_txt = " 💥 **CRÍTICO DIVINO!**" if g_crit else ""
+        g_reactions = {1: f"*{g_skill['desc']}*", 2: "***(O deus para de se conter...)***", 3: "***(FÚRIA DIVINA em forma pura!)***", 4: "***(UMA DIVINDADE MORIBUNDA É A MAIS PERIGOSA!!!)***"}
+        g_action = f"{deus['emoji']} **{nome_deus}** usa **{g_skill['name']}**{g_crit_txt}!\n> 💥 `−{g_dmg}` HP em você!\n> {g_reactions.get(god_phase, '')}"
+        if stun_happened:
+            g_action += "\n> ⚡ **Você foi PARALISADO pelo poder divino!**"
+        if g_skill.get("poison"):
+            g_action += "\n> ☠️ **Você foi ENVENENADO pelo poder divino!**"
+        if g_crit:
+            g_action += "\n> 💢 *O golpe crítico divino ressoou pelo plano mortal inteiro!*"
+        turn_embed.add_field(name=f"🔵 {nome_deus} contra-ataca!", value=g_action, inline=False)
+
+        # ── Respingo de dano nos aliados divinos ──
+        for n_al in aliados:
+            if ally_god_hp.get(n_al, 0) > 0:
+                ally_god_hp[n_al] = max(0, ally_god_hp[n_al] - max(1, g_dmg // 8))
+
+        # ── Veneno no jogador ──
+        if p_poisoned and p_cur_hp > 0:
+            pp_dmg = max(5, int(p_max_hp * 0.04))
+            p_cur_hp = max(0, p_cur_hp - pp_dmg)
+            turn_embed.add_field(name="☠️ Veneno Divino em Você!", value=f"*A toxina divina queima por dentro...*\n> 🩸 `−{pp_dmg}` dano contínuo", inline=False)
+
+        # ── Passiva de reviver ──
+        if p_cur_hp <= 0 and not revived:
             for n in aliados:
                 d_al = DEUSES.get(n, {})
                 passive = d_al.get("ally_passive", "")
                 if "retorna com" in passive and "HP" in passive:
                     pct = 0.25 if "25%" in passive else 0.40
-                    p_hp = int(p_max_hp * pct)
+                    p_cur_hp = int(p_max_hp * pct)
                     revived = True
-                    god_action += f" | {d_al['emoji']} **{n}** te reviveu com {int(pct*100)}% HP!"
+                    revive_embed = discord.Embed(
+                        title=f"✨ {n} TE REVIVEU!",
+                        description=f"*{d_al['emoji']} {n} não permite que você caia aqui! Você retorna com {int(pct*100)}% HP!*",
+                        color=discord.Color.gold()
+                    )
+                    await channel.send(embed=revive_embed)
+                    await asyncio.sleep(1)
                     break
 
-        def hp_bar(cur, mx, sz=10):
-            f = max(0, int(cur / max(mx, 1) * sz))
-            return "🟥" * f + "⬛" * (sz - f)
+        # ── Painel de HP estilo boss battle ──
+        p_pct = max(0, int(p_cur_hp / p_max_hp * 100))
+        b_pct = max(0, int(boss_cur_hp / boss_hp * 100))
+        p_bar = make_hp_bar(p_pct, "🟩" if p_pct > 60 else ("🟨" if p_pct > 30 else "🟥"))
+        b_bar = make_hp_bar(b_pct, "🟦" if b_pct > 60 else ("🟧" if b_pct > 30 else "🟥"))
+        god_phase_icons = {1: "😐", 2: "😡 IRRITADO", 3: "🤬 FÚRIA DIVINA", 4: "☠️ DESESPERO TOTAL"}
 
-        TURN_TITLES = [
-            f"⚔️ Turno {turn} — *Os golpes se intensificam!*",
-            f"🌩️ Turno {turn} — *O poder divino ressoa!*",
-            f"💥 Turno {turn} — *A batalha épica continua!*",
-            f"🔥 Turno {turn} — *Cada golpe pode ser o decisivo!*",
-            f"⚡ Turno {turn} — *Mortal versus Divino!*",
-        ]
-        embed_turn = discord.Embed(title=random.choice(TURN_TITLES), color=deus["cor"])
-        embed_turn.add_field(
-            name=f"{p_icon} **{skill['name']}**{crit_txt}",
-            value=f"💥 Dano: `{p_dmg}` | {hp_bar(boss_cur_hp, boss_hp)} `{boss_cur_hp:,}/{boss_hp:,}`",
-            inline=False,
+        status_text = (
+            f"{p_icon} **Você**: {p_bar} `{max(0,p_cur_hp)}/{p_max_hp}` ❤️ | 💙 `{p_cur_mana}` mana\n"
+            f"{deus['emoji']} **{nome_deus}** {god_phase_icons.get(god_phase,'')}: {b_bar} `{max(0,boss_cur_hp):,}/{boss_hp:,}` ❤️"
         )
-        if boss_cur_hp > 0 or god_dmg:
-            embed_turn.add_field(
-                name=f"{deus['emoji']} {god_action}",
-                value=f"💢 Dano: `{god_dmg}` | {hp_bar(p_hp, p_max_hp)} `{p_hp}/{p_max_hp}`",
-                inline=False,
-            )
-        if ally_atk_lines:
-            embed_turn.add_field(
-                name="✨ Aliados Divinos Intervêm!",
-                value="\n".join(ally_atk_lines),
-                inline=False,
-            )
-        await channel.send(embed=embed_turn)
+
+        # HP dos aliados divinos com barras
+        for n_al in aliados:
+            d_al = DEUSES.get(n_al, {})
+            a_hp  = ally_god_hp.get(n_al, 0)
+            a_max = ally_god_max_hp.get(n_al, 1)
+            a_pct = max(0, int(a_hp / max(a_max, 1) * 100))
+            if a_hp <= 0:
+                al_bar_str = "💔 EXAUSTO"
+            elif a_pct > 60:
+                al_bar_str = make_hp_bar(a_pct, "🟩") + f" `{a_hp}/{a_max}` ❤️"
+            elif a_pct > 30:
+                al_bar_str = make_hp_bar(a_pct, "🟨") + f" `{a_hp}/{a_max}` ❤️"
+            else:
+                al_bar_str = make_hp_bar(a_pct, "🟥") + f" `{a_hp}/{a_max}` ❤️"
+            status_text += f"\n{d_al.get('emoji','✨')} **{n_al}** (Aliado Divino): {al_bar_str}"
+
+        if p_pct <= 20:
+            status_text += f"\n\n⚠️ ***ATENÇÃO: Você está em situação CRÍTICA!***"
+        elif p_pct <= 40:
+            status_text += f"\n\n💔 *Você está se segurando por um fio...*"
+        if b_pct <= 10:
+            status_text += f"\n\n🌑 *{nome_deus} está à beira do fim — uma divindade moribunda é a mais perigosa!*"
+
+        turn_embed.add_field(name="📊 Situação do Confronto Divino", value=status_text, inline=False)
+        await channel.send(embed=turn_embed)
         await asyncio.sleep(1.5)
+
+    p_hp = p_cur_hp  # sincroniza para o check de derrota abaixo
 
     # ─── Derrota ───
     if p_hp <= 0:
