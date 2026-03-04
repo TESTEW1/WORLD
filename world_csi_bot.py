@@ -19,7 +19,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 # ================= CONFIG =================
 TOKEN = os.getenv("TOKEN")
 DB_FILE = "valtherra.db"
-CANAL_BETA = "🌍・valtherra"
+CANAL_BETA = "🌎・mundo-csi"
 ADMIN_ID = 769951556388257812
 MUNDO_PROPRIO_CHANNELS = {}
 BOT_OWNER_ID = os.getenv("OWNER_ID", str(ADMIN_ID))  # Defina no .env OWNER_ID=seu_discord_id
@@ -17119,146 +17119,224 @@ class TradeButton(discord.ui.View):
 PROLOGUE_CHAPTERS = {
     1: {
         "title": "📗 Capítulo I — Terras Iniciais",
-        "color": 0x2ecc40,
-        "desc": "*\"Todo herói começa aqui. O guerreiro mais poderoso começou matando um slime.\"*\n— Historiador Pell",
-        "chave": "🗝️ Chave Antiga",
-        "nivel": "Nível 1 – 100  •  Reinos 1–10",
+        "color": 0x2ecc71,
+        "desc": (
+            "*\"Antes do tempo ter nome, três forças primordiais criaram um mundo que não devia existir.*\n"
+            "*Você nasceu nele. Isso já é suficiente para mudar tudo.\"*\n\n"
+            "— Eldoriano Thessevan, Guardião da Memória de Ashenvorn"
+        ),
+        "chave": "🗝️ Chave Antiga  •  Nível 1–100",
+        "nivel": "Reinos 1–10  •  Chave Antiga",
         "reinos": [
-            ("🌱", "Planícies de Ashenvorn", "nível 1–9", "Planícies abertas. O Slime Rei guarda os primeiros segredos."),
-            ("🌲", "Floresta de Sylvenmara", "nível 10–19", "A floresta respira e lembra. O Ent Ancião aguarda."),
-            ("🏜️", "Desertos de Roksveld", "nível 20–29", "Calor que consome almas. Uma pirâmide esconde o Faraó das Sombras."),
-            ("❄️", "Montanhas de Khervak", "nível 30–39", "O frio não é inimigo, é teste. O Yeti Colossal ronda os picos."),
-            ("🌋", "Campos Vulcânicos de Pyreth", "nível 40–49", "O fogo transforma. O Dragão de Magma dorme no núcleo."),
-            ("🌌", "Plano do Vazio de Valtherra", "nível 50–59", "Onde toda magia nasce e morre. O Olho do Abismo tudo vê."),
-            ("👑", "Trono Celestial", "nível 60–69", "Quem chegar não será mais mortal. O Querubim Corrompido guarda."),
-            ("🌿", "Pântano das Almas Perdidas", "nível 70–79", "Almas presas na lama. Templo afundado de Morthak."),
-            ("💎", "Floresta Cristalina", "nível 80–89", "Cristais que refletem versões suas que não sobreviveram."),
-            ("🌑", "Sombras Eternas", "nível 90–99", "Escuridão que sabe seu nome. O Rei das Sombras espera."),
+            ("🌾", "Planícies de Ashenvorn", "nível 1–9",
+             "A porta de entrada de Valtherra. Campos dourados, a cidade de **Crestfall** e o ancião Thessevan que guarda memórias da própria criação. O **Pyroclasta Rei** controla os campos exteriores."),
+            ("🌲", "Floresta de Sylvenmara", "nível 10–19",
+             "A floresta respira. Seus Silvanos vivem nas copas a 40m do chão, em **Thalverde**. Thalmyra colocou guardiões aqui — e eles lembram de tudo. O **Treant Ancião** é um deles."),
+            ("🏜️", "Desertos de Roksveld", "nível 20–29",
+             "Dunas de areia vermelha e formações rochosas esculpidas pelo vento. Os Rocceris conhecem os caminhos — ninguém mais. O **Ambarino Ancestral** guarda os segredos soterrados."),
+            ("⛰️", "Montanhas de Khervak", "nível 30–39",
+             "Paredões de rocha negra onde os Anões escavam em busca dos segredos de **Georrus**. **Durrheim** nunca apaga suas forjas. O **Geomárcio Ancião** guarda os picos mais altos."),
+            ("🌋", "Campos Vulcânicos de Pyreth", "nível 40–49",
+             "Os Ignístios vivem aqui porque os vulcões são seu lar, não seu inimigo. O templo de **Fyranor** em **Embervok** ainda arde. O **Ignístio Primordial** guarda a Chama Original."),
+            ("🌊", "Costas de Aquenmar", "nível 50–59",
+             "Falésias altas, praias de areia escura e **Coralith** — construída em três níveis entre a rocha e o fundo da baía. A gruta de **Aqualis** está no nível mais fundo. A **Sereia Ancestral** guarda a entrada."),
+            ("🐺", "Fronteira de Sylvenmara", "nível 60–69",
+             "Zona de tensão entre as planícies e a floresta. Lobisomens tribais, Fadas protetoras e Minotauros de Thalmyra patrulham aqui. O **Lobisomem Alfa** comanda o território."),
+            ("🌿", "Clareiras de Bloomvale", "nível 70–79",
+             "Flores de todas as eras de Valtherra crescem simultaneamente numa clareira que não deveria existir. Os Flordílios comunicam-se por aromas. O **Rei Fúngico Ancestral** defende o coração."),
+            ("🔥", "Campos de Lava de Pyreth", "nível 80–89",
+             "Além de Embervok, onde os Pyroclastas sem Fluxo vagam sem comunidade. Imprevisíveis por desorientação — não por maldade. O **Pyroclasta Colossal** emergiu do núcleo."),
+            ("🌑", "Ruínas Externas de Ashenvorn", "nível 90–99",
+             "O que sobrou de uma guerra cujo nome foi esquecido. Kobolds, Espíritos Fixos e os primeiros sinais de corrupção que virão depois. O **Guardião das Ruínas** espera há séculos."),
         ]
     },
     2: {
         "title": "📘 Capítulo II — Nações Intermediárias",
         "color": 0x2980B9,
-        "desc": "*\"As nações crescem, os inimigos ficam mais astutos. O mundo revela seus segredos.\"*",
-        "chave": "🔑 Chave Arcana",
-        "nivel": "Nível 101 – 200  •  Reinos 11–20",
+        "desc": (
+            "*\"Você sobreviveu ao começo. Agora Valtherra revela que tem mais camadas do que parecia.*\n"
+            "*Nações com história, política e deuses que parecem próximos demais.\"*\n\n"
+            "— Archmago Lotharino de Arcenveil"
+        ),
+        "chave": "🔑 Chave Arcana  •  Nível 101–200",
+        "nivel": "Reinos 11–20  •  Chave Arcana",
         "reinos": [
-            ("⚡", "Estepes de Orrathis", "nível 100–109", "Relâmpagos que são criaturas vivas. Zeus Menor troveja."),
-            ("🗿", "Xaltharis — Nação Xaltariana", "nível 110–119", "Montanhas que são costas de gigantes dormindo."),
-            ("🌊", "Arquipélago de Quorval", "nível 120–129", "Um oceano onde o tempo não flui normalmente."),
-            ("🌀", "Wasteland de Feraxis", "nível 130–139", "A realidade como inimigo. O Caos em Pessoa reina."),
-            ("🌸", "Planícies de Velkar", "nível 140–149", "Um paraíso onde cada flor é uma armadilha divina."),
-            ("🧊", "Chronoveil", "nível 150–159", "Frio que antecede o próprio universo."),
-            ("🏛️", "Ruínas de Valkmorr", "nível 160–169", "Autômatos de uma civilização que precedeu os deuses."),
-            ("✨", "Céu de Venthar — Gavídeos", "nível 170–179", "O cosmos consciente. A linguagem não alcança tudo."),
-            ("🌌", "Planos Absolutos de Valtherra", "nível 180–189", "Onde o conceito de existir se torna opcional."),
-            ("⭐", "Axis — Centro de Valtherra", "nível 190–199", "O Criador Primordial espera aqui desde sempre."),
+            ("🧝", "Reino de Lótharim", "nível 101–119",
+             "Uma nação construída ao redor da magia como princípio. **Arcenveil** e a Coluna de **Altheron** — uma torre sem topo confirmado. A maior biblioteca de Valtherra tem preço de entrada: provar competência. O **Lotharino Corrompido Ancião** caiu fundo demais."),
+            ("🪞", "Planícies de Velkar", "nível 120–139",
+             "Velkarianos com pele multicolorida que muda conforme a emoção, e **Espelhos de Verdade** em cada praça de **Mirrova**. Mentir aqui é quase impossível. O **Reflexo Corrompido** emergiu dos espelhos."),
+            ("🐴", "Estepes de Orrathis", "nível 140–159",
+             "Centauros e Nagás em aliança antiga, reunidos em **Fiorveth** — construída onde os fios do destino de **Eryndra** cruzam visíveis a olho nu. Fios dourados no céu. Quem os lê vê possibilidades, não certezas. O **Centauro Ancestral** guarda o nó."),
+            ("🌐", "Arquipélago de Quorval", "nível 160–169",
+             "A capital **Tidecrown** flutua sobre as ondas sustentada por um feitiço de Aqualis lançado há tanto tempo que ninguém sabe mais como desfazê-lo. As Quorálidas mudam de forma. Os Tritões defendem tudo. O **Leviatã de Quorval** surge das profundezas."),
+            ("⚖️", "Nação de Xaltharis", "nível 170–179",
+             "**Verdictum** — cidade-tribunal. Cada decisão registrada em pedra. O maior templo de **Zenthyr** de Valtherra funciona como supremo tribunal do mundo. O veredito não tem recurso. O **Xaltariano Supremo** executa sentenças."),
+            ("👁️", "Florestas de Umbreth", "nível 180–189",
+             "**Veilmoor** existe em dois planos simultaneamente. Entrar sem proteção espiritual leva ao plano errado sem mapa de volta. Os Umbrotides coexistem com espíritos por escolha — não por acidente. O **Umbrotide Corrompido Ancião** perdeu essa escolha."),
+            ("🌙", "Noxtherion — Reino dos Vampiros", "nível 190–199",
+             "Barreiras mágicas mantêm o sol fora há milênios. **Sangreveil** cresce do próprio solo. O templo de **Morthrak** aqui é o mais antigo de Valtherra — alguns dizem que o deus habita as câmaras inferiores. Descer é possível. Voltar, menos garantido."),
+            ("🦅", "Céu de Venthar", "nível 200–209",
+             "**Alturis** — plataformas a quilômetros de altitude. Gavídeos que perdem as asas perdem a cidadania. O templo de **Ventharis** é um vórtice de ventos onde o deus fala em sensações, não palavras. O **Grifo Ancestral** domina os ventos."),
+            ("🔥", "Infernara — Terras dos Tieflings", "nível 210–219",
+             "Fumaça de enxofre, rochas negras, céu permanentemente avermelhado. **Ashvorn Profunda** tem os templos duplos de **Morthrak** e **Thalyn** no nível mais fundo. Honrar a eternidade sem temer a morte. O **Morthikan Supremo** ronda as fronteiras."),
+            ("⏳", "Temporis — Terras dos Omnifernos", "nível 220–229",
+             "Uma região normal à distância. Completamente desorientante de perto. O tempo não é linear aqui. **Temporis** existe em múltiplas épocas simultaneamente — edifícios em ruínas e em construção ao mesmo tempo. O **Chronolord Menor** distorce a realidade."),
         ]
     },
     3: {
         "title": "📙 Capítulo III — Impérios Avançados",
         "color": 0x8E44AD,
-        "desc": "*\"O mortal deixa de ser mortal. Impérios que dobram a realidade ao redor.\"*",
-        "chave": "🗡️ Chave Sombria",
-        "nivel": "Nível 201 – 300  •  Reinos 21–30",
+        "desc": (
+            "*\"Os impérios mostram que Valtherra tem poder suficiente para destruir a si mesmo.*\n"
+            "*Você já não é mortal comum. O que você fizer daqui para frente ressoa além daqui.\"*\n\n"
+            "— Drakonian Ancião de Drakenvaal"
+        ),
+        "chave": "🗡️ Chave Sombria  •  Nível 201–300",
+        "nivel": "Reinos 21–30  •  Chave Sombria",
         "reinos": [
-            ("🔱", "Reinos Mortais — Ápice", "nível 200–209", "O topo da mortalidade. Um último boss antes do transcendente."),
-            ("⚡", "Reinos Avançados — Despertar", "nível 210–219", "O despertar além do plano mortal."),
-            ("🌀", "Vórtice dos Reinos", "nível 220–229", "Dimensões se entrelaçam. Física é diferente aqui."),
-            ("🏔️", "Montanhas do Além", "nível 230–239", "Picos que tocam outras dimensões."),
-            ("🌊", "Oceano Dimensional", "nível 240–249", "Um mar que conecta planos de existência."),
-            ("🔥", "Forjas do Caos", "nível 250–259", "Onde os melhores itens do mundo são criados — e destruídos."),
-            ("❄️", "Tundra Absoluta", "nível 260–269", "Frio absoluto onde nem a magia funciona normalmente."),
-            ("⚗️", "Alquimia das Eras", "nível 270–279", "O conhecimento de mil civilizações condensado aqui."),
-            ("🌌", "Chronoveil Profundo", "nível 280–289", "Uma galáxia inteira dentro de um único plano."),
-            ("⚖️", "Tribunal do Cosmo", "nível 290–299", "Onde almas são julgadas antes de avançar."),
+            ("🐉", "Império de Drakonar", "nível 231–249",
+             "O maior império de Valtherra. **Drakenvaal** foi construída sobre o corpo de um dragão ancestral petrificado que ocupa uma montanha inteira. O templo de **Lytheris** é dividido ao meio — um lado na luz, outro na penumbra. Os sacerdotes só se comunicam por escrita. O **Dragão Ancião Primordial** aguarda."),
+            ("⚔️", "Domínio de Orkrion", "nível 250–269",
+             "**Warcheld** em formato de arena concêntrica. Cada lei foi criada por alguém que a defendeu em combate. O templo de **Korrath** fica no centro absoluto — entrar sem dez duelos vencidos é ofensa ao deus. Os **Tactilóides** planejam. Os Orkrionianos executam. O **Campeão de Warcheld** é imbatível nos moldes normais."),
+            ("🕊️", "Cidades-Estado de Zircan", "nível 270–279",
+             "Nenhuma guerra foi declarada em Valtherra nos últimos trezentos anos sem passar pelos Zircanos. **Accordis** fica numa ilha artificial. O templo de **Almira** tem uma praça onde atacar é proibido pela própria deusa — que já puniu fisicamente quem violou isso. O **Diplomata Corrompido** quebrou o pacto."),
+            ("🌋", "Wasteland de Feraxis", "nível 280–289",
+             "Uma terra destruída por guerras sem nome. **O Poço de Feralis** emana energia de destruição constante — aproximar sem preparo causa agressividade irracional. Os Varxians fazem rituais de autodomínio ao redor dele. O **Varxian Corrompido Ancião** perdeu esse domínio."),
+            ("🌑", "Floresta Negra de Rakleth", "nível 290–299",
+             "Árvores negras. Luz produz sombras nas direções erradas. **Ambervault** guarda memórias de civilizações que não existem mais em nenhum outro registro. Entrar é entrar num arquivo vivo. Sair com as memórias certas requer foco que poucos mantêm. O **Ambarino Corrompido Ancião** absorveu demais."),
         ]
     },
     4: {
         "title": "📕 Capítulo IV — Terras Corrompidas",
         "color": 0x922B21,
-        "desc": "*\"A corrupção não é inimiga — é apenas outra forma de poder.\"*\n⚠️ Efeito ambiental: **dano contínuo e debuffs** em todas as áreas.",
-        "chave": "🗡️ Chave Sombria",
-        "nivel": "Nível 301 – 350  •  Reinos 31–35",
+        "desc": (
+            "*\"Algo quebrou aqui. Talvez guerras antigas. Talvez deuses que erraram.*\n"
+            "*Valtherra tem cicatrizes — e algumas nunca fecharam completamente.\"*\n\n"
+            "⚠️ Efeito ambiental: **dano contínuo e debuffs** em todas as áreas corrompidas."
+        ),
+        "chave": "🗡️ Chave Sombria  •  Nível 301–350",
+        "nivel": "Reinos 31–35  •  Terras Corrompidas",
         "reinos": [
-            ("🗡️", "Arena dos Deuses Menores", "nível 300–309", "Deuses menores se combatem eternamente. Você entra no meio."),
-            ("👁️", "O Olho do Multiverso", "nível 310–319", "Uma entidade que observa todas as realidades simultaneamente."),
-            ("🔮", "Plano Astral Inferior", "nível 320–329", "A versão corrompida do Plano Astral. Mais perigosa."),
-            ("💎", "Prismveil — Lúzidos", "nível 330–339", "Cristais corrompidos que amplificam e distorcem poderes."),
-            ("🌑", "Noxtherion — Reino dos Vampiros", "nível 340–349", "A lua que existia antes do sol. Corrupção pura cristalizada."),
+            ("💀", "Ruínas de Valkmorr", "nível 301–319",
+             "Foi o maior império de uma era anterior. Hoje é um labirinto de ruínas onde os últimos **Sombrianos Puros** recusam ir embora. No centro existe um templo de **Nyxaris** que ainda funciona — iluminado, com sacerdotes que não envelhecem. Ninguém sabe por quê ele sobreviveu. O **Tarmuran Ancião** coleta memórias de quem passa."),
+            ("🌫️", "Pântanos de Morthveil", "nível 320–329",
+             "Névoa constante. A fronteira entre vivos e mortos tão fina que se cruza sem perceber. **Morthrak** não está num templo aqui — está no ambiente. Encontrá-lo é possível. O preço da conversa é sempre algo real. Os **Sombrianos Fragmentados** existem em dois planos ao mesmo tempo."),
+            ("☠️", "Terras Ácidas de Zhorvath", "nível 330–339",
+             "Zhorvats dominam o norte. Yrevans dominam o sul. Entre eles, uma guerra territorial sem memória de origem que existe há tanto tempo que nenhum dos dois lados lembra por que começou. Os **Nyrvans** usam portais para emboscar ambos os lados conforme convém."),
+            ("🔴", "Wasteland Profundo de Feraxis", "nível 340–344",
+             "O núcleo da destruição. O Poço de Feralis em sua forma mais intensa. **Férixos** em grupos chamados Warzones — territórios delimitados por sangue que mudam conforme o poder. O **Férixo Ancião** é o mais antigo dos destruidores."),
+            ("🧿", "Ossenvark — Cidade Invisível", "nível 345–350",
+             "**Ossenvark** existe sobre os ossos de civilizações extintas. É impossível de encontrar sem guia Raklion. Aqui Nyxara não é temida — é celebrada como misericórdia. O fim de algo que sofreu o suficiente. O **Raklion Ancião** decide quem pode entrar."),
         ]
     },
     5: {
         "title": "📒 Capítulo V — Reinos Dimensionais",
         "color": 0x6C3483,
-        "desc": "*\"O portal se abre. O que há além não é um reino — é uma realidade inteira.\"*\n💥 Bosses Dimensionais liberam **passivas globais** e **slots extras** de pet/equip!",
-        "chave": "✨ Chave Celestial",
-        "nivel": "Nível 351 – 400  •  Reinos 36–40",
+        "desc": (
+            "*\"Valtherra possui rachaduras. Pontos onde a realidade dobra.*\n"
+            "*Os Reinos Dimensionais existem na fronteira — nem totalmente físicos, nem totalmente outros.*\n"
+            "*São lugares que Valtherra criou sem querer e não consegue fechar.\"*\n\n"
+            "💥 Bosses deste capítulo liberam **passivas permanentes** ao serem derrotados."
+        ),
+        "chave": "✨ Chave Celestial  •  Nível 351–400",
+        "nivel": "Reinos 36–40  •  Chave Celestial",
         "reinos": [
-            ("☄️", "Cemitério de Estrelas", "nível 350–359", "Estrelas mortas que ainda guardam poder imenso."),
-            ("🌞", "Dimensão Celestial — Aetherveil", "nível 360–369", "O núcleo de uma estrela viva — calor além da compreensão."),
-            ("🕳️", "Buraco Negro Vivo", "nível 370–379", "Um buraco negro consciente que devora tudo ao redor."),
-            ("🌐", "Nexo das Dimensões", "nível 380–389", "O ponto onde todas as dimensões se encontram."),
-            ("⚡", "Dimensão Badlands — Arena Sem Fim", "nível 390–399", "Uma tempestade que existe entre dimensões ao mesmo tempo."),
+            ("⏰", "Chronoveil — Reino do Tempo Partido", "nível 351–369",
+             "A mesma rua em construção, em uso e em ruínas ao mesmo tempo. **Temporis Profunda** tem escadas que voltam ao ponto de partida e relógios marcando horas que ainda não aconteceram.\n"
+             "**Boss: Chronolord Vexis** — Um Omniferno que quer parar o tempo de Valtherra. Não por maldade. Por exaustão.\n"
+             "✦ *Passiva: Redução permanente de cooldown de habilidades.*"),
+            ("🌙", "Lunaris — Arquipélago Celestial", "nível 370–379",
+             "Ilhas flutuantes. Os Lunárquicos decodificam mensagens de **Esmirion** em cada estrela. **Cosmos Eye** permite ver outros mundos criados por Aetherion — perturbador de formas que ainda estão sendo catalogadas.\n"
+             "**Boss: Astrael, o Esquecido** — Um Lunárquico que absorveu luz estelar demais e começou a virar uma estrela presa num corpo físico.\n"
+             "✦ *Passiva: Dano de luz aumentado permanentemente.*"),
+            ("🪞", "Areneia — Plano Liminar dos Espelhos", "nível 380–384",
+             "Nada em Areneia é completamente físico — tudo é reflexo de algo em outro lugar. **Espelhara** cria versões alternativas visíveis de cada escolha que você não fez.\n"
+             "**Boss: O Reflexo Verdadeiro** — Usa suas habilidades. Conhece seus truques. A única vantagem é que não tem vontade própria.\n"
+             "✦ *Passiva: Resistência permanente a ilusões e controle mental.*"),
+            ("🌳", "Vorveth — Floresta Eterna", "nível 385–394",
+             "Uma floresta onde o tempo não existe. Criaturas extintas coexistem com vivas porque aqui extinto e vivo não têm significado. **Vorlath** caminha fisicamente aqui — planta, não governa.\n"
+             "**Boss: Raiz Anciã de Vorveth** — O Treant mais antigo. Acordado por perturbações externas. Não é maligno — confunde invasores com ameaças.\n"
+             "✦ *Passiva: Regeneração de vida fora de combate significativamente aumentada.*"),
+            ("💎", "Lumiveth — Vales de Cristal", "nível 395–400",
+             "Uma civilização que funciona inteiramente por energia luminosa. **Prismcore** é uma cidade dentro de um cristal gigante que divide luz em componentes de energia separados. Sem luz, a cidade para.\n"
+             "**Boss: O Núcleo Sombrio** — Uma anomalia dimensional absorvendo a luz de Prismcore. Cresce a cada hora que existe.\n"
+             "✦ *Passiva: Absorção passiva de energia de luz em ambientes iluminados.*"),
         ]
     },
     6: {
         "title": "🌌 Capítulo VI — As Cinco Dimensões",
         "color": 0xF39C12,
-        "desc": "*\"O mapa se rasga. O que há além não é um reino — é uma realidade inteira...\"*\n*\"Transcendeste tudo. Agora as Dimensões Verdadeiras te aguardam.\"*",
-        "chave": "✨ Chave Celestial  (Celestial)  •  🌑 Chave Abissal  (demais)",
-        "nivel": "Nível 401 – 500  •  Além dos reinos",
+        "desc": (
+            "*\"Além de Valtherra, o cosmos possui cinco dimensões separadas.*\n"
+            "*Cada uma com suas leis físicas, habitantes e formas de matar.*\n"
+            "*Cruzar sem a Chave Abissal é sentença de morte — ou algo mais permanente.\"*"
+        ),
+        "chave": "🌑 Chave Abissal  •  Nível 401–500",
+        "nivel": "As 5 Dimensões  •  Além dos reinos físicos",
         "reinos": [
-            ("🕊️", "Dimensão Celestial", "nível 400–419",
-             "Efeito: **buff sagrado** — +15% a todos os stats.\n"
-             "O Céu feito de cristal eterno. NPCs Transcendentais concedem bênçãos divinas.\n"
-             "Dungeons sagradas e o Boss Celestial guardam segredos da Criação."),
+            ("🕊️", "Dimensão Celestial", "nível 401–419",
+             "Efeito ambiental: **+15% a todos os stats.**\n"
+             "Luz permanente. Geometria impossível. **Aetherveil** é construída sobre nuvens de luz solidificada — cada estrutura emite som ao ser tocada. A cidade inteira é um instrumento.\n"
+             "**Boss: Serafim Corrompido de Luz Negra** — Era celestial. Foi consumido pela própria intensidade. A luz que emite agora escurece.\n"
+             "✦ *Passiva: Imunidade a dano de luz por janela de tempo após receber dano.*\n"
+             "**Deus presente: Elaris** — Em sua forma antes de se conter para não assustar mortais."),
             ("🔥", "Dimensão Infernal", "nível 420–439",
-             "Efeito: **dano de fogo contínuo** — −5 HP por turno.\n"
-             "O Inferno como nunca foi descrito. Criaturas do abismo que existem antes da morte.\n"
-             "Drops míticos abundam — se você sobreviver."),
-            ("🌪️", "Dimensão das Badlands", "nível 440–459",
-             "Efeito: **caos puro** — eventos aleatórios a cada exploração.\n"
-             "Terra devastada onde as leis da física são sugestões. Nada é como parece.\n"
-             "Dungeons secretas que aparecem e desaparecem."),
+             "Efeito ambiental: **−5 HP por turno de fogo constante.**\n"
+             "Não é punição — é uma nação. **Pyrevast** fica dentro de um vulcão dimensional ativo. O calor mata quem não pertence aqui. Rapidamente.\n"
+             "**Boss: Lorde do Núcleo** — Metade Varxian, metade vulcão. Sem forma estável.\n"
+             "✦ *Passiva: Dano de fogo aumentado permanentemente.*\n"
+             "**Deus presente: Fyranor** — O fogo primordial que existia antes de Valtherra."),
+            ("🌪️", "Dimensão Badlands", "nível 440–459",
+             "Efeito ambiental: **eventos caóticos aleatórios a cada ação.**\n"
+             "Criação não funciona aqui. Sementes não brotam. Feridas não cicatrizam. É onde a energia de batalhas de Valtherra se dissipa — o resíduo de toda guerra que já aconteceu.\n"
+             "**Boss: O Eterno Guerreiro** — Existe há tanto tempo que virou parte da dimensão. Ressurge dentro das Badlands. Precisa ser derrotado de forma específica.\n"
+             "✦ *Passiva: Uma vez por batalha, não morre abaixo de 1 de vida.*\n"
+             "**Deus presente: Feralis** — Destruição sem contenção. O que ele seria sem Valtherra canalizando."),
             ("🌑", "Dimensão Abissal", "nível 460–479",
-             "Efeito: **debuff de sanidade** — habilidades têm chance de falhar.\n"
-             "Horrores primordiais que existem antes da linguagem. O Abissal não tem forma.\n"
-             "NPCs Transcendentais que falam em riddles e concedem poderes proibidos."),
-            ("🌀", "Dimensão do Vazio", "nível 480–499",
-             "Efeito: **distorção da realidade** — stats alterados aleatoriamente.\n"
-             "O nada que tem consciência. O Senhor do Vazio é a última entidade antes do Absoluto.\n"
-             "A dungeon secreta mais lendária do jogo está aqui — trancada pela **Chave Abissal**."),
+             "Efeito ambiental: **debuff de sanidade — habilidades têm chance de falhar.**\n"
+             "Um oceano infinito e completamente escuro onde a água tem consciência. A pressão é mágica — comprime o pensamento, não o corpo. Tempo demais apaga memórias na ordem inversa.\n"
+             "**Boss: Leviatã Primordial** — Existia antes de Aqualis ter um nome. Não é malévolo. É antigo demais para perceber que as coisas que quebra ao se mover eram cidades.\n"
+             "✦ *Passiva: Respiração permanente sob água. Imunidade a afogamento e pressão.*\n"
+             "**Deus presente: Aqualis** — O oceano primordial de onde toda água de Valtherra veio."),
+            ("🌀", "Dimensão do Vazio", "nível 480–500",
+             "Efeito ambiental: **stats alterados aleatoriamente a cada exploração.**\n"
+             "O Vazio não é ausência de existência — é a existência do que nunca teve causa. Viajantes veem versões de si mesmos que fizeram escolhas diferentes. Sempre perturbadoras.\n"
+             "**Boss: O Reflexo do Nada** — Construído do seu potencial não realizado. Usa não o que você é, mas o que poderia ter sido.\n"
+             "✦ *Passiva: Resistência permanente a controle mental e ilusões de alto nível.*\n"
+             "**Deuses presentes: Néxia e Orryx** — As divindades primordiais que raramente se manifestam. Cada conversa com elas é descrita de forma completamente diferente por quem volta."),
         ]
     },
     7: {
         "title": "♾️ Capítulo VII — Planos Absolutos",
         "color": 0xE74C3C,
-        "desc": "*\"Além daqui não há mais nomes. Há apenas... o Absoluto.\"*\nRaridades exclusivas: 💎 Divino • 🌈 Primordial • ✴️ Absoluto",
-        "chave": "🌑 Chave Abissal",
-        "nivel": "Nível 501 – 600  •  O fim da jornada",
+        "desc": (
+            "*\"Além daqui não há mais nomes. Não são lugares que se visita —*\n"
+            "*são lugares que te visitam quando você finalmente é digno ou infeliz o suficiente para chegar.\"*\n\n"
+            "Raridades exclusivas: 💎 Divino  •  🌈 Primordial  •  ✴️ Absoluto"
+        ),
+        "chave": "🌑 Chave Abissal  •  Nível 501–600",
+        "nivel": "5 Planos Absolutos  •  O fim da jornada",
         "reinos": [
-            ("🔱", "Trono dos Reinos Avançados", "nível 390–399", "O último trono antes das dimensões."),
-            ("🌠", "Dimensões Superiores — Entrada", "nível 400–409", "O portal de entrada para o além absoluto."),
-            ("💫", "Nebulosa da Consciência", "nível 410–419", "Uma nebulosa que pensa e sente."),
-            ("🌀", "Vórtice Dimensional Supremo", "nível 420–429", "O vórtice que gerou todas as dimensões."),
-            ("🏛️", "Aethervast — Plano da Origem", "nível 430–439", "Onde os deuses maiores residem — e morrem."),
-            ("⭐", "Infinitum — Plano do Tempo", "nível 440–449", "A primeira estrela que existiu. Ainda viva."),
-            ("🌌", "Depthveil — Dimensão Abissal", "nível 450–459", "O abismo que circunda toda a criação."),
-            ("⚡", "Plasma da Criação", "nível 460–469", "A energia pura usada para criar o universo."),
-            ("🔱", "Olimpo Transcendente", "nível 470–479", "O Olimpo real, não a cópia mortal."),
-            ("💎", "Cristal do Universo", "nível 480–489", "O cristal que sustenta toda a realidade."),
-            ("🌠", "Ápice das Dimensões Superiores", "nível 490–499", "O topo de tudo que existe além do mortal."),
-            ("♾️", "Planos Absolutos — Limiar", "nível 500–509", "A fronteira entre o transcendente e o absoluto."),
-            ("🌑", "Trevas Absolutas", "nível 510–519", "Escuridão que devora até a luz absoluta."),
-            ("🌟", "Luz Absoluta", "nível 520–529", "Brilho que cega eternamente — até os deuses."),
-            ("⚖️", "Equilíbrio Primordial", "nível 530–539", "A balança que mantém tudo existindo."),
-            ("🔥", "Chama Eterna", "nível 540–549", "A chama que criou o universo ainda arde."),
-            ("🌊", "Oceano Primordial", "nível 550–559", "O oceano que precedeu toda a criação."),
-            ("💨", "Vento do Fim dos Tempos", "nível 560–569", "O sopro que encerrará tudo, um dia."),
-            ("⚡", "Trovão da Origem", "nível 570–579", "O primeiro trovão que ecoou no vazio."),
-            ("🌌", "Vazio Além do Vazio", "nível 580–589", "O nada além do nada. Sem palavras suficientes."),
-            ("♾️", "O Plano Absoluto Final", "nível 590–599", "O fim e o começo de tudo. Nível 600 aguarda."),
+            ("🌠", "Aethervast — O Plano da Origem", "nível 501–519",
+             "Onde **Aetherion** ainda trabalha. Não há habitantes permanentes — apenas ecos de criações descartadas que desenvolveram consciência. Os esboços de mundos que ele não terminou são visíveis como fantasmas de continentes.\n"
+             "**Vorlath** planta sementes de novos mundos nos esboços aprovados.\n"
+             "⚠️ Ameaça: Criações abandonadas com consciência residual e sem propósito definido."),
+            ("🌑", "Veilnox — O Plano do Fim", "nível 520–539",
+             "Onde **Nyxara** e **Néxia** aguardam o fim do ciclo atual. Não é sombrio — é silencioso. Absolutamente silencioso de uma forma que o plano físico nunca consegue ser.\n"
+             "**Raklions Absolutos** arquivam ciclos encerrados para que o próximo não repita os erros.\n"
+             "⚠️ Ameaça: O silêncio em si. Ficar tempo demais torna o plano físico insuportável ao retornar."),
+            ("⏳", "Infinitum — O Plano do Tempo Absoluto", "nível 540–559",
+             "Onde **Chronis** mantém o relógio que conta os anos do cosmos inteiro. O plano muda de configuração a cada segundo real. **Omnifernos Absolutos** vivem aqui — velhos demais para nome.\n"
+             "⚠️ Ameaça: Loops temporais criados em experimentos de Omnifernos que nunca foram encerrados."),
+            ("🧵", "Fiovast — O Plano do Destino", "nível 560–589",
+             "O tear de **Eryndra**. Fios que representam cada vida em cada mundo de Aetherion estendem-se por todo o cosmos. Entrar aqui permite ver seu próprio fio — e, teoricamente, interagir com ele.\n"
+             "O que acontece com quem faz isso não tem registro coerente.\n"
+             "⚠️ Ameaça: Fios de vidas cortadas sem conclusão, com energia residual agressiva."),
+            ("♾️", "Axis — O Ponto Central", "nível 590–600",
+             "Onde **Aetherion**, **Néxia** e **Orryx** coexistem.\n\n"
+             "Não tem mapa. Não tem caminho. Existir aqui por mais de alguns momentos requer ter vivido tudo que Valtherra tem para mostrar — não como requisito de sistema, mas de capacidade. Quem não viveu tudo simplesmente se dissolve.\n\n"
+             "Em Axis, toda realidade de Valtherra se mostra completa. Todas as guerras, todos os deuses, todas as escolhas de todos os mortais que já existiram — visíveis ao mesmo tempo como um único padrão.\n\n"
+             "**O que está em Axis não é um boss. É uma escolha.**"),
         ]
     },
 }
@@ -20395,208 +20473,249 @@ async def send_prologue(guild):
     await asyncio.sleep(1)
 
     # ══════════════════════════════════════════
-    # EMBED 1 — Abertura épica do narrador
+    # EMBED 1 — Abertura épica: A Origem de Valtherra
     # ══════════════════════════════════════════
     embed1 = discord.Embed(
-        title="📖  W O R L D   C S I  📖",
+        title="✦  V A L T H E R R A  ✦",
         description=(
             "```\n"
-            "╔══════════════════════════════════════════╗\n"
-            "║   O Narrador Desperta...                 ║\n"
-            "║   A Maior Saga de Todos os Ciclos Começa ║\n"
-            "╚══════════════════════════════════════════╝\n"
+            "╔══════════════════════════════════════════════╗\n"
+            "║   Antes do tempo ter nome...                 ║\n"
+            "║   Três forças criaram um mundo impossível.   ║\n"
+            "╚══════════════════════════════════════════════╝\n"
             "```\n"
-            "*Uma voz grave ecoa por todo o servidor...*\n\n"
-            "**\"No princípio, havia apenas o Vazio — um silêncio perfeito e eterno.**\n"
-            "Então, a Primeira Chama surgiu do nada, e com ela nasceu o Mundo.\n\n"
-            "Quarenta reinos se formaram das cinzas da criação.\n"
-            "Cinco Dimensões aguardam além deles, cada uma um mundo em si mesma.\n"
-            "Seis ciclos de existência dividem o que os mortais chamam de realidade.\n"
-            "Cada ciclo transcende o anterior de formas que a mente mortal mal pode conceber.\n\n"
-            "**Você... é o próximo herói desta história.**\n"
-            "Ou talvez o próximo Absoluto. O destino é seu para escrever.\"\n\n"
-            "*— O Narrador, antes que a história comece*"
+            "*Uma voz que não vem de nenhum lugar específico ecoa...*\n\n"
+            "**Aetherion** pegou o caos bruto e deu forma.\n"
+            "Continentes emergiram de suas mãos como argila.\n"
+            "Ele não criou Valtherra porque escolheu — criou porque criar é sua natureza.\n\n"
+            "**Néxia** soprou sobre o que foi formado.\n"
+            "Não apenas vida — ela soprou o ciclo.\n"
+            "Cada morte em Valtherra carrega sua assinatura. Cada nascimento, também.\n\n"
+            "**Orryx** esticou o espaço e colocou o tempo para correr dentro dele.\n"
+            "Sem ele, Valtherra seria uma imagem estática — bela, mas morta.\n"
+            "Com ele, tornou-se um mundo de consequências.\n\n"
+            "*Essas três divindades não se falam. Não precisam.*\n"
+            "*São a mesma coisa vista de ângulos diferentes.*\n\n"
+            "**E agora o mundo te chama.**"
         ),
-        color=0x2C2F33
+        color=0x1a0a2e
     )
-    embed1.set_footer(text="🎭 O Narrador observa cada passo seu... até o Plano Absoluto.")
+    embed1.set_footer(text="✦ Valtherra RPG — A jornada de 600 níveis, 7 capítulos, 5 dimensões e 3 planos absolutos começa aqui.")
     await channel.send(embed=embed1)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 2 — Capítulos do Mundo (lista de reinos)
+    # EMBED 2 — Os Vinte e Três Deuses
     # ══════════════════════════════════════════
     embed2 = discord.Embed(
-        title="📖 Os 7 Capítulos do Mundo",
+        title="⚡ Os Vinte e Três Deuses de Valtherra",
         description=(
-            "*O Narrador abre o grande livro do destino...*\n\n"
-            "Use `abrir mapa` para navegar pelos capítulos com os botões **◀ ▶**.\n"
-            "Cada capítulo mostra os reinos desbloqueados, locais e dungeons secretas."
+            "*Após a criação, o próprio Valtherra começou a chamar vozes.*\n"
+            "*Não foram as divindades que criaram os deuses menores — foi o mundo que os invocou.*\n\n"
+            "O vulcão precisava de uma consciência. A floresta precisava de uma voz.\n"
+            "A morte precisava de um rosto para que os mortais pudessem olhar para ela sem enlouquecer.\n\n"
+            "*Quando um deus morre — e deuses morrem em Valtherra — o mundo chama outro.*\n"
+            "*Sem memória do anterior. Sem rancor. Apenas o mesmo propósito, num ser novo.*"
         ),
-        color=0x1a0033
+        color=0x2c1654
     )
     embed2.add_field(
-        name="📖 Cap. I — Terras Iniciais  •  Nível 1–100",
-        value="🌱🌲🏜️❄️🌋🌌👑🌿💎🌑  •  🗝️ Chave Antiga",
+        name="🔥 Elementais e Naturais",
+        value=(
+            "**Fyranor** — Guardião do Vulcão  ·  *Ignístios e Pyroclastas*\n"
+            "**Thalmyra** — Guardiã da Floresta  ·  *Silvanos, Flordílios e Treants*\n"
+            "**Aqualis** — Senhor das Correntes  ·  *Sereias e Quorálidas*\n"
+            "**Ventharis** — Espírito dos Céus  ·  *Gavídeos e Dragões*\n"
+            "**Georrus** — A Rocha Imortal  ·  *Anões, Geomárcios e Rocceris*"
+        ),
         inline=False
     )
     embed2.add_field(
-        name="📖 Cap. II — Nações Intermediárias  •  Nível 101–200",
-        value="⚡🗿🌊🌀🌸🧊🏛️✨🌌⭐  •  🔑 Chave Arcana",
+        name="💀 Vida, Morte e Espiritualidade",
+        value=(
+            "**Elaris** — Senhora da Cura  ·  *Sythranos e Velkarianos*\n"
+            "**Nyxaris** — Mestre dos Espirituais  ·  *Umbrotides e Nocturnais*\n"
+            "**Morthrak** — Rei da Eternidade  ·  *Tieflings, Vampiros e Sombrianos*"
+        ),
         inline=False
     )
     embed2.add_field(
-        name="📖 Cap. III — Impérios Avançados  •  Nível 201–300",
-        value="🔱⚡🌀🏔️🌊🔥❄️⚗️🌌⚖️  •  🗡️ Chave Sombria",
+        name="📚 Sabedoria, Caos e Ordem",
+        value=(
+            "**Altheron** — Mestre da Magia  ·  *Elfos e Lotharins*\n"
+            "**Chronis** — Guardião do Tempo  ·  *Omnifernos*\n"
+            "**Eryndra** — Tecelã dos Destinos  ·  *Nagás e Centauros*\n"
+            "**Feralis** — Deus da Ira Selvagem  ·  *Férixos e Varxians*\n"
+            "**Zenthyr** — O Juiz Eterno  ·  *Xaltarianos*\n"
+            "**Lytheris** — Dualidade da Harmonia  ·  *Drakonians e Lúzidos*"
+        ),
         inline=False
     )
     embed2.add_field(
-        name="📖 Cap. IV — Terras Corrompidas  •  Nível 301–350",
-        value="🗡️👁️🔮💎🌑  •  🗡️ Chave Sombria",
+        name="⚔️ Guerra, Criação e Específicos",
+        value=(
+            "**Korrath** — General Supremo  ·  *Tactilóides e Orkrionianos*\n"
+            "**Almira** — Protetora da Diplomacia  ·  *Zircanos e Neyteranos*\n"
+            "**Vorlath** — Criador de Mundos  ·  *Artênios e Treants*\n"
+            "**Nyxara** — Destruidora dos Reinos  ·  *Raklions e Varxians*\n"
+            "**Ignarys** — Deus da Forja  ·  *Anões e Kalthoritas*\n"
+            "**Arenys** — Senhora dos Espelhos  ·  *Velkarianos e Nykarons*\n"
+            "**Esmirion** — Observador das Estrelas  ·  *Lunárquicos e Gavídeos*\n"
+            "**Krathos** — Senhor das Feras  ·  *Fangrenos e Grifos*\n"
+            "**Thalyn** — Espírito das Chamas e Glórias  ·  *Tieflings e Volgraths*"
+        ),
         inline=False
     )
-    embed2.add_field(
-        name="📖 Cap. V — Reinos Dimensionais  •  Nível 351–400",
-        value="☄️🌞🕳️🌐⚡  •  ✨ Chave Celestial  •  💥 Bosses liberam passivas!",
-        inline=False
-    )
-    embed2.add_field(
-        name="📖 Cap. VI — As 5 Dimensões  •  Nível 401–500",
-        value="🕊️ Celestial  •  🔥 Infernal  •  🌪️ Badlands  •  🌑 Abissal  •  🌀 Vazio  •  🌑 Chave Abissal",
-        inline=False
-    )
-    embed2.add_field(
-        name="📖 Cap. VII — Planos Absolutos  •  Nível 501–600",
-        value="🔱🌠💫🌀🏛️⭐🌌⚡🔱💎🌠♾️🌑🌟⚖️🔥🌊💨⚡🌌♾️  •  🌑 Chave Abissal",
-        inline=False
-    )
-    embed2.set_footer(text="🗺️ Use `abrir mapa` para explorar com os botões ◀ ▶ • 40 reinos • 5 dimensões • 7 capítulos")
+    embed2.set_footer(text="Use 'falar npc especial' para encontrar um deus em campo • Cada deus tem condições únicas de encontro por capítulo")
     await channel.send(embed=embed2)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
+    # EMBED 3 — Capítulos do Mundo (mapa geral)
     # ══════════════════════════════════════════
-    # EMBED 3 — Capítulos interativos (◀ ▶)
+    embed3 = discord.Embed(
+        title="🗺️ Os 7 Capítulos de Valtherra",
+        description=(
+            "*Use `abrir mapa` para navegar pelos capítulos com os botões **◀ ▶**.*\n"
+            "*Cada capítulo mostra reinos, criaturas, dungeons secretas e deuses encontráveis.*"
+        ),
+        color=0x1a0033
+    )
+    embed3.add_field(
+        name="📗 Cap. I — Terras Iniciais  •  Nível 1–100  •  🗝️ Chave Antiga",
+        value="Ashenvorn · Sylvenmara · Roksveld · Khervak · Pyreth · Aquenmar · Fronteira · Bloomvale · Campos de Lava · Ruínas Externas",
+        inline=False
+    )
+    embed3.add_field(
+        name="📘 Cap. II — Nações Intermediárias  •  Nível 101–220  •  🔑 Chave Arcana",
+        value="Lótharim · Velkar · Orrathis · Quorval · Xaltharis · Umbreth · Noxtherion · Céu de Venthar · Infernara · Temporis",
+        inline=False
+    )
+    embed3.add_field(
+        name="📙 Cap. III — Impérios Avançados  •  Nível 221–300  •  🗡️ Chave Sombria",
+        value="Drakonar · Orkrion · Zircan · Feraxis · Floresta Negra de Rakleth",
+        inline=False
+    )
+    embed3.add_field(
+        name="📕 Cap. IV — Terras Corrompidas  •  Nível 301–350  •  🗡️ Chave Sombria",
+        value="Valkmorr · Morthveil · Zhorvath · Wasteland Profundo · Ossenvark  ⚠️ *dano ambiental contínuo*",
+        inline=False
+    )
+    embed3.add_field(
+        name="📒 Cap. V — Reinos Dimensionais  •  Nível 351–400  •  ✨ Chave Celestial",
+        value="Chronoveil · Lunaris · Areneia · Vorveth · Lumiveth  💥 *Bosses liberam passivas permanentes*",
+        inline=False
+    )
+    embed3.add_field(
+        name="🌌 Cap. VI — As 5 Dimensões  •  Nível 401–500  •  🌑 Chave Abissal",
+        value="🕊️ Celestial · 🔥 Infernal · 🌪️ Badlands · 🌑 Abissal · 🌀 Vazio  ⚡ *Leis físicas diferentes em cada dimensão*",
+        inline=False
+    )
+    embed3.add_field(
+        name="♾️ Cap. VII — Planos Absolutos  •  Nível 501–600  •  🌑 Chave Abissal",
+        value="Aethervast · Veilnox · Infinitum · Fiovast · **Axis**  ✴️ *Raridades: Divino · Primordial · Absoluto*",
+        inline=False
+    )
+    embed3.set_footer(text="🗺️ Use 'abrir mapa' para explorar com ◀ ▶ • 40 reinos físicos • 5 dimensões • 5 planos absolutos • Level máximo 600")
+    await channel.send(embed=embed3)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 4 — Capítulos interativos (◀ ▶)
     # ══════════════════════════════════════════
     chap_embed, chap_view = build_prologue_chapter_embed(1)
     await channel.send(embed=chap_embed, view=chap_view)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 5 — Lore: A Guerra Primordial
+    # EMBED 5 — O Peso das Escolhas (Alinhamento)
     # ══════════════════════════════════════════
     embed5 = discord.Embed(
-        title="📜 Crônicas da Guerra Primordial",
-        description=(
-            "*Um livro antigo se abre sozinho nas páginas proibidas...*\n\n"
-            "**'O Que Existia Antes dos Ciclos'**\n\n"
-            "Antes que qualquer ciclo existisse, houve uma guerra sem nome.\n\n"
-            "De um lado: a **Luz Primordial**, que queria existência, forma, vida.\n"
-            "Do outro: o **Vazio Eterno**, que queria silêncio, paz, nada.\n\n"
-            "Eles lutaram por uma eternidade que não tinha nome ainda.\n"
-            "A batalha terminou sem vencedor — ambos exaustos, fizeram um acordo:\n"
-            "criariam algo novo. Algo que contivesse os dois.\n\n"
-            "Chamaram isso de ***Universo***. E o dividiram em quatro ciclos crescentes.\n"
-            "Cada ciclo mais próximo da verdade absoluta — e mais distante do mortal.\n\n"
-            "**A guerra não terminou. Apenas mudou de palco.**\n"
-            "E agora ela acontece dentro de você.\n\n"
-            "*— Fragmento encontrado no 'Plano Absoluto Final', autor: O Absoluto*"
-        ),
-        color=0x1a0033
-    )
-    embed5.set_footer(text="📚 Explore os mundos para encontrar mais fragmentos de lore.")
-    await channel.send(embed=embed5)
-    await asyncio.sleep(2)
-
-    # ══════════════════════════════════════════
-    # EMBED 6 — Sistema de Alinhamento
-    # ══════════════════════════════════════════
-    embed6 = discord.Embed(
         title="⚖️ O Peso das Escolhas",
         description=(
-            "*O Narrador observa você com olhos que viram mil histórias e quatro ciclos...*\n\n"
-            "**Neste mundo, suas ações têm consequências morais que atravessam todos os ciclos.**\n\n"
-            "Salvar uma dimensão ou consumi-la.\n"
-            "Proteger os planos ou destruí-los.\n"
-            "Cada escolha ressoa até o Plano Absoluto:"
+            "*O Narrador observa você com olhos que viram mil histórias...*\n\n"
+            "**Suas ações têm consequências morais que reverberam em Valtherra.**\n\n"
+            "Proteger um reino ou consumi-lo.\n"
+            "Guiar um espírito perdido ou deixá-lo vagar.\n"
+            "Cada escolha ressoa — até o Axis."
         ),
         color=0x9B59B6
     )
-    embed6.add_field(
+    embed5.add_field(
         name="✨ Herói (+30 pontos ou mais)",
         value="*'Sua luz guia até os que habitam além das dimensões.'*\nAcesso a missões de proteção, recompensas divinas e respeito universal.",
         inline=False
     )
-    embed6.add_field(
+    embed5.add_field(
         name="⚖️ Anti-Herói (-5 a -29 pontos)",
-        value="*'Você faz o bem pelos motivos errados... ou o errado pelos motivos certos.'*\nMissões de moral cinza com recompensas únicas em todos os ciclos.",
+        value="*'Você faz o bem pelos motivos errados... ou o errado pelos motivos certos.'*\nMissões de moral cinza com recompensas únicas em todos os capítulos.",
         inline=False
     )
-    embed6.add_field(
+    embed5.add_field(
         name="💀 Vilão (-30 pontos ou menos)",
         value="*'O poder não se pede. Se toma. E com ele, os planos tremem.'*\nMissões de conquista e destruição com XP massivo — e consequências absolutas.",
         inline=False
     )
-    embed6.add_field(
+    embed5.add_field(
         name="🎭 Como funciona",
-        value="Use `cenário` para enfrentar dilemas morais!\nUse `alinhamento` para ver seu estado atual.\nUse `missão moral` para quests de alinhamento.",
+        value="`cenário` — dilemas morais em campo\n`alinhamento` — veja seu estado atual\n`missão moral` — quests de alinhamento",
+        inline=False
+    )
+    await channel.send(embed=embed5)
+    await asyncio.sleep(2)
+
+    # ══════════════════════════════════════════
+    # EMBED 6 — Empregos e Títulos
+    # ══════════════════════════════════════════
+    embed6 = discord.Embed(
+        title="💼 Empregos & Títulos de Valtherra",
+        description=(
+            "*O taberneiro de Crestfall pregou uma lista na parede...*\n\n"
+            "**A partir do nível 5**, você pode trabalhar e ganhar Moedas de Valtherra!\n"
+            "18 empregos disponíveis, cada um com **7 níveis de progressão**."
+        ),
+        color=0xE67E22
+    )
+    embed6.add_field(name="⚒️ Ferreiro (Nv.5)", value="Forja armas únicas, fusão de itens, 20% desc. em lojas", inline=True)
+    embed6.add_field(name="🔮 Arcano (Nv.5)", value="+15 mana máx, acesso a grimórios arcanos", inline=True)
+    embed6.add_field(name="💚 Curandeiro (Nv.5)", value="Cura aliados, poções 30% mais baratas", inline=True)
+    embed6.add_field(name="💰 Mercador (Nv.5)", value="Vende 25% a mais, acesso ao mercado negro", inline=True)
+    embed6.add_field(name="📜 Escriba (Nv.5)", value="Descobre locais 2× mais rápido, lore extra", inline=True)
+    embed6.add_field(name="⚔️ Cavaleiro (Nv.10)", value="+20 HP, defende cidades de invasões", inline=True)
+    embed6.add_field(name="🛡️ Guarda Real (Nv.15)", value="+35 HP, comanda a guarda do reino", inline=True)
+    embed6.add_field(name="👑 Rei (Nv.30)", value="Governa, nomeia cavaleiros, recebe tributo real", inline=True)
+    embed6.add_field(
+        name="📣 Como começar",
+        value="`procurar emprego` → escolha sua profissão → `trabalhar` a cada 30 min!",
         inline=False
     )
     await channel.send(embed=embed6)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 7 — Empregos e Títulos
+    # EMBED 7 — Guia de Comandos
     # ══════════════════════════════════════════
     embed7 = discord.Embed(
-        title="💼 Empregos & Títulos do Reino",
-        description=(
-            "*O taberneiro pregou uma lista de oportunidades na parede...*\n\n"
-            "**A partir do nível 5**, você pode trabalhar e ganhar salário!\n"
-            "Empregos funcionam em todos os ciclos — quanto maior seu nível, maior o salário."
-        ),
-        color=0xE67E22
-    )
-    embed7.add_field(name="⚒️ Ferreiro (Nv.5)", value="Forja armas únicas, fusão de itens, 20% desc. em lojas", inline=True)
-    embed7.add_field(name="🔮 Arcano (Nv.5)", value="+15 mana máx, acesso a grimórios arcanos", inline=True)
-    embed7.add_field(name="💚 Curandeiro (Nv.5)", value="Cura aliados, poções 30% mais baratas", inline=True)
-    embed7.add_field(name="💰 Mercador (Nv.5)", value="Vende 25% a mais, acesso ao mercado negro", inline=True)
-    embed7.add_field(name="📜 Escriba (Nv.5)", value="Descobre locais 2× mais rápido, lore extra", inline=True)
-    embed7.add_field(name="⚔️ Cavaleiro (Nv.10)", value="+20 HP, defende cidades de invasões", inline=True)
-    embed7.add_field(name="🛡️ Guarda Real (Nv.15)", value="+35 HP, comanda a guarda do reino", inline=True)
-    embed7.add_field(name="👑 Rei (Nv.30)", value="Governa, nomeia cavaleiros, recebe tributo real", inline=True)
-    embed7.add_field(
-        name="📣 Como começar",
-        value="`procurar emprego` → escolha sua profissão → `trabalhar` a cada 30 min!",
-        inline=False
-    )
-    await channel.send(embed=embed7)
-    await asyncio.sleep(2)
-
-    # ══════════════════════════════════════════
-    # EMBED 8 — Guia Completo de Comandos
-    # ══════════════════════════════════════════
-    embed8 = discord.Embed(
-        title="⚔️ Guia Completo de Comandos — Valtherra RPG",
-        description="*Tudo que você precisa para conquistar os quatro ciclos:*",
+        title="⚔️ Guia de Comandos — Valtherra RPG",
+        description="*Tudo que você precisa para atravessar os 7 capítulos de Valtherra:*",
         color=0x3498DB
     )
-    embed8.add_field(
+    embed7.add_field(
         name="🌍 Exploração & Caça",
         value="`explorar` | `caçar` | `coletar` | `minerar` | `dungeon` | `procurar dungeon`",
         inline=False
     )
-    embed8.add_field(
+    embed7.add_field(
         name="👹 Boss & Combate",
         value=(
             "`encontrar boss` — boss do reino atual\n"
-            "`desafiar boss` — enfrente o boss (**boss de nível** nos níveis 9/19/29/.../599)\n"
+            "`desafiar boss` — boss de nível (**bloqueado** nos níveis 9/19/29.../599)\n"
             "`juntar boss` | `iniciar batalha boss` | `desafiar @jogador`"
         ),
         inline=False
     )
-    embed8.add_field(
-        name="🚨 Boss de Nível — Sistema de Bloqueio",
+    embed7.add_field(
+        name="🚨 Sistema de Bloqueio de Nível",
         value=(
             "Nos **60 níveis terminados em 9** (9, 19, 29... 599) o XP é **bloqueado**!\n"
             "O XP acumula e é liberado quando você **vencer o boss de nível**.\n"
@@ -20604,142 +20723,128 @@ async def send_prologue(guild):
         ),
         inline=False
     )
-    embed8.add_field(
-        name="💪 Treinamento (após derrota em boss)",
-        value="`treinar força` — +ATK\n`treinar defesa` — +DEF\n`treinar vitalidade` — +HP Máx\n`treinar intensivo` — +ATK+DEF+HP",
+    embed7.add_field(
+        name="💪 Treinamento",
+        value="`treinar força` — +ATK | `treinar defesa` — +DEF | `treinar vitalidade` — +HP | `treinar intensivo` — tudo",
         inline=False
     )
-    embed8.add_field(
+    embed7.add_field(
         name="👤 Personagem & Evolução",
-        value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `trocar raça` | `escolher classe` | `habilidades` | `evolução classe` | `trocar classe` | `ver mana`",
+        value="`ver perfil` | `inventário` | `escolher raça` | `evoluir raça` | `escolher classe` | `evoluir classe` | `habilidades` | `ver mana`",
         inline=False
     )
-    embed8.add_field(
-        name="🌟 Ciclos & Evoluções de Classe",
+    embed7.add_field(
+        name="🌟 7 Tiers de Evolução por Classe",
         value=(
-            "**7 tiers** de evolução por classe:\n"
-            "Nív. **40** Tier I → **80** Tier II → **120** Tier III → **160** Tier IV\n"
-            "→ **200** Tier V (Transcendental) → **400** Tier VI (Dimensional) → **500** Tier VII (Absoluto)"
+            "Nív. **40** → Tier I  •  **80** → Tier II  •  **120** → Tier III  •  **160** → Tier IV\n"
+            "**200** → Tier V Transcendental  •  **400** → Tier VI Dimensional  •  **500** → Tier VII Absoluto"
         ),
         inline=False
     )
-    embed8.add_field(
-        name="🐾 Pets & Fazenda",
-        value="`fazenda` | `trocar pet` | `guardar pet` | `procurar pet` | `domesticar` | `evoluir pet` | `stats pet`",
+    embed7.add_field(
+        name="🐾 Pets, Fazenda & Guildas",
+        value="`fazenda` | `trocar pet` | `domesticar` | `evoluir pet` | `criar guilda` | `entrar guilda` | `ver guilda`",
         inline=False
     )
-    embed8.add_field(
+    embed7.add_field(
         name="💼 Empregos, Quests & Moral",
         value="`procurar emprego` | `trabalhar` | `ver quests` | `realizar quest` | `cenário` | `missão moral` | `alinhamento`",
         inline=False
     )
-    embed8.add_field(
-        name="🗺️ Mapa, Guilda & Social",
-        value="`abrir mapa` | `viajar <local>` | `criar guilda` | `entrar guilda` | `ver guilda` | `trocar [item] com @user`",
+    embed7.add_field(
+        name="🗺️ Mapa & Viagem",
+        value="`abrir mapa` | `viajar <local>` | `clima` | `período` | `ver conquistas`",
         inline=False
     )
-    embed8.add_field(
-        name="🛒 Itens, Economia & AFK",
-        value="`equipar [item]` | `vender [item]` | `usar [poção]` | `trocar coins` | `farm afk` | `clima` | `período` | `descansar`",
+    embed7.add_field(
+        name="🛒 Itens & Economia",
+        value="`equipar [item]` | `vender [item]` | `usar [poção]` | `farm afk` | `descansar` | `forjar`",
         inline=False
     )
-    embed8.add_field(
-        name="📚 Info, Lore & Especiais",
-        value="`comandos` — lista completa | `atualização` — novidades | `falar npc especial` | `dialogar com npc [nome]` | `abrir livro` | `ver conquistas`",
+    embed7.add_field(
+        name="📚 Lore & Especiais",
+        value="`comandos` — lista completa | `atualização` — novidades | `falar npc especial` | `dialogar com npc [nome]` | `abrir livro`",
         inline=False
     )
-    embed8.set_footer(text="🌟 Use 'comandos' para esta lista a qualquer momento | 'atualização' para novidades | 'ver perfil' para seu estado")
-    await channel.send(embed=embed8)
-    await asyncio.sleep(1)
+    embed7.set_footer(text="Use 'comandos' para esta lista a qualquer momento • 'ver perfil' para seu estado • 'abrir mapa' para explorar os capítulos")
+    await channel.send(embed=embed7)
+    await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 9 — Nota de Atualização (Patch Notes)
+    # EMBED 8 — Patch Notes
     # ══════════════════════════════════════════
-    embed9 = discord.Embed(
-        title="⚔️ SUPER ATUALIZAÇÃO — Habilidades de Equipamentos & Empregos Lv.7",
+    embed8 = discord.Embed(
+        title="⚔️ Atualização — Habilidades de Equipamentos & Empregos Nv.7",
         description=(
-            "*O Narrador abre um tomo reluzente — páginas de ouro puro brilham com poder arcano...*\n\n"
+            "*Um tomo reluzente se abre nas forjas de Durrheim — páginas de ouro puro brilham com poder arcano...*\n\n"
             "**\"Suas armas têm alma. Suas armaduras respiram. Seus empregos chegaram ao ápice.\"**\n\n"
             "**Versão:** Habilidades de Equipamentos • 7 Níveis de Emprego • Skills Automáticas — 2026"
         ),
         color=0x9B59B6
     )
-    embed9.add_field(
+    embed8.add_field(
         name="⚔️ Habilidades de Armas — AUTO em batalha!",
         value=(
             "**46 armas** agora têm skills que **disparam automaticamente em combate**!\n"
-            "A chance de proc varia pela raridade do equipamento:\n\n"
+            "Chance de proc varia pela raridade:\n\n"
             "⬜ Comum `8%` • 🟩 Incomum `14%` • 🟦 Raro `20%`\n"
             "🟪 Épico `28%` • 🟨 Lendário `38%` • 🔴 Mítico `50%` • 🟠 Ancestral `65%` • 💙 Divino `75%` • 🌈 Primordial `85%`\n\n"
-            "⚔️ **Excalibur** → *Lâmina do Rei* — +180% dano, ignora 40% DEF\n"
-            "🌩️ **Mjolnir** → *Trovão de Thor* — +200% dano + atordoa\n"
-            "🌑 **Lâmina do Caos** → *Explosão do Caos* — ignora TODA DEF\n"
             "*Use `inspecionar arma [nome]` para ver a skill de qualquer arma!*"
         ),
         inline=False
     )
-    embed9.add_field(
+    embed8.add_field(
         name="🛡️ Habilidades de Armaduras — AUTO em batalha!",
         value=(
-            "**53 armaduras** com skills defensivas que procam **automaticamente**!\n\n"
-            "🔥 **Armadura do Fênix** → *Renascimento* — revive com 30% HP (1×/batalha)\n"
-            "✨ **Égide Divina** → *Escudo Divino* — absorve 200 de dano\n"
-            "💀 **Armadura Demoníaca** → *Pacto Infernal* — +50% ATK + 15% lifesteal\n"
-            "♾️ **Placas da Eternidade** → *Eternidade* — invulnerável 1 turno\n"
+            "**53 armaduras** com skills defensivas que procam automaticamente!\n\n"
+            "🔥 *Armadura do Fênix* → Renascimento — revive com 30% HP (1×/batalha)\n"
+            "✨ *Égide Divina* → Escudo Divino — absorve 200 de dano\n"
+            "💀 *Armadura Demoníaca* → Pacto Infernal — +50% ATK + 15% lifesteal\n"
             "*Use `inspecionar armadura [nome]` para ver a skill de qualquer armadura!*"
         ),
         inline=False
     )
-    embed9.add_field(
+    embed8.add_field(
         name="💼 18 Empregos — Agora com 7 Níveis!",
         value=(
-            "Todos os **18 empregos** agora têm **7 níveis** (antes eram 3)!\n\n"
-            "⚗️ **Alquimista Supremo** *(Lv7)* — Poções primordiais • ×4.0 salário\n"
-            "🕵️ **Mestre das Sombras** *(Lv7)* — +200% dano 1° turno\n"
-            "🎖️ **General Supremo** *(Lv7)* — 7 mercenários, conquista total\n"
-            "👑 **Imperador Eterno** *(Lv7)* — Tributo ×8\n"
-            "☠️ **Rei Lich** *(Lv7)* — 15 mortos-vivos, 95% lifesteal\n\n"
-            "Lv7 requer **180 trabalhos** → salário **×4.0**"
+            "Todos os empregos têm **7 níveis** de progressão!\n\n"
+            "⚗️ **Alquimista Supremo** *(Nv.7)* — Poções primordiais • ×4.0 salário\n"
+            "🕵️ **Mestre das Sombras** *(Nv.7)* — +200% dano no 1° turno\n"
+            "👑 **Imperador Eterno** *(Nv.7)* — Tributo ×8\n"
+            "Nv.7 requer **180 trabalhos** → salário **×4.0**"
         ),
         inline=False
     )
-    embed9.add_field(
-        name="📣 Novos comandos",
-        value=(
-            "`usar habilidade` — ativa skill de arma/armadura equipada\n"
-            "`inspecionar armadura [nome]` — ficha completa da armadura + skill\n"
-            "`inspecionar arma [nome]` — ficha da arma com skill e cooldown\n"
-            "`nivel emprego` / `cargo` — vê os 7 níveis do seu emprego atual"
-        ),
-        inline=False
-    )
-    embed9.set_footer(text="📅 Super Atualização — Equipamentos com Alma | Use 'atualização' para rever a qualquer hora")
-    await channel.send(embed=embed9)
+    embed8.set_footer(text="Use 'atualização' para rever a qualquer hora • 'nivel emprego' para ver os 7 níveis do seu emprego")
+    await channel.send(embed=embed8)
     await asyncio.sleep(2)
 
     # ══════════════════════════════════════════
-    # EMBED 10 — Mensagem Final
+    # EMBED 9 — Mensagem Final (épica)
     # ══════════════════════════════════════════
-    embed10 = discord.Embed(
-        title="🌟 Sua Jornada Através dos Ciclos Começa Agora",
+    embed9 = discord.Embed(
+        title="✦  A Jornada Começa  ✦",
         description=(
-            "*O Narrador fecha o livro e te olha diretamente...*\n\n"
-            "**\"Você está pronto? Ou acha que está?\"**\n\n"
-            "Os Campos Iniciais aguardam seus primeiros passos.\n"
-            "Um Slime está por aí, inocente demais para saber o que vem depois.\n\n"
+            "*O Eldoriano Thessevan fecha o livro de memórias e te olha diretamente...*\n\n"
+            "**\"Você está pronto? Ou apenas acha que está?\"**\n\n"
+            "As Planícies de Ashenvorn aguardam seus primeiros passos.\n"
+            "Um Pyroclasta erra pelos campos, sem Fluxo, sem comunidade.\n"
+            "Inocente demais para saber o que vem depois.\n\n"
             "**Primeiro passo:**\n"
-            "Use `explorar` para começar.\n"
-            "Use `ver perfil` para ver seu estado.\n"
-            "Use `escolher classe` quando chegar ao nível 2.\n\n"
-            "**Lembre-se:** Em cada nível terminado em **9**, o boss de nível aparece.\n"
-            "Derrote-o para avançar. Perca... e o XP fica bloqueado até a revanche.\n\n"
-            "*Toda lenda começa com um único passo. A sua vai atravessar seis ciclos e cinco dimensões.*\n\n"
+            "`iniciar` — crie seu personagem\n"
+            "`explorar` — comece a jornada\n"
+            "`escolher classe` — ao chegar no nível 2\n\n"
+            "**Lembre-se:**\n"
+            "Em cada nível terminado em **9**, o boss de nível aparece.\n"
+            "Derrote-o para avançar. Perca — e o XP fica bloqueado até a revanche.\n\n"
+            "*Toda lenda começa com um único passo.*\n"
+            "*A sua vai atravessar 7 capítulos, 5 dimensões, 3 planos absolutos — e chegar ao Axis.*\n\n"
             "**Boa sorte, aventureiro. Você vai precisar.** 🎭"
         ),
         color=0xF1C40F
     )
-    embed10.set_footer(text="⚠️ Boss de nível: níveis 9, 19, 29... 599 • 40 reinos • 5 dimensões • 6 ciclos • Level máximo 600 • Use 'comandos' para ajuda")
-    await channel.send(embed=embed10)
+    embed9.set_footer(text="⚠️ Boss de nível: 9, 19, 29... 599 • 40 reinos • 5 dimensões • Planos Absolutos • Level máximo 600 • Use 'comandos' para ajuda")
+    await channel.send(embed=embed9)
 
 
 # ================= EVENTOS DO BOT =================
